@@ -885,6 +885,36 @@ details.checks-ok { margin: -4px 0 8px; }
   #place-bar { bottom: calc(env(safe-area-inset-bottom, 0px) + 80px); }
   .toast { font-size: 15px; }
 }
+
+/* 0.9.23 ひらく・とじる（＋／−）：押せるとひと目でわかる形に。行ぜんたいが押せて、丸い＋が右に。ひらくと−に（Daiさん） */
+#sheet-body details > summary, #modal-card details > summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; min-height: 46px; box-sizing: border-box;
+  padding: 8px 10px 8px 14px; margin: 6px 0; border: 1px solid rgba(46, 90, 72, .28); border-radius: 12px; background: #fff;
+  font-size: 14.5px; font-weight: 700; color: var(--ink); line-height: 1.5; -webkit-tap-highlight-color: transparent; user-select: none;
+  box-shadow: 0 1px 2px rgba(20, 34, 28, .06);
+}
+#sheet-body details > summary::-webkit-details-marker, #modal-card details > summary::-webkit-details-marker { display: none; }
+#sheet-body details > summary::after, #modal-card details > summary::after {
+  content: '＋'; margin-left: auto; flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--pine); color: #fff;
+  display: grid; place-items: center; font-size: 17px; font-weight: 700; line-height: 1; box-shadow: 0 1px 3px rgba(20, 34, 28, .25);
+}
+#sheet-body details[open] > summary, #modal-card details[open] > summary { background: #EEF4EF; border-color: rgba(46, 90, 72, .4); }
+#sheet-body details[open] > summary::after, #modal-card details[open] > summary::after { content: '−'; background: #fff; color: var(--pine); box-shadow: inset 0 0 0 1.5px var(--pine); }
+#sheet-body details > summary:active { background: #E3ECE5; }
+#sheet-body details > summary svg { flex: none; }
+/* 人の話の一覧：行そのものが枠なので、内側に枠を重ねない */
+#sheet-body .talk-log details > summary { display: block; position: relative; margin: 0; border: 0; border-radius: 10px; box-shadow: none; padding: 9px 48px 9px 12px; }
+#sheet-body .talk-log details > summary::after { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); }
+#sheet-body .talk-log details > summary::before { display: none; }
+#sheet-body .talk-log details > summary::after { width: 26px; height: 26px; font-size: 15px; }
+/* ひらいた中身の下の「とじる」：長い中身を読み終えたところで、そのまま閉じられる */
+.disc-close { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 44px; margin: 8px 0 4px; border: 1px dashed rgba(46, 90, 72, .4); border-radius: 12px; background: transparent; color: var(--pine); font-size: 14px; font-weight: 700; }
+.disc-close i { font-style: normal; width: 26px; height: 26px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--pine); display: grid; place-items: center; font-size: 15px; }
+@media (max-width: 720px) {
+  #sheet-body details > summary, #modal-card details > summary { min-height: 50px; font-size: 15.5px; }
+  #sheet-body details > summary::after, #modal-card details > summary::after { width: 32px; height: 32px; font-size: 18px; }
+  .disc-close { min-height: 48px; font-size: 15px; }
+}
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1720,13 +1750,14 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.22', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.23', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   contact: { mail: 'daikato@gmail.com', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
   aim: ['遊びやすいか、わかりにくい所はないか', 'スマホやパソコンで重くないか、止まらないか', '動物、お金、牛と酪農の話が、楽しく伝わるか'],
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', 'はるこさん・ゆうとさんに話しかけて、続きのある話を聞く（週に1話）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物のカードから「なでる」「ブラッシング」。性格によって反応が変わります', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.23', '2026年10月12日', '＋でひらく所（受け入れの確認、まだできないこと、くわしく、計算のもと、工事の内訳、準備、牛の世話メモ、人の話）を、押せるとひと目でわかる形に。行ぜんたいが押せて、右に丸い＋。ひらくと−に。中身が長い時は、下にも「とじる」があり、押すと＋を押す前の見え方に戻ります。同じ画面でボタンを押しても、ひらいた所はひらいたまま'],
     ['0.9.22', '2026年10月12日', 'iPhone などのスマホのブラウザ（GitHub のページ）で、パソコンの画面を縮めたような、とても小さな表示になっていたのを直しました。スマホでは、字とボタンを少し大きく、行動などのパネルは画面の9割ほど、会話や説明は横幅いっぱいに。はじめの立ち位置を、家と大きな木から離れた、鶏の庭の前のひらけた草地に（はるこさんがすぐ前に）。スマホのカメラは少し高く、少し遠くから。カメラが木の葉の中に入らないように'],
     ['0.9.21', '2026年10月12日', 'はじめて遊ぶ日に、はるこさんのところへ歩いていくと、画面が止まってしまう不具合を直しました（話したいことがある時の誘いを作るところで、エラーが起きていました。0.9.16 から）。1コマの中で何かが起きても、画面は止まらずに動き続けるようにしました'],
     ['0.9.20', '2026年10月12日', '思いどおりにいかないことも、そのまま：朝、鶏小屋の前に卵があることも。割って鶏たちに返せます（ここの卵は無精卵。産むのに使った栄養を、体に戻すため）。豚の体重をはかる日と、おやつをお休みする週。牛の両耳に黄色い耳標と、カードに耳の番号（ゲームの中だけの番号）。蹄の手入れ、豚熱のワクチン、2月の年に一度の報告、雪の朝のキツネの足跡。カードを8枚と、森田さんの話を1つ追加'],
@@ -10571,6 +10602,8 @@ const UI = {
     $('#sheet-body').addEventListener('click', (e) => UI.onClick(e));
     $('#sheet-body').addEventListener('input', (e) => UI.onInput(e));
     $('#sheet-body').addEventListener('scroll', () => UI.stickCheck(), { passive: true });
+    // ひらく・とじる（＋／−）：長い中身には、下にも「とじる」
+    for (const el of [$('#sheet-body'), $('#modal-card')]) el.addEventListener('toggle', (e) => UI.discToggle(e.target), true);
     // 景色をタップして開いた時、指を離した直後の「クリック」が、開いたばかりの画面の外側に届いて閉じてしまわないように
     $('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') { if (performance.now() - (UI._modalAt || 0) > 450) UI.closeModal(); } else UI.onClick(e); });
     $('#end-day').addEventListener('click', () => UI.endDayClick());
@@ -10784,7 +10817,9 @@ const UI = {
     const V = UI.views[c.name]; if (!V) return;
     // 中身を作るところで何かがうまくいかなくても、前の画面を残さず、先へ進むボタンは出す
     let out; try { out = V(c.arg); } catch (err) { logErr(err, 'panel:' + c.name); out = UI.renderFallback(c); }
+    const opened = fresh ? [] : [...body.querySelectorAll('details[open] > summary')].map((x) => x.textContent);
     body.innerHTML = out.html;
+    if (opened.length) body.querySelectorAll('details > summary').forEach((x) => { if (opened.includes(x.textContent)) x.parentElement.open = true; });
     // タブは、スクロールしても上に残す（どこにいるか分かるように）
     body.querySelectorAll('.tabs').forEach((t) => { if (t.parentElement.classList.contains('stick')) return; const w = document.createElement('div'); w.className = 'stick' + (t === body.firstElementChild ? ' top' : ''); t.replaceWith(w); w.appendChild(t); });
     // 見出しには、今いるタブ（日記は、選んでいる種類も）
@@ -10856,6 +10891,7 @@ const UI = {
       case 'dprev': UI.diaryIdx = Math.max(0, UI.diaryIdx - 1); UI.render(true); break;
       case 'dnext': UI.diaryIdx = Math.min(G.diary.length - 1, UI.diaryIdx + 1); UI.render(true); break;
       case 'filter': UI.diaryFilter = v === 'all' ? null : v; UI.render(true); break;
+      case 'disc-close': UI.discClose(b); break;
       case 'egg-crack': UI.closeModal(); GAME.crackEgg(((G.eggs && G.eggs.list) || []).find((x) => String(x.id) === v)); break;
       case 'ev-off': UI.closeModal(); setEvOff(v, true); { const e = EVENTS.find((x) => x.id === v); UI.toast(`${e ? e.name : '行事'}の飾りを片付けました。「飾る」の画面から、また飾れます`, 'added'); } GAME.save(); if (!$('#sheet').hidden) UI.render(); break;
       case 'ev-on': setEvOff(v, false); { const e = EVENTS.find((x) => x.id === v); UI.toast(`${e ? e.name : '行事'}の飾りを、また飾りました`, 'added'); } GAME.save(); UI.render(); break;
@@ -11877,6 +11913,23 @@ const UI = {
     for (const n of ACT.npcs) { const cid = CHAT[n.d.id] ? n.d.id : n.d.hire ? CHAT_HIRE[n.d.name] : null; if (cid && met[cid] !== undefined) ppl.push({ n, C: CHAT[cid] }); }
     if (ppl.length) h += `<div class="sec"><h3>ここで働く人たち</h3><ul class="ppl">${ppl.map(({ n, C }) => `<li><span class="av" style="background:${n.d.top}"></span><div><b>${esc(n.d.name)}</b><small>${esc(n.d.role)}</small><span>${esc(C.about)}</span></div></li>`).join('')}</ul><p class="muted">まだ話していない人は、話しかけると、ここに加わります。</p></div>`;
     return h;
+  },
+  // ＋でひらいた中身が長い時（画面の高さの3分の1より長い時）は、中身の下にも「− とじる」を置く
+  discToggle(d) {
+    if (!d || d.tagName !== 'DETAILS') return;
+    const sm = d.querySelector(':scope > summary'); if (!sm) return;
+    let cb = d.querySelector(':scope > .disc-close');
+    if (!d.open) { if (cb) cb.remove(); return; }
+    const sc = d.closest('#sheet-body, #modal-card'); d._st = sc ? sc.scrollTop : null; // ひらいた時の見え方を覚えておく
+    const tall = d.scrollHeight - sm.offsetHeight > Math.max(200, window.innerHeight / 3);
+    if (tall && !cb) { cb = document.createElement('button'); cb.type = 'button'; cb.className = 'disc-close'; cb.dataset.act = 'disc-close'; cb.innerHTML = '<i aria-hidden="true">−</i>とじる'; d.appendChild(cb); }
+  },
+  // 下の「とじる」：中身をたたんで、＋を押す前と同じ見え方に戻す
+  discClose(btn) {
+    const d = btn.closest('details'); if (!d) return;
+    const sc = btn.closest('#sheet-body, #modal-card'), st = d._st;
+    d.open = false; btn.remove();
+    if (sc && st != null) sc.scrollTop = st;
   },
   modal(html) { UI._modalAt = performance.now(); $('#modal-card').innerHTML = html; $('#modal').hidden = false; document.body.classList.add('modal-open'); UI.blockMove = true; },
   closeModal() { $('#modal').hidden = true; document.body.classList.remove('modal-open'); UI.blockMove = false; },
