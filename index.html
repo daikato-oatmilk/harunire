@@ -1318,6 +1318,23 @@ const CARDS = {
   music: { title: '動物のそばで楽器を弾くなら', body: 'やさしい音でも、好き嫌いは分かれる。苦手な子が離れていったら、場所を変える。大きな音の出る演出は、動物のいないエリアでだけ。', src: [] },
   money: { title: '続いていく支えが、毎日を支える', body: '動物の世話も、スタッフのお給料も、毎月かかり続ける。だからサンクチュアリの暮らしは、一度きりの大きな寄付より、毎月の小さな継続寄付や里親、企業の協賛に支えられている。新しい子を迎える時は、その子の一生分の毎月の費用も一緒に考える。', src: [] },
   team: { title: '人を増やすということ', body: 'ボランティアさんは、気持ちで来てくれる大切な仲間。でも、毎日の餌やりや体調の確認を続けるには、決まった時間にいてくれる人が要る。アルバイトさんや職員さんのお給料は、毎月の寄付や町の事業者との連携など、続いていく支えでまかなう。動物を迎えるのは、人が足りてから。', src: [] },
+  // 0.9.20「矛盾を受け入れる」：法律、野生の生き物との境、人が選んできた体
+  eggsBack: { title: '卵は、鶏たちに返す', body: '雌鶏は、受精しなくても卵を産む。日本で売られている卵のほとんどは無精卵で、採卵の農場で育つのは雌鶏だけ。だから、ここに来た鶏の卵がひなになることは、まずない。卵は売らず、使わない。見学の人やボランティアさんがその場で割って、鶏たちに食べてもらう。卵を産むのに使った栄養を、体に戻すため。',
+    src: [['農林水産省 aff 2024年4月号「新鮮なたまごを届けてくれるニワトリ」', 'https://www.maff.go.jp/j/pr/aff/2404/spe1_03.html'], ['The Open Sanctuary Project：卵を産むことへの向き合い方', OS + 'what-to-do-about-egg-laying/']] },
+  layerBody: { title: 'たくさん卵を産むように変えられた体', body: '祖先の野鶏（セキショクヤケイ）が産む卵は、年に20個ほど。採卵用に改良された鶏は、年に250〜300個以上を産む。そのぶん体の負担は大きく、卵の通り道の病気になりやすい。ここでは卵を返し、体の様子を毎日見る。',
+    src: [['The Open Sanctuary Project：卵を産むことへの向き合い方', OS + 'what-to-do-about-egg-laying/']] },
+  pigDiet: { title: '豚のごはんは、量をはかって', body: '大きく、早く育つように改良された豚は、体重が増えやすい。体重が増えすぎると関節に負担がかかり、足をかばったり、立ち上がりにくくなったりする。ごはんは量をはかって決め、おやつは少しだけ。あげられない日があるのも、その子の体を守るため。',
+    src: [['The Open Sanctuary Project：豚の毎日のごはん', OS + 'daily-diet-treats-and-supplements-for-pigs/'], ['テキサスA&M大学 獣医学部（2021年）', 'https://vetmed.tamu.edu/news/pet-talk/avoiding-pig-obesity']] },
+  cowLegs: { title: '乳牛の足', body: '乳をたくさん出すように改良を重ねてきたことは、足の不調（跛行）や乳房炎の多さと関係があるとされる（2009年の評価）。2023年の評価でも、足の不調は乳牛の福祉の大きな問題のひとつ。ここでは、蹄の手入れを少なくとも年2回。足をかばう子には、柔らかい寝床と短い道を。',
+    src: [['EFSA 乳牛の福祉（2009年）', 'https://www.efsa.europa.eu/en/news/efsa-advises-welfare-dairy-cows'], ['EFSA 乳牛の福祉（2023年）', 'https://www.efsa.europa.eu/en/plain-language-summary/welfare-dairy-cows'], ['日本装削蹄協会', 'http://farriers.or.jp/qa/']] },
+  earTag: { title: '名前と、耳の番号', body: '牛の管理者は、牛の両耳に、10桁の個体識別番号の耳標をつけることが法律で決まっている（牛トレーサビリティ法）。ここでは名前で呼ぶけれど、耳には番号がある。このゲームの番号は、本物と重ならないように頭に「S-」をつけた、ここだけの番号。',
+    src: [['農林水産省 牛・牛肉のトレーサビリティ', 'https://www.maff.go.jp/j/syouan/tikusui/trace/index.html'], ['牛トレーサビリティ法（第9条）', 'https://hourei.net/law/415AC0000000072'], ['農林水産省 九州農政局 牛トレーサビリティ', 'https://www.maff.go.jp/kyusyu/syohianzen/nouchiku/ushitore.html']] },
+  annualReport: { title: '年に一度の報告', body: '牛や豚、鶏などを飼う人は、学校や公園、ペット、庭先で飼う場合も含めて、1頭・1羽から、毎年2月1日時点の飼っている数などを報告し、飼養衛生管理基準を守ることになっている（家畜伝染病予防法）。保護の場も、その決まりの中にある。',
+    src: [['鳥取県 家畜の飼養衛生管理基準', 'https://www.pref.tottori.lg.jp/314797.htm'], ['群馬県 家畜の定期報告', 'https://www.pref.gunma.jp/06/f2910033.html']] },
+  csfVaccine: { title: '豚にもワクチン', body: '豚熱（CSF）のワクチン接種推奨地域では、ペットとして飼われている豚も接種が必要。豚も、毎年の報告の対象になる。',
+    src: [['宮城県 ペットとしてブタを飼われている方', 'https://www.pref.miyagi.jp/soshiki/boueki/minipig.html']] },
+  wildlife: { title: '野生の生き物は、捕まえずに入れない', body: '野生の鳥や獣を捕まえたり、傷つけたりすることは、法律で原則として禁じられている（鳥獣保護管理法）。キツネやタヌキ、カラスも、この土地に暮らす生き物。だから鶏たちは、柵と、夜の小屋で守る。同じ柵の中では暮らせないことも、ここでは受け入れる。',
+    src: [['環境省 鳥獣の捕獲について', 'https://www.env.go.jp/nature/choju/capture/capture1.html']] },
   oneAlone: { title: '一頭にしない', body: '群れで暮らす動物は、同じ種類の仲間がいない状態では受け入れない。仲間がいなければ、依頼は最小数の群れ単位で届く（例：牛は2頭から）。', src: [] },
 };
 
@@ -1672,13 +1689,14 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.19', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.20', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   contact: { mail: 'daikato@gmail.com', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
   aim: ['遊びやすいか、わかりにくい所はないか', 'スマホやパソコンで重くないか、止まらないか', '動物、お金、牛と酪農の話が、楽しく伝わるか'],
-  try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', 'はるこさん・ゆうとさんに話しかけて、続きのある話を聞く（週に1話）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物のカードから「なでる」「ブラッシング」。性格によって反応が変わります', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる'],
+  try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', 'はるこさん・ゆうとさんに話しかけて、続きのある話を聞く（週に1話）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物のカードから「なでる」「ブラッシング」。性格によって反応が変わります', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.20', '2026年10月12日', '思いどおりにいかないことも、そのまま：朝、鶏小屋の前に卵があることも。割って鶏たちに返せます（ここの卵は無精卵。産むのに使った栄養を、体に戻すため）。豚の体重をはかる日と、おやつをお休みする週。牛の両耳に黄色い耳標と、カードに耳の番号（ゲームの中だけの番号）。蹄の手入れ、豚熱のワクチン、2月の年に一度の報告、雪の朝のキツネの足跡。カードを8枚と、森田さんの話を1つ追加'],
     ['0.9.19', '2026年10月11日', '続きをファイルに：「設定」の「ファイルに保存」で、育てている続きをこの端末にファイルで残し、「ファイルから読み込む」で戻せるように（はじめの画面からも読み込めます）。ブラウザのデータを消した時や、ほかの端末で続ける時に。アルバムの写真は入りません。保存を、ブラウザが自動で片付けにくくなるように'],
     ['0.9.18', '2026年10月11日', 'ベータテスト版に。claude.ai の外（アカウントなし）で開いた時も遊べるように、ご意見は「メールで送る」（文章が入った状態でメールが開きます）か「文章をコピー」で送れるように。送り先（メール）と、SNSでつながっている方はDMでも歓迎、をゲームの中にも。「このテスト版について」に、保存がこのブラウザだけであることを'],
     ['0.9.17', '2026年10月11日', '主人公の足音をなくしました（冬の朝、霜の上を歩いた時に鳴っていた「さくっ」という音）。霜と霜柱は、見るだけに。電車の「ガタン、ゴトン」は、遠くで小さく鳴ると歩く音のように聞こえるので、線路の近く（南の柵のあたり）でだけ聞こえるように（遠くでは、走る音だけ）'],
@@ -1721,6 +1739,8 @@ const SRC = {
   shishin: ['農水省 乳用牛の飼養管理指針（2023年）', 'https://www.maff.go.jp/j/chikusan/sinko/attach/pdf/animal_welfare-135.pdf'],
   sweden: ['スウェーデン農業庁', 'https://jordbruksverket.se/djur/lantbruksdjur-och-hastar/notkreatur/skotsel-och-stallmiljo'],
   austria: ['オーストリア農業会議所（2022年）', 'https://www.lko.at/rinderhaltung-neue-gesetzliche-vorgaben+2400+3669135'],
+  efsa09: ['EFSA 乳牛の福祉（2009年）', 'https://www.efsa.europa.eu/en/news/efsa-advises-welfare-dairy-cows'],
+  trace: ['農水省 牛・牛肉のトレーサビリティ', 'https://www.maff.go.jp/j/syouan/tikusui/trace/index.html'],
   efsa: ['EFSA 乳牛の福祉（2023年）', 'https://www.efsa.europa.eu/en/plain-language-summary/welfare-dairy-cows'],
   usda: ['USDA 動物福祉法', 'https://www.nal.usda.gov/animal-health-and-welfare/animal-welfare-act'],
   houboku: ['農水省 公共牧場・放牧をめぐる情勢（2026年）', 'https://www.maff.go.jp/j/chikusan/sinko/lin/l_siryo/attach/pdf/index-1584.pdf'],
@@ -1769,11 +1789,12 @@ const COMPARE = {
   law: { title: '法律のちがい', jp: ['牛は動物愛護管理法の「愛護動物」。みだりに殺したり傷つけたりすると、5年以下の拘禁刑または500万円以下の罰金', '飼い方の国の指針（2023年）は局長通知で、守るよう求める「推奨」の形'], world: ['EU：子牛の飼い方などを、法的な拘束力のある指令で定めています', '米国：連邦の動物福祉法は食用の家畜を対象外にしています'], here: '法律と指針のすき間を、ひとりひとりの選択がうめています。', src: ['aigo', 'shishin', 'eucalf', 'usda', 'wap'] },
   biosecurity: { title: '衛生と防疫', jp: ['家畜伝染病予防法の「飼養衛生管理基準」で、家畜の持ち主に義務', '衛生管理区域を決め、入口で手と車を消毒、専用の服と靴', '立ち入った人の記録を1年保存。毎日健康を見て、異常は家畜保健衛生所へすぐ通報', '海外から1週間以内の人は、区域に入れない。ペットは持ち込まない', '2010年の宮崎の口蹄疫では、約29万頭が殺処分されました'], world: ['EUの動物衛生法（2021年から）：予防を重視し、事業者の責任、バイオセキュリティ、獣医師の定期訪問を求めます'], here: '見学の方には、入口で靴の消毒をお願いしています。', src: ['kijun', 'fmd', 'euahl'] },
   antibiotics: { title: '抗生物質', jp: ['2018〜19年に、抗菌性飼料添加物5成分の指定を取り消し', '農水省：国内では、成長を早める目的の抗菌性飼料添加物は流通していない（2025年）'], world: ['EU：2006年に、成長を早める目的での飼料への使用を全面禁止', '2026年9月からは、EUに入る畜産物にも同じ条件'], here: '病気の時だけ、獣医さんと相談して使います。', src: ['amr', 'eu2006'] },
+  body: { title: '改良されてきた体', jp: ['農場を離れる理由のうち、脚とひづめは12.7%（2022年度・北海道）', 'ひづめの手入れ（削蹄）は、少なくとも年2回', '牛の両耳には、10桁の個体識別番号の耳標をつけることが法律で決まっています'], world: ['EFSA（2009年）：乳量を増やす長年の改良は、足の不調（跛行）や乳房炎の多さと関係している', 'EFSA（2023年）：足の不調は、乳牛の福祉の大きな問題のひとつ'], here: 'ここでは、蹄の手入れを年2回以上。足をかばう子には、柔らかい寝床と、短い道を。', src: ['joukyou', 'kassai', 'efsa09', 'efsa', 'trace'] },
   market: { title: '酪農家のいま', jp: ['酪農家は10,800戸（2026年）。約20年で6割減り、1戸119頭に大きくなりました', '配合飼料は2021年度の73,172円/tから、2026年7月に93,925円/tへ', '2023年3月の調査で84.7%が赤字。2024年11月の調査では47.9%が離農を考えている', '飼料の自給率は26%（2024年度）'], world: ['1戸の平均頭数：ドイツ74頭、スイス29頭'], here: '森田さんのような家族の牧場が、いちばん苦しい時です。', src: ['stat26', 'feed', 'chuo23', 'chuo24', 'jikyu', 'qm'] },
   cullpay: { title: '牛を減らすための支払い', jp: ['2023年3〜9月、乳の少ない牛を減らすと1頭15万円（積立と合わせ20万円）。第2次は1頭5万円', '目的は、生乳の余りを減らすこと。報道では削減の目標は計4万頭、食肉処理場への出荷が条件', '2021年末には、生乳約5,000tが捨てられる恐れがありました'], world: ['オランダ：窒素を減らすため、畜産農場の自主廃業を国が買い取る制度（計約29億ユーロ）'], here: '減らされる牛の一部でも、サンクチュアリに来られたら。', src: ['kaizen', 'jacom', 'nl'] },
   transition: { title: '転換の道', jp: ['国内のオーツミルク市場は、2020年度から2023年度で約9倍', '豆乳類の生産は2025年に過去最高（約44.5万kl）', '牛乳向けの生乳は、2016年度の約405万tから2025年度は384万tへ'], world: ['デンマーク：植物性食品の基金に9年で6.75億クローネ（2021年）', '英国：元酪農家のジェイ・ワイルドさんは2017年にオーツミルクの生産へ', '米国：植物性ミルクは牛乳カテゴリーの13%（2025年）'], here: '森田さんの畑にも、オーツ麦の芽が出ました。', src: ['oat', 'tonyu', 'nyuka', 'dk', 'wilde', 'gfi'] },
 };
-// 町の酪農家・森田さんとの対話（12回）。答えが合っても違っても、話は進む
+// 町の酪農家・森田さんとの対話（13回。0.9.20 から）。答えが合っても違っても、話は進む
 const MORITA = [
   { say: ['町はずれで牛を飼っている森田です。40頭、父の代からね', '牛って、本当は何年くらい生きると思う？'], q: '牛の自然な寿命は、だいたい何年？', a: ['約5年', '約15〜20年', '約40年'], ok: 1, ex: '約15〜20年。でも日本の乳牛は、平均3.21産、5〜6歳ごろに農場を離れます。', card: 'life' },
   { say: ['うちの牛は、ずっと牛舎でつながれてる', '外に出してやりたいけど、場所も人手もなくてね'], q: '国の調査（2024年度）で、つなぎ飼いの農場のうち「つながれずに十分運動できる」に「あてはまる」と答えたのは？', a: ['約3割', '約6割', '約9割'], ok: 0, ex: '26.7%。オーストリアは年90日以上の運動・放牧を義務にし、例外も2030年に終わります。', card: 'tether' },
@@ -1784,6 +1805,7 @@ const MORITA = [
   { say: ['しっぽを切る農家も、昔はあった', 'でもそこは、国もはっきり言ってるんだ'], q: '日本の国の指針は、牛のしっぽを切る「断尾」について何と言っている？', a: ['衛生のために勧める', '行わない', '決まりはない'], ok: 1, ex: '「断尾は行わない」と明記しています。ここは日本の指針が、世界の基準と並んでいるところ。', card: 'tail', card2: 'law' },
   { say: ['口蹄疫の年は、本当にこわかった', '見学の人が増えたら、入口の消毒は欠かせないよ'], q: '飼養衛生管理基準では、海外から入国・帰国して何日以内の人を、牛のいる区域に入れてはいけない？', a: ['1日', '1週間', '1か月'], ok: 1, ex: '1週間。2010年の宮崎の口蹄疫では、約29万頭が殺処分されました。', card: 'biosecurity' },
   { say: ['抗生物質は、病気の時だけ使う', 'EUは、ずっと前から厳しいんだよ'], q: 'EUが、抗生物質を「成長を早める目的」で飼料に使うことを全面禁止したのは？', a: ['1986年', '2006年', '2026年'], ok: 1, ex: '2006年。日本は2018〜19年に5成分の指定を取り消し、今は成長促進目的のものは流通していないと国は説明しています。', card: 'antibiotics' },
+  { say: ['うちの牛も、生まれたらすぐ両耳に黄色い耳標をつける。名前より先に、番号が決まるんだ', '足をかばって歩く子も多くてね。乳をたくさん出すように、何代もかけて変えられてきた体だから'], q: 'EFSA（欧州食品安全機関）が、乳量を増やす品種改良と関係が強いと指摘した乳牛の不調は？', a: ['足の不調（跛行）や乳房炎', '目が見えにくくなること', '毛が抜けやすくなること'], ok: 0, ex: '足の不調（跛行）や乳房炎です（2009年の評価）。2023年の評価でも、足の不調は乳牛の福祉の大きな問題のひとつとされています。', card: 'body' },
   { say: ['餌代が上がって、毎月赤字だった', '仲間も、ひとり、またひとりとやめていく'], q: '2023年3月の調査で、赤字だった酪農家の割合は？', a: ['約2割', '約5割', '約8割'], ok: 2, ex: '84.7%。配合飼料は2021年度の約7.3万円/tから、2026年7月には約9.4万円/tに。', card: 'market' },
   { say: ['国から、牛を減らせばお金が出ると聞いた', '年をとった子から……。その子たち、ここで引き取ってもらえないかな'], q: '2023年（3〜9月）、国は乳の少ない牛を減らした酪農家に、1頭あたりいくら払った？', a: ['1万5千円', '15万円', '150万円'], ok: 1, ex: '15万円（積立と合わせ20万円）。生乳の余りを減らすためで、食肉処理場への出荷が条件でした。', card: 'cullpay', request: true },
   { say: ['娘と話して、決めた', '牛を少しずつ減らして、オーツ麦を育ててみる。いつか、町のオーツミルク工房に届けたいね'], q: '国内のオーツミルク市場は、2020年度から2023年度で約何倍になった？', a: ['約2倍', '約9倍', '約30倍'], ok: 1, ex: '約9倍。英国では元酪農家がオーツミルクの生産に転換した例もあります。', card: 'transition', end: true },
@@ -2058,6 +2080,8 @@ const CHAT = {
       ['ev:soilday', '寝わらとふんはね、たい肥置き場でじっくり寝かせるの。いい土になって、畑に返るのよ'],
       ['ev:christmas', 'ツリー、どう？　オーナメントは、見学に来た子どもたちの手作りなの'],
       ['ev:newyear', 'あけましておめでとう。今年も、この子たちと、ゆっくりね'],
+      ['s2+', '思いどおりにいかないことも、たくさんあるの。でもね、なかったことにしないのが、ここのやり方'],
+      ['sp:chicken', '今朝の卵、見た？　割って返すとね、みんな、すごい勢いで食べるのよ'],
     ],
   },
   yuto: {
@@ -2109,6 +2133,7 @@ const CHAT = {
       ['ev:donkeyday sp:donkey', 'ロバの日なので、{donkey}たちのブラシを新しくしました。……喜んでくれてるといいんですけど'],
       ['ev:water', '水おけは、毎朝洗って、水を全部替えます。牛は一日に何十リットルも飲むので'],
       ['ev:tanabata', '短冊……ぼくは「みんなの体重が安定しますように」って書きました'],
+      ['sp:cow', ['{cow}の耳の黄色い札、耳標っていいます', '>番号が書いてあるんですか', 'はい。法律で、両耳に。……名前で呼んでますけど、番号もあるんです']],
     ],
   },
   minami: {
@@ -2148,6 +2173,8 @@ const CHAT = {
       ['s4+', '近くの大学の学生さんが、実習に来たいそうです。ここなら、動物の「ふつう」が学べますから'],
       ['ev:rightsday', '動物の権利の日ですね。治療をどうするかは、いつも「この子にとって、どうか」から考えます'],
       ['ev:foodday', '人の食べものは、動物にあげないでくださいね。玉ねぎやチョコレートは、少しでも毒になることがあります'],
+      ['sp:pig', '豚は、食べることが大好きなんです。だから量を決めるのは、私たちの役目。あげられない日は、ちょっと心が痛みますけど'],
+      ['sp:cow', '牛の足は、毎日見ます。乳をたくさん出すように変えられてきた体は、足に負担がかかりやすいので'],
     ],
   },
   akira: {
@@ -2191,6 +2218,8 @@ const CHAT = {
       ['ev:biodiversity', '今年ここで記録した生き物、鳥と虫と草を合わせると、もう200種類をこえました！'],
       ['ev:oceansday', '小川の水は、やがて海に着きます。上流のここがきれいだと、下流の生き物もうれしいんです'],
       ['ev:envday s3+', '屋根の太陽光パネルで、小屋の灯りと水のポンプの電気をまかなってるんです'],
+      ['sp:chicken', 'このあたり、キツネもいるんです。キツネも、この土地の生き物なので、捕まえることはしません。そのかわり、柵と小屋で鶏を守ります'],
+      ['winter snow', '雪の朝は、足跡を探すのが楽しみなんです。きれいに一直線に並んでいたら、たぶんキツネです'],
     ],
   },
   /* ---------- 迎えた職員さん ---------- */
@@ -2228,6 +2257,7 @@ const CHAT = {
       ['rain', '雨の日は、雨もりの点検日です。屋根の上は、晴れてから'],
       ['sp:goat', '{goat}が、作ったばかりの登り台に一番乗りしました。設計どおりです'],
       ['winter', '冬は木が乾くので、修理にはいい季節なんです'],
+      ['sp:chicken', '鶏小屋の金網は、毎週ひととおり見ます。キツネは、すき間を見つけるのが上手なので。……まあ、なんとかしてみせます'],
     ],
   },
   aya: {
@@ -2302,6 +2332,7 @@ const CHAT = {
       ['ev:halloween', '見学の子どもたち、かぼちゃの仮装で来るんです。動物たちは、ちょっとびっくりしてます'],
       ['spring', '春は遠足の季節です。今週は、保育園の子たちが見学に来る予定です'],
       ['ev:tanabata', '子どもたちの短冊、「ヤギになりたい」って書いた子がいました'],
+      ['sp:chicken', '見学の子たちが、卵を割るのを手伝ってくれたんです。「鶏さんに返すんだよ」って言ったら、そーっと割ってくれました'],
     ],
   },
 };
@@ -4405,6 +4436,8 @@ function modelAnimal(sp, color) {
     part('box', c.head, 0.52, 0.56, 0.72, 0, 0.05, 0.3, a.head);
     part('box', c.muzzle, 0.48, 0.3, 0.24, 0, -0.1, 0.72, a.head);
     for (const s of [-1, 1]) part('box', c.head, 0.32, 0.1, 0.16, s * 0.38, 0.18, 0.16, a.head);
+    // 両耳の黄色い耳標（個体識別番号。番号は見えない大きさ）
+    for (const s of [-1, 1]) part('box', '#E8C02A', 0.11, 0.13, 0.05, s * 0.45, 0.09, 0.24, a.head, { noShadow: true });
     part('box', '#2A2420', 0.06, 0.06, 0.02, -0.16, 0.14, 0.66, a.head); part('box', '#2A2420', 0.06, 0.06, 0.02, 0.16, 0.14, 0.66, a.head);
     if (c.patch) {
       const P = [[0.49, 0.1, 0.4, 0.5, 0.6], [-0.49, -0.05, -0.3, 0.45, 0.7], [0.49, 0.2, -0.55, 0.4, 0.4], [-0.49, 0.2, 0.55, 0.35, 0.5]];
@@ -6788,6 +6821,64 @@ function updateLittleLife(dt, t) {
   updatePondLife(dt, t);
   for (const b of W.butterflies) { b.ph += dt; const x = b.cx + Math.sin(b.ph * 0.4) * 5, z = b.cz + Math.cos(b.ph * 0.3) * 4; b.m.root.position.set(x, heightAt(x, z) + 1.2 + Math.sin(b.ph * 2) * 0.4, z); b.m.root.rotation.y = b.ph * 0.4; const f = Math.sin(t * 16 + b.ph) * 0.9; b.m.wings[0].rotation.y = f; b.m.wings[1].rotation.y = -f; }
   updateSeasonLife(dt, t);
+  updateEggs();
+}
+
+/* =========================================================
+   今朝の卵（0.9.20）
+   日本の採卵の鶏は、雄のいない鶏舎で暮らすので、卵はほぼすべて無精卵。雄がいなくても、鶏は卵を産む
+   ここでは、その場で見学の人やボランティアさん（あなた）が割って、鶏たちに返す。産むのに使った栄養を体に戻すため
+   ========================================================= */
+const EGG = { g: null, items: [] };
+function eggHens() { return (G ? G.animals : []).filter((a) => a.sp === 'chicken' && /採卵/.test(a.origin || '') && !(a.quarantine && G.turn < a.quarantine)); }
+function rollEggs() {
+  G.eggs = { turn: G.turn, list: [] };
+  const hens = eggHens(); if (!hens.length) return 0;
+  // 長く卵を産み続けてきた体なので、毎日ではない（3羽で、1〜2個くらいの朝が多い）
+  let n = hens.filter(() => Math.random() < 0.45).length;
+  if (!G.flags.eggSeen) n = Math.max(1, n);
+  n = Math.min(3, n);
+  const sh = ZONES.chicken.shelter;
+  for (let i = 0; i < n; i++) G.eggs.list.push({ id: i, x: +(sh[0] + 0.9 + i * 0.95 + rand(-0.2, 0.2)).toFixed(2), z: +(sh[3] + 0.75 + rand(0, 0.45)).toFixed(2), st: 'egg' });
+  return n;
+}
+function eggModel(cracked) {
+  const g = new THREE.Group();
+  if (!cracked) { part('sph', '#EFE4D2', 0.13, 0.17, 0.13, 0, 0.085, 0, g); return g; }
+  part('cyl12', '#F3F0E6', 0.3, 0.012, 0.24, 0, 0.008, 0, g, { noShadow: true });
+  part('sph', '#E8AE36', 0.1, 0.05, 0.1, 0.02, 0.022, -0.01, g, { noShadow: true });
+  const s1 = part('sph', '#EFE4D2', 0.11, 0.07, 0.11, -0.21, 0.03, 0.08, g); s1.rotation.z = 0.5;
+  const s2 = part('sph', '#EFE4D2', 0.1, 0.065, 0.1, 0.2, 0.03, 0.1, g); s2.rotation.z = -0.4;
+  return g;
+}
+function buildEggs() {
+  if (!R.scene) return;
+  if (!EGG.g) { EGG.g = new THREE.Group(); R.scene.add(EGG.g); }
+  W.foods = W.foods.filter((f) => !f.egg);
+  clearGroup(EGG.g); EGG.items = [];
+  if (!G || !G.eggs || G.eggs.turn !== G.turn) return;
+  for (const eg of G.eggs.list) {
+    if (eg.st === 'done') continue;
+    if (eg.st === 'cracked' && (eg.left ?? 4) <= 0) { eg.st = 'done'; continue; }
+    const m = eggModel(eg.st === 'cracked');
+    m.position.set(eg.x, heightAt(eg.x, eg.z), eg.z); m.rotation.y = (eg.id * 1.7) % 6.28;
+    EGG.g.add(m);
+    const it = { eg, m };
+    EGG.items.push(it);
+    if (eg.st === 'cracked') eggFood(it);
+  }
+}
+function eggFood(it) {
+  if (it.food && W.foods.includes(it.food)) return;
+  it.food = { x: it.eg.x, z: it.eg.z, zone: 'chicken', left: it.eg.left ?? 4, item: 'egg', model: it.m, egg: it.eg };
+  W.foods.push(it.food);
+}
+function updateEggs() {
+  for (const it of EGG.items) {
+    if (it.eg.st !== 'cracked') continue;
+    if (!it.food || (!W.foods.includes(it.food) && !it.food.done)) eggFood(it);
+    if (it.food && !it.food.done) it.eg.left = Math.max(0, +it.food.left.toFixed(2));
+  }
 }
 
 
@@ -8160,8 +8251,10 @@ function animalThink(e) {
   if (roam && homeR && !atHome && !(bp && dB < 7 && bondFree(bp)) && roll < 0.1 + 0.4 * (1 - pref)) { e.target = roamClamp(...randIn(homeR, 1.2)); e.state = 'walk'; e.timer = rand(8, 14); return; }
   // 食べもの（かぼちゃ、干し草）
   const reachF = (f) => roam ? ((ROAM.has(f.zone) || f.zone === a.zone) && Math.hypot(f.x - e.x, f.z - e.z) < 30 && (!homeR || inRect(f.x, f.z, homeR) || goOut())) : inRect(f.x, f.z, r);
-  const food = W.foods.find((f) => f.left > 0 && reachF(f) && (f.item !== 'pumpkin' || SEASON_TREATS.autumn.for.includes(sp)) && (f.item !== 'haybale' || !bird));
-  if (food && roll < 0.55) { const ang = rand(0, 6.28); e.target = [food.x + Math.cos(ang) * 1.1, food.z + Math.sin(ang) * 1.1]; e.state = 'toEat'; e.food = food; e.timer = rand(10, 16); return; }
+  // 割った卵は、鶏たちがいちばんに食べに来る
+  const egg = sp === 'chicken' && !quar ? W.foods.find((f) => f.egg && f.left > 0 && !f.done && inRect(f.x, f.z, r)) : null;
+  const food = egg || W.foods.find((f) => f.left > 0 && reachF(f) && (f.item !== 'pumpkin' || SEASON_TREATS.autumn.for.includes(sp)) && (f.item !== 'haybale' || !bird) && f.item !== 'egg');
+  if (food && roll < (egg ? 0.9 : 0.55)) { const ang = rand(0, 6.28), fr = egg ? rand(0.28, 0.4) : 1.1; e.target = [food.x + Math.cos(ang) * fr, food.z + Math.sin(ang) * fr]; e.state = 'toEat'; e.food = food; e.timer = rand(10, 16); return; }
   const items = roam ? itemsReach(e, 30).filter((it) => !homeR || inRect(it.x, it.z, homeR) || goOut()) : itemsInRect(r);
   const disliked = items.find((it) => dislikesItem(a, it.id));
   const liked = items.filter((it) => likesItem(a, it.id));
@@ -8580,6 +8673,12 @@ function pickEntity(ray) {
   ACT.animals.forEach((e) => test(e, 'animal'));
   ACT.npcs.forEach((e) => test(e, 'npc'));
   ACT.wild.forEach((e) => { if (e.m.root.visible) test(e, 'wild'); });
+  // 今朝の卵（小さいので、ねらった時だけ。足もとの鶏より先に）
+  for (const it of (EGG.items || [])) {
+    if (it.eg.st !== 'egg') continue;
+    const c = new THREE.Vector3(it.eg.x, it.m.position.y + 0.1, it.eg.z);
+    if (ray.ray.distanceToPoint(c) < 0.55) cands.push({ ent: eggEnt(it), kind: 'egg', dist: ray.ray.origin.distanceTo(c) - 1.5 });
+  }
   cands.sort((a, b) => a.dist - b.dist);
   if (cands[0]) return cands[0];
   // ベンチ
@@ -8601,6 +8700,7 @@ function itemEnt(sid) {
   const s = SLOTS.find((q) => q.id === sid); if (!s) return null;
   return { x: s.x, z: s.z, name: it.name, sid, id, item: it, m: { root } };
 }
+function eggEnt(it) { return { x: it.eg.x, z: it.eg.z, name: '今朝の卵', egg: it.eg, m: { root: it.m } }; }
 function evItemEnt(it) { return { x: it.x, z: it.z, name: it.name, ev: it.id, m: { root: it.model } }; }
 function benchEnt(bn) { return { x: bn.x, z: bn.z, name: bn.seatName || 'ベンチ', seatName: bn.seatName, bench: bn, m: { root: bn.model } }; }
 function nearestInteractable() {
@@ -8612,6 +8712,7 @@ function nearestInteractable() {
   for (const bn of (W.benches || [])) { const d = Math.hypot(bn.x - P.x, bn.z - P.z) - 0.6; if (d < 1.8 && d < bd) { bd = d; best = { ent: benchEnt(bn), kind: 'bench' }; } }
   for (const sid in (W.placedModels || {})) { const e = itemEnt(sid); if (!e) continue; const d = Math.hypot(e.x - P.x, e.z - P.z) - 0.7; if (d < 1.9 && d < bd) { bd = d; best = { ent: e, kind: 'item' }; } }
   for (const it of (W.eventItems || [])) { const d = Math.hypot(it.x - P.x, it.z - P.z) - 0.9; if (d < 1.9 && d < bd) { bd = d; best = { ent: evItemEnt(it), kind: 'evitem' }; } }
+  for (const it of (EGG.items || [])) { if (it.eg.st !== 'egg') continue; const d = Math.hypot(it.eg.x - P.x, it.eg.z - P.z) - 0.3; if (d < 1.6 && d < bd) { bd = d; best = { ent: eggEnt(it), kind: 'egg' }; } }
   return best;
 }
 
@@ -8878,6 +8979,7 @@ function triggerMilestone() {
   UI.milestoneBanner(item, type); uiSound('chime');
   focusAt(item.x, item.z, 22, 4500);
   if (item.id === 'early_stream' || item.id === 'nestbox_insects') unlockCard('noPesticide', true);
+  if (item.id === 'predator_fence') unlockCard('wildlife', true);
   GAME.save();
 }
 function stageUp() {
@@ -9173,6 +9275,7 @@ function pumpkinParty(big) {
 function foodEaten(f, a) {
   if (f.done) return; f.done = true; f.left = 0;
   if (f.model) { f.model.visible = false; }
+  if (f.egg) { f.egg.st = 'done'; f.egg.left = 0; W.foods = W.foods.filter((x) => x !== f); if (!G.flags['eggAte' + G.turn]) { G.flags['eggAte' + G.turn] = true; note('daily', '鶏たちが、割った卵をきれいに食べました', null, { quiet: true }); } return; }
   if (f.sid && G.placed[f.sid]) { delete G.placed[f.sid]; removePlaced(f.sid); }
   const who = SPECIES[a.sp].name;
   if (!G.flags['ate' + a.sp + G.turn]) { G.flags['ate' + a.sp + G.turn] = true; note('daily', f.item === 'pumpkin' ? `${who}たちがかぼちゃを夢中で食べていました` : `${who}たちが干し草のベールをゆっくり食べていました`, null, { quiet: true }); }
@@ -9717,13 +9820,21 @@ function petAnimal(a, mode, react) {
   GAME.save();
   return first;
 }
+// 豚の体重：4週に一度はかり、少し増えていた子は4週間おやつをお休み（足と関節を守るため。0.9.20）
+function pigOnDiet(a) { return !!(a && a.sp === 'pig' && !hako() && G.pigDiet && G.turn < G.pigDiet.until && (G.pigDiet.ids || []).includes(a.id)); }
 function treatAnimal(a) {
   if (G.treatDone[a.id] && !hako()) return;
   const t = SEASON_TREATS[G.season]; if (!t.for.includes(a.sp)) return;
+  if (pigOnDiet(a)) {
+    UI.toast(`${a.name}のおやつは、今はお休みです。体重が少し増えていたので、足と関節を守るために`, 'health');
+    unlockCard('pigDiet'); return;
+  }
   G.treatDone[a.id] = true;
   a.trust = Math.min(10, a.trust + 0.5);
-  note('daily', `${a.name}に${t.name}をあげました`, null, { quiet: true });
-  UI.toast(`${a.name}に${t.name}をあげました`, 'daily');
+  const how = a.sp === 'pig' ? 'を、ほんの少しだけ' : 'を';
+  note('daily', `${a.name}に${t.name}${how}あげました`, null, { quiet: true });
+  UI.toast(`${a.name}に${t.name}${how}あげました`, 'daily');
+  if (a.sp === 'pig') unlockCard('pigDiet');
   const e = animalById(a.id); if (e) { e.state = 'eat'; e.target = null; e.food = null; e.timer = 4; UI.floatHeart(e); }
   GAME.save();
 }
@@ -9870,6 +9981,7 @@ function startDay(first) {
     const r = genRequest('chicken'); r.intro = `近所の採卵養鶏場が閉じます。鶏${r.members.length}羽の相談です。`; r.left = 3; G.requests.push(r);
     G.overnight.push({ cat: 'news', text: `受け入れの相談：${r.intro}`, req: r.id });
   }
+  dailyRealities(first);
   if (first || G.turn % 4 === 1) { logMonth(first ? null : G.monthRec); G.monthRec = null; }
   // 行事
   for (const id of G.events) { const e = EVENTS.find((x) => x.id === id); if (e) G.overnight.push({ cat: 'event', text: `今週は${e.name}。${e.desc}` }); }
@@ -9883,6 +9995,7 @@ function startDay(first) {
   // 見た目を更新
   const needRebuild = first || prevStage !== G.stage || prevSeason !== G.season || G.flags.stream !== WS.stream || true;
   if (needRebuild) { buildWorld(); syncNPCs(); syncAnimals(); syncWild(); }
+  buildEggs();
   SKY.t = clockAuto() ? 0.22 : G.settings.tod; SKY.target = dayTime(); skySnapWeather();
   // 前回からの変化（第11-2章：新しい仲間と体調を先に）
   const prio = { friends: 0, health: 1, added: 2, daily: 3, people: 4, news: 5, event: 6 };
@@ -9896,9 +10009,64 @@ function startDay(first) {
   UI.refresh();
   UI.morning(page, first, () => { const sups = (G.pendingSupports || []).slice(); G.pendingSupports = []; sups.forEach((s) => addSupport(s.type, s.size, s.src, s.label)); GAME.save(); UI.refresh(); });
 }
+/* ---------- 0.9.20 矛盾を受け入れる：思いどおりにならないことも、そのまま描く ----------
+   法律（年に一度の報告、豚熱のワクチン、牛の耳標）、野生の生き物との境、人が選んできた体（卵、体重、蹄） */
+function dailyRealities(first) {
+  const mo = +G.date.slice(5, 7), day = +G.date.slice(8, 10), yr = G.date.slice(0, 4);
+  const here = (sp) => G.animals.filter((a) => a.sp === sp && !(a.quarantine && G.turn < a.quarantine));
+  // 卵：その場で割って、鶏たちに返す
+  const n = rollEggs();
+  if (n) { const e0 = G.eggs.list[0]; G.overnight.push({ cat: 'daily', text: `鶏小屋の前に、今朝の卵が${n}つありました。割って、鶏たちに返せます`, focus: [e0.x, e0.z, 3] }); }
+  if (first) return;
+  // 豚の体重（4週に一度）
+  const pigs = here('pig');
+  if (pigs.length && G.turn % 4 === 3 && !hako()) {
+    const ids = pigs.filter(() => Math.random() < 0.4).map((a) => a.id);
+    G.pigDiet = { until: G.turn + 4, ids };
+    const nm = pigs.filter((a) => ids.includes(a.id)).map((a) => a.name);
+    G.overnight.push({ cat: 'health', text: nm.length ? `豚たちの体重をはかりました。${nm.join('と')}は少し増えていたので、これから4週間、おやつはお休みです。足と関節を守るためです` : '豚たちの体重をはかりました。ごはんの量は、これまでどおりで大丈夫そうです' });
+  }
+  // 豚熱のワクチン：豚がはじめて検疫を終えた週
+  const newPigs = G.animals.filter((a) => a.sp === 'pig' && a.quarantine === G.turn);
+  if (newPigs.length && !G.flags.csf) { G.flags.csf = true; unlockCard('csfVaccine', true); G.overnight.push({ cat: 'health', text: `${newPigs.map((a) => a.name).join('と')}が、豚熱のワクチンを受けました。この地域では、ペットの豚も受けることになっています` }); }
+  // 蹄の手入れ（4月と10月）
+  if (here('cow').length && (mo === 4 || mo === 10) && !G.flags['hoof' + yr + mo]) { G.flags['hoof' + yr + mo] = true; unlockCard('cowLegs', true); G.overnight.push({ cat: 'health', text: '蹄の手入れの日でした。牛たちの蹄を削って整え、足の様子を見ました（少なくとも年に2回）' }); }
+  // 年に一度の報告（2月のはじめ）
+  if (G.animals.length && mo === 2 && day <= 7 && !G.flags['report' + yr]) { G.flags['report' + yr] = true; unlockCard('annualReport', true); G.overnight.push({ cat: 'news', text: `2月1日時点の動物の数（${G.animals.length}頭羽）を、家畜保健衛生所に報告しました。1頭・1羽からの、毎年の決まりです` }); }
+  // 雪の朝の、キツネの足跡（鶏たちは、柵と小屋で守られている）
+  if (G.groundSnow && here('chicken').length && !G.flags['fox' + G.turn] && Math.random() < 0.6) { G.flags['fox' + G.turn] = true; unlockCard('wildlife', true); G.overnight.push({ cat: 'season', text: '雪の上に、柵のまわりを歩いたキツネの足跡がありました。鶏たちは、小屋の中で無事でした' }); }
+}
+// 卵を割って、鶏たちに返す（見学の人やボランティアさん、あなたが）
+function crackEgg(eg) {
+  if (!eg || eg.st !== 'egg') return;
+  eg.st = 'cracked'; eg.left = 4; G.flags.eggSeen = true;
+  G.eggsReturned = (G.eggsReturned || 0) + 1;
+  buildEggs();
+  const hens = eggHens(), names = hens.slice(0, 3).map((a) => a.name);
+  if (!G.flags['eggNote' + G.turn]) { G.flags['eggNote' + G.turn] = true; note('daily', `今朝の卵を割って、${names.join('、')}${hens.length > 3 ? 'たち' : ''}に返しました`, null, { quiet: true }); }
+  UI.toast('卵を割って、鶏たちに返しました。卵を産むのに使った栄養を、体に戻すためです', 'daily');
+  setTimeout(() => { if (STARTED) ambCue({ k: 'peck' }); }, 1500);
+  // 近くの鶏が、気づいて寄ってくる
+  for (const e of ACT.animals) if (e.a.sp === 'chicken' && Math.hypot(e.x - eg.x, e.z - eg.z) < 14 && !ALONE.has(e.state)) e.timer = Math.min(e.timer, rand(0.2, 1.5));
+  if (!unlockCard('eggsBack') && G.eggsReturned >= 3) unlockCard('layerBody');
+  GAME.save();
+}
+// 牛の耳標の番号（ゲームの中だけ）。本物と重ならないように「S-」から：S-（ここでの通し番号）-（10桁）
+function cowTag(a) {
+  if (!a || a.sp !== 'cow') return '';
+  if (!a.tagNo) {
+    const cows = ROSTER.filter((r) => r.sp === 'cow'), ri = cows.findIndex((r) => r.key === a.key);
+    if (ri >= 0) a.tagNo = ri + 1; else { G.tagSeq = Math.max(G.tagSeq || 0, cows.length) + 1; a.tagNo = G.tagSeq; }
+  }
+  let h = 2166136261; const s = String(a.key || a.id);
+  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+  return `S-${a.tagNo}-${1000000000 + (h % 4000000000)}`;
+}
 function endDay() {
   if (G.dayOver) return;
   G.dayOver = true;
+  // 割らずに残っていた卵は、ボランティアさんが
+  if (G.eggs && G.eggs.turn === G.turn) { const left = G.eggs.list.filter((e) => e.st === 'egg'); if (left.length) { left.forEach((e) => { e.st = 'done'; }); note('daily', '残っていた卵は、ボランティアさんが割って、鶏たちに返しました', null, { quiet: true }); buildEggs(); } }
   if (!hako()) G.hands = 0;
   // 昼なら夕暮れへ。もう夜なら、そのまま
   if (clockAuto()) { const c = dayTime(); if (c > 0.2 && c < 0.78) G.clock = 0.79; }
@@ -10027,7 +10195,7 @@ function jumpStage(n) {
 
 /* ---------- 保存 ---------- */
 const GAME = {
-  note, unlockCard, foodEaten, capacity, axes, runAction, startBiz, restAction, petAnimal, petReact, respectAnimal, treatAnimal, sponsorAnimal, anniversary,
+  note, unlockCard, foodEaten, crackEgg, cowTag, pigOnDiet, capacity, axes, runAction, startBiz, restAction, petAnimal, petReact, respectAnimal, treatAnimal, sponsorAnimal, anniversary,
   acceptRequest, rehomeRequest, declineRequest, requestChecks, hire, hireAvailable, finance, incomeView, savingWays, forecast, moritaState, moritaQuestion, moritaAnswer, talkState, talkNext, talkAvail, talkAnswer, bizMoney, feedBedCost, stockWeeks, coverText, reserveTarget, usableFunds, projList, projState, projPay, projCampaign, projGrant, prepDone, prepStarted, salary, hourlyWage, animalCost, teamCount, volunteerCap, staffMax, teamOf, placeItem, removeItem, startDay, endDay, jumpStage, actionAvailable,
   save() {
     // 箱庭モードは保存しない（毎回、すべてがそろった姿から）
@@ -10083,7 +10251,7 @@ const GAME = {
     if (G.settings.tod === 0.93) G.settings.tod = null; // 前の版で、ショーの途中に閉じた時の夜を戻す
     rebuildPlayer(G.avatar); setSoundOn(G.settings.sound); setVolume(G.settings.vol); applyLite();
     applyCalendar();
-    buildWorld(); syncNPCs(); syncAnimals(); syncWild();
+    buildWorld(); syncNPCs(); syncAnimals(); syncWild(); buildEggs();
     const sp = playerStartPos(); teleportPlayer(sp[0], sp[1], Math.PI);
     SKY.t = dayTime(); SKY.target = SKY.t; skySnapWeather();
     // 朝の知らせを読む前に閉じた週の支えは、ここで受け取る
@@ -10635,6 +10803,7 @@ const UI = {
       case 'dprev': UI.diaryIdx = Math.max(0, UI.diaryIdx - 1); UI.render(true); break;
       case 'dnext': UI.diaryIdx = Math.min(G.diary.length - 1, UI.diaryIdx + 1); UI.render(true); break;
       case 'filter': UI.diaryFilter = v === 'all' ? null : v; UI.render(true); break;
+      case 'egg-crack': UI.closeModal(); GAME.crackEgg(((G.eggs && G.eggs.list) || []).find((x) => String(x.id) === v)); break;
       case 'ev-off': UI.closeModal(); setEvOff(v, true); { const e = EVENTS.find((x) => x.id === v); UI.toast(`${e ? e.name : '行事'}の飾りを片付けました。「飾る」の画面から、また飾れます`, 'added'); } GAME.save(); if (!$('#sheet').hidden) UI.render(); break;
       case 'ev-on': setEvOff(v, false); { const e = EVENTS.find((x) => x.id === v); UI.toast(`${e ? e.name : '行事'}の飾りを、また飾りました`, 'added'); } GAME.save(); UI.render(); break;
       case 'photo-view': UI.viewPhoto(+id); break;
@@ -10874,6 +11043,7 @@ const UI = {
       const sp = SPECIES[a.sp], friend = G.animals.find((o) => (a.friend && o.key === a.friend) || o.id === a.friendId || a.id === o.friendId);
       const q = a.quarantine && G.turn < a.quarantine, y = yearsSince(a, G.date), treat = SEASON_TREATS[G.season];
       const hk = G.mode === 'hakoniwa';
+      if (a.sp === 'cow' && !G.cards.earTag) setTimeout(() => { if (unlockCard('earTag')) GAME.save(); }, 700);
       let h = `<div class="acard-head"><span class="av" style="${avStyle(a)}"></span><div><h3>${esc(a.name)}</h3><div class="sub">${sp.name}・${a.age}歳・${heartsHtml(a.trust)}</div></div></div>
         <dl class="facts"><dt>出身</dt><dd>${esc(a.origin)}</dd><dt>性格</dt><dd>${esc(a.personality)}${PERS_DESC[a.personality] ? `<br><span class="muted">${esc(PERS_DESC[a.personality])}</span>` : ''}</dd>
         <dt>仲良し</dt><dd>${friend ? esc(friend.name) + (friend.sp !== a.sp ? `（${SPECIES[friend.sp].name}）` : '') : 'まだ'}</dd>
@@ -10882,8 +11052,9 @@ const UI = {
           return `<dt>いつも一緒</dt><dd>${esc(bp.name)}（${SPECIES[bp.sp].name}）<br><span class="muted">種類はちがっても、惹かれあった相手。${how}${ROAM_SP.includes(a.sp) ? '' : '昼のあいだは、一緒に柵の外を歩きます。'}</span></dd>`; })()}
         ${G.stage >= 2 && ROAM_SP.includes(a.sp) ? `<dt>過ごし方</dt><dd>${roamPrefText(a)}</dd>` : ''}
         <dt>好きなこと</dt><dd>${a.trust >= 2 ? a.likes.map((l) => esc(ITEMS[l] ? ITEMS[l].name : l)).join('、') || 'のんびりすること' : 'もう少し仲良くなったら、教えてくれそうです'}${a.trust >= 3 && a.dislikes.length ? `<br><span class="muted">苦手：${a.dislikes.map((l) => esc(ITEMS[l].name)).join('、')}</span>` : ''}</dd>
-        <dt>体調とケア</dt><dd>${esc(a.health)}${q ? '<br><span class="pill q">検疫中：あと少しで区画の仲間に</span>' : ''}</dd>
-        <dt>来た日</dt><dd>${fmtDate(a.arrived, true)}${y ? `　<span class="pill warn">今週で${y}年</span>` : ''}</dd></dl>
+        <dt>体調とケア</dt><dd>${esc(a.health)}${q ? '<br><span class="pill q">検疫中：あと少しで区画の仲間に</span>' : ''}${GAME.pigOnDiet(a) ? `<br><span class="muted">体重が少し増えたので、おやつはお休み中（あと${G.pigDiet.until - G.turn}週）</span>` : ''}</dd>
+        <dt>来た日</dt><dd>${fmtDate(a.arrived, true)}${y ? `　<span class="pill warn">今週で${y}年</span>` : ''}</dd>
+        ${a.sp === 'cow' ? `<dt>耳の番号</dt><dd>${esc(GAME.cowTag(a))}<br><span class="muted">両耳の黄色い耳標。名前で呼ぶけれど、法律で番号もつけています（このゲームの中だけの番号）</span></dd>` : ''}</dl>
         ${a.sp === 'cow' ? `<details class="care-memo"><summary>牛の世話メモ</summary><ul><li>水：搾乳中の牛は1日80〜100L、放牧の牛で約45L</li><li>ひづめ：削蹄は少なくとも年2回</li><li>草地：1頭に25a以上が目安</li><li>寿命：牛の自然な寿命は約15〜20年。乳牛の多くは5〜6歳で農場を離れます</li></ul>${UI.srcLinks(['alicmilk', 'saga', 'kassai', 'souchi', 'mdpi'])}<button class="btn small ghost" data-act="go-cowbook">牛と酪農の手帳</button></details>` : ''}
         <div class="btn-row" style="margin:10px 0 14px">
           ${(() => { const bird = !!sp.bird, lb = !bird && a.likes.includes('brush'); return `<button class="btn small${lb ? '' : ' primary'}" data-act="pet" data-id="${a.id}" data-v="pet" ${q ? 'disabled' : ''}>${ico('i-heart')}なでる</button>${bird ? '' : `<button class="btn small${lb ? ' primary' : ''}" data-act="pet" data-id="${a.id}" data-v="brush" ${q ? 'disabled' : ''}>ブラッシング</button>`}`; })()}
@@ -11508,6 +11679,7 @@ const UI = {
     if (p.kind === 'animal') { UI.openSheet('card', p.ent.a.id); return; }
     if (p.kind === 'pet') { UI.petStart(p.ent); return; }
     if (p.kind === 'evitem') { UI.evItemInfo(p.ent); return; }
+    if (p.kind === 'egg') { UI.eggInfo(p.ent); return; }
     if (p.kind === 'bench') { UI.startRest('bench', p.ent.bench); return; }
     if (p.kind === 'item') { UI.itemInfo(p.ent); return; }
     if (p.kind === 'npc') { UI.npcDialog(p.ent); return; }
@@ -11521,6 +11693,15 @@ const UI = {
   evItemInfo(e) {
     const ev = EVENTS.find((x) => x.id === e.ev);
     UI.modal(`<div class="dialog-who"><strong>${esc(e.name)}</strong><span class="pill">行事の飾り</span></div><p class="said">${esc(ev ? ev.desc : '')}</p><p class="muted">行事の飾りは、その時期になると自動で飾られます。片付けても、「飾る」の画面からまた飾れます。</p><div class="btn-row"><button class="btn small" data-act="ev-off" data-v="${esc(e.ev)}">片付ける</button><button class="btn small primary" data-act="close-modal">このままにする</button></div>`);
+  },
+  // 今朝の卵：割って、鶏たちに返す
+  eggInfo(e) {
+    const eg = e.egg; if (!eg || eg.st !== 'egg') return;
+    const hens = eggHens(), nm = hens.slice(0, 3).map((a) => a.name).join('、') + (hens.length > 3 ? 'たち' : '');
+    UI.modal(`<div class="dialog-who"><strong>今朝の卵</strong><span class="pill">鶏小屋の前</span></div>
+      <p class="said">${esc(nm)}の誰かが産んだ卵です。ここの鶏たちは雄と暮らしていないので、この卵からひなはかえりません。</p>
+      <p class="said">卵を産むたびに、鶏は体のたんぱく質やカルシウムをたくさん使います。割って返すと、鶏たちが食べて、その栄養を体に戻せます。</p>
+      <div class="btn-row"><button class="btn small primary" data-act="egg-crack" data-v="${eg.id}">割って、鶏たちに返す</button><button class="btn small" data-act="close-modal">そのままにする</button></div>`);
   },
   /* ---------- なでる・ブラッシング ---------- */
   petGo(id, mode) {
@@ -11786,7 +11967,7 @@ const UI = {
       if (key !== UI.lastPrompt) {
         UI.lastPrompt = key;
         const name = n.kind === 'animal' ? n.ent.a.name : n.kind === 'bench' ? (n.ent.seatName || '') : n.ent.name;
-        const verb = n.kind === 'animal' ? 'と過ごす' : n.kind === 'npc' ? 'と話す' : n.kind === 'bench' ? (n.ent.seatName ? 'に座る' : 'ベンチに座る') : n.kind === 'item' || n.kind === 'evitem' ? 'を見る' : 'をそっと見る';
+        const verb = n.kind === 'animal' ? 'と過ごす' : n.kind === 'npc' ? 'と話す' : n.kind === 'bench' ? (n.ent.seatName ? 'に座る' : 'ベンチに座る') : n.kind === 'item' || n.kind === 'evitem' || n.kind === 'egg' ? 'を見る' : 'をそっと見る';
         $('#prompt-btn').innerHTML = `${esc(name)}${verb}${IS_TOUCH ? '' : ' <kbd>E</kbd>'}`;
       }
       pr.hidden = false;
