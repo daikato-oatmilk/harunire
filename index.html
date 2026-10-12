@@ -915,6 +915,29 @@ details.checks-ok { margin: -4px 0 8px; }
   #sheet-body details > summary::after, #modal-card details > summary::after { width: 32px; height: 32px; font-size: 18px; }
   .disc-close { min-height: 48px; font-size: 15px; }
 }
+
+/* 0.9.24 行動の画面：タブはアイコンの下に名前（4つ並んでも字が小さくならないように）。今日できることは、丸のゲージで */
+.tabs.ico-tabs { border-radius: 14px; padding: 4px; gap: 4px; }
+.tabs.ico-tabs button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; flex: 1 1 0; min-width: 0; border-radius: 11px; padding: 7px 2px 6px; font-size: 13px; line-height: 1.25; white-space: nowrap; }
+.tabs.ico-tabs button svg { width: 22px; height: 22px; }
+.tabs.ico-tabs button span { overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.tabs.ico-tabs button.on { color: var(--pine); }
+.hands-row { display: flex; align-items: center; gap: 10px; margin: 2px 0 14px; padding: 10px 14px; background: #FBF7EA; border: 1px solid rgba(212, 165, 47, .35); border-radius: 14px; }
+.hands-row .hr-l { font-size: 13.5px; font-weight: 700; color: var(--ink-2); }
+.hands-row .hr-dots { display: inline-flex; gap: 7px; margin-left: auto; }
+.hands-row .hr-dots i { width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 2px #E2DCC8; transition: background .3s, box-shadow .3s; }
+.hands-row .hr-dots i.on { background: var(--hay); box-shadow: inset 0 0 0 2px rgba(150, 110, 20, .35), 0 1px 2px rgba(150, 110, 20, .25); }
+.hands-row .hr-dots i.just { animation: handUsed 1.1s ease-out forwards; }
+@keyframes handUsed { 0% { background: var(--hay); transform: scale(1); } 35% { transform: scale(1.25); } 100% { background: #fff; transform: scale(1); } }
+.hands-row b { min-width: 4.4em; text-align: right; font-size: 16px; color: var(--ink); }
+.btn.wide { display: flex; width: 100%; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; padding: 12px 16px; margin: 4px 0 8px; }
+.btn.wide small { flex-basis: 100%; text-align: center; font-size: 12.5px; font-weight: 500; color: var(--ink-3); margin-top: -2px; }
+@media (max-width: 720px) {
+  .tabs.ico-tabs button { font-size: 13px; padding: 8px 1px 7px; }
+  .tabs.ico-tabs button svg { width: 24px; height: 24px; }
+  .hands-row b { font-size: 17px; }
+  .hands-row .hr-dots i { width: 20px; height: 20px; }
+}
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -955,6 +978,7 @@ details.checks-ok { margin: -4px 0 8px; }
     <symbol id="i-land" viewBox="0 0 24 24"><path d="M3 18.5 8.5 10l4 5.5 3-3.5 5.5 6.5z"/><circle cx="16.5" cy="6.5" r="1.8"/></symbol>
     <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.5V12l3 2"/></symbol>
     <symbol id="i-card" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M7.5 9.5h9M7.5 12.5h9M7.5 15.5h5"/></symbol>
+    <symbol id="i-tea" viewBox="0 0 24 24"><path d="M5 11.2h11.2v3.3a4.6 4.6 0 0 1-4.6 4.6H9.6A4.6 4.6 0 0 1 5 14.5z"/><path d="M16.2 12.4h1.3a2.1 2.1 0 0 1 0 4.2h-1.6"/><path d="M3.6 21.2h14.8"/><path d="M8.6 8.4c-.9-1.1.9-2 0-3.3M12.6 8.4c-.9-1.1.9-2 0-3.3"/></symbol>
     <symbol id="i-rest" viewBox="0 0 24 24"><path d="M4 16h16M6 16v3M18 16v3M5 12.5h14v3.5H5zM6.5 12.5V9.5h11v3"/></symbol>
     <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18.5V6.5l10-2.5v12"/><circle cx="6.8" cy="18.5" r="2.3"/><circle cx="16.8" cy="16" r="2.3"/></symbol>
     <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
@@ -998,7 +1022,7 @@ details.checks-ok { margin: -4px 0 8px; }
       <button type="button" data-open="deco"><svg><use href="#i-flower"/></svg><span>飾る</span></button>
       <button type="button" data-open="animals"><svg><use href="#i-paw"/></svg><span>動物</span><b class="badge" id="b-req" hidden></b></button>
       <button type="button" data-open="diary"><svg><use href="#i-book"/></svg><span>日記</span><b class="badge dot" id="b-diary" hidden></b></button>
-      <button type="button" data-open="music"><svg><use href="#i-music"/></svg><span>楽器</span></button>
+      <button type="button" data-open="rest"><svg><use href="#i-tea"/></svg><span>ひと息</span></button>
       <button type="button" data-open="photo"><svg><use href="#i-camera"/></svg><span>写真</span></button>
       <button type="button" data-open="overview" id="btn-overview"><svg><use href="#i-map"/></svg><span>全体</span></button>
       <button type="button" data-open="settings"><svg><use href="#i-gear"/></svg><span>設定</span></button>
@@ -1750,13 +1774,14 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.23', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.24', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   contact: { mail: 'daikato@gmail.com', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
   aim: ['遊びやすいか、わかりにくい所はないか', 'スマホやパソコンで重くないか、止まらないか', '動物、お金、牛と酪農の話が、楽しく伝わるか'],
-  try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', 'はるこさん・ゆうとさんに話しかけて、続きのある話を聞く（週に1話）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物のカードから「なでる」「ブラッシング」。性格によって反応が変わります', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
+  try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', 'はるこさん・ゆうとさんに話しかけて、続きのある話を聞く（週に1話）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物のカードから「なでる」「ブラッシング」。性格によって反応が変わります', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.24', '2026年10月12日', '「ひと息」を、行動の画面から下のメニューへ（楽器のあった所。楽器は「ひと息」の中に）。行動の画面のタブは「あなたの行動」「町の事業者」「人を増やす」「収支」の4つに。いつも出ていた毎月の収支の帯は「収支」のタブへ。今日できることは「あと3つ」と、4つの丸で（使うと色が抜けていきます）。心の余裕の増え減りの説明は、行動の一覧から外しました（変わった時に、画面の上に少しだけ出ます）'],
     ['0.9.23', '2026年10月12日', '＋でひらく所（受け入れの確認、まだできないこと、くわしく、計算のもと、工事の内訳、準備、牛の世話メモ、人の話）を、押せるとひと目でわかる形に。行ぜんたいが押せて、右に丸い＋。ひらくと−に。中身が長い時は、下にも「とじる」があり、押すと＋を押す前の見え方に戻ります。同じ画面でボタンを押しても、ひらいた所はひらいたまま'],
     ['0.9.22', '2026年10月12日', 'iPhone などのスマホのブラウザ（GitHub のページ）で、パソコンの画面を縮めたような、とても小さな表示になっていたのを直しました。スマホでは、字とボタンを少し大きく、行動などのパネルは画面の9割ほど、会話や説明は横幅いっぱいに。はじめの立ち位置を、家と大きな木から離れた、鶏の庭の前のひらけた草地に（はるこさんがすぐ前に）。スマホのカメラは少し高く、少し遠くから。カメラが木の葉の中に入らないように'],
     ['0.9.21', '2026年10月12日', 'はじめて遊ぶ日に、はるこさんのところへ歩いていくと、画面が止まってしまう不具合を直しました（話したいことがある時の誘いを作るところで、エラーが起きていました。0.9.16 から）。1コマの中で何かが起きても、画面は止まらずに動き続けるようにしました'],
@@ -10681,7 +10706,7 @@ const UI = {
     $('#bottom-right').hidden = hk;
     if (!UI._endConfirm) $('#end-day').textContent = G.dayOver ? '日記を見る' : '今日はここまで';
     $('#btn-overview').classList.toggle('on', CAM.overview);
-    if (!$('#sheet').hidden && ['actions', 'animals', 'deco', 'card', 'settings', 'money'].includes(UI.cur && UI.cur.name)) UI.render();
+    if (!$('#sheet').hidden && ['actions', 'animals', 'deco', 'card', 'settings', 'money', 'rest'].includes(UI.cur && UI.cur.name)) UI.render();
   },
   railClick(name) {
     if (name === 'overview') { setOverview(!CAM.overview); UI.refresh(); if (CAM.overview) UI.hint(IS_TOUCH ? '行きたい場所をタップすると、そこへ移動します' : '行きたい場所をクリックすると、そこへ移動します'); return; }
@@ -10991,7 +11016,7 @@ const UI = {
       case 'music': UI.closeSheet(); UI.openMusic(); break;
       case 'hire': GAME.hire(id); UI.render(); break;
       case 'people': UI.closeModal(); UI.tab.actions = 'people'; UI.openSheet('actions'); break;
-      case 'go-tab': UI.closeModal(); if (v === 'animals') UI.openSheet('animals', undefined, true); else { UI.tab.actions = v; if (UI.cur && UI.cur.name === 'actions') UI.render(); else UI.openSheet('actions', undefined, true); } break;
+      case 'go-tab': UI.closeModal(); if (v === 'animals') UI.openSheet('animals', undefined, true); else if (v === 'rest') UI.openSheet('rest'); else { UI.tab.actions = v; if (UI.cur && UI.cur.name === 'actions') UI.render(); else UI.openSheet('actions', undefined, true); } break;
     }
   },
 
@@ -11003,17 +11028,50 @@ const UI = {
     const names = [...new Set(sids.map((sid) => { const sl = SLOTS.find((q) => q.id === sid); return sl && sl.zone && ZONES[sl.zone] ? ZONES[sl.zone].label : '観覧エリア'; }))];
     return `<span class="where">置いてある所：${esc(names.join('、'))}</span>`;
   },
+  // 運営のお金のいちばん上（毎月の支えと費用、預金、物資の備え、前回の締め）。運営のお金の画面と、行動の「収支」タブで
+  moneyTop() {
+    const f = GAME.finance(), ratio = f.cost ? f.inc / f.cost : 1, hk = G.mode === 'hakoniwa';
+    const log = (G.finLog || []).filter((x) => x.turn < G.turn), prev = log[log.length - 1];
+    const sign = (n) => (n >= 0 ? '＋' : '−') + yen(Math.abs(n));
+    const sw = GAME.stockWeeks(), months = f.cost ? (G.savings || 0) / f.cost : 0, wk = (x) => (x >= 1 ? `約${Math.round(x)}週間分` : x > 0 ? '1週間分足らず' : 'なし');
+    let h = `<div class="money-sum ${f.bal < 0 ? 'tight' : ''}"><div class="ms-row"><span>毎月の支え</span><b class="num">${yen(f.inc)}</b></div><div class="ms-row"><span>毎月かかるお金</span><b class="num">${yen(f.cost)}</b></div><div class="bar"><i style="width:${Math.min(100, ratio * 100)}%"></i></div>
+      <p class="ms-bal">${f.bal >= 0 ? `毎月 <b>${yen(f.bal)}</b> の余裕があります` : `毎月、支えより費用が <b>${yen(-f.bal)}</b> 多い状態です`}<small>${f.bal >= 0 ? '余裕は4週ごとに預金にまわります。' : '預金から出し、それでも足りない月は、臨時の寄付が届きます。'}${prev ? `前回の記録（${dateOf(prev.date).getMonth() + 1}月${dateOf(prev.date).getDate()}日）と比べて ${sign(f.bal - (prev.inc - prev.cost))}` : ''}</small></p></div>`;
+    if (!hk) {
+      const tgt = GAME.reserveTarget(), use = GAME.usableFunds();
+      h += `<div class="reserve"><div class="rv"><span>預金</span><b class="num">${yen(G.savings || 0)}</b><small>${months >= 1 ? `費用の約${months >= 10 ? Math.round(months) : months.toFixed(1)}か月分` : (G.savings || 0) > 0 ? `費用の約${Math.max(1, Math.round(months * 30))}日分` : '今はありません。足りない月は臨時の支えが届きます'}</small><i class="rbar" title="運営の1年分まで"><i style="width:${tgt ? Math.min(100, (G.savings || 0) / tgt * 100) : 0}%"></i></i><small>${use > 0 ? `1年分（${yenShort(tgt)}）を超えた <b>${yenShort(use)}</b> を整備に使えます` : `運営の1年分（${yenShort(tgt)}）までは備えに`}</small></div>
+        <div class="rv"><span>物資の備え</span><b>餌 ${wk(sw.feed)}<br>寝床 ${wk(sw.bed)}</b><small>少額の寄付・物資を届ける・かぼちゃで増えます</small></div></div>`;
+      if (prev && (prev.toSave || prev.drawn || (prev.cover && prev.cover.length) || prev.used)) {
+        const bits = [];
+        if (prev.used) bits.push(`物資の備えで${yenShort(prev.used)}分をまかなう`);
+        if (prev.toSave) bits.push(`${yenShort(prev.toSave)}を預金へ`);
+        if (prev.drawn) bits.push(`預金から${yenShort(prev.drawn)}`);
+        (prev.cover || []).forEach((c) => bits.push(c.kind === 'people' ? `${c.n}人の方の臨時の寄付 ${yenShort(c.amount)}` : `${c.name}の臨時の寄付 ${yenShort(c.amount)}`));
+        h += `<p class="last-close"><b>前回の締め</b>　${esc(bits.join('、'))}</p>`;
+      }
+    }
+    if (f.pend) h += `<p class="muted" style="margin:-4px 0 10px">迎える準備中の人のお給料（毎月 ${yen(f.pend)}）は、来てくれた週から費用に入ります。「見通し」で確かめられます。</p>`;
+    return h;
+  },
   views: {
     actions() {
-      const tab = UI.tab.actions || 'life';
-      let h = `<div class="tabs" role="tablist">${[['life', 'あなたの行動'], ['biz', '町の事業者'], ['people', '人を増やす'], ['rest', 'ひと息']].map(([k, n]) => `<button data-act="tab" data-v="${k}" class="${tab === k ? 'on' : ''}">${n}</button>`).join('')}</div>`;
+      let tab = UI.tab.actions || 'life'; if (!['life', 'biz', 'people', 'money'].includes(tab)) tab = 'life';
+      // タブは4つ。スマホでも字が小さくならないように、アイコンの下に短い名前（ひと息は、下のメニューに独立）
+      let h = `<div class="tabs ico-tabs" role="tablist">${[['life', 'あなたの行動', 'i-hand'], ['biz', '町の事業者', 'i-building'], ['people', '人を増やす', 'i-people'], ['money', '収支', 'i-coin']].map(([k, n, ic]) => `<button data-act="tab" data-v="${k}" class="${tab === k ? 'on' : ''}" role="tab" aria-selected="${tab === k}">${ico(ic)}<span>${n}</span></button>`).join('')}</div>`;
       const hk = G.mode === 'hakoniwa';
-      if (!hk) { const f0 = GAME.finance(); h += `<button class="money-strip ${f0.bal < 0 ? 'tight' : ''}" data-act="open" data-v="money"><span>毎月の収支</span><b class="num">${f0.bal >= 0 ? '＋' : '−'}${yen(Math.abs(f0.bal))}</b><small>預金 ${yenShort(G.savings || 0)}</small><span class="go">くわしく</span></button>`; }
+      // 今日できること：あと◯つ＋4つの丸（使うと色が抜けて減っていく）
+      const handsRow = () => {
+        // 使ったぶんの丸は、色が抜けていく（すぐあとに描き直しても、1.2秒は動きを続ける）
+        const prev = UI._hrPrev, now = performance.now();
+        if (prev != null && prev > G.hands) UI._hrJust = { a: G.hands, b: prev, until: now + 1200 };
+        UI._hrPrev = G.hands;
+        const jj = UI._hrJust && now < UI._hrJust.until && UI._hrJust.a === G.hands ? UI._hrJust : null, just = jj ? [jj.a, jj.b] : null;
+        return `<div class="hands-row" aria-label="今日できることは、あと${G.hands}つ"><span class="hr-l">今日できること</span><span class="hr-dots">${Array.from({ length: G.handsMax }, (_, i) => `<i class="${i < G.hands ? 'on' : just && i >= just[0] && i < just[1] ? 'just' : ''}"></i>`).join('')}</span><b>${G.hands > 0 ? `あと${G.hands}つ` : '今日はおしまい'}</b></div>`;
+      };
       if (tab === 'life') {
-        h += hk ? `<p class="lead-s">箱庭モードでは、いくらでも動けます。疲れることもありません。</p>` : `<p class="calm-line">今日できることは、<b>あと${G.hands}つ</b>です。</p>${G.turn <= 3 ? '<p class="muted" style="margin:-6px 0 12px">手伝いは体を使うので、心の余裕が少し減ります。余裕が少ない日は、控えめな手伝いになります。</p>' : ''}`;
+        h += hk ? `<p class="lead-s">箱庭モードでは、いくらでも動けます。疲れることもありません。</p>` : handsRow();
         const actBtn = (a, av) => {
           const sp = a.type ? SUPPORT[a.type] : null;
-          const cost = a.hands ? `${a.hands}回分${a.yoyu > 0 ? `<em>心の余裕 −${a.yoyu}</em>` : ''}` : `<em>回数は使いません</em>`;
+          const cost = a.hands ? `${a.hands}回分` : `<em>回数は使いません</em>`;
           return `<button class="act" data-act="run" data-id="${a.id}" ${av.ok ? '' : 'disabled'}>
             <span class="ic" style="background:${sp ? sp.color : 'var(--ink-3)'}">${ico(sp ? sp.icon : 'i-camera')}</span>
             <span class="tx"><strong>${esc(a.name)}</strong><span>${esc(a.desc)}</span>${av.ok ? '' : `<span class="pill warn">${esc(av.why)}</span>`}</span>
@@ -11024,6 +11082,7 @@ const UI = {
         h += okA.map((x) => actBtn(x[0], x[1])).join('');
         if (noA.length) h += `<details class="more-acts"${okA.length ? '' : ' open'}><summary>${okA.length ? `まだできないこと（${noA.length}）` : `行動の一覧（${noA.length}）`}</summary>${noA.map((x) => actBtn(x[0], x[1])).join('')}</details>`;
       } else if (tab === 'biz') {
+        if (!hk) h += handsRow();
         h += `<p class="lead-s">町の事業者に相談します。形になるまで数週間。相談すると、今日できることが1つ減ります。</p>`;
         if (G.pending.length) {
           h += `<div class="sec"><h3>進行中</h3>${G.pending.map((p) => { const b = BIZ.find((x) => x.id === p.id); return `<div class="act" style="cursor:default">${ico('i-clock')}<span class="tx"><strong>${esc(b.name)}</strong><span>${esc(b.partner)}と準備中です。あと${p.done - G.turn}週で形になります</span></span></div>`; }).join('')}</div><div class="sec"><h3>相談できること</h3>`;
@@ -11035,26 +11094,37 @@ const UI = {
           h += `<button class="act" data-act="biz" data-id="${b.id}" ${why ? 'disabled' : ''}>
             <span class="ic" style="background:${sp.color}">${ico(sp.icon)}</span>
             <span class="tx"><strong>${esc(b.name)}</strong><span>${esc(b.partner)}：${esc(b.desc)}</span>${why ? `<span class="pill ${used ? 'ok' : 'warn'}">${why}</span>` : ''}</span>
-            <span class="cost">${sp.name} ${SIZE_LABEL[b.size]}<br>${hk ? '' : '1回分<br>'}<em>${hk ? 'すぐ' : b.lead + '週後'}${hk ? '' : '・心の余裕 −4'}</em></span></button>`;
+            <span class="cost">${sp.name} ${SIZE_LABEL[b.size]}<br>${hk ? '' : '1回分<br>'}<em>${hk ? 'すぐ' : b.lead + '週後'}</em></span></button>`;
         }
         if (G.pending.length) h += '</div>';
       } else if (tab === 'people') {
+        if (!hk) h += handsRow();
         h += UI.peopleHtml();
-      } else {
-        h += `<p class="lead-s">座っているあいだに、心の余裕が少しずつ戻ります。今日できることの数は減りません。</p>`;
+      } else if (tab === 'money') {
+        h += UI.moneyTop();
+        h += `<button class="btn wide" data-act="open" data-v="money">${ico('i-coin')}運営のお金をくわしく見る<small>収入・支出・見通し・整備</small></button>`;
+      }
+      return { title: '行動', html: h };
+    },
+    // ひと息（下のメニューから）：ベンチ、動物たちと過ごす、楽器、夜空のドローンショー、写真
+    rest() {
+      const hk = G.mode === 'hakoniwa';
+      let h = '';
+      {
+        h += `<p class="lead-s">いつでも、何回でも。今日できることの数は減りません。</p>`;
         const restBtn = (act, id, icon, col, name, desc, need) => {
-          const max = GAME.restMax(id), got = GAME.restGot(id), full = !hk && got >= max;
-          return `<button class="act" data-act="${act}" data-id="${id}" ${need ? 'disabled' : ''}><span class="ic" style="background:${col}">${ico(icon)}</span><span class="tx"><strong>${esc(name)}</strong><span>${esc(desc)}</span>${need ? `<span class="pill warn">${esc(need)}</span>` : full ? '<span class="pill ok">今日は十分に休めました。いつでも座れます</span>' : got ? `<span class="pill q">今日は ＋${got} まで戻りました</span>` : ''}</span><span class="cost">${hk ? '' : full ? '' : `心の余裕<br>＋${max - got}まで`}</span></button>`;
+          const full = !hk && GAME.restGot(id) >= GAME.restMax(id);
+          return `<button class="act" data-act="${act}" data-id="${id}" ${need ? 'disabled' : ''}><span class="ic" style="background:${col}">${ico(icon)}</span><span class="tx"><strong>${esc(name)}</strong><span>${esc(desc)}</span>${need ? `<span class="pill warn">${esc(need)}</span>` : full ? '<span class="pill ok">今日は十分に休めました。いつでも座れます</span>' : ''}</span></button>`;
         };
         const hasBench = W.benches && W.benches.length;
-        for (const r of REST_ACTIONS) h += restBtn('rest', r.id, 'i-rest', 'var(--leaf)', r.name, r.desc, r.need === 'bench' && !hasBench ? 'ベンチがまだありません。「あなたの行動」の「見学者用のベンチを作る」で作れます' : '');
+        for (const r of REST_ACTIONS) h += restBtn('rest', r.id, r.id === 'R2' ? 'i-paw' : 'i-rest', 'var(--leaf)', r.name, r.desc, r.need === 'bench' && !hasBench ? 'ベンチがまだありません。「行動」の「見学者用のベンチを作る」で作れます' : '');
         h += restBtn('music', 'music', 'i-music', 'var(--lupine)', 'ウクレレやギターを弾く', 'すぐ近くにベンチがあれば座って、なければ立ったまま弾きます。好きな子はそばで横になり、苦手な子は離れていきます。', '');
         const sea = { spring: '春は夜桜と、舞う花びら。', summer: '夏は蛍も一緒に。', autumn: '秋はもみじと、お月さま。', winter: '冬は雪の夜に。' }[G.season] || '';
         h += restBtn('drone', 'sky', 'i-spark', 'var(--lupine)', '夜空のドローンショーを見る', `動物たちと並んで、夜空を見上げます。花火のかわりの、音のない光。演目は${Object.keys(DRONE_SHOWS).length}つ。${sea}`, '');
         const a18 = ACTIONS.find((x) => x.id === 'L18');
-        h += `<button class="act" data-act="run" data-id="L18"><span class="ic" style="background:var(--ink-3)">${ico('i-camera')}</span><span class="tx"><strong>写真を撮る</strong><span>${esc(a18.desc)}</span></span><span class="cost">${hk || G.restDone.photo ? '' : '心の余裕 ＋6'}</span></button>`;
+        h += `<button class="act" data-act="run" data-id="L18"><span class="ic" style="background:var(--ink-3)">${ico('i-camera')}</span><span class="tx"><strong>写真を撮る</strong><span>${esc(a18.desc)}</span></span></button>`;
       }
-      return { title: '行動', html: h };
+      return { title: 'ひと息', html: h };
     },
     choice(id) {
       const a = ACTIONS.find((x) => x.id === id);
@@ -11346,22 +11416,7 @@ const UI = {
       const log = (G.finLog || []).filter((x) => x.turn < G.turn), prev = log[log.length - 1];
       const sign = (n) => (n >= 0 ? '＋' : '−') + yen(Math.abs(n));
       const sw = GAME.stockWeeks(), months = f.cost ? (G.savings || 0) / f.cost : 0, wk = (x) => (x >= 1 ? `約${Math.round(x)}週間分` : x > 0 ? '1週間分足らず' : 'なし');
-      let h = `<div class="money-sum ${f.bal < 0 ? 'tight' : ''}"><div class="ms-row"><span>毎月の支え</span><b class="num">${yen(f.inc)}</b></div><div class="ms-row"><span>毎月かかるお金</span><b class="num">${yen(f.cost)}</b></div><div class="bar"><i style="width:${Math.min(100, ratio * 100)}%"></i></div>
-        <p class="ms-bal">${f.bal >= 0 ? `毎月 <b>${yen(f.bal)}</b> の余裕があります` : `毎月、支えより費用が <b>${yen(-f.bal)}</b> 多い状態です`}<small>${f.bal >= 0 ? '余裕は4週ごとに預金にまわります。' : '預金から出し、それでも足りない月は、臨時の寄付が届きます。'}${prev ? `前回の記録（${dateOf(prev.date).getMonth() + 1}月${dateOf(prev.date).getDate()}日）と比べて ${sign(f.bal - (prev.inc - prev.cost))}` : ''}</small></p></div>`;
-      if (!hk) {
-        const tgt = GAME.reserveTarget(), use = GAME.usableFunds();
-        h += `<div class="reserve"><div class="rv"><span>預金</span><b class="num">${yen(G.savings || 0)}</b><small>${months >= 1 ? `費用の約${months >= 10 ? Math.round(months) : months.toFixed(1)}か月分` : (G.savings || 0) > 0 ? `費用の約${Math.max(1, Math.round(months * 30))}日分` : '今はありません。足りない月は臨時の支えが届きます'}</small><i class="rbar" title="運営の1年分まで"><i style="width:${tgt ? Math.min(100, (G.savings || 0) / tgt * 100) : 0}%"></i></i><small>${use > 0 ? `1年分（${yenShort(tgt)}）を超えた <b>${yenShort(use)}</b> を整備に使えます` : `運営の1年分（${yenShort(tgt)}）までは備えに`}</small></div>
-          <div class="rv"><span>物資の備え</span><b>餌 ${wk(sw.feed)}<br>寝床 ${wk(sw.bed)}</b><small>少額の寄付・物資を届ける・かぼちゃで増えます</small></div></div>`;
-        if (prev && (prev.toSave || prev.drawn || (prev.cover && prev.cover.length) || prev.used)) {
-          const bits = [];
-          if (prev.used) bits.push(`物資の備えで${yenShort(prev.used)}分をまかなう`);
-          if (prev.toSave) bits.push(`${yenShort(prev.toSave)}を預金へ`);
-          if (prev.drawn) bits.push(`預金から${yenShort(prev.drawn)}`);
-          (prev.cover || []).forEach((c) => bits.push(c.kind === 'people' ? `${c.n}人の方の臨時の寄付 ${yenShort(c.amount)}` : `${c.name}の臨時の寄付 ${yenShort(c.amount)}`));
-          h += `<p class="last-close"><b>前回の締め</b>　${esc(bits.join('、'))}</p>`;
-        }
-      }
-      if (f.pend) h += `<p class="muted" style="margin:-4px 0 10px">迎える準備中の人のお給料（毎月 ${yen(f.pend)}）は、来てくれた週から費用に入ります。「見通し」で確かめられます。</p>`;
+      let h = UI.moneyTop();
       h += `<div class="tabs" role="tablist">${[['income', '収入'], ['cost', '支出'], ['outlook', '見通し'], ['build', '整備']].map(([k, n]) => `<button data-act="tab" data-v="${k}" class="${tab === k ? 'on' : ''}">${n}${k === 'build' && GAME.projList().some((x) => x.p.kind === 'repair') ? '<i class="dot"></i>' : ''}</button>`).join('')}</div>`;
       if (tab === 'income') h += UI.incomeHtml();
       else if (tab === 'build') h += UI.buildHtml();
@@ -11430,9 +11485,9 @@ const UI = {
       ${hk ? '' : `<div class="money-line ${f.bal < 0 ? 'tight' : ''}">${ico('i-coin')}<span>毎月の収支</span><b class="num">${f.bal >= 0 ? '＋' : '−'}${yen(Math.abs(f.bal))}</b><small class="muted">預金 ${yenShort(G.savings || 0)}</small><button class="btn small" data-act="open" data-v="money">運営のお金</button></div>`}</div>`;
     if (G.hiring.length) h += `<div class="sec"><h3>もうすぐ来てくれる人</h3>${G.hiring.map((x) => `<div class="act" style="cursor:default"><span class="ic" style="background:var(--ink-3)">${ico('i-clock')}</span><span class="tx"><strong>${TEAM[x.kind].name}の${esc(x.name)}</strong><span>${x.done - G.turn <= 1 ? '来週から来てくれます' : `あと${x.done - G.turn}週で来てくれます`}。お給料は月${yen(GAME.salary(x.kind))}</span></span></div>`).join('')}</div>`;
     const rows = [
-      ['volunteer', 'ボランティアを募集する', `町の掲示板とSNSで呼びかけます。近所の方が、週末に手伝いに来てくれます。新しく募集したボランティアさんは今 ${G.volunteers}人（${GAME.volunteerCap()}人まで）。`, 'i-hand', 'var(--coral)', '心の余裕 −4'],
-      ['part', 'アルバイトさんに来てもらう', `週末の餌やりや掃除を任せられる人です。来週から来てくれます。時給${yen(GAME.hourlyWage())}×月${FIN.wage.hours.part}時間。`, 'i-people', 'var(--hay)', '心の余裕 −2'],
-      ['staff', '職員を迎える', `毎日ここにいて、動物の体調を見てくれる人です。2週間後に来てくれます。時給${yen(GAME.hourlyWage())}×月${FIN.wage.hours.staff}時間＋社会保険など。${G.stage >= 2 ? `今の広さでは、新しく${GAME.staffMax()}人まで。` : ''}`, 'i-building', 'var(--teal)', '心の余裕 −2'],
+      ['volunteer', 'ボランティアを募集する', `町の掲示板とSNSで呼びかけます。近所の方が、週末に手伝いに来てくれます。新しく募集したボランティアさんは今 ${G.volunteers}人（${GAME.volunteerCap()}人まで）。`, 'i-hand', 'var(--coral)', ''],
+      ['part', 'アルバイトさんに来てもらう', `週末の餌やりや掃除を任せられる人です。来週から来てくれます。時給${yen(GAME.hourlyWage())}×月${FIN.wage.hours.part}時間。`, 'i-people', 'var(--hay)', ''],
+      ['staff', '職員を迎える', `毎日ここにいて、動物の体調を見てくれる人です。2週間後に来てくれます。時給${yen(GAME.hourlyWage())}×月${FIN.wage.hours.staff}時間＋社会保険など。${G.stage >= 2 ? `今の広さでは、新しく${GAME.staffMax()}人まで。` : ''}`, 'i-building', 'var(--teal)', ''],
     ];
     h += `<div class="sec"><h3>仲間を増やす</h3>`;
     for (const [k, name, desc, icon, col, extra] of rows) {
@@ -12426,7 +12481,7 @@ Object.assign(UI, {
     if (UI.rest || !G) return false;
     UI.petEnd(true);
     const spot = mode === 'sky' ? UI.skySpot() : UI.restSpot(mode, bench);
-    if (!spot) { UI.toast('ベンチがまだありません。「あなたの行動」の「見学者用のベンチを作る」で作れます', 'news'); return false; }
+    if (!spot) { UI.toast('ベンチがまだありません。「行動」の「見学者用のベンチを作る」で作れます', 'news'); return false; }
     audioInit();
     UI.closeSheet(); UI.endPlace(); UI.closeModal();
     const key = mode === 'bench' ? 'R1' : mode === 'animals' || mode === 'here' ? 'R2' : mode === 'sky' ? 'sky' : 'music';
