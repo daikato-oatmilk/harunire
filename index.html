@@ -870,7 +870,7 @@ details.checks-ok { margin: -4px 0 8px; }
   #sheet-body { font-size: 16px; line-height: 1.75; }
   .muted { font-size: 14px; }
   #modal { padding: 0; place-items: end stretch; }
-  .modal-card { width: 100%; max-height: 86%; border-radius: 20px 20px 0 0; padding: 22px 20px calc(env(safe-area-inset-bottom, 0px) + 20px); font-size: 16px; line-height: 1.75; animation-name: sheetUp; }
+  .modal-card { box-sizing: border-box; width: 100%; max-height: 86%; border-radius: 20px 20px 0 0; padding: 22px 20px calc(env(safe-area-inset-bottom, 0px) + 20px); font-size: 16px; line-height: 1.75; animation-name: sheetUp; }
   .modal-card .btn-row .btn { font-size: 15px; padding: 10px 16px; }
   .said { font-size: 18px; }
   .you { font-size: 16px; }
@@ -938,6 +938,37 @@ details.checks-ok { margin: -4px 0 8px; }
   .hands-row b { font-size: 17px; }
   .hands-row .hr-dots i { width: 20px; height: 20px; }
 }
+
+/* 0.9.25 森田さんの話の一覧（聞いた話を読み直す。箱庭モードは全部） */
+.mlog { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; }
+.mlog button { display: block; width: 100%; text-align: left; border: 1px solid var(--line); background: #FBFBF8; border-radius: 10px; padding: 9px 12px; }
+.mlog .n { display: block; font-size: 12.5px; color: var(--ink-3); font-weight: 700; }
+.mlog .t { display: block; font-family: var(--hand); font-size: 15px; line-height: 1.6; color: var(--ink); }
+.mlog button:active { background: #EEF4EF; }
+
+/* 0.9.25 はじめの画面：続きがある時は「つづきから」を大きく。「はじめから」「箱庭モード」は下に小さく並べる */
+.start-btn { position: relative; }
+.start-btn .go { display: none; }
+.start-actions.has-cont { grid-template-columns: 1fr 1fr; }
+.start-actions.has-cont > #start-continue, .start-actions.has-cont > .start-confirm { grid-column: 1 / -1; }
+.start-actions.has-cont #start-continue { padding: 16px 64px 16px 20px; border-radius: 16px; box-shadow: 0 6px 18px rgba(46, 90, 72, .3); }
+.start-actions.has-cont #start-continue strong { font-size: 22px; letter-spacing: .04em; }
+.start-actions.has-cont #start-continue span { font-size: 14px; margin-top: 2px; }
+.start-actions.has-cont #start-continue .go { display: grid; place-items: center; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; border-radius: 50%; background: rgba(255, 255, 255, .18); }
+.start-actions.has-cont #start-continue .go svg { width: 22px; height: 22px; color: #fff; }
+.start-actions.has-cont #start-normal, .start-actions.has-cont #start-hako { padding: 9px 12px; box-shadow: none; background: rgba(255, 255, 255, .7); }
+.start-actions.has-cont #start-normal strong, .start-actions.has-cont #start-hako strong { font-size: 14.5px; color: var(--ink-2); }
+.start-actions.has-cont #start-normal span, .start-actions.has-cont #start-hako span { font-size: 11.5px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+/* 設定のいちばん上：はじめの画面に戻る（押せるとわかる、ひとつの大きな行） */
+.home-btn { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; margin: 0 0 14px; padding: 12px 12px 12px 14px; border: 1.5px solid rgba(46, 90, 72, .35); border-radius: 14px; background: #fff; box-shadow: 0 1px 3px rgba(20, 34, 28, .08); }
+.home-btn:active { background: #EEF4EF; }
+.home-btn .hb-ic { flex: none; width: 40px; height: 40px; border-radius: 12px; background: var(--pine); color: #fff; display: grid; place-items: center; }
+.home-btn .hb-ic svg { width: 24px; height: 24px; }
+.home-btn .hb-tx { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.home-btn .hb-tx strong { font-size: 16px; color: var(--ink); }
+.home-btn .hb-tx small { font-size: 12.5px; line-height: 1.5; color: var(--ink-3); }
+.home-btn .hb-go { flex: none; color: var(--pine); }
+.home-btn .hb-go svg { width: 20px; height: 20px; }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -978,6 +1009,7 @@ details.checks-ok { margin: -4px 0 8px; }
     <symbol id="i-land" viewBox="0 0 24 24"><path d="M3 18.5 8.5 10l4 5.5 3-3.5 5.5 6.5z"/><circle cx="16.5" cy="6.5" r="1.8"/></symbol>
     <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.5V12l3 2"/></symbol>
     <symbol id="i-card" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M7.5 9.5h9M7.5 12.5h9M7.5 15.5h5"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.2 12 4.5l8 6.7"/><path d="M6.2 9.6v9.4h4.3v-5.2h3v5.2h4.3V9.6"/></symbol>
     <symbol id="i-tea" viewBox="0 0 24 24"><path d="M5 11.2h11.2v3.3a4.6 4.6 0 0 1-4.6 4.6H9.6A4.6 4.6 0 0 1 5 14.5z"/><path d="M16.2 12.4h1.3a2.1 2.1 0 0 1 0 4.2h-1.6"/><path d="M3.6 21.2h14.8"/><path d="M8.6 8.4c-.9-1.1.9-2 0-3.3M12.6 8.4c-.9-1.1.9-2 0-3.3"/></symbol>
     <symbol id="i-rest" viewBox="0 0 24 24"><path d="M4 16h16M6 16v3M18 16v3M5 12.5h14v3.5H5zM6.5 12.5V9.5h11v3"/></symbol>
     <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18.5V6.5l10-2.5v12"/><circle cx="6.8" cy="18.5" r="2.3"/><circle cx="16.8" cy="16" r="2.3"/></symbol>
@@ -1087,7 +1119,7 @@ details.checks-ok { margin: -4px 0 8px; }
       <h1>はるにれの丘</h1>
       <p class="lead">東京の郊外の、小さなサンクチュアリ。日曜日ごとに通って、裏庭の鶏3羽から、動物と自然と人がゆったり過ごせる場所へ育てます。</p>
       <div class="start-actions">
-        <button type="button" class="start-btn" id="start-continue" hidden><strong>つづきから</strong><span id="continue-sub"></span></button>
+        <button type="button" class="start-btn" id="start-continue" hidden><strong>つづきから</strong><span id="continue-sub"></span><i class="go" aria-hidden="true"><svg><use href="#i-right"/></svg></i></button>
         <button type="button" class="start-btn primary" id="start-normal"><strong>はじめから</strong><span>段階1、裏庭の小さな保護の場から育てる</span></button>
         <div class="confirm start-confirm" id="start-confirm" hidden><span id="start-confirm-text"></span><div class="btn-row" style="margin-top:8px"><button type="button" class="btn small primary" id="start-confirm-yes">はじめから育てる</button><button type="button" class="btn small" id="start-confirm-no">やめる</button></div></div>
         <button type="button" class="start-btn" id="start-hako"><strong id="hako-title">箱庭モード</strong><span id="hako-sub">世界がすべて良くなった姿を、自由に歩く。毎回、すべての動物と道具と話がそろっています</span></button>
@@ -1774,13 +1806,14 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.24', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.25', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   contact: { mail: 'daikato@gmail.com', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
   aim: ['遊びやすいか、わかりにくい所はないか', 'スマホやパソコンで重くないか、止まらないか', '動物、お金、牛と酪農の話が、楽しく伝わるか'],
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', 'はるこさん・ゆうとさんに話しかけて、続きのある話を聞く（週に1話）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物のカードから「なでる」「ブラッシング」。性格によって反応が変わります', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.25', '2026年10月12日', '箱庭モードで、森田さんの話とクイズが全部できるように（日記の「牛と酪農」の「お話 1 から聞く」と、聞いた話の一覧。答えたあとの「次のお話」で順に）。ふつうの遊び方でも、聞いた話は一覧から読み直せます。「はじめの画面に戻る」を、設定のいちばん上に（続きが保存されることも書きました）。はじめの画面で、続きがある時は「つづきから」を大きく。スマホで、会話の窓が横にはみ出していたのを直しました'],
     ['0.9.24', '2026年10月12日', '「ひと息」を、行動の画面から下のメニューへ（楽器のあった所。楽器は「ひと息」の中に）。行動の画面のタブは「あなたの行動」「町の事業者」「人を増やす」「収支」の4つに。いつも出ていた毎月の収支の帯は「収支」のタブへ。今日できることは「あと3つ」と、4つの丸で（使うと色が抜けていきます）。心の余裕の増え減りの説明は、行動の一覧から外しました（変わった時に、画面の上に少しだけ出ます）'],
     ['0.9.23', '2026年10月12日', '＋でひらく所（受け入れの確認、まだできないこと、くわしく、計算のもと、工事の内訳、準備、牛の世話メモ、人の話）を、押せるとひと目でわかる形に。行ぜんたいが押せて、右に丸い＋。ひらくと−に。中身が長い時は、下にも「とじる」があり、押すと＋を押す前の見え方に戻ります。同じ画面でボタンを押しても、ひらいた所はひらいたまま'],
     ['0.9.22', '2026年10月12日', 'iPhone などのスマホのブラウザ（GitHub のページ）で、パソコンの画面を縮めたような、とても小さな表示になっていたのを直しました。スマホでは、字とボタンを少し大きく、行動などのパネルは画面の9割ほど、会話や説明は横幅いっぱいに。はじめの立ち位置を、家と大きな木から離れた、鶏の庭の前のひらけた草地に（はるこさんがすぐ前に）。スマホのカメラは少し高く、少し遠くから。カメラが木の葉の中に入らないように'],
@@ -9317,7 +9350,7 @@ function actionAvailable(a) {
   if (a.once && G.monthly.on && a.id === 'L02') return { ok: false, why: 'もう始めています。毎月届いています' };
   if (a.id === 'L10' && !freeSlot('view')) return { ok: false, why: 'ベンチを置ける場所が、もう空いていません' };
   if (a.id === 'L12' && !G.animals.some((x) => x.known < x.stories.length)) return { ok: false, why: '今わかる話は、もう全部聞きました' };
-  if (a.id === 'L19' && G.flags.moritaTurn === G.turn) return { ok: false, why: '今日はもう話しました。また来週' };
+  if (a.id === 'L19' && !hako() && G.flags.moritaTurn === G.turn) return { ok: false, why: '今日はもう話しました。また来週' };
   if (a.hands && !canSpend(a.hands)) return { ok: false, why: '今日はもう十分動きました。続きは来週に' };
   return { ok: true };
 }
@@ -9358,7 +9391,10 @@ function runAction(id, choice) {
     case 'L12': { const n = G.events.includes('animalday') ? 2 : 1; const got = []; for (let i = 0; i < n; i++) { const c = G.animals.filter((x) => x.known < x.stories.length); if (!c.length) break; const an = pick(c); an.known++; got.push(an); } got.forEach((an) => note('daily', `${an.name}の話をひとつ知りました：「${an.stories[an.known - 1]}」`)); break; }
     case 'L13': G.flags.bedding = G.turn; G.donors += 3; G.savings = (G.savings || 0) + 8000; note('added', '食事会の寄付で、小屋の屋根が直りました。残った8,000円は預金に。料理はすべてプラントベース'); note('people', `食事会に来た3人が、継続寄付を申し込んでくれました（毎月 ＋${yen(3 * FIN.income.donor)}）`, null, { quiet: true }); break;
     case 'L14': G.visitors = Math.min(6, G.visitors + 1); G.donors += 2; syncNPCs(); note('people', '投稿を見た人から、見学の予約と、継続寄付の申し込みが2件ありました'); break;
-    case 'L19': G.flags.moritaTurn = G.turn; setTimeout(() => UI.moritaTalk(), 60); break;
+    case 'L19':
+      // 箱庭モードは、何度でも。1話めから順に、全部の話を聞ける
+      if (hako()) { const m = moritaState(), i = (m.hakoI || 0) % MORITA.length; m.hakoI = i + 1; setTimeout(() => UI.moritaTalk(null, i), 60); break; }
+      G.flags.moritaTurn = G.turn; setTimeout(() => UI.moritaTalk(), 60); break;
     case 'L15': case 'L16': { pumpkinParty(id === 'L16'); const v = addStock('feed', id === 'L16' ? 2 : 0.5, 1000); note('people', `かぼちゃの分、物資の備えが増えました（餌 ＋${yen(v)}分）`, null, { quiet: true }); break; }
   }
   const pts = addSupport(a.type, size, 'self', a.name);
@@ -10965,7 +11001,12 @@ const UI = {
       case 'fc': UI.fcSel = +v; UI.render(); break;
       case 'money-run': GAME.runAction(id); UI.render(); break;
       case 'proj-pay': GAME.projPay(id); UI.render(); break;
-      case 'morita-ans': { const r = GAME.moritaAnswer(+v); r.pick = +v; UI.moritaTalk(r); if (UI.cur) UI.render(); break; }
+      case 'morita-ans': {
+        // 聞いたことのある話（箱庭モードは全部）を読み直す時は、答えても進み具合は変わらない
+        if (id !== undefined && id !== '') { const i = +id, c = MORITA[i]; UI.moritaTalk({ i, review: true, replay: true, right: +v === c.ok, got: [], c, pick: +v }); break; }
+        const r = GAME.moritaAnswer(+v); r.pick = +v; UI.moritaTalk(r); if (UI.cur) UI.render(); break;
+      }
+      case 'morita-talk': UI.moritaTalk(null, +v); break;
       case 'cmp': UI.cmpCard(id); break;
       case 'go-cowbook': UI.closeModal(); UI.tab.diary = 'cow'; UI.openSheet('diary', undefined, true); break;
       case 'proj-campaign': GAME.projCampaign(id); UI.render(); break;
@@ -11256,7 +11297,9 @@ const UI = {
     },
     settings() {
       const hk = G.mode === 'hakoniwa';
-      let h = `<div class="sec tester"><h3>${APP.label}　${APP.version}</h3><p class="muted">遊んでくださって、ありがとうございます。気づいたことは、何でも送ってください。</p><div class="btn-row"><button class="btn small primary" data-act="open" data-v="feedback">ご意見・不具合を送る</button><button class="btn small" data-act="open" data-v="about">このテスト版について</button></div></div>
+      // はじめの画面に戻る：設定のいちばん上に。続きは保存されていることを、押す前に伝える
+      let h = `<button class="home-btn" data-act="title"><span class="hb-ic">${ico('i-home')}</span><span class="hb-tx"><strong>はじめの画面に戻る</strong><small>${hk ? '箱庭モードは保存しません。育てている続きは、そのまま残っています' : `育てている続き（${esc(STAGES[G.stage].name)}・第${G.turn}週）は保存されます。はじめの画面の「つづきから」で戻れます`}</small></span><span class="hb-go">${ico('i-right')}</span></button>`;
+      h += `<div class="sec tester"><h3>${APP.label}　${APP.version}</h3><p class="muted">遊んでくださって、ありがとうございます。気づいたことは、何でも送ってください。</p><div class="btn-row"><button class="btn small primary" data-act="open" data-v="feedback">ご意見・不具合を送る</button><button class="btn small" data-act="open" data-v="about">このテスト版について</button></div></div>
         <div class="sec"><button class="btn small" data-act="open" data-v="avatar">${ico('i-person')}あなたの見た目を変える</button></div>${CATDB.canEdit ? `<div class="sec"><h3>ゲームの管理</h3><p class="muted">編集できる人だけに見えます。アバターの部品を足したり、動物の似顔絵を差しかえたりできます。</p><button class="btn small" data-act="open" data-v="avadmin">部品と似顔絵を管理する</button></div>` : ''}
         <div class="sec"><h3>サンクチュアリの名前</h3>
           <div class="name-row"><input id="sanct-name" type="text" maxlength="12" value="${esc(GAME.placeName())}" aria-label="サンクチュアリの名前" autocomplete="off"><span class="suffix">サンクチュアリ</span></div>
@@ -11284,7 +11327,7 @@ const UI = {
         const os = hk ? GAME.latestSave('normal') : null, oo = os && os.o;
         const here = `いま育てている続き（${STAGES[G.stage].name}・第${G.turn}週）`;
         const sw = hk ? (oo ? '育てている続きへ' : 'はじめから育てる') : '箱庭モードへ';
-        h += `<div class="sec"><h3>遊び方を変える</h3><p class="lead-s">箱庭モードは保存しません。いつ行っても、すべての動物、道具、話がそろった姿から始まります。育てている続きは、そのまま残ります。</p><div class="btn-row"><button class="btn small" data-act="confirm" data-v="switch">${sw}</button><button class="btn small" data-act="title">はじめの画面に戻る</button>${hk ? '' : '<button class="btn small" data-act="confirm" data-v="reset">この保存を消す</button>'}</div>`;
+        h += `<div class="sec"><h3>遊び方を変える</h3><p class="lead-s">箱庭モードは保存しません。いつ行っても、すべての動物、道具、話がそろった姿から始まります。育てている続きは、そのまま残ります。</p><div class="btn-row"><button class="btn small" data-act="confirm" data-v="switch">${sw}</button>${hk ? '' : '<button class="btn small" data-act="confirm" data-v="reset">この保存を消す</button>'}</div>`;
         if (UI.confirm === 'switch') {
           const go = hk ? (oo ? `育てている続き（${STAGES[oo.stage].name}・第${oo.turn}週）へ戻ります。` : '「芽ぶきの裏庭」から育て始めます。') : `すべてがそろった「はるにれの丘」を歩く、箱庭モードへ行きます。${here}は、そのまま残ります。`;
           h += `<div class="confirm">${go}<div class="btn-row" style="margin-top:8px"><button class="btn small primary" data-act="switch" data-v="${hk ? 'normal' : 'hakoniwa'}">${hk ? (oo ? '続きへ戻る' : 'はじめる') : '箱庭モードへ'}</button><button class="btn small" data-act="cancel">やめる</button></div></div>`;
@@ -11603,7 +11646,11 @@ const UI = {
     const m = GAME.moritaState(), a19 = ACTIONS.find((x) => x.id === 'L19'), av = GAME.actionAvailable(a19);
     const got = Object.keys(COMPARE).filter((k) => m.cards[k]).length;
     let h = `<div class="morita-card"><span class="mav">森</span><div><strong>町の酪農家・森田さん</strong><span>${m.done ? 'オーツ麦を育て始めました。ときどき、おさらいのクイズを出してくれます' : `お話 ${m.ch} / ${MORITA.length}。牛40頭、父の代からの牧場`}</span><i class="rbar"><i style="width:${Math.min(100, m.ch / MORITA.length * 100)}%"></i></i></div></div>`;
-    h += `<div class="btn-row" style="margin:0 0 12px"><button class="btn small primary" data-act="run" data-id="L19" ${av.ok ? '' : 'disabled'}>${m.done ? 'おさらいのクイズ' : '森田さんと話す'}（1回分）</button>${av.ok ? '' : `<span class="pill warn">${esc(av.why)}</span>`}</div>`;
+    const hk = G.mode === 'hakoniwa', heard = hk ? MORITA.length : Math.min(m.ch, MORITA.length);
+    h += hk ? `<div class="btn-row" style="margin:0 0 12px"><button class="btn small primary" data-act="morita-talk" data-v="0">お話 1 から聞く</button></div>`
+      : `<div class="btn-row" style="margin:0 0 12px"><button class="btn small primary" data-act="run" data-id="L19" ${av.ok ? '' : 'disabled'}>${m.done ? 'おさらいのクイズ' : '森田さんと話す'}（1回分）</button>${av.ok ? '' : `<span class="pill warn">${esc(av.why)}</span>`}</div>`;
+    // 聞いた話は、ひらくと読み直せる（クイズにも、もう一度答えられる）
+    if (heard) h += `<details class="sec morita-log"${hk ? ' open' : ''}><summary>森田さんの話（${heard}${hk ? '' : ` / ${MORITA.length}`}）</summary><ol class="mlog">${MORITA.slice(0, heard).map((c, i) => `<li><button data-act="morita-talk" data-v="${i}"><span class="n">お話 ${i + 1}</span><span class="t">「${esc(c.say[0])}」</span></button></li>`).join('')}</ol></details>`;
     h += `<div class="sec"><h3>数字で見る、日本の酪農</h3><div class="dstats">${DAIRY_STATS.map((d) => `<div class="ds"><b>${esc(d.v)}</b><span>${esc(d.k)}</span><small>${esc(d.sub)}</small></div>`).join('')}</div>${UI.srcLinks([...new Set(DAIRY_STATS.map((d) => d.src))])}</div>`;
     h += `<div class="sec"><h3>日本と世界、くらべてみよう（${got} / ${Object.keys(COMPARE).length}）</h3><p class="lead-s">森田さんと話すと、カードが増えます。</p><div class="cmp-list">${Object.entries(COMPARE).map(([k, c]) => m.cards[k] ? `<button class="cmp" data-act="cmp" data-id="${k}"><strong>${esc(c.title)}</strong><span>${esc(c.jp[0].slice(0, 34))}…</span></button>` : '<div class="cmp locked"><strong>？</strong><span>森田さんと話すとわかります</span></div>').join('')}</div></div>`;
     h += '<p class="muted">数字は国や研究機関などの資料から。古い調査はそう書いてあります。</p>';
@@ -11616,17 +11663,20 @@ const UI = {
       <p class="cmp-here"><b>このサンクチュアリでは</b>　${esc(c.here)}</p>${UI.srcLinks(c.src)}
       <div class="btn-row"><button class="btn small" data-act="close-modal">閉じる</button></div>`);
   },
-  moritaTalk(res) {
-    const m = GAME.moritaState(), q = res ? { i: res.i, review: res.review } : GAME.moritaQuestion(), c = MORITA[q.i];
-    let h = `<div class="dialog-who"><span class="mav">森</span><div><strong>酪農家の森田さん</strong><br><span class="muted">${q.review ? 'おさらい' : `お話 ${q.i + 1} / ${MORITA.length}`}</span></div></div>`;
-    if (!q.review) h += `<p class="said">${c.say.map((x) => `「${esc(x)}」`).join('<br>')}</p>`;
-    h += `<div class="quiz"><p class="q">${esc(c.q)}</p><div class="opts">${c.a.map((x, i) => `<button class="opt ${res ? (i === c.ok ? 'right' : i === res.pick ? 'wrong' : '') : ''}" ${res ? 'disabled' : `data-act="morita-ans" data-v="${i}"`}>${esc(x)}</button>`).join('')}</div>`;
+  // 森田さんの話。idx を渡すと、その話を読み直す（箱庭モードは全部、ふつうは聞いたことのある話）
+  moritaTalk(res, idx) {
+    const replay = res ? !!res.replay : idx !== undefined && idx !== null;
+    const m = GAME.moritaState(), q = res ? { i: res.i, review: res.review } : replay ? { i: idx, review: true } : GAME.moritaQuestion(), c = MORITA[q.i];
+    let h = `<div class="dialog-who"><span class="mav">森</span><div><strong>酪農家の森田さん</strong><br><span class="muted">${replay || !q.review ? `お話 ${q.i + 1} / ${MORITA.length}` : 'おさらい'}</span></div></div>`;
+    if (!q.review || replay) h += `<p class="said">${c.say.map((x) => `「${esc(x)}」`).join('<br>')}</p>`;
+    h += `<div class="quiz"><p class="q">${esc(c.q)}</p><div class="opts">${c.a.map((x, i) => `<button class="opt ${res ? (i === c.ok ? 'right' : i === res.pick ? 'wrong' : '') : ''}" ${res ? 'disabled' : `data-act="morita-ans" data-v="${i}"${replay ? ` data-id="${q.i}"` : ''}`}>${esc(x)}</button>`).join('')}</div>`;
     if (res) {
       h += `<p class="result ${res.right ? 'ok' : ''}"><b>${res.right ? 'そのとおり。' : 'じつは……'}</b>${esc(c.ex)}</p>`;
       if (res.got.length) h += `<p class="muted">手帳に「${res.got.map((k) => COMPARE[k].title).join('」「')}」のカードが入りました。</p>`;
       if (res.c.request && !res.review) h += `<p class="muted">${G.stage >= 2 ? '森田さんから、受け入れの相談が届きました。' : 'サンクチュアリが「若葉の牧場」に育ったら、森田さんの牛の相談が届きます。'}</p>`;
-      if (res.c.end && !res.review) h += '<p class="said">「ありがとう。牛たちのこと、これからも頼むよ」</p>';
-      h += `<div class="btn-row">${res.got.length ? `<button class="btn small primary" data-act="cmp" data-id="${res.got[0]}">カードを見る</button>` : ''}<button class="btn small" data-act="close-modal">閉じる</button></div>`;
+      if (res.c.end && (!res.review || replay)) h += '<p class="said">「ありがとう。牛たちのこと、これからも頼むよ」</p>';
+      const card = res.got[0] || (replay && (c.card || c.card2));
+      h += `<div class="btn-row">${replay && q.i + 1 < MORITA.length ? `<button class="btn small primary" data-act="morita-talk" data-v="${q.i + 1}">次のお話（${q.i + 2}）</button>` : ''}${card && (res.got.length || m.cards[card]) ? `<button class="btn small${replay ? '' : ' primary'}" data-act="cmp" data-id="${card}">カードを見る</button>` : ''}<button class="btn small" data-act="close-modal">閉じる</button></div>`;
     }
     h += '</div>';
     UI.modal(h);
@@ -13169,6 +13219,8 @@ function showStart() {
   if (n) $('#continue-sub').textContent = `${STAGES[n.stage].name}・${fmtDate(n.date, true)}・第${n.turn}週`;
   // 強い色は、ひとつだけ：続きがあれば「つづきから」、なければ「はじめから」
   bc.classList.toggle('primary', !!n); bn.classList.toggle('primary', !n);
+  // 続きがある時は「つづきから」を大きく。「はじめから」と「箱庭モード」は、その下に小さく並べる
+  document.querySelector('.start-actions').classList.toggle('has-cont', !!n);
   const note = $('#start-note');
   note.hidden = !n;
   note.textContent = `育てている続きは、${STORE.ok ? 'claude.aiのあなたのアカウント' : 'このブラウザ'}に保存しています。箱庭モードは保存せず、毎回すべてがそろった姿から始まります。`;
