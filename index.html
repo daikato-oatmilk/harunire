@@ -1689,13 +1689,14 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.20', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.21', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   contact: { mail: 'daikato@gmail.com', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
   aim: ['遊びやすいか、わかりにくい所はないか', 'スマホやパソコンで重くないか、止まらないか', '動物、お金、牛と酪農の話が、楽しく伝わるか'],
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', 'はるこさん・ゆうとさんに話しかけて、続きのある話を聞く（週に1話）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物のカードから「なでる」「ブラッシング」。性格によって反応が変わります', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.21', '2026年10月12日', 'はじめて遊ぶ日に、はるこさんのところへ歩いていくと、画面が止まってしまう不具合を直しました（話したいことがある時の誘いを作るところで、エラーが起きていました。0.9.16 から）。1コマの中で何かが起きても、画面は止まらずに動き続けるようにしました'],
     ['0.9.20', '2026年10月12日', '思いどおりにいかないことも、そのまま：朝、鶏小屋の前に卵があることも。割って鶏たちに返せます（ここの卵は無精卵。産むのに使った栄養を、体に戻すため）。豚の体重をはかる日と、おやつをお休みする週。牛の両耳に黄色い耳標と、カードに耳の番号（ゲームの中だけの番号）。蹄の手入れ、豚熱のワクチン、2月の年に一度の報告、雪の朝のキツネの足跡。カードを8枚と、森田さんの話を1つ追加'],
     ['0.9.19', '2026年10月11日', '続きをファイルに：「設定」の「ファイルに保存」で、育てている続きをこの端末にファイルで残し、「ファイルから読み込む」で戻せるように（はじめの画面からも読み込めます）。ブラウザのデータを消した時や、ほかの端末で続ける時に。アルバムの写真は入りません。保存を、ブラウザが自動で片付けにくくなるように'],
     ['0.9.18', '2026年10月11日', 'ベータテスト版に。claude.ai の外（アカウントなし）で開いた時も遊べるように、ご意見は「メールで送る」（文章が入った状態でメールが開きます）か「文章をコピー」で送れるように。送り先（メール）と、SNSでつながっている方はDMでも歓迎、をゲームの中にも。「このテスト版について」に、保存がこのブラウザだけであることを'],
@@ -11776,9 +11777,10 @@ const UI = {
     else if (id === 'minami') { GAME.unlockCard('elderCare', true); GAME.unlockCard('quarantine', true); }
     else if (id === 'akira') { GAME.unlockCard('noPesticide', true); GAME.unlockCard('drone', true); }
     const fs = G.funcSaid || (G.funcSaid = {}), fk = id + ':' + (func && func.k);
-    let said;
-    if (func && fs[fk] !== G.turn) { fs[fk] = G.turn; said = [func.t]; }
-    else said = chatLine(cid) || [n.d.hire === 'staff' ? '平日は私たちが見ていますから、日曜日はゆっくりしていってください。' : '週末だけですが、ここに来るとほっとします。'];
+    // 言葉の行（said は「名前の絵つきの言葉」を作る関数なので、ここでは別の名前に）
+    let lines;
+    if (func && fs[fk] !== G.turn) { fs[fk] = G.turn; lines = [func.t]; }
+    else lines = chatLine(cid) || [n.d.hire === 'staff' ? '平日は私たちが見ていますから、日曜日はゆっくりしていってください。' : '週末だけですが、ここに来るとほっとします。'];
     let btn = func ? func.btn : '';
     // 続きのある話：今週聞ける話があれば、そっと誘う
     let story = '';
@@ -11787,7 +11789,7 @@ const UI = {
       if (nx && nx.c) { story = `<p class="talk-offer">${esc(n.d.name)}が、話したいことがあるようです<small>お話 ${nx.i + 1} / ${TALKS[id].chapters.length}「${said(nx.c.t)}」</small></p>`; btn = `<button class="btn small primary" data-act="talk" data-id="${id}">話を聞く</button>${btn.replace('btn small primary', 'btn small')}`; }
     }
     const about = cid && CHAT[cid].about;
-    UI.modal(`<div class="dialog-who"><span class="av" style="background:${n.d.top}"></span><div><strong>${esc(n.d.name)}</strong><br><span class="muted">${esc(n.d.role)}${about ? `・${esc(about.split('。')[0])}` : ''}</span></div></div>${chatHtml(said)}${story}<div class="btn-row">${btn}<button class="btn small" data-act="close-modal">ありがとう</button></div>`);
+    UI.modal(`<div class="dialog-who"><span class="av" style="background:${n.d.top}"></span><div><strong>${esc(n.d.name)}</strong><br><span class="muted">${esc(n.d.role)}${about ? `・${esc(about.split('。')[0])}` : ''}</span></div></div>${chatHtml(lines)}${story}<div class="btn-row">${btn}<button class="btn small" data-act="close-modal">ありがとう</button></div>`);
   },
   // はるこさん・ゆうとさんの話（森田さんの話と同じ形。正解はなく、返事を選ぶ）
   talkModal(id, res) {
@@ -13082,7 +13084,13 @@ function bootWith(data) {
   resize(); window.addEventListener('resize', resize);
 
   let last = performance.now(), time = 0;
+  // 1コマの中で何かが起きても、次のコマは必ず描く（止まった画面にしない）。同じエラーは10秒に1度だけ残す
+  const loopErr = {};
   function loop(now) {
+    requestAnimationFrame(loop);
+    try { frame(now); } catch (err) { const k = String((err && err.message) || err); if (!loopErr[k] || now - loopErr[k] > 10000) { loopErr[k] = now; logErr(err, 'loop'); } }
+  }
+  function frame(now) {
     const dt = Math.min(0.05, Math.max(0, (now - last) / 1000)); last = now; time += dt;
     if (G) {
       if (STARTED) updatePlayer(dt);
@@ -13097,7 +13105,6 @@ function bootWith(data) {
       UI.frame(dt);
     }
     renderMain();
-    requestAnimationFrame(loop);
   }
   requestAnimationFrame(loop);
 
