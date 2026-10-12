@@ -1,3 +1,9 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#DCE6E4">
+<meta name="apple-mobile-web-app-title" content="はるにれの丘">
 <title>はるにれの丘</title>
 <meta name="description" content="東京の郊外で、小さなサンクチュアリを育てる3Dゲーム（ベータテスト版）">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -854,6 +860,31 @@ details.checks-ok { margin: -4px 0 8px; }
 .ev-auto h4 { margin: 0 0 6px; font-size: 13px; color: var(--ink-2); }
 .ev-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 4px 0; font-size: 15px; }
 .ev-row small { display: block; font-size: 13px; color: var(--ink-3); }
+
+/* 0.9.22 スマホ：字とボタンを少し大きく。パネルは画面の9割ほど、会話や説明は横幅いっぱい（Daiさん：眼鏡なしで読めるように） */
+@media (max-width: 720px) {
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  #sheet { top: calc(env(safe-area-inset-top, 0px) + 6%); max-height: none; }
+  #sheet.short { top: auto; max-height: 52%; }
+  #sheet-title { font-size: 18px; }
+  #sheet-body { font-size: 16px; line-height: 1.75; }
+  .muted { font-size: 14px; }
+  #modal { padding: 0; place-items: end stretch; }
+  .modal-card { width: 100%; max-height: 86%; border-radius: 20px 20px 0 0; padding: 22px 20px calc(env(safe-area-inset-bottom, 0px) + 20px); font-size: 16px; line-height: 1.75; animation-name: sheetUp; }
+  .modal-card .btn-row .btn { font-size: 15px; padding: 10px 16px; }
+  .said { font-size: 18px; }
+  .you { font-size: 16px; }
+  .lbl3d { font-size: 14px; padding: 2px 10px 3px; }
+  #rail button { height: 56px; font-size: 11.5px; }
+  #rail button svg { width: 24px; height: 24px; }
+  #prompt { bottom: calc(env(safe-area-inset-bottom, 0px) + 128px); }
+  #prompt-btn { font-size: 16px; padding: 11px 22px; }
+  #bottom-right { bottom: calc(env(safe-area-inset-bottom, 0px) + 78px); }
+  #end-day { font-size: 14.5px; padding: 9px 16px; }
+  #hint { bottom: calc(env(safe-area-inset-bottom, 0px) + 80px); font-size: 13.5px; }
+  #place-bar { bottom: calc(env(safe-area-inset-bottom, 0px) + 80px); }
+  .toast { font-size: 15px; }
+}
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1689,13 +1720,14 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.21', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.22', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   contact: { mail: 'daikato@gmail.com', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
   aim: ['遊びやすいか、わかりにくい所はないか', 'スマホやパソコンで重くないか、止まらないか', '動物、お金、牛と酪農の話が、楽しく伝わるか'],
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', 'はるこさん・ゆうとさんに話しかけて、続きのある話を聞く（週に1話）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物のカードから「なでる」「ブラッシング」。性格によって反応が変わります', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.22', '2026年10月12日', 'iPhone などのスマホのブラウザ（GitHub のページ）で、パソコンの画面を縮めたような、とても小さな表示になっていたのを直しました。スマホでは、字とボタンを少し大きく、行動などのパネルは画面の9割ほど、会話や説明は横幅いっぱいに。はじめの立ち位置を、家と大きな木から離れた、鶏の庭の前のひらけた草地に（はるこさんがすぐ前に）。スマホのカメラは少し高く、少し遠くから。カメラが木の葉の中に入らないように'],
     ['0.9.21', '2026年10月12日', 'はじめて遊ぶ日に、はるこさんのところへ歩いていくと、画面が止まってしまう不具合を直しました（話したいことがある時の誘いを作るところで、エラーが起きていました。0.9.16 から）。1コマの中で何かが起きても、画面は止まらずに動き続けるようにしました'],
     ['0.9.20', '2026年10月12日', '思いどおりにいかないことも、そのまま：朝、鶏小屋の前に卵があることも。割って鶏たちに返せます（ここの卵は無精卵。産むのに使った栄養を、体に戻すため）。豚の体重をはかる日と、おやつをお休みする週。牛の両耳に黄色い耳標と、カードに耳の番号（ゲームの中だけの番号）。蹄の手入れ、豚熱のワクチン、2月の年に一度の報告、雪の朝のキツネの足跡。カードを8枚と、森田さんの話を1つ追加'],
     ['0.9.19', '2026年10月11日', '続きをファイルに：「設定」の「ファイルに保存」で、育てている続きをこの端末にファイルで残し、「ファイルから読み込む」で戻せるように（はじめの画面からも読み込めます）。ブラウザのデータを消した時や、ほかの端末で続ける時に。アルバムの写真は入りません。保存を、ブラウザが自動で片付けにくくなるように'],
@@ -2719,7 +2751,8 @@ function applySky(dt, appEl) {
 
 /* ---------------- カメラ ---------------- */
 // はじめの見え方：あなたの肩越しに、5mほど後ろから。少し見下ろす
-const CAM_HOME = { pitch: 0.3, dist: 5.5 };
+// はじめの見え方。スマホは少し高く、少し遠くから（足もとの地面が広く見えて、タップで歩く先を選びやすい）
+const CAM_HOME = IS_TOUCH ? { pitch: 0.4, dist: 6.5 } : { pitch: 0.3, dist: 5.5 };
 const CAM = { yaw: 0.25, pitch: 0.78, dist: 32, tYaw: 0.25, tPitch: 0.78, tDist: 32, target: new THREE.Vector3(18, 0, 40), tTarget: new THREE.Vector3(), overview: false, focus: null, focusUntil: 0, spin: false,
   user: { yaw: 0, pitch: CAM_HOME.pitch, dist: CAM_HOME.dist }, lock: false, shoulder: 0 };
 const CAM_MIN_PITCH = -0.34; // ここより下へドラッグすると、空を見上げる
@@ -2767,7 +2800,8 @@ function updateCamera(dt, followPos) {
   // 低い所まで下げたら、それ以上はカメラを下げずに、空のほうを見上げる
   const low = 0.1, pe0 = Math.max(CAM.pitch, low), tilt = Math.max(0, low - CAM.pitch) * 1.15;
   let dist = CAM.dist, lift = 0;
-  // 建物の中にカメラが入らないように。すぐ後ろに壁がある時は、寄りすぎずに、少し上から見る
+  if (!CAM.overview && dist < 30) camTrees(CAM.target, dist);
+  // 建物の中や木の葉の中にカメラが入らないように。すぐ後ろに壁がある時は、寄りすぎずに、少し上から見る
   const clr = (pp) => camClear(CAM.target, Math.sin(CAM.yaw) * Math.cos(pp), Math.sin(pp), Math.cos(CAM.yaw) * Math.cos(pp), dist);
   if (!CAM.overview && dist < 30) {
     const want = Math.min(dist, 3.4); let best = clr(pe0);
@@ -2776,7 +2810,8 @@ function updateCamera(dt, followPos) {
   CAM.lift = (CAM.lift || 0) + (lift - (CAM.lift || 0)) * Math.min(1, dt * 2.5);
   const pe = pe0 + CAM.lift, cp = Math.cos(pe), sp = Math.sin(pe);
   const p = R.camera.position;
-  if (!CAM.overview && dist < 30) dist = clr(pe);
+  // さえぎる物があれば、すぐ寄る。なくなったら、ゆっくり戻る（木のそばを歩く時に、カメラが跳ねないように）
+  if (!CAM.overview && dist < 30) { const dd = clr(pe); CAM.cd = (CAM.cd === undefined || dd < CAM.cd) ? dd : CAM.cd + (dd - CAM.cd) * Math.min(1, dt * 2.5); dist = Math.min(dist, CAM.cd); } else CAM.cd = undefined;
   p.set(CAM.target.x + Math.sin(CAM.yaw) * cp * dist, CAM.target.y + sp * dist, CAM.target.z + Math.cos(CAM.yaw) * cp * dist);
   const gh = (Math.abs(p.x) < 56 && Math.abs(p.z) < 56) ? heightAt(p.x, p.z) + (dist < 12 ? 0.9 : 2) : -99;
   if (p.y < gh) p.y = gh;
@@ -2793,14 +2828,28 @@ function updateCamera(dt, followPos) {
   }
 }
 const _look = new THREE.Vector3();
+// カメラの近くの木（紙の木の葉の広がりを、円柱として見る）：[x, z, 半径, 葉の下の高さ, 葉の上の高さ]
+const CAM_TREES = [];
+function camTrees(t, dist) {
+  CAM_TREES.length = 0;
+  const f = typeof W !== 'undefined' && W.forest; if (!f || !f.items) return;
+  for (const it of f.items) {
+    const c = PC_CARDS[it.type]; if (!c || !c.trunk) continue;
+    const sc = it.s || 1, r = c.w * 0.5 * sc * 0.9;
+    if (Math.abs(it.x - t.x) > dist + r || Math.abs(it.z - t.z) > dist + r) continue;
+    const g = heightAt(it.x, it.z);
+    CAM_TREES.push([it.x, it.z, r, g + c.trunk * sc * 0.8, g + c.h * sc]);
+  }
+}
 function camClear(t, dx, dy, dz, dist) {
   const cols = (typeof W !== 'undefined' && W.colliders) || [];
-  if (!cols.length) return dist;
+  if (!cols.length && !CAM_TREES.length) return dist;
   const steps = Math.ceil(dist / 0.3);
   for (let i = 3; i <= steps; i++) {
     const d = dist * i / steps, x = t.x + dx * d, y = t.y + dy * d, z = t.z + dz * d;
-    if (y > 6.5) break;
-    for (const c of cols) if (x > c[0] - 0.3 && x < c[1] + 0.3 && z > c[2] - 0.3 && z < c[3] + 0.3) return Math.max(1.6, d - 0.5);
+    if (y < 6.5) for (const c of cols) if (x > c[0] - 0.3 && x < c[1] + 0.3 && z > c[2] - 0.3 && z < c[3] + 0.3) return Math.max(1.6, d - 0.5);
+    for (const n of CAM_TREES) { const ex = x - n[0], ez = z - n[1]; if (ex * ex + ez * ez < n[2] * n[2] && y > n[3] && y < n[4]) return Math.max(1.6, d - 0.5); }
+    if (y > 11) break;
   }
   return dist;
 }
@@ -7512,7 +7561,9 @@ function setPlaying(id) {
 }
 function strumAnim() { if (ACT.player) ACT.player.strumT = 0.25; }
 // 朝は門を入ったところから、丘のほう（北）を向いて
-function playerStartPos() { return G.stage === 1 ? [16, 44.6] : [0, 39]; } // 家の壁から離れた、門を入ったところ
+// はじめの立ち位置。段階1は、家と大きな木から離れた鶏の庭の前の、ひらけた草地（はるこさんがすぐ前にいて、鶏たちが見える）。
+// 北を向き、カメラは何もない草地の上から。段階2からは、門を入った見学路の上
+function playerStartPos() { return G.stage === 1 ? [15.5, 35.2] : [0, 39]; }
 function resolveCollision(x, z, r, player) {
   const rect = (c) => {
     if (x > c[0] - r && x < c[1] + r && z > c[2] - r && z < c[3] + r) {
@@ -10240,7 +10291,7 @@ const GAME = {
     else { ROSTER.filter((r) => r.group === 'chk1').forEach((r) => { const a = makeAnimal(r, true); a.trust = 1; G.animals.push(a); }); G.doneGroups.chk1 = true; G.cards.suburb = 1; setBaseSupport(); initMoney(true); }
     if (UI.pendingAvatar) G.avatar = Object.assign({}, AVATAR_DEFAULT, UI.pendingAvatar);
     rebuildPlayer(G.avatar); setSoundOn(G.settings.sound); setVolume(G.settings.vol); applyLite();
-    const sp = playerStartPos(); teleportPlayer(sp[0], sp[1], Math.PI);
+    const sp = playerStartPos(); teleportPlayer(sp[0], sp[1], Math.PI); camHome(Math.PI * 2);
     startDay(true);
   },
   loadGame(o) {
@@ -10253,7 +10304,7 @@ const GAME = {
     rebuildPlayer(G.avatar); setSoundOn(G.settings.sound); setVolume(G.settings.vol); applyLite();
     applyCalendar();
     buildWorld(); syncNPCs(); syncAnimals(); syncWild(); buildEggs();
-    const sp = playerStartPos(); teleportPlayer(sp[0], sp[1], Math.PI);
+    const sp = playerStartPos(); teleportPlayer(sp[0], sp[1], Math.PI); camHome(Math.PI * 2);
     SKY.t = dayTime(); SKY.target = SKY.t; skySnapWeather();
     // 朝の知らせを読む前に閉じた週の支えは、ここで受け取る
     if (G.pendingSupports && G.pendingSupports.length) { const sups = G.pendingSupports.slice(); G.pendingSupports = []; setTimeout(() => { if (!STARTED) return; sups.forEach((s) => addSupport(s.type, s.size, s.src, s.label)); GAME.save(); UI.refresh(); }, 1200); }
@@ -10520,7 +10571,8 @@ const UI = {
     $('#sheet-body').addEventListener('click', (e) => UI.onClick(e));
     $('#sheet-body').addEventListener('input', (e) => UI.onInput(e));
     $('#sheet-body').addEventListener('scroll', () => UI.stickCheck(), { passive: true });
-    $('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') UI.closeModal(); else UI.onClick(e); });
+    // 景色をタップして開いた時、指を離した直後の「クリック」が、開いたばかりの画面の外側に届いて閉じてしまわないように
+    $('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') { if (performance.now() - (UI._modalAt || 0) > 450) UI.closeModal(); } else UI.onClick(e); });
     $('#end-day').addEventListener('click', () => UI.endDayClick());
     $('#prompt-btn').addEventListener('click', () => { const n = nearestInteractable(); if (n) UI.interact(n); });
     $('#g-toggle').addEventListener('click', () => { G.settings.gauge = !G.settings.gauge; GAME.save(); UI.refresh(); });
@@ -11826,7 +11878,7 @@ const UI = {
     if (ppl.length) h += `<div class="sec"><h3>ここで働く人たち</h3><ul class="ppl">${ppl.map(({ n, C }) => `<li><span class="av" style="background:${n.d.top}"></span><div><b>${esc(n.d.name)}</b><small>${esc(n.d.role)}</small><span>${esc(C.about)}</span></div></li>`).join('')}</ul><p class="muted">まだ話していない人は、話しかけると、ここに加わります。</p></div>`;
     return h;
   },
-  modal(html) { $('#modal-card').innerHTML = html; $('#modal').hidden = false; document.body.classList.add('modal-open'); UI.blockMove = true; },
+  modal(html) { UI._modalAt = performance.now(); $('#modal-card').innerHTML = html; $('#modal').hidden = false; document.body.classList.add('modal-open'); UI.blockMove = true; },
   closeModal() { $('#modal').hidden = true; document.body.classList.remove('modal-open'); UI.blockMove = false; },
   showCard(id, opt) {
     const c = CARDS[id]; if (!c) return;
@@ -13124,3 +13176,4 @@ function bootWith(data) {
 })();
 </script>
 
+</html>
