@@ -971,6 +971,116 @@ details.checks-ok { margin: -4px 0 8px; }
 .home-btn .hb-go svg { width: 20px; height: 20px; }
 a.btn { text-decoration: none; color: inherit; }
 a.btn.primary { color: var(--paper); }
+
+/* ---------- 0.9.27 あなたの見た目：顔 → 髪 → 服 → 小物 の4つの段 ---------- */
+.av-steps { list-style: none; margin: 0 0 12px; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); }
+.av-steps li { position: relative; }
+.av-steps li:not(:first-child)::before { content: ''; position: absolute; z-index: 0; top: 17px; right: 50%; width: 100%; height: 3px; background: var(--line); border-radius: 2px; }
+.av-steps li.on:not(:first-child)::before, .av-steps li.done:not(:first-child)::before { background: var(--pine); }
+.av-steps button { position: relative; z-index: 1; width: 100%; border: 0; background: transparent; padding: 0 0 2px; display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--ink-3); }
+.av-steps b { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--paper); border: 2.5px solid var(--line); font-size: 16px; color: var(--ink-3); }
+.av-steps b svg { width: 18px; height: 18px; }
+.av-steps span { font-size: 14px; font-weight: 700; }
+.av-steps .on b { background: var(--pine); border-color: var(--pine); color: #fff; box-shadow: 0 0 0 4px rgba(46, 90, 72, .16); }
+.av-steps .on span { color: var(--ink); }
+.av-steps .done b { background: #E3ECE5; border-color: var(--pine); color: var(--pine); }
+.av-steps .done span { color: var(--ink-2); }
+.av-head { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 10px; row-gap: 2px; margin: 0 0 12px; padding: 10px 12px; border-radius: 12px; background: #fff; border: 1px solid var(--line); }
+.av-head .av-n { grid-row: span 2; font-size: 12px; font-weight: 700; color: var(--pine); background: #E3ECE5; border-radius: 999px; padding: 4px 9px; }
+.av-head h3 { margin: 0; font-size: 17px; }
+.av-head small { font-size: 12.5px; color: var(--ink-3); }
+.av-field .flabel { font-size: 13px; font-weight: 700; color: var(--ink-2); }
+.av-foot { align-items: center; }
+.av-foot .av-next { flex: 1; justify-content: center; }
+.av-foot .av-prev, .av-foot .av-fin { flex: none; }
+.av-foot .btn svg { width: 16px; height: 16px; }
+.home-btn.av-btn .av-ic { background: #F3E9DA; overflow: hidden; }
+.home-btn.av-btn .av-ic img { width: 40px; height: 40px; display: block; }
+.fb-link svg { width: 16px; height: 16px; margin-right: 4px; vertical-align: -3px; }
+.av-field .seg { display: flex; flex-wrap: wrap; gap: 6px; background: transparent; padding: 0; border-radius: 0; }
+.av-field .seg button { background: var(--paper-2); padding: 7px 12px; font-size: 13px; border-radius: 999px; }
+.av-field .seg button.on { background: #fff; color: var(--ink); box-shadow: inset 0 0 0 2px var(--pine); }
+
+/* ---------- 0.9.27 人の話：人の一覧 → その人のお話 → 会話 ---------- */
+.tp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.tp-row { box-sizing: border-box; width: 100%; display: flex; align-items: center; gap: 12px; text-align: left; padding: 10px 12px; border: 1px solid var(--line); border-radius: 14px; background: #fff; color: var(--ink); box-shadow: 0 1px 2px rgba(20, 34, 28, .06); }
+.tp-row:active { background: #EEF4EF; }
+.tp-row.locked { background: transparent; box-shadow: none; border-style: dashed; }
+.tp-row.locked b { color: var(--ink-2); }
+.tp-tx { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.tp-tx b { font-size: 15.5px; display: flex; align-items: center; gap: 8px; }
+.tp-tx small { font-size: 12.5px; color: var(--ink-3); }
+.tp-why { font-size: 12.5px; color: var(--ink-2); line-height: 1.5; }
+.tp-prog { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-3); }
+.tp-prog .rbar { flex: 1; max-width: 110px; margin: 0; }
+.tp-new { font-style: normal; font-size: 11px; font-weight: 700; color: #fff; background: var(--pine); border-radius: 999px; padding: 2px 8px; }
+.tp-go { flex: none; color: var(--pine); display: grid; }
+.tp-go svg { width: 18px; height: 18px; }
+.tp-head { display: flex; gap: 12px; align-items: flex-start; margin: 0 0 12px; }
+.tp-head .mav { width: 52px; height: 52px; font-size: 22px; }
+.tp-head strong { font-size: 18px; }
+.tp-head small { display: block; font-size: 12.5px; color: var(--ink-3); }
+.tp-head p { margin: 4px 0 0; font-size: 13.5px; line-height: 1.6; color: var(--ink-2); }
+.tp-sum { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; align-items: center; padding: 10px 12px; background: var(--paper-2); border-radius: 12px; margin: 0 0 10px; }
+.tp-sum b { font-size: 15px; }
+.tp-sum span { font-size: 12.5px; color: var(--ink-3); }
+.tp-sum .rbar { grid-column: 1 / -1; margin: 4px 0 0; }
+.tp-chaps { list-style: none; margin: 0 0 10px; padding: 0; display: grid; gap: 6px; }
+.tp-ch { box-sizing: border-box; width: 100%; display: flex; align-items: center; gap: 12px; text-align: left; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); background: #fff; color: var(--ink); }
+button.tp-ch:active { background: #EEF4EF; }
+.tp-ch .tp-n { flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 15px; background: #E3ECE5; color: var(--pine); }
+.tp-ch .tp-t { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.tp-ch .tp-t b { font-size: 14.5px; }
+.tp-ch .tp-t small { font-size: 12px; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tp-ch.now { border: 2px solid var(--pine); background: #F3F8F4; }
+.tp-ch.now .tp-n { background: var(--pine); color: #fff; }
+.tp-ch.now .tp-t small { white-space: normal; color: var(--pine); font-weight: 700; }
+.tp-ch.locked { background: transparent; border-style: dashed; color: var(--ink-3); }
+.tp-ch.locked .tp-n { background: var(--paper-2); color: var(--ink-3); }
+.tp-ch.locked .tp-t b { font-weight: 500; }
+.tp-ch.locked .tp-t small { white-space: normal; }
+.tr-body { margin: 0 0 6px; }
+.tr-body .said { margin-bottom: 8px; }
+.tr-nav { display: flex; justify-content: space-between; gap: 8px; margin: 6px 0 4px; }
+.tr-nav .btn svg { width: 15px; height: 15px; }
+
+/* ---------- 0.9.27 動物のカード：あたま → ふれあう → 応援する → この子のこと → 物語 → からだと記録 ---------- */
+.ac-hero { display: flex; gap: 14px; align-items: center; margin: 2px 0 10px; }
+.ac-hero .av { width: 92px; height: 92px; border-radius: 12px; background: #FBF7EC center / cover no-repeat; box-shadow: 0 0 0 1px var(--line), 0 3px 8px rgba(0, 0, 0, .14); flex: none; transform: rotate(-2.5deg); }
+.ac-id { min-width: 0; display: grid; gap: 4px; }
+.ac-id h3 { margin: 0; font-family: var(--hand); font-size: 30px; font-weight: 700; line-height: 1.15; color: var(--ink); }
+.ac-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 14px; color: var(--ink-2); font-weight: 600; }
+.ac-meta .spi { color: var(--pine); }
+.ac-trust { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-3); font-weight: 700; }
+.ac-trust .hearts svg { width: 19px; height: 19px; stroke-width: 1.8; }
+.ac-pills { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+.ac-sec { border: 1px solid var(--line); border-radius: 14px; background: #fff; padding: 10px 14px 12px; margin: 0 0 12px; }
+.ac-sec > h4 { display: flex; align-items: center; gap: 7px; margin: 0 0 10px; padding: 0 0 8px; border-bottom: 1px solid var(--paper-3); font-size: 14px; font-weight: 700; color: var(--pine); letter-spacing: .04em; }
+.ac-sec > h4 svg { width: 18px; height: 18px; flex: none; }
+.ac-sec > h4 small { margin-left: auto; font-size: 11.5px; font-weight: 600; color: var(--ink-3); letter-spacing: 0; }
+.ac-main { display: grid; grid-template-columns: repeat(auto-fit, minmax(88px, 1fr)); gap: 8px; }
+.ac-btn { box-sizing: border-box; min-height: 64px; border: 1.5px solid var(--line); border-radius: 12px; background: var(--paper); color: var(--ink); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; padding: 8px 6px; text-align: center; }
+.ac-btn svg { width: 22px; height: 22px; color: var(--coral); }
+.ac-btn b { font-size: 14px; line-height: 1.3; }
+.ac-btn small { font-size: 11px; color: var(--ink-3); font-weight: 600; }
+.ac-btn.on { background: var(--pine); border-color: var(--pine); color: #fff; }
+.ac-btn.on svg, .ac-btn.on small { color: #fff; }
+.ac-btn:disabled { opacity: .45; }
+.ac-btn:active:not(:disabled) { transform: translateY(1px); }
+.ac-hint { margin: 10px 0 0; font-size: 12.5px; line-height: 1.6; color: var(--ink-3); }
+.ac-sub { display: flex; gap: 6px; margin: 8px 0 0; }
+.ac-sub .btn svg { width: 16px; height: 16px; }
+.ac-help { display: flex; flex-wrap: wrap; gap: 8px; }
+.ac-facts { display: grid; grid-template-columns: 5.4em 1fr; gap: 10px 10px; margin: 0; }
+.ac-facts dt { font-size: 12px; font-weight: 700; color: var(--ink-3); padding-top: 2px; }
+.ac-facts dd { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--ink); }
+.ac-facts dd b { font-size: 15px; }
+.ac-facts dd span { display: block; font-size: 12.5px; line-height: 1.6; color: var(--ink-3); margin-top: 2px; }
+.ac-facts dd .pill { display: inline-block; margin-top: 4px; }
+.ac-story .stories li { font-size: 15.5px; }
+.ac-rec .care-memo { margin-top: 10px; }
+.ac-rec .ac-card { margin-top: 8px; }
+.ac-rec .ac-card svg { width: 16px; height: 16px; }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1808,14 +1918,15 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.26', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.27', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
   aim: ['遊びやすいか、わかりにくい所はないか', 'スマホやパソコンで重くないか、止まらないか', '動物、お金、牛と酪農の話が、楽しく伝わるか'],
-  try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', 'はるこさん・ゆうとさんに話しかけて、続きのある話を聞く（週に1話）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物のカードから「なでる」「ブラッシング」。性格によって反応が変わります', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
+  try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.27', '2026年10月13日', '設定の「このテスト版について」をなくし、「ご意見・不具合を送る」を押すと Google フォームがそのまま開くように（ご意見は、すべてフォームで）。「あなたの見た目を変える」を設定の上のほうに、顔の絵つきの大きなボタンで。見た目の画面は、1 顔 → 2 髪 → 3 服 → 4 小物 の順に「次へ」で進む形に（上の番号で、どこへでも行けます）。見た目の部品を増やしました（肌の色7、目11、まゆ8、ほっぺ8、口10、髪型15、髪の色9、上の服12、下の服4、重ねて着るもの6、長ぐつ7、帽子9、めがね5、かばん4）。日記の「人の話」を、働く人の一覧 → その人のお話1〜 → 会話、の順にひらく形に。みなみ先生、あきらさん、さとみさん、けんさん、あやさん、たくみさん、りこさん、しょうたさん、まいさんにも、それぞれ5話の続きのある話（その人が来てから、ひとり週に1話）。季節のおやつを、種ごとに食べられるものに（春はたんぽぽの葉、夏はすいかか、きゅうり、秋はかぼちゃ、冬はにんじん）。動物のカードを、あたま（絵・名前・種類と年・なかよし度）と、ふれあう・応援する・この子のこと・物語・からだと記録のまとまりに分けて、枠で囲む形に。動物をタップすると、なでるように（カードは、近くで出る「〜のカードを見る」か、下の「動物」から）。大きな動物が柵や建物のすき間で引っかかって震えている時は、すぐ近くの広い所へすべらせて、行き先を選び直すように。動物の道すじが角をかすめないように'],
     ['0.9.26', '2026年10月13日', 'ご意見の送り先を、メールから「はるにれの丘 ご意見・感想フォーム」（Google フォーム）に。「ご意見・不具合を送る」の「フォームを開く」で、書いた文章をコピーしてからフォームが開きます（「ひとこと」に貼りつけられます）'],
     ['0.9.25', '2026年10月12日', '箱庭モードで、森田さんの話とクイズが全部できるように（日記の「牛と酪農」の「お話 1 から聞く」と、聞いた話の一覧。答えたあとの「次のお話」で順に）。ふつうの遊び方でも、聞いた話は一覧から読み直せます。「はじめの画面に戻る」を、設定のいちばん上に（続きが保存されることも書きました）。はじめの画面で、続きがある時は「つづきから」を大きく。スマホで、会話の窓が横にはみ出していたのを直しました'],
     ['0.9.24', '2026年10月12日', '「ひと息」を、行動の画面から下のメニューへ（楽器のあった所。楽器は「ひと息」の中に）。行動の画面のタブは「あなたの行動」「町の事業者」「人を増やす」「収支」の4つに。いつも出ていた毎月の収支の帯は「収支」のタブへ。今日できることは「あと3つ」と、4つの丸で（使うと色が抜けていきます）。心の余裕の増え減りの説明は、行動の一覧から外しました（変わった時に、画面の上に少しだけ出ます）'],
@@ -2005,10 +2116,11 @@ const WORLD_EVENTS = [
   { id: 'W09', name: '大雨の予報', type: null, size: null, stage: 1, repeat: true, diary: '大雨の備えをみんなでしました。ゲージは下がりません' },
 ];
 
-/* はるこさん・ゆうとさんの話：話しかけると、週に1話ずつ続きを聞ける。返事を選ぶと、手帳に残る
+/* 働く人たちの話：その人がいる時に話しかけると、週に1話ずつ続きを聞ける。返事を選ぶと、手帳に残る
+   hire：迎えた職員さん・アルバイトさん（迎えると聞ける）
    stage：その段階から　after：その週から　re：[あなたの返事, 相手の返し]　diary：日記に残る一文 */
 const TALKS = {
-  haruko: { name: 'はるこさん', mark: 'は', color: '#8C79A8', title: 'はじまりの庭', sub: '代表。この庭は、はるこさんの家の裏庭から始まりました',
+  haruko: { name: 'はるこさん', role: '代表', mark: 'は', color: '#8C79A8', title: 'はじまりの庭', sub: '代表。この庭は、はるこさんの家の裏庭から始まりました',
     endNote: 'はるこさんが、はじまりの庭の話を最後まで聞かせてくれました',
     chapters: [
       { t: '段ボール箱の3羽', stage: 1, after: 1,
@@ -2044,7 +2156,7 @@ const TALKS = {
         re: [['これからも、日曜日に来ます', 'ありがとう。あなたの日記を読むのが、毎週の楽しみなの'], ['はるこさんがいない丘は、想像できないです', 'いなくなるわけじゃないのよ。ベンチで、のんびりする係になるだけ']],
         end: 'あの3羽から始まったんだもの。きっと大丈夫', diary: 'はるこさんが、この丘のこれからの話をしてくれました', yoyu: 6 },
     ] },
-  yuto: { name: 'ゆうとさん', mark: 'ゆ', color: '#3F7D6D', title: '見回りの日誌', sub: 'スタッフ。前は北海道で、酪農ヘルパーをしていました',
+  yuto: { name: 'ゆうとさん', role: 'スタッフ', mark: 'ゆ', color: '#3F7D6D', title: '見回りの日誌', sub: 'スタッフ。前は北海道で、酪農ヘルパーをしていました',
     endNote: 'ゆうとさんが、見回りの日誌の話を最後まで聞かせてくれました',
     chapters: [
       { t: 'ヘルパーだったころ', stage: 2, after: 1,
@@ -2080,6 +2192,223 @@ const TALKS = {
         re: [['森田さんの話と、つながりますね', 'そうなんです。この町でも、同じことが始まるかもしれない'], ['いつか、行ってみたいですね', 'はい。ここの動物たちのことを話しに行けたら、うれしいです']],
         end: 'ヘルパーだったころは、こんな日が来るなんて思わなかったな', diary: 'ゆうとさんが、北の町でオーツ麦を育て始めた人たちの話をしてくれました', yoyu: 6 },
     ] },
+  /* ---------- ここから、ほかの働く人たち（0.9.27）。その人がいる時に、週に1話ずつ ---------- */
+  minami: { name: 'みなみ先生', role: '獣医', mark: 'み', color: '#5A7F9A', title: '診察かばんの中', sub: '獣医。月に何度か、みんなの健康を見に来ます',
+    endNote: 'みなみ先生が、診察かばんの中の話を最後まで聞かせてくれました',
+    chapters: [
+      { t: '最初の10分',
+        say: ['診察の日、私が最初の10分、何をしているか知っていますか', '何もしないんです。柵のそばに座って、みんなが私に気づくのを待ちます', '急いで近づくと、その日いちばん大事な「ふだんの顔」が見られなくなるので'],
+        re: [['待つのも、診察なんですね', 'そうなんです。歩き方も、耳の向きも、その10分でたくさん教えてもらえます'], ['退屈じゃないですか', '……正直に言うと、いちばん好きな時間です。誰にも急かされないので']],
+        end: '近づくかどうかは、あの子たちに決めてもらっています', diary: 'みなみ先生が、診察の前の「何もしない10分」の話をしてくれました' },
+      { t: 'おこげ',
+        say: ['うちの猫のおこげ、もう18歳なんです', '獣医なのに、キャリーバッグを出すと、おこげは本棚の上から降りてきません', 'よその子は落ち着いて診られるのに、自分の家の子だけは、うまくいかないんです'],
+        re: [['おこげさんには、お見通しなんですね', 'はい。私の「さりげなく」は、まったくさりげなくないそうです'], ['どうしているんですか', '往診の先生に来てもらっています。私は家族の顔で、横にいるだけ']],
+        end: '獣医の顔と、家族の顔。おこげには、家族の顔だけ見せていたいんです', diary: 'みなみ先生が、家の猫のおこげの話をしてくれました' },
+      { t: 'ペンキ絵',
+        say: ['あの……銭湯の壁の、大きな富士山の絵、知っていますか', '私、銭湯めぐりが好きで、もう300軒くらい。ペンキ絵を見て回っているんです', '同じ富士山でも、描く人で雲の形が全然ちがうんですよ！　左右の湯船で、ひとつの景色がつながっている絵もあって、それがまた……'],
+        re: [['先生がそんなに楽しそうなの、はじめてです', '……そう見えますか。ペンキ絵の話になると、つい声が大きくなるんです'], ['いちばん好きな絵は？', '海の上の富士山に、牛が一頭だけ描いてある絵です。どうして牛なのか、描いた人に聞いてみたいんです']],
+        end: 'お湯につかって、ゆっくり絵を見る時間が、私の休みなんです。……今の話は、内緒にしておいてください', diary: 'みなみ先生が、銭湯のペンキ絵の話を、めずらしく大きな声でしてくれました' },
+      { t: '数で書く書類',
+        say: ['年に一度、ここで暮らす子の数を、役所に報告するんです', '書類には、名前を書く欄がありません。牛が何頭、豚が何頭、と数だけです', '最初は、それが少しさみしくて'],
+        re: [['どうして数なんでしょう', '病気が広がった時に、どこに何頭いるかが、すぐ分かるように。みんなを守るための数なんです'], ['名前も、書けたらいいのに', 'そうですね。だから私は、書類を出した日に、みんなの名前を一度ずつ呼ぶことにしています']],
+        end: '数も名前も、どちらも、この子たちを守るためのものなんです', diary: 'みなみ先生と、年に一度の報告の話をしました', card: 'annualReport' },
+      { t: '治すより、楽に',
+        say: ['獣医の仕事は、治すことだと思っていました', 'ここに来て、治らないものと一緒に暮らす手伝いを覚えました', '寝床を厚くする、段差をなくす、好きな場所の近くに水を置く。それも治療なんです'],
+        re: [['小さなことの積み重ねですね', 'はい。その子の「今日も好きな場所で寝られた」が、私のいちばんの知らせです'], ['つらくはないですか', 'つらい日もあります。だから、ひとりで抱えないように、ここではみんなで話すんです']],
+        end: '最後まで、その子らしく。それを手伝えるのが、ここの獣医です', diary: 'みなみ先生と、年を重ねた子たちのケアの話をしました', card: 'elderCare', yoyu: 4 },
+    ] },
+  akira: { name: 'あきらさん', role: '生き物の専門家', mark: 'あ', color: '#7A8A4A', title: 'フィールドノート', sub: '生き物の専門家。双眼鏡とノートを持ち歩いています',
+    endNote: 'あきらさんが、フィールドノートの話を最後まで聞かせてくれました',
+    chapters: [
+      { t: 'ベランダのアリ',
+        say: ['ぼく、町の真ん中のマンションで育ったんです。庭も、森もなくて', '小学生の時、ベランダの植木鉢の下に、アリの巣を見つけたんです', '夏休みの40日間、毎日見てました。自由研究は、ノート3冊になりました'],
+        re: [['そこから、全部始まったんですね', 'はい！　生き物って、探せばどこにでもいるんです。ベランダにも'], ['先生は、何て言いましたか', '「長い」って。……今も、よく言われます']],
+        end: 'どんな場所にも、誰かが暮らしてる。それを知ってから、毎日が楽しいんです', diary: 'あきらさんが、ベランダのアリの巣から始まった話をしてくれました' },
+      { t: '人の名前と、鳥の名前',
+        say: ['あの、白状すると……人の名前を覚えるのが、すごく苦手なんです', '鳥なら何百種類でも言えるのに。だから心の中で、みんなを鳥の名前で呼んでて', 'はるこさんは、ジョウビタキ。毎年、同じ場所に帰ってきて、みんなを見守ってるので'],
+        re: [['わたしは、何の鳥ですか', 'うーん……ツグミかな。遠くから通ってきて、地面をよく見て歩いてるので'], ['ゆうとさんは？', 'ミソサザイ。ふだんは黙々と働いてるのに、歌いだすと、ものすごく響くんです']],
+        end: 'あ、でも、あなたの名前は、ちゃんと覚えましたよ。……たぶん', diary: 'あきらさんが、人を鳥の名前で覚えていることを教えてくれました' },
+      { t: '夜のカエル調査',
+        say: ['今夜、カエルの声を数えに行くんです。池のふちに寝転んで', '目を閉じると、種類ごとに、声の高さがちがうのが分かるんですよ', 'シュレーゲルアオガエルなんて、土の中から「コロロ、コロロ」って鳴くんです'],
+        re: [['土の中から？', 'はい！　水辺の土に小さな穴をほって、その中で鳴くんです。だから、姿はめったに見えません'], ['寝転んで、寒くないですか', '寒いです。でも、動くと鳴きやむので、1時間くらい、じっとしてます']],
+        end: '……気づいたら朝だったことが、2回あります。はるこさんに、すごく心配されました', diary: 'あきらさんが、夜に池のふちでカエルの声を数えている話をしてくれました' },
+      { t: '刈らない草むら',
+        say: ['敷地のすみに、草を刈らない場所を残してもらったんです', 'でも、お隣さんとの境目は、刈ることにしました。種が飛んでいくし、虫が苦手な方もいるので', '全部を野原にはできない。それで、いいんだと思います'],
+        re: [['少しずつ、ですね', 'はい。刈る所と残す所があると、かえって、いろんな生き物が暮らせるんです'], ['もったいない気もします', 'ぼくも最初はそう思いました。でも、町の中の野原は、まわりの人に好きになってもらえないと、続かないので']],
+        end: '残した草むらで、今年はキリギリスが鳴きました。お隣さんが「懐かしい」って', diary: 'あきらさんと、刈らない草むらと、お隣さんとの境目の話をしました' },
+      { t: '200種類',
+        say: ['ここで記録した生き物が、200種類をこえたんです', 'ふんに来る虫、そのまわりで育つ草、草に来るチョウ、チョウを追う鳥', 'ここの子たちが、毎日ふつうに暮らしているだけで、つながりがどんどん増えるんです'],
+        re: [['動物たちも、その輪の中にいるんですね', 'はい！　何かの役に立つからじゃなくて、ただ、ここで生きてるから'], ['200種類、全部覚えてるんですか', '覚えてます。……人の名前以外は']],
+        end: 'ぼくのノート、もう23冊目です。全部、ここの話です', diary: 'あきらさんが、ここで記録した生き物が200種類をこえた話をしてくれました', yoyu: 5 },
+    ] },
+  satomi: { name: 'さとみさん', role: '職員', hire: 'さとみさん', kind: 'staff', mark: 'さ', color: '#D4884A', title: 'ホワイトボードの余白', sub: '職員。当番表とホワイトボードの主',
+    endNote: 'さとみさんが、ホワイトボードの余白の話を最後まで聞かせてくれました',
+    chapters: [
+      { t: '前の仕事',
+        say: ['ここに来る前は、駅前のホテルで、宴会の段取りをしてたんです', '300人の席順も、料理の出る順番も、全部ホワイトボードで決めてました', 'でも、ここのみんなは、席順どおりに座ってくれないんですよね'],
+        re: [['動物たちは、自由ですもんね', 'ほんとに！　{@kurumi}なんて、決めた場所に一度もいたことがありません'], ['どうして、ここに来たんですか', '段取りが、誰かの毎日の暮らしにつながる仕事がしたくて。ここは、毎日が本番なので']],
+        end: '今は、予定表に動物たちを合わせるんじゃなくて、動物たちに予定表を合わせてます', diary: 'さとみさんが、前の仕事と、ここに来たわけを話してくれました' },
+      { t: '方向音痴',
+        say: ['……ここだけの話、私、ものすごい方向音痴なんです', '来た日の夕方、敷地の中で迷子になって、気づいたらヤギの小屋の裏にいました', 'その時、{@sora}がとことこ歩いて、母屋まで連れて帰ってくれたんです'],
+        re: [['段取り上手なのに、意外です', 'よく言われます！　地図は描けるんです。自分がどこにいるかが、分からないだけで'], ['{@sora}に、お礼は言いましたか', 'もちろん。それから、ホワイトボードに「迷ったら{@sora}について行く」って書きました']],
+        end: 'できないことがあると、誰かに頼れるでしょう。それも、悪くないなって', diary: 'さとみさんが、来た日に迷子になって、{@sora}に連れて帰ってもらった話をしてくれました' },
+      { t: '予定どおりにいかない日',
+        say: ['先月、朝から雨で、牧草の配達が遅れて、柵の扉がひとつ壊れた日があったんです', '書いた段取りが、全部ばらばらになって。ちょっと泣きそうでした', 'そしたら、ゆうとさんが「今日は、みんなの顔だけ見る日にしましょう」って'],
+        re: [['それで、どうなりましたか', '顔を見て回ったら、みんな、いつもどおりだったんです。困ってたのは、私の予定表だけでした'], ['ゆうとさん、いいこと言いますね', 'ですよね。言ったあと、すぐ黙ってノートに戻っちゃいましたけど']],
+        end: 'それから、当番表のいちばん下に、何も書かない行を作ってるんです。予定どおりにいかない日のために', diary: 'さとみさんが、当番表の「何も書かない行」の話をしてくれました', yoyu: 3 },
+      { t: 'ぬか床',
+        say: ['あの、ぬか漬け、好きですか？', '私、ぬか床を15年育ててて。毎朝かきまぜて、話しかけてるんです。「今日も元気？」って', '季節で酸っぱさが変わるんですよ！　夏は早くて、冬はゆっくりで。それが、ほんとにおもしろくて！'],
+        re: [['話しかけるんですか', 'はい！　返事はないんですけど、においで分かるんです。機嫌がいいか、悪いか'], ['食べてみたいです', 'じゃあ、来週持ってきますね。きゅうりとかぶ。……あ、動物たちには、あげませんよ。塩が多いので']],
+        end: 'ぬか床の話になると止まらないって、はるこさんに笑われました', diary: 'さとみさんが、15年育てているぬか床の話を、うれしそうにしてくれました' },
+      { t: '「好きに過ごす」の欄',
+        say: ['当番表の日曜日に、あなたの欄があるの、気づいてました？', '「好きに過ごす」って書いてあるでしょう。あれ、わざとなんです', '平日に、時間で区切られて働いてる人に、ここでは何も決めないでいてほしくて'],
+        re: [['ありがとうございます', 'いえいえ。……でも、書いてない仕事までしてくれてるの、知ってますよ'], ['何もしなくても、いいんですか', 'もちろん。ベンチで寝ても、ずっと{@momo}を見ててもいいんです']],
+        end: '段取りの中に、何も決めない時間を入れる。それがいちばん難しくて、いちばん大事な段取りです', diary: 'さとみさんが、当番表のあなたの欄が「好きに過ごす」なわけを教えてくれました', yoyu: 4 },
+    ] },
+  ken: { name: 'けんさん', role: '職員', hire: 'けんさん', kind: 'staff', mark: 'け', color: '#8A6242', title: '木と釘と', sub: '職員。前は工務店の大工さん',
+    endNote: 'けんさんが、木と釘の話を最後まで聞かせてくれました',
+    chapters: [
+      { t: '家を建てていたころ',
+        say: ['30年、人の家を建ててました', '最後に建てた家で、犬のために、玄関に小さな段をつけてほしいって頼まれて', 'その段を作ってる時が、30年でいちばん楽しかったんです。……まあ、それで、ここに'],
+        re: [['動物のための大工さんですね', 'まあ、そうなりますかね。注文は、人の家より正直です'], ['迷いませんでしたか', '迷いました。でも、まあ、なんとかなるかなって']],
+        end: '人の家は、住んでしばらくしてから感想が来ます。小屋は、次の朝にはもう答えてくれるんです', diary: 'けんさんが、大工として家を建てていたころの話をしてくれました' },
+      { t: '年輪',
+        say: ['この前の風で、はるにれの枝が一本落ちたでしょう。切り口、見ました？', '年輪がね、すごいんですよ！　幅の広い年と、ぎゅっと詰まった年があって、ほら、ここ！　ここは、きっと日照りの年で、それで……', '……すみません。木の話になると、つい'],
+        re: [['けんさんが早口なの、はじめて聞きました', 'よく言われます。ふだんは、まあ、のんびりなんですけどね'], ['その枝、どうするんですか', 'ベンチの脚にしようと思ってます！　ニレの木は粘りがあって、割れにくいんです。それで……あ、また']],
+        end: '木は、黙って全部覚えてるんです。それが、たまらないんですよね', diary: 'けんさんが、落ちたはるにれの枝の年輪の話を、めずらしく早口でしてくれました' },
+      { t: '角を丸く',
+        say: ['小屋を作る時、いちばん時間をかけるのは、角を丸くすることなんです', '牛は体をこすりつけるし、ヤギは何でもかじるし、豚は鼻で押してみる', 'だから、釘の頭は全部沈めて、角は、手でなでても引っかからないように'],
+        re: [['見えない所に、手間をかけてるんですね', 'まあ、見えない所で、けがをさせたくないので'], ['手でなでて、確かめるんですか', 'はい。目で見るより、手のほうが正直なんです']],
+        end: 'いちばんうれしいのは、誰も小屋のことを気にしないで、ふつうに寝てくれることです', diary: 'けんさんが、小屋の角を丸くするわけを話してくれました' },
+      { t: 'ツバメの巣',
+        say: ['母屋の軒に雨どいをつけ直そうとしたら、ツバメが巣を作ってたんです', '雨どいがないと、雨の日に壁が汚れる。でも、卵やひながいる巣は、勝手に動かしちゃいけない決まりなんです', 'それで、巣の下に板を一枚つけて、雨どいは、ひなが巣立つまで待つことにしました'],
+        re: [['待つことにしたんですね', 'まあ、壁は拭けばなんとかなります。巣は、一度落としたら戻らないので'], ['その板は、何のためですか', 'ふんの受け皿です。下を通る人と、見学の子どもたちのために']],
+        end: '設計図どおりにいかないのが、ここのおもしろいところです', diary: 'けんさんが、ツバメの巣のために、雨どいの工事をひなの巣立ちまで待った話をしてくれました' },
+      { t: '釘一本から',
+        say: ['今日、一本だけ、釘を打ってみませんか', '板に、あなたの名前を書いて。どこかの小屋の内側に、こっそりつけておきます', '誰も気づかないかもしれないけど、小屋は、ちゃんと覚えてますから'],
+        re: [['やってみます', '金づちは、手首じゃなくて、ひじから振るんです。……ほら、まあ、なんとかなったでしょう'], ['曲がったら、どうしよう', '曲がったら、抜いて、また打てばいいんです。木は、ちゃんと待ってくれます']],
+        end: 'あなたの板、鶏小屋の、入口の右の柱に打ちました', diary: 'けんさんに教わって、名前を書いた板を、小屋の内側に打ちつけました', yoyu: 4 },
+    ] },
+  aya: { name: 'あやさん', role: '職員', hire: 'あやさん', kind: 'staff', mark: 'や', color: '#6E7FA8', title: 'スケッチブック', sub: '職員。動物のしぐさを、小さなスケッチブックに描いています',
+    endNote: 'あやさんが、スケッチブックの話を最後まで聞かせてくれました',
+    chapters: [
+      { t: '寝顔',
+        say: ['……寝顔を描くのは、起きている時より、その子らしいからです', '起きている時は、こっちを気にしています。寝ている時は、誰のことも気にしていないので', 'その顔を、なるべく静かに、遠くから描きます'],
+        re: [['遠くから、なんですね', 'はい。近づくと、起きてしまうので。……描くために、起こしたくはないです'], ['見せてもらえますか', '……どうぞ。これが{@momo}、これが{@mame}。みんな、口が少しあいてます']],
+        end: '寝顔を描かせてもらえるのは、ここが安心な場所だから、だと思います', diary: 'あやさんが、動物たちの寝顔を描くわけを話してくれました' },
+      { t: '描けない子',
+        say: ['……一頭だけ、まだ描けていない子がいるんです', '私がスケッチブックを出すと、すっと立って、離れていきます', 'だから、その子のページには、足あとだけ描いています'],
+        re: [['足あと、ですか', 'はい。歩いたあとなら、その子の邪魔をしないので。……もう20ページあります'], ['いつか、描けるといいですね', '描けなくても、いいんです。見られたくない子がいるのも、本当のことなので']],
+        end: '足あとのページが、いちばん好きなページかもしれません', diary: 'あやさんが、描かれるのが苦手な子のページには足あとだけ描いている話をしてくれました' },
+      { t: 'カタツムリの実況',
+        say: ['……雨の日の、私のひみつ、聞きますか', '小屋の壁をのぼるカタツムリを見つけると、つい実況してしまうんです', '「さあ、殻の大きい2番、ここで加速！　いや、止まった！　触角を出して、様子をうかがっている！」'],
+        re: [['あやさんが、そんな大きな声を', '……カタツムリの前だけです。ゴールの時は、もっと大きいです'], ['勝ったのは、どっちですか', '2番です。……3時間かかりました。最後は、たくみさんも一緒に応援してくれました']],
+        end: 'ふだん静かなぶん、どこかで声を出したいのかもしれません。……カタツムリには、迷惑かもしれませんけど', diary: 'あやさんが、雨の日にカタツムリのレースを実況していることを、こっそり教えてくれました' },
+      { t: '色の名前',
+        say: ['色えんぴつの色に、自分で名前をつけているんです', '牛の鼻のピンクは「桃のうぶ毛」。アヒルのくちばしは「熟れたびわ」', '同じ白でも、羊と鶏とアヒルで、ぜんぶちがう白なんです'],
+        re: [['すてきな名前です', '……ありがとうございます。誰にも言ったことがなかったので、うれしいです'], ['ほかには、どんな色が？', '「雨あがりのわら」。少し湿った、やさしい黄色です。日曜日の午後は、だいたいこの色です']],
+        end: '名前をつけると、その色を、もっとよく見るようになるんです', diary: 'あやさんが、動物たちの色に自分でつけた名前を教えてくれました' },
+      { t: '最後のページ',
+        say: ['スケッチブックの最後のページには、動物を描かないことにしているんです', '誰もいないベンチ、閉じた扉、朝の水おけ', 'みんなが出かけたあとの、静かな場所を描きます'],
+        re: [['どうして、誰もいない場所を', 'ここに来る前の私は、ひとりの時間が、よくないことだと思っていたんです。ここでは、そうじゃなかったので'], ['ひとりの時間、わたしも好きです', '……はい。ここは、ひとりでいても、ひとりぼっちじゃない場所ですね']],
+        end: '4冊目は、来週から始めます', diary: 'あやさんが、スケッチブックの最後のページの話をしてくれました', yoyu: 4 },
+    ] },
+  takumi: { name: 'たくみさん', role: '職員', hire: 'たくみさん', kind: 'staff', mark: 'た', color: '#C8604E', title: 'シャッターの向こう', sub: '職員。写真とSNSの係',
+    endNote: 'たくみさんが、シャッターの向こうの話を最後まで聞かせてくれました',
+    chapters: [
+      { t: 'いちばん反応のあった写真',
+        say: ['いちばん「いいね」が多かった写真、どれだと思います？', 'ピントが合ってない、{@mame}の鼻だけの写真なんです！　近すぎて', '「この鼻に会いたい」ってコメントが、200件も来ました'],
+        re: [['うまい写真より、伝わることもあるんですね', 'ですよね！　……って言いながら、ちょっと悔しいです'], ['どんな鼻なんですか', '湿ってて、よく動くんです！　においをかぐ時、ひくひくって。レンズに鼻のあとがつきました']],
+        end: '撮ったあと、レンズを拭くのにも、もう慣れました', diary: 'たくみさんが、いちばん反応のあった{@mame}の鼻の写真の話をしてくれました' },
+      { t: '撮らない日',
+        say: ['この前、撮らない日を作ったんです', '{@kinako}が、ずっと小屋の奥で、ひとりで休んでいて。いい光だったんですけど', 'カメラを向けたら、こっちをちらっと見て。……あ、今は撮られたくないんだなって'],
+        re: [['ちゃんと、気づけたんですね', 'はい。それから、カメラを向ける前に、ひと呼吸おくようにしてます'], ['SNSの係なのに、いいんですか', 'はるこさんに相談したら、「撮らない日も、ここの日記よ」って']],
+        end: '撮らなかった写真のほうが、よく覚えてる気がします', diary: 'たくみさんが、撮らない日を作った話をしてくれました' },
+      { t: '書道の段',
+        say: ['あの、ぼく、書道の段を持ってるんです。四段', 'よく転ぶし、バケツもひっくり返すんですけど、筆を持つと、なぜか手がぴたっと止まるんです', '名前の看板の字、ぼくが書いてるんですよ！'],
+        re: [['あの看板、たくみさんの字だったんですね', 'はい！　一枚に、半紙を30枚くらい使います。名前は、ちゃんと書きたいので'], ['意外です', 'よく言われます！　……でも、書いてる時だけは、ぼくも静かなんです']],
+        end: '一画ずつ、その子の顔を思い浮かべて書くんです。だから、看板ごとに、ちょっとずつ字がちがうんですよ', diary: 'たくみさんが、名前の看板の字を書いていることを教えてくれました' },
+      { t: 'コメント欄',
+        say: ['SNSに、きびしいコメントが来たことがあるんです', '「動物を見せものにしているんじゃないか」って', 'その夜は眠れなくて。ずっと、どう返そうか考えてました'],
+        re: [['どう返したんですか', '返さなかったんです。そのかわり、次の日から、何も起きない日の写真も載せることにしました'], ['つらかったですね', 'はい。……でも、その人も、動物のことを心配してくれたんだと思うんです']],
+        end: '寝てる、食べてる、ぼーっとしてる。ふつうの毎日が、いちばん伝えたいことでした', diary: 'たくみさんと、SNSのきびしいコメントと、ふつうの毎日の写真の話をしました' },
+      { t: '転ぶわけ',
+        say: ['ぼくがよく転ぶわけ、分かったんです', '歩いてる時、足もとじゃなくて、動物たちのほうばっかり見てるんです', 'さとみさんに言われました。「それは、たくみくんのいいところ。でも、長ぐつは替えなさい」って'],
+        re: [['長ぐつ、替えたんですか', 'はい！　底がでこぼこのやつに。今週は、まだ1回しか転んでません'], ['見ていたい気持ち、わかります', 'ですよね！　……でも、足もとのカエルも、ちゃんと見るようにします']],
+        end: '転んだ時に、いちばん近くまで来てくれるのは、いつも{@sora}です。心配してるのか、笑ってるのか', diary: 'たくみさんが、よく転ぶわけと、新しい長ぐつの話をしてくれました', yoyu: 3 },
+    ] },
+  riko: { name: 'りこさん', role: 'アルバイト', hire: 'りこさん', kind: 'part', mark: 'り', color: '#4E8A86', title: '教科書の余白', sub: 'アルバイト。獣医学部の学生',
+    endNote: 'りこさんが、教科書の余白の話を最後まで聞かせてくれました',
+    chapters: [
+      { t: '教科書にない牛',
+        say: ['教科書の牛って、みんな同じ顔なんです', 'でも、{@momo}は朝がゆっくりで、{@hana}は人の帽子を舌で確かめに来て', 'ここに来て、牛を「牛」じゃなくて、名前で覚えるようになりました'],
+        re: [['一頭ずつ、ちがいますね', 'はい。試験には出ないけど、いちばん大事なことだと思います'], ['{@hana}が、帽子を？', 'はい。舌で、ぺろっと。わたしの帽子、もう2回、よだれだらけです']],
+        end: '教科書の余白に、ここの子たちのことを書きこんでます。先生に見られたら、怒られるかな', diary: 'りこさんが、教科書にはいない、一頭ずつの牛の話をしてくれました', card: 'cowRope' },
+      { t: '落語研究会',
+        say: ['じつは、大学で落語研究会に入ってるんです', '牛の胃の話を、落語にしたんです。「反すう」っていう題で', '「えー、牛というのは、一度食べたものを、もう一度口に戻しまして……」って。……つづき、聞きます？'],
+        re: [['ぜひ聞きたいです', '「……もぐもぐ、もぐもぐ。おい、まだ噛んでるのかい。へえ、これで二度目の朝ごはんでございます」……おあとがよろしいようで'], ['勉強に、役立ちますか', 'はい！　人に話せると、自分でもちゃんと分かるんです。試験の前は、寝言でも落語してるらしいです']],
+        end: '学園祭でこの噺をやったら、獣医学部の先生が、いちばん笑ってました', diary: 'りこさんが、牛の胃の落語「反すう」を少し聞かせてくれました' },
+      { t: 'おなかの音',
+        say: ['みなみ先生に、牛のおなかの音を聞かせてもらったんです', '左のわき腹に聴診器を当てると、「ごおー、ごろごろ」って、遠くの雷みたいに鳴るんです', '1分に1回か2回。それが聞こえると、ああ、元気だって'],
+        re: [['音で、元気が分かるんですね', 'はい。静かすぎる時は、心配なんです。音がないのも、大事な知らせなので'], ['わたしも聞いてみたいです', '先生に頼んでみましょう！　牛が、いいよって言ってくれたら、ですけど']],
+        end: '聴診器を当てる前に、手でおなかをなでて、あいさつするんです。先生に教わりました', diary: 'りこさんが、牛のおなかの音の話をしてくれました' },
+      { t: 'どんな獣医に',
+        say: ['卒業したら、どんな獣医になるか、迷ってるんです', '同級生の多くは、犬や猫の病院か、牧場を回る獣医さんになります', '牧場の獣医さんは、たくさんの牛を、仕事として診ます。ここの牛とは、少し立場がちがうんです'],
+        re: [['りこさんは、どうしたいですか', '……まだ分からないです。でも、どこに行っても、名前を呼ぶ獣医でいたいです'], ['どっちも、大事な仕事ですね', 'はい。森田さんみたいな農家さんの牛を診る人も、牛のために必死なんです。それは、ちゃんと知ってます']],
+        end: '迷ってる時間も勉強だって、みなみ先生が言ってくれました', diary: 'りこさんと、卒業したあとのことを話しました' },
+      { t: '試験のあと',
+        say: ['試験、受かりました！', '結果を見て、最初に、ここに来ちゃいました。{@momo}に言いたくて', '{@momo}は、草を食べながら、ちらっとこっちを見ただけでしたけど'],
+        re: [['おめでとうございます！', 'ありがとうございます！　……あなたにも、言いたかったんです'], ['{@momo}らしいですね', 'はい。いつもどおりなのが、いちばんうれしかったです']],
+        end: '来年は、実習が始まります。週末だけでも、ここに来つづけます', diary: 'りこさんが、試験に受かったことを、いちばんに{@momo}に知らせに来ました', yoyu: 4 },
+    ] },
+  shota: { name: 'しょうたさん', role: 'アルバイト', hire: 'しょうたさん', kind: 'part', mark: 'し', color: '#6B6F7A', title: '日曜日の人', sub: 'アルバイト。平日は会社員',
+    endNote: 'しょうたさんが、日曜日の話を最後まで聞かせてくれました',
+    chapters: [
+      { t: '日曜日の夕方',
+        say: ['ぼく、前は日曜の夕方になると、もう月曜のことばっかり考えてたんです', '晩ごはんの味も、よく覚えてなくて', 'ここに来るようになってから、日曜日が、ちゃんと最後まで日曜日になりました'],
+        re: [['わかります', 'ですよね。……なんか、あなたとは話しやすいです'], ['ここの何が、効くんでしょう', 'たぶん、誰もぼくの仕事のことを聞かないからです。聞かれるのは、{@mame}の機嫌だけ']],
+        end: '月曜の満員電車でも、たまに、わらのにおいがするんです。たぶん、気のせいですけど', diary: 'しょうたさんと、日曜日の夕方の話をしました' },
+      { t: '編み物',
+        say: ['あの、これ、見てもらえますか', '電車の中で、編み物をしてるんです。これは、はるこさんの帽子。模様は、はるにれの葉っぱです', '縄編みっていうのがあって、目を入れかえると、ねじれた模様ができて……あっ、すみません、編み物のことになると、つい'],
+        re: [['ほんとうに、葉っぱの形になってます', 'でしょう！　ここ、裏から見ても、きれいになるように編んだんです！'], ['動物たちの分も？', 'いえ、毛糸は、動物たちのそばには持ってきません。飲みこんだら危ないので。人の分だけです']],
+        end: '会社の人は、ぼくが編み物するの、誰も知らないんです。ここだけの話にしてください', diary: 'しょうたさんが、電車で編んでいる、はるにれの葉の模様の帽子を見せてくれました' },
+      { t: '何もしない練習',
+        say: ['会社では、何をしたかで、毎日数えられるんです', 'ここに来たばかりの頃、何もしていない時間がこわくて、ずっと何か運んでました', 'はるこさんに、「座っていいのよ」って言われて。座るのが、いちばん難しかったです'],
+        re: [['今は、座れますか', 'はい。10分くらいなら。{@momo}を見てると、10分って、すぐなんです'], ['わたしも、そうかもしれません', 'ですよね。……一緒に練習しましょう。何もしない練習']],
+        end: '何もしなくても、ここにいていい。それが分かるまで、半年かかりました', diary: 'しょうたさんと、「何もしない練習」の話をしました', yoyu: 4 },
+      { t: '同僚を連れて',
+        say: ['先週、会社の同僚を、見学に連れてきたんです', '大きい動物が苦手な人で。牛が近づいてきたら、ぼくの後ろにかくれちゃって', 'だから、柵から離れたベンチで、ずっと鶏を見てました'],
+        re: [['それでも、来てくれたんですね', 'はい。苦手なものがあっても、来ていい場所だって、伝えたくて'], ['同僚さんは、何て？', '「鶏って、一羽ずつ顔がちがうんだね」って。帰りの電車で、ずっと言ってました']],
+        end: '近づかなくても、ちゃんと好きになれるんですね', diary: 'しょうたさんが、大きな動物が苦手な同僚を見学に連れてきた話をしてくれました' },
+      { t: 'やめない、という選択',
+        say: ['会社をやめて、ここで働こうか、本気で迷った時期があったんです', 'でも、はるこさんが、「平日のあなたも、日曜日のあなたも、どっちも大事にしてね」って', 'それで、やめないことにしました。日曜日は、ずっとここに来ます'],
+        re: [['どっちも、しょうたさんですね', 'はい。どっちかを、なかったことにしなくていいんだなって'], ['わたしと、同じですね', 'ですね。……平日、がんばりましょう。また日曜日に']],
+        end: '来週も、同じ電車で来ます。帽子、もうすぐ編みあがるので', diary: 'しょうたさんが、会社をやめずに、日曜日に来つづけると決めた話をしてくれました', yoyu: 4 },
+    ] },
+  mai: { name: 'まいさん', role: 'アルバイト', hire: 'まいさん', kind: 'part', mark: 'ま', color: '#C8889A', title: 'ちいさな見学者', sub: 'アルバイト。平日は保育士',
+    endNote: 'まいさんが、ちいさな見学者たちの話を最後まで聞かせてくれました',
+    chapters: [
+      { t: 'そっと、ゆっくり、目線を下げて',
+        say: ['見学の子どもたちに、いつも伝えている言葉があるんです', '「そっと、ゆっくり、目線を下げて」', '大きな声と、速い動きと、上から見下ろされるのは、動物たちには少しこわいんです。それは、子どもも同じなんですよ'],
+        re: [['子どもと動物、似てるんですね', 'はい。どっちも、こわくないって分かったら、自分から来てくれます'], ['大人にも、効きそうです', 'ふふ。はい。いっしょに来たおうちの人のほうが、上手にしゃがんでくれたりします']],
+        end: '自分から近づいてくれるのを、待つ。それだけで、だいたいうまくいきます', diary: 'まいさんが、見学の子どもたちに伝えている言葉を教えてくれました' },
+      { t: '大人は、ちょっと苦手',
+        say: ['……あの、じつは、大人と話すのが、ちょっと苦手なんです', '子どもとなら、いくらでも話せるのに。大人の前だと、急に何を話していいか、分からなくなって', '今も、少し緊張してます。……分かりますか？'],
+        re: [['ぜんぜん、分からなかったです', 'よかった……！　練習の成果です。あなたで、練習させてもらってたので'], ['ゆっくりで、大丈夫ですよ', '……ありがとうございます。それ、わたしが子どもたちに言う言葉です']],
+        end: '苦手でも、無理に得意にならなくていいって、ここに来て思えるようになりました', diary: 'まいさんが、大人と話すのが少し苦手なことを、打ち明けてくれました' },
+      { t: '泣いちゃった子',
+        say: ['先月、見学に来た子が、ヤギを見て泣いちゃったんです', '{@kurumi}が、柵ごしに、ぬっと顔を出したので。びっくりしたんですね', 'その日は、遠くのベンチから、ずっと見ているだけにしました'],
+        re: [['また、来てくれましたか', 'はい！　今月は、柵の手前まで来て、{@kurumi}に「こんにちは」って言えました'], ['{@kurumi}も、悪くないですね', 'はい。{@kurumi}は、あいさつしたかっただけ。どっちも、悪くないんです']],
+        end: '近づけるまでの時間は、ひとりずつちがうんです。子どもも、動物も', diary: 'まいさんが、ヤギを見て泣いてしまった子が、また来てくれた話をしてくれました' },
+      { t: '音痴の歌',
+        say: ['わたし、ものすごく音痴なんです', '保育園の子たちにも、「先生の歌、ちょっとちがう」って言われます', 'でも、ここで小さく歌ってると、{@momo}がそばに来て、横になるんです'],
+        re: [['{@momo}は、気に入ってるんですね', '音程じゃなくて、声の大きさがちょうどいいのかもしれません。小さい声なので'], ['何の歌ですか', '「ぞうさん」です。……牛さんの前で、ぞうさんの歌。ちょっと変ですよね']],
+        end: 'うまく歌えなくても、歌っていい場所。ここは、そういう所です', diary: 'まいさんが、小さな声で歌うと{@momo}がそばで横になる話をしてくれました' },
+      { t: '子どもの質問',
+        say: ['見学の子に、聞かれたことがあるんです', '「どうして、この牛さんは、ここにいるの？」って', 'どう答えようか、少し迷いました'],
+        re: [['何て答えたんですか', '「前にいた所で、くらせなくなったんだよ。だから、ここでゆっくりくらしてるの」って'], ['むずかしい質問ですね', 'はい。うそはつきたくないし、誰かを悪者にもしたくなくて']],
+        end: 'その子、帰りに「また来るね」って、牛さんに言ってました。それで、よかったんだと思います', diary: 'まいさんと、見学の子どもの「どうしてここにいるの？」という質問の話をしました', yoyu: 4 },
+    ] },
 };
 
 /* スタッフ・代表（NPC） */
@@ -2102,12 +2431,19 @@ const FLOWER_CHOICES = [
   { id: 'azalea', name: 'ツツジ・サツキ', ok: false, card: 'azalea' },
   { id: 'oleander', name: 'キョウチクトウ', ok: false, card: 'oleander' },
 ];
+// 季節のおやつ（0.9.27 で、種ごとに選べる形に）。その子が食べられるものだけを出す。食べられない子には、ボタン自体を出さない
+//   春：摘みたてのたんぽぽの葉（どの子も食べられる、春の野草）
+//   夏：冷やしたすいか（豚・鳥たち・ヤギ・羊）、冷やしたきゅうり（牛・馬・ロバ・ウサギ。甘いものは少なめに）
+//   秋：かぼちゃ（塗っていないもの。みんな）
+//   冬：少しのにんじん（大きな子とウサギ）、刻んだにんじん（鳥たち）
 const SEASON_TREATS = {
-  autumn: { name: 'かぼちゃ', for: ['pig', 'goat', 'sheep', 'cow', 'donkey', 'chicken', 'turkey', 'horse', 'duck', 'rabbit'] },
-  winter: { name: '少しのにんじん', for: ['pig', 'goat', 'sheep', 'cow', 'donkey', 'horse', 'rabbit'] },
-  spring: { name: '摘みたての葉物', for: ['chicken', 'duck', 'turkey', 'goat', 'sheep', 'rabbit', 'pig'] },
-  summer: { name: '冷やしたすいか', for: ['pig', 'chicken', 'duck', 'turkey', 'goat', 'sheep'] },
+  spring: [{ name: '摘みたてのたんぽぽの葉', for: ['chicken', 'duck', 'turkey', 'goat', 'sheep', 'rabbit', 'pig', 'cow', 'donkey', 'horse'] }],
+  summer: [{ name: '冷やしたすいか', for: ['pig', 'chicken', 'duck', 'turkey', 'goat', 'sheep'] }, { name: '冷やしたきゅうり', for: ['cow', 'horse', 'donkey', 'rabbit'] }],
+  autumn: [{ name: 'かぼちゃ', for: ['pig', 'goat', 'sheep', 'cow', 'donkey', 'chicken', 'turkey', 'horse', 'duck', 'rabbit'] }],
+  winter: [{ name: '少しのにんじん', for: ['pig', 'goat', 'sheep', 'cow', 'donkey', 'horse', 'rabbit'] }, { name: '刻んだにんじん', for: ['chicken', 'duck', 'turkey'] }],
 };
+const SEASON_JP = { spring: '春', summer: '夏', autumn: '秋', winter: '冬' };
+function treatFor(sp, season) { return ((SEASON_TREATS[season || (G && G.season)] || [])).find((t) => t.for.includes(sp)) || null; }
 
 /* あなた（プレーヤー）：東京で働く一般の人。見た目の部品は avatar.js */
 
@@ -4470,18 +4806,19 @@ function modelPerson(c) {
   const ctx = avCtx(c), skin = ctx.skin;
   const root = new THREE.Group(), rig = new THREE.Group(); root.add(rig);
   const legs = [], knees = [], arms = [], out = {};
-  const style = avPick('style', c.style || 'pants'), legCol = style && style.legs === 'skin' ? skin : ctx.bottom;
+  const style = avPick('style', c.style || 'pants'), legCol = style && style.legs === 'skin' ? skin : ctx.bottom, kneeCol = style && (style.legs === 'skin' || style.legs === 'short') ? skin : ctx.bottom;
   for (const s of [-1, 1]) {
     const p = new THREE.Group(); p.position.set(s * 0.14, 0.8, 0); rig.add(p);
     part('box', legCol, 0.19, 0.32, 0.21, 0, -0.16, 0, p);
     const k = new THREE.Group(); k.position.set(0, -0.3, 0); p.add(k);
-    part('box', legCol, 0.185, 0.33, 0.2, 0, -0.16, 0, k);
+    part('box', kneeCol, 0.185, 0.33, 0.2, 0, -0.16, 0, k);
     part('box', c.boots || '#F0EEE8', 0.22, 0.2, 0.32, 0, -0.38, 0.04, k);
     legs.push(p); knees.push(k);
   }
   if (style) avParts(style.parts, rig, ctx, out);
   part('box', ctx.top, 0.54, 0.64, 0.32, 0, 1.12, 0, rig);
   if (c.apron) part('box', c.apron, 0.46, 0.5, 0.04, 0, 1.02, 0.17, rig);
+  if (c.outer && c.outer !== 'none') { const ou = avOpt('outer', c.outer); if (ou) avParts(ou.parts, rig, ctx, out); }
   for (const s of [-1, 1]) {
     const p = new THREE.Group(); p.position.set(s * 0.34, 1.4, 0); rig.add(p);
     part('box', ctx.top, 0.15, 0.5, 0.17, 0, -0.25, 0, p);
@@ -4493,7 +4830,7 @@ function modelPerson(c) {
   head.add(faceMesh(c, ctx)); // 目・まゆ・ほっぺ・口は、顔に描いた絵
   const hatId = c.hatType || (c.hat ? 'straw' : 'none'), hat = hatId === 'none' ? null : avPick('hat', hatId);
   const hair = avPick('hair', c.hairStyle || 'short');
-  if (hair) avParts(hat && hat.parts && hat.parts.length && Array.isArray(hair.hatParts) ? hair.hatParts : hair.parts, rig, ctx, out);
+  if (hair) avParts(hat && hat.parts && hat.parts.length && !hat.keepHair && Array.isArray(hair.hatParts) ? hair.hatParts : hair.parts, rig, ctx, out);
   if (hat) avParts(hat.parts, rig, ctx, out);
   if (c.scarf) part('box', c.scarf, 0.5, 0.12, 0.34, 0, 1.47, 0, rig);
   if (c.glasses && c.glasses !== 'none') { const gl = avOpt('glasses', c.glasses); if (gl) avParts(gl.parts, rig, ctx, out); }
@@ -4505,7 +4842,7 @@ function avatarColors(av) {
   const a = Object.assign({}, AVATAR_DEFAULT, av || {});
   return {
     skin: avColorOf('skin', a.skin), hairStyle: a.hair, hairColor: avColorOf('hairColor', a.hairColor), top: avColorOf('top', a.top), bottom: avColorOf('bottom', a.bottom),
-    style: a.style, hatType: a.hat, glasses: a.glasses, bag: a.bag, eyes: a.eyes, brows: a.brows, cheek: a.cheek, mouth: a.mouth, boots: '#F0EEE8',
+    style: a.style, outer: a.outer, hatType: a.hat, glasses: a.glasses, bag: a.bag, eyes: a.eyes, brows: a.brows, cheek: a.cheek, mouth: a.mouth, boots: avColorOf('boots', a.boots),
   };
 }
 /* ---------- 動物 ---------- */
@@ -4777,19 +5114,21 @@ const AV_CATS = [
   { key: 'top', label: '上の服', kind: 'color', group: 'clothes' },
   { key: 'style', label: '下の服', kind: 'parts', group: 'clothes' },
   { key: 'bottom', label: '下の服の色', kind: 'color', group: 'clothes' },
+  { key: 'outer', label: '重ねて着るもの', kind: 'parts', group: 'clothes' },
+  { key: 'boots', label: '長ぐつ', kind: 'color', group: 'clothes' },
   { key: 'hat', label: '帽子', kind: 'parts', group: 'items' },
   { key: 'glasses', label: 'めがね', kind: 'parts', group: 'items' },
   { key: 'bag', label: 'かばん', kind: 'parts', group: 'items' },
 ];
 const AV_GROUPS = [['face', '顔'], ['hair', '髪'], ['clothes', '服'], ['items', '小物']];
 const AV_CAT = {}; AV_CATS.forEach((c) => { AV_CAT[c.key] = c; });
-const AVATAR_DEFAULT = { skin: '#E3B792', eyes: 'dot', brows: 'none', cheek: 'pink', mouth: 'smile', hair: 'short', hairColor: '#2A2320', top: '#9CB6C8', bottom: '#4B6F8F', style: 'pants', hat: 'none', glasses: 'none', bag: 'tote' };
+const AVATAR_DEFAULT = { skin: '#E3B792', eyes: 'dot', brows: 'none', cheek: 'pink', mouth: 'smile', hair: 'short', hairColor: '#2A2320', top: '#9CB6C8', bottom: '#4B6F8F', style: 'pants', outer: 'none', boots: '#F0EEE8', hat: 'none', glasses: 'none', bag: 'tote' };
 
 const HAIR_SHORT = { s: 'sph', c: 'hair', z: [0.47, 0.33, 0.46], p: [0, 1.84, -0.04] };
 const HAIR_WIDE = { s: 'sph', c: 'hair', z: [0.5, 0.33, 0.49], p: [0, 1.84, -0.04] };
 const AV_BUILTIN = [
   // 肌の色
-  { cat: 'skin', id: '#F2D6BA', label: '明るい' }, { cat: 'skin', id: '#E3B792', label: 'ふつう' }, { cat: 'skin', id: '#C98E66', label: '小麦色' }, { cat: 'skin', id: '#8D5A3C', label: '濃い' },
+  { cat: 'skin', id: '#F7E3D0', label: 'とても明るい' }, { cat: 'skin', id: '#F2D6BA', label: '明るい' }, { cat: 'skin', id: '#E3B792', label: 'ふつう' }, { cat: 'skin', id: '#C98E66', label: '小麦色' }, { cat: 'skin', id: '#A8714D', label: '褐色' }, { cat: 'skin', id: '#8D5A3C', label: '濃い' }, { cat: 'skin', id: '#5E3B2A', label: 'とても濃い' },
   // 目
   { cat: 'eyes', id: 'dot', label: 'つぶら', draw: [{ t: 'ellipse', x: 8.2, y: 0, rx: 1.45, ry: 1.9, c: 'ink', m: true }, { t: 'circle', x: 7.7, y: -0.75, r: 0.55, c: 'white', m: true }] },
   { cat: 'eyes', id: 'round', label: 'まんまる', draw: [{ t: 'circle', x: 8.2, y: 0.2, r: 2.5, c: 'ink', m: true }, { t: 'circle', x: 7.3, y: -0.8, r: 0.95, c: 'white', m: true }, { t: 'circle', x: 9.1, y: 1.2, r: 0.45, c: 'white', m: true }] },
@@ -4797,23 +5136,40 @@ const AV_BUILTIN = [
   { cat: 'eyes', id: 'smile', label: 'にっこり', draw: [{ t: 'path', d: 'M5.6 1.2 Q8.2 -2.4 10.8 1.2', sc: 'ink', w: 1.15, m: true }] },
   { cat: 'eyes', id: 'sleepy', label: 'ねむそう', draw: [{ t: 'path', d: 'M5.8 -0.2 Q8.2 2.0 10.6 -0.2', sc: 'ink', w: 1.05, m: true }, { t: 'path', d: 'M10.4 0.1 L11.6 -0.6', sc: 'ink', w: 0.6, m: true }] },
   { cat: 'eyes', id: 'lash', label: 'まつげ', draw: [{ t: 'ellipse', x: 8.2, y: 0.2, rx: 1.6, ry: 2.1, c: 'ink', m: true }, { t: 'circle', x: 7.6, y: -0.6, r: 0.6, c: 'white', m: true }, { t: 'path', d: 'M9.4 -1.4 L11.0 -2.5 M10.0 -0.6 L11.7 -1.2', sc: 'ink', w: 0.55, m: true }] },
+  { cat: 'eyes', id: 'tare', label: 'たれ目', draw: [{ t: 'ellipse', x: 8.2, y: 0.4, rx: 1.5, ry: 1.9, c: 'ink', m: true }, { t: 'circle', x: 7.7, y: -0.4, r: 0.55, c: 'white', m: true }, { t: 'path', d: 'M6.0 -1.8 Q8.6 -2.6 10.8 -0.6', sc: 'ink', w: 0.6, m: true }] },
+  { cat: 'eyes', id: 'kiri', label: 'きりっと', draw: [{ t: 'ellipse', x: 8.2, y: 0, rx: 1.5, ry: 1.75, c: 'ink', m: true }, { t: 'circle', x: 7.7, y: -0.6, r: 0.5, c: 'white', m: true }, { t: 'path', d: 'M5.8 -1.0 Q8.4 -2.3 11.0 -2.8', sc: 'ink', w: 0.65, m: true }] },
+  { cat: 'eyes', id: 'thin', label: 'ほそめ', draw: [{ t: 'path', d: 'M5.9 0.3 Q8.2 -0.5 10.5 0.3', sc: 'ink', w: 0.95, m: true }] },
+  { cat: 'eyes', id: 'tiny', label: 'てん', draw: [{ t: 'circle', x: 8.2, y: 0.2, r: 1.0, c: 'ink', m: true }] },
+  { cat: 'eyes', id: 'wink', label: 'ウインク', draw: [{ t: 'ellipse', x: -8.2, y: 0, rx: 1.45, ry: 1.9, c: 'ink' }, { t: 'circle', x: -8.7, y: -0.75, r: 0.55, c: 'white' }, { t: 'path', d: 'M5.6 1.0 Q8.2 -2.2 10.8 1.0', sc: 'ink', w: 1.1 }] },
   // まゆ
   { cat: 'brows', id: 'none', label: 'なし', draw: [] },
   { cat: 'brows', id: 'soft', label: 'やさしい', draw: [{ t: 'path', d: 'M6.2 -4.3 Q8.3 -5.3 10.4 -4.6', sc: 'hairDark', w: 0.75, m: true }] },
   { cat: 'brows', id: 'bold', label: 'はっきり', draw: [{ t: 'path', d: 'M6.0 -4.4 Q8.3 -5.6 10.6 -4.8', sc: 'hairDark', w: 1.3, m: true }] },
   { cat: 'brows', id: 'worry', label: 'こまり', draw: [{ t: 'path', d: 'M6.2 -5.2 Q8.4 -4.9 10.4 -3.9', sc: 'hairDark', w: 0.8, m: true }] },
+  { cat: 'brows', id: 'thick', label: '太まゆ', draw: [{ t: 'path', d: 'M6.0 -4.5 Q8.3 -5.5 10.6 -4.8', sc: 'hairDark', w: 2.0, m: true }] },
+  { cat: 'brows', id: 'up', label: 'きりり', draw: [{ t: 'path', d: 'M6.0 -4.0 L10.6 -5.7', sc: 'hairDark', w: 1.1, m: true }] },
+  { cat: 'brows', id: 'arch', label: '山なり', draw: [{ t: 'path', d: 'M6.0 -4.2 Q8.0 -6.5 10.6 -4.5', sc: 'hairDark', w: 0.8, m: true }] },
+  { cat: 'brows', id: 'maro', label: 'まろ', draw: [{ t: 'ellipse', x: 7.4, y: -5.4, rx: 1.5, ry: 1.0, c: 'hairDark', m: true }] },
   // ほっぺ
   { cat: 'cheek', id: 'none', label: 'なし', draw: [] },
   { cat: 'cheek', id: 'pink', label: 'ピンク', draw: [{ t: 'soft', x: 11.4, y: 4.6, r: 2.9, c: '#F29AA2', a: 0.85, m: true }] },
   { cat: 'cheek', id: 'peach', label: 'オレンジ', draw: [{ t: 'soft', x: 11.4, y: 4.6, r: 2.9, c: '#F4AA7C', a: 0.85, m: true }] },
   { cat: 'cheek', id: 'line', label: 'てれ', draw: [{ t: 'soft', x: 11.4, y: 4.6, r: 2.6, c: '#F29AA2', a: 0.6, m: true }, { t: 'path', d: 'M10.0 4.9 L10.9 3.7 M11.4 4.9 L12.3 3.7 M12.8 4.9 L13.6 3.8', sc: '#D86C78', w: 0.45, m: true }] },
   { cat: 'cheek', id: 'freckle', label: 'そばかす', draw: [{ t: 'circle', x: 10.4, y: 3.6, r: 0.42, c: '#A8704E', a: 0.8, m: true }, { t: 'circle', x: 12.0, y: 3.9, r: 0.38, c: '#A8704E', a: 0.8, m: true }, { t: 'circle', x: 11.2, y: 5.0, r: 0.4, c: '#A8704E', a: 0.8, m: true }] },
+  { cat: 'cheek', id: 'apple', label: 'りんご', draw: [{ t: 'soft', x: 11.2, y: 4.4, r: 3.4, c: '#E2676B', a: 0.7, m: true }] },
+  { cat: 'cheek', id: 'dot', label: 'まる', draw: [{ t: 'circle', x: 11.4, y: 4.6, r: 2.0, c: '#F29AA2', a: 0.75, m: true }] },
+  { cat: 'cheek', id: 'sun', label: '日やけ', draw: [{ t: 'soft', x: 6.6, y: 3.4, r: 4.2, c: '#C9744E', a: 0.42, m: true }] },
   // 口
   { cat: 'mouth', id: 'none', label: 'なし', draw: [] },
   { cat: 'mouth', id: 'smile', label: 'にっこり', draw: [{ t: 'path', d: 'M-2.3 7.6 Q0 10.2 2.3 7.6', sc: 'ink', w: 0.85 }] },
   { cat: 'mouth', id: 'small', label: 'ちいさい', draw: [{ t: 'path', d: 'M-1.1 8.3 Q0 9.2 1.1 8.3', sc: 'ink', w: 0.75 }] },
   { cat: 'mouth', id: 'open', label: 'あいた口', draw: [{ t: 'path', d: 'M-2.2 7.5 Q0 7.1 2.2 7.5 Q1.9 11.2 0 11.2 Q-1.9 11.2 -2.2 7.5 Z', c: '#8E3E40' }, { t: 'ellipse', x: 0, y: 10.1, rx: 1.15, ry: 0.75, c: '#E58A8A' }] },
   { cat: 'mouth', id: 'cat', label: 'ねこ口', draw: [{ t: 'path', d: 'M-2.4 7.7 Q-1.2 9.4 0 7.9 Q1.2 9.4 2.4 7.7', sc: 'ink', w: 0.75 }] },
+  { cat: 'mouth', id: 'grin', label: '歯を見せて', draw: [{ t: 'path', d: 'M-2.8 7.4 Q0 7.0 2.8 7.4 Q2.2 11.0 0 11.0 Q-2.2 11.0 -2.8 7.4 Z', c: '#8E3E40' }, { t: 'path', d: 'M-2.6 7.5 Q0 7.1 2.6 7.5 L2.3 8.7 Q0 8.4 -2.3 8.7 Z', c: 'white' }] },
+  { cat: 'mouth', id: 'o', label: 'おちょぼ', draw: [{ t: 'ellipse', x: 0, y: 8.7, rx: 0.9, ry: 1.15, c: '#8E3E40' }] },
+  { cat: 'mouth', id: 'flat', label: 'まっすぐ', draw: [{ t: 'path', d: 'M-1.9 8.5 L1.9 8.5', sc: 'ink', w: 0.8 }] },
+  { cat: 'mouth', id: 'wavy', label: 'ふにゃ', draw: [{ t: 'path', d: 'M-2.6 8.5 Q-1.3 7.4 0 8.5 Q1.3 9.6 2.6 8.5', sc: 'ink', w: 0.75 }] },
+  { cat: 'mouth', id: 'tongue', label: 'ぺろっ', draw: [{ t: 'path', d: 'M-2.3 7.6 Q0 10.2 2.3 7.6', sc: 'ink', w: 0.85 }, { t: 'ellipse', x: 0.9, y: 9.6, rx: 1.0, ry: 1.2, c: '#E58A8A' }] },
   // 髪型
   { cat: 'hair', id: 'short', label: '短い', parts: [HAIR_SHORT] },
   { cat: 'hair', id: 'bob', label: 'ボブ', parts: [HAIR_WIDE, { s: 'box', c: 'hair', z: [0.5, 0.3, 0.3], p: [0, 1.64, -0.1] }] },
@@ -4823,23 +5179,47 @@ const AV_BUILTIN = [
   { cat: 'hair', id: 'bun', label: 'おだんご', parts: [HAIR_SHORT, { s: 'sph', c: 'hair', z: [0.22, 0.2, 0.22], p: [0, 2.02, -0.14] }], hatParts: [HAIR_SHORT, { s: 'sph', c: 'hair', z: [0.2, 0.18, 0.18], p: [0, 1.66, -0.25] }] },
   { cat: 'hair', id: 'fluffy', label: 'ふわふわ', parts: [{ s: 'sph', c: 'hair', z: [0.52, 0.36, 0.5], p: [0, 1.85, -0.04] }, { s: 'ico', c: 'hair', z: [0.17, 0.17, 0.17], p: [0.2, 1.74, -0.06], m: true }, { s: 'ico', c: 'hair', z: [0.17, 0.17, 0.17], p: [0.12, 1.98, -0.1], m: true }, { s: 'ico', c: 'hair', z: [0.2, 0.2, 0.2], p: [0, 1.82, -0.22] }] },
   { cat: 'hair', id: 'buzz', label: 'とても短い', parts: [{ s: 'sph', c: 'hair', z: [0.45, 0.24, 0.44], p: [0, 1.86, -0.02] }] },
+  { cat: 'hair', id: 'bangs', label: 'ぱっつん', parts: [HAIR_WIDE, { s: 'box', c: 'hair', z: [0.5, 0.3, 0.3], p: [0, 1.64, -0.1] }, { s: 'box', c: 'hair', z: [0.44, 0.1, 0.12], p: [0, 1.87, 0.15] }] },
+  { cat: 'hair', id: 'semi', label: '肩まで', parts: [HAIR_WIDE, { s: 'box', c: 'hair', z: [0.5, 0.46, 0.28], p: [0, 1.55, -0.1] }] },
+  { cat: 'hair', id: 'braid', label: '三つ編み', parts: [HAIR_WIDE, { s: 'sph', c: 'hair', z: [0.14, 0.14, 0.14], p: [0.22, 1.63, 0.02] }, { s: 'sph', c: 'hair', z: [0.13, 0.13, 0.13], p: [0.24, 1.51, 0.04] }, { s: 'sph', c: 'hair', z: [0.12, 0.12, 0.12], p: [0.25, 1.4, 0.05] }, { s: 'sph', c: '#C8453A', z: [0.07, 0.05, 0.07], p: [0.25, 1.33, 0.05] }] },
+  { cat: 'hair', id: 'longpony', label: '長いポニー', parts: [HAIR_SHORT, { s: 'sph', c: 'hair', z: [0.16, 0.16, 0.16], p: [0, 1.8, -0.26] }, { s: 'box', c: 'hair', z: [0.12, 0.55, 0.12], p: [0, 1.5, -0.3] }] },
+  { cat: 'hair', id: 'spiky', label: 'つんつん', parts: [HAIR_SHORT, { s: 'cone', c: 'hair', z: [0.13, 0.16, 0.13], p: [0, 2.04, 0.02] }, { s: 'cone', c: 'hair', z: [0.12, 0.15, 0.12], p: [0.12, 2.0, -0.06], r: [0, 0, -0.35], m: true }, { s: 'cone', c: 'hair', z: [0.13, 0.15, 0.13], p: [0, 2.01, -0.15], r: [-0.4, 0, 0] }] },
+  { cat: 'hair', id: 'afro', label: 'アフロ', parts: [{ s: 'sph', c: 'hair', z: [0.68, 0.56, 0.6], p: [0, 1.93, -0.1] }], hatParts: [{ s: 'sph', c: 'hair', z: [0.6, 0.4, 0.56], p: [0, 1.8, -0.1] }] },
+  { cat: 'hair', id: 'bald', label: 'スキンヘッド', parts: [] },
   // 髪の色
-  { cat: 'hairColor', id: '#2A2320', label: '黒' }, { cat: 'hairColor', id: '#5A3E2B', label: 'こげ茶' }, { cat: 'hairColor', id: '#8A6242', label: '明るい茶' }, { cat: 'hairColor', id: '#B8B2A8', label: 'グレー' },
+  { cat: 'hairColor', id: '#2A2320', label: '黒' }, { cat: 'hairColor', id: '#5A3E2B', label: 'こげ茶' }, { cat: 'hairColor', id: '#8A6242', label: '明るい茶' }, { cat: 'hairColor', id: '#C9A35E', label: '金' }, { cat: 'hairColor', id: '#8E3F2C', label: '赤茶' }, { cat: 'hairColor', id: '#B8B2A8', label: 'グレー' }, { cat: 'hairColor', id: '#ECE8E0', label: '白' }, { cat: 'hairColor', id: '#D88EA6', label: 'ピンク' }, { cat: 'hairColor', id: '#5A7AA8', label: '青' },
   // 上の服
-  { cat: 'top', id: '#F1EEE4', label: '白' }, { cat: 'top', id: '#9CB6C8', label: '水色' }, { cat: 'top', id: '#6E8A5A', label: 'オリーブ' }, { cat: 'top', id: '#3E4A5C', label: '紺' }, { cat: 'top', id: '#E0C46A', label: 'からし' }, { cat: 'top', id: '#C8889A', label: 'くすみピンク' },
+  { cat: 'top', id: '#F1EEE4', label: '白' }, { cat: 'top', id: '#9CB6C8', label: '水色' }, { cat: 'top', id: '#6E8A5A', label: 'オリーブ' }, { cat: 'top', id: '#3E4A5C', label: '紺' }, { cat: 'top', id: '#E0C46A', label: 'からし' }, { cat: 'top', id: '#C8889A', label: 'くすみピンク' }, { cat: 'top', id: '#B9524A', label: '赤' }, { cat: 'top', id: '#C47A52', label: 'テラコッタ' }, { cat: 'top', id: '#9DB86A', label: '若草' }, { cat: 'top', id: '#A79AC9', label: 'ラベンダー' }, { cat: 'top', id: '#A2A5A8', label: 'グレー' }, { cat: 'top', id: '#2E2E30', label: '黒' },
   // 下の服
   { cat: 'style', id: 'pants', label: 'パンツ', parts: [] },
   { cat: 'style', id: 'skirt', label: 'スカート', legs: 'skin', parts: [{ s: 'skirt', c: 'bottom', p: [0, 0.62, 0] }] },
-  { cat: 'bottom', id: '#4B6F8F', label: 'デニム' }, { cat: 'bottom', id: '#C9B896', label: 'ベージュ' }, { cat: 'bottom', id: '#2E2E30', label: '黒' }, { cat: 'bottom', id: '#6A6E74', label: 'グレー' },
+  { cat: 'style', id: 'long', label: '長いスカート', legs: 'skin', parts: [{ s: 'skirt', c: 'bottom', p: [0, 0.5, 0], z: [1.04, 1.52, 1.04] }] },
+  { cat: 'style', id: 'shorts', label: '半ズボン', legs: 'short', parts: [] },
+  { cat: 'bottom', id: '#4B6F8F', label: 'デニム' }, { cat: 'bottom', id: '#C9B896', label: 'ベージュ' }, { cat: 'bottom', id: '#2E2E30', label: '黒' }, { cat: 'bottom', id: '#6A6E74', label: 'グレー' }, { cat: 'bottom', id: '#6B7350', label: 'オリーブ' }, { cat: 'bottom', id: '#7A5A40', label: '茶' }, { cat: 'bottom', id: '#2F3A52', label: '紺' }, { cat: 'bottom', id: '#9A4A44', label: 'えんじ' },
+  // 重ねて着るもの（服の上に）
+  { cat: 'outer', id: 'none', label: 'なし', parts: [] },
+  { cat: 'outer', id: 'apron', label: 'エプロン', parts: [{ s: 'box', c: '#E6D9BC', z: [0.46, 0.52, 0.03], p: [0, 1.04, 0.172] }, { s: 'box', c: '#D2C29E', z: [0.04, 0.03, 0.3], p: [0.22, 1.12, 0.02], m: true, ns: true }, { s: 'stick', c: '#D2C29E', from: [0.16, 1.29, 0.175], to: [0.08, 1.47, 0.08], w: 0.03, ns: true }, { s: 'stick', c: '#D2C29E', from: [-0.16, 1.29, 0.175], to: [-0.08, 1.47, 0.08], w: 0.03, ns: true }] },
+  { cat: 'outer', id: 'overall', label: 'オーバーオール', parts: [{ s: 'box', c: 'bottom', z: [0.555, 0.22, 0.33], p: [0, 0.9, 0] }, { s: 'box', c: 'bottom', z: [0.34, 0.3, 0.03], p: [0, 1.15, 0.168] }, { s: 'box', c: 'bottom', z: [0.06, 0.03, 0.35], p: [0.15, 1.445, 0], m: true, ns: true }, { s: 'box', c: 'bottomDark', z: [0.14, 0.08, 0.012], p: [0, 1.17, 0.186], ns: true }] },
+  { cat: 'outer', id: 'vest', label: 'ベスト', parts: [{ s: 'box', c: '#7A6450', z: [0.56, 0.5, 0.335], p: [0, 1.17, 0] }, { s: 'box', c: 'top', z: [0.1, 0.5, 0.01], p: [0, 1.17, 0.169] }] },
+  { cat: 'outer', id: 'hood', label: 'パーカー', parts: [{ s: 'sph', c: 'top', z: [0.42, 0.3, 0.2], p: [0, 1.5, -0.2] }, { s: 'box', c: 'topDark', z: [0.34, 0.14, 0.02], p: [0, 0.98, 0.168] }, { s: 'box', c: 'white', z: [0.015, 0.16, 0.015], p: [0.06, 1.34, 0.172], m: true, ns: true }] },
+  { cat: 'outer', id: 'scarf', label: 'マフラー', parts: [{ s: 'box', c: '#C8453A', z: [0.5, 0.12, 0.36], p: [0, 1.47, 0] }, { s: 'box', c: '#B23C33', z: [0.11, 0.3, 0.04], p: [0.12, 1.3, 0.18] }] },
+  // 長ぐつ
+  { cat: 'boots', id: '#F0EEE8', label: '白' }, { cat: 'boots', id: '#2E2E30', label: '黒' }, { cat: 'boots', id: '#E2B93B', label: '黄' }, { cat: 'boots', id: '#4E7A5A', label: '緑' }, { cat: 'boots', id: '#B9524A', label: '赤' }, { cat: 'boots', id: '#8A5A3C', label: '茶' }, { cat: 'boots', id: '#5A7AA8', label: '青' },
   // 帽子
   { cat: 'hat', id: 'none', label: 'なし', parts: [] },
   { cat: 'hat', id: 'cap', label: 'キャップ', parts: [{ s: 'sph', c: '#3E4A5C', z: [0.49, 0.28, 0.49], p: [0, 1.9, -0.02] }, { s: 'box', c: '#3E4A5C', z: [0.34, 0.04, 0.26], p: [0, 1.87, 0.28] }] },
   { cat: 'hat', id: 'bucket', label: 'バケットハット', parts: [{ s: 'cyl', c: '#C9B896', z: [0.64, 0.06, 0.64], p: [0, 1.87, 0] }, { s: 'cyl', c: '#C9B896', z: [0.48, 0.24, 0.48], p: [0, 1.99, 0] }] },
   { cat: 'hat', id: 'knit', label: 'ニット帽', parts: [{ s: 'sph', c: '#D6735A', z: [0.5, 0.38, 0.5], p: [0, 1.92, -0.02] }, { s: 'cyl', c: '#C2654E', z: [0.5, 0.08, 0.5], p: [0, 1.82, -0.02] }] },
   { cat: 'hat', id: 'straw', label: '麦わら', parts: [{ s: 'cyl', c: 'hatStraw', z: [0.86, 0.05, 0.86], p: [0, 1.9, 0] }, { s: 'cyl', c: 'hatStraw', z: [0.46, 0.24, 0.46], p: [0, 2.02, 0] }] },
+  { cat: 'hat', id: 'beret', label: 'ベレー帽', parts: [{ s: 'sph', c: '#8E3F2C', z: [0.52, 0.16, 0.5], p: [0.03, 1.97, -0.03], r: [0, 0, -0.18] }, { s: 'cyl', c: '#7A3526', z: [0.03, 0.05, 0.03], p: [0.04, 2.06, -0.03] }] },
+  { cat: 'hat', id: 'bandana', label: 'バンダナ', parts: [{ s: 'sph', c: '#5A7AA8', z: [0.5, 0.3, 0.49], p: [0, 1.89, -0.04] }, { s: 'sph', c: '#4A6890', z: [0.1, 0.08, 0.08], p: [0, 1.82, -0.27] }, { s: 'box', c: '#4A6890', z: [0.06, 0.14, 0.02], p: [0.03, 1.72, -0.27], r: [0, 0, 0.3] }] },
+  { cat: 'hat', id: 'band', label: 'ヘアバンド', keepHair: true, parts: [{ s: 'cyl', c: '#E2B93B', z: [0.53, 0.05, 0.52], p: [0, 1.88, -0.03], r: [-0.25, 0, 0] }] },
+  { cat: 'hat', id: 'flower', label: '花かざり', keepHair: true, parts: [{ s: 'sph', c: '#F2A9B8', z: [0.11, 0.11, 0.08], p: [0.2, 1.9, 0.1], ns: true }, { s: 'sph', c: '#F7E3A0', z: [0.05, 0.05, 0.04], p: [0.22, 1.91, 0.14], ns: true }, { s: 'sph', c: '#FFFFFF', z: [0.08, 0.08, 0.06], p: [0.13, 1.97, 0.1], ns: true }, { s: 'sph', c: '#9DB86A', z: [0.08, 0.03, 0.05], p: [0.27, 1.85, 0.07], r: [0, 0, 0.6], ns: true }] },
   // めがね
   { cat: 'glasses', id: 'none', label: 'なし', parts: [] },
   { cat: 'glasses', id: 'round', label: '丸めがね', parts: [{ s: 'ring', c: '#2E2A26', z: [0.14, 0.14, 0.14], p: [0.083, 1.745, 0.214], m: true, ns: true }, { s: 'box', c: '#2E2A26', z: [0.06, 0.01, 0.01], p: [0, 1.75, 0.224], ns: true }] },
+  { cat: 'glasses', id: 'square', label: '四角めがね', parts: [{ s: 'box', c: '#2E2A26', z: [0.13, 0.012, 0.012], p: [0.083, 1.79, 0.222], m: true, ns: true }, { s: 'box', c: '#2E2A26', z: [0.13, 0.012, 0.012], p: [0.083, 1.7, 0.222], m: true, ns: true }, { s: 'box', c: '#2E2A26', z: [0.012, 0.1, 0.012], p: [0.148, 1.745, 0.214], m: true, ns: true }, { s: 'box', c: '#2E2A26', z: [0.012, 0.1, 0.012], p: [0.018, 1.745, 0.226], m: true, ns: true }, { s: 'box', c: '#2E2A26', z: [0.04, 0.012, 0.012], p: [0, 1.775, 0.228], ns: true }] },
+  { cat: 'glasses', id: 'sun', label: 'サングラス', parts: [{ s: 'cyl', c: '#2A2A30', z: [0.13, 0.012, 0.11], p: [0.083, 1.745, 0.222], r: [1.5708, 0, 0], m: true, ns: true }, { s: 'box', c: '#2A2A30', z: [0.05, 0.014, 0.012], p: [0, 1.77, 0.228], ns: true }] },
   { cat: 'glasses', id: 'big', label: '大きな丸めがね', parts: [{ s: 'ring', c: '#9A6440', z: [0.185, 0.185, 0.185], p: [0.09, 1.742, 0.212], m: true, ns: true }, { s: 'box', c: '#9A6440', z: [0.04, 0.012, 0.012], p: [0, 1.752, 0.226], ns: true }] },
   // かばん
   { cat: 'bag', id: 'tote', label: 'トートバッグ', parts: [
@@ -4850,6 +5230,9 @@ const AV_BUILTIN = [
   { cat: 'bag', id: 'backpack', label: 'リュック', parts: [
     { s: 'box', c: '#5C6A72', z: [0.44, 0.52, 0.22], p: [0, 1.13, -0.27] }, { s: 'box', c: '#4A565E', z: [0.36, 0.2, 0.06], p: [0, 1.0, -0.4] },
     { s: 'box', c: '#3E484E', z: [0.06, 0.03, 0.36], p: [0.15, 1.455, -0.01], m: true, ns: true }, { s: 'box', c: '#3E484E', z: [0.06, 0.34, 0.025], p: [0.15, 1.27, 0.168], m: true, ns: true }] },
+  { cat: 'bag', id: 'pochette', label: 'ポシェット', parts: [
+    { s: 'box', c: '#B07A48', z: [0.16, 0.14, 0.05], p: [0.17, 0.93, 0.19] }, { s: 'box', c: '#8A5A34', z: [0.16, 0.05, 0.055], p: [0.17, 0.985, 0.192], ns: true },
+    { s: 'stick', c: '#8A5A34', from: [0.2, 0.99, 0.19], to: [-0.2, 1.44, 0.172], w: 0.025, ns: true }, { s: 'stick', c: '#8A5A34', from: [-0.2, 1.44, 0.0], to: [0.24, 1.0, -0.17], w: 0.025, ns: true }] },
   { cat: 'bag', id: 'none', label: 'なし', parts: [] },
 ];
 
@@ -4914,6 +5297,7 @@ function avParts(list, parent, ctx, out) {
         if (!G3.skirt) { G3.skirt = new THREE.CylinderGeometry(0.31, 0.44, 0.46, 10, 1, true); G3.skirt.scale(1, 1, 0.72); }
         const p = vec(q.p, [0, 0.62, 0]);
         const sk = new THREE.Mesh(G3.skirt, mat(col, { side: THREE.DoubleSide })); sk.position.set(p[0], p[1], p[2]); sk.castShadow = true; parent.add(sk);
+        if (Array.isArray(q.z)) { const z = vec(q.z, [1, 1, 1]); sk.scale.set(z[0], z[1], z[2]); }
         // 裾の縁（少し濃い色の帯）
         const hem = new THREE.Mesh(G3.skirt, mat('#' + new THREE.Color(col).multiplyScalar(0.82).getHexString(), { side: THREE.DoubleSide })); hem.scale.set(1.012, 0.08, 1.012); hem.position.y = -0.21; sk.add(hem);
         if (out) out.skirt = sk;
@@ -5010,9 +5394,7 @@ function faceIcon(av, cat, id) {
 }
 
 /* ---------- データベースとの同期（部品と、動物の似顔絵） ---------- */
-const CATDB = { db: null, canEdit: false, ready: false, unsub: [], portraits: {}, alpha: { period: '', contact: '', note: '' } };
-const ALPHA_KEYS = [['period', 'テストの期間', 80, '例：10月10日〜10月24日'], ['contact', 'ご意見の送り先', 200, '例：LINEのグループ「はるにれテスト」'], ['note', 'ひとこと', 300, '例：週末に一度、30分ほど遊んでもらえるとうれしいです']];
-function alphaClean(o) { const r = {}; for (const [k, , n] of ALPHA_KEYS) r[k] = typeof (o || {})[k] === 'string' ? o[k].slice(0, n) : ''; return r; }
+const CATDB = { db: null, canEdit: false, ready: false, unsub: [], portraits: {} };
 async function catalogInit() {
   const c = window.claude;
   if (!c || typeof c.use !== 'function') return;
@@ -5032,30 +5414,11 @@ async function catalogInit() {
       CATDB.portraits = next; PORTRAIT.cache.clear();
       if (UI.cur) UI.render();
     }, () => {}));
-    try { const a = await db.collection('catalog').doc('alpha').get(); if (a && a.exists) CATDB.alpha = alphaClean(a.data()); } catch (e) { /* 案内なし */ }
     CATDB.ready = true;
-    if (UI.cur && (UI.cur.name === 'settings' || UI.cur.name === 'about' || UI.cur.name === 'feedback')) UI.render();
+    if (UI.cur && UI.cur.name === 'settings') UI.render();
   } catch (e) { /* はじめからの部品だけで続ける */ }
 }
-/* ---------- テストの声（ご意見・不具合）：各テスターの文書 feedback/<id> に書き、編集できる人だけが読む ---------- */
-const FEEDBACK_LOCAL = 'harunire-feedback-v1';
-async function feedbackSend(item) {
-  const c = window.claude;
-  try {
-    if (!c || typeof c.use !== 'function') throw new Error('nodb');
-    const [db, user] = await Promise.all([c.use('db'), c.use('user')]);
-    const uid = user ? await user.id() : null;
-    if (!db || !uid) throw new Error('nodb');
-    const ref = db.collection('feedback').doc(uid), snap = await ref.get();
-    const items = (snap.exists && Array.isArray((snap.data() || {}).items)) ? snap.data().items.slice(-29) : [];
-    items.push(item);
-    await ref.set({ items, updatedAt: Date.now(), v: APP.version });
-    return { ok: true };
-  } catch (e) {
-    try { const q = JSON.parse(localStorage.getItem(FEEDBACK_LOCAL) || '[]'); q.push(item); localStorage.setItem(FEEDBACK_LOCAL, JSON.stringify(q.slice(-20))); } catch (e2) { /* なし */ }
-    return { ok: false, code: (e && (e.code || e.message)) || 'error' };
-  }
-}
+/* ---------- 以前のテストの声（ゲームの中から届いたもの）：編集できる人だけが読む。今のご意見は Google フォームへ ---------- */
 async function feedbackList() {
   if (!CATDB.db) return { ok: false, rows: [] };
   try {
@@ -7704,7 +8067,14 @@ function navNearest(i, j) {
   return null;
 }
 function navLine(ax, az, bx, bz) {
-  const d = Math.hypot(bx - ax, bz - az), st = Math.max(1, Math.ceil(d / 0.2));
+  const d = Math.hypot(bx - ax, bz - az);
+  // 動物の道（NAV.cur）は、角をかすめないように、細かく、少し幅をもたせて見る（かすめると、押し戻されて震えるので。0.9.27）
+  if (NAV.cur) {
+    const st = Math.max(1, Math.ceil(d / 0.12)), ux = d > 1e-4 ? (bz - az) / d * 0.22 : 0, uz = d > 1e-4 ? -(bx - ax) / d * 0.22 : 0;
+    for (let k = 1; k < st; k++) { const t = k / st, x = ax + (bx - ax) * t, z = az + (bz - az) * t; for (const sgn of [0, 1, -1]) { const c = navCellOf(x + ux * sgn, z + uz * sgn); if (!navFree(c[0], c[1])) return false; } }
+    return true;
+  }
+  const st = Math.max(1, Math.ceil(d / 0.2));
   for (let k = 1; k < st; k++) { const t = k / st, c = navCellOf(ax + (bx - ax) * t, az + (bz - az) * t); if (!navFree(c[0], c[1])) return false; }
   return true;
 }
@@ -8398,7 +8768,7 @@ function animalThink(e) {
   const reachF = (f) => roam ? ((ROAM.has(f.zone) || f.zone === a.zone) && Math.hypot(f.x - e.x, f.z - e.z) < 30 && (!homeR || inRect(f.x, f.z, homeR) || goOut())) : inRect(f.x, f.z, r);
   // 割った卵は、鶏たちがいちばんに食べに来る
   const egg = sp === 'chicken' && !quar ? W.foods.find((f) => f.egg && f.left > 0 && !f.done && inRect(f.x, f.z, r)) : null;
-  const food = egg || W.foods.find((f) => f.left > 0 && reachF(f) && (f.item !== 'pumpkin' || SEASON_TREATS.autumn.for.includes(sp)) && (f.item !== 'haybale' || !bird) && f.item !== 'egg');
+  const food = egg || W.foods.find((f) => f.left > 0 && reachF(f) && (f.item !== 'pumpkin' || !!treatFor(sp, 'autumn')) && (f.item !== 'haybale' || !bird) && f.item !== 'egg');
   if (food && roll < (egg ? 0.9 : 0.55)) { const ang = rand(0, 6.28), fr = egg ? rand(0.28, 0.4) : 1.1; e.target = [food.x + Math.cos(ang) * fr, food.z + Math.sin(ang) * fr]; e.state = 'toEat'; e.food = food; e.timer = rand(10, 16); return; }
   const items = roam ? itemsReach(e, 30).filter((it) => !homeR || inRect(it.x, it.z, homeR) || goOut()) : itemsInRect(r);
   const disliked = items.find((it) => dislikesItem(a, it.id));
@@ -8673,15 +9043,18 @@ function updateAnimals(dt, time) {
       e.heading += dh * Math.min(1, dt * (Math.abs(dh) > 1.1 ? 1.2 : 0.15)); e.lookYaw = clamp(dh, -1.1, 1.1);
     }
     if (e.state === 'eat' && e.food) { e.food.left -= dt * 0.35; if (e.food.left <= 0) GAME.foodEaten(e.food, a); }
+    // 引っかかった子を、空いた所へすべらせている間は、押し合いも柵の戻しもしない（0.9.27）
+    const sliding = slideStep(e, dt);
+    if (sliding) moving = true;
     // 同じ場所で暮らす仲間と重ならない（鼻を寄せている相手とは、少し近くてよい）
-    for (const o of ACT.animals) {
+    if (!sliding) for (const o of ACT.animals) {
       if (!mateOf(e, o)) continue;
       const dx = e.x - o.x, dz = e.z - o.z, d2 = dx * dx + dz * dz, min = (SPECIES[o.a.sp].reach + sp.reach) * (e.partner === o || e._bond === o ? 0.24 : 0.32);
       if (d2 < min * min && d2 > 0.0001) { const d = Math.sqrt(d2), push = (min - d) * 0.5; e.x += dx / d * push; e.z += dz / d * push; }
     }
     // いてよい場所の外には出ない（柵を通り抜けない）
     const AR = areasOf(e);
-    if (AR.roam) {
+    if (sliding) { /* すべり終わるまで、そのまま */ } else if (AR.roam) {
       // 歩ける子：歩けない所（建物、小さな動物の区画、敷地の外）に押し出されたら、そっと戻す。小屋の中と、小屋へ向かう時はそのまま
       const sh = shelterFor(a), inSh = inRect(e.x, e.z, [sh[0] - 1.2, sh[1] + 1.2, sh[2] - 1.2, sh[3] + 1.2]) || (e.target && inRect(e.target[0], e.target[1], sh));
       const gg = gridOf(a);
@@ -8689,6 +9062,7 @@ function updateAnimals(dt, time) {
       if (!inSh && !wet && !roamFree(e.x, e.z, gg)) { const c = roamClamp(e.x, e.z, gg), k = Math.min(1, dt * 6); e.x += (c[0] - e.x) * k; e.z += (c[1] - e.z) * k; }
     } else { const cl = clampToAreas(AR, e.x, e.z); e.x = cl[0]; e.z = cl[1]; }
     e.lane = AR.lane >= 0 && (areaOf(AR, e.x, e.z) === AR.lane || !!(e.wp && e.wp.length > 1));
+    if (!sliding) unstickCheck(e, dt, AR);
     // 高さ（アヒルは池で泳ぐ）
     let y = heightAt(e.x, e.z), swim = false;
     if (a.sp === 'duck' && WS.pond && Math.hypot(e.x - POND.x, e.z - POND.z) < POND.r - 0.4) { y = WATER_Y - 0.12; swim = true; }
@@ -8697,6 +9071,57 @@ function updateAnimals(dt, time) {
     e.vt = (e.vt === undefined ? rand(4, 30) : e.vt) - dt;
     if (e.vt < 0) { e.vt = rand(18, 45) / (e.state === 'play' || e.state === 'nose' ? 2 : 1) / T.voice; if (e.state !== 'sleep' && dP < 26 && !P.playing) voiceAt(a.sp, e.x, e.z, dP, a.id); }
   }
+}
+/* ---------- 引っかかって震えている子を、すぐに助ける（0.9.27） ----------
+   0.8秒ほどのあいだ、行ったり来たりばかりで前へ進まない時（柵と建物のすき間、仲間どうしの押し合いなど）や、
+   歩こうとしているのに少しも進めない時は、まわりの広く空いた所へ、柵をすり抜けてそっとすべらせ、行き先を選び直す */
+const UNSTICK = { n: 0, log: [] };
+const WALKING = new Set(['walk', 'toEat', 'toUse', 'toRest', 'toPeek', 'toTug', 'toAlone', 'toNudge', 'toSky', 'toRub', 'toGreet', 'play', 'grazeStep']);
+function roomySpot(e, g) {
+  const n = NAV.n, k = Math.max(1, Math.ceil(bodyOf(e.a) * 0.8 / NAV.cs)), c = navCellOf(e.x, e.z);
+  const ok = (i, j) => { for (let di = -k; di <= k; di++) for (let dj = -k; dj <= k; dj++) { const ii = i + di, jj = j + dj; if (ii < 0 || jj < 0 || ii >= n || jj >= n || g[jj * n + ii]) return false; } return true; };
+  let best = null, bd = 1e9;
+  for (let r = 0; r <= 12 && !best; r++) for (let di = -r; di <= r; di++) for (let dj = -r; dj <= r; dj++) {
+    if (Math.max(Math.abs(di), Math.abs(dj)) !== r || !ok(c[0] + di, c[1] + dj)) continue;
+    const d = di * di + dj * dj; if (d < bd) { bd = d; best = [NAV.o + (c[0] + di + 0.5) * NAV.cs, NAV.o + (c[1] + dj + 0.5) * NAV.cs]; }
+  }
+  return best || roamClamp(e.x, e.z, g);
+}
+function slideStep(e, dt) {
+  const s = e.slide; if (!s) return false;
+  s.t += dt; const k = Math.min(1, s.t / s.dur), q = k * k * (3 - 2 * k);
+  e.x = s.fx + (s.tx - s.fx) * q; e.z = s.fz + (s.tz - s.fz) * q;
+  if (Math.hypot(s.tx - s.fx, s.tz - s.fz) > 0.05) { const h = Math.atan2(s.tx - s.fx, s.tz - s.fz); let dh = h - e.heading; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); e.heading += dh * Math.min(1, dt * 5); }
+  if (k >= 1) { e.slide = null; e.jw = null; }
+  return true;
+}
+function unstickCheck(e, dt, AR) {
+  const w = e.jw || (e.jw = { t: 0, path: 0, rev: 0, vx: 0, vz: 0, x: e.x, z: e.z, px: e.x, pz: e.z, last: -99 });
+  const mx = e.x - w.px, mz = e.z - w.pz, ml = Math.hypot(mx, mz);
+  w.path += ml; w.px = e.x; w.pz = e.z; w.t += dt;
+  // 向きが逆になった回数（震えていると、何度も前後する。曲がり角でふり返るのは1回だけ）
+  if (ml > 0.003) { if (w.vx * mx + w.vz * mz < -0.2 * ml * Math.hypot(w.vx, w.vz)) w.rev++; w.vx = mx; w.vz = mz; }
+  if (w.t < 0.8) return;
+  const net = Math.hypot(e.x - w.x, e.z - w.z), path = w.path, rev = w.rev;
+  w.t = 0; w.path = 0; w.rev = 0; w.x = e.x; w.z = e.z;
+  if (e.state === 'pet' || e.state === 'wade' || e.state === 'toWade' || (e.a.sp === 'duck' && inPond(e.x, e.z, -1.6))) return;
+  const shaking = rev >= 3 && path > 0.12 && net < Math.max(0.3, path * 0.35); // 行ったり来たり
+  const blocked = !!e.target && !!e.wp && WALKING.has(e.state) && path < 0.04; // 道は決まっているのに、進めない
+  if (!shaking && !blocked) return;
+  const now = performance.now() / 1000, again = now - w.last < 6; w.last = now;
+  let to;
+  if (AR.roam) to = roomySpot(e, gridOf(e.a));
+  else {
+    const r = AR.areas[Math.max(0, areaOf(AR, e.x, e.z))] || AR.areas[0], m = Math.min(bodyOf(e.a), ((r[1] - r[0]) / 2) * 0.9, ((r[3] - r[2]) / 2) * 0.9);
+    const cx = (r[0] + r[1]) / 2, cz = (r[2] + r[3]) / 2, f = again ? 0.6 : 0.35;
+    to = [clamp(e.x + (cx - e.x) * f, r[0] + m, r[1] - m), clamp(e.z + (cz - e.z) * f, r[2] + m, r[3] - m)];
+  }
+  const d = Math.hypot(to[0] - e.x, to[1] - e.z);
+  const dbg = { st: e.state, tg: e.target ? +Math.hypot(e.target[0] - e.x, e.target[1] - e.z).toFixed(2) : null, mates: ACT.animals.filter((o) => o !== e && mateOf(e, o) && Math.hypot(o.x - e.x, o.z - e.z) < 2.5).length, free: AR.roam ? roamFree(e.x, e.z, gridOf(e.a)) : null, path: +path.toFixed(2), net: +net.toFixed(2), rev };
+  if (d > 0.05) e.slide = { fx: e.x, fz: e.z, tx: to[0], tz: to[1], t: 0, dur: clamp(d / 2.2, 0.25, 0.9) };
+  e.target = null; e.wp = null; e.routeFor = null; e.food = e.state === 'toEat' ? null : e.food; e.item = e.state === 'toUse' ? null : e.item;
+  e.state = 'idle'; e.timer = again ? rand(2.5, 4) : rand(0.8, 1.6);
+  UNSTICK.n++; if (UNSTICK.log.length < 50) UNSTICK.log.push({ id: e.a.id, sp: e.a.sp, x: +e.x.toFixed(1), z: +e.z.toFixed(1), d: +d.toFixed(2), why: shaking ? 'shake' : 'block', dbg });
 }
 function animAnimal(e, moving, swim, dt, time) {
   const m = e.m, st = e.state, an = e.anim, still = !moving, side = (e.tm && e.tm.side) || 1;
@@ -9683,12 +10108,26 @@ function settleMonth() {
   for (const c of r.cover) G.overnight.push({ cat: 'people', money: true, text: `今月は、${coverText(c)}。おかげで、動物たちの世話はいつもどおりです` });
   return r;
 }
-/* ---------- はるこさん・ゆうとさんの話：週に1話ずつ。返事を選ぶと、手帳に残る ---------- */
+/* ---------- 働く人たちの話：その人がいる時に、週に1話ずつ。返事を選ぶと、手帳に残る ---------- */
 function talkState(id) { G.talks = G.talks || {}; return (G.talks[id] = G.talks[id] || { ch: 0, turn: 0, picks: [] }); }
-// 今週聞ける話。なければ、その理由（来週／段階）
+// その人が、もうここに来ているか（迎えた職員さん・アルバイトさんは、迎えてから）
+function talkPresent(id) {
+  const T = TALKS[id]; if (!T) return false;
+  if (T.hire) return teamOf().names.some((x) => x.name === T.hire);
+  const d = NPCS.find((x) => x.id === id); if (!d) return true;
+  if (id === 'minami') return G.stage >= 3 || !!G.flags.b08;
+  return G.stage >= d.stage;
+}
+function talkAbsent(id) {
+  const T = TALKS[id], d = NPCS.find((x) => x.id === id);
+  if (T.hire) return T.kind === 'part' ? '「人を増やす」でアルバイトさんを迎えると、来てくれます' : '「人を増やす」で職員さんを迎えると、来てくれます';
+  return `「${STAGES[(d && d.stage) || 1].name}」になると、来てくれます`;
+}
+// 今週聞ける話。なければ、その理由（来週／段階／まだ来ていない）
 function talkNext(id) {
   const T = TALKS[id]; if (!T) return null;
   const s = talkState(id); if (s.ch >= T.chapters.length) return { done: true };
+  if (!talkPresent(id)) return { wait: talkAbsent(id), absent: true };
   const c = T.chapters[s.ch];
   if (G.stage < (c.stage || 1)) return { wait: `「${STAGES[c.stage].name}」になったら` };
   if (s.turn === G.turn) return { wait: '次のお話は、来週' };
@@ -9972,7 +10411,7 @@ function petAnimal(a, mode, react) {
 function pigOnDiet(a) { return !!(a && a.sp === 'pig' && !hako() && G.pigDiet && G.turn < G.pigDiet.until && (G.pigDiet.ids || []).includes(a.id)); }
 function treatAnimal(a) {
   if (G.treatDone[a.id] && !hako()) return;
-  const t = SEASON_TREATS[G.season]; if (!t.for.includes(a.sp)) return;
+  const t = treatFor(a.sp); if (!t) return;
   if (pigOnDiet(a)) {
     UI.toast(`${a.name}のおやつは、今はお休みです。体重が少し増えていたので、足と関節を守るために`, 'health');
     unlockCard('pigDiet'); return;
@@ -10344,7 +10783,7 @@ function jumpStage(n) {
 /* ---------- 保存 ---------- */
 const GAME = {
   note, unlockCard, foodEaten, crackEgg, cowTag, pigOnDiet, capacity, axes, runAction, startBiz, restAction, petAnimal, petReact, respectAnimal, treatAnimal, sponsorAnimal, anniversary,
-  acceptRequest, rehomeRequest, declineRequest, requestChecks, hire, hireAvailable, finance, incomeView, savingWays, forecast, moritaState, moritaQuestion, moritaAnswer, talkState, talkNext, talkAvail, talkAnswer, bizMoney, feedBedCost, stockWeeks, coverText, reserveTarget, usableFunds, projList, projState, projPay, projCampaign, projGrant, prepDone, prepStarted, salary, hourlyWage, animalCost, teamCount, volunteerCap, staffMax, teamOf, placeItem, removeItem, startDay, endDay, jumpStage, actionAvailable,
+  acceptRequest, rehomeRequest, declineRequest, requestChecks, hire, hireAvailable, finance, incomeView, savingWays, forecast, moritaState, moritaQuestion, moritaAnswer, talkState, talkNext, talkAvail, talkAnswer, talkPresent, bizMoney, feedBedCost, stockWeeks, coverText, reserveTarget, usableFunds, projList, projState, projPay, projCampaign, projGrant, prepDone, prepStarted, salary, hourlyWage, animalCost, teamCount, volunteerCap, staffMax, teamOf, placeItem, removeItem, startDay, endDay, jumpStage, actionAvailable,
   save() {
     // 箱庭モードは保存しない（毎回、すべてがそろった姿から）
     if (!G || !STARTED || G._backdrop || G.mode === 'hakoniwa') return;
@@ -10856,6 +11295,7 @@ const UI = {
   openSheet(name, arg, push) {
     if (push && UI.cur && !$('#sheet').hidden) UI.stack.push(UI.cur); else if (!push) UI.stack = [];
     UI.cur = { name, arg }; UI.confirm = null;
+    if (name === 'avatar') UI.avGroup = 'face'; // いつも 1 の「顔」から
     $('#sheet').classList.toggle('short', name === 'avatar');
     $('#sheet').hidden = false; document.body.classList.add('sheet-open'); UI.render(true);
     if (name === 'avatar') { $('#hud').hidden = true; UI.avatarCam(); }
@@ -10898,8 +11338,8 @@ const UI = {
     UI.stickCheck();
   },
   renderFallback(c) {
-    let h = '<p class="lead-s">ごめんなさい。この画面を、うまく表示できませんでした。「ご意見・不具合を送る」から知らせてもらえると、直せます（画面の情報を送るを、オンのままで）。</p>';
-    h += '<div class="btn-row"><button class="btn small" data-act="open" data-v="feedback">ご意見・不具合を送る</button></div>';
+    let h = '<p class="lead-s">ごめんなさい。この画面を、うまく表示できませんでした。下のボタンの Google フォームから、どの画面だったかを知らせてもらえると、直せます。</p>';
+    h += `<div class="btn-row">${UI.formLink('small')}</div>`;
     if (c.name === 'evening') h += '<div class="sticky-foot btn-row"><button class="btn primary" data-act="next-visit">来週の日曜日へ</button></div>';
     else if (c.name === 'morning') h += '<div class="sticky-foot btn-row"><button class="btn primary" data-act="morning-go">今日もはじめましょう</button></div>';
     return { title: { evening: '今日の日記', morning: '今週の訪問' }[c.name] || '', html: h, keepScroll: false };
@@ -10912,8 +11352,6 @@ const UI = {
   onInput(e) {
     const t = e.target;
     if (t.id === 'adm-json' && UI.adm) { UI.adm.edit = t.value; return; }
-    if (t.id === 'fb-text' && UI.fb) { UI.fb.text = t.value; return; }
-    if (/^al-/.test(t.id) && UI.adm) { (UI.adm.alpha || (UI.adm.alpha = {}))[t.id.slice(3)] = t.value; return; }
     if (t.id === 'vol') { const v = +t.value; G.settings.vol = v; setVolume(v); GAME.saveSoon(); uiSound('click'); return; }
     if (t.id === 'tod') {
       const v = +t.value;
@@ -10964,7 +11402,10 @@ const UI = {
       case 'photo-save': UI.savePhoto(id === '' ? null : +id); break;
       case 'talk': UI.closeModal(); UI.talkModal(id); break;
       case 'talk-ans': { const r = GAME.talkAnswer(id, +v); if (r) UI.talkModal(id, r); else UI.closeModal(); if (UI.cur && !$('#sheet').hidden) UI.render(); break; }
-      case 'talk-go': { const e2 = ACT.npcs.find((e) => e.d.id === id); if (e2) { UI.closeSheet(); movePlayerTo(e2.x, e2.z, { ent: e2, kind: 'npc', reach: e2.reach || 2.6, silent: true }); } break; }
+      case 'open-person': { const push = !$('#sheet').hidden && $('#modal').hidden; UI.openSheet('person', id, push); break; }
+      case 'open-talkread': { const push = !$('#sheet').hidden && $('#modal').hidden; UI.openSheet('talkread', { id, k: +v }, push); break; }
+      case 'talkread-go': if (UI.cur && UI.cur.name === 'talkread') { UI.cur.arg = { id, k: +v }; UI.render(true); } break;
+      case 'talk-go': { const e2 = UI.talkNpc(id); if (e2) { UI.closeSheet(); movePlayerTo(e2.x, e2.z, { ent: e2, kind: 'npc', reach: e2.reach || 2.6, silent: true }); } break; }
       case 'cover': { const ph = G.photos.find((x) => x.id === +id); if (ph) { GAME.setCover(ph.turn, ph.id); UI.closeModal(); UI.toast(`第${ph.turn}週の表紙にしました`, 'photo'); if (!$('#sheet').hidden) UI.render(); } break; }
       case 'chg': { const f = v.split(',').map(Number); UI.closeModal(); if (!$('#sheet').hidden && UI.cur.name === 'morning') { /* 朝のパネルは開いたまま */ } focusAt(f[0], f[1], 20, 6000); glowRing(f[0], f[1], 3.5); break; }
       case 'confirm': UI.confirm = v; UI.render(); break;
@@ -10980,14 +11421,7 @@ const UI = {
       case 'toggle-gauge': G.settings.gauge = !G.settings.gauge; GAME.save(); UI.refresh(); UI.render(); break;
       case 'rename': { const inp = $('#sanct-name'); if (!inp) break; const changed = GAME.rename(inp.value); UI.toast(changed ? `「${G.name}」になりました` : '同じ名前のままです', 'daily'); UI.render(); break; }
       case 'toggle-lite': G.settings.lite = !G.settings.lite; applyLite(); GAME.save(); UI.render(); break;
-      case 'fb-cat': UI.fb.cat = v; UI.render(); break;
-      case 'fb-info': UI.fb.info = !UI.fb.info; UI.render(); break;
-      case 'fb-send': UI.sendFeedback(); break;
-      case 'fb-copy': UI.copyFeedback().then((ok) => UI.toast(ok ? '文章をコピーしました' : 'コピーできませんでした。文章を長押しして選んでください', ok ? 'daily' : 'news')); break;
-      case 'fb-comment': UI.commentFeedback(); break;
-      case 'fb-form': UI.formFeedback(); break;
       case 'adm-fb-load': UI.loadFeedback(); break;
-      case 'adm-alpha-save': UI.saveAlpha(); break;
       case 'toggle-paper': G.settings.paper = G.settings.paper === false; PAPER.ok = true; PAPER.an = null; GAME.save(); UI.render(); break;
       case 'toggle-labels': UI.showLabels = !UI.showLabels; UI.render(); break;
       case 'toggle-autosit': G.settings.autoSit = G.settings.autoSit === false; GAME.save(); UI.render(); break;
@@ -11001,7 +11435,7 @@ const UI = {
       case 'close-modal': UI.closeModal(); break;
       case 'photo-album': UI.closeModal(); UI.closePhoto(); UI.tab.diary = 'album'; UI.openSheet('diary'); break;
       case 'av': { const av = Object.assign({}, G.avatar); av[b.dataset.k] = v; GAME.setAvatar(av); uiSound('click'); UI.render(); UI.avatarCam(); break; }
-      case 'av-group': UI.avGroup = v; UI.render(); UI.avatarCam(); break;
+      case 'av-group': UI.avGroup = v; uiSound('click'); UI.render(true); UI.avatarCam(); break;
       case 'fc': UI.fcSel = +v; UI.render(); break;
       case 'money-run': GAME.runAction(id); UI.render(); break;
       case 'proj-pay': GAME.projPay(id); UI.render(); break;
@@ -11245,36 +11679,58 @@ const UI = {
       const a = G.animals.find((x) => x.id === id);
       if (!a) return { title: '動物', html: '<p class="muted">見つかりませんでした。</p>' };
       const sp = SPECIES[a.sp], friend = G.animals.find((o) => (a.friend && o.key === a.friend) || o.id === a.friendId || a.id === o.friendId);
-      const q = a.quarantine && G.turn < a.quarantine, y = yearsSince(a, G.date), treat = SEASON_TREATS[G.season];
-      const hk = G.mode === 'hakoniwa';
+      const q = a.quarantine && G.turn < a.quarantine, y = yearsSince(a, G.date), treat = treatFor(a.sp), diet = GAME.pigOnDiet(a);
+      const hk = G.mode === 'hakoniwa', ent = animalById(a.id), alone = ent && ALONE.has(ent.state) && !q;
       if (a.sp === 'cow' && !G.cards.earTag) setTimeout(() => { if (unlockCard('earTag')) GAME.save(); }, 700);
-      let h = `<div class="acard-head"><span class="av" style="${avStyle(a)}"></span><div><h3>${esc(a.name)}</h3><div class="sub">${sp.name}・${a.age}歳・${heartsHtml(a.trust)}</div></div></div>
-        <dl class="facts"><dt>出身</dt><dd>${esc(a.origin)}</dd><dt>性格</dt><dd>${esc(a.personality)}${PERS_DESC[a.personality] ? `<br><span class="muted">${esc(PERS_DESC[a.personality])}</span>` : ''}</dd>
-        <dt>仲良し</dt><dd>${friend ? esc(friend.name) + (friend.sp !== a.sp ? `（${SPECIES[friend.sp].name}）` : '') : 'まだ'}</dd>
-        ${(() => { const bp = bondPartnerOf(a); if (!bp) return ''; const bd = G.bonds.find((x) => x.a === a.id || x.b === a.id), t = bondType(bd), q = isQuiet(a);
-          const how = t === 'ss' ? 'ふたりとも静か。並んで、ゆっくり過ごすのが好き。' : t === 'oo' ? 'ふたりで、敷地のあちこちを歩きまわる。' : q ? `${bp.name}のそばだと、落ち着いて過ごせる。` : `${bp.name}を連れて、先を歩くことが多い。`;
-          return `<dt>いつも一緒</dt><dd>${esc(bp.name)}（${SPECIES[bp.sp].name}）<br><span class="muted">種類はちがっても、惹かれあった相手。${how}${ROAM_SP.includes(a.sp) ? '' : '昼のあいだは、一緒に柵の外を歩きます。'}</span></dd>`; })()}
-        ${G.stage >= 2 && ROAM_SP.includes(a.sp) ? `<dt>過ごし方</dt><dd>${roamPrefText(a)}</dd>` : ''}
-        <dt>好きなこと</dt><dd>${a.trust >= 2 ? a.likes.map((l) => esc(ITEMS[l] ? ITEMS[l].name : l)).join('、') || 'のんびりすること' : 'もう少し仲良くなったら、教えてくれそうです'}${a.trust >= 3 && a.dislikes.length ? `<br><span class="muted">苦手：${a.dislikes.map((l) => esc(ITEMS[l].name)).join('、')}</span>` : ''}</dd>
-        <dt>体調とケア</dt><dd>${esc(a.health)}${q ? '<br><span class="pill q">検疫中：あと少しで区画の仲間に</span>' : ''}${GAME.pigOnDiet(a) ? `<br><span class="muted">体重が少し増えたので、おやつはお休み中（あと${G.pigDiet.until - G.turn}週）</span>` : ''}</dd>
-        <dt>来た日</dt><dd>${fmtDate(a.arrived, true)}${y ? `　<span class="pill warn">今週で${y}年</span>` : ''}</dd>
-        ${a.sp === 'cow' ? `<dt>耳の番号</dt><dd>${esc(GAME.cowTag(a))}<br><span class="muted">両耳の黄色い耳標。名前で呼ぶけれど、法律で番号もつけています（このゲームの中だけの番号）</span></dd>` : ''}</dl>
-        ${a.sp === 'cow' ? `<details class="care-memo"><summary>牛の世話メモ</summary><ul><li>水：搾乳中の牛は1日80〜100L、放牧の牛で約45L</li><li>ひづめ：削蹄は少なくとも年2回</li><li>草地：1頭に25a以上が目安</li><li>寿命：牛の自然な寿命は約15〜20年。乳牛の多くは5〜6歳で農場を離れます</li></ul>${UI.srcLinks(['alicmilk', 'saga', 'kassai', 'souchi', 'mdpi'])}<button class="btn small ghost" data-act="go-cowbook">牛と酪農の手帳</button></details>` : ''}
-        <div class="btn-row" style="margin:10px 0 14px">
-          ${(() => { const bird = !!sp.bird, lb = !bird && a.likes.includes('brush'); return `<button class="btn small${lb ? '' : ' primary'}" data-act="pet" data-id="${a.id}" data-v="pet" ${q ? 'disabled' : ''}>${ico('i-heart')}なでる</button>${bird ? '' : `<button class="btn small${lb ? ' primary' : ''}" data-act="pet" data-id="${a.id}" data-v="brush" ${q ? 'disabled' : ''}>ブラッシング</button>`}`; })()}
-          ${treat.for.includes(a.sp) ? `<button class="btn small" data-act="treat" data-id="${a.id}" ${G.treatDone[a.id] && !hk ? 'disabled' : ''}>${esc(treat.name)}をあげる</button>` : ''}
-          ${a.sponsor ? '<span class="pill ok">里親になっています</span>' : `<button class="btn small" data-act="sponsor" data-id="${a.id}" ${(!hk && G.hands < 1) ? 'disabled' : ''}>里親になる（1回分）</button>`}
-          ${y ? `<button class="btn small" data-act="anniv" data-id="${a.id}" ${G.flags['anniv' + a.id + G.date.slice(0, 4)] || (!hk && G.hands < 1) ? 'disabled' : ''}>来た日をお祝い（1回分）</button>` : ''}
-          ${(G.nameSigns || []).includes(a.key) ? '' : `<button class="btn small" data-act="sign" data-id="${a.id}" ${(!hk && G.hands < 1) ? 'disabled' : ''}>名前の看板を作る（1回分）</button>`}
-          <button class="btn small ghost" data-act="goto" data-id="${a.id}">そばへ行く</button>
-          <button class="btn small ghost" data-act="photo-animal" data-id="${a.id}">${ico('i-camera')}撮る</button>
-        </div>
-        ${(() => { const ent = animalById(a.id); return ent && ALONE.has(ent.state) && !q ? '<p class="muted pet-hint">今は、ひとりで過ごしています。そっとしておきましょう。</p>' : ''; })()}
-        ${G.petDone[a.id] ? '' : `<p class="muted pet-hint">${q ? '検疫中は、柵の外から見守ります。' : '好きな子は、自分から寄ってきます。苦手な子は、離れていくこともあります。離れていったら、少し距離をとって見守ります。'}</p>`}
-        <div class="sec"><h3>物語</h3><ul class="stories">`;
-      a.stories.forEach((s, i) => { h += i < a.known ? `<li>${esc(s)}</li>` : `<li class="locked">まだ知らない話があります。${i === a.known ? `もう少し仲良くなったら（信頼 ${STORY_TRUST[i] || '—'}）、話してくれそうです。見学ツアーで聞けることもあります` : ''}</li>`; });
-      h += `</ul></div>`;
-      if (sp.card) h += `<div class="sec"><button class="btn small ghost" data-act="card" data-id="${sp.card}">${ico('i-card')}${esc(CARDS[sp.card].title)}</button></div>`;
+      const sec = (icon, title, body, cls, note) => `<section class="ac-sec ${cls || ''}"><h4>${ico(icon)}<span>${title}</span>${note ? `<small>${note}</small>` : ''}</h4>${body}</section>`;
+      // あたま：絵・名前・種類と年・なかよし度（ハート）。今の様子は小さな札で
+      const pills = [];
+      if (q) pills.push('<span class="pill q">検疫中</span>');
+      if (alone) pills.push('<span class="pill">ひとりの時間</span>');
+      if (a.sponsor) pills.push('<span class="pill ok">里親になっています</span>');
+      if (y) pills.push(`<span class="pill warn">今週で${y}年</span>`);
+      if (diet) pills.push('<span class="pill">おやつはお休み中</span>');
+      let h = `<div class="ac-hero"><span class="av" style="${avStyle(a)}"></span><div class="ac-id"><h3>${esc(a.name)}</h3><div class="ac-meta"><span class="ac-sp"><svg class="spi"><use href="#sp-${a.sp}"/></svg>${sp.name}</span><span>${a.age}歳</span></div><div class="ac-trust"><span>なかよし度</span>${heartsHtml(a.trust)}</div></div></div>${pills.length ? `<div class="ac-pills">${pills.join('')}</div>` : ''}`;
+      // ふれあう：なでる・ブラッシング・季節のおやつ（大きなボタン）。そばへ行く・撮る
+      const bird = !!sp.bird, lb = !bird && a.likes.includes('brush');
+      let act = `<div class="ac-main">`;
+      act += `<button class="ac-btn${lb ? '' : ' on'}" data-act="pet" data-id="${a.id}" data-v="pet" ${q ? 'disabled' : ''}>${ico('i-heart')}<b>なでる</b></button>`;
+      if (!bird) act += `<button class="ac-btn${lb ? ' on' : ''}" data-act="pet" data-id="${a.id}" data-v="brush" ${q ? 'disabled' : ''}>${ico('i-spark')}<b>ブラッシング</b>${lb ? '<small>好き</small>' : ''}</button>`;
+      if (treat) act += `<button class="ac-btn" data-act="treat" data-id="${a.id}" ${G.treatDone[a.id] && !hk ? 'disabled' : ''}>${ico('i-leaf')}<b>${G.treatDone[a.id] && !hk ? '今日はあげました' : diet ? 'おやつはお休み中' : esc(treat.name)}</b><small>${SEASON_JP[G.season]}のおやつ</small></button>`;
+      act += '</div>';
+      const hint = alone ? '今は、ひとりで過ごしています。そっとしておきましょう。' : q ? '検疫中は、柵の外から見守ります。' : G.petDone[a.id] ? '' : '好きな子は、自分から寄ってきます。苦手な子は、離れていくこともあります。離れていったら、少し距離をとって見守ります。';
+      if (hint) act += `<p class="ac-hint">${hint}</p>`;
+      act += `<div class="ac-sub"><button class="btn small ghost" data-act="goto" data-id="${a.id}">${ico('i-map')}そばへ行く</button><button class="btn small ghost" data-act="photo-animal" data-id="${a.id}">${ico('i-camera')}撮る</button></div>`;
+      h += sec('i-hand', 'ふれあう', act, 'ac-act');
+      // 応援する：今日できることを1回分つかう
+      const help = [];
+      if (!a.sponsor) help.push(`<button class="btn small" data-act="sponsor" data-id="${a.id}" ${(!hk && G.hands < 1) ? 'disabled' : ''}>里親になる</button>`);
+      if (y) help.push(`<button class="btn small" data-act="anniv" data-id="${a.id}" ${G.flags['anniv' + a.id + G.date.slice(0, 4)] || (!hk && G.hands < 1) ? 'disabled' : ''}>来た日をお祝い</button>`);
+      if (!(G.nameSigns || []).includes(a.key)) help.push(`<button class="btn small" data-act="sign" data-id="${a.id}" ${(!hk && G.hands < 1) ? 'disabled' : ''}>名前の看板を作る</button>`);
+      if (help.length) h += sec('i-flower', '応援する', `<div class="ac-help">${help.join('')}</div>`, 'ac-cheer', hk ? '' : 'どれも、今日できることを1回分');
+      // この子のこと：性格・好きなこと・仲良し・過ごし方
+      let me = `<dl class="ac-facts"><dt>性格</dt><dd><b>${esc(a.personality)}</b>${PERS_DESC[a.personality] ? `<span>${esc(PERS_DESC[a.personality])}</span>` : ''}</dd>`;
+      me += `<dt>好きなこと</dt><dd>${a.trust >= 2 ? a.likes.map((l) => esc(ITEMS[l] ? ITEMS[l].name : l)).join('、') || 'のんびりすること' : '<span>もう少し仲良くなったら、教えてくれそうです</span>'}${a.trust >= 3 && a.dislikes.length ? `<span>苦手：${a.dislikes.map((l) => esc(ITEMS[l].name)).join('、')}</span>` : ''}</dd>`;
+      me += `<dt>仲良し</dt><dd>${friend ? esc(friend.name) + (friend.sp !== a.sp ? `（${SPECIES[friend.sp].name}）` : '') : '<span>まだ</span>'}</dd>`;
+      { const bp = bondPartnerOf(a); if (bp) { const bd = G.bonds.find((x) => x.a === a.id || x.b === a.id), t = bondType(bd), qq = isQuiet(a);
+        const how = t === 'ss' ? 'ふたりとも静か。並んで、ゆっくり過ごすのが好き。' : t === 'oo' ? 'ふたりで、敷地のあちこちを歩きまわる。' : qq ? `${bp.name}のそばだと、落ち着いて過ごせる。` : `${bp.name}を連れて、先を歩くことが多い。`;
+        me += `<dt>いつも一緒</dt><dd>${esc(bp.name)}（${SPECIES[bp.sp].name}）<span>種類はちがっても、惹かれあった相手。${how}${ROAM_SP.includes(a.sp) ? '' : '昼のあいだは、一緒に柵の外を歩きます。'}</span></dd>`; } }
+      if (G.stage >= 2 && ROAM_SP.includes(a.sp)) me += `<dt>過ごし方</dt><dd>${roamPrefText(a)}</dd>`;
+      me += '</dl>';
+      h += sec('i-paw', 'この子のこと', me, 'ac-me');
+      // 物語
+      let st = '<ul class="stories">';
+      a.stories.forEach((s2, i) => { st += i < a.known ? `<li>${esc(s2)}</li>` : `<li class="locked">まだ知らない話があります。${i === a.known ? `もう少し仲良くなったら（信頼 ${STORY_TRUST[i] || '—'}）、話してくれそうです。見学ツアーで聞けることもあります` : ''}</li>`; });
+      st += '</ul>';
+      h += sec('i-book', '物語', st, 'ac-story', `${Math.min(a.known, a.stories.length)} / ${a.stories.length}`);
+      // からだと記録：体調・出身・来た日・耳の番号、牛の世話メモ、種のカード
+      let rec = `<dl class="ac-facts"><dt>体調とケア</dt><dd>${esc(a.health)}${q ? '<span class="pill q">検疫中：あと少しで区画の仲間に</span>' : ''}${diet ? `<span>体重が少し増えたので、おやつはお休み中（あと${G.pigDiet.until - G.turn}週）</span>` : ''}</dd>`;
+      rec += `<dt>出身</dt><dd>${esc(a.origin)}</dd><dt>来た日</dt><dd>${fmtDate(a.arrived, true)}</dd>`;
+      if (a.sp === 'cow') rec += `<dt>耳の番号</dt><dd>${esc(GAME.cowTag(a))}<span>両耳の黄色い耳標。名前で呼ぶけれど、法律で番号もつけています（このゲームの中だけの番号）</span></dd>`;
+      rec += '</dl>';
+      if (a.sp === 'cow') rec += `<details class="care-memo"><summary>牛の世話メモ</summary><ul><li>水：搾乳中の牛は1日80〜100L、放牧の牛で約45L</li><li>ひづめ：削蹄は少なくとも年2回</li><li>草地：1頭に25a以上が目安</li><li>寿命：牛の自然な寿命は約15〜20年。乳牛の多くは5〜6歳で農場を離れます</li></ul>${UI.srcLinks(['alicmilk', 'saga', 'kassai', 'souchi', 'mdpi'])}<button class="btn small ghost" data-act="go-cowbook">牛と酪農の手帳</button></details>`;
+      if (sp.card) rec += `<button class="btn small ghost ac-card" data-act="card" data-id="${sp.card}">${ico('i-card')}${esc(CARDS[sp.card].title)}</button>`;
+      h += sec('i-leaf', 'からだと記録', rec, 'ac-rec');
       return { title: `${a.name}（${sp.name}）`, html: h };
     },
     diary() {
@@ -11303,8 +11759,11 @@ const UI = {
       const hk = G.mode === 'hakoniwa';
       // はじめの画面に戻る：設定のいちばん上に。続きは保存されていることを、押す前に伝える
       let h = `<button class="home-btn" data-act="title"><span class="hb-ic">${ico('i-home')}</span><span class="hb-tx"><strong>はじめの画面に戻る</strong><small>${hk ? '箱庭モードは保存しません。育てている続きは、そのまま残っています' : `育てている続き（${esc(STAGES[G.stage].name)}・第${G.turn}週）は保存されます。はじめの画面の「つづきから」で戻れます`}</small></span><span class="hb-go">${ico('i-right')}</span></button>`;
-      h += `<div class="sec tester"><h3>${APP.label}　${APP.version}</h3><p class="muted">遊んでくださって、ありがとうございます。気づいたことは、何でも送ってください。</p><div class="btn-row"><button class="btn small primary" data-act="open" data-v="feedback">ご意見・不具合を送る</button><button class="btn small" data-act="open" data-v="about">このテスト版について</button></div></div>
-        <div class="sec"><button class="btn small" data-act="open" data-v="avatar">${ico('i-person')}あなたの見た目を変える</button></div>${CATDB.canEdit ? `<div class="sec"><h3>ゲームの管理</h3><p class="muted">編集できる人だけに見えます。アバターの部品を足したり、動物の似顔絵を差しかえたりできます。</p><button class="btn small" data-act="open" data-v="avadmin">部品と似顔絵を管理する</button></div>` : ''}
+      // あなたの見た目：はじめの画面に戻るの次に、顔の絵つきの大きなボタンで
+      h += `<button class="home-btn av-btn" data-act="open" data-v="avatar"><span class="hb-ic av-ic"><img src="${faceIcon(Object.assign({}, AVATAR_DEFAULT, G.avatar), 'eyes', (G.avatar || {}).eyes || AVATAR_DEFAULT.eyes)}" alt=""></span><span class="hb-tx"><strong>あなたの見た目を変える</strong><small>顔・髪・服・小物の順に、えらべます</small></span><span class="hb-go">${ico('i-right')}</span></button>`;
+      // ご意見は、すべて Google フォームで（押すと、そのままフォームが開く）
+      h += `<div class="sec tester"><h3>${APP.label}　${APP.version}</h3><p class="muted">遊んでくださって、ありがとうございます。気づいたことは、何でも送ってください。</p>${UI.formLink('small primary')}<p class="muted">Google フォームが開きます。</p></div>
+        ${CATDB.canEdit ? `<div class="sec"><h3>ゲームの管理</h3><p class="muted">編集できる人だけに見えます。アバターの部品を足したり、動物の似顔絵を差しかえたりできます。</p><button class="btn small" data-act="open" data-v="avadmin">部品と似顔絵を管理する</button></div>` : ''}
         <div class="sec"><h3>サンクチュアリの名前</h3>
           <div class="name-row"><input id="sanct-name" type="text" maxlength="12" value="${esc(GAME.placeName())}" aria-label="サンクチュアリの名前" autocomplete="off"><span class="suffix">サンクチュアリ</span></div>
           <button class="btn small" data-act="rename">この名前にする</button>
@@ -11342,24 +11801,56 @@ const UI = {
         h += `</div><div class="sec"><h3>続きをファイルに</h3><p class="lead-s">育てている続きを、この端末にファイルで残せます。ブラウザのデータを消した時や、ほかの端末で続ける時は、そのファイルから読み込みます。アルバムの写真は入りません。</p><div class="btn-row"><button class="btn small" data-act="save-export" ${canOut ? '' : 'disabled'}>ファイルに保存</button><button class="btn small" data-act="save-import">ファイルから読み込む</button></div>`;
         if (UI.importPending) h += `<div class="confirm">${esc(UI.importText)}<div class="btn-row" style="margin-top:8px"><button class="btn small primary" data-act="import-yes">読み込む</button><button class="btn small" data-act="import-no">やめる</button></div></div>`;
       }
-      h += `</div><div class="sec"><h3>操作</h3><p class="lead-s">${IS_TOUCH ? 'タップした場所へ歩きます。ドラッグで見回し、ピンチで寄ったり離れたりできます。動物をタップすると、そばへ行ってカードが開きます。' : 'WASDか矢印キーで歩きます（Shiftで早歩き）。クリックした場所へ歩くこともできます。ドラッグで見回し、ホイールで寄ります。近くの動物やスタッフにはEで話しかけます。Escで閉じます。'}</p>
+      h += `</div><div class="sec"><h3>操作</h3><p class="lead-s">${IS_TOUCH ? 'タップした場所へ歩きます。ドラッグで見回し、ピンチで寄ったり離れたりできます。動物をタップすると、そばへ行ってなでます。動物のカードは、近くで出る「〜のカードを見る」か、下の「動物」から開けます。' : 'WASDか矢印キーで歩きます（Shiftで早歩き）。クリックした場所へ歩くこともできます。ドラッグで見回し、ホイールで寄ります。動物をクリックすると、そばへ行ってなでます。近くの動物のカードはEで開き、スタッフにはEで話しかけます。Escで閉じます。'}</p>
         <p class="muted">${STORE.ok ? '進み具合は、claude.aiのあなたのアカウントに保存されます。ほかの端末で開いても続きから遊べます。アルバムの写真は、この端末にだけ残ります。' : '進み具合は、このブラウザに保存されます。「続きをファイルに」で、ファイルにも残せます。'}</p></div>`;
       return { title: '設定', html: h };
     },
     avatar(arg) {
-      const av = Object.assign({}, AVATAR_DEFAULT, G.avatar), grp = UI.avGroup || 'face';
-      let h = `<div class="seg av-tabs">${AV_GROUPS.map(([k, n]) => `<button data-act="av-group" data-v="${k}" class="${grp === k ? 'on' : ''}">${n}</button>`).join('')}</div>`;
-      for (const cat of AV_CATS.filter((c) => c.group === grp)) {
-        const opts = avList(cat.key); if (!opts.length) continue;
-        h += `<div class="field"><span class="flabel">${esc(cat.label)}</span>`;
+      // 顔 → 髪 → 服 → 小物 の4つを、順に決めていく。上の番号でどこへでも行ける
+      const av = Object.assign({}, AVATAR_DEFAULT, G.avatar), grp = UI.avGroup || 'face', first = !!(arg && arg.then);
+      const gi = Math.max(0, AV_GROUPS.findIndex(([k]) => k === grp)), last = AV_GROUPS.length - 1;
+      const cats = (k) => AV_CATS.filter((c) => c.group === k && avList(c.key).length);
+      let h = `<ol class="av-steps">${AV_GROUPS.map(([k, n], i) => `<li class="${i === gi ? 'on' : i < gi ? 'done' : ''}"><button data-act="av-group" data-v="${k}" aria-current="${i === gi ? 'step' : 'false'}"><b>${i < gi ? ico('i-check') : i + 1}</b><span>${n}</span></button></li>`).join('')}</ol>`;
+      h += `<div class="av-head"><span class="av-n">${gi + 1} / ${AV_GROUPS.length}</span><h3>${AV_GROUPS[gi][1]}をえらぶ</h3><small>${cats(grp).map((c) => esc(c.label)).join('・')}</small></div>`;
+      for (const cat of cats(grp)) {
+        const opts = avList(cat.key);
+        h += `<div class="field av-field"><span class="flabel">${esc(cat.label)}</span>`;
         if (cat.kind === 'color') h += `<div class="swatches">${opts.map((o) => `<button data-act="av" data-k="${cat.key}" data-v="${esc(o.id)}" class="${av[cat.key] === o.id ? 'on' : ''}" style="background:${isHex(o.color) ? o.color : isHex(o.id) ? o.id : '#888'}" aria-label="${esc(o.label)}" title="${esc(o.label)}"></button>`).join('')}</div>`;
         else if (cat.kind === 'face') h += `<div class="faces">${opts.map((o) => `<button data-act="av" data-k="${cat.key}" data-v="${esc(o.id)}" class="${av[cat.key] === o.id ? 'on' : ''}"><img src="${faceIcon(av, cat.key, o.id)}" alt=""><span>${esc(o.label)}</span></button>`).join('')}</div>`;
         else h += `<div class="seg">${opts.map((o) => `<button data-act="av" data-k="${cat.key}" data-v="${esc(o.id)}" class="${av[cat.key] === o.id ? 'on' : ''}">${esc(o.label)}</button>`).join('')}</div>`;
         h += '</div>';
       }
-      if (arg && arg.then) h += '<p class="muted">あなたは東京で働く会社員。平日は都心に通い、日曜日にここを訪ねます。見た目は、あとから設定で変えられます。</p>';
-      h += `<div class="sticky-foot"><button class="btn primary" data-act="av-done">${arg && arg.then ? 'この姿ではじめる' : 'この姿にする'}</button></div>`;
+      if (first && gi === 0) h += '<p class="muted">あなたは東京で働く会社員。平日は都心に通い、日曜日にここを訪ねます。見た目は、あとから設定で変えられます。</p>';
+      const prev = gi > 0 ? AV_GROUPS[gi - 1] : null, next = gi < last ? AV_GROUPS[gi + 1] : null;
+      h += `<div class="sticky-foot av-foot">${prev ? `<button class="btn av-prev" data-act="av-group" data-v="${prev[0]}">${ico('i-left')}${prev[1]}</button>` : ''}`;
+      h += next ? `<button class="btn primary av-next" data-act="av-group" data-v="${next[0]}">次へ：${next[1]}をえらぶ${ico('i-right')}</button>${first ? '' : '<button class="btn ghost av-fin" data-act="av-done">ここで決める</button>'}`
+        : `<button class="btn primary av-next" data-act="av-done">${first ? 'この姿ではじめる' : 'この姿にする'}</button>`;
+      h += '</div>';
       return { title: 'あなたの見た目', html: h };
+    },
+    person(id) {
+      const T = TALKS[id]; if (!T) return { title: '人の話', html: '' };
+      const s = GAME.talkState(id), nx = GAME.talkNext(id), N = T.chapters.length, here = !!UI.talkNpc(id), about = CHAT[id] && CHAT[id].about;
+      let h = `<div class="tp-head"><span class="mav" style="background:${T.color}">${esc(T.mark)}</span><div><strong>${esc(T.name)}</strong><small>${esc(T.role || '')}</small><p>${esc(about || T.sub)}</p></div></div>`;
+      h += `<div class="tp-sum"><b>「${esc(T.title)}」</b><span>${s.ch >= N ? '全部聞きました' : `お話 ${s.ch} / ${N}`}</span><i class="rbar"><i style="width:${Math.min(100, s.ch / N * 100)}%"></i></i></div>`;
+      h += '<ol class="tp-chaps">';
+      T.chapters.forEach((c, k) => {
+        if (k < s.ch) h += `<li><button class="tp-ch heard" data-act="open-talkread" data-id="${id}" data-v="${k}"><span class="tp-n">${k + 1}</span><span class="tp-t"><b>${said(c.t)}</b><small>「${said(c.end)}」</small></span><span class="tp-go">${ico('i-right')}</span></button></li>`;
+        else if (k === s.ch && nx && nx.c) h += `<li><div class="tp-ch now"><span class="tp-n">${k + 1}</span><span class="tp-t"><b>${said(c.t)}</b><small>${here ? '今週、聞けます' : '今週、話しかけると聞けます'}</small></span>${here ? `<button class="btn small primary" data-act="talk-go" data-id="${id}">会いに行く</button>` : ''}</div></li>`;
+        else h += `<li><div class="tp-ch locked"><span class="tp-n">${k + 1}</span><span class="tp-t"><b>まだ聞いていないお話</b>${k === s.ch && nx && nx.wait ? `<small>${esc(nx.wait)}</small>` : ''}</span></div></li>`;
+      });
+      h += '</ol><p class="muted">番号を押すと、その時の会話を読み直せます。</p>';
+      return { title: T.name, html: h };
+    },
+    talkread(arg) {
+      const id = arg && arg.id, T = TALKS[id]; if (!T) return { title: '人の話', html: '' };
+      const s = GAME.talkState(id), N = T.chapters.length, k = clamp(+arg.k || 0, 0, Math.max(0, s.ch - 1)), c = T.chapters[k];
+      if (!c || k >= s.ch) return { title: T.name, html: '<p class="muted">まだ聞いていないお話です。</p>' };
+      const r = c.re[s.picks[k]] || c.re[0];
+      let h = `<div class="dialog-who"><span class="mav" style="background:${T.color}">${esc(T.mark)}</span><div><strong>${esc(T.name)}</strong><br><span class="muted">「${esc(T.title)}」　お話 ${k + 1} / ${N}</span></div></div>`;
+      h += `<h3 class="talk-t">${said(c.t)}</h3><div class="tr-body">${c.say.map((x) => `<p class="said">「${said(x)}」</p>`).join('')}<p class="you">あなた「${said(r[0])}」</p><p class="said">「${said(r[1])}」</p><p class="said">「${said(c.end)}」</p></div>`;
+      h += `<div class="tr-nav">${k > 0 ? `<button class="btn small" data-act="talkread-go" data-id="${id}" data-v="${k - 1}">${ico('i-left')}お話 ${k}</button>` : '<span></span>'}${k + 1 < s.ch ? `<button class="btn small" data-act="talkread-go" data-id="${id}" data-v="${k + 1}">お話 ${k + 2}${ico('i-right')}</button>` : ''}</div>`;
+      return { title: `${T.name}のお話`, html: h };
     },
     avadmin() {
       const A = UI.adm || (UI.adm = { tab: 'parts', cat: 'eyes', edit: null, err: '', busy: false });
@@ -11368,9 +11859,7 @@ const UI = {
       h += `<div class="seg av-tabs">${[['parts', 'アバターの部品'], ['portraits', '動物の似顔絵'], ['voices', 'テストの声']].map(([k, n]) => `<button data-act="adm-tab" data-v="${k}" class="${A.tab === k ? 'on' : ''}">${n}</button>`).join('')}</div>`;
       if (A.tab === 'voices') {
         const r = A.fb, catName = { bug: '不具合', hard: 'わかりにくい', good: 'よかった', idea: 'アイデア', other: 'そのほか' };
-        const AI = A.alpha || (A.alpha = Object.assign({}, CATDB.alpha));
-        h += `<div class="sec"><h3>テストの案内</h3><p class="muted">「このテスト版について」と、ご意見を直接送れなかった人の画面に出ます。空のままなら出ません。</p>${ALPHA_KEYS.map(([k, label, n, ph]) => `<div class="field"><label class="flabel" for="al-${k}">${label}</label><input id="al-${k}" type="text" class="txt" autocomplete="off" maxlength="${n}" placeholder="${esc(ph)}" value="${esc(AI[k] || '')}"></div>`).join('')}<div class="btn-row"><button class="btn small primary" data-act="adm-alpha-save" ${A.alBusy || !CATDB.db ? 'disabled' : ''}>${A.alBusy ? '保存しています…' : '案内を保存'}</button></div></div>`;
-        h += `<h3 class="sub-h">届いたご意見</h3><p class="lead-s">テスターのみなさんから届いたご意見です。新しい順。</p><div class="btn-row"><button class="btn small" data-act="adm-fb-load" ${A.fbBusy ? 'disabled' : ''}>${A.fbBusy ? '読み込んでいます…' : r ? '読み直す' : '読み込む'}</button></div>`;
+        h += `<h3 class="sub-h">届いたご意見</h3><p class="lead-s">以前、ゲームの中から直接届いたご意見です（新しい順）。今は、ご意見はすべて Google フォームに届きます。</p><div class="btn-row"><button class="btn small" data-act="adm-fb-load" ${A.fbBusy ? 'disabled' : ''}>${A.fbBusy ? '読み込んでいます…' : r ? '読み直す' : '読み込む'}</button></div>`;
         if (r && !r.ok) h += `<div class="confirm">読み込めませんでした${r.err ? `（${esc(r.err)}）` : ''}</div>`;
         if (r && r.ok) {
           const counts = {}; r.rows.forEach((x) => { counts[x.cat] = (counts[x.cat] || 0) + 1; });
@@ -11404,34 +11893,6 @@ const UI = {
         h += `<div class="sec"><h3>種と色ごと</h3><div class="adm-list">${SPECIES_ORDER.map((sp) => colors(sp).map((c) => row(`sp-${sp}-${c}`, { sp, color: c, name: sp + c }, `${SPECIES[sp].name}（${c}）`, 'あとから来る子')).join('')).join('')}</div></div>`;
       }
       return { title: 'ゲームの管理', html: h };
-    },
-    feedback() {
-      const F = UI.fb || (UI.fb = { cat: 'bug', text: '', info: true, busy: false, msg: '' });
-      const cats = [['bug', '不具合'], ['hard', 'わかりにくい'], ['good', 'よかった'], ['idea', 'アイデア'], ['other', 'そのほか']];
-      let h = `<p class="lead-s">どんな小さなことでも、うれしいです。止まった、動かない、読みにくい、ここが楽しかった、こうだったらいいのに、など。</p>`;
-      h += `<div class="field"><span class="flabel">種類</span><div class="seg">${cats.map(([k, n]) => `<button data-act="fb-cat" data-v="${k}" class="${F.cat === k ? 'on' : ''}">${n}</button>`).join('')}</div></div>`;
-      h += `<div class="field"><label class="flabel" for="fb-text">内容</label><textarea id="fb-text" rows="6" maxlength="2000" placeholder="例：「若葉の牧場」で、受け入れの準備のボタンを押しても何も起きなかった">${esc(F.text)}</textarea></div>`;
-      const direct = UI.canSendDirect();
-      h += `<div class="switch"><span>${direct ? '画面の情報も送る' : '画面の情報も文章に入れる'}（版、育ち具合、端末、最近のエラー）</span><input type="checkbox" data-act="fb-info" ${F.info ? 'checked' : ''}></div>`;
-      if (direct) h += '<p class="muted">名前やメールアドレスは書かなくて大丈夫です。送った内容は、このゲームを作っている人だけが読みます。</p>';
-      else h += `<p class="muted">ご意見は Google フォームで受け取っています。「フォームを開く」を押すと、ここに書いた文章をコピーしてからフォームが開くので、「ひとこと」に貼りつけてください。何も書かずに開いても大丈夫です。${UI.contactLine()}</p>`;
-      if (F.msg) h += `<div class="confirm">${esc(F.msg)}</div>`;
-      if (F.fallback) h += `<div class="btn-row" id="fb-fallback"><button class="btn small" data-act="fb-comment">コメントとして残す</button><button class="btn small" data-act="fb-copy">文章をコピー</button></div><p class="muted">コメントは、このページを開ける人みんなに見えます。${UI.contactLine()}</p>`;
-      h += direct ? `<div class="sticky-foot"><button class="btn primary" data-act="fb-send" ${F.busy ? 'disabled' : ''}>${F.busy ? '送っています…' : '送る'}</button></div>`
-        : `<div class="sticky-foot"><a class="btn primary" data-act="fb-form" href="${esc(APP.contact.form)}" target="_blank" rel="noopener">フォームを開く</a><button class="btn" data-act="fb-copy">文章をコピー</button></div>`;
-      return { title: 'ご意見・不具合を送る', html: h };
-    },
-    about() {
-      let h = `<p class="lead-s">「はるにれの丘」${APP.label} ${APP.version}（${APP.date}）です。</p>`;
-      const AL = CATDB.alpha || {};
-      h += `<div class="sec tester"><h3>テストの案内</h3>${AL.note ? `<p class="lead-s">${esc(AL.note)}</p>` : ''}<dl class="al-dl">${AL.period ? `<dt>期間</dt><dd>${esc(AL.period)}</dd>` : ''}<dt>ご意見の送り先</dt><dd><a href="${esc(APP.contact.form)}" target="_blank" rel="noopener">${esc(APP.contact.formName)}</a>${AL.contact && !/@/.test(AL.contact) ? `<br>${esc(AL.contact)}` : ''}</dd></dl><p class="muted">${esc(APP.contact.dm)}。</p></div>`;
-      h += `<div class="sec"><h3>このテストで確かめたいこと</h3><ul class="plain">${APP.aim.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>`;
-      h += `<div class="sec"><h3>遊んでみてほしいこと</h3><ul class="plain check">${APP.try.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>`;
-      h += `<div class="sec"><h3>わかっている問題</h3><ul class="plain">${APP.known.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>`;
-      h += `<div class="sec"><h3>進み具合の保存</h3><p class="lead-s">${STORE.ok ? '進み具合は、claude.aiのあなたのアカウントに保存されています。ほかの端末からも続きを遊べます。' : (window.claude ? '今は、このブラウザにだけ保存されています。claude.aiで、共有の権限が「閲覧」だけの時は、アカウントに保存できません。' : 'このブラウザにだけ保存されています。ほかの端末やブラウザ、プライベートブラウズでは、続きは引き継がれません。ブラウザの閲覧データを消すと、続きも消えます。「設定」の「続きをファイルに」で、ファイルに残しておけます。iPhoneでは、ホーム画面に追加して遊ぶと、保存が消えにくくなります。')}箱庭モードは保存しません（毎回、すべてがそろった姿から始まります）。</p></div>`;
-      h += `<div class="sec"><h3>更新の記録</h3><ul class="plain log">${APP.log.map(([v, d, t]) => `<li><b>${esc(v)}</b>　<span class="muted">${esc(d)}</span><br>${esc(t)}</li>`).join('')}</ul></div>`;
-      h += `<div class="btn-row"><button class="btn small primary" data-act="open" data-v="feedback">ご意見・不具合を送る</button></div>`;
-      return { title: 'このテスト版について', html: h };
     },
     when() {
       const so = G.settings.seasonOverride, eo = G.settings.eventOverride, tod = G.settings.tod;
@@ -11584,60 +12045,8 @@ const UI = {
   /* ---------- 朝と夕方 ---------- */
   /* ---------- 運営のお金：収入・増やし方・見通し ---------- */
   /* ---------- テストの声 ---------- */
-  sendFeedback() {
-    const F = UI.fb; if (!F || F.busy) return;
-    const text = (F.text || '').trim();
-    if (!text) { F.msg = '内容を書いてください'; UI.render(); return; }
-    const item = { at: Date.now(), cat: F.cat, text: text.slice(0, 2000), v: APP.version };
-    if (F.info && G) item.info = { mode: G.mode, stage: G.stage, turn: G.turn, date: G.date, animals: G.animals.length, screen: `${window.innerWidth}x${window.innerHeight}@${(window.devicePixelRatio || 1).toFixed(1)}`, ua: navigator.userAgent.slice(0, 180), paper: paperOn(), lite: !!G.settings.lite, errors: ERRLOG.slice(-5) };
-    F.busy = true; F.msg = ''; F.fallback = false; F.lastText = text; UI.render();
-    feedbackSend(item).then((r) => {
-      F.busy = false;
-      if (r.ok) { F.text = ''; F.msg = '届きました。ありがとうございます。'; UI.toast('ご意見を送りました。ありがとうございます', 'daily'); }
-      else { F.msg = 'このページの共有の権限では、ここから直接は送れませんでした。下のボタンで、コメントとして残すか、文章をコピーして、下の送り先へ送ってください。'; F.fallback = true; }
-      UI.render();
-      const m = $('#sheet-body .confirm'); if (m && m.scrollIntoView) m.scrollIntoView({ block: 'center', behavior: 'smooth' });
-    });
-  },
-  // claude.ai の中で、データベースが使える時だけ、ここから直接送る（使えなければ、Google フォームかコピー）
-  canSendDirect() { return !!(window.claude && typeof window.claude.use === 'function'); },
-  contactLine() { return `送り先：<a href="${esc(APP.contact.form)}" target="_blank" rel="noopener">${esc(APP.contact.formName)}</a>。${esc(APP.contact.dm)}。`; },
-  // フォームを開く：書いた文章があれば、先にコピーしておく（フォームの「ひとこと」に貼りつけられるように）。開くのはリンクそのもの
-  formFeedback() {
-    const F = UI.fb || {};
-    if ((F.text || '').trim()) UI.copyFeedback().then((ok) => { if (ok) UI.toast('文章をコピーしました。フォームの「ひとこと」に貼りつけてください', 'daily'); });
-  },
-  feedbackText() {
-    const F = UI.fb || {}, CAT = { bug: '不具合', hard: 'わかりにくい', good: 'よかった', idea: 'アイデア', other: 'そのほか' };
-    const lines = [`【はるにれの丘 ${APP.version} ご意見：${CAT[F.cat] || 'そのほか'}】`, F.text || F.lastText || ''];
-    if (G && F.info !== false) {
-      lines.push('', `（${G.mode === 'hakoniwa' ? '箱庭モード' : `段階${G.stage}・${G.turn}週目`}・画面${window.innerWidth}x${window.innerHeight}・${navigator.userAgent.slice(0, 120)}）`);
-      try { const er = (typeof ERRLOG !== 'undefined' ? ERRLOG : []).slice(-3).map((e) => `${e.m || e}${e.at ? ` (${e.at})` : ''}`.slice(0, 160)); if (er.length) lines.push(`最近のエラー：${er.join(' / ')}`); } catch (e) { /* なし */ }
-    }
-    return lines.join('\n');
-  },
-  async copyFeedback() {
-    const t = UI.feedbackText();
-    // まず同期のコピー（押した瞬間に済ませる）、だめならクリップボードAPIを短く待つ
-    try { const ta = document.createElement('textarea'); ta.value = t; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); const ok = document.execCommand('copy'); ta.remove(); if (ok) return true; } catch (e) { /* 次へ */ }
-    try { if (!navigator.clipboard) return false; await Promise.race([navigator.clipboard.writeText(t), new Promise((res, rej) => setTimeout(() => rej(new Error('slow')), 1500))]); return true; } catch (e) { return false; }
-  },
-  // 共有の権限が「コメント」までの人は、ページのコメントで
-  async commentFeedback() {
-    await UI.copyFeedback();
-    try {
-      const cm = window.claude && window.claude.use ? await window.claude.use('comments') : null;
-      const el = $('#fb-text') || $('#sheet-body');
-      if (!cm || !el) throw new Error('nocomments');
-      const r = await cm.openComposer({ element: el });
-      UI.toast(r && r.opened ? 'コメント欄を開きました。コピーした文章を貼りつけて送ってください' : 'コメント欄を開けませんでした。画面のコメントから送ってください', 'daily');
-    } catch (e) { UI.toast('このページでは、コメントを書けないようです。コピーした文章を、ご意見フォームかDMで送ってください', 'news'); }
-  },
-  saveAlpha() {
-    const A = UI.adm; if (!A || A.alBusy) return;
-    const body = alphaClean(A.alpha); A.alBusy = true; UI.render();
-    catalogSave('catalog', 'alpha', Object.assign({ updatedAt: Date.now() }, body)).then(() => { CATDB.alpha = body; UI.toast('テストの案内を保存しました', 'daily'); }).catch((e) => UI.toast('保存できませんでした：' + ((e && (e.code || e.message)) || ''), 'news')).then(() => { A.alBusy = false; UI.render(); });
-  },
+  // ご意見は、すべて Google フォームで。押すと、そのままフォームが開く
+  formLink(cls, label) { return `<a class="btn ${cls || ''} fb-link" href="${esc(APP.contact.form)}" target="_blank" rel="noopener">${ico('i-doc')}${label || 'ご意見・不具合を送る'}</a>`; },
   loadFeedback() {
     const A = UI.adm; A.fbBusy = true; UI.render();
     feedbackList().then((r) => { A.fbBusy = false; A.fb = r; UI.render(); });
@@ -11855,7 +12264,7 @@ const UI = {
     if (first && !G.avatarChosen) { UI.openSheet('avatar', { then: () => UI.morning(page, first, cb) }); return; }
     UI.morningFirst = first;
     UI.openSheet('morning', page);
-    UI.onClose = () => { cb && cb(); if (G.turn <= 2 && G.mode !== 'hakoniwa') UI.hint(IS_TOUCH ? 'タップで歩く・ドラッグで見回す・動物をタップで近づく' : 'WASDで歩く・ドラッグで見回す・近くの動物にEで話しかける'); };
+    UI.onClose = () => { cb && cb(); if (G.turn <= 2 && G.mode !== 'hakoniwa') UI.hint(IS_TOUCH ? 'タップで歩く・ドラッグで見回す・動物をタップでなでる' : 'WASDで歩く・ドラッグで見回す・動物をクリックでなでる'); };
   },
   evening(page) { UI.openSheet('evening', page); if (curPage()) G.diarySeen = curPage().turn; UI.refresh(); },
   endDayClick() {
@@ -11979,9 +12388,10 @@ const UI = {
     let btn = func ? func.btn : '';
     // 続きのある話：今週聞ける話があれば、そっと誘う
     let story = '';
-    if (TALKS[id]) {
-      const nx = GAME.talkNext(id);
-      if (nx && nx.c) { story = `<p class="talk-offer">${esc(n.d.name)}が、話したいことがあるようです<small>お話 ${nx.i + 1} / ${TALKS[id].chapters.length}「${said(nx.c.t)}」</small></p>`; btn = `<button class="btn small primary" data-act="talk" data-id="${id}">話を聞く</button>${btn.replace('btn small primary', 'btn small')}`; }
+    const tid = UI.talkIdOf(n.d);
+    if (tid) {
+      const nx = GAME.talkNext(tid);
+      if (nx && nx.c) { story = `<p class="talk-offer">${esc(n.d.name)}が、話したいことがあるようです<small>お話 ${nx.i + 1} / ${TALKS[tid].chapters.length}「${said(nx.c.t)}」</small></p>`; btn = `<button class="btn small primary" data-act="talk" data-id="${tid}">話を聞く</button>${btn.replace('btn small primary', 'btn small')}`; }
     }
     const about = cid && CHAT[cid].about;
     UI.modal(`<div class="dialog-who"><span class="av" style="background:${n.d.top}"></span><div><strong>${esc(n.d.name)}</strong><br><span class="muted">${esc(n.d.role)}${about ? `・${esc(about.split('。')[0])}` : ''}</span></div></div>${chatHtml(lines)}${story}<div class="btn-row">${btn}<button class="btn small" data-act="close-modal">ありがとう</button></div>`);
@@ -12003,23 +12413,19 @@ const UI = {
     UI.modal(h);
     const mc = $('#modal-card'); if (mc) mc.scrollTop = res ? mc.scrollHeight : 0;
   },
+  // 話の持ち主（はるこさんなど、または迎えた職員さん・アルバイトさん）
+  talkIdOf(d) { if (!d) return null; if (TALKS[d.id]) return d.id; const c = d.hire ? CHAT_HIRE[d.name] : null; return c && TALKS[c] ? c : null; },
+  talkNpc(tid) { return ACT.npcs.find((e) => UI.talkIdOf(e.d) === tid) || null; },
+  // 日記の「人の話」：ここで働く人たちの一覧 → その人のお話1〜 → 会話
   talksHtml() {
-    let h = '<p class="lead-s">はるこさんやゆうとさんに話しかけると、週に1話ずつ、続きを聞かせてくれます。聞いた話は、ひらくと読み直せます。</p>';
+    let h = '<p class="lead-s">ここで働く人たちに話しかけると、週に1話ずつ、話を聞かせてくれます。名前を押すと、その人のお話が並びます。</p><ul class="tp-list">';
     for (const id of Object.keys(TALKS)) {
-      const T = TALKS[id], s = GAME.talkState(id), nx = GAME.talkNext(id), N = T.chapters.length, here = ACT.npcs.some((e) => e.d.id === id);
-      const first = T.chapters[0];
-      if (G.stage < (first.stage || 1) && !s.ch) { h += `<div class="morita-card locked"><span class="mav" style="background:${T.color}">${esc(T.mark)}</span><div><strong>${esc(T.name)}</strong><span>「${STAGES[first.stage].name}」になると、スタッフとして来てくれます</span></div></div>`; continue; }
-      h += `<div class="morita-card"><span class="mav" style="background:${T.color}">${esc(T.mark)}</span><div><strong>${esc(T.name)}「${esc(T.title)}」</strong><span>${s.ch >= N ? '全部聞きました。' : `お話 ${s.ch} / ${N}。`}${esc(T.sub)}</span><i class="rbar"><i style="width:${Math.min(100, s.ch / N * 100)}%"></i></i></div></div>`;
-      if (nx && nx.c) h += `<div class="talk-next"><span>お話 ${nx.i + 1}「${said(nx.c.t)}」を聞けます</span>${here ? `<button class="btn small primary" data-act="talk-go" data-id="${id}">会いに行く</button>` : ''}</div>`;
-      else if (nx && nx.wait) h += `<p class="muted talk-wait">${esc(nx.wait)}</p>`;
-      // 聞いた話は、ひらくと全部読み直せる（その時の言葉、あなたの返事、返ってきた言葉）
-      if (s.ch) h += `<ol class="talk-log">${T.chapters.slice(0, s.ch).map((c, k) => { const r = c.re[s.picks[k]] || c.re[0]; return `<li><details${k === s.ch - 1 ? ' open' : ''}><summary><span class="tl-n">お話 ${k + 1}</span><b>${said(c.t)}</b><span class="tl-end">「${said(c.end)}」</span></summary><div class="tl-body">${c.say.map((x) => `<p class="said">「${said(x)}」</p>`).join('')}<p class="you">あなた「${said(r[0])}」</p><p class="said">「${said(r[1])}」<br>「${said(c.end)}」</p></div></details></li>`; }).join('')}</ol>`;
+      const T = TALKS[id], s = GAME.talkState(id), nx = GAME.talkNext(id), N = T.chapters.length;
+      if (!s.ch && nx && (nx.absent || (nx.wait && G.stage < (T.chapters[0].stage || 1)))) { h += `<li><div class="tp-row locked"><span class="mav" style="background:#B9B4A8">${esc(T.mark)}</span><span class="tp-tx"><b>${esc(T.name)}</b><small>${esc(T.role || '')}</small><span class="tp-why">${esc(nx.wait)}</span></span></div></li>`; continue; }
+      const fresh = nx && nx.c;
+      h += `<li><button class="tp-row" data-act="open-person" data-id="${id}"><span class="mav" style="background:${T.color}">${esc(T.mark)}</span><span class="tp-tx"><b>${esc(T.name)}${fresh ? '<em class="tp-new">新しい話</em>' : ''}</b><small>${esc(T.role || '')}・「${esc(T.title)}」</small><span class="tp-prog"><i class="rbar"><i style="width:${Math.min(100, s.ch / N * 100)}%"></i></i><span>${s.ch >= N ? '全部聞きました' : `お話 ${s.ch} / ${N}`}</span></span></span><span class="tp-go">${ico('i-right')}</span></button></li>`;
     }
-    // ここで働く人たち（話したことのある人）
-    const met = G.chatMet || {}, ppl = [];
-    for (const n of ACT.npcs) { const cid = CHAT[n.d.id] ? n.d.id : n.d.hire ? CHAT_HIRE[n.d.name] : null; if (cid && met[cid] !== undefined) ppl.push({ n, C: CHAT[cid] }); }
-    if (ppl.length) h += `<div class="sec"><h3>ここで働く人たち</h3><ul class="ppl">${ppl.map(({ n, C }) => `<li><span class="av" style="background:${n.d.top}"></span><div><b>${esc(n.d.name)}</b><small>${esc(n.d.role)}</small><span>${esc(C.about)}</span></div></li>`).join('')}</ul><p class="muted">まだ話していない人は、話しかけると、ここに加わります。</p></div>`;
-    return h;
+    return h + '</ul>';
   },
   // ＋でひらいた中身が長い時（画面の高さの3分の1より長い時）は、中身の下にも「− とじる」を置く
   discToggle(d) {
@@ -12095,6 +12501,7 @@ const UI = {
     if (UI.placeItemId || UI.removeMode) { if (UI.markerTap(ray)) return; }
     const hit = pickEntity(ray);
     const P = ACT.player;
+    if (hit && hit.kind === 'animal') { UI.tapAnimal(hit.ent); return; }
     if (hit) {
       const e = hit.ent, reach = (hit.kind === 'animal' ? SPECIES[e.a.sp].reach : hit.kind === 'bench' ? 1.6 : 2.6) + 0.6;
       if (Math.hypot(e.x - P.x, e.z - P.z) < reach) UI.interact({ ent: e, kind: hit.kind });
@@ -12106,6 +12513,14 @@ const UI = {
       if (CAM.overview) { teleportPlayer(gi.point.x, gi.point.z); setOverview(false); UI.refresh(); return; }
       movePlayerTo(gi.point.x, gi.point.z);
     }
+  },
+  // 動物をタップ（クリック）すると、なでる。カードは、近くで出る「〜のカードを見る」か、下の「動物」から
+  tapAnimal(e) {
+    const P = ACT.player, a = e.a;
+    if (P.petting && P.petting.e === e) return; // なでている最中は、そのまま
+    if (a.quarantine && G.turn < a.quarantine) { UI.toast(`${a.name}は検疫中です。柵の外から、そっと見守ります`, 'health'); return; }
+    if (CAM.overview) { teleportPlayer(e.x + 3, e.z + 3); setOverview(false); UI.refresh(); }
+    UI.petGo(a.id, 'pet');
   },
   vo: { x: 0, y: 0 },
   viewOffset(dt) {
@@ -12148,7 +12563,7 @@ const UI = {
       const P = ACT.player, cx = CAM.target.x, cz = CAM.target.z, rad = CAM.overview ? 0 : Math.max(16, CAM.dist * 0.7);
       if (UI._annT !== G.turn + G.date) { UI._annT = G.turn + G.date; UI._ann = new Set(G.animals.filter((a) => yearsSince(a, G.date)).map((a) => a.id)); }
       for (const e of ACT.animals) { const d = Math.hypot(e.x - cx, e.z - cz); if (d < rad) list.push({ e, d, cls: '', text: e.a.name + (UI._ann.has(e.a.id) ? ' ・来た日' : '') , h: e.a.sp === 'cow' || e.a.sp === 'horse' ? 2.4 : e.a.sp === 'chicken' || e.a.sp === 'duck' || e.a.sp === 'rabbit' ? 1.2 : 1.8 }); }
-      for (const n of ACT.npcs) { const d = Math.hypot(n.x - cx, n.z - cz); if (d < rad + 8) list.push({ e: n, d, cls: 'npc', text: n.d.name + (TALKS[n.d.id] && GAME.talkAvail(n.d.id) ? ' ・お話' : ''), h: 2.5 }); }
+      for (const n of ACT.npcs) { const d = Math.hypot(n.x - cx, n.z - cz); if (d < rad + 8) list.push({ e: n, d, cls: 'npc', text: n.d.name + (UI.talkIdOf(n.d) && GAME.talkAvail(UI.talkIdOf(n.d)) ? ' ・お話' : ''), h: 2.5 }); }
       for (const w of ACT.wild) { if (!w.m.root.visible) continue; const d = Math.hypot(w.x - P.x, w.z - P.z); if (d < 16) list.push({ e: w, d, cls: 'wild', text: w.name, h: 2 }); }
       list.sort((a, b) => a.d - b.d); list.length = Math.min(list.length, 14);
     }
@@ -12181,7 +12596,7 @@ const UI = {
       if (key !== UI.lastPrompt) {
         UI.lastPrompt = key;
         const name = n.kind === 'animal' ? n.ent.a.name : n.kind === 'bench' ? (n.ent.seatName || '') : n.ent.name;
-        const verb = n.kind === 'animal' ? 'と過ごす' : n.kind === 'npc' ? 'と話す' : n.kind === 'bench' ? (n.ent.seatName ? 'に座る' : 'ベンチに座る') : n.kind === 'item' || n.kind === 'evitem' || n.kind === 'egg' ? 'を見る' : 'をそっと見る';
+        const verb = n.kind === 'animal' ? 'のカードを見る' : n.kind === 'npc' ? 'と話す' : n.kind === 'bench' ? (n.ent.seatName ? 'に座る' : 'ベンチに座る') : n.kind === 'item' || n.kind === 'evitem' || n.kind === 'egg' ? 'を見る' : 'をそっと見る';
         $('#prompt-btn').innerHTML = `${esc(name)}${verb}${IS_TOUCH ? '' : ' <kbd>E</kbd>'}`;
       }
       pr.hidden = false;
