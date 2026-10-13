@@ -969,6 +969,8 @@ details.checks-ok { margin: -4px 0 8px; }
 .home-btn .hb-tx small { font-size: 12.5px; line-height: 1.5; color: var(--ink-3); }
 .home-btn .hb-go { flex: none; color: var(--pine); }
 .home-btn .hb-go svg { width: 20px; height: 20px; }
+a.btn { text-decoration: none; color: inherit; }
+a.btn.primary { color: var(--paper); }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1806,13 +1808,15 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.25', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.26', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
-  contact: { mail: 'daikato@gmail.com', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
+  // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
+  contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
   aim: ['遊びやすいか、わかりにくい所はないか', 'スマホやパソコンで重くないか、止まらないか', '動物、お金、牛と酪農の話が、楽しく伝わるか'],
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', 'はるこさん・ゆうとさんに話しかけて、続きのある話を聞く（週に1話）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物のカードから「なでる」「ブラッシング」。性格によって反応が変わります', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.26', '2026年10月13日', 'ご意見の送り先を、メールから「はるにれの丘 ご意見・感想フォーム」（Google フォーム）に。「ご意見・不具合を送る」の「フォームを開く」で、書いた文章をコピーしてからフォームが開きます（「ひとこと」に貼りつけられます）'],
     ['0.9.25', '2026年10月12日', '箱庭モードで、森田さんの話とクイズが全部できるように（日記の「牛と酪農」の「お話 1 から聞く」と、聞いた話の一覧。答えたあとの「次のお話」で順に）。ふつうの遊び方でも、聞いた話は一覧から読み直せます。「はじめの画面に戻る」を、設定のいちばん上に（続きが保存されることも書きました）。はじめの画面で、続きがある時は「つづきから」を大きく。スマホで、会話の窓が横にはみ出していたのを直しました'],
     ['0.9.24', '2026年10月12日', '「ひと息」を、行動の画面から下のメニューへ（楽器のあった所。楽器は「ひと息」の中に）。行動の画面のタブは「あなたの行動」「町の事業者」「人を増やす」「収支」の4つに。いつも出ていた毎月の収支の帯は「収支」のタブへ。今日できることは「あと3つ」と、4つの丸で（使うと色が抜けていきます）。心の余裕の増え減りの説明は、行動の一覧から外しました（変わった時に、画面の上に少しだけ出ます）'],
     ['0.9.23', '2026年10月12日', '＋でひらく所（受け入れの確認、まだできないこと、くわしく、計算のもと、工事の内訳、準備、牛の世話メモ、人の話）を、押せるとひと目でわかる形に。行ぜんたいが押せて、右に丸い＋。ひらくと−に。中身が長い時は、下にも「とじる」があり、押すと＋を押す前の見え方に戻ります。同じ画面でボタンを押しても、ひらいた所はひらいたまま'],
@@ -10981,7 +10985,7 @@ const UI = {
       case 'fb-send': UI.sendFeedback(); break;
       case 'fb-copy': UI.copyFeedback().then((ok) => UI.toast(ok ? '文章をコピーしました' : 'コピーできませんでした。文章を長押しして選んでください', ok ? 'daily' : 'news')); break;
       case 'fb-comment': UI.commentFeedback(); break;
-      case 'fb-mail': UI.mailFeedback(); break;
+      case 'fb-form': UI.formFeedback(); break;
       case 'adm-fb-load': UI.loadFeedback(); break;
       case 'adm-alpha-save': UI.saveAlpha(); break;
       case 'toggle-paper': G.settings.paper = G.settings.paper === false; PAPER.ok = true; PAPER.an = null; GAME.save(); UI.render(); break;
@@ -11410,17 +11414,17 @@ const UI = {
       const direct = UI.canSendDirect();
       h += `<div class="switch"><span>${direct ? '画面の情報も送る' : '画面の情報も文章に入れる'}（版、育ち具合、端末、最近のエラー）</span><input type="checkbox" data-act="fb-info" ${F.info ? 'checked' : ''}></div>`;
       if (direct) h += '<p class="muted">名前やメールアドレスは書かなくて大丈夫です。送った内容は、このゲームを作っている人だけが読みます。</p>';
-      else h += `<p class="muted">ここからは直接届かないので、書いた文章をメールで送るか、コピーして送ってください。${UI.contactLine()}</p>`;
+      else h += `<p class="muted">ご意見は Google フォームで受け取っています。「フォームを開く」を押すと、ここに書いた文章をコピーしてからフォームが開くので、「ひとこと」に貼りつけてください。何も書かずに開いても大丈夫です。${UI.contactLine()}</p>`;
       if (F.msg) h += `<div class="confirm">${esc(F.msg)}</div>`;
       if (F.fallback) h += `<div class="btn-row" id="fb-fallback"><button class="btn small" data-act="fb-comment">コメントとして残す</button><button class="btn small" data-act="fb-copy">文章をコピー</button></div><p class="muted">コメントは、このページを開ける人みんなに見えます。${UI.contactLine()}</p>`;
       h += direct ? `<div class="sticky-foot"><button class="btn primary" data-act="fb-send" ${F.busy ? 'disabled' : ''}>${F.busy ? '送っています…' : '送る'}</button></div>`
-        : '<div class="sticky-foot"><button class="btn primary" data-act="fb-mail">メールで送る</button><button class="btn" data-act="fb-copy">文章をコピー</button></div>';
+        : `<div class="sticky-foot"><a class="btn primary" data-act="fb-form" href="${esc(APP.contact.form)}" target="_blank" rel="noopener">フォームを開く</a><button class="btn" data-act="fb-copy">文章をコピー</button></div>`;
       return { title: 'ご意見・不具合を送る', html: h };
     },
     about() {
       let h = `<p class="lead-s">「はるにれの丘」${APP.label} ${APP.version}（${APP.date}）です。</p>`;
       const AL = CATDB.alpha || {};
-      h += `<div class="sec tester"><h3>テストの案内</h3>${AL.note ? `<p class="lead-s">${esc(AL.note)}</p>` : ''}<dl class="al-dl">${AL.period ? `<dt>期間</dt><dd>${esc(AL.period)}</dd>` : ''}<dt>ご意見の送り先</dt><dd>${esc(AL.contact || `${APP.contact.mail}（メール）`)}</dd></dl><p class="muted">${esc(APP.contact.dm)}。</p></div>`;
+      h += `<div class="sec tester"><h3>テストの案内</h3>${AL.note ? `<p class="lead-s">${esc(AL.note)}</p>` : ''}<dl class="al-dl">${AL.period ? `<dt>期間</dt><dd>${esc(AL.period)}</dd>` : ''}<dt>ご意見の送り先</dt><dd><a href="${esc(APP.contact.form)}" target="_blank" rel="noopener">${esc(APP.contact.formName)}</a>${AL.contact && !/@/.test(AL.contact) ? `<br>${esc(AL.contact)}` : ''}</dd></dl><p class="muted">${esc(APP.contact.dm)}。</p></div>`;
       h += `<div class="sec"><h3>このテストで確かめたいこと</h3><ul class="plain">${APP.aim.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>`;
       h += `<div class="sec"><h3>遊んでみてほしいこと</h3><ul class="plain check">${APP.try.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>`;
       h += `<div class="sec"><h3>わかっている問題</h3><ul class="plain">${APP.known.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>`;
@@ -11595,15 +11599,13 @@ const UI = {
       const m = $('#sheet-body .confirm'); if (m && m.scrollIntoView) m.scrollIntoView({ block: 'center', behavior: 'smooth' });
     });
   },
-  // claude.ai の中で、データベースが使える時だけ、ここから直接送る（使えなければ、メールかコピー）
+  // claude.ai の中で、データベースが使える時だけ、ここから直接送る（使えなければ、Google フォームかコピー）
   canSendDirect() { return !!(window.claude && typeof window.claude.use === 'function'); },
-  contactLine() { return `送り先：<b>${esc(APP.contact.mail)}</b>（メール）。${esc(APP.contact.dm)}。`; },
-  goMail(url) { try { window.location.href = url; } catch (e) { /* なし */ } },
-  mailFeedback() {
-    const F = UI.fb || {}; if (!(F.text || '').trim()) { F.msg = '内容を書いてください'; UI.render(); return; }
-    const url = `mailto:${APP.contact.mail}?subject=${encodeURIComponent(`はるにれの丘 ${APP.version} ご意見`)}&body=${encodeURIComponent(UI.feedbackText())}`;
-    UI.goMail(url);
-    F.msg = 'メールの画面が開かない時は、「文章をコピー」して、メールかDMに貼りつけてください。'; UI.render();
+  contactLine() { return `送り先：<a href="${esc(APP.contact.form)}" target="_blank" rel="noopener">${esc(APP.contact.formName)}</a>。${esc(APP.contact.dm)}。`; },
+  // フォームを開く：書いた文章があれば、先にコピーしておく（フォームの「ひとこと」に貼りつけられるように）。開くのはリンクそのもの
+  formFeedback() {
+    const F = UI.fb || {};
+    if ((F.text || '').trim()) UI.copyFeedback().then((ok) => { if (ok) UI.toast('文章をコピーしました。フォームの「ひとこと」に貼りつけてください', 'daily'); });
   },
   feedbackText() {
     const F = UI.fb || {}, CAT = { bug: '不具合', hard: 'わかりにくい', good: 'よかった', idea: 'アイデア', other: 'そのほか' };
@@ -11629,7 +11631,7 @@ const UI = {
       if (!cm || !el) throw new Error('nocomments');
       const r = await cm.openComposer({ element: el });
       UI.toast(r && r.opened ? 'コメント欄を開きました。コピーした文章を貼りつけて送ってください' : 'コメント欄を開けませんでした。画面のコメントから送ってください', 'daily');
-    } catch (e) { UI.toast('このページでは、コメントを書けないようです。コピーした文章を、メールかDMで送ってください', 'news'); }
+    } catch (e) { UI.toast('このページでは、コメントを書けないようです。コピーした文章を、ご意見フォームかDMで送ってください', 'news'); }
   },
   saveAlpha() {
     const A = UI.adm; if (!A || A.alBusy) return;
