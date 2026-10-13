@@ -1081,6 +1081,12 @@ button.tp-ch:active { background: #EEF4EF; }
 .ac-rec .care-memo { margin-top: 10px; }
 .ac-rec .ac-card { margin-top: 8px; }
 .ac-rec .ac-card svg { width: 16px; height: 16px; }
+
+/* ---------- 0.9.28 説明は、上へスワイプで消せる（知らせ・案内・お祝いの札） ---------- */
+.toast, #hint, #banner { touch-action: none; user-select: none; -webkit-user-select: none; }
+#banner { pointer-events: auto; }
+.toast { position: relative; padding-bottom: 12px; }
+.toast::after { content: ''; position: absolute; left: 50%; bottom: 4px; width: 30px; height: 3px; margin-left: -15px; border-radius: 2px; background: var(--paper-3); }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1865,7 +1871,7 @@ const ACTIONS = [
   { id: 'L14', name: 'SNSでサンクチュアリを紹介する', type: 'help', size: 'S', hands: 1, yoyu: 4, stage: 1, desc: 'ここのことを書いて投稿します。見学に来る人が増えて、支えの輪が少し広がります。' },
   { id: 'L15', name: 'かぼちゃを届ける', type: 'donate', size: 'S', hands: 1, yoyu: 0, stage: 1, seasons: ['autumn'], desc: 'かぼちゃを持っていくと、動物たちのかぼちゃパーティーが始まります。' },
   { id: 'L16', name: 'ハロウィン後のかぼちゃ回収を町に呼びかける', type: 'help', size: 'M', hands: 1, yoyu: 8, stage: 1, window: [[11, 1], [11, 20]], desc: '飾りに使わなかったかぼちゃを、町の人に分けてもらいます。町中から届くかもしれません。' },
-  { id: 'L19', name: '酪農家の森田さんと話す', type: 'policy', size: 'S', hands: 1, yoyu: 0, stage: 1, desc: '町はずれで牛を飼う森田さん。牛のこと、日本と世界の違い、酪農のこれから。話すたびに、牛と酪農の手帳が増えていきます。' },
+  { id: 'L19', name: '酪農家の森田さんと話す', type: 'policy', size: 'S', hands: 0, yoyu: 0, stage: 1, desc: '町はずれで牛を飼う森田さん。牛のこと、日本と世界の違い、酪農のこれから。話すたびに、牛と酪農の手帳が増えていきます。' },
   { id: 'L18', name: '写真を撮る', type: null, size: null, hands: 0, yoyu: -6, stage: 1, desc: '今日の景色をアルバムに残します。ゲージは動きませんが、少しほっとします。' },
 ];
 /* ひと息つける行動（手を使わない） */
@@ -1918,7 +1924,7 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.27', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.28', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -1926,6 +1932,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.28', '2026年10月14日', '酪農家の森田さんと話すのは、今日できることの回数を使わないように（週に1回はそのまま）。働く人たちとの話も、回数は使いません。画面の上に出る知らせ、左下の案内、まんなかのお祝いの札は、上へスワイプすると、すぐに消えるように（知らせの下に、小さなつまみの線）'],
     ['0.9.27', '2026年10月13日', '設定の「このテスト版について」をなくし、「ご意見・不具合を送る」を押すと Google フォームがそのまま開くように（ご意見は、すべてフォームで）。「あなたの見た目を変える」を設定の上のほうに、顔の絵つきの大きなボタンで。見た目の画面は、1 顔 → 2 髪 → 3 服 → 4 小物 の順に「次へ」で進む形に（上の番号で、どこへでも行けます）。見た目の部品を増やしました（肌の色7、目11、まゆ8、ほっぺ8、口10、髪型15、髪の色9、上の服12、下の服4、重ねて着るもの6、長ぐつ7、帽子9、めがね5、かばん4）。日記の「人の話」を、働く人の一覧 → その人のお話1〜 → 会話、の順にひらく形に。みなみ先生、あきらさん、さとみさん、けんさん、あやさん、たくみさん、りこさん、しょうたさん、まいさんにも、それぞれ5話の続きのある話（その人が来てから、ひとり週に1話）。季節のおやつを、種ごとに食べられるものに（春はたんぽぽの葉、夏はすいかか、きゅうり、秋はかぼちゃ、冬はにんじん）。動物のカードを、あたま（絵・名前・種類と年・なかよし度）と、ふれあう・応援する・この子のこと・物語・からだと記録のまとまりに分けて、枠で囲む形に。動物をタップすると、なでるように（カードは、近くで出る「〜のカードを見る」か、下の「動物」から）。大きな動物が柵や建物のすき間で引っかかって震えている時は、すぐ近くの広い所へすべらせて、行き先を選び直すように。動物の道すじが角をかすめないように'],
     ['0.9.26', '2026年10月13日', 'ご意見の送り先を、メールから「はるにれの丘 ご意見・感想フォーム」（Google フォーム）に。「ご意見・不具合を送る」の「フォームを開く」で、書いた文章をコピーしてからフォームが開きます（「ひとこと」に貼りつけられます）'],
     ['0.9.25', '2026年10月12日', '箱庭モードで、森田さんの話とクイズが全部できるように（日記の「牛と酪農」の「お話 1 から聞く」と、聞いた話の一覧。答えたあとの「次のお話」で順に）。ふつうの遊び方でも、聞いた話は一覧から読み直せます。「はじめの画面に戻る」を、設定のいちばん上に（続きが保存されることも書きました）。はじめの画面で、続きがある時は「つづきから」を大きく。スマホで、会話の窓が横にはみ出していたのを直しました'],
@@ -11112,6 +11119,9 @@ const UI = {
     $('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') { if (performance.now() - (UI._modalAt || 0) > 450) UI.closeModal(); } else UI.onClick(e); });
     $('#end-day').addEventListener('click', () => UI.endDayClick());
     $('#prompt-btn').addEventListener('click', () => { const n = nearestInteractable(); if (n) UI.interact(n); });
+    // 案内とお祝いの札も、上へスワイプで消せる
+    UI.swipeAway($('#hint'), () => { const h = $('#hint'); clearTimeout(UI._ht); h.style.opacity = 0; h.textContent = ''; });
+    UI.swipeAway($('#banner'), () => { clearTimeout(UI._bt); $('#banner').hidden = true; }, 'translate(-50%, -50%)');
     $('#g-toggle').addEventListener('click', () => { G.settings.gauge = !G.settings.gauge; GAME.save(); UI.refresh(); });
     $('#t-when').addEventListener('click', () => { const st = $('#status'), open = !st.classList.contains('open'); st.classList.toggle('open', open); $('#t-when').setAttribute('aria-expanded', open ? 'true' : 'false'); UI.statusWake(open ? 0 : 6000); });
     $('#zen-btn').addEventListener('click', () => UI.zen(true));
@@ -11211,7 +11221,32 @@ const UI = {
     UI.toast(t, 'daily');
   },
   nightfall() { if (!STARTED || UI.zenOn || UI.rest || $('#hud').hidden) return; UI.hint('日が暮れました。「今日はここまで」で日記をつけて、来週へ。まだ歩いていても大丈夫です'); },
-  hint(t) { const h = $('#hint'); h.textContent = t; h.style.opacity = 1; clearTimeout(UI._ht); UI._ht = setTimeout(() => { h.style.opacity = 0; setTimeout(() => { if (h.style.opacity === '0') h.textContent = ''; }, 1100); }, 7000); },
+  hint(t) { const h = $('#hint'); h.style.transform = ''; h.textContent = t; h.style.opacity = 1; clearTimeout(UI._ht); UI._ht = setTimeout(() => { h.style.opacity = 0; setTimeout(() => { if (h.style.opacity === '0') h.textContent = ''; }, 1100); }, 7000); },
+  // 画面に出る説明（知らせ・案内・お祝いの札）は、上へスワイプすると、すぐに消える（0.9.28）
+  // 少し動かすまでは、ふつうのタップ（「見る」「読む」のボタン）として扱う
+  swipeAway(el, gone, base) {
+    base = base ? base + ' ' : '';
+    let sx = 0, sy = 0, dy = 0, id = null, drag = false, t0 = 0;
+    const reset = () => { el.style.transition = 'transform .2s ease-out, opacity .2s'; el.style.transform = ''; el.style.opacity = ''; };
+    el.addEventListener('pointerdown', (ev) => { id = ev.pointerId; sx = ev.clientX; sy = ev.clientY; dy = 0; drag = false; t0 = performance.now(); });
+    el.addEventListener('pointermove', (ev) => {
+      if (ev.pointerId !== id) return;
+      const my = ev.clientY - sy, mx = ev.clientX - sx;
+      if (!drag && my < -8 && Math.abs(my) > Math.abs(mx)) { drag = true; try { el.setPointerCapture(id); } catch (e) { /* なし */ } }
+      if (!drag) return;
+      dy = Math.min(0, my); el.style.transition = 'none'; el.style.transform = `${base}translateY(${dy}px)`; el.style.opacity = String(Math.max(0.15, 1 + dy / 110));
+      ev.preventDefault();
+    });
+    const up = (ev) => {
+      if (ev.pointerId !== id) return; id = null;
+      if (!drag) return;
+      drag = false;
+      const fast = dy < -14 && performance.now() - t0 < 260;
+      if (dy < -36 || fast) { el.style.transition = 'transform .18s ease-in, opacity .18s'; el.style.transform = `${base}translateY(-140%)`; el.style.opacity = '0'; setTimeout(() => { el.style.transition = ''; gone(); }, 190); }
+      else reset();
+    };
+    el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up);
+  },
 
   // 知らせはひとつずつ。読む速さ（1秒に約6文字）に合わせて出し、たまったら「ほか◯件」にまとめる（全部、日記に残る）
   toast(text, cat, focus) { UI.toastQ.push({ text, cat, focus }); UI.toastNext(); },
@@ -11231,8 +11266,11 @@ const UI = {
     UI.toastPlace();
     box.innerHTML = ''; box.appendChild(el); UI.toastBusy = true;
     const ms = clamp(1500 + t.text.length * 170, 4000, 9000) + (t.focus || t.card ? 1500 : 0);
-    const done = () => { el.classList.add('out'); setTimeout(() => { el.remove(); UI.toastBusy = false; setTimeout(() => UI.toastNext(), 250); }, 420); };
+    let ended = false;
+    const finish = (wait) => { if (ended) return; ended = true; clearTimeout(timer); setTimeout(() => { el.remove(); UI.toastBusy = false; setTimeout(() => UI.toastNext(), 250); }, wait); };
+    const done = () => { if (ended) return; el.classList.add('out'); finish(420); };
     let timer = setTimeout(done, ms);
+    UI.swipeAway(el, () => finish(0));
     el.addEventListener('pointerenter', () => clearTimeout(timer)); el.addEventListener('pointerleave', () => { clearTimeout(timer); timer = setTimeout(done, 2000); });
   },
   // 知らせは、状態の札の下に（パネルを開いている時は、いちばん上に）
@@ -11287,7 +11325,7 @@ const UI = {
     el.style.transform = `translate(${p.x}px, ${p.y}px)`; el.style.left = p.x + 'px'; el.style.top = p.y + 'px'; el.style.transform = '';
     $('#labels').appendChild(el); setTimeout(() => el.remove(), 1500);
   },
-  banner(html, ms) { const b = $('#banner'); b.innerHTML = html; b.hidden = false; clearTimeout(UI._bt); UI._bt = setTimeout(() => { b.hidden = true; }, ms || 3600); },
+  banner(html, ms) { const b = $('#banner'); b.style.transform = ''; b.style.opacity = ''; b.innerHTML = html; b.hidden = false; clearTimeout(UI._bt); UI._bt = setTimeout(() => { b.hidden = true; }, ms || 3600); },
   milestoneBanner(item, type) { UI.banner(`<span class="eyebrow">小さな変化</span><h3>${esc(item.name)}</h3><p>いちばん多かった支え方</p><span class="sw" style="background:${SUPPORT[type].color}">${ico(SUPPORT[type].icon)}${SUPPORT[type].name}</span>`); },
   stageBanner(n) { UI.banner(`<span class="eyebrow">サンクチュアリが育ちました</span><h3>${esc(STAGES[n].name)}</h3><p>${esc(STAGES[n].look)}</p>`, 5200); },
 
@@ -12059,7 +12097,7 @@ const UI = {
     let h = `<div class="morita-card"><span class="mav">森</span><div><strong>町の酪農家・森田さん</strong><span>${m.done ? 'オーツ麦を育て始めました。ときどき、おさらいのクイズを出してくれます' : `お話 ${m.ch} / ${MORITA.length}。牛40頭、父の代からの牧場`}</span><i class="rbar"><i style="width:${Math.min(100, m.ch / MORITA.length * 100)}%"></i></i></div></div>`;
     const hk = G.mode === 'hakoniwa', heard = hk ? MORITA.length : Math.min(m.ch, MORITA.length);
     h += hk ? `<div class="btn-row" style="margin:0 0 12px"><button class="btn small primary" data-act="morita-talk" data-v="0">お話 1 から聞く</button></div>`
-      : `<div class="btn-row" style="margin:0 0 12px"><button class="btn small primary" data-act="run" data-id="L19" ${av.ok ? '' : 'disabled'}>${m.done ? 'おさらいのクイズ' : '森田さんと話す'}（1回分）</button>${av.ok ? '' : `<span class="pill warn">${esc(av.why)}</span>`}</div>`;
+      : `<div class="btn-row" style="margin:0 0 12px"><button class="btn small primary" data-act="run" data-id="L19" ${av.ok ? '' : 'disabled'}>${m.done ? 'おさらいのクイズ' : '森田さんと話す'}</button>${av.ok ? '' : `<span class="pill warn">${esc(av.why)}</span>`}</div>`;
     // 聞いた話は、ひらくと読み直せる（クイズにも、もう一度答えられる）
     if (heard) h += `<details class="sec morita-log"${hk ? ' open' : ''}><summary>森田さんの話（${heard}${hk ? '' : ` / ${MORITA.length}`}）</summary><ol class="mlog">${MORITA.slice(0, heard).map((c, i) => `<li><button data-act="morita-talk" data-v="${i}"><span class="n">お話 ${i + 1}</span><span class="t">「${esc(c.say[0])}」</span></button></li>`).join('')}</ol></details>`;
     h += `<div class="sec"><h3>数字で見る、日本の酪農</h3><div class="dstats">${DAIRY_STATS.map((d) => `<div class="ds"><b>${esc(d.v)}</b><span>${esc(d.k)}</span><small>${esc(d.sub)}</small></div>`).join('')}</div>${UI.srcLinks([...new Set(DAIRY_STATS.map((d) => d.src))])}</div>`;
