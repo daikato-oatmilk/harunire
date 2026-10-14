@@ -142,7 +142,7 @@ body.zen #hud, body.zen #labels { display: none !important; }
 @keyframes toastIn { from { opacity: 0; transform: translateY(-6px); } }
 @keyframes toastOut { to { opacity: 0; transform: translateY(-6px); } }
 /* パネルを開いている間は、景色の上の札とボタンを下げる（パネルと競わない） */
-body.sheet-open #hud-top, body.sheet-open #zen-btn, body.sheet-open #bottom-right, body.sheet-open #prompt, body.sheet-open #hint { opacity: 0; pointer-events: none; }
+body.sheet-open #hud-top, body.sheet-open #zen-btn, body.sheet-open #bottom-right, body.sheet-open #prompt, body.sheet-open #hint, body.sheet-open #view-btn { opacity: 0; pointer-events: none; }
 #place-bar { position: absolute; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 150px); transform: translateX(-50%); background: var(--ink); color: var(--paper); border-radius: 999px; padding: 6px 6px 6px 18px; display: flex; gap: 12px; align-items: center; box-shadow: var(--shadow); font-weight: 700; max-width: calc(100% - 32px); }
 #place-bar .btn { box-shadow: none; }
 #banner { position: absolute; left: 50%; top: 34%; transform: translate(-50%, -50%); background: var(--paper); border-radius: 18px; padding: 18px 28px 20px; box-shadow: 0 10px 40px rgba(20, 34, 28, .28); text-align: center; min-width: 260px; max-width: calc(100% - 40px); animation: bannerIn .5s ease-out; pointer-events: none; }
@@ -754,7 +754,7 @@ details.more p { margin: 8px 0 0; }
 }
 
 /* 説明や問いかけ（モーダル）を開いている間も、景色の上の札は下げる */
-body.modal-open #hud-top, body.modal-open #zen-btn, body.modal-open #bottom-right, body.modal-open #prompt, body.modal-open #hint { opacity: 0; pointer-events: none; }
+body.modal-open #hud-top, body.modal-open #zen-btn, body.modal-open #bottom-right, body.modal-open #prompt, body.modal-open #hint, body.modal-open #view-btn { opacity: 0; pointer-events: none; }
 
 /* 日記の絞り込み：横にはみ出さず、折り返して全部見えるように */
 .filters { flex-wrap: wrap; gap: 6px; overflow: visible; margin: 0 0 12px; padding: 0; }
@@ -1090,6 +1090,43 @@ button.tp-ch:active { background: #EEF4EF; }
 
 /* ---------- 0.9.29 写真の保存（スマホは共有の画面から） ---------- */
 .save-hint { margin: -2px 0 10px; font-size: 12.5px; line-height: 1.6; }
+
+/* ---------- 0.9.30 スマホの操作：なぞって歩くスティック、視点ボタン。今日できることがおしまいの時の吹き出し ---------- */
+.vstick { position: absolute; width: 116px; height: 116px; margin: -58px 0 0 -58px; border-radius: 50%; background: rgba(255, 255, 255, .16); border: 2px solid rgba(255, 255, 255, .6); box-shadow: 0 2px 10px rgba(20, 34, 28, .18); pointer-events: none !important; z-index: 3; }
+.vstick i { position: absolute; left: 50%; top: 50%; width: 50px; height: 50px; margin: -25px 0 0 -25px; border-radius: 50%; background: rgba(250, 250, 246, .85); box-shadow: 0 2px 8px rgba(20, 34, 28, .25); }
+.vstick.run i { background: rgba(255, 236, 190, .95); }
+.view-btn { position: absolute; left: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 24px); display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px 8px 11px; border-radius: 999px; background: rgba(250, 250, 246, .94); border: 1px solid var(--line); box-shadow: var(--shadow); color: var(--ink); font-size: 13.5px; font-weight: 700; transition: opacity .3s; }
+.view-btn svg { width: 18px; height: 18px; color: var(--pine); }
+.view-btn:active { background: #EEF4EF; }
+#hint { bottom: calc(env(safe-area-inset-bottom, 0px) + 72px); }
+#prompt { z-index: 2; }
+#bottom-right { flex-direction: column; align-items: flex-end; }
+.end-tip { position: relative; box-sizing: border-box; width: min(290px, calc(100vw - 24px)); padding: 11px 34px 11px 13px; border-radius: 14px; background: #FFFDF5; border: 1.5px solid #E2C46A; box-shadow: 0 6px 20px rgba(20, 34, 28, .18); display: grid; gap: 3px; margin-bottom: 4px; }
+.end-tip::after { content: ''; position: absolute; right: 34px; bottom: -8px; width: 14px; height: 14px; background: #FFFDF5; border-right: 1.5px solid #E2C46A; border-bottom: 1.5px solid #E2C46A; transform: rotate(45deg); }
+.end-tip b { font-size: 14px; color: var(--ink); }
+.end-tip span { font-size: 13px; line-height: 1.55; color: var(--ink-2); }
+.end-tip small { font-size: 12px; line-height: 1.5; color: var(--ink-3); }
+.end-tip .et-x { position: absolute; top: 6px; right: 6px; width: 26px; height: 26px; border: 0; background: transparent; border-radius: 50%; display: grid; place-items: center; color: var(--ink-3); }
+.end-tip .et-x svg { width: 14px; height: 14px; }
+#t-res { cursor: pointer; }
+.hr-note { margin: -4px 0 12px; font-size: 12.5px; line-height: 1.6; color: var(--ink-3); }
+.hr-end { margin: -2px 0 14px; padding: 10px 12px; border-radius: 12px; background: #FFFDF5; border: 1.5px solid #E2C46A; }
+.hr-end p { margin: 0 0 6px; font-size: 14px; line-height: 1.6; }
+.hr-end p.muted { font-size: 12.5px; }
+.ch-t { margin: 2px 0 10px; }
+.ch-wrap { display: flex; gap: 14px; align-items: flex-start; margin: 0 0 10px; }
+.ch-phone { flex: none; width: 96px; height: auto; }
+.ch-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.ch-list li { display: grid; gap: 1px; }
+.ch-list b { font-size: 14px; }
+.ch-list span { font-size: 12.5px; line-height: 1.55; color: var(--ink-2); }
+.start-card .lead-2 { font-size: 13.5px; color: var(--ink-3); margin-top: -4px; }
+@media (max-width: 720px) {
+  .view-btn { left: 10px; bottom: calc(env(safe-area-inset-bottom, 0px) + 78px); padding: 9px 13px 9px 10px; }
+  body.end-tip-on #hint { opacity: 0; }
+  #hint { bottom: calc(env(safe-area-inset-bottom, 0px) + 122px); max-width: 58%; }
+}
+.end-tip[hidden], .vstick[hidden] { display: none; }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1182,7 +1219,12 @@ button.tp-ch:active { background: #EEF4EF; }
     </nav>
 
     <div id="prompt" hidden><button type="button" id="prompt-btn"></button></div>
-    <div id="bottom-right"><button type="button" id="end-day" class="btn primary">今日はここまで</button></div>
+    <div id="bottom-right">
+      <div id="end-tip" class="end-tip" hidden><button type="button" class="et-x" id="end-tip-x" aria-label="閉じる"><svg><use href="#i-close"/></svg></button><b>今日できることは、おしまい</b><span>「今日はここまで」で日記をつけると、来週の日曜日へ。また4つに戻ります（日付が変わっても戻りません）。</span><small>急がなくて大丈夫。このまま歩いたり、ベンチで眺めたり、楽器を弾いたりしていても。</small></div>
+      <button type="button" id="end-day" class="btn primary">今日はここまで</button>
+    </div>
+    <button type="button" id="view-btn" class="view-btn" aria-label="視点を切りかえる"><svg><use href="#i-eye"/></svg><span id="view-name">ふつう</span></button>
+    <div id="stick" class="vstick" hidden aria-hidden="true"><i></i></div>
     <div id="hint"></div>
     <div id="toasts" aria-live="polite"></div>
     <div id="place-bar" hidden><span id="place-text"></span><button type="button" class="btn" id="place-cancel">やめる</button></div>
@@ -1239,6 +1281,7 @@ button.tp-ch:active { background: #EEF4EF; }
       <p class="eyebrow" id="start-eyebrow">ベータテスト版</p>
       <h1>はるにれの丘</h1>
       <p class="lead">東京の郊外の、小さなサンクチュアリ。日曜日ごとに通って、裏庭の鶏3羽から、動物と自然と人がゆったり過ごせる場所へ育てます。</p>
+      <p class="lead lead-2">急がなくて大丈夫。動物たちを眺めているだけ、ベンチに座っているだけ、ウクレレを弾いているだけの日曜日も、ここでは大切な一日です。</p>
       <div class="start-actions">
         <button type="button" class="start-btn" id="start-continue" hidden><strong>つづきから</strong><span id="continue-sub"></span><i class="go" aria-hidden="true"><svg><use href="#i-right"/></svg></i></button>
         <button type="button" class="start-btn primary" id="start-normal"><strong>はじめから</strong><span>段階1、裏庭の小さな保護の場から育てる</span></button>
@@ -1927,14 +1970,15 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.29', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.30', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
   aim: ['遊びやすいか、わかりにくい所はないか', 'スマホやパソコンで重くないか、止まらないか', '動物、お金、牛と酪農の話が、楽しく伝わるか'],
-  try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
+  try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.30', '2026年10月14日', 'スマホの操作を見直しました。画面の下のほうを指でなぞると、指を置いた所がスティックになって、その向きへ歩きます（大きくなぞると早歩き）。上のほうをなぞると見回します。タップで歩く・動物をタップでなでるは、そのまま。左下の「視点」で、近く・ふつう・遠くを切りかえ。歩いていると、カメラがゆっくり、あなたのうしろへまわります。なでている時は、あなたとその子が見える向きへ、カメラが自動で（ほかの子が間に入らない向きを選びます）。はじめての日に「歩く・見回す」の案内。設定の「操作」で「タップだけ」の前の操作にも戻せます。今日できることを使いきった時は、「今日はここまで」の上に、来週の日曜日へ進むとまた4つに戻ることを吹き出しで（×で閉じられます。状態の札の丸を押しても説明が出ます）。行動の画面にも同じ案内と「今日はここまで（来週の日曜日へ）」。はじめの画面、最初の日、ひと息に、何もしない日曜日も大切な一日だと一言。その日はじめて座った時にも。夜は鶏・アヒル・七面鳥・ウサギが小屋で眠るように（ベンチに座っていても出てきません。ときどき鶏が1羽だけ、小屋のまわりをうろちょろします）'],
     ['0.9.29', '2026年10月14日', 'iPhone で写真の「保存する」を押した時、「表示」を選ぶと写真だけの画面になって戻れなかったのを直しました。スマホでは共有の画面が開き、「画像を保存」で写真アプリに入ります（共有の画面が使えない時は、新しいタブでダウンロード。「表示」を選んでも、ゲームの画面はそのまま残ります）。「続きをファイルに」の保存も同じに'],
     ['0.9.28', '2026年10月14日', '酪農家の森田さんと話すのは、今日できることの回数を使わないように（週に1回はそのまま）。働く人たちとの話も、回数は使いません。画面の上に出る知らせ、左下の案内、まんなかのお祝いの札は、上へスワイプすると、すぐに消えるように（知らせの下に、小さなつまみの線）'],
     ['0.9.27', '2026年10月13日', '設定の「このテスト版について」をなくし、「ご意見・不具合を送る」を押すと Google フォームがそのまま開くように（ご意見は、すべてフォームで）。「あなたの見た目を変える」を設定の上のほうに、顔の絵つきの大きなボタンで。見た目の画面は、1 顔 → 2 髪 → 3 服 → 4 小物 の順に「次へ」で進む形に（上の番号で、どこへでも行けます）。見た目の部品を増やしました（肌の色7、目11、まゆ8、ほっぺ8、口10、髪型15、髪の色9、上の服12、下の服4、重ねて着るもの6、長ぐつ7、帽子9、めがね5、かばん4）。日記の「人の話」を、働く人の一覧 → その人のお話1〜 → 会話、の順にひらく形に。みなみ先生、あきらさん、さとみさん、けんさん、あやさん、たくみさん、りこさん、しょうたさん、まいさんにも、それぞれ5話の続きのある話（その人が来てから、ひとり週に1話）。季節のおやつを、種ごとに食べられるものに（春はたんぽぽの葉、夏はすいかか、きゅうり、秋はかぼちゃ、冬はにんじん）。動物のカードを、あたま（絵・名前・種類と年・なかよし度）と、ふれあう・応援する・この子のこと・物語・からだと記録のまとまりに分けて、枠で囲む形に。動物をタップすると、なでるように（カードは、近くで出る「〜のカードを見る」か、下の「動物」から）。大きな動物が柵や建物のすき間で引っかかって震えている時は、すぐ近くの広い所へすべらせて、行き先を選び直すように。動物の道すじが角をかすめないように'],
@@ -3192,7 +3236,12 @@ function applySky(dt, appEl) {
 /* ---------------- カメラ ---------------- */
 // はじめの見え方：あなたの肩越しに、5mほど後ろから。少し見下ろす
 // はじめの見え方。スマホは少し高く、少し遠くから（足もとの地面が広く見えて、タップで歩く先を選びやすい）
-const CAM_HOME = IS_TOUCH ? { pitch: 0.4, dist: 6.5 } : { pitch: 0.3, dist: 5.5 };
+const CAM_HOME = IS_TOUCH ? { pitch: 0.44, dist: 7.5 } : { pitch: 0.3, dist: 5.5 };
+// 視点ボタン：近く・ふつう・遠く（片手の親指で、ピンチしなくても切りかえられるように。0.9.30）
+const CAM_VIEWS = IS_TOUCH ? [{ n: '近く', dist: 5, pitch: 0.3 }, { n: 'ふつう', dist: 7.5, pitch: 0.44 }, { n: '遠く', dist: 15, pitch: 0.7 }]
+  : [{ n: '近く', dist: 4.5, pitch: 0.26 }, { n: 'ふつう', dist: 8, pitch: 0.4 }, { n: '遠く', dist: 16, pitch: 0.7 }];
+function camViewIndex() { let bi = 0, bd = 1e9; CAM_VIEWS.forEach((v, i) => { const d = Math.abs(Math.log(CAM.user.dist / v.dist)); if (d < bd) { bd = d; bi = i; } }); return bi; }
+function camView(i) { const v = CAM_VIEWS[(i + CAM_VIEWS.length) % CAM_VIEWS.length]; CAM.user.dist = v.dist; CAM.user.pitch = v.pitch; camRestore(); return v; }
 const CAM = { yaw: 0.25, pitch: 0.78, dist: 32, tYaw: 0.25, tPitch: 0.78, tDist: 32, target: new THREE.Vector3(18, 0, 40), tTarget: new THREE.Vector3(), overview: false, focus: null, focusUntil: 0, spin: false,
   user: { yaw: 0, pitch: CAM_HOME.pitch, dist: CAM_HOME.dist }, lock: false, shoulder: 0 };
 const CAM_MIN_PITCH = -0.34; // ここより下へドラッグすると、空を見上げる
@@ -3205,6 +3254,28 @@ function camHome(yaw) { CAM.user.pitch = CAM_HOME.pitch; CAM.user.dist = CAM_HOM
 function setOverview(on) {
   if (on) { camRemember(); CAM.overview = true; CAM.tPitch = 0.92; CAM.tDist = overviewDist(); }
   else camRestore();
+}
+// ふたり（あなたと動物）を、横から少し肩越しに。体の大きさに合わせた近さで（なでている時など）
+// blockers：[x, z, 半径] のならび。ほかの子がカメラとふたりの間に入らない向きを選ぶ
+function framePair(ax, az, bx, bz, size, ms, blockers) {
+  camRemember();
+  const dx = bx - ax, dz = bz - az, d = Math.hypot(dx, dz) || 1, wrap = (v) => Math.atan2(Math.sin(v), Math.cos(v));
+  // 縦長の画面は、横から見るとふたりが画面からはみ出すので、あなたの肩越しに、その子を斜めから見る
+  const narrow = R.camera.aspect < 0.8;
+  const side = Math.atan2(dz / d, -dx / d), back = Math.atan2(-dx / d, -dz / d), dist = narrow ? 3.4 + size * 2.2 + d * 0.4 : 3.2 + size * 2.4, mx = (ax + bx) / 2, mz = (az + bz) / 2;
+  const cands = [];
+  if (narrow) cands.push(back + 0.65, back - 0.65, back + 1.05, back - 1.05, back);
+  else for (const base of [side, side + Math.PI]) { const b0 = base + clamp(wrap(back - base), -0.45, 0.45); cands.push(b0, b0 + 0.6, b0 - 0.6); }
+  const blocked = (yw) => {
+    const cx = mx + Math.sin(yw) * dist * 0.94, cz = mz + Math.cos(yw) * dist * 0.94, vx = mx - cx, vz = mz - cz, L2 = vx * vx + vz * vz || 1; let sc = 0;
+    for (const o of blockers || []) { const t = clamp(((o[0] - cx) * vx + (o[1] - cz) * vz) / L2, 0, 0.92), px = cx + vx * t - o[0], pz = cz + vz * t - o[1]; if (px * px + pz * pz < (o[2] + 0.35) * (o[2] + 0.35)) sc += 1 + o[2]; }
+    return sc;
+  };
+  let yaw = cands[0], best = 1e9;
+  cands.forEach((yw, i) => { const sc = blocked(yw) * 10 + Math.abs(wrap(yw - CAM.yaw)) * 0.6 + (narrow ? (i > 1 ? 0.4 : 0) : (i % 3 ? 0.4 : 0)); if (sc < best) { best = sc; yaw = yw; } });
+  CAM.overview = false; CAM.focus = new THREE.Vector3((ax + bx) / 2, heightAt((ax + bx) / 2, (az + bz) / 2) + 0.5 + size * 0.35, (az + bz) / 2);
+  CAM.focusUntil = performance.now() + (ms || 5000); CAM.focusBack = true;
+  CAM.tYaw = yaw; CAM.tDist = dist; CAM.tPitch = narrow ? 0.4 : 0.34;
 }
 function focusAt(x, z, dist, ms) {
   camRemember();
@@ -3295,14 +3366,26 @@ function camClear(t, dx, dy, dz, dist) {
 }
 
 /* ---------------- 入力 ---------------- */
-const INPUT = { keys: {}, pointers: new Map(), dragging: false, moved: 0, pinch: 0, onTap: null, lastMoveKey: 0 };
+const INPUT = { keys: {}, pointers: new Map(), dragging: false, moved: 0, pinch: 0, onTap: null, lastMoveKey: 0, stick: null, lastLook: 0 };
+// スマホ：画面の下のほうを指でなぞると、指を置いた所がスティックになって歩く。上のほうをなぞると見回す。タップはこれまでどおり（0.9.30）
+// 設定の「移動のしかた」を「タップだけ」にすると、どこをなぞっても見回す（前の操作）
+const STICK_R = 58;
+function stickOn() { return IS_TOUCH && !(typeof G !== 'undefined' && G && G.settings && G.settings.ctl === 'tap'); }
+function stickZone(y) { return y > window.innerHeight * 0.46; }
+function stickDraw() {
+  const el = document.getElementById('stick'); if (!el) return;
+  const st = INPUT.stick; if (!st) { el.hidden = true; return; }
+  el.hidden = false; el.style.left = st.ox + 'px'; el.style.top = st.oy + 'px';
+  const k = el.firstElementChild; if (k) k.style.transform = `translate(${st.x - st.ox}px, ${st.y - st.oy}px)`;
+  el.classList.toggle('run', Math.hypot(st.x - st.ox, st.y - st.oy) > STICK_R * 0.92);
+}
 function initInput(canvas, onTap) {
   INPUT.onTap = onTap;
   canvas.addEventListener('pointerdown', (e) => {
     canvas.setPointerCapture && canvas.setPointerCapture(e.pointerId);
-    INPUT.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY, sx: e.clientX, sy: e.clientY });
+    INPUT.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY, sx: e.clientX, sy: e.clientY, zone: stickOn() && e.pointerType !== 'mouse' && stickZone(e.clientY) ? 'stick' : 'look' });
     if (INPUT.pointers.size === 1) { INPUT.dragging = false; INPUT.moved = 0; }
-    if (INPUT.pointers.size === 2) { const [a, b] = [...INPUT.pointers.values()]; INPUT.pinch = Math.hypot(a.x - b.x, a.y - b.y); INPUT.dragging = true; }
+    if (INPUT.pointers.size === 2) { const [a, b] = [...INPUT.pointers.values()]; INPUT.pinch = Math.hypot(a.x - b.x, a.y - b.y); INPUT.dragging = true; INPUT.stick = null; stickDraw(); }
     CAM.spin = false;
   });
   canvas.addEventListener('pointermove', (e) => {
@@ -3312,11 +3395,18 @@ function initInput(canvas, onTap) {
     if (INPUT.pointers.size === 1) {
       INPUT.moved += Math.abs(dx) + Math.abs(dy);
       if (INPUT.moved > 8) INPUT.dragging = true;
-      if (INPUT.dragging) { CAM.tYaw -= dx * 0.0065; CAM.tPitch = clamp(CAM.tPitch + dy * 0.0045, CAM_MIN_PITCH, 1.38); camRemember(); }
+      if (INPUT.dragging && p.zone === 'stick') {
+        // 指を置いた所がスティックの中心。大きく動かしたら、中心も指についてくる
+        const st = INPUT.stick || (INPUT.stick = { id: e.pointerId, ox: p.sx, oy: p.sy, x: p.sx, y: p.sy });
+        st.x = e.clientX; st.y = e.clientY;
+        const ex = st.x - st.ox, ey = st.y - st.oy, d = Math.hypot(ex, ey);
+        if (d > STICK_R * 1.35) { st.ox = st.x - ex / d * STICK_R * 1.35; st.oy = st.y - ey / d * STICK_R * 1.35; }
+        stickDraw();
+      } else if (INPUT.dragging) { CAM.tYaw -= dx * 0.0065; CAM.tPitch = clamp(CAM.tPitch + dy * 0.0045, CAM_MIN_PITCH, 1.38); camRemember(); INPUT.lastLook = performance.now(); }
     } else if (INPUT.pointers.size === 2) {
       const [a, b] = [...INPUT.pointers.values()];
       const d = Math.hypot(a.x - b.x, a.y - b.y);
-      if (INPUT.pinch > 0) { CAM.tDist = clamp(CAM.tDist * (INPUT.pinch / d), 2.5, 220); camRemember(); }
+      if (INPUT.pinch > 0) { CAM.tDist = clamp(CAM.tDist * (INPUT.pinch / d), 2.5, 220); camRemember(); INPUT.lastLook = performance.now(); }
       INPUT.pinch = d;
     }
   });
@@ -3324,6 +3414,7 @@ function initInput(canvas, onTap) {
     const p = INPUT.pointers.get(e.pointerId);
     if (p && INPUT.pointers.size === 1 && !INPUT.dragging && e.type === 'pointerup') INPUT.onTap(e.clientX, e.clientY);
     INPUT.pointers.delete(e.pointerId);
+    if (INPUT.stick && INPUT.stick.id === e.pointerId) { INPUT.stick = null; stickDraw(); }
     if (INPUT.pointers.size === 0) INPUT.dragging = false;
   };
   canvas.addEventListener('pointerup', up); canvas.addEventListener('pointercancel', up);
@@ -3335,7 +3426,7 @@ function initInput(canvas, onTap) {
     if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space'].includes(e.code)) e.preventDefault();
   });
   window.addEventListener('keyup', (e) => { INPUT.keys[e.code] = false; });
-  window.addEventListener('blur', () => { INPUT.keys = {}; });
+  window.addEventListener('blur', () => { INPUT.keys = {}; INPUT.stick = null; stickDraw(); });
 }
 function keyVector() {
   const k = INPUT.keys;
@@ -3343,7 +3434,14 @@ function keyVector() {
   if (k.KeyW || k.ArrowUp) f += 1; if (k.KeyS || k.ArrowDown) f -= 1;
   if (k.KeyD || k.ArrowRight) s += 1; if (k.KeyA || k.ArrowLeft) s -= 1;
   if (k.KeyQ) { CAM.tYaw += 0.03; camRemember(); } if (k.KeyZ) { CAM.tYaw -= 0.03; camRemember(); }
-  if (!f && !s) return null;
+  if (!f && !s) {
+    // スマホのスティック：倒した向きへ。少し倒すとゆっくり、端まで倒すと早歩き
+    const st = INPUT.stick; if (!st) return null;
+    const ex = st.x - st.ox, ey = st.y - st.oy, d = Math.hypot(ex, ey); if (d < 9) return null;
+    const mag = Math.min(1, d / STICK_R), fx0 = -Math.sin(CAM.yaw), fz0 = -Math.cos(CAM.yaw), sf = -ey / d, ss = ex / d;
+    const x0 = fx0 * sf + (-fz0) * ss, z0 = fz0 * sf + fx0 * ss, l0 = Math.hypot(x0, z0) || 1;
+    return { x: x0 / l0, z: z0 / l0, run: mag > 0.92, mag, stick: true };
+  }
   const fx = -Math.sin(CAM.yaw), fz = -Math.cos(CAM.yaw);
   const rx = -fz, rz = fx;
   const x = fx * f + rx * s, z = fz * f + rz * s, l = Math.hypot(x, z);
@@ -8152,7 +8250,7 @@ function updatePlayer(dt) {
   // なでている・ブラッシングしている間。歩きだしたら、そこでおしまい
   if (p.petting) { if (kv || p.target) UI.petEnd(true); else { petPose(p, dt); umbrellaPose(p, dt); return; } }
   let vx = 0, vz = 0, spd = 7.5;
-  if (kv) { vx = kv.x; vz = kv.z; if (kv.run) spd = 12; p.target = null; p.pending = null; p.path = null; CAM.focus = null; }
+  if (kv) { vx = kv.x; vz = kv.z; if (kv.run) spd = 12; else if (kv.stick) spd = 2.6 + 5.2 * Math.min(1, kv.mag / 0.85); p.target = null; p.pending = null; p.path = null; CAM.focus = null; }
   else if (p.target) {
     // 相手が動く時は、ときどき道を探し直す
     if (p.pending && p.pending.ent) {
@@ -8180,12 +8278,22 @@ function updatePlayer(dt) {
     const h = Math.atan2(vx, vz);
     let dh = h - p.heading; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); p.heading += dh * Math.min(1, dt * 12);
     p.phase += dt * spd * 1.4;
+    camFollow(p, dt, kv);
   }
   p.moving = moving;
   const y = heightAt(p.x, p.z);
   p.m.root.position.set(p.x, y, p.z); p.m.root.rotation.y = p.heading;
   animPerson(p.m, moving ? 1 : 0, p.phase, dt);
   umbrellaPose(p, dt);
+}
+// スマホで歩いている時は、カメラがゆっくり、あなたのうしろへまわる（見回したばかりの時と、こちらへ歩いてくる時はそのまま）。0.9.30
+function camFollow(p, dt, kv) {
+  if (!IS_TOUCH || (kv && !kv.stick) || !camFree() || (G && G.settings && G.settings.camFollow === false)) return;
+  if (performance.now() - INPUT.lastLook < 1600 || CAM.dist > 30) return;
+  let d = p.heading + Math.PI - CAM.tYaw; d = Math.atan2(Math.sin(d), Math.cos(d));
+  if (Math.abs(d) > 2.3 || Math.abs(d) < 0.01) return;
+  const rate = 1.05 * Math.min(1, Math.abs(Math.sin(d)) + 0.3);
+  CAM.tYaw += Math.sign(d) * Math.min(Math.abs(d), rate * dt); camRemember();
 }
 /* ---------- なでる・ブラッシング：小さな子にはしゃがんで、大きな子には手をのばして ---------- */
 function modelBrush() {
@@ -8722,6 +8830,18 @@ function animalThink(e) {
   // 行き先をひとつ選ぶ：区画の中の子は区画の中から、歩ける子は敷地の中から
   const pickR = (R, away) => roam ? roamPick(e, R, away) : randIn(r);
   e.partner = null; e.lookAt = null; e.leader = null;
+  // 夜の鶏・アヒル・七面鳥・ウサギは、小屋で眠る（あなたが座っていても、楽器を弾いていても、夜空のショーの時も）。0.9.30
+  // ときどき鶏が1羽だけ、小屋のまわりをうろちょろする（同じ時に1羽まで）
+  if ((SPECIES[sp].bird || sp === 'rabbit') && SKY.night > 0.45 && !quar) {
+    if (ACT.nightOwl && performance.now() > ACT.nightOwl.until + 4000) ACT.nightOwl = null; // 外にいた子がいなくなった時も
+    const s0 = shelterFor(a), now = performance.now(), owl = ACT.nightOwl;
+    const nearCoop = () => { const w = [Math.max(r[0] + 0.5, s0[0] - 2.6), Math.min(r[1] - 0.5, s0[1] + 2.6), Math.max(r[2] + 0.5, s0[2] - 2.6), Math.min(r[3] - 0.5, s0[3] + 2.6)]; return w[0] < w[1] && w[2] < w[3] ? randIn(w, 0.2) : randIn(s0, 0.3); };
+    if (owl && owl.e === e && now < owl.until) { e.target = nearCoop(); e.state = 'walk'; e.timer = rand(3, 6); return; }
+    if (owl && owl.e === e) ACT.nightOwl = null;
+    else if (!owl && sp === 'chicken' && e.state === 'sleep' && Math.random() < 0.04) { ACT.nightOwl = { e, until: now + rand(15000, 30000) }; e.target = nearCoop(); e.state = 'walk'; e.timer = rand(3, 6); return; }
+    if (inRect(e.x, e.z, s0)) { e.state = 'sleep'; e.target = null; e.timer = rand(14, 32); return; }
+    e.target = randIn(s0, 0.3); e.state = 'toRest'; e.timer = rand(8, 14); return;
+  }
   // 夜空のドローンショー：近くの子は、あなたの前の柵のそばへ。みんなで空を見上げる
   if (UI.rest && UI.rest.mode === 'sky' && !quar) {
     if (!e.skyArrived && Math.hypot(P.x - e.x, P.z - e.z) < 32) {
@@ -11122,6 +11242,10 @@ const UI = {
     // 景色をタップして開いた時、指を離した直後の「クリック」が、開いたばかりの画面の外側に届いて閉じてしまわないように
     $('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') { if (performance.now() - (UI._modalAt || 0) > 450) UI.closeModal(); } else UI.onClick(e); });
     $('#end-day').addEventListener('click', () => UI.endDayClick());
+    // 視点：近く → ふつう → 遠く（0.9.30）
+    $('#view-btn').addEventListener('click', () => { if (CAM.overview) { setOverview(false); UI.refresh(); } const v = camView(camViewIndex() + 1); $('#view-name').textContent = v.n; uiSound('click'); });
+    $('#end-tip-x').addEventListener('click', (ev) => { ev.stopPropagation(); G.flags.endTipX = G.turn; UI.refresh(); });
+    $('#t-res').addEventListener('click', () => UI.handsInfo());
     $('#prompt-btn').addEventListener('click', () => { const n = nearestInteractable(); if (n) UI.interact(n); });
     // 案内とお祝いの札も、上へスワイプで消せる
     UI.swipeAway($('#hint'), () => { const h = $('#hint'); clearTimeout(UI._ht); h.style.opacity = 0; h.textContent = ''; });
@@ -11194,12 +11318,30 @@ const UI = {
     const sig = [G.date, G.hands, Math.round(G.yoyu / 5), G.gauge, G.stage, G.events.join()].join('|');
     if (sig !== UI._stSig) { UI._stSig = sig; UI.statusWake(); }
     $('#end-day').classList.toggle('ready', !hk && (G.dayOver || G.hands <= 0));
+    // 今日できることを使いきった時は、来週へ進む流れを吹き出しで（×で、その日は閉じられる）
+    { const on = !!(STARTED && !hk && !G.dayOver && G.hands <= 0 && G.flags.endTipX !== G.turn); $('#end-tip').hidden = !on; document.body.classList.toggle('end-tip-on', on); UI.promptAboveTip(); }
     $('#b-req').hidden = !G.requests.length; $('#b-req').textContent = G.requests.length;
     $('#b-diary').hidden = !curPage() || curPage().turn <= (G.diarySeen || 0);
     $('#bottom-right').hidden = hk;
     if (!UI._endConfirm) $('#end-day').textContent = G.dayOver ? '日記を見る' : '今日はここまで';
     $('#btn-overview').classList.toggle('on', CAM.overview);
     if (!$('#sheet').hidden && ['actions', 'animals', 'deco', 'card', 'settings', 'money', 'rest'].includes(UI.cur && UI.cur.name)) UI.render();
+  },
+  // 吹き出しが出ている時は、近くの案内（「〜と話す」など）を、吹き出しの上へ
+  promptAboveTip() {
+    const pr = $('#prompt'); if (!pr) return;
+    if (!document.body.classList.contains('end-tip-on')) { pr.style.bottom = ''; return; }
+    requestAnimationFrame(() => {
+      const t = $('#end-tip').getBoundingClientRect(); pr.style.bottom = '';
+      const w = Math.max(pr.getBoundingClientRect().width, 200), cx = window.innerWidth / 2;
+      if (t.height && cx + w / 2 > t.left && cx - w / 2 < t.right) pr.style.bottom = Math.round(window.innerHeight - t.top + 10) + 'px';
+    });
+  },
+  // 今日できることの説明（状態の札の丸を押した時）
+  handsInfo() {
+    if (G.mode === 'hakoniwa') { UI.toast('箱庭モードでは、いくらでも動けます', 'daily'); return; }
+    if (G.hands <= 0) { G.flags.endTipX = null; UI.refresh(); }
+    UI.toast(`今日できることは、日曜日ごとに${G.handsMax}つ。「今日はここまで」で日記をつけて来週の日曜日へ進むと、また${G.handsMax}つに戻ります（日付が変わっても戻りません）。使いきっても、歩く、眺める、なでる、楽器を弾くは、いつでもできます`, 'daily');
   },
   railClick(name) {
     if (name === 'overview') { setOverview(!CAM.overview); UI.refresh(); if (CAM.overview) UI.hint(IS_TOUCH ? '行きたい場所をタップすると、そこへ移動します' : '行きたい場所をクリックすると、そこへ移動します'); return; }
@@ -11443,6 +11585,10 @@ const UI = {
       case 'photo-view': UI.viewPhoto(+id); break;
       case 'photo-save': UI.savePhoto(id === '' ? null : +id); break;
       case 'talk': UI.closeModal(); UI.talkModal(id); break;
+      case 'end-day-now': UI.closeSheet(); UI.endDayClick(); break;
+      case 'ctl-help': UI.ctlHelp(); break;
+      case 'ctl-mode': G.settings.ctl = v; GAME.save(); UI.render(); break;
+      case 'toggle-follow': G.settings.camFollow = G.settings.camFollow === false; GAME.save(); break;
       case 'talk-ans': { const r = GAME.talkAnswer(id, +v); if (r) UI.talkModal(id, r); else UI.closeModal(); if (UI.cur && !$('#sheet').hidden) UI.render(); break; }
       case 'open-person': { const push = !$('#sheet').hidden && $('#modal').hidden; UI.openSheet('person', id, push); break; }
       case 'open-talkread': { const push = !$('#sheet').hidden && $('#modal').hidden; UI.openSheet('talkread', { id, k: +v }, push); break; }
@@ -11599,7 +11745,9 @@ const UI = {
             <span class="cost">${sp ? `${sp.name} ${SIZE_LABEL[a.size]}` : ''}<br>${cost}</span></button>`;
         };
         const all = ACTIONS.map((a) => [a, GAME.actionAvailable(a)]), okA = all.filter((x) => x[1].ok), noA = all.filter((x) => !x[1].ok);
-        if (!okA.length && !hk) h += `<p class="lead-s">${G.dayOver ? '今日の日記はつけました。続きは来週に。' : '今日できることは、もうありません。続きは来週に。'}「ひと息」や写真は、いつでもできます。</p>`;
+        if (!hk) h += G.hands > 0 ? `<p class="hr-note">使いきったら、右下の「今日はここまで」で来週の日曜日へ。また${G.handsMax}つに戻ります。</p>`
+          : G.dayOver ? '<p class="hr-note">今日の日記はつけました。続きは来週に。</p>'
+          : `<div class="hr-end"><p>今日できることは、おしまい。「今日はここまで」で日記をつけると、来週の日曜日へ。また${G.handsMax}つに戻ります。</p><p class="muted">急がなくて大丈夫。歩く、眺める、なでる、ベンチに座る、楽器を弾く、写真を撮るは、いつでもできます。</p><button class="btn small primary" data-act="end-day-now">今日はここまで（来週の日曜日へ）</button></div>`;
         h += okA.map((x) => actBtn(x[0], x[1])).join('');
         if (noA.length) h += `<details class="more-acts"${okA.length ? '' : ' open'}><summary>${okA.length ? `まだできないこと（${noA.length}）` : `行動の一覧（${noA.length}）`}</summary>${noA.map((x) => actBtn(x[0], x[1])).join('')}</details>`;
       } else if (tab === 'biz') {
@@ -11632,7 +11780,7 @@ const UI = {
       const hk = G.mode === 'hakoniwa';
       let h = '';
       {
-        h += `<p class="lead-s">いつでも、何回でも。今日できることの数は減りません。</p>`;
+        h += `<p class="lead-s">何もしない時間も、ここでは大切な時間です。いつでも、何回でも。今日できることの数は減りません。</p>`;
         const restBtn = (act, id, icon, col, name, desc, need) => {
           const full = !hk && GAME.restGot(id) >= GAME.restMax(id);
           return `<button class="act" data-act="${act}" data-id="${id}" ${need ? 'disabled' : ''}><span class="ic" style="background:${col}">${ico(icon)}</span><span class="tx"><strong>${esc(name)}</strong><span>${esc(desc)}</span>${need ? `<span class="pill warn">${esc(need)}</span>` : full ? '<span class="pill ok">今日は十分に休めました。いつでも座れます</span>' : ''}</span></button>`;
@@ -11843,7 +11991,9 @@ const UI = {
         h += `</div><div class="sec"><h3>続きをファイルに</h3><p class="lead-s">育てている続きを、この端末にファイルで残せます。ブラウザのデータを消した時や、ほかの端末で続ける時は、そのファイルから読み込みます。アルバムの写真は入りません。</p><div class="btn-row"><button class="btn small" data-act="save-export" ${canOut ? '' : 'disabled'}>ファイルに保存</button><button class="btn small" data-act="save-import">ファイルから読み込む</button></div>`;
         if (UI.importPending) h += `<div class="confirm">${esc(UI.importText)}<div class="btn-row" style="margin-top:8px"><button class="btn small primary" data-act="import-yes">読み込む</button><button class="btn small" data-act="import-no">やめる</button></div></div>`;
       }
-      h += `</div><div class="sec"><h3>操作</h3><p class="lead-s">${IS_TOUCH ? 'タップした場所へ歩きます。ドラッグで見回し、ピンチで寄ったり離れたりできます。動物をタップすると、そばへ行ってなでます。動物のカードは、近くで出る「〜のカードを見る」か、下の「動物」から開けます。' : 'WASDか矢印キーで歩きます（Shiftで早歩き）。クリックした場所へ歩くこともできます。ドラッグで見回し、ホイールで寄ります。動物をクリックすると、そばへ行ってなでます。近くの動物のカードはEで開き、スタッフにはEで話しかけます。Escで閉じます。'}</p>
+      h += `</div><div class="sec"><h3>操作</h3>${IS_TOUCH ? `<div class="field"><span class="flabel">移動のしかた</span><div class="seg"><button data-act="ctl-mode" data-v="stick" class="${G.settings.ctl !== 'tap' ? 'on' : ''}">なぞって歩く＋タップ</button><button data-act="ctl-mode" data-v="tap" class="${G.settings.ctl === 'tap' ? 'on' : ''}">タップだけ</button></div></div>
+        <div class="switch"><span>歩くと、カメラがうしろへまわる</span><input type="checkbox" data-act="toggle-follow" ${G.settings.camFollow !== false ? 'checked' : ''}></div>
+        <div class="btn-row"><button class="btn small" data-act="ctl-help">操作のヒントを見る</button></div>` : ''}<p class="lead-s">${IS_TOUCH ? (G.settings.ctl !== 'tap' ? '画面の下のほうを指でなぞると、その向きへ歩きます（指を置いた所がスティックに）。上のほうをなぞると見回します。' : 'ドラッグで見回します。') + 'タップした場所へ歩き、動物をタップすると、そばへ行ってなでます。左下の「視点」で、近く・ふつう・遠く。ピンチでも寄ったり離れたりできます。動物のカードは、近くで出る「〜のカードを見る」か、下の「動物」から開けます。' : 'WASDか矢印キーで歩きます（Shiftで早歩き）。クリックした場所へ歩くこともできます。ドラッグで見回し、ホイールで寄ります。動物をクリックすると、そばへ行ってなでます。近くの動物のカードはEで開き、スタッフにはEで話しかけます。Escで閉じます。'}</p>
         <p class="muted">${STORE.ok ? '進み具合は、claude.aiのあなたのアカウントに保存されます。ほかの端末で開いても続きから遊べます。アルバムの写真は、この端末にだけ残ります。' : '進み具合は、このブラウザに保存されます。「続きをファイルに」で、ファイルにも残せます。'}</p></div>`;
       return { title: '設定', html: h };
     },
@@ -11950,7 +12100,7 @@ const UI = {
     morning(p) {
       const first = UI.morningFirst;
       let h = '';
-      if (first && G.mode === 'normal') h += `<div class="sec"><ul class="howto"><li>${ico('i-clock')}<span>日曜日ごとに通います。1日にできることは4つです</span></li><li>${ico('i-paw')}<span>動物に近づくと、名前と物語がわかります</span></li><li>${ico('i-rest')}<span>疲れたら、ベンチでひと息つきましょう</span></li></ul>
+      if (first && G.mode === 'normal') h += `<div class="sec"><ul class="howto"><li>${ico('i-clock')}<span>日曜日ごとに通います。1日にできることは4つ。使いきったら「今日はここまで」で来週の日曜日へ。また4つに戻ります</span></li><li>${ico('i-paw')}<span>動物をタップすると、そばへ行ってなでます。近づくと、名前と物語がわかります</span></li><li>${ico('i-rest')}<span>何もしなくても大丈夫。眺めているだけ、ベンチに座っているだけ、ウクレレを弾いているだけの日曜日も、ここでは大切な一日です</span></li></ul>
         <details class="more"><summary>くわしく</summary><p class="lead-s">寄付をしたり、掃除を手伝ったりするたびに、サンクチュアリは少しずつ育ちます。どんな支え方が多かったかで、増えていくものが変わります。</p><p class="lead-s">人見知りの子も、通ううちに自分から近づいてきます。受け入れの相談が来たら、土地と人手、設備、毎月のお金を確かめて決めます。</p></details></div>`;
       if (first && G.mode === 'hakoniwa') h += `<div class="sec"><p class="lead-s">世界がすっかり良くなった姿です。ここでは、いくらでも動けて、心の余裕も尽きません。失敗もありません。季節と行事は、日付の札から自由に変えられます。</p><p class="lead-s">動物への配慮は、ここでも変わりません。花火は置けず、イチイやヤドリギも飾れません。</p></div>`;
       if (p.changes && p.changes.length) {
@@ -12306,7 +12456,12 @@ const UI = {
     if (first && !G.avatarChosen) { UI.openSheet('avatar', { then: () => UI.morning(page, first, cb) }); return; }
     UI.morningFirst = first;
     UI.openSheet('morning', page);
-    UI.onClose = () => { cb && cb(); if (G.turn <= 2 && G.mode !== 'hakoniwa') UI.hint(IS_TOUCH ? 'タップで歩く・ドラッグで見回す・動物をタップでなでる' : 'WASDで歩く・ドラッグで見回す・動物をクリックでなでる'); };
+    UI.onClose = () => {
+      cb && cb();
+      let seen = !!G.flags.ctlHelp; try { seen = seen || localStorage.getItem('harunire-ctlhelp') === '1'; } catch (e) { /* なし */ }
+      if (IS_TOUCH && !seen) { G.flags.ctlHelp = 1; try { localStorage.setItem('harunire-ctlhelp', '1'); } catch (e) { /* なし */ } setTimeout(() => UI.ctlHelp(), 400); return; }
+      if (G.turn <= 2 && G.mode !== 'hakoniwa') UI.hint(IS_TOUCH ? (stickOn() ? '下のほうをなぞって歩く・上のほうをなぞって見回す・動物をタップでなでる' : 'タップで歩く・ドラッグで見回す・動物をタップでなでる') : 'WASDで歩く・ドラッグで見回す・動物をクリックでなでる');
+    };
   },
   evening(page) { UI.openSheet('evening', page); if (curPage()) G.diarySeen = curPage().turn; UI.refresh(); },
   endDayClick() {
@@ -12320,6 +12475,14 @@ const UI = {
     clearTimeout(UI._ecT); UI._endConfirm = false; b.classList.remove('confirming'); UI.closeSheet(); GAME.endDay();
   },
 
+  // 操作のヒント（スマホ）：はじめての日と、設定から
+  ctlHelp() {
+    const st = stickOn();
+    const phone = `<svg class="ch-phone" viewBox="0 0 120 210" aria-hidden="true"><rect x="4" y="4" width="112" height="202" rx="16" fill="#F4F5EF" stroke="#9AA59C" stroke-width="3"/>${st ? '<line x1="10" y1="100" x2="110" y2="100" stroke="#B9C2B9" stroke-width="2" stroke-dasharray="5 5"/><path d="M38 52 h44 M38 52 l8 -6 M38 52 l8 6 M82 52 l-8 -6 M82 52 l-8 6" stroke="#6E62B0" stroke-width="3" fill="none" stroke-linecap="round"/><text x="60" y="80" font-size="12" text-anchor="middle" fill="#6E62B0" font-weight="700">見回す</text><circle cx="60" cy="150" r="26" fill="none" stroke="#2E5A48" stroke-width="3"/><circle cx="68" cy="140" r="11" fill="#2E5A48"/><text x="60" y="196" font-size="12" text-anchor="middle" fill="#2E5A48" font-weight="700">歩く</text>' : '<path d="M38 100 h44 M38 100 l8 -6 M38 100 l8 6 M82 100 l-8 -6 M82 100 l-8 6" stroke="#6E62B0" stroke-width="3" fill="none" stroke-linecap="round"/><text x="60" y="128" font-size="12" text-anchor="middle" fill="#6E62B0" font-weight="700">見回す</text>'}</svg>`;
+    const rows = (st ? [['下のほうを、指でなぞる', '指を置いた所がスティックに。なぞった向きへ歩きます。大きくなぞると早歩き'], ['上のほうを、指でなぞる', 'まわりを見回します']] : [['どこでも、指でなぞる', 'まわりを見回します']])
+      .concat([['タップ', '行きたい所へ歩きます。動物をタップすると、そばへ行ってなでます'], ['左下の「視点」', '近く・ふつう・遠く、を切りかえます。2本の指で、寄ったり離れたりも'], ['歩いていると', 'カメラが、ゆっくり、あなたのうしろへまわります']]);
+    UI.modal(`<h3 class="ch-t">歩く・見回す</h3><div class="ch-wrap">${phone}<ul class="ch-list">${rows.map(([a, b]) => `<li><b>${a}</b><span>${b}</span></li>`).join('')}</ul></div><p class="muted">急いで歩かなくても大丈夫。眺めているだけでも、楽しめます。設定の「操作」で、いつでも見直せます。</p><div class="btn-row"><button class="btn small primary" data-act="close-modal">わかりました</button></div>`);
+  },
   /* ---------- 話す・ふれあう ---------- */
   interact(p) {
     if (!p || !p.ent) return;
@@ -12387,7 +12550,7 @@ const UI = {
     e.state = 'pet'; e.target = null; e.timer = dur + 2; e.petLove = love;
     const first = GAME.petAnimal(a, plan.mode, plan.react);
     if (first || Math.random() < 0.5) animalVoice(a.sp, 0.5, 0, a.id);
-    focusAt((P.x + e.x) / 2, (P.z + e.z) / 2, 8, (dur + 1.5) * 1000);
+    framePair(P.x, P.z, e.x, e.z, BODY[a.sp] || 0.6, (dur + 1.5) * 1000, ACT.animals.filter((o) => o !== e).map((o) => [o.x, o.z, BODY[o.a.sp] || 0.6]).concat(ACT.npcs.map((n) => [n.x, n.z, 0.4]))); // あなたと、その子が、横から見えるように（ほかの子が間に入らない向きで）
     const sp = a.sp;
     const t = !love ? `${nm}が、少しだけ${brush ? 'ブラッシング' : 'なで'}させてくれました`
       : sp === 'pig' ? `${nm}が、ごろんと横になって、おなかを見せました`
@@ -12591,7 +12754,7 @@ const UI = {
   },
   frame(dt) {
     UI.viewOffset(dt);
-    { const now = performance.now(); if (now - (UI._idleChk || 0) > 500) { UI._idleChk = now; UI.idleSit(); } }
+    { const now = performance.now(); if (now - (UI._idleChk || 0) > 500) { UI._idleChk = now; UI.idleSit(); const vn = CAM_VIEWS[camViewIndex()].n, el = $('#view-name'); if (el && el.textContent !== vn) el.textContent = vn; } }
     // 時間帯（朝・昼・夕方・夜）は、変わった時だけ書きかえる
     const tn = todName(SKY.t); if (tn !== UI._tod) { UI._tod = tn; const el = $('#t-tod'); if (el) el.textContent = tn; }
     // 写真のピント：タップするまでは、見ている中心（あなたのあたり）に合わせ続ける
@@ -13034,6 +13197,8 @@ Object.assign(UI, {
       UI.restCam(0, true);
       UI.restMeter(); UI.restBreathBtn();
       setTimeout(() => UI.veil(false), 120);
+      // その日はじめて座った時は、何もしなくていいことを、ひとこと（0.9.30）
+      if (mode !== 'sky' && mode !== 'music' && G.flags.idleSaid !== G.turn) { G.flags.idleSaid = G.turn; setTimeout(() => { if (UI.rest === R0 && !R0.ending) UI.restCaption('何もしない時間も、ここでは大切な時間です。眺めているだけで、十分です'); }, 1500); }
     }, mode === 'music' ? 280 : 620);
     return true;
   },
