@@ -1087,6 +1087,9 @@ button.tp-ch:active { background: #EEF4EF; }
 #banner { pointer-events: auto; }
 .toast { position: relative; padding-bottom: 12px; }
 .toast::after { content: ''; position: absolute; left: 50%; bottom: 4px; width: 30px; height: 3px; margin-left: -15px; border-radius: 2px; background: var(--paper-3); }
+
+/* ---------- 0.9.29 写真の保存（スマホは共有の画面から） ---------- */
+.save-hint { margin: -2px 0 10px; font-size: 12.5px; line-height: 1.6; }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1924,7 +1927,7 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.28', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.29', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -1932,6 +1935,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.29', '2026年10月14日', 'iPhone で写真の「保存する」を押した時、「表示」を選ぶと写真だけの画面になって戻れなかったのを直しました。スマホでは共有の画面が開き、「画像を保存」で写真アプリに入ります（共有の画面が使えない時は、新しいタブでダウンロード。「表示」を選んでも、ゲームの画面はそのまま残ります）。「続きをファイルに」の保存も同じに'],
     ['0.9.28', '2026年10月14日', '酪農家の森田さんと話すのは、今日できることの回数を使わないように（週に1回はそのまま）。働く人たちとの話も、回数は使いません。画面の上に出る知らせ、左下の案内、まんなかのお祝いの札は、上へスワイプすると、すぐに消えるように（知らせの下に、小さなつまみの線）'],
     ['0.9.27', '2026年10月13日', '設定の「このテスト版について」をなくし、「ご意見・不具合を送る」を押すと Google フォームがそのまま開くように（ご意見は、すべてフォームで）。「あなたの見た目を変える」を設定の上のほうに、顔の絵つきの大きなボタンで。見た目の画面は、1 顔 → 2 髪 → 3 服 → 4 小物 の順に「次へ」で進む形に（上の番号で、どこへでも行けます）。見た目の部品を増やしました（肌の色7、目11、まゆ8、ほっぺ8、口10、髪型15、髪の色9、上の服12、下の服4、重ねて着るもの6、長ぐつ7、帽子9、めがね5、かばん4）。日記の「人の話」を、働く人の一覧 → その人のお話1〜 → 会話、の順にひらく形に。みなみ先生、あきらさん、さとみさん、けんさん、あやさん、たくみさん、りこさん、しょうたさん、まいさんにも、それぞれ5話の続きのある話（その人が来てから、ひとり週に1話）。季節のおやつを、種ごとに食べられるものに（春はたんぽぽの葉、夏はすいかか、きゅうり、秋はかぼちゃ、冬はにんじん）。動物のカードを、あたま（絵・名前・種類と年・なかよし度）と、ふれあう・応援する・この子のこと・物語・からだと記録のまとまりに分けて、枠で囲む形に。動物をタップすると、なでるように（カードは、近くで出る「〜のカードを見る」か、下の「動物」から）。大きな動物が柵や建物のすき間で引っかかって震えている時は、すぐ近くの広い所へすべらせて、行き先を選び直すように。動物の道すじが角をかすめないように'],
     ['0.9.26', '2026年10月13日', 'ご意見の送り先を、メールから「はるにれの丘 ご意見・感想フォーム」（Google フォーム）に。「ご意見・不具合を送る」の「フォームを開く」で、書いた文章をコピーしてからフォームが開きます（「ひとこと」に貼りつけられます）'],
@@ -12761,14 +12765,32 @@ const UI = {
   viewPhoto(id) {
     const ph = G.photos.find((x) => x.id === id); if (!ph) return;
     const c = coverPhoto(ph.turn), many = weekPhotos(ph.turn).length > 1, isCover = c && c.id === ph.id;
-    UI.modal(`<img class="shot" src="${ph.url}" alt="${esc(ph.caption || '写真')}"><p class="photo-cap">${esc(ph.caption || '')}<small>${fmtDate(ph.date, true)}・第${ph.turn}週${isCover ? '・この週の表紙' : ''}</small></p><div class="btn-row"><button class="btn small primary" data-act="photo-save" data-id="${ph.id}">${ico('i-down')}保存する</button>${!isCover && many ? `<button class="btn small" data-act="cover" data-id="${ph.id}">この週の表紙にする</button>` : ''}<button class="btn small" data-act="close-modal">閉じる</button></div>`);
+    UI.modal(`<img class="shot" src="${ph.url}" alt="${esc(ph.caption || '写真')}"><p class="photo-cap">${esc(ph.caption || '')}<small>${fmtDate(ph.date, true)}・第${ph.turn}週${isCover ? '・この週の表紙' : ''}</small></p>${UI.saveHint()}<div class="btn-row"><button class="btn small primary" data-act="photo-save" data-id="${ph.id}">${ico('i-down')}保存する</button>${!isCover && many ? `<button class="btn small" data-act="cover" data-id="${ph.id}">この週の表紙にする</button>` : ''}<button class="btn small" data-act="close-modal">閉じる</button></div>`);
   },
   viewLastPhoto() {
     const url = UI._lastShot; if (!url) return;
     const ph = G.photos.find((x) => x.url === url);
-    UI.modal(`<img class="shot" src="${url}" alt="撮った写真"><p class="muted">アルバムと今日の日記に残っています。</p><div class="btn-row"><button class="btn small primary" data-act="photo-save" data-id="${ph ? ph.id : ''}">${ico('i-down')}保存する</button><button class="btn small" data-act="photo-album">アルバムを見る</button><button class="btn small" data-act="close-modal">閉じる</button></div>`);
+    UI.modal(`<img class="shot" src="${url}" alt="撮った写真"><p class="muted">アルバムと今日の日記に残っています。</p>${UI.saveHint()}<div class="btn-row"><button class="btn small primary" data-act="photo-save" data-id="${ph ? ph.id : ''}">${ico('i-down')}保存する</button><button class="btn small" data-act="photo-album">アルバムを見る</button><button class="btn small" data-act="close-modal">閉じる</button></div>`);
   },
   /* ---------- 続きをファイルに ---------- */
+  // claude.ai の外で、ファイルを端末へ（0.9.29）
+  // スマホは、まず共有の画面（iPhone は「画像を保存」「"ファイル"に保存」）。共有できない時は、ふつうのダウンロード。
+  // ダウンロードは新しいタブで開く：iPhone で「表示」を選んでも、ゲームの画面はそのまま残る
+  // 戻り値：true 渡せた、null やめた、false できなかった
+  async handOff(name, blob, type) {
+    if (IS_TOUCH && navigator.share && navigator.canShare) {
+      let file = null; try { file = new File([blob], name, { type: type || blob.type }); } catch (e) { file = null; }
+      if (file && navigator.canShare({ files: [file] })) {
+        try { await navigator.share({ files: [file] }); return true; }
+        catch (e) { if (e && e.name === 'AbortError') return null; /* 共有できなかった時は、ダウンロードへ */ }
+      }
+    }
+    try {
+      const a = document.createElement('a'), u = URL.createObjectURL(blob);
+      a.href = u; a.download = name; a.target = '_blank'; a.rel = 'noopener';
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 60000); return true;
+    } catch (e) { UI.toast('この画面では保存できませんでした', 'news'); return false; }
+  },
   // ファイルを端末に保存する。claude.ai では保存の確認が出る。true：保存した、null：やめた、false：できなかった
   async saveBlob(name, blob) {
     let dl = null; try { dl = window.claude && window.claude.use ? await window.claude.use('downloads') : null; } catch (e) { dl = null; }
@@ -12776,9 +12798,8 @@ const UI = {
       try { await dl.save({ filename: name, data: blob }); return true; }
       catch (e) { const c = e && e.code; if (c === 'declined') return null; UI.toast(c === 'rate_limited' ? '保存の確認が開いています。少し待ってから、もう一度押してください' : 'この画面では保存できませんでした', 'news'); return false; }
     }
-    // claude.ai の外では、ふつうのダウンロードで（iPhone は「ファイル」の「ダウンロード」へ）
-    try { const a = document.createElement('a'), u = URL.createObjectURL(blob); a.href = u; a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 4000); return true; }
-    catch (e) { UI.toast('この画面では保存できませんでした', 'news'); return false; }
+    // claude.ai の外では、共有の画面か、ダウンロードで
+    return UI.handOff(name, blob);
   },
   async exportSave() {
     const r = saveForFile();
@@ -12830,9 +12851,11 @@ const UI = {
       catch (e) { const c = e && e.code; if (c === 'declined') return; UI.toast(c === 'rate_limited' ? '保存の確認が開いています。少し待ってから、もう一度押してください' : 'この画面では保存できませんでした', 'news'); }
       return;
     }
-    // claude.ai の外で開いた時は、ふつうのダウンロードで
-    try { const a = document.createElement('a'), u = URL.createObjectURL(blob); a.href = u; a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 4000); } catch (e) { UI.toast('この画面では保存できませんでした', 'news'); }
+    // claude.ai の外で開いた時は、スマホは共有の画面（「画像を保存」で写真アプリへ）、パソコンはダウンロード
+    await UI.handOff(name, blob, 'image/jpeg');
   },
+  // スマホで、保存のしかたを一行で（共有の画面が使える時）
+  saveHint() { return !window.claude && IS_TOUCH && navigator.share && navigator.canShare ? '<p class="muted save-hint">「保存する」で共有の画面が開きます。「画像を保存」を選ぶと、写真アプリに入ります。</p>' : ''; },
   autoPhoto(caption) {
     const wasHud = $('#hud').hidden; $('#hud').hidden = true;
     const sc = UI.photoScene(); sc.score += 3; // 記念写真
