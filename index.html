@@ -2084,7 +2084,7 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.31', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.32', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -2092,6 +2092,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '鶏のそばでしばらく眺めて、しぐさの意味を見つける（動物のカードの「見つけたしぐさ」に残ります）', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.32', '2026年10月16日', '鶏や猫など小さな子をなでる時は、肩越しではなく、横の低い所から、しゃがんだあなたとその子が並んで見えるように（ほかの子にさえぎられる時は、上から見下ろします）。歩く速さを、景色をゆっくり楽しめるくらいに落としました（遠くへ向かう時と、大きくなぞった時は少し早足）'],
     ['0.9.31', '2026年10月16日', '地域猫のみかん、すず、おはぎが仲間に（家のまわりで暮らし、夜と雨の日は縁側の猫小屋で。鶏の庭には入りません。カードもあります）。動物のしぐさに、その時の気持ちを添えました（鶏から。はじめて見た時だけ吹き出しで、そのあとは気持ちの言葉だけを小さく。見つけたしぐさは、カードに残ります）。なでている子、カードを見ている子は、その場で待ってくれるように。なでたあとの「〜のカードを見る」は、その子のカードに。受け入れの相談は、ひとつずつ、少し間をあけて届くように（返事は3週以内に）。食事会の寄付は、その時いちばん必要なものに使い、献立は季節ごとに。まだいない動物の話は、その子が来てからに'],
     ['0.9.30', '2026年10月14日', 'スマホの操作を見直しました。画面の下のほうを指でなぞると、指を置いた所がスティックになって、その向きへ歩きます（大きくなぞると早歩き）。上のほうをなぞると見回します。タップで歩く・動物をタップでなでるは、そのまま。左下の「視点」で、近く・ふつう・遠くを切りかえ。歩いていると、カメラがゆっくり、あなたのうしろへまわります。なでている時は、あなたとその子が見える向きへ、カメラが自動で（ほかの子が間に入らない向きを選びます）。はじめての日に「歩く・見回す」の案内。設定の「操作」で「タップだけ」の前の操作にも戻せます。今日できることを使いきった時は、「今日はここまで」の上に、来週の日曜日へ進むとまた4つに戻ることを吹き出しで（×で閉じられます。状態の札の丸を押しても説明が出ます）。行動の画面にも同じ案内と「今日はここまで（来週の日曜日へ）」。はじめの画面、最初の日、ひと息に、何もしない日曜日も大切な一日だと一言。その日はじめて座った時にも。夜は鶏・アヒル・七面鳥・ウサギが小屋で眠るように（ベンチに座っていても出てきません。ときどき鶏が1羽だけ、小屋のまわりをうろちょろします）'],
     ['0.9.29', '2026年10月14日', 'iPhone で写真の「保存する」を押した時、「表示」を選ぶと写真だけの画面になって戻れなかったのを直しました。スマホでは共有の画面が開き、「画像を保存」で写真アプリに入ります（共有の画面が使えない時は、新しいタブでダウンロード。「表示」を選んでも、ゲームの画面はそのまま残ります）。「続きをファイルに」の保存も同じに'],
@@ -3388,11 +3389,29 @@ function framePair(ax, az, bx, bz, size, ms, blockers) {
   const cands = [];
   if (narrow) cands.push(back + 0.65, back - 0.65, back + 1.05, back - 1.05, back);
   else for (const base of [side, side + Math.PI]) { const b0 = base + clamp(wrap(back - base), -0.45, 0.45); cands.push(b0, b0 + 0.6, b0 - 0.6); }
-  const blocked = (yw) => {
+  const blocked = (yw) => blockedS(yw, dist);
+  const blockedS = (yw, dist) => {
     const cx = mx + Math.sin(yw) * dist * 0.94, cz = mz + Math.cos(yw) * dist * 0.94, vx = mx - cx, vz = mz - cz, L2 = vx * vx + vz * vz || 1; let sc = 0;
     for (const o of blockers || []) { const t = clamp(((o[0] - cx) * vx + (o[1] - cz) * vz) / L2, 0, 0.92), px = cx + vx * t - o[0], pz = cz + vz * t - o[1]; if (px * px + pz * pz < (o[2] + 0.35) * (o[2] + 0.35)) sc += 1 + o[2]; }
     return sc;
   };
+  // 小さな子（猫・鶏・アヒル・ウサギ・七面鳥）は、肩越しではなく、横の低い所から、しゃがんだあなたとその子が並んで見えるように。
+  // 両側ともほかの子にさえぎられる時は、上から見下ろす（0.9.32）
+  if (size < 0.7) {
+    CAM.shoulder = Math.max(CAM.shoulder || 0, 0.85); // 寄って見る時の画角（縦長の画面は広め）にそろえる
+    const vf = (36 + (narrow ? 26 : 12) * CAM.shoulder) * Math.PI / 180, hf = Math.atan(Math.tan(vf / 2) * R.camera.aspect);
+    const halfW = d / 2 + size + 0.55, distS = clamp(Math.max(halfW / Math.tan(hf), 1.25 / Math.tan(vf / 2)) * 1.12, 2.4, 9);
+    const sc2 = [];
+    for (const base of [side, side + Math.PI]) for (const o of [0, 0.3, -0.3]) sc2.push(base + o);
+    const blockedAt = (yw) => blockedS(yw, distS);
+    let yawS = sc2[0], bestS = 1e9;
+    sc2.forEach((yw, i) => { const sc = blockedAt(yw) * 10 + Math.abs(wrap(yw - CAM.yaw)) * 0.5 + (i % 3 ? 0.3 : 0); if (sc < bestS) { bestS = sc; yawS = yw; } });
+    const top = bestS >= 10;
+    CAM.overview = false; CAM.focus = new THREE.Vector3(mx, heightAt(mx, mz) + (top ? 0.3 : 0.55), mz);
+    CAM.focusUntil = performance.now() + (ms || 5000); CAM.focusBack = true;
+    CAM.tYaw = top ? back : yawS; CAM.tDist = top ? distS * 0.95 : distS; CAM.tPitch = top ? 1.05 : 0.2;
+    return;
+  }
   let yaw = cands[0], best = 1e9;
   cands.forEach((yw, i) => { const sc = blocked(yw) * 10 + Math.abs(wrap(yw - CAM.yaw)) * 0.6 + (narrow ? (i > 1 ? 0.4 : 0) : (i % 3 ? 0.4 : 0)); if (sc < best) { best = sc; yaw = yw; } });
   CAM.overview = false; CAM.focus = new THREE.Vector3((ax + bx) / 2, heightAt((ax + bx) / 2, (az + bz) / 2) + 0.5 + size * 0.35, (az + bz) / 2);
@@ -8431,8 +8450,9 @@ function updatePlayer(dt) {
   const kv = UI.blockMove ? null : keyVector();
   // なでている・ブラッシングしている間。歩きだしたら、そこでおしまい
   if (p.petting) { if (kv || p.target) UI.petEnd(true); else { petPose(p, dt); umbrellaPose(p, dt); return; } }
-  let vx = 0, vz = 0, spd = 7.5;
-  if (kv) { vx = kv.x; vz = kv.z; if (kv.run) spd = 12; else if (kv.stick) spd = 2.6 + 5.2 * Math.min(1, kv.mag / 0.85); p.target = null; p.pending = null; p.path = null; CAM.focus = null; }
+  // 歩く速さ：景色をゆっくり楽しめるように（0.9.32 で 7.5 → 4.8 m/秒。遠くへは少し早足、Shift でも早足）
+  let vx = 0, vz = 0, spd = 4.8;
+  if (kv) { vx = kv.x; vz = kv.z; if (kv.run) spd = 8; else if (kv.stick) spd = 1.8 + 3.2 * Math.min(1, kv.mag / 0.85); p.target = null; p.pending = null; p.path = null; CAM.focus = null; }
   else if (p.target) {
     // 相手が動く時は、ときどき道を探し直す
     if (p.pending && p.pending.ent) {
@@ -8445,7 +8465,7 @@ function updatePlayer(dt) {
     else {
       let tx = p.target[0], tz = p.target[1];
       if (p.path && p.path.length) { if (Math.hypot(p.path[0][0] - p.x, p.path[0][1] - p.z) < 0.35 && p.path.length > 1) p.path.shift(); tx = p.path[0][0]; tz = p.path[0][1]; }
-      const dx = tx - p.x, dz = tz - p.z, d = Math.hypot(dx, dz) || 1; vx = dx / d; vz = dz / d; if (dFinal > 18) spd = 11;
+      const dx = tx - p.x, dz = tz - p.z, d = Math.hypot(dx, dz) || 1; vx = dx / d; vz = dz / d; if (dFinal > 22) spd = 7.5;
     }
   }
   const moving = !!(vx || vz);
