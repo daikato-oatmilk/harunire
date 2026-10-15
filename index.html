@@ -2084,7 +2084,7 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.32', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.33', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -2092,6 +2092,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '鶏のそばでしばらく眺めて、しぐさの意味を見つける（動物のカードの「見つけたしぐさ」に残ります）', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.33', '2026年10月16日', 'スマホで歩くスティックが出るのは、画面の下3分の1を指でなぞった時だけに。それより上をなぞると見回します（操作のヒントの絵と説明も合わせて直しました）'],
     ['0.9.32', '2026年10月16日', '鶏や猫など小さな子をなでる時は、肩越しではなく、横の低い所から、しゃがんだあなたとその子が並んで見えるように（ほかの子にさえぎられる時は、上から見下ろします）。歩く速さを、景色をゆっくり楽しめるくらいに落としました（遠くへ向かう時と、大きくなぞった時は少し早足）'],
     ['0.9.31', '2026年10月16日', '地域猫のみかん、すず、おはぎが仲間に（家のまわりで暮らし、夜と雨の日は縁側の猫小屋で。鶏の庭には入りません。カードもあります）。動物のしぐさに、その時の気持ちを添えました（鶏から。はじめて見た時だけ吹き出しで、そのあとは気持ちの言葉だけを小さく。見つけたしぐさは、カードに残ります）。なでている子、カードを見ている子は、その場で待ってくれるように。なでたあとの「〜のカードを見る」は、その子のカードに。受け入れの相談は、ひとつずつ、少し間をあけて届くように（返事は3週以内に）。食事会の寄付は、その時いちばん必要なものに使い、献立は季節ごとに。まだいない動物の話は、その子が来てからに'],
     ['0.9.30', '2026年10月14日', 'スマホの操作を見直しました。画面の下のほうを指でなぞると、指を置いた所がスティックになって、その向きへ歩きます（大きくなぞると早歩き）。上のほうをなぞると見回します。タップで歩く・動物をタップでなでるは、そのまま。左下の「視点」で、近く・ふつう・遠くを切りかえ。歩いていると、カメラがゆっくり、あなたのうしろへまわります。なでている時は、あなたとその子が見える向きへ、カメラが自動で（ほかの子が間に入らない向きを選びます）。はじめての日に「歩く・見回す」の案内。設定の「操作」で「タップだけ」の前の操作にも戻せます。今日できることを使いきった時は、「今日はここまで」の上に、来週の日曜日へ進むとまた4つに戻ることを吹き出しで（×で閉じられます。状態の札の丸を押しても説明が出ます）。行動の画面にも同じ案内と「今日はここまで（来週の日曜日へ）」。はじめの画面、最初の日、ひと息に、何もしない日曜日も大切な一日だと一言。その日はじめて座った時にも。夜は鶏・アヒル・七面鳥・ウサギが小屋で眠るように（ベンチに座っていても出てきません。ときどき鶏が1羽だけ、小屋のまわりをうろちょろします）'],
@@ -3512,7 +3513,7 @@ const INPUT = { keys: {}, pointers: new Map(), dragging: false, moved: 0, pinch:
 // 設定の「移動のしかた」を「タップだけ」にすると、どこをなぞっても見回す（前の操作）
 const STICK_R = 58;
 function stickOn() { return IS_TOUCH && !(typeof G !== 'undefined' && G && G.settings && G.settings.ctl === 'tap'); }
-function stickZone(y) { return y > window.innerHeight * 0.46; }
+function stickZone(y) { return y > window.innerHeight * 2 / 3; } // 下の3分の1がスティック、それより上は見回す（0.9.33）
 function stickDraw() {
   const el = document.getElementById('stick'); if (!el) return;
   const st = INPUT.stick; if (!st) { el.hidden = true; return; }
@@ -12402,7 +12403,7 @@ const UI = {
       }
       h += `</div><div class="sec"><h3>操作</h3>${IS_TOUCH ? `<div class="field"><span class="flabel">移動のしかた</span><div class="seg"><button data-act="ctl-mode" data-v="stick" class="${G.settings.ctl !== 'tap' ? 'on' : ''}">なぞって歩く＋タップ</button><button data-act="ctl-mode" data-v="tap" class="${G.settings.ctl === 'tap' ? 'on' : ''}">タップだけ</button></div></div>
         <div class="switch"><span>歩くと、カメラがうしろへまわる</span><input type="checkbox" data-act="toggle-follow" ${G.settings.camFollow !== false ? 'checked' : ''}></div>
-        <div class="btn-row"><button class="btn small" data-act="ctl-help">操作のヒントを見る</button></div>` : ''}<p class="lead-s">${IS_TOUCH ? (G.settings.ctl !== 'tap' ? '画面の下のほうを指でなぞると、その向きへ歩きます（指を置いた所がスティックに）。上のほうをなぞると見回します。' : 'ドラッグで見回します。') + 'タップした場所へ歩き、動物をタップすると、そばへ行ってなでます。左下の「視点」で、近く・ふつう・遠く。ピンチでも寄ったり離れたりできます。動物のカードは、近くで出る「〜のカードを見る」か、下の「動物」から開けます。' : 'WASDか矢印キーで歩きます（Shiftで早歩き）。クリックした場所へ歩くこともできます。ドラッグで見回し、ホイールで寄ります。動物をクリックすると、そばへ行ってなでます。近くの動物のカードはEで開き、スタッフにはEで話しかけます。Escで閉じます。'}</p>
+        <div class="btn-row"><button class="btn small" data-act="ctl-help">操作のヒントを見る</button></div>` : ''}<p class="lead-s">${IS_TOUCH ? (G.settings.ctl !== 'tap' ? '画面の下3分の1を指でなぞると、その向きへ歩きます（指を置いた所がスティックに）。それより上をなぞると見回します。' : 'ドラッグで見回します。') + 'タップした場所へ歩き、動物をタップすると、そばへ行ってなでます。左下の「視点」で、近く・ふつう・遠く。ピンチでも寄ったり離れたりできます。動物のカードは、近くで出る「〜のカードを見る」か、下の「動物」から開けます。' : 'WASDか矢印キーで歩きます（Shiftで早歩き）。クリックした場所へ歩くこともできます。ドラッグで見回し、ホイールで寄ります。動物をクリックすると、そばへ行ってなでます。近くの動物のカードはEで開き、スタッフにはEで話しかけます。Escで閉じます。'}</p>
         <p class="muted">${STORE.ok ? '進み具合は、claude.aiのあなたのアカウントに保存されます。ほかの端末で開いても続きから遊べます。アルバムの写真は、この端末にだけ残ります。' : '進み具合は、このブラウザに保存されます。「続きをファイルに」で、ファイルにも残せます。'}</p></div>`;
       return { title: '設定', html: h };
     },
@@ -12870,7 +12871,7 @@ const UI = {
       cb && cb();
       let seen = !!G.flags.ctlHelp; try { seen = seen || localStorage.getItem('harunire-ctlhelp') === '1'; } catch (e) { /* なし */ }
       if (IS_TOUCH && !seen) { G.flags.ctlHelp = 1; try { localStorage.setItem('harunire-ctlhelp', '1'); } catch (e) { /* なし */ } setTimeout(() => UI.ctlHelp(), 400); return; }
-      if (G.turn <= 2 && G.mode !== 'hakoniwa') UI.hint(IS_TOUCH ? (stickOn() ? '下のほうをなぞって歩く・上のほうをなぞって見回す・動物をタップでなでる' : 'タップで歩く・ドラッグで見回す・動物をタップでなでる') : 'WASDで歩く・ドラッグで見回す・動物をクリックでなでる');
+      if (G.turn <= 2 && G.mode !== 'hakoniwa') UI.hint(IS_TOUCH ? (stickOn() ? '下3分の1をなぞって歩く・それより上をなぞって見回す・動物をタップでなでる' : 'タップで歩く・ドラッグで見回す・動物をタップでなでる') : 'WASDで歩く・ドラッグで見回す・動物をクリックでなでる');
     };
   },
   evening(page) { UI.openSheet('evening', page); if (curPage()) G.diarySeen = curPage().turn; UI.refresh(); },
@@ -12888,8 +12889,8 @@ const UI = {
   // 操作のヒント（スマホ）：はじめての日と、設定から
   ctlHelp() {
     const st = stickOn();
-    const phone = `<svg class="ch-phone" viewBox="0 0 120 210" aria-hidden="true"><rect x="4" y="4" width="112" height="202" rx="16" fill="#F4F5EF" stroke="#9AA59C" stroke-width="3"/>${st ? '<line x1="10" y1="100" x2="110" y2="100" stroke="#B9C2B9" stroke-width="2" stroke-dasharray="5 5"/><path d="M38 52 h44 M38 52 l8 -6 M38 52 l8 6 M82 52 l-8 -6 M82 52 l-8 6" stroke="#6E62B0" stroke-width="3" fill="none" stroke-linecap="round"/><text x="60" y="80" font-size="12" text-anchor="middle" fill="#6E62B0" font-weight="700">見回す</text><circle cx="60" cy="150" r="26" fill="none" stroke="#2E5A48" stroke-width="3"/><circle cx="68" cy="140" r="11" fill="#2E5A48"/><text x="60" y="196" font-size="12" text-anchor="middle" fill="#2E5A48" font-weight="700">歩く</text>' : '<path d="M38 100 h44 M38 100 l8 -6 M38 100 l8 6 M82 100 l-8 -6 M82 100 l-8 6" stroke="#6E62B0" stroke-width="3" fill="none" stroke-linecap="round"/><text x="60" y="128" font-size="12" text-anchor="middle" fill="#6E62B0" font-weight="700">見回す</text>'}</svg>`;
-    const rows = (st ? [['下のほうを、指でなぞる', '指を置いた所がスティックに。なぞった向きへ歩きます。大きくなぞると早歩き'], ['上のほうを、指でなぞる', 'まわりを見回します']] : [['どこでも、指でなぞる', 'まわりを見回します']])
+    const phone = `<svg class="ch-phone" viewBox="0 0 120 210" aria-hidden="true"><rect x="4" y="4" width="112" height="202" rx="16" fill="#F4F5EF" stroke="#9AA59C" stroke-width="3"/>${st ? '<line x1="10" y1="139" x2="110" y2="139" stroke="#B9C2B9" stroke-width="2" stroke-dasharray="5 5"/><path d="M38 66 h44 M38 66 l8 -6 M38 66 l8 6 M82 66 l-8 -6 M82 66 l-8 6" stroke="#6E62B0" stroke-width="3" fill="none" stroke-linecap="round"/><text x="60" y="94" font-size="12" text-anchor="middle" fill="#6E62B0" font-weight="700">見回す</text><circle cx="60" cy="161" r="15" fill="none" stroke="#2E5A48" stroke-width="3"/><circle cx="65" cy="156" r="7" fill="#2E5A48"/><text x="60" y="196" font-size="12" text-anchor="middle" fill="#2E5A48" font-weight="700">歩く</text>' : '<path d="M38 100 h44 M38 100 l8 -6 M38 100 l8 6 M82 100 l-8 -6 M82 100 l-8 6" stroke="#6E62B0" stroke-width="3" fill="none" stroke-linecap="round"/><text x="60" y="128" font-size="12" text-anchor="middle" fill="#6E62B0" font-weight="700">見回す</text>'}</svg>`;
+    const rows = (st ? [['画面の下3分の1を、指でなぞる', '指を置いた所がスティックに。なぞった向きへ歩きます。大きくなぞると早歩き'], ['それより上を、指でなぞる', 'まわりを見回します']] : [['どこでも、指でなぞる', 'まわりを見回します']])
       .concat([['タップ', '行きたい所へ歩きます。動物をタップすると、そばへ行ってなでます'], ['左下の「視点」', '近く・ふつう・遠く、を切りかえます。2本の指で、寄ったり離れたりも'], ['歩いていると', 'カメラが、ゆっくり、あなたのうしろへまわります']]);
     UI.modal(`<h3 class="ch-t">歩く・見回す</h3><div class="ch-wrap">${phone}<ul class="ch-list">${rows.map(([a, b]) => `<li><b>${a}</b><span>${b}</span></li>`).join('')}</ul></div><p class="muted">急いで歩かなくても大丈夫。眺めているだけでも、楽しめます。設定の「操作」で、いつでも見直せます。</p><div class="btn-row"><button class="btn small primary" data-act="close-modal">わかりました</button></div>`);
   },
