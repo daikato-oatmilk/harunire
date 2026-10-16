@@ -1147,6 +1147,9 @@ button.tp-ch:active { background: #EEF4EF; }
 .beh-list li { display: flex; gap: 8px; align-items: baseline; }
 .beh-list li span { font-size: 12px; color: var(--ink-2); line-height: 1.5; }
 .beh-list li span b { display: block; font-size: 13px; color: var(--ink); }
+
+/* 0.9.34 遠い子の名前の札は、小さく、少し透かして */
+.lbl3d.far { font-size: 11px; font-weight: 600; background: rgba(244, 245, 239, .78); color: var(--ink-2); padding: 0 7px 1px; }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1950,16 +1953,16 @@ const ROSTER = [
     stories: ['みかんは、はるこさんがここに来る前から、この家の縁側で昼寝をしていました。近所の人たちが「地域猫」として見守ってきた子です。',
       '右の耳の先が、桜の花びらの形に少し欠けています。手術をすませた、というしるしです。',
       '朝と夕方、ごはんの時間が近づくと、ごはん皿の前で、しっぽを立てて待っています。時計より正確です。'] },
-  { key: 'suzu', sp: 'cat', name: 'すず', color: 'calico', group: 'cat1', minStage: 1, origin: '近くの空き家の庭から（地域猫）',
+  { key: 'monaka', sp: 'cat', name: 'もなか', color: 'calico', group: 'cat1', minStage: 1, origin: '近くの空き家の庭から（地域猫）',
     personality: 'ゆっくり近づいてくる', likes: [], dislikes: [], likeText: 'ほおをなでられること。高い所から、みんなを眺めること', age: 5, arrived: '2024-04-02', friend: null, trust: 3,
     health: '元気。手術ずみ（さくら耳）',
-    stories: ['すずは、近くの空き家の庭で暮らしていた子です。地域猫の会の人が手術に連れていったあと、ここに通うようになりました。',
+    stories: ['もなかは、近くの空き家の庭で暮らしていた子です。地域猫の会の人が手術に連れていったあと、ここに通うようになりました。',
       '最初の一年は、人の手の届かない所から、じっとこちらを見ていました。',
-      '今は、こちらがゆっくりまばたきをすると、すずも、ゆっくりまばたきを返してくれます。'] },
-  { key: 'ohagi', sp: 'cat', name: 'おはぎ', color: 'kiji', group: 'cat1', minStage: 1, origin: 'すずのあとをついて（地域猫）',
-    personality: '好奇心旺盛', likes: [], dislikes: [], likeText: '人のあとをついて歩くこと。草のあいだの虫を眺めること', age: 3, arrived: '2025-03-28', friend: 'suzu', trust: 4,
+      '今は、こちらがゆっくりまばたきをすると、もなかも、ゆっくりまばたきを返してくれます。'] },
+  { key: 'ohagi', sp: 'cat', name: 'おはぎ', color: 'kiji', group: 'cat1', minStage: 1, origin: 'もなかのあとをついて（地域猫）',
+    personality: '好奇心旺盛', likes: [], dislikes: [], likeText: '人のあとをついて歩くこと。草のあいだの虫を眺めること', age: 3, arrived: '2025-03-28', friend: 'monaka', trust: 4,
     health: '元気。手術ずみ（さくら耳）',
-    stories: ['おはぎは、二年前の春、すずのあとをついて、ここへ来るようになりました。',
+    stories: ['おはぎは、二年前の春、もなかのあとをついて、ここへ来るようになりました。',
       'はるこさんの長靴のあとを、しっぽを立てて、ついて歩きます。',
       '鶏たちとは、金網ごしのおとなりさん。おたがいに、ほどよい距離をたもっています。'] },
 ];
@@ -2084,7 +2087,7 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.33', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.34', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -2092,6 +2095,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '鶏のそばでしばらく眺めて、しぐさの意味を見つける（動物のカードの「見つけたしぐさ」に残ります）', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.34', '2026年10月16日', '名前の札を見直しました。札が出るのは、あなたのそばの子だけ（スマホは6つまで、歩いている間はすぐそばの子だけ）。札どうしが重なる時は近い子の札だけを出し、遠い子の札は小さく。なでている子と、近くの案内の子の札は、いつも出ます。三毛の地域猫の名前を「もなか」に（鶏のすずと同じ名前だったので）'],
     ['0.9.33', '2026年10月16日', 'スマホで歩くスティックが出るのは、画面の下3分の1を指でなぞった時だけに。それより上をなぞると見回します（操作のヒントの絵と説明も合わせて直しました）'],
     ['0.9.32', '2026年10月16日', '鶏や猫など小さな子をなでる時は、肩越しではなく、横の低い所から、しゃがんだあなたとその子が並んで見えるように（ほかの子にさえぎられる時は、上から見下ろします）。歩く速さを、景色をゆっくり楽しめるくらいに落としました（遠くへ向かう時と、大きくなぞった時は少し早足）'],
     ['0.9.31', '2026年10月16日', '地域猫のみかん、すず、おはぎが仲間に（家のまわりで暮らし、夜と雨の日は縁側の猫小屋で。鶏の庭には入りません。カードもあります）。動物のしぐさに、その時の気持ちを添えました（鶏から。はじめて見た時だけ吹き出しで、そのあとは気持ちの言葉だけを小さく。見つけたしぐさは、カードに残ります）。なでている子、カードを見ている子は、その場で待ってくれるように。なでたあとの「〜のカードを見る」は、その子のカードに。受け入れの相談は、ひとつずつ、少し間をあけて届くように（返事は3週以内に）。食事会の寄付は、その時いちばん必要なものに使い、献立は季節ごとに。まだいない動物の話は、その子が来てからに'],
@@ -2699,7 +2703,7 @@ const CHAT = {
       ['morning', 'おはよう。朝いちばんのこの子たちの顔、見せたかったの'],
       ['evening', 'もうこんな時間。日曜日って、どうしてこう早いのかしらね'],
       ['a:mikan', '{@mikan}はね、私がここに来る前から、この縁側で昼寝してたの。だから、ここは{@mikan}の家でもあるのよ'],
-      ['a:suzu', ['{@suzu}が、ゆっくりまばたきしたら、こっちもゆっくり返すの', '>あいさつですか', 'そう。猫どうしの「こわくないよ」なんだって。……返してくれると、うれしいのよね']],
+      ['a:monaka', ['{@monaka}が、ゆっくりまばたきしたら、こっちもゆっくり返すの', '>あいさつですか', 'そう。猫どうしの「こわくないよ」なんだって。……返してくれると、うれしいのよね']],
       ['sp:cat', '猫たちのごはんは、朝と夕方に一回ずつ。地域猫の会の人と、当番を決めてるの。食べ終わったら、お皿はすぐ片付けるのが約束'],
       ['npc:yuto', 'ゆうとさんはね、毎朝ノートに何か書いてるの。見せてくれないのよ'],
       ['npc:minami', 'みなみ先生は、動物の前だと声がひとつ低くなるの。気づいてた？'],
@@ -2812,7 +2816,7 @@ const CHAT = {
       ['s4+', '近くの大学の学生さんが、実習に来たいそうです。ここなら、動物の「ふつう」が学べますから'],
       ['ev:rightsday', '動物の権利の日ですね。治療をどうするかは、いつも「この子にとって、どうか」から考えます'],
       ['ev:foodday', '人の食べものは、動物にあげないでくださいね。玉ねぎやチョコレートは、少しでも毒になることがあります'],
-      ['sp:cat', '猫たちのワクチンとノミの薬は、地域猫の会の人と一緒に。……{@suzu}は、キャリーに入ってもらうまでが、いちばん大変です'],
+      ['sp:cat', '猫たちのワクチンとノミの薬は、地域猫の会の人と一緒に。……{@monaka}は、キャリーに入ってもらうまでが、いちばん大変です'],
       ['sp:pig', '豚は、食べることが大好きなんです。だから量を決めるのは、私たちの役目。あげられない日は、ちょっと心が痛みますけど'],
       ['sp:cow', '牛の足は、毎日見ます。乳をたくさん出すように変えられてきた体は、足に負担がかかりやすいので'],
     ],
@@ -11367,7 +11371,13 @@ const GAME = {
     G.settings = Object.assign(newState('normal').settings, o.settings || {});
     teamOf(); if (!G.baseSupport) balanceSupport(G.mode === 'hakoniwa' ? 1.2 : 1);
     initMoney(false); if (!G.proj) markPrepsDone();
-    if (G.mode !== 'hakoniwa' && !G.flags.catsIn && curPage()) { addCats(true); setTimeout(() => { if (STARTED) UI.toast('縁側の猫小屋に、地域猫のみかん、すず、おはぎがいます。前から、この家のまわりで暮らしている子たちです', 'friends'); }, 4000); }
+    // 三毛の地域猫は、はじめ「すず」（鶏のすずと同じ名前と印）だったので「もなか」に（0.9.34）
+    for (const a of G.animals) { if (a.sp === 'cat' && a.key === 'suzu') { const r = ROSTER_BY_KEY.monaka; Object.assign(a, { key: 'monaka', name: r.name, origin: r.origin, stories: r.stories.slice() }); } if (a.sp === 'cat' && a.friend === 'suzu') a.friend = 'monaka'; }
+    if (G.mode !== 'hakoniwa' && curPage() && ROSTER.some((r) => r.group === 'cat1' && !G.animals.some((a) => a.key === r.key))) {
+      const first = !G.flags.catsIn, before = new Set(G.animals.map((a) => a.key)); addCats(true);
+      const names = ROSTER.filter((r) => r.group === 'cat1' && !before.has(r.key)).map((r) => r.name).join('、');
+      if (names) setTimeout(() => { if (STARTED) UI.toast(first ? `縁側の猫小屋に、地域猫の${names}がいます。前から、この家のまわりで暮らしている子たちです` : `縁側の猫小屋に、地域猫の${names}も来ています`, 'friends'); }, 4000);
+    }
     WS.weather = G.weather;
     if (G.settings.tod === 0.93) G.settings.tod = null; // 前の版で、ショーの途中に閉じた時の夜を戻す
     rebuildPlayer(G.avatar); setSoundOn(G.settings.sound); setVolume(G.settings.vol); applyLite();
@@ -13241,12 +13251,21 @@ const UI = {
     const show = UI.showLabels && $('#photo-ui').hidden && !$('#hud').hidden;
     const list = [];
     if (show) {
-      const P = ACT.player, cx = CAM.target.x, cz = CAM.target.z, rad = CAM.overview ? 0 : Math.max(16, CAM.dist * 0.7);
+      // 名前の札は、あなたのそばの子だけ（縦長の画面は6つまで）。いま関わっている子と、近くの案内の子を先に。
+      // 遠い子は小さく。札どうしが重なる時は、近い子の札だけを出す（0.9.34）
+      const P = ACT.player, narrow = window.innerWidth < 720, R = CAM.overview ? 0 : P.moving ? 5 : (narrow ? 9 : 13) + Math.max(0, CAM.dist - 8) * 0.3; // 歩いている間は、すぐそばの子だけ
+      const F = ACT.focus && performance.now() < ACT.focus.until ? ACT.focus.e : null, pe = UI._promptE;
       if (UI._annT !== G.turn + G.date) { UI._annT = G.turn + G.date; UI._ann = new Set(G.animals.filter((a) => yearsSince(a, G.date)).map((a) => a.id)); }
-      for (const e of ACT.animals) { const d = Math.hypot(e.x - cx, e.z - cz); if (d < rad) list.push({ e, d, cls: '', text: e.a.name + (UI._ann.has(e.a.id) ? ' ・来た日' : '') , h: e.a.sp === 'cow' || e.a.sp === 'horse' ? 2.4 : e.a.sp === 'cat' ? 0.95 : e.a.sp === 'chicken' || e.a.sp === 'duck' || e.a.sp === 'rabbit' ? 1.2 : 1.8 }); }
-      for (const n of ACT.npcs) { const d = Math.hypot(n.x - cx, n.z - cz); if (d < rad + 8) list.push({ e: n, d, cls: 'npc', text: n.d.name + (UI.talkIdOf(n.d) && GAME.talkAvail(UI.talkIdOf(n.d)) ? ' ・お話' : ''), h: 2.5 }); }
+      const an = [];
+      for (const e of ACT.animals) {
+        const d = Math.hypot(e.x - P.x, e.z - P.z), key = e === F || e === pe;
+        if (d >= R && !key) continue;
+        an.push({ e, d: key ? -1 : d, cls: d > 6.5 && !key ? 'far' : '', text: e.a.name + (UI._ann.has(e.a.id) && d < 6.5 ? ' ・来た日' : ''), h: e.a.sp === 'cow' || e.a.sp === 'horse' ? 2.4 : e.a.sp === 'cat' ? 0.95 : e.a.sp === 'chicken' || e.a.sp === 'duck' || e.a.sp === 'rabbit' ? 1.2 : 1.8 });
+      }
+      an.sort((a, b) => a.d - b.d); an.length = Math.min(an.length, narrow ? 6 : 9);
+      list.push(...an);
+      for (const n of ACT.npcs) { const d = Math.hypot(n.x - P.x, n.z - P.z); if (d < R + 6) list.push({ e: n, d: d - 1.5, cls: 'npc', text: n.d.name + (UI.talkIdOf(n.d) && GAME.talkAvail(UI.talkIdOf(n.d)) ? ' ・お話' : ''), h: 2.5 }); }
       for (const w of ACT.wild) { if (!w.m.root.visible) continue; const d = Math.hypot(w.x - P.x, w.z - P.z); if (d < 16) list.push({ e: w, d, cls: 'wild', text: w.name, h: 2 }); }
-      list.sort((a, b) => a.d - b.d); list.length = Math.min(list.length, 14);
     }
     if ($('#photo-ui').hidden && !$('#hud').hidden && !UI.rest) {
       const P = ACT.player; let near = null;
@@ -13254,16 +13273,24 @@ const UI = {
         const e = itemEnt(sid); if (!e) continue;
         const d = Math.hypot(e.x - P.x, e.z - P.z);
         if (d < 2.8 && (!near || d < near.d)) near = { e, d };
-        else if (show && d < 9) list.push({ e, d, cls: 'item', text: e.name, h: itemTop(e) });
+        else if (show && d < 6) list.push({ e, d: d + 3, cls: 'item', text: e.name, h: itemTop(e) });
       }
-      if (near) list.unshift({ e: near.e, d: 0, cls: 'item near', text: near.e.name, desc: shortDesc(near.e.item.desc), h: itemTop(near.e) });
+      if (near) list.push({ e: near.e, d: -2, cls: 'item near', text: near.e.name, desc: shortDesc(near.e.item.desc), h: itemTop(near.e) });
     }
+    list.sort((a, b) => a.d - b.d); list.length = Math.min(list.length, 16);
     while (UI.labelPool.length < list.length) { const el = document.createElement('div'); el.className = 'lbl3d'; lab.appendChild(el); UI.labelPool.push(el); }
+    const placed = [];
     UI.labelPool.forEach((el, i) => {
       const it = list[i];
       if (!it) { el.style.display = 'none'; return; }
       const pos = it.e.m.root.position, s = toScreen(pos.x, pos.y + it.h, pos.z);
       if (!s.vis) { el.style.display = 'none'; return; }
+      { // 重なる札は出さない（近い順に置いていく）
+        const sm = it.cls.includes('far') ? 0.88 : 1, w = (it.desc ? 220 : it.text.length * 12 + 18) * sm, h = (it.desc ? 50 : 21) * sm;
+        const r = [s.x - w / 2 - 3, s.x + w / 2 + 3, s.y - h - 3, s.y + 2];
+        if (placed.some((q) => r[0] < q[1] && r[1] > q[0] && r[2] < q[3] && r[3] > q[2]) && it.d >= 0) { el.style.display = 'none'; return; }
+        placed.push(r);
+      }
       el.style.display = ''; el.className = 'lbl3d ' + it.cls;
       const html = it.desc ? `<b>${esc(it.text)}</b><span>${esc(it.desc)}</span>` : null;
       if (html) { if (el.innerHTML !== html) el.innerHTML = html; } else if (el.textContent !== it.text || el.children.length) el.textContent = it.text;
@@ -13271,6 +13298,7 @@ const UI = {
     });
     // 近くの案内
     const n = ($('#hud').hidden || ACT.player.playing) ? null : nearestInteractable();
+    UI._promptE = n && n.kind === 'animal' ? n.ent : null;
     const pr = $('#prompt');
     if (n && !UI.placeItemId && !UI.removeMode) {
       const key = n.kind + (n.ent.a ? n.ent.a.id : n.ent.sid || n.ent.ev || n.ent.name);
