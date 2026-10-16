@@ -1467,6 +1467,9 @@ button, a, label, summary, select, [data-act], #sheet-body, .modal-card, #start 
 .music-panel, .music-panel *, #chord-grid button, #string-pad, #string-pad *, #rest-ui { touch-action: none !important; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
 .music-panel .seg.small, .music-opts .seg.small { touch-action: pan-x !important; }
 .music-panel .seg.small button, .music-opts .seg.small button { touch-action: pan-x !important; }
+/* 0.9.41 拡大されてしまった時の、戻し方の札（見えている所の上に） */
+#zoom-note { position: fixed; left: 0; top: 0; z-index: 50; transform-origin: 0 0; padding: 10px 12px; pointer-events: none; box-sizing: border-box; }
+#zoom-note span { display: block; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); border-radius: 6px; box-shadow: var(--shadow); padding: 10px 14px; font-family: var(--hand); font-size: 15px; line-height: 1.6; color: var(--ink); }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -2642,7 +2645,7 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.40', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.41', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -2650,6 +2653,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.41', '2026年10月17日', 'ダブルタップで画面が拡大されてしまうのを、作り直しました（iPhone の Safari で、0.9.40 では止まっていませんでした）。景色、楽器、ボタンの上では、指がふれた時にブラウザの拡大やスクロールをまるごと止めて、ゲームの操作だけを受けとります。パネルの中のスクロールは、これまでどおり。もし拡大されてしまったら、戻し方の札を出し、つまんで縮めたりダブルタップしたりして戻せるようにしました'],
     ['0.9.40', '2026年10月17日', '楽器などを勢いよく続けてタップした時に、画面が拡大されて戻れなくなることがあったのを直しました。ダブルタップやピンチで、ページが拡大されないように（ゲームの中のピンチで寄る・離れるは、そのまま）。続けて押したボタンは、2回目もきちんと押されます。それでも拡大されてしまった時は、指を離すと元の大きさに戻るように'],
     ['0.9.39', '2026年10月16日', '画面を、紙芝居のように。字は、なつかしい丸明朝と手書きの教科書体に。画用紙の地に墨の茶色の線、紙を重ねたような影。お話やカードの窓は木の舞台に入って、紙を引き抜くようにあらわれます。話している人には、小さな似顔絵を。「この丘の、これから」は、1〜5の段階をボタンや横スワイプで入れ替える1枚に（ゲームの中の数字はなくしました）。それぞれの段階で実際にぶつかるチャレンジと、気にかけることを、調べて書き足しました（出典つき）。電車は、少し間をあけて走るように（夜はもっとまばらに）。楽器は、響きと指の当たる音、なでる速さで強さが変わるように。リズム（自分で・ゆっくり・はずむ・ワルツ）とコードの流れ（光るコードを順に押すだけ）、ひと息にカリンバを足しました。音符がふわりと上がります'],
     ['0.9.38', '2026年10月16日', 'ほかのアプリで好きな音楽を聴きながら遊べるように（iPhone では、ゲームの自然の音が音楽を止めずに重なります）。明るい昼でも読みやすいよう、うすい文字を濃く、景色に重なる文字には影の帯を。「動物たちの暮らし」は数字をなくし、言葉で（「こうすると、もっと良くなるかも」「ここが困っているかも」を、名前を添えて）。動物のカードの「この子のこと」を、いつも見える所に。はじめは性格と好きなことのひとつ。そばで過ごしたり、仲良くなったり、しぐさを見たりすると、好きなこと・苦手・仲良しが書き足されます。ひと息の「ベンチで眺める」と「動物たちと過ごす」を「ゆっくりする」ひとつに（近くに動物たちがいればそのそばに、いなければ近くのベンチや切り株に）。名前の看板は、庭の中に散らして立てるように。画面の表示が「少なめ」「名前だけ」でも、タップへの返事やカードの案内は出るように'],
@@ -4115,31 +4119,83 @@ function stickDraw() {
   el.hidden = false; el.style.left = st.ox + 'px'; el.style.top = st.oy + 'px';
   const k = el.firstElementChild; if (k) k.style.transform = `translate(${st.x - st.ox}px, ${st.y - st.oy}px)`;
 }
-// 画面が拡大されないように（0.9.40、Daiさん：楽器を勢いよく弾いてダブルタップすると、拡大されて戻れない）
-//   ① すばやい2回目のタップでは、ブラウザの「ダブルタップで拡大」を止める。ボタンなら、そのタップはこちらで押す
-//   ② Safari のピンチでのページの拡大も止める。それでも拡大されたら、指を離して少しすると、元の大きさに戻す（自分の窓で開いている時）
+// 画面が拡大されないように（0.9.40 → 0.9.41 で作り直し。Daiさん：楽器を勢いよく弾いてダブルタップすると、拡大されて戻れない）
+//   0.9.40 の CSS（touch-action）だけでは、iPhone の Safari で止まらなかった。WebGL の絵の上や、重なった層の上では、
+//   Safari が touch-action を見ないことがあるため。そこで、指が画面にふれた最初の知らせ（touchstart）で、
+//   ブラウザの動き（拡大・スクロール・ダブルタップ）をまるごと止める。ゲームの指の動き（歩く・見回す・ピンチで寄る・楽器）は
+//   pointer の知らせで受けとっているので、そのまま。止めるとボタンの「押した」がブラウザから来なくなるので、指を離した所が
+//   ふれた所と同じなら、こちらで押す
+//   ・止めないのは、スクロールする所（パネルの中、お話の窓、はじめの画面、横に流れる並び）と、文字を入れる欄。
+//     そこでは、すばやい2回目のタップだけ止める（ボタンなら、こちらで押す）
+//   ・もし拡大されてしまったら、止めるのをやめて（つまんで縮めたり、ダブルタップで戻したりできるように）、案内の札を出す。
+//     自分の窓で開いている時は、元の大きさに戻すことも試みる
 //   Safari の「ぁあ」の文字の大きさ（ページの拡大）は、そのまま使える
-const ZOOM = { lastEnd: 0, x: 0, y: 0, downs: 0, timer: 0, resetting: false };
+const ZOOM = { starts: new Map(), multi: false, synth: null, synthT: 0, noteTimer: 0, lastEnd: 0, x: 0, y: 0, downs: 0, timer: 0, resetting: false, note: null };
+const ZOOM_NATIVE = '#sheet-body, .modal-card, #start, .tabs, .filters, input, textarea, select, [contenteditable], .zoom-native';
+const ZOOM_NOCLICK = '#gl, #string-pad, #chord-grid, #labels';
+const zoomed = () => !!(window.visualViewport && window.visualViewport.scale > 1.01);
+function zoomClick(el, x, y) {
+  if (!el || (el.closest && el.closest(ZOOM_NOCLICK))) return;
+  const b = el.closest && el.closest('button, a[href], label, summary');
+  if (b && b.disabled) return;
+  ZOOM.synth = b || el; ZOOM.synthT = performance.now();
+  if (b && typeof b.click === 'function') { b.click(); return; }
+  el.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window, clientX: x, clientY: y }));
+}
 function zoomGuard() {
-  document.addEventListener('touchend', (e) => {
-    if (e.touches.length) return;
-    const t = e.changedTouches && e.changedTouches[0]; if (!t) return;
-    const now = performance.now(), quick = now - ZOOM.lastEnd < 380 && Math.hypot(t.clientX - ZOOM.x, t.clientY - ZOOM.y) < 70;
-    ZOOM.lastEnd = now; ZOOM.x = t.clientX; ZOOM.y = t.clientY;
-    if (!quick) return;
+  // こちらで押したあとに、ブラウザからも「押した」が届いたら、2回にならないように捨てる
+  window.addEventListener('click', (e) => {
+    if (!e.isTrusted || !ZOOM.synth || performance.now() - ZOOM.synthT > 700) return;
+    const t = e.target, s = ZOOM.synth;
+    if (t === s || (s.contains && s.contains(t)) || (t.contains && t.contains(s))) { e.preventDefault(); e.stopImmediatePropagation(); ZOOM.synth = null; }
+  }, true);
+  document.addEventListener('touchstart', (e) => {
+    if (ZOOM.note && !ZOOM.note.hidden) zoomNote();
+    if (e.touches.length > 1) ZOOM.multi = true;
     const el = e.target && e.target.closest ? e.target : null;
-    if (el && el.closest('input, textarea, select, [contenteditable]')) return;
-    if (e.cancelable) e.preventDefault();
-    const hit = el && el.closest('button, a[href], label, summary, [data-act]');
-    if (hit && !hit.disabled) hit.click();
-  }, { passive: false });
-  // Safari のピンチ（ページの拡大）も止める。ゲームの中のピンチ（寄る・離れる）は、指の動きを別に見ているので、そのまま
-  const noGesture = (e) => { if (e.cancelable) e.preventDefault(); };
+    const native = !el || !!el.closest(ZOOM_NATIVE) || zoomed();
+    for (const t of e.changedTouches) ZOOM.starts.set(t.identifier, { x: t.clientX, y: t.clientY, t: performance.now(), el: t.target, prevented: !native });
+    if (!native && e.cancelable) e.preventDefault();
+  }, { passive: false, capture: true });
+  const end = (e) => {
+    const now = performance.now();
+    for (const t of e.changedTouches) {
+      const st = ZOOM.starts.get(t.identifier); ZOOM.starts.delete(t.identifier);
+      if (!st || e.type === 'touchcancel') continue;
+      const still = Math.hypot(t.clientX - st.x, t.clientY - st.y) < 12 && !ZOOM.multi;
+      if (st.prevented) {
+        // ブラウザからの「押した」は来ないので、こちらで押す（動かさずに、同じ所で離した時だけ）
+        if (!still) continue;
+        const at = document.elementFromPoint(t.clientX, t.clientY);
+        if (at && st.el && (at === st.el || (st.el.contains && st.el.contains(at)) || (at.contains && at.contains(st.el)))) zoomClick(at, t.clientX, t.clientY);
+        ZOOM.lastEnd = now; ZOOM.x = t.clientX; ZOOM.y = t.clientY;
+        continue;
+      }
+      // スクロールする所：すばやい2回目のタップだけ止める
+      if (e.touches.length) continue;
+      const quick = now - ZOOM.lastEnd < 380 && Math.hypot(t.clientX - ZOOM.x, t.clientY - ZOOM.y) < 70;
+      ZOOM.lastEnd = now; ZOOM.x = t.clientX; ZOOM.y = t.clientY;
+      if (!quick || zoomed()) continue;
+      const el = t.target && t.target.closest ? t.target : null;
+      if (el && el.closest('input, textarea, select, [contenteditable]')) continue;
+      if (e.cancelable) e.preventDefault();
+      if (still) zoomClick(el, t.clientX, t.clientY);
+    }
+    if (!e.touches.length) ZOOM.multi = false;
+  };
+  document.addEventListener('touchend', end, { passive: false, capture: true });
+  document.addEventListener('touchcancel', end, { passive: true, capture: true });
+  // ダブルクリックの知らせも止める（Safari は、これで拡大をやめることがある）
+  document.addEventListener('dblclick', (e) => { if (!zoomed() && e.cancelable) e.preventDefault(); }, { passive: false });
+  // Safari のピンチ（ページの拡大）も止める。拡大されている時は止めない（縮めて戻せるように）
+  const noGesture = (e) => { if (!zoomed() && e.cancelable) e.preventDefault(); };
   document.addEventListener('gesturestart', noGesture, { passive: false });
   document.addEventListener('gesturechange', noGesture, { passive: false });
-  const vv = window.visualViewport, meta = document.querySelector('meta[name=viewport]');
+  const vv = window.visualViewport; if (!vv) return;
+  vv.addEventListener('resize', zoomNote); vv.addEventListener('scroll', zoomNote);
+  const meta = document.querySelector('meta[name=viewport]');
   let top = false; try { top = window.top === window.self; } catch (e) { top = false; }
-  if (!vv || !meta || !top) return;
+  if (!meta || !top) return;
   const base = meta.getAttribute('content') || 'width=device-width,initial-scale=1';
   const count = (e) => { ZOOM.downs = e.touches ? e.touches.length : 0; check(); };
   const check = () => {
@@ -4156,7 +4212,24 @@ function zoomReset(meta, base) {
   ZOOM.resetting = true;
   meta.setAttribute('content', base.replace(/,?\s*(minimum|maximum)-scale=[^,]*/g, '') + ',minimum-scale=1,maximum-scale=1');
   window.scrollTo(0, 0);
-  setTimeout(() => { meta.setAttribute('content', base); ZOOM.resetting = false; }, 500);
+  setTimeout(() => { meta.setAttribute('content', base); ZOOM.resetting = false; zoomNote(); }, 500);
+}
+// 拡大されている間だけ、見えている所の上に、戻し方の札を出す
+function zoomNote() {
+  const vv = window.visualViewport; if (!vv) return;
+  let n = ZOOM.note;
+  if (!zoomed()) { if (n) n.hidden = true; return; }
+  if (!n) {
+    n = ZOOM.note = document.createElement('div');
+    n.id = 'zoom-note'; n.setAttribute('role', 'status');
+    n.innerHTML = '<span>画面が拡大されています。2本の指でつまむように縮めるか、ダブルタップすると、元の大きさに戻ります</span>';
+    document.body.appendChild(n);
+  }
+  n.hidden = false;
+  if (!ZOOM.noteTimer) ZOOM.noteTimer = setInterval(() => { zoomNote(); if (!zoomed()) { clearInterval(ZOOM.noteTimer); ZOOM.noteTimer = 0; } }, 1000);
+  const k = 1 / vv.scale;
+  n.style.width = Math.round(vv.width * vv.scale) + 'px';
+  n.style.transform = `translate(${vv.offsetLeft}px, ${vv.offsetTop}px) scale(${k})`;
 }
 function initInput(canvas, onTap) {
   INPUT.onTap = onTap;
