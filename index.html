@@ -1470,6 +1470,17 @@ button, a, label, summary, select, [data-act], #sheet-body, .modal-card, #start 
 /* 0.9.41 拡大されてしまった時の、戻し方の札（見えている所の上に） */
 #zoom-note { position: fixed; left: 0; top: 0; z-index: 50; transform-origin: 0 0; padding: 10px 12px; pointer-events: none; box-sizing: border-box; }
 #zoom-note span { display: block; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); border-radius: 6px; box-shadow: var(--shadow); padding: 10px 14px; font-family: var(--hand); font-size: 15px; line-height: 1.6; color: var(--ink); }
+/* 0.9.42 楽器を弾いている間は、すっきり：コードと弦だけ。景色をタップすると、ほかのものが出る */
+#music-ui .music-top, #music-ui #music-opts, #music-ui .music-hint, #rest-ui.music .rest-top, #rest-ui.music .rest-bottom { transition: opacity .25s ease, transform .25s ease; }
+#music-ui:not(.extra) .music-top, #music-ui:not(.extra) #music-opts, #music-ui:not(.extra) .music-hint, #rest-ui.music:not(.extra) .rest-top, #rest-ui.music:not(.extra) .rest-bottom { opacity: 0; pointer-events: none !important; }
+#music-ui:not(.extra) .music-top { transform: translateY(-8px); }
+#music-ui:not(.extra) #music-opts, #music-ui:not(.extra) .music-hint { display: none; }
+.music-panel { padding: 8px !important; gap: 6px !important; width: min(520px, calc(100% - 24px)) !important; }
+#chord-grid button { height: 40px !important; font-size: 17px !important; }
+#string-pad { height: 112px !important; }
+@media (max-width: 720px) { #string-pad { height: 98px !important; } #chord-grid button { height: 38px !important; } }
+.music-panel .music-hint { margin: 0; font-size: 12.5px; }
+@media (prefers-reduced-motion: reduce) { #music-ui .music-top, #music-ui #music-opts, #rest-ui.music .rest-top, #rest-ui.music .rest-bottom { transition: none; } }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -2645,7 +2656,7 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.41', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.42', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -2653,6 +2664,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.42', '2026年10月17日', '動物たちの小屋を、中に入れる広さと形に（サンクチュアリの目安の2〜3倍。大きな子の小屋は前がひらいて、外から眠る姿が見える。鳥とウサギの小屋は前が金網で、夜は戸を閉める）。眠る場所は種類で分けず、その子の好きな場所に（ヤギは高い棚、鶏は止まり木のいちばん上や端、豚はわらの山、馬は仲間が見張る時に横になる…。ヤギと羊とロバは同じ小屋でも。牛と仲良しのヤギは牛舎で）。夜に眠っている所を見ると、カードの「眠る場所」が書き足されます。雪は、ほんとうの積もり方・とけ方で（日かげ、建物の北側、軒下、吹きだまりに残り、木の根もとから先にとける）。大雪の日もあります。雪の朝と夕方には、キツネが通ることも（一直線の足あと）。あなたの足あとも残ります。楽器を弾いている間は、コードと弦だけに（景色をタップすると、楽器の切りかえや「立ち上がる」が出ます）。リズムは、いったん外しました'],
     ['0.9.41', '2026年10月17日', 'ダブルタップで画面が拡大されてしまうのを、作り直しました（iPhone の Safari で、0.9.40 では止まっていませんでした）。景色、楽器、ボタンの上では、指がふれた時にブラウザの拡大やスクロールをまるごと止めて、ゲームの操作だけを受けとります。パネルの中のスクロールは、これまでどおり。もし拡大されてしまったら、戻し方の札を出し、つまんで縮めたりダブルタップしたりして戻せるようにしました'],
     ['0.9.40', '2026年10月17日', '楽器などを勢いよく続けてタップした時に、画面が拡大されて戻れなくなることがあったのを直しました。ダブルタップやピンチで、ページが拡大されないように（ゲームの中のピンチで寄る・離れるは、そのまま）。続けて押したボタンは、2回目もきちんと押されます。それでも拡大されてしまった時は、指を離すと元の大きさに戻るように'],
     ['0.9.39', '2026年10月16日', '画面を、紙芝居のように。字は、なつかしい丸明朝と手書きの教科書体に。画用紙の地に墨の茶色の線、紙を重ねたような影。お話やカードの窓は木の舞台に入って、紙を引き抜くようにあらわれます。話している人には、小さな似顔絵を。「この丘の、これから」は、1〜5の段階をボタンや横スワイプで入れ替える1枚に（ゲームの中の数字はなくしました）。それぞれの段階で実際にぶつかるチャレンジと、気にかけることを、調べて書き足しました（出典つき）。電車は、少し間をあけて走るように（夜はもっとまばらに）。楽器は、響きと指の当たる音、なでる速さで強さが変わるように。リズム（自分で・ゆっくり・はずむ・ワルツ）とコードの流れ（光るコードを順に押すだけ）、ひと息にカリンバを足しました。音符がふわりと上がります'],
@@ -3720,7 +3732,7 @@ const GROUND_PAL = {
   snow:   { pasture: '#EEF2F3', meadow: '#E7ECEE', crop: '#E4EAEA', forest: '#E3E9EA', lip: '#F0F3F4' },
 };
 function setGroundPalette() {
-  const w = WS.snow, p = w ? GROUND_PAL.snow : GROUND_PAL[WS.season];
+  const w = false, p = GROUND_PAL[WS.season]; // 雪は、地面の絵の上に重ねる（snow.js とシェーダー）
   TER.palette = {
     pasture: hexArr(p.pasture), meadow: hexArr(p.meadow), crop: hexArr(p.crop), forest: hexArr(p.forest),
     soil: hexArr(w ? '#D8D4CC' : '#86674A'), lawn: hexArr(w ? '#E9EDEE' : WS.season === 'winter' ? '#A6AA80' : '#93B46E'),
@@ -3830,9 +3842,8 @@ function updateTerrain() {
   pos.needsUpdate = true; col.needsUpdate = true; geo.computeVertexNormals();
   drawBaseTexture();
   TER.pond.visible = WS.pond; TER.stream.visible = WS.stream;
-  const winter = WS.snow;
-  NM.water.color.set(winter ? '#CFE3EA' : '#5E9FB8');
-  NM.water.opacity = winter ? 0.97 : 0.9;
+  NM.water.color.set(SN.ready && SN.cover > 0.3 ? '#4C8AA2' : '#5E9FB8');
+  NM.water.opacity = 0.9;
 }
 
 /* ---------------- 空と時間 ---------------- */
@@ -7304,12 +7315,31 @@ function pcGrassTexture() {
 function pcGroundMaterial() {
   const m = new THREE.MeshLambertMaterial({ vertexColors: true, map: pcGrassTexture() });
   m.onBeforeCompile = (shader) => {
-    shader.fragmentShader = shader.fragmentShader.replace('#include <map_fragment>', `
+    // 雪（0.9.42）：深さの地図（snow.js）から、1cmくらいを境に白く。境は細かなノイズでぎざぎざに。日かげは少し青く、踏まれた所は少し灰色に
+    shader.uniforms.snowMap = SNOW_U.snowMap; shader.uniforms.snowOn = SNOW_U.snowOn;
+    shader.vertexShader = shader.vertexShader.replace('#include <common>', '#include <common>\nvarying vec2 vSnowUv;').replace('#include <begin_vertex>', '#include <begin_vertex>\nvSnowUv = (transformed.xz + 56.0) / 112.0;');
+    shader.fragmentShader = shader.fragmentShader.replace('#include <common>', `#include <common>
+      uniform sampler2D snowMap; uniform float snowOn; varying vec2 vSnowUv;
+      float snH(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+      float snN(vec2 p) { vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f); return mix(mix(snH(i), snH(i + vec2(1.0, 0.0)), f.x), mix(snH(i + vec2(0.0, 1.0)), snH(i + vec2(1.0, 1.0)), f.x), f.y); }`)
+      .replace('#include <map_fragment>', `
       #ifdef USE_MAP
         vec4 texelColor = texture2D( map, vUv );
         float grassy = clamp((vColor.g - max(vColor.r, vColor.b)) * 7.0, 0.0, 1.0);
         diffuseColor.rgb *= mix(vec3(1.0), texelColor.rgb * 1.06, grassy);
-      #endif`);
+      #endif`)
+      .replace('#include <color_fragment>', `#include <color_fragment>
+      if (snowOn > 0.5) {
+        vec4 sn = texture2D(snowMap, vSnowUv);
+        float dep = sn.r * 40.0;
+        vec2 wp = vSnowUv * 112.0;
+        float nz = snN(wp * 1.7) * 0.6 + snN(wp * 4.3) * 0.4;
+        float cov = smoothstep(0.35, 1.5, dep + (nz - 0.5) * 1.5);
+        vec3 sc = mix(vec3(0.95, 0.965, 0.975), vec3(0.80, 0.86, 0.95), sn.g * 0.75);
+        sc = mix(sc, vec3(0.78, 0.80, 0.80), sn.b * 0.55);
+        sc *= 0.97 + nz * 0.06;
+        diffuseColor.rgb = mix(diffuseColor.rgb, sc, cov * mix(0.75, 1.0, smoothstep(0.3, 3.0, dep)));
+      }`);
   };
   return m;
 }
@@ -7348,7 +7378,12 @@ function place(layer, obj, x, z, ry, col) {
   if (!col && (obj.userData.clear || layer === 'event' || layer === 'extra')) { const c = clearFor(obj, x, z); x = c[0]; z = c[1]; }
   obj.position.set(x, heightAt(x, z), z);
   W.layers[layer].add(obj);
-  if (col) addCollider(x, z, col[0], col[1], ry, layer === 'extra' ? W.extraCols : null);
+  if (col) {
+    addCollider(x, z, col[0], col[1], ry, layer === 'extra' ? W.extraCols : null);
+    // 雪の日かげのために、建物の高さを覚えておく（snow.js）
+    if (W.shadeBoxes) { _clrBox.setFromObject(obj); if (!_clrBox.isEmpty()) W.shadeBoxes.push([_clrBox.min.x, _clrBox.max.x, _clrBox.min.z, _clrBox.max.z, _clrBox.max.y - obj.position.y]); }
+    if (W.dryRects) { const c = (layer === 'extra' ? W.extraCols : W.colliders); const r = c[c.length - 1]; if (r) W.dryRects.push([r[0] - 0.3, r[1] + 0.3, r[2] - 0.3, r[3] + 0.3]); }
+  }
   obj.traverse((c) => { if (c.material && c.material.map && !MATS_HAS(c.material)) c.material.userData.own = true; });
   return obj;
 }
@@ -7407,7 +7442,7 @@ function buildWorld() {
   WS.extraLand = !!G.flags.extraLand || hasMilestone('next_pasture');
   applySeasonState();
   updateTerrain();
-  ROOFS.length = 0; W.colliders = []; W.foods = []; W.circles = []; W.itemCircles = {}; NAV.dirty = true;
+  ROOFS.length = 0; W.colliders = []; W.dryRects = []; W.shadeBoxes = []; W.foods = []; W.circles = []; W.itemCircles = {}; NAV.dirty = true;
   for (const k of ['base', 'fence', 'trees', 'milestone', 'extra', 'deco', 'event', 'markers']) clearGroup(W.layers[k]);
   W.placedModels = {}; W.butterflies = []; W.dragonflies = []; W.frogs = []; W.benches = []; W.keep = [];
   buildBase(); buildFences(); buildTrees(); buildGrass();
@@ -7416,6 +7451,7 @@ function buildWorld() {
   for (const sid in G.placed) buildPlaced(sid);
   buildSeats();
   W.eventSig = ''; applyEvents();
+  snowRebuild(); // 雪（0.9.42。snow.js）：小屋や木が建ってから、積もりやすさを決めて、記録をたどる
   applySeasonVisuals();
   buildLittleLife();
 }
@@ -7434,7 +7470,6 @@ function buildBase() {
   const s = G.stage;
   // 段階1：民家と裏庭
   W.house = place('base', modelHouse(), 22, 39.5, 0, [7.6, 7]);
-  W.coop = place('base', s >= 3 ? modelSmallHut('#C49A68', '#6A5A48', 4, 3.2, 2) : modelCoopSmall(), 12.5, 16.5, 0, [3, 2.6]);
   const mb = new THREE.Group(); part('box', WOOD_D, 0.12, 1.1, 0.12, 0, 0.55, 0, mb); part('box', '#B8483C', 0.5, 0.36, 0.3, 0, 1.2, 0, mb); place('base', mb, 26.5, 46.5);
   // 縁側の猫小屋と、ごはん皿（地域猫。0.9.31）
   if (G.animals.some((a) => a.sp === 'cat')) {
@@ -7458,34 +7493,27 @@ function buildBase() {
   buildRails();
   if (s >= 2) {
     place('base', modelGate(G.name), 0, 49.3, 0);
-    W.barn = place('base', modelBarn(hasMilestone('bigbarn_solar') ? 1.25 : 1), -20, 18, 0, hasMilestone('bigbarn_solar') ? [10.5, 8] : [8.4, 6.4]);
     W.shed = place('base', modelHayShed(), -8, 21, 0, [4.4, 3.2]);
-    place('base', modelGoatHouse(), -8.5, -10.25, 0, [3, 2.4]); // 屋根のひさしが、南の柵にかからないように
-    place('base', modelPigHut(), -42, 27.5, 0, [3.4, 3]);
     place('base', modelShadeSail(), -33, 27, 0);
     const rocks = modelPondRocks(); rocks.position.set(POND.x, 0, POND.z); W.layers.base.add(rocks);
     buildPondSeats();
-    place('base', modelDuckHouse(), 40, -9.5, 0, [3, 2.4]);
-    place('base', modelTurkeyHouse(), 42, 16, 0, [3.6, 3]);
     place('base', modelQuarantine(), -43, 41, 0, [4.2, 3.6]);
   }
   if (s >= 3) {
-    place('base', modelSheepShed(), -42, -27.5, 0, [4.6, 3.6]);
-    place('base', modelDonkeyShelter(), -8.5, -27.5, 0, [4.8, 3.4]);
-    place('base', modelRabbitHouse(), -18.5, 36.5, 0, [4.4, 3.8]);
     W.vet = place('base', modelVet(), 8.5, -21, -Math.PI / 2, [6.2, 4.6]);
     if (hasMilestone('vet_heater')) W.vet.userData.chimney.visible = true;
   }
   if (s >= 4) {
     place('base', modelBridge(), 0, streamZ(0));
-    place('base', modelStable(), 41, -27, 0, [8, 4.6]);
   }
   if (WS.stream && s < 4) place('base', modelBridge(), 0, streamZ(0));
+  // 動物たちの小屋（0.9.42：中に入れる、ひらいた小屋。shelters.js）
+  W.barn = null; buildShelters();
   if (s >= 2 && W.barn) {
-    const big = hasMilestone('bigbarn_solar'), k = big ? 1.25 : 1;
-    const w = 8 * k, h = 3.2 * k, rh = 2.6 * k, a = Math.atan2(rh, w / 2), y = 0.2 + h + rh / 2 + 0.22;
-    if (big) { const p = solarPanels(W.barn, w / 4, y, 0, w * 0.42, 6 * k); p.rotation.set(0, 0, -a); }
-    if (G.flags.solar) { const p = solarPanels(W.barn, -w / 4, y, 0, w * 0.42, 6 * k); p.rotation.set(0, 0, a); }
+    const big = hasMilestone('bigbarn_solar'), k = big ? 1.25 : 1, B = W.barn.userData.barnDims;
+    const w = B.w, h = B.h, rh = B.rh, a = Math.atan2(rh, w / 2), y = h + rh / 2 + 0.12;
+    if (big) { const p = solarPanels(W.barn, w / 4, y, 0, w * 0.42, B.d * 0.75); p.rotation.set(0, 0, -a); }
+    if (G.flags.solar) { const p = solarPanels(W.barn, -w / 4, y, 0, w * 0.42, B.d * 0.75); p.rotation.set(0, 0, a); }
   }
 }
 
@@ -8097,7 +8125,7 @@ function applyEvents() {
   info.slice(0, 2).forEach((id, i) => { const e = EVENTS.find((x) => x.id === id); const b = modelInfoBoard('今週は', e.name); place(L, b, A.c[0] + (G.stage > 1 ? -1.2 : 0) - i * 1.6, A.c[1] + 3 + i * 0.4, G.stage > 1 ? -Math.PI / 2 : 0); evItem(id, `${e.name}の黒板`, b); });
   // クリスマスとお正月のころは、雪が降っていなくても、屋根の北側や日かげに雪が少し残る
   const evAll = G.events || [];
-  if (snowOK() && !WS.snow && (evAll.includes('christmas') || evAll.includes('newyear') || snowRemainWeek())) addSnowRemains();
+  // 0.9.42：丸い雪の点々（addSnowRemains）はやめ、ほんとうの積もり方・とけ方（snow.js）に
   for (const ev of evs) {
     switch (ev) {
       case 'tanabata': { const t = modelTanabata(); place(L, t, A.a[0], A.a[1] - 1, G.stage > 1 ? Math.PI / 2 : 0); evItem('tanabata', '七夕の笹飾り', t); break; }
@@ -8191,26 +8219,20 @@ function addSnowRemains() {
 function applySeasonState() {
   WS.season = G.season; WS.weather = G.weather;
   // 地面の雪は、12月の後半から2月の後半まで。週の始まりに雪だった日と、雪が降っている日
-  WS.snow = snowOK() && (typeof G.groundSnow === 'boolean' ? G.groundSnow : G.weather === 'snow');
+  WS.snow = SN.ready ? SN.cover > 0.45 : snowOK() && (typeof G.groundSnow === 'boolean' ? G.groundSnow : G.weather === 'snow');
   const sk = sakuraPhase(); WS.sakuraBloom = sk.bloom && !WS.snow; WS.sakuraPetals = sk.petals;
 }
 // 週の途中で雪が積もった時（作り直さずに、地面・木・屋根の色だけ）
 function setGroundSnow(on) {
-  G.groundSnow = on; const before = WS.snow; applySeasonState();
-  if (before === WS.snow) return;
-  updateTerrain(); applySeasonVisuals(); W.eventSig = null; applyEvents();
-  if (SEA.icicles) SEA.icicles.visible = WS.snow;
+  G.groundSnow = on;
+  if (on && SN.ready && SN.cover < 0.3) { snowEvent('f', 6, true); const st = snowState(); st.tree = Math.max(st.tree, 2); st.roof = Math.max(st.roof, 4); snowUpload(); }
 }
 // 雪のころ、雪の積もっていない週も、ときどき屋根の北側や日かげに雪が残る
 function snowRemainWeek() { return hash2(G.turn || 1, 77) < 0.4; }
 function applySeasonVisuals() {
-  setFoliageSeason(G.season, WS.snow);
+  setFoliageSeason(G.season, false);
   pcRepaintAll();
-  const snow = WS.snow;
-  for (const r of ROOFS) {
-    if (!r.userData.orig) r.userData.orig = r.material;
-    r.material = snow ? NM.snow : r.userData.orig;
-  }
+  snowVisuals(); // 木・草・屋根の雪は、積もった量に合わせて少しずつ（snow.js）
 }
 
 /* ---- 小さな生き物（蝶、カエル）。赤とんぼやツバメなど季節のものは、下の「季節の小さな出来事」で ---- */
@@ -8950,7 +8972,7 @@ function buildIcicles(g) {
   if (!SEA.mats.ice) SEA.mats.ice = new THREE.MeshPhongMaterial({ color: '#E6F1F7', transparent: true, opacity: 0.86, shininess: 70, specular: 0x9ab8cc });
   const eaves = [];
   if (W.house) { const h = W.house.position; for (const s of [-1, 1]) eaves.push([h.x + s * 3.8, h.y + 3.01, h.z, 3.0]); }
-  if (W.barn) { const k = hasMilestone('bigbarn_solar') ? 1.25 : 1, b = W.barn.position; for (const s of [-1, 1]) eaves.push([b.x + s * (4 * k + 0.29), b.y + 3.2 * k + 0.01, b.z, 3 * k + 0.3]); }
+  if (W.barn) { const B = W.barn.userData.barnDims, b = W.barn.position; for (const s of [-1, 1]) eaves.push([b.x + s * (B.w / 2 + 0.33), b.y + B.h - 0.16, b.z, B.d / 2 + 0.3]); }
   for (const [x, y, zc, hl] of eaves) for (let i = 0; i < 10; i++) {
     const z = zc - hl + (i + 0.5) * (2 * hl / 10) + rand(-0.12, 0.12), len = rand(0.12, 0.55);
     const m = new THREE.Mesh(G3.cone, SEA.mats.ice); m.scale.set(0.06, len, 0.06); m.rotation.x = Math.PI; m.position.set(x, y - len / 2 + 0.02, z); ic.add(m);
@@ -9070,6 +9092,805 @@ function seaInView(seen) {
   if (SEA.icicles && SEA.icicles.visible && ((W.house && near(W.house.position.x, 3, W.house.position.z, 16) && seen(W.house.position.x, 3, W.house.position.z, 1.1)) || (W.barn && near(W.barn.position.x, 3, W.barn.position.z, 18) && seen(W.barn.position.x, 3, W.barn.position.z, 1.1)))) return 'つらら';
   if (SEA.frost && SEA.frostF > 0.5) return '霜の朝';
   return '';
+}
+/* ===== 動物たちの小屋と、眠る場所（0.9.42） =====
+   Daiさん：寝床が狭い気がする（ヤギ小屋など）。きちんと中に入れる設計に。寝床を種類で区切らず、
+   その子によってどこで寝るのが好きかを変える。生態に沿って、サンクチュアリの動物を参考に。
+   ・広さは、サンクチュアリの目安から。屋内の広さ：ヤギ・羊は1頭2.3m²以上（Farm Sanctuary 20〜25平方フィート、
+     Catskill Animal Sanctuary 25平方フィート。The Open Sanctuary Project）、牛は7〜9m²、大きな豚は9m²（UNH Extension）、
+     ロバは2頭で9.4m²（The Donkey Sanctuary）、馬は9m²前後、鶏は0.3〜0.4m²、七面鳥は0.6m²。
+     ここでは、いちばん多くの子が来た時の頭数で、その2〜3倍の広さにした
+   ・大きな体の子の小屋は、前をひらいた小屋（壁は3方と屋根）。南（牛舎と豚小屋は庭のほう）を向き、中に入れて、外から眠る姿が見える
+   ・鳥とウサギの小屋は、キツネから守るために、前は金網、夜は戸を閉める（中は見える）
+   ・眠る場所は「小屋」ではなく「場所」で決める（棚の上、奥のすみ、入口のそば、わらの山、止まり木の端…）。
+     種類の習性（鶏は届くいちばん高い所、アヒルは止まり木に止まらない、豚はわらで寝床を作る、馬は仲間が見張る時に横になる）と、
+     その子の性格、好きなこと、仲良し、年齢で、好きな場所が決まる。ヤギと羊とロバは同じ小屋で眠ってよい。牛と仲良しのヤギは牛舎で
+   ・鳥とウサギは、キツネがいるので、夜は自分たちの小屋の中で（約束8：思いどおりにできないことも、短く正直に） */
+
+const SHL = { mats: {}, houses: {}, list: [] };
+
+/* ---- 紙の素材：板の壁、トタンの屋根、わら、金網 ---- */
+function shTex(kind, color) {
+  const key = kind + color;
+  if (SHL.mats['t' + key]) return SHL.mats['t' + key];
+  const c = pcCanvas(128, 128), g = c.getContext('2d'), rnd = pcRng(kind.length * 31 + color.length);
+  if (kind === 'mesh') {
+    g.clearRect(0, 0, 128, 128);
+    for (let i = -4; i < 8; i++) { const x = i * 32; pcLine(g, rnd, [[x, 128], [x + 128, 0]], '#CDD3D2', 2.2, 0.95, 0.8); pcLine(g, rnd, [[x, 0], [x + 128, 128]], '#B9C1C0', 2.2, 0.95, 0.8); }
+  } else if (kind === 'straw') {
+    g.fillStyle = color; g.fillRect(0, 0, 128, 128);
+    for (let i = 0; i < 260; i++) { const x = rnd() * 128, y = rnd() * 128, a = rnd() * 6.28, l = 6 + rnd() * 12; g.strokeStyle = rnd() < 0.5 ? 'rgba(250,232,170,.8)' : 'rgba(150,118,60,.5)'; g.lineWidth = 1.4; g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke(); }
+  } else if (kind === 'roof') {
+    g.fillStyle = color; g.fillRect(0, 0, 128, 128);
+    for (let x = 0; x < 128; x += 16) { g.fillStyle = 'rgba(0,0,0,.14)'; g.fillRect(x, 0, 3, 128); g.fillStyle = 'rgba(255,255,255,.12)'; g.fillRect(x + 7, 0, 2, 128); }
+    pcStrokes(g, rnd, 0, 0, 128, 128, pcCol(color, 0.1), 40, 30, 2, 0.3, 1.57, 0.2);
+    pcGrain(g, rnd, 0, 0, 128, 128, 120, '#FFFFFF', 0.3, 2);
+  } else {
+    // 縦板（1mに4枚）
+    g.fillStyle = color; g.fillRect(0, 0, 128, 128);
+    pcStrokes(g, rnd, 0, 0, 128, 128, pcCol(color, 0.12), 60, 40, 2.4, 0.35, 1.57, 0.12);
+    pcStrokes(g, rnd, 0, 0, 128, 128, pcCol(color, -0.12), 40, 30, 2, 0.3, 1.57, 0.12);
+    for (let x = 0; x <= 128; x += 32) pcLine(g, rnd, [[x, 0], [x, 128]], pcCol(color, -0.3), 2, 0.7, 0.8);
+    pcGrain(g, rnd, 0, 0, 128, 128, 160, '#FFFFFF', 0.3, 2);
+  }
+  const t = pcTexture(c, true); t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  return (SHL.mats['t' + key] = t);
+}
+function shMat(kind, color) {
+  const key = kind + color;
+  if (SHL.mats[key]) return SHL.mats[key];
+  const tex = shTex(kind, color);
+  const o = { map: tex, side: THREE.DoubleSide, flatShading: true, shininess: 0, specular: 0x000000 };
+  if (kind === 'mesh') Object.assign(o, { alphaTest: 0.5, transparent: false });
+  const m = new THREE.MeshPhongMaterial(o); m.userData.own = true;
+  if (kind === 'mesh') m.userData.depth = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, map: tex, alphaTest: 0.5 });
+  return (SHL.mats[key] = m);
+}
+// 4つの角（下左、下右、上右、上左）と、それぞれの紙の位置（m）で、1枚の面
+function shQuad(g, P, UV, material, shadow) {
+  const pos = [], uv = [];
+  for (const i of [0, 1, 2, 0, 2, 3]) { pos.push(...P[i]); uv.push(...UV[i]); }
+  const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); geo.computeVertexNormals();
+  const m = new THREE.Mesh(geo, material); m.receiveShadow = true; m.castShadow = shadow !== false;
+  if (material.userData.depth) m.customDepthMaterial = material.userData.depth;
+  g.add(m); return m;
+}
+function shTri(g, P, UV, material) {
+  const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(P.flat(), 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(UV.flat(), 2)); geo.computeVertexNormals();
+  const m = new THREE.Mesh(geo, material); m.receiveShadow = true; m.castShadow = true; g.add(m); return m;
+}
+// 前後を向いた壁（x0〜x1、高さ y0〜y1、z の位置）
+function shWallX(g, x0, x1, z, y0, y1, material) { return shQuad(g, [[x0, y0, z], [x1, y0, z], [x1, y1, z], [x0, y1, z]], [[x0, y0], [x1, y0], [x1, y1], [x0, y1]], material); }
+// 横の壁（z0〜z1。上のふちは、z0 で h0、z1 で h1）
+function shWallZ(g, z0, z1, x, h0, h1, material) { return shQuad(g, [[x, 0, z0], [x, 0, z1], [x, h1, z1], [x, h0, z0]], [[z0, 0], [z1, 0], [z1, h1], [z0, h0]], material); }
+function shRoofShed(g, w, d, hF, hB, ov, material) {
+  const y0 = hF + 0.1, y1 = hB + 0.1, k = (y0 - y1) / d;
+  const P = [[-w / 2 - ov, y0 + ov * k, d / 2 + ov], [w / 2 + ov, y0 + ov * k, d / 2 + ov], [w / 2 + ov, y1 - ov * k, -d / 2 - ov], [-w / 2 - ov, y1 - ov * k, -d / 2 - ov]];
+  const L = Math.hypot(d + ov * 2, y0 - y1 + ov * 2 * k);
+  const r = shQuad(g, P, [[0, 0], [w + ov * 2, 0], [w + ov * 2, L], [0, L]], material);
+  ROOFS.push(r); return r;
+}
+function shPost(g, x, z, h, color) { return part('box', color || WOOD_D, 0.14, h, 0.14, x, h / 2, z, g); }
+function shStraw(g, x0, x1, z0, z1) { const m = new THREE.Mesh(G3.plane, shMat('straw', '#D8BE78')); m.rotation.x = -Math.PI / 2; m.scale.set(x1 - x0, z1 - z0, 1); m.position.set((x0 + x1) / 2, 0.13, (z0 + z1) / 2); m.receiveShadow = true; g.add(m); const u = m.geometry.clone(); const a = u.attributes.uv; for (let i = 0; i < a.count; i++) a.setXY(i, a.getX(i) * (x1 - x0) * 0.8, a.getY(i) * (z1 - z0) * 0.8); m.geometry = u; return m; }
+function shMound(g, x, z, rx, rz, h) { const m = part('sph', '#D3B46E', rx * 2, h * 2, rz * 2, x, 0, z, g); m.material = shMat('straw', '#D3B46E'); return m; }
+
+/* ---- 小屋のかたち ----
+   前（+z）をひらいた、片流れ屋根の小屋。中にわら。壁は3方。o.front：'open'（柱だけ）／'mesh'（腰板と金網。小さな出入り口）
+   戻り値の userData：in（中の長方形）、walls（当たりの長方形）、roofs、door（外と中の点） */
+function shShed(o) {
+  const g = new THREE.Group(), { w, d, hF, hB } = o, wall = shMat('plank', o.wall), roofM = shMat('roof', o.roof);
+  shWallX(g, -w / 2, w / 2, -d / 2, 0, hB, wall);
+  shWallZ(g, -d / 2, d / 2, -w / 2, hB, hF, wall); shWallZ(g, -d / 2, d / 2, w / 2, hB, hF, wall);
+  for (const x of [-w / 2, w / 2]) { shPost(g, x, d / 2, hF); shPost(g, x, -d / 2, hB); }
+  part('box', WOOD_D, w + 0.2, 0.14, 0.16, 0, hF - 0.05, d / 2, g); // 前の梁
+  const roof = shRoofShed(g, w, d, hF, hB, 0.35, roofM);
+  const ud = { w, d, in: [-w / 2 + 0.2, w / 2 - 0.2, -d / 2 + 0.2, d / 2 - 0.15], roofs: [roof], walls: [[-w / 2, w / 2, -d / 2 - 0.08, -d / 2 + 0.08], [-w / 2 - 0.08, -w / 2 + 0.08, -d / 2, d / 2], [w / 2 - 0.08, w / 2 + 0.08, -d / 2, d / 2]] };
+  if (o.front === 'mesh') {
+    const dw = o.doorW || 0.5, dh = o.doorH || 0.6, dx = o.doorX || 0, mesh = shMat('mesh', 'mesh'), kick = 0.45;
+    // 腰板（出入り口の所はあける）と、その上の金網
+    shWallX(g, -w / 2, dx - dw / 2, d / 2, 0, kick, wall); shWallX(g, dx + dw / 2, w / 2, d / 2, 0, kick, wall);
+    shWallX(g, -w / 2, dx - dw / 2, d / 2, kick, hF - 0.1, mesh); shWallX(g, dx + dw / 2, w / 2, d / 2, kick, hF - 0.1, mesh);
+    shWallX(g, dx - dw / 2, dx + dw / 2, d / 2, dh, hF - 0.1, mesh);
+    for (const x of [dx - dw / 2, dx + dw / 2]) part('box', WOOD_D, 0.08, dh, 0.1, x, dh / 2, d / 2, g);
+    part('box', WOOD_D, dw + 0.08, 0.08, 0.1, dx, dh, d / 2, g);
+    // 夜に閉める戸（昼はひらいて、横に寄せてある）
+    const door = part('box', o.wall, dw, dh, 0.05, dx + dw * 0.98, dh / 2, d / 2 + 0.06, g); door.userData.coopDoor = { open: dx + dw * 0.98, shut: dx };
+    ud.coopDoor = door;
+    ud.walls.push([-w / 2, w / 2, d / 2 - 0.08, d / 2 + 0.08]);
+    ud.door = { out: [dx, d / 2 + 0.7], in: [dx, d / 2 - 0.45] };
+  } else {
+    ud.door = { out: [0, d / 2 + 1.1], in: [0, d / 2 - 0.7] };
+  }
+  shStraw(g, -w / 2 + 0.1, w / 2 - 0.1, -d / 2 + 0.1, d / 2 - 0.1);
+  g.userData.sh = ud;
+  return g;
+}
+/* 牛舎：切妻屋根の大きな小屋。妻側（前）に大きな入口。床は寝わら */
+function shBarn(k) {
+  const w = 10 * k, d = 8 * k, h = 3.2 * k, rh = 2.6 * k, dw = 4.6 * k, dh = 3.4 * k;
+  const g = new THREE.Group(), wall = shMat('plank', '#A7473B'), roofM = shMat('roof', '#48525A'), trim = '#EDE9DF';
+  // 横の壁と、奥の妻
+  shQuad(g, [[-w / 2, 0, d / 2], [-w / 2, 0, -d / 2], [-w / 2, h, -d / 2], [-w / 2, h, d / 2]], [[d / 2, 0], [-d / 2, 0], [-d / 2, h], [d / 2, h]], wall);
+  shQuad(g, [[w / 2, 0, -d / 2], [w / 2, 0, d / 2], [w / 2, h, d / 2], [w / 2, h, -d / 2]], [[-d / 2, 0], [d / 2, 0], [d / 2, h], [-d / 2, h]], wall);
+  shWallX(g, -w / 2, w / 2, -d / 2, 0, h, wall);
+  shTri(g, [[-w / 2, h, -d / 2], [w / 2, h, -d / 2], [0, h + rh, -d / 2]], [[-w / 2, h], [w / 2, h], [0, h + rh]], wall);
+  // 前の妻：大きな入口のまわり
+  shWallX(g, -w / 2, -dw / 2, d / 2, 0, h, wall); shWallX(g, dw / 2, w / 2, d / 2, 0, h, wall); shWallX(g, -dw / 2, dw / 2, d / 2, dh, h, wall);
+  shTri(g, [[-w / 2, h, d / 2], [w / 2, h, d / 2], [0, h + rh, d / 2]], [[-w / 2, h], [w / 2, h], [0, h + rh]], wall);
+  for (const x of [-dw / 2, dw / 2]) part('box', trim, 0.16, dh, 0.16, x, dh / 2, d / 2 + 0.02, g);
+  part('box', trim, dw + 0.16, 0.16, 0.16, 0, dh, d / 2 + 0.02, g);
+  for (const x of [-w / 2, w / 2]) for (const z of [-d / 2, d / 2]) part('box', trim, 0.16, h, 0.16, x, h / 2, z, g);
+  // 引き戸（あけたまま、横に寄せてある）
+  for (const s of [-1, 1]) { const dr = part('box', '#8E3B31', dw / 2, dh - 0.1, 0.08, s * (dw / 2 + dw / 4 + 0.05), (dh - 0.1) / 2, d / 2 + 0.1, g); for (const r of [0.85, -0.85]) { const x = part('box', trim, 0.1, dh * 0.95, 0.06, s * (dw / 2 + dw / 4 + 0.05), dh / 2, d / 2 + 0.15, g); x.rotation.z = r; } }
+  part('box', trim, w + 0.2, 0.12, 0.12, 0, dh + 0.25, d / 2 + 0.12, g); // 戸のレール
+  windowAt(g, 0, h + rh * 0.45, -d / 2 - 0.02, 0.8, 0.7);
+  // 屋根
+  const ov = 0.35, a = Math.atan2(rh, w / 2), ex = w / 2 + ov, ey = h + rh - Math.tan(a) * ex, L = Math.hypot(ex, h + rh - ey), roofs = [];
+  for (const s of [-1, 1]) {
+    const P = s < 0 ? [[0, h + rh + 0.08, d / 2 + ov], [0, h + rh + 0.08, -d / 2 - ov], [-ex, ey, -d / 2 - ov], [-ex, ey, d / 2 + ov]] : [[0, h + rh + 0.08, -d / 2 - ov], [0, h + rh + 0.08, d / 2 + ov], [ex, ey, d / 2 + ov], [ex, ey, -d / 2 - ov]];
+    const r = shQuad(g, P, [[0, 0], [d + ov * 2, 0], [d + ov * 2, L], [0, L]], roofM); ROOFS.push(r); roofs.push(r);
+  }
+  shStraw(g, -w / 2 + 0.15, w / 2 - 0.15, -d / 2 + 0.15, d / 2 - 0.15);
+  // 干し草の棚（奥の壁）
+  part('box', WOOD_D, w * 0.6, 0.1, 0.5, 0, 1.3, -d / 2 + 0.35, g); part('box', '#D9BC6A', w * 0.56, 0.4, 0.4, 0, 1.55, -d / 2 + 0.35, g);
+  g.userData.sh = { w, d, h, rh, in: [-w / 2 + 0.3, w / 2 - 0.3, -d / 2 + 0.3, d / 2 - 0.2], roofs, walls: [[-w / 2 - 0.08, -w / 2 + 0.08, -d / 2, d / 2], [w / 2 - 0.08, w / 2 + 0.08, -d / 2, d / 2], [-w / 2, w / 2, -d / 2 - 0.08, -d / 2 + 0.08], [-w / 2, -dw / 2, d / 2 - 0.08, d / 2 + 0.08], [dw / 2, w / 2, d / 2 - 0.08, d / 2 + 0.08]], door: { out: [0, d / 2 + 1.6], in: [0, d / 2 - 1.0] } };
+  g.userData.barnDims = { w, h, rh, d };
+  return g;
+}
+
+/* ---- それぞれの小屋：置く所と、中の眠る場所 ----
+   spots：{ 名前: { kind, sp（眠ってよい種類）, label, slots: [[x, z, 高さ, 向き], ...] } }（小屋の中の位置） */
+const SHELTER_DEFS = {
+  chicken: { stage: 1, name: '鶏小屋', at: [12.5, 16.2], ry: 0, zone: 'chicken' },
+  turkey: { stage: 2, name: '七面鳥小屋', at: [42, 16], ry: 0, zone: 'turkey' },
+  duck: { stage: 2, name: 'アヒル小屋', at: [40, -9.4], ry: 0, zone: 'duck' },
+  goat: { stage: 2, name: 'ヤギ小屋', at: [-8, -9.7], ry: 0, zone: 'goat' },
+  pig: { stage: 2, name: '豚小屋', at: [-41.8, 27.2], ry: Math.PI, zone: 'pig' },
+  cow: { stage: 2, name: '牛舎', at: [-20, 18], ry: Math.PI, zone: 'cow' },
+  sheep: { stage: 3, name: '羊小屋', at: [-42, -27.2], ry: 0, zone: 'sheep' },
+  donkey: { stage: 3, name: 'ロバ小屋', at: [-8.8, -27.2], ry: 0, zone: 'donkey' },
+  rabbit: { stage: 3, name: 'ウサギ小屋', at: [-18.5, 36.6], ry: 0, zone: 'rabbit' },
+  horse: { stage: 4, name: '馬小屋', at: [41, -26.9], ry: 0, zone: 'horse' },
+};
+const SM = ['goat', 'sheep']; // 小さな反すう動物
+function shSpots(id, ud) {
+  const { w, d } = ud, S = {};
+  const row = (n, x0, x1, z, y, h) => { const out = []; for (let i = 0; i < n; i++) out.push([n === 1 ? (x0 + x1) / 2 : x0 + (x1 - x0) * i / (n - 1), z, y || 0, h || 0]); return out; };
+  const add = (name, kind, sp, label, slots) => { S[name] = { kind, sp, label, slots }; };
+  if (id === 'chicken') {
+    const L = w / 2 - 0.45, ys = [1.12, 0.82, 0.52], zs = [-d / 2 + 0.42, -d / 2 + 0.8, -d / 2 + 1.18];
+    const n = Math.max(3, Math.floor((L * 2) / 0.3) + 1), top = row(n, -L, L, zs[0], ys[0]), mid = row(n, -L, L, zs[1], ys[1]);
+    add('perchTop', 'high', ['chicken'], '止まり木のいちばん上', top.slice(1, -1));
+    add('perchEnd', 'end', ['chicken'], '止まり木のいちばん端', [top[0], top[top.length - 1], mid[0], mid[mid.length - 1]]);
+    add('perchMid', 'mid', ['chicken'], '止まり木のまん中', mid.slice(1, -1));
+    add('perchLow', 'low', ['chicken'], '低い止まり木', row(Math.max(2, n - 2), -L + 0.2, L - 0.2, zs[2], ys[2]));
+    add('nestbox', 'nest', ['chicken'], '巣箱の中', [[-w / 2 + 0.32, 0.05, 0.42, Math.PI / 2], [-w / 2 + 0.32, 0.55, 0.42, Math.PI / 2]]);
+    add('floor', 'corner', ['chicken'], 'すみのわらの上', [[w / 2 - 0.4, d / 2 - 0.55, 0, -0.6], [w / 2 - 0.75, d / 2 - 0.5, 0, -0.3]]);
+  } else if (id === 'turkey') {
+    add('roostHigh', 'high', ['turkey'], '高い止まり木', row(3, -w / 2 + 0.8, w / 2 - 0.8, -d / 2 + 0.55, 1.15));
+    add('roostLow', 'low', ['turkey'], '低い止まり木', row(3, -w / 2 + 0.8, w / 2 - 0.8, -d / 2 + 1.25, 0.65));
+    add('floor', 'corner', ['turkey'], 'すみのわらの上', [[w / 2 - 0.6, d / 2 - 0.7, 0, -0.5]]);
+  } else if (id === 'duck') {
+    add('pile', 'pile', ['duck'], 'わらの上（みんなでくっついて）', [[-0.25, -0.2, 0, 0.3], [0.2, -0.3, 0, -0.4], [0.05, 0.15, 0, 1.2], [-0.45, 0.2, 0, 2.2], [0.5, 0.1, 0, -1.4]]);
+    add('door', 'door', ['duck'], '戸口のそば', [[0.9, d / 2 - 0.6, 0, 0], [1.35, d / 2 - 0.65, 0, 0.3]]);
+    add('corner', 'corner', ['duck'], '奥のすみ', [[-w / 2 + 0.45, -d / 2 + 0.45, 0, 0.8], [w / 2 - 0.45, -d / 2 + 0.45, 0, -0.8]]);
+  } else if (id === 'rabbit') {
+    add('hide', 'hide', ['rabbit'], '隠れ家の箱の中', [[-w / 2 + 0.55, -d / 2 + 0.45, 0, 0.4], [w / 2 - 0.55, -d / 2 + 0.45, 0, -0.4]]);
+    add('shelf', 'high', ['rabbit'], '棚の上', [[-w / 2 + 0.35, 0.2, 0.55, Math.PI / 2], [-w / 2 + 0.35, 0.75, 0.55, Math.PI / 2]]);
+    add('tunnel', 'tunnel', ['rabbit'], 'トンネルの中', [[0.2, -d / 2 + 0.5, 0, Math.PI / 2]]);
+    add('floor', 'corner', ['rabbit'], 'わらの上', [[0.9, 0.5, 0, 0], [1.3, 0.3, 0, 0.5]]);
+  } else if (id === 'goat' || id === 'sheep' || id === 'donkey') {
+    if (id === 'goat') add('shelf', 'high', ['goat'], '高い棚の上', row(4, -w / 2 + 0.75, w / 2 - 1.5, -d / 2 + 0.45, 0.74, 0));
+    add('pile', 'pile', id === 'donkey' ? ['donkey'].concat(SM) : SM, id === 'donkey' ? 'わらの上（寄りそって）' : 'わらの上（みんなで寄りそって）', id === 'donkey' ? [[-0.7, -0.2, 0, 0.3], [0.7, -0.3, 0, -0.3], [-0.2, 0.8, 0, 0.1], [0.9, 0.8, 0, -0.2]] : [[-0.6, 0.1, 0, 0.4], [0.5, 0.0, 0, -0.5], [-0.1, 0.75, 0, 0.2], [0.9, 0.7, 0, -0.2]]);
+    add('corner', 'corner', SM.concat(id === 'donkey' ? ['donkey'] : []), '奥のすみ', [[-w / 2 + 0.75, id === 'goat' ? -d / 2 + 1.45 : -d / 2 + 0.75, 0, 0.6], [w / 2 - 0.75, -d / 2 + 0.75, 0, -0.6]]);
+    add('door', 'door', SM, '入口のそば（外が見える所）', [[-w / 2 + 1.0, d / 2 - 0.5, 0, 0.2], [w / 2 - 1.0, d / 2 - 0.5, 0, -0.2]]);
+  } else if (id === 'horse') {
+    add('stall', 'pile', ['horse', 'donkey'], '寝わらの上（並んで）', [[-w / 4, -0.3, 0, 0.1], [w / 4, -0.3, 0, -0.1], [-w / 4 - 0.6, 0.9, 0, 0.3], [w / 4 + 0.6, 0.9, 0, -0.3]]);
+  } else if (id === 'pig') {
+    // 豚小屋は、奥のすみに、わらを高く積んだ寝床。入口から遠い所（トイレは寝床から離れた所に作る）
+    add('nest', 'nest', ['pig'], 'わらの山の中（みんなで）', [[-w / 2 + 1.2, -d / 2 + 1.1, 0.12, 0.6], [-w / 2 + 2.1, -d / 2 + 0.9, 0.12, -0.2], [-w / 2 + 1.5, -d / 2 + 1.9, 0.08, 1.4], [-w / 2 + 2.6, -d / 2 + 1.8, 0.05, 2.0]]);
+    add('corner', 'corner', ['pig'], '奥のもう一方のすみ（ひとりで）', [[w / 2 - 1.0, -d / 2 + 0.9, 0, -0.5]]);
+    add('door', 'door', ['pig'], '入口のそば（風の通る所）', [[w / 2 - 1.6, d / 2 - 0.7, 0, 0.2], [-0.2, d / 2 - 0.8, 0, -0.2]]);
+  } else if (id === 'cow') {
+    add('pile', 'pile', ['cow'], '寝わらの上（みんなで）', [[-2.6, 0.8, 0, 0.4], [0.2, 1.2, 0, -0.3], [2.6, 0.6, 0, 0.2], [-1.4, -1.4, 0, 1.1], [1.5, -1.3, 0, -1.0], [0, -0.2, 0, 3.0]]);
+    add('corner', 'corner', ['cow'], '奥のすみ', [[-w / 2 + 1.0, -d / 2 + 1.0, 0, 0.7], [w / 2 - 1.0, -d / 2 + 1.0, 0, -0.7], [-w / 2 + 2.2, -d / 2 + 0.9, 0, 0.4]]);
+    add('door', 'door', ['cow'], '入口のそば（外の風が入る所）', [[-1.4, d / 2 - 1.4, 0, 0], [1.4, d / 2 - 1.3, 0, 0.1]]);
+  }
+  return S;
+}
+// 小屋の中の飾り（棚、止まり木、巣箱、隠れ家、干し草の棚）
+function shInterior(id, g, ud) {
+  const { w, d } = ud;
+  if (id === 'goat') {
+    const sy = 0.72, sd = 0.9, sx0 = -w / 2 + 0.1, sx1 = w / 2 - 1.1;
+    part('box', WOOD, sx1 - sx0, 0.08, sd, (sx0 + sx1) / 2, sy, -d / 2 + 0.1 + sd / 2, g);
+    for (const x of [sx0 + 0.2, (sx0 + sx1) / 2, sx1 - 0.1]) part('box', WOOD_D, 0.1, sy, 0.1, x, sy / 2, -d / 2 + 0.1 + sd - 0.08, g);
+    const rp = part('box', WOOD_L, 0.6, 0.06, 1.7, sx1 + 0.4, sy / 2, -d / 2 + 0.1 + sd + 0.55, g); rp.rotation.x = 0.46; // 坂
+    shStraw(g, sx0 + 0.05, sx1 - 0.05, -d / 2 + 0.12, -d / 2 + 0.95).position.y = sy + 0.05;
+    part('box', WOOD_D, 1.4, 0.5, 0.3, w / 2 - 0.9, 1.25, -d / 2 + 0.22, g); // 干し草の網の棚
+  } else if (id === 'sheep' || id === 'donkey') {
+    part('box', WOOD_D, 1.6, 0.5, 0.3, 0, 1.2, -d / 2 + 0.22, g); part('box', '#D9BC6A', 1.5, 0.3, 0.25, 0, 1.35, -d / 2 + 0.22, g);
+    part('box', '#A8B0B0', 0.9, 0.35, 0.45, w / 2 - 0.7, 0.18, d / 2 - 1.0, g); // 水おけ
+  } else if (id === 'horse') {
+    part('box', WOOD, 0.1, 1.3, d - 1.2, 0, 0.65, -0.6, g); // 仕切りの低い壁
+    for (const x of [-w / 4, w / 4]) { part('box', WOOD_D, 1.4, 0.5, 0.3, x, 1.5, -d / 2 + 0.22, g); part('box', '#D9BC6A', 1.3, 0.3, 0.25, x, 1.65, -d / 2 + 0.22, g); }
+  } else if (id === 'pig') {
+    shMound(g, -w / 2 + 1.9, -d / 2 + 1.4, 1.7, 1.25, 0.32);
+    shMound(g, -w / 2 + 0.9, -d / 2 + 0.7, 0.8, 0.6, 0.22);
+  } else if (id === 'chicken') {
+    const L = w / 2 - 0.3;
+    for (const [z, y] of [[-d / 2 + 0.42, 1.12], [-d / 2 + 0.8, 0.82], [-d / 2 + 1.18, 0.52]]) part('box', WOOD_L, L * 2, 0.06, 0.07, 0, y - 0.03, z, g, { noShadow: true });
+    for (const x of [-L - 0.02, L + 0.02]) { const r = part('box', WOOD_D, 0.06, 1.35, 0.07, x, 0.62, -d / 2 + 0.8, g); r.rotation.x = -0.6; }
+    // 巣箱（西の壁ぞい）
+    for (const z of [0.05, 0.55]) { part('box', WOOD, 0.45, 0.4, 0.45, -w / 2 + 0.3, 0.42, z, g); part('box', '#D3B46E', 0.38, 0.06, 0.38, -w / 2 + 0.3, 0.45, z, g); part('box', '#3E3228', 0.02, 0.28, 0.32, -w / 2 + 0.53, 0.5, z, g, { noShadow: true }); }
+  } else if (id === 'turkey') {
+    for (const [z, y] of [[-d / 2 + 0.55, 1.15], [-d / 2 + 1.25, 0.65]]) { part('box', WOOD_L, w - 0.8, 0.08, 0.09, 0, y - 0.04, z, g, { noShadow: true }); for (const x of [-w / 2 + 0.45, w / 2 - 0.45]) part('box', WOOD_D, 0.08, y, 0.08, x, y / 2, z, g); }
+  } else if (id === 'rabbit') {
+    for (const s of [-1, 1]) { part('box', WOOD, 0.75, 0.5, 0.6, s * (w / 2 - 0.55), 0.25, -d / 2 + 0.45, g); const ho = part('cyl12', '#3E3228', 0.26, 0.02, 0.26, s * (w / 2 - 0.55), 0.24, -d / 2 + 0.76, g, { noShadow: true }); ho.rotation.x = Math.PI / 2; }
+    part('box', WOOD, 0.5, 0.06, 1.4, -w / 2 + 0.35, 0.53, 0.45, g); part('box', WOOD_D, 0.06, 0.53, 0.06, -w / 2 + 0.55, 0.26, 1.05, g);
+    const t = part('cyl12', '#B8A07A', 0.5, 1.3, 0.5, 0.2, 0.18, -d / 2 + 0.5, g); t.rotation.z = Math.PI / 2;
+  }
+}
+function shBuildOne(id) {
+  const D = SHELTER_DEFS[id], s = G.stage;
+  let g;
+  if (id === 'cow') g = shBarn(hasMilestone('bigbarn_solar') ? 1.25 : 1);
+  else if (id === 'chicken') g = shShed({ w: s >= 3 ? 4.4 : 3.6, d: s >= 3 ? 3.2 : 2.8, hF: 2.0, hB: 1.6, wall: '#C49A68', roof: '#6A5A48', front: 'mesh', doorW: 0.42, doorH: 0.55, doorX: (s >= 3 ? 4.4 : 3.6) / 2 - 0.6 });
+  else if (id === 'turkey') g = shShed({ w: 4.4, d: 3.6, hF: 2.2, hB: 1.8, wall: '#D8C9A6', roof: '#7A5A44', front: 'mesh', doorW: 0.7, doorH: 0.95, doorX: 1.3 });
+  else if (id === 'duck') g = shShed({ w: 4.4, d: 3.2, hF: 1.6, hB: 1.25, wall: '#E4D7B8', roof: '#4E7A8A', front: 'mesh', doorW: 0.9, doorH: 0.7, doorX: 1.1 });
+  else if (id === 'rabbit') g = shShed({ w: 4.4, d: 3.6, hF: 2.0, hB: 1.7, wall: '#F0EADA', roof: '#B96A56', front: 'mesh', doorW: 0.35, doorH: 0.35, doorX: 0.9 });
+  else if (id === 'goat') g = shShed({ w: 6.4, d: 4.0, hF: 2.4, hB: 1.8, wall: '#C79B6A', roof: '#5C6A6E', front: 'open' });
+  else if (id === 'sheep') g = shShed({ w: 6.4, d: 4.4, hF: 2.4, hB: 1.9, wall: '#D9D2C0', roof: '#5E6B58', front: 'open' });
+  else if (id === 'donkey') g = shShed({ w: 6.0, d: 4.4, hF: 2.6, hB: 2.1, wall: '#B58C60', roof: '#6A5444', front: 'open' });
+  else if (id === 'horse') g = shShed({ w: 9, d: 5, hF: 3.1, hB: 2.6, wall: '#8A5A3C', roof: '#3E4A44', front: 'open' });
+  else if (id === 'pig') g = shShed({ w: 7.2, d: 4.6, hF: 2.2, hB: 1.7, wall: '#9A6B48', roof: '#6A5444', front: 'open' });
+  const ud = g.userData.sh;
+  shInterior(id, g, ud);
+  return { g, ud, spots: shSpots(id, ud) };
+}
+// 小屋の中の位置を、世界の位置に（向きは 0 か 180度）
+function shToWorld(D, p) { const f = Math.abs(D.ry) > 1 ? -1 : 1; return [D.at[0] + p[0] * f, D.at[1] + p[1] * f]; }
+function shRectWorld(D, r) { const a = shToWorld(D, [r[0], r[2]]), b = shToWorld(D, [r[1], r[3]]); return [Math.min(a[0], b[0]), Math.max(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[1], b[1])]; }
+function buildShelters() {
+  SHL.houses = {}; SHL.list = [];
+  for (const id in SHELTER_DEFS) {
+    const D = SHELTER_DEFS[id]; if (G.stage < D.stage) continue;
+    const { g, ud, spots } = shBuildOne(id);
+    place('base', g, D.at[0], D.at[1], D.ry);
+    if (id === 'cow') W.barn = g;
+    const rect = shRectWorld(D, ud.in), outer = shRectWorld(D, [-ud.w / 2 - 0.4, ud.w / 2 + 0.4, -ud.d / 2 - 0.4, ud.d / 2 + 0.4]);
+    // 当たりは壁だけ（前があいた小屋は、中に入れる）。金網の小屋は、ぐるりと
+    for (const wr of ud.walls) { const r = shRectWorld(D, wr); W.colliders.push(r); }
+    W.dryRects = W.dryRects || []; W.dryRects.push(shRectWorld(D, [-ud.w / 2 - 0.3, ud.w / 2 + 0.3, -ud.d / 2 - 0.3, ud.d / 2 + 0.3]));
+    W.shadeBoxes = W.shadeBoxes || []; W.shadeBoxes.push(outer.concat([id === 'cow' ? ud.h + ud.rh * 0.6 : 2.2]));
+    const h = { id, D, name: D.name, rect, outer, g, roofs: ud.roofs, coopDoor: ud.coopDoor || null, closed: !!ud.coopDoor, door: { out: shToWorld(D, ud.door.out), in: shToWorld(D, ud.door.in) }, spots: {} };
+    for (const nm in spots) {
+      const S = spots[nm], f = Math.abs(D.ry) > 1 ? Math.PI : 0;
+      h.spots[nm] = { key: id + ':' + nm, house: h, name: nm, kind: S.kind, sp: S.sp, label: S.label, slots: S.slots.map((q) => { const p = shToWorld(D, q); return { x: p[0], z: p[1], y: q[2] || 0, h: (q[3] || 0) + f }; }) };
+    }
+    SHL.houses[id] = h; SHL.list.push(h);
+    // 区画の「小屋」も、この中の長方形に（看板・名札・卵の位置などが使う）
+    if (ZONES[id]) ZONES[id].shelter = rect.slice();
+  }
+  W.shelterVer = (W.shelterVer || 0) + 1;
+}
+// 外で眠る場所（晴れて、雨も雪もない夜だけ）
+function outdoorSpots() {
+  const L = [];
+  const mk = (key, name, kind, sp, label, pts, cond) => ({ key, name, kind, sp, label, house: null, outdoor: true, cond, slots: pts.map((p) => ({ x: p[0], z: p[1], y: 0, h: p[2] || 0 })) });
+  if (G.stage >= 2) {
+    L.push(mk('out:cow', 'pasture', 'out', ['cow'], '星の下の牧草地', [[-32, -2, 0.4], [-29.5, -1, -0.6], [-34.5, 1.2, 1.4], [-31, 2.4, 2.6], [-27.5, 1.6, -1.6], [-35, -3, 0.9]], 'dry'));
+    L.push(mk('out:pigWallow', 'wallow', 'wallow', ['pig'], '泥浴び場のそば（暑い夜）', [[MUD.x + 3.2, MUD.z - 0.6, -1.4], [MUD.x + 3.4, MUD.z + 1.0, -1.8], [MUD.x + 2.4, MUD.z + 2.6, 3.0]], 'hot'));
+  }
+  if (G.stage >= 4) L.push(mk('out:horse', 'pasture', 'out', ['horse', 'donkey'], '星の下の牧草地（仲間が見張って）', [[30, -22, 0.6], [32.2, -21.4, -0.8], [28.4, -20.6, 2.2]], 'dry'));
+  return L;
+}
+
+/* ---- その子の好きな眠る場所 ----
+   種類の習性（基本の好み）＋性格＋好きなこと＋仲良し＋年齢。同じ子は、いつも同じ順で選ぶ */
+const SLEEP_BASE = {
+  chicken: { high: 1.0, mid: 0.7, end: 0.55, low: 0.2, nest: 0.15, corner: 0.05 },
+  turkey: { high: 1.0, low: 0.6, corner: 0.1 },
+  duck: { pile: 1.0, door: 0.45, corner: 0.4 },
+  rabbit: { hide: 1.0, tunnel: 0.6, high: 0.5, corner: 0.2 },
+  goat: { high: 1.0, corner: 0.6, pile: 0.55, door: 0.45 },
+  sheep: { pile: 1.0, corner: 0.5, door: 0.35 },
+  pig: { nest: 1.0, corner: 0.35, door: 0.3, wallow: 0.9 },
+  cow: { pile: 0.8, out: 0.75, corner: 0.55, door: 0.45 },
+  donkey: { pile: 1.0, corner: 0.6, out: 0.2 },
+  horse: { out: 0.85, pile: 0.8 },
+};
+const SLEEP_PERS = {
+  '人見知り': { end: 0.6, corner: 0.6, hide: 0.4, pile: -0.2, door: -0.4, mid: -0.2, high: 0.1 },
+  '好奇心旺盛': { door: 0.6, high: 0.2, out: 0.3, corner: -0.2, hide: -0.2 },
+  'いたずら好き': { high: 0.5, door: 0.3, tunnel: 0.4 },
+  'にぎやか': { pile: 0.5, mid: 0.4, door: 0.2, corner: -0.3, end: -0.2 },
+  'おだやか': { pile: 0.3, mid: 0.2 },
+  'のんびり': { nest: 0.5, pile: 0.2, corner: 0.2, low: 0.3, high: -0.2 },
+  'あまえんぼう': { pile: 0.4, mid: 0.3 },
+  'ゆっくり近づいてくる': { corner: 0.3, end: 0.2 },
+};
+const SLEEP_LIKE = { perch: { high: 0.4, end: 0.2 }, climb: { high: 0.6 }, tunnel: { tunnel: 0.9 }, pool: { wallow: 0.4 }, haynet: { pile: 0.1 } };
+// 眠る場所の理由（種類の習性から。カードに書く）
+function sleepWhy(a, s) {
+  const k = s.kind, sp = a.sp;
+  if (s.cross) return `${s.cross}の隣。種類はちがっても、いちばん安心できる相手`;
+  if (sp === 'chicken') return { high: '鶏は、届くいちばん高い所で眠りたがる', end: '端なら、片側だけを気にしていればいい', mid: '仲間と並んで、羽をふくらませて眠る', low: '高い所に上がるのが大変な日も、低い止まり木なら楽', nest: '巣箱の中が落ち着くらしい。ほんとうは止まり木のほうが足にやさしいので、そっと見守っています', corner: 'わらの上で、ゆっくり眠る' }[k] || '';
+  if (sp === 'turkey') return k === 'high' ? '七面鳥も、高い止まり木で眠るのが好き' : '低い止まり木で、仲間の隣';
+  if (sp === 'duck') return 'アヒルは止まり木に止まらない。わらの上で、くちばしを羽にうずめて眠る' + (k === 'door' ? '。戸口のそばで、外の気配を聞きながら' : k === 'corner' ? '。奥のすみが、この子の場所' : '');
+  if (sp === 'rabbit') return { hide: 'ウサギは、まわりを囲まれた所で安心して眠る', tunnel: 'トンネルの中が、お気に入り', high: '棚の上から、部屋を見わたして', corner: 'わらの上で、のびのびと' }[k] || '';
+  if (sp === 'pig') return { nest: '豚は、わらで寝床を作って、寄りそって眠る。トイレは寝床から離れた所に作る', wallow: '豚は汗をかけないので、暑い夜は、ひんやりした泥のそばで', corner: 'ひとりで、静かに眠るのが好き', door: '入口のそば。風の通る所が好き' }[k] || '';
+  if (sp === 'horse') return k === 'out' ? '馬は立ったままでも眠れるけれど、横になって深く眠るのは、仲間が立って見張っている時だけ' : '屋根の下で、仲間と並んで。交代で横になる';
+  if (sp === 'cow') return { out: '晴れた夜は、牧草地で横になるのが好き。雨や雪の夜は牛舎へ', pile: '仲間と寄りそって、寝わらの上で', corner: '奥のすみで、静かに', door: '入口のそば。外の風と匂いが好き' }[k] || '';
+  if (sp === 'donkey') return k === 'out' ? '晴れた夜だけ、馬たちと外で' : 'ロバは雨にぬれるのが苦手。仲間とぴったり寄りそって、屋根の下で';
+  if (sp === 'goat') return { high: 'ヤギは、高い所で休むと落ち着く子が多い', corner: '奥のすみで、背中を壁につけて', pile: '仲間と体を寄せて、あたたかく', door: '入口のそばで、外が見えると安心する' }[k] || '';
+  if (sp === 'sheep') return { pile: '羊は、群れで体を寄せあって眠る', corner: '群れの端の、奥のすみで', door: '入口のそばで、外の気配を感じながら' }[k] || '';
+  return '';
+}
+// 今夜、その子が使える場所（小屋のある所、天気、季節、種類）
+function sleepCands(a) {
+  const out = [], night = sleepNightKind();
+  for (const h of SHL.list) for (const nm in h.spots) { const s = h.spots[nm]; if (s.sp.includes(a.sp)) out.push(s); }
+  for (const s of (SHL.outdoor || [])) if (s.sp.includes(a.sp) && ((s.cond === 'dry' && night.dry) || (s.cond === 'hot' && night.hot))) out.push(s);
+  return out;
+}
+function sleepNightKind() {
+  const w = WS.weather, wet = w === 'rain' || w === 'snow';
+  const snowy = typeof SN !== 'undefined' && SN.cover > 0.25;
+  return { dry: !wet && !snowy && WS.season !== 'winter', hot: WS.season === 'summer' && !wet };
+}
+function sleepScore(a, s) {
+  const B = SLEEP_BASE[a.sp] || {}, P = SLEEP_PERS[a.personality] || {};
+  let v = (B[s.kind] !== undefined ? B[s.kind] : -1) + (P[s.kind] || 0);
+  for (const l of (a.likes || [])) if (SLEEP_LIKE[l] && SLEEP_LIKE[l][s.kind]) v += SLEEP_LIKE[l][s.kind];
+  if (a.elderly && (s.kind === 'high' || s.kind === 'end')) v -= 1.2;
+  if (a.elderly && (s.kind === 'low' || s.kind === 'nest' || s.kind === 'corner')) v += 0.4;
+  // その子らしさ（同じ子は、いつも同じ）
+  v += hash2(a.id * 7 + 3, s.key.length * 13 + s.kind.length) * 0.35;
+  // 自分の種類の小屋は、少しだけ落ち着く（でも、それで決まりではない）
+  if ((s.house && s.house.id === a.sp) || (s.outdoor && s.sp[0] === a.sp)) v += ['donkey', 'horse', 'cow', 'pig'].includes(a.sp) ? 0.45 : 0.12;
+  return v;
+}
+/* 今夜の眠る場所を、みんなの分まとめて決める（定員のある所は、好みの強い子から） */
+const SLEEP = { sig: '', plan: new Map() };
+function sleepPlan() {
+  const nk = sleepNightKind();
+  const sig = [W.shelterVer, G.turn, WS.weather, nk.dry, nk.hot, G.animals.length, (G.bonds || []).length].join('|');
+  if (sig === SLEEP.sig) return SLEEP.plan;
+  SLEEP.sig = sig; SLEEP.plan = new Map();
+  SHL.outdoor = outdoorSpots();
+  const as = G.animals.filter((a) => a.sp !== 'cat' && !(a.quarantine && G.turn < a.quarantine));
+  const used = new Map(), want = [];
+  for (const a of as) {
+    const C = sleepCands(a); if (!C.length) continue;
+    const ranked = C.map((s) => ({ s, v: sleepScore(a, s) })).sort((p, q) => q.v - p.v);
+    want.push({ a, ranked, best: ranked[0].v });
+  }
+  want.sort((p, q) => q.best - p.best || p.a.id - q.a.id);
+  const take = (a, s, cross) => {
+    let u = used.get(s.key); if (!u) used.set(s.key, (u = new Set()));
+    let n = -1; for (let i = 0; i < s.slots.length; i++) if (!u.has(i)) { n = i; break; }
+    if (n < 0) return false;
+    u.add(n); const sl = s.slots[n];
+    SLEEP.plan.set(a.id, { spot: s, slot: n, x: sl.x, z: sl.z, y: sl.y, h: sl.h, cross: cross || null });
+    return true;
+  };
+  const free = (s) => { const u = used.get(s.key); return !u || u.size < s.slots.length; };
+  // 大きな体の子（牛・ロバ・馬）と仲良しのヤギや羊は、その子の小屋のすみで（体の大きさがちがうので、ほかの子はふだん別）
+  const host = (f) => f && ['cow', 'donkey', 'horse'].includes(f.sp);
+  const later = [];
+  for (const w of want) {
+    const f = friendOf(w.a);
+    if (SM.includes(w.a.sp) && host(f)) { later.push(w); continue; }
+    for (const r of w.ranked) if (take(w.a, r.s)) break;
+  }
+  for (const w of later) {
+    const f = friendOf(w.a), fp = f && SLEEP.plan.get(f.id), h = fp && fp.spot.house;
+    const sp = h && (h.spots.corner || h.spots.pile);
+    if (sp && take(w.a, sp, f.name)) continue;
+    for (const r of w.ranked) if (take(w.a, r.s)) break;
+  }
+  // 群れや、ふたり組で眠る子（羊・ロバ・馬、あまえんぼうの子）は、同じ種類の仲良しと同じ小屋へ
+  for (const w of want) {
+    const a = w.a, f = friendOf(a); if (!f || f.sp !== a.sp) continue;
+    const me = SLEEP.plan.get(a.id), fp = SLEEP.plan.get(f.id); if (!me || !fp || me.cross || me.spot.house === fp.spot.house) continue;
+    if (!(['sheep', 'donkey', 'horse'].includes(a.sp) || a.personality === 'あまえんぼう')) continue;
+    const s2 = fp.spot.sp.includes(a.sp) ? fp.spot : null; if (!s2) continue;
+    if (!free(s2)) continue;
+    used.get(me.spot.key).delete(me.slot); SLEEP.plan.delete(a.id); take(a, s2);
+  }
+  return SLEEP.plan;
+}
+function sleepOf(a) { if (!a || a.sp === 'cat') return null; const p = sleepPlan(); return p.get(a.id) || null; }
+// カードに書く言葉
+function sleepText(a) {
+  const p = sleepOf(a); if (!p) return null;
+  const s = p.spot, where = s.house ? `${s.house.name}の${s.label}` : s.label;
+  return { where: p.cross ? `${where}（${p.cross}の隣）` : where, why: sleepWhy(a, Object.assign({}, s, { cross: p.cross })) };
+}
+// ふだんの「眠る場所」（晴れた、ふつうの夜。季節で変わる子もいる）
+function sleepUsual(a) { return sleepText(a); }
+
+/* ---- 毎フレーム：小屋の中にいる時は屋根を隠す。鳥とウサギの小屋の戸は、夜に閉める ---- */
+function updateShelters(dt) {
+  if (!SHL.list.length || !ACT.player) return;
+  const P = ACT.player, night = SKY.night > 0.55;
+  for (const h of SHL.list) {
+    const o = h.outer, inside = P.x > o[0] - 0.2 && P.x < o[1] + 0.2 && P.z > o[2] - 0.2 && P.z < o[3] + 0.2;
+    for (const r of h.roofs) r.visible = !inside;
+    if (h.coopDoor) {
+      const D = h.coopDoor.userData.coopDoor, tgt = night ? D.shut : D.open;
+      h.coopDoor.position.x += (tgt - h.coopDoor.position.x) * Math.min(1, dt * 1.5);
+    }
+  }
+}
+/* ===== 雪：ほんとうに積もって、とけていく（0.9.42） =====
+   Daiさん：地面に丸い雪の白が点々とあるのではなく、もっとまとめて白く。本当に雪が積もって、溶けていく時の法則で。
+   雪は綺麗なので、少しドラマティックに積もってもいい。その時は、キツネが見える時もあるように。
+   ・地面を0.5mの升に分け、升ごとに雪の深さ（cm）を持つ
+   ・積もる：降った雪に「その場所の積もりやすさ」をかける
+       水の上には積もらない／屋根の下には積もらない／はじめの雪は、地面の熱でとける（道路とコンクリートは長く、土は少し、草の上はすぐ積もる）
+       常緑の木の下は、枝が受けとめて少ない／屋根から落ちた雪が、軒下に積もる／柵ぞいに吹きだまる／風で、場所ごとに少しずつちがう
+   ・とける（気温と日差しの2つ）：
+       気温の分 … 0度より上の分だけ（どこも同じ。日かげは空気も冷たいので少なめ）。デグリーデイ法（1度・1日あたり数mmの水）
+       日差しの分 … 日なただけ。建物と木の影（冬の低い太陽で、北側に長くのびる）は少ない
+       木の根もとは、幹があたたまって先にとける（根開き）。建物の南の壁ぎわも早い。踏まれて黒ずんだ所、道路も早い
+   ・だから、とけ残りは丸い点ではなく、建物の北側、木の影、軒下、吹きだまりにそった形になる
+   ・地面の絵は、深さの地図をシェーダーに渡して、深さ1cmくらいを境に白くする（境は細かなノイズでぎざぎざに）
+   ・週のあいだの6日も、天気（ときどき雪）と気温で進める。日曜日は、遊んでいる間に降り、とける
+   ・雪の上には、あなたの足あとと、キツネの一本線の足あとが残る（キツネは前足の跡に後ろ足を重ねるので、一直線に並ぶ） */
+
+const SN = { n: 224, cs: 0.5, o: -56, ready: false, d: null, pre: null, acc: null, stick: null, mT: null, mS: null, shade: null, trod: null,
+  tex: null, buf: null, cover: 0, deep: 0, lastClock: null, upT: 0, dirty: false, any: false, prints: null, pd: [], pi: 0, walk: 0, foot: 1, fox: null, roofOv: null, roofSig: -1 };
+const SNOW_U = { snowMap: { value: null }, snowOn: { value: 0 } };
+
+function snowState() {
+  if (!G.snow || !Array.isArray(G.snow.ev)) G.snow = { ev: [], open: 0, shade: 0, deep: 0, pO: 0, roof: 0, tree: 0, rate: 1.5, heavy: false };
+  return G.snow;
+}
+function snVN(x, z) { const ix = Math.floor(x), iz = Math.floor(z), fx = x - ix, fz = z - iz, u = fx * fx * (3 - 2 * fx), v = fz * fz * (3 - 2 * fz);
+  const a = hash2(ix, iz), b = hash2(ix + 1, iz), c = hash2(ix, iz + 1), d = hash2(ix + 1, iz + 1); return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v; }
+function snFbm(x, z) { return snVN(x, z) * 0.6 + snVN(x * 2.7 + 13.1, z * 2.7 - 7.3) * 0.4; }
+function snIdx(x, z) { const i = Math.floor((x - SN.o) / SN.cs), j = Math.floor((z - SN.o) / SN.cs); return (i < 0 || j < 0 || i >= SN.n || j >= SN.n) ? -1 : j * SN.n + i; }
+function snowAt(x, z) { if (!SN.ready) return 0; const k = snIdx(x, z); return k < 0 ? 0 : SN.d[k]; }
+
+/* ---- 日かげ：冬の太陽（南東・南・南西、高さ24度・32度・24度）で、建物と木の影を地面に落とす ---- */
+const SUN_S = [[-0.7, 0.42, 0.25], [0, 0.56, 0.5], [0.7, 0.42, 0.25]]; // [方位（南から西へ、ラジアン）, 高さ, 重み]
+function snowShade() {
+  const n = SN.n, cs = SN.cs, o = SN.o, sh = SN.shade; sh.fill(0);
+  const cc = (i) => o + (i + 0.5) * cs, ci = (v) => Math.floor((v - o) / cs);
+  for (const [az, el, wt] of SUN_S) {
+    const sx = -Math.sin(az), sz = Math.cos(az), te = Math.tan(el), tmp = new Float32Array(n * n);
+    // 箱（建物、柵）：その升から太陽のほうへ進んで、箱に当たるか
+    const boxes = (W.shadeBoxes || []).map((b) => [b[0], b[1], b[2], b[3], b[4], 1]).concat((W.fenceCols || []).map((c) => [c[0], c[1], c[2], c[3], 1.1, 0.35]));
+    for (const [x0, x1, z0, z1, h, dens] of boxes) {
+      const L = h / te, bx0 = Math.min(x0, x0 - sx * L), bx1 = Math.max(x1, x1 - sx * L), bz0 = Math.min(z0, z0 - sz * L), bz1 = Math.max(z1, z1 - sz * L);
+      for (let j = Math.max(0, ci(bz0)); j <= Math.min(n - 1, ci(bz1)); j++) { const z = cc(j);
+        for (let i = Math.max(0, ci(bx0)); i <= Math.min(n - 1, ci(bx1)); i++) { const x = cc(i);
+          let t0 = 0, t1 = L;
+          if (Math.abs(sx) < 1e-6) { if (x < x0 || x > x1) continue; } else { let a = (x0 - x) / sx, b = (x1 - x) / sx; if (a > b) { const q = a; a = b; b = q; } t0 = Math.max(t0, a); t1 = Math.min(t1, b); }
+          if (Math.abs(sz) < 1e-6) { if (z < z0 || z > z1) continue; } else { let a = (z0 - z) / sz, b = (z1 - z) / sz; if (a > b) { const q = a; a = b; b = q; } t0 = Math.max(t0, a); t1 = Math.min(t1, b); }
+          if (t0 <= t1) { const k = j * n + i; if (dens > tmp[k]) tmp[k] = dens; }
+        } }
+    }
+    // 木：枝の影（冬の落葉樹は枝だけなので、うすい。常緑の木とササは濃い）
+    for (const t of ((W.forest && W.forest.items) || [])) {
+      if (t.type === 'bush') continue;
+      const ever = t.type === 'conifer' || t.type === 'bamboo', s = t.s || 1, hc = (ever ? 4.5 : 4) * s, rc = (ever ? 2.0 : 2.2) * s, dens = ever ? 0.85 : 0.35;
+      const cx = t.x - sx * hc / te, cz = t.z - sz * hc / te, R = rc * 1.15;
+      for (let j = Math.max(0, ci(cz - R)); j <= Math.min(n - 1, ci(cz + R)); j++) for (let i = Math.max(0, ci(cx - R)); i <= Math.min(n - 1, ci(cx + R)); i++) {
+        const dx = cc(i) - cx, dz = cc(j) - cz, d = Math.hypot(dx, dz); if (d > R) continue; const k = j * n + i, v = dens * (1 - Math.pow(d / R, 3)); if (v > tmp[k]) tmp[k] = v;
+      }
+    }
+    for (let k = 0; k < n * n; k++) sh[k] += tmp[k] * wt;
+  }
+}
+/* ---- 場所ごとの、積もりやすさ・とけやすさ（作り直した時に一度だけ） ---- */
+function snowStatic() {
+  const n = SN.n, N = n * n, cs = SN.cs, o = SN.o;
+  if (!SN.d) { for (const k of ['d', 'pre', 'acc', 'stick', 'mT', 'mS', 'shade', 'trod']) SN[k] = new Float32Array(N); SN.buf = new Uint8Array(N * 4); }
+  snowShade();
+  const dry = W.dryRects || [], trees = ((W.forest && W.forest.items) || []).filter((t) => t.type !== 'bush'), boxes = W.shadeBoxes || [], fences = W.fenceCols || [];
+  for (let j = 0; j < n; j++) { const z = o + (j + 0.5) * cs;
+    for (let i = 0; i < n; i++) { const x = o + (i + 0.5) * cs, k = j * n + i;
+      let acc = 1, stick = 0.25, mT = 1, mS = 1;
+      const nA = snFbm(x * 0.16 + 3.1, z * 0.16 - 1.7), nM = snFbm(x * 0.2 - 8.4, z * 0.2 + 5.2);
+      acc *= 0.82 + 0.36 * nA; mT *= 0.85 + 0.3 * nM; mS *= 0.8 + 0.4 * nM;
+      // 水の上、屋根の下
+      if ((WS.pond && Math.hypot(x - POND.x, z - POND.z) < POND.r - 0.1) || (WS.stream && z < -26 && z > -46 && Math.abs(z - streamZ(x)) < 1.15)) acc = 0;
+      for (const r of dry) if (x > r[0] && x < r[1] && z > r[2] && z < r[3]) { acc = 0; break; }
+      // 道路・歩道・線路（車と人で踏まれ、地面もあたたかい）
+      if (z > 49.6) { if (z < 50.5) { stick = 1.6; mT *= 2.2; mS *= 1.6; } else if (z < 52.5) { stick = 3; acc *= 0.6; mT *= 3.5; mS *= 2; } else if (z > 53.1 && z < 55.6) { stick = 0.8; mT *= 1.3; } }
+      else {
+        const pi = pathInfo(x, z);
+        if (pi && pi.t > 0.45) { stick = pi.kind === 'gravel' ? 1.1 : 0.9; mT *= 1.7; mS *= 1.4; }
+        else if (pi && pi.t > 0.02) { acc *= 1.18; } // 道のわきに、寄せられた雪
+        if (inRect(x, z, ZONES.chicken.rect) || (WS.stage >= 2 && inRect(x, z, ZONES.pig.rect))) { stick = Math.max(stick, 0.6); mT *= 1.15; }
+        if (WS.mud && Math.hypot(x - MUD.x, z - MUD.z) < MUD.r) { stick = 1.2; mT *= 1.4; }
+      }
+      // 建物：軒下に落ちた雪の山（とけにくい）／南の壁ぎわは、日の照り返しで早い
+      for (const b of boxes) {
+        if (x < b[0] - 1.8 || x > b[1] + 1.8 || z < b[2] - 1.8 || z > b[3] + 1.8) continue;
+        const dx = Math.max(b[0] - x, 0, x - b[1]), dz = Math.max(b[2] - z, 0, z - b[3]), d = Math.max(dx, dz);
+        if (d > 0 && d < 0.8 && b[4] > 1.6) { acc *= 1.4; mT *= 0.85; }
+        if (z > b[3] && z < b[3] + 1.6 && x > b[0] && x < b[1]) { mS *= 1.5; mT *= 1.25; }
+      }
+      // 柵ぞいの吹きだまり
+      for (const c of fences) { if (x > c[0] - 0.7 && x < c[1] + 0.7 && z > c[2] - 0.7 && z < c[3] + 0.7) { acc *= 1.16; break; } }
+      // 木：常緑の木の下は、枝が雪を受けとめて少ない。根もとは、幹があたたまって先にとける（根開き）
+      for (const t of trees) {
+        const dx = x - t.x, dz = z - t.z; if (dx > 3 || dx < -3 || dz > 3 || dz < -3) continue;
+        const d = Math.hypot(dx, dz), s = t.s || 1, ever = t.type === 'conifer' || t.type === 'bamboo', cr = (ever ? 2.0 : 1.6) * s;
+        if (d < cr) acc *= ever ? 0.35 + 0.65 * (d / cr) : 0.8 + 0.2 * (d / cr);
+        const tw = 0.6 + 0.5 * s; if (d < tw) { const q = 1 - d / tw; mT *= 1 + 1.8 * q; mS *= 1 + 2.4 * q; }
+      }
+      // 日かげは、日差しの分がほとんどなく、空気も冷たい
+      const shd = Math.min(1, SN.shade[k]);
+      mS *= 1 - 0.88 * shd; mT *= 1 - 0.5 * shd;
+      acc = Math.min(acc, 1.6); mT = Math.max(mT, 0.42);
+      SN.acc[k] = acc; SN.stick[k] = stick; SN.mT[k] = mT; SN.mS[k] = mS;
+    } }
+}
+/* ---- 降る・とける（升ごと） ---- */
+function snowFallField(F) {
+  const N = SN.n * SN.n, d = SN.d, pre = SN.pre, acc = SN.acc, st = SN.stick;
+  for (let k = 0; k < N; k++) { const a = acc[k]; if (a <= 0) continue; let r = F; const p = pre[k], s = st[k]; if (p < s) { const u = Math.min(r, s - p); pre[k] = p + u; r -= u; } if (r > 0) d[k] += r * a; }
+  SN.any = true;
+}
+function snowMeltField(T, S) {
+  if (!SN.any) return;
+  const N = SN.n * SN.n, d = SN.d, pre = SN.pre, mT = SN.mT, mS = SN.mS, tr = SN.trod; let any = false;
+  for (let k = 0; k < N; k++) {
+    const v = d[k];
+    if (v > 0) { const m = T * mT[k] * (1 + tr[k] * 0.4) + S * mS[k] * (1 + tr[k] * 0.6); const nv = v - m; if (nv > 0) { d[k] = nv; any = true; } else { d[k] = 0; tr[k] = 0; } }
+    else if (pre[k] > 0) { pre[k] = Math.max(0, pre[k] - (T + S) * 2); if (pre[k] > 0) any = true; }
+  }
+  SN.any = any;
+}
+// 開けた所・日かげ・吹きだまりの目安（升を持たない時も、週の知らせとキツネのために）
+function snowScalars(type, v) {
+  const st = snowState();
+  if (type === 'f') { const u = Math.min(v, Math.max(0, 0.25 - st.pO)); st.pO += u; const r = v - u; st.open += r; st.shade += r; st.deep += r * 1.4; }
+  else { const [T, S] = v; st.open = Math.max(0, st.open - T - S); st.shade = Math.max(0, st.shade - T * 0.5 - S * 0.12); st.deep = Math.max(0, st.deep - T * 0.42 - S * 0.06); if (!st.open) st.pO = Math.max(0, st.pO - (T + S) * 2); }
+}
+function snowEvent(type, v, field) {
+  const st = snowState(), ev = st.ev, last = ev[ev.length - 1];
+  if (type === 'f') { if (!(v > 0.001)) return; if (last && last[0] === 'f') last[1] = +(last[1] + v).toFixed(3); else ev.push(['f', +v.toFixed(3)]); }
+  else { if (!(v[0] + v[1] > 0.0005)) return; if (!st.deep && !SN.any && !ev.length) return; if (last && last[0] === 'm') { last[1] = +(last[1] + v[0]).toFixed(4); last[2] = +(last[2] + v[1]).toFixed(4); } else ev.push(['m', +v[0].toFixed(4), +v[1].toFixed(4)]); }
+  snowScalars(type, v);
+  if (field && SN.ready) { if (type === 'f') snowFallField(v); else snowMeltField(v[0], v[1]); SN.dirty = true; }
+  // すっかりとけたら、記録を空に
+  if (type === 'm' && st.deep <= 0 && (!SN.ready || !SN.any)) { st.ev = []; st.pO = 0; }
+  if (ev.length > 60) { st.ev = ev.slice(-60); }
+}
+// 記録から、升の雪を作り直す（読み込んだ時、段階が変わって小屋が増えた時）
+function snowReplay() {
+  const st = snowState(); SN.d.fill(0); SN.pre.fill(0); SN.trod.fill(0); SN.any = false;
+  for (const e of st.ev) { if (e[0] === 'f') snowFallField(e[1]); else snowMeltField(e[1], e[2]); }
+}
+
+/* ---- 気温と日差し（東京の郊外の冬。日の出前がいちばん寒く、昼すぎがいちばん暖かい） ---- */
+const SNOW_TEMP = { 11: [16, 6], 12: [11, 1], 1: [9.5, -1.5], 2: [10, -1], 3: [14, 2.5], 4: [19, 8] };
+function airTemp(t, w, md) {
+  const m = (md || calMD())[0], [hi0, lo0] = SNOW_TEMP[m] || [24, 16];
+  let hi = hi0, lo = lo0; w = w || G.weather;
+  if (w === 'snow') return 0.4; if (w === 'rain') { hi = Math.max(3, hi - 4); lo = Math.max(2, lo + 2); }
+  if (w === 'cloudy') { hi -= 3; lo += 2; }
+  const k = t < 0.25 || t > 0.9 ? 0 : t < 0.58 ? Math.sin((t - 0.25) / 0.33 * Math.PI / 2) : Math.cos((t - 0.58) / 0.32 * Math.PI / 2);
+  return lo + (hi - lo) * Math.max(0, k);
+}
+function sunI(t, w) { w = w || G.weather; if (t < 0.29 || t > 0.71 || w === 'snow' || w === 'rain') return 0; const k = Math.sin((t - 0.29) / 0.42 * Math.PI); return w === 'cloudy' ? k * 0.22 : k; }
+const SNOW_KT = 0.05, SNOW_KS = 0.3; // 気温1度・1時間あたり（cm）、強い日差し1時間あたり（cm）
+// 1日ぶんの、とける量（24時間を1時間ずつ）
+function snowDayMelt(w, md) { let T = 0, S = 0; for (let h = 0; h < 24; h++) { const t = (h + 0.5) / 24; T += SNOW_KT * Math.max(0, airTemp(t, w, md)); S += SNOW_KS * sunI(t, w); } return [T, S]; }
+
+/* ---- 週のあいだ（月〜土）：天気と気温で。ときどき雪の日。日曜日が雪なら、夜のうちに積もりはじめる ---- */
+function snowWeek(first) {
+  const st = snowState(), msgs = [];
+  if (!first) {
+    const days = ['月', '火', '水', '木', '金', '土'];
+    let heavyDay = null, snowDay = null;
+    for (let k = 0; k < 6; k++) {
+      const iso = addDays(G.date, -6 + k), dt = dateOf(iso), md = [dt.getMonth() + 1, dt.getDate()], v = md[0] * 100 + md[1], ok = v >= 1216 || v <= 229;
+      const r = Math.random(), w = ok && r < 0.045 ? 'snow' : r < 0.13 ? 'rain' : r < 0.47 ? 'cloudy' : 'sunny';
+      if (w === 'snow') { const heavy = Math.random() < 0.16, F = heavy ? rand(14, 26) : rand(3, 10); snowEvent('f', F); if (heavy) heavyDay = days[k]; else if (!snowDay) snowDay = days[k]; snowEvent('m', snowDayMelt('cloudy', md).map((x) => x * 0.3)); }
+      else snowEvent('m', snowDayMelt(w, md));
+    }
+    if (heavyDay) msgs.push(`${heavyDay}曜日に、大雪が降りました。日かげや軒下には、まだたくさん残っています`);
+    else if (snowDay && st.shade > 0.5) msgs.push(`${snowDay}曜日に、雪が降りました。日かげには、まだ白く残っています`);
+  }
+  st.heavy = false; st.rate = 1.4;
+  if (G.weather === 'snow' && snowOK()) {
+    const heavy = Math.random() < 0.28; st.heavy = heavy; st.rate = heavy ? 3.2 : 1.4;
+    snowEvent('f', heavy ? rand(9, 16) : rand(2, 6)); st.tree = heavy ? 4 : 2; st.roof += heavy ? 12 : 4;
+    msgs.push(heavy ? '一晩で、雪がたくさん積もりました。丘じゅうが、まっ白です' : '雪が積もりはじめています。東京の郊外では、めずらしい景色です');
+  } else { st.tree = 0; st.roof = Math.max(0, st.roof - 6); }
+  G.groundSnow = st.open > 1.2;
+  return msgs;
+}
+
+/* ---- 作り直す：升の積もりやすさ → 記録をたどる → 絵 ---- */
+function snowRebuild() {
+  if (!TER.mesh) return;
+  const st = snowState();
+  // 前の版の続き：雪の週だったら、少し積もった所から
+  if (!st.ev.length && G.groundSnow && snowOK() && !st.migrated) { st.migrated = true; snowEvent('f', 6); st.tree = 2; st.roof = 4; }
+  snowStatic(); snowReplay();
+  if (!SN.tex) {
+    SN.tex = new THREE.DataTexture(SN.buf, SN.n, SN.n, THREE.RGBAFormat); SN.tex.magFilter = THREE.LinearFilter; SN.tex.minFilter = THREE.LinearFilter; SN.tex.wrapS = SN.tex.wrapT = THREE.ClampToEdgeWrapping;
+    SNOW_U.snowMap.value = SN.tex;
+  }
+  SN.ready = true; SN.lastClock = null; SN.roofSig = -1;
+  snowPrintsInit(); snowUpload(); snowFoxTracks();
+}
+function snowUpload() {
+  const N = SN.n * SN.n, b = SN.buf, d = SN.d, sh = SN.shade, tr = SN.trod;
+  let land = 0, cov = 0, mx = 0;
+  for (let k = 0; k < N; k++) {
+    const v = d[k]; b[k * 4] = Math.min(255, v / 40 * 255); b[k * 4 + 1] = Math.min(255, sh[k] * 255); b[k * 4 + 2] = Math.min(255, tr[k] * 255); b[k * 4 + 3] = 255;
+    if (SN.acc[k] > 0) { land++; if (v > 1) cov++; } if (v > mx) mx = v;
+  }
+  SN.cover = land ? cov / land : 0; SN.deep = mx;
+  SN.tex.needsUpdate = true; SNOW_U.snowOn.value = mx > 0.05 ? 1 : 0;
+  SN.dirty = false;
+  WS.snow = SN.cover > 0.45; WS.snowCover = SN.cover;
+  snowPrintsMelt(); snowVisuals();
+}
+/* ---- 木・草・屋根・池の見た目（雪の量に合わせて、少しずつ） ---- */
+const FOLIAGE_SNOW = { elm: '#DCDFDD', birch: '#DDE0DE', conifer: '#8AA096', maple: '#DCDFDD', sakura: '#DCDFDD', young: '#DCDFDD', bamboo: '#A9BFA6' };
+const _snc = new THREE.Color();
+function snowVisuals() {
+  if (!G || !NM.foliage) return;
+  const st = snowState(), tk = clamp(st.tree / 2.5, 0, 1), gk = clamp(SN.cover * 1.1, 0, 1);
+  setFoliageSeason(G.season, false);
+  if (tk > 0) for (const k in FOLIAGE_SNOW) if (NM.foliage[k]) NM.foliage[k].color.lerp(_snc.set(FOLIAGE_SNOW[k]), tk);
+  if (gk > 0) { NM.grass.color.lerp(_snc.set('#E8ECEC'), gk * 0.9); NM.tallGrass.color.lerp(_snc.set('#E2E6E4'), gk * 0.75); }
+  // 屋根：3cmより多ければ白く。それより少ない時は、まだらに残る
+  const full = st.roof > 3, part = !full && st.roof > 0.5;
+  for (const r of ROOFS) { if (!r.userData.orig) r.userData.orig = r.material; r.material = full ? NM.snow : r.userData.orig; }
+  if (part && SN.roofSig !== W.ver) snowRoofPatches();
+  if (SN.roofOv) SN.roofOv.visible = part;
+  if (typeof SEA !== 'undefined' && SEA.icicles) SEA.icicles.visible = st.roof > 1.5 && snowOK();
+  NM.water.color.set(SN.cover > 0.3 ? '#4C8AA2' : '#5E9FB8'); NM.water.opacity = 0.9;
+}
+function snowRoofPatches() {
+  SN.roofSig = W.ver;
+  if (SN.roofOv && SN.roofOv.parent) SN.roofOv.parent.remove(SN.roofOv);
+  if (!SNOW_ROOF_MAT) { SNOW_ROOF_MAT = new THREE.MeshLambertMaterial({ map: snowPatchTex(11, true), transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2 }); }
+  const g = new THREE.Group(), v = new THREE.Vector3(), q = new THREE.Quaternion(), sc = new THREE.Vector3();
+  for (const r of ROOFS) {
+    if (!r.parent) continue;
+    r.updateWorldMatrix(true, false); r.matrixWorld.decompose(v, q, sc);
+    const m = new THREE.Mesh(r.geometry, SNOW_ROOF_MAT); m.position.copy(v).add(new THREE.Vector3(0, 0.03, 0)); m.quaternion.copy(q); m.scale.copy(sc).multiplyScalar(1.01); m.renderOrder = 2; g.add(m);
+  }
+  W.layers.base.add(g); SN.roofOv = g;
+}
+
+/* ---- 足あと（あなたと、キツネ）。雪がとけたら消える ---- */
+const SN_PRINTS = 700;
+function snowPrintsInit() {
+  if (SN.prints && SN.prints.parent) SN.prints.parent.remove(SN.prints);
+  const m = new THREE.MeshLambertMaterial({ color: '#7D93AC', transparent: true, opacity: 0.72, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -3 });
+  const im = new THREE.InstancedMesh(G3.circle, m, SN_PRINTS), o = new THREE.Object3D(); o.scale.set(0, 0, 0); o.updateMatrix();
+  for (let i = 0; i < SN_PRINTS; i++) im.setMatrixAt(i, o.matrix);
+  im.frustumCulled = false; im.renderOrder = 3; W.layers.base.add(im);
+  SN.prints = im; SN.pd = []; SN.pi = 0;
+}
+function snowPrint(x, z, rot, sx, sz) {
+  if (!SN.prints || snowAt(x, z) < 0.9) return;
+  const o = new THREE.Object3D(); o.position.set(x, heightAt(x, z) + 0.05 + Math.min(0.12, snowAt(x, z) * 0.006), z); o.rotation.set(-Math.PI / 2, 0, rot); o.scale.set(sx, sz, 1); o.updateMatrix();
+  const i = SN.pi; SN.prints.setMatrixAt(i, o.matrix); SN.prints.instanceMatrix.needsUpdate = true; SN.pd[i] = [x, z]; SN.pi = (i + 1) % SN_PRINTS;
+}
+function snowPrintsMelt() {
+  if (!SN.prints) return; let ch = false; const o = new THREE.Object3D(); o.scale.set(0, 0, 0); o.updateMatrix();
+  for (let i = 0; i < SN.pd.length; i++) { const p = SN.pd[i]; if (p && snowAt(p[0], p[1]) < 0.7) { SN.prints.setMatrixAt(i, o.matrix); SN.pd[i] = null; ch = true; } }
+  if (ch) SN.prints.instanceMatrix.needsUpdate = true;
+}
+// キツネの一本線（前足の跡に後ろ足を重ねて歩くので、一直線に並ぶ）
+function snowFoxLine(pts) {
+  for (let k = 0; k < pts.length - 1; k++) {
+    const [ax, az] = pts[k], [bx, bz] = pts[k + 1], L = Math.hypot(bx - ax, bz - az), n = Math.floor(L / 0.34), rot = Math.atan2(bx - ax, bz - az);
+    for (let i = 0; i < n; i++) { const t = i / n; snowPrint(ax + (bx - ax) * t + Math.sin(i * 1.7) * 0.03, az + (bz - az) * t, rot, 0.09, 0.12); }
+  }
+}
+// 雪の朝に知らせた「柵のまわりのキツネの足跡」を、ほんとうに残す
+function snowFoxTracks() {
+  if (!G.flags || !G.flags['fox' + G.turn] || SN.cover < 0.15) return;
+  const P = W.perimOut;
+  if (P && P.length) {
+    const north = Math.min(...P.map((p) => p[1])), z = north - 1.6;
+    snowFoxLine([[-14, z - 2.5], [-6, z - 0.4], [3, z + 0.3], [11, z - 0.5], [16, z - 3.5], [22, z - 6]]);
+  } else snowFoxLine([[2, 9.5], [9, 11.8], [16, 12.2], [22, 11.6], [29, 12.0], [33, 9]]);
+}
+
+/* ---- 毎フレーム：降る・とける・踏む・足あと・キツネ ---- */
+function snowFrame(dt) {
+  if (!SN.ready || !G || !STARTED || !(dt > 0)) return;
+  const st = snowState(), c = dayTime();
+  if (SN.lastClock === null) SN.lastClock = c;
+  let dd = c - SN.lastClock; if (dd < -0.5) dd += 1; SN.lastClock = c;
+  // 降る量・とける量は、0.5秒ぶんずつまとめて升に（毎フレーム升ぜんぶを見ないように）
+  const pd = SN.pend || (SN.pend = { f: 0, T: 0, S: 0, t: 0 });
+  if (dd > 0 && dd < 0.2) {
+    const h = dd * 24;
+    if (G.weather === 'snow' && snowOK()) {
+      const f = (st.rate || 1.4) * h; pd.f += f; st.tree = Math.min(6, st.tree + f * 0.9); st.roof += f;
+    } else if (!hako() || st.ev.length) {
+      const T = SNOW_KT * Math.max(0, airTemp(c)) * h, S = SNOW_KS * sunI(c) * h;
+      pd.T += T; pd.S += S;
+      st.roof = Math.max(0, st.roof - (T * 1.5 + S * 1.3)); if (st.roof > 16) st.roof = 7; // 重くなった屋根の雪は、すべり落ちる
+      st.tree = Math.max(0, st.tree - (0.4 + 3.2 * sunI(c) + 0.25 * Math.max(0, airTemp(c))) * h);
+    }
+  }
+  pd.t += dt;
+  if (pd.t > 0.5) { pd.t = 0; if (pd.f > 0) { snowEvent('f', pd.f, true); pd.f = 0; } if (pd.T + pd.S > 0) { snowEvent('m', [pd.T, pd.S], true); pd.T = 0; pd.S = 0; } }
+  // 踏まれた所（あなたと、動いている動物）
+  if (SN.any) {
+    const P = ACT.player;
+    if (P) {
+      const k = snIdx(P.x, P.z);
+      if (k >= 0 && SN.d[k] > 0.5 && P.moving) { SN.trod[k] = Math.min(1, SN.trod[k] + dt * 1.2); SN.walk += (P.spd || 3.6) * dt; if (SN.walk > 0.42) { SN.walk = 0; SN.foot = -SN.foot; const ox = Math.cos(P.heading) * 0.13 * SN.foot, oz = -Math.sin(P.heading) * 0.13 * SN.foot; snowPrint(P.x + ox, P.z + oz, P.heading, 0.13, 0.26); } }
+    }
+    for (const e of ACT.animals) { if (!e.target) continue; const k = snIdx(e.x, e.z); if (k >= 0 && SN.d[k] > 0.5) SN.trod[k] = Math.min(1, SN.trod[k] + dt * 0.35); }
+  }
+  foxFrame(dt);
+  SN.upT -= dt;
+  if (SN.upT <= 0) { SN.upT = 1; if (SN.dirty || SN.any) snowUpload(); }
+}
+
+/* ---- キツネ：雪の朝と夕方、ときどき柵の外を通る。雪の下のネズミの音を聞いて、跳びこむ ----
+   追い払わず、捕まえず、見守るだけ（鶏たちは柵と小屋で守られている。約束8） */
+function foxFrame(dt) {
+  const F = SN.fox || (SN.fox = { turn: -1, tried: {}, ent: null });
+  if (F.turn !== G.turn) { F.turn = G.turn; F.tried = {}; if (F.ent) foxGone(); }
+  const t = SKY.t, win = t > 0.23 && t < 0.38 ? 'am' : t > 0.6 && t < 0.78 ? 'pm' : (snowState().heavy && t > 0.4 && t < 0.6) ? 'day' : null;
+  if (!F.ent && win && !F.tried[win] && SN.cover > 0.2 && G.stage >= 1) {
+    F.tried[win] = true;
+    if (Math.random() < (win === 'day' ? 0.5 : 0.72)) foxSpawn();
+  }
+  if (F.ent) foxStep(F.ent, dt);
+}
+// 道すじ：あなたから14〜24m離れた所を、まっすぐ横切る。建物や柵の中、鳥とウサギの庭のそばは通らない
+function foxRoute() {
+  const P = ACT.player, g = anavGrid(), bird = Object.keys(ZONES).filter((k) => !ROAM.has(k) && G.stage >= ZONES[k].stage).map((k) => ZONES[k].rect);
+  const okPt = (x, z) => Math.abs(x) < 54 && z > -54.5 && z < 48 && !bird.some((r) => x > r[0] - 6 && x < r[1] + 6 && z > r[2] - 6 && z < r[3] + 6) && (!isLandAt(x, z) || roamFree(x, z, g));
+  for (let k = 0; k < 60; k++) {
+    const a = rand(0, 6.28), dist = rand(14, 24), cx = P.x + Math.cos(a) * dist, cz = P.z + Math.sin(a) * dist, dir = a + Math.PI / 2 + rand(-0.4, 0.4), L = rand(26, 34);
+    const pts = []; let ok = true;
+    for (let i = 0; i <= 6 && ok; i++) { const t = (i / 6 - 0.5) * L, x = cx + Math.cos(dir) * t + rand(-0.8, 0.8), z = cz + Math.sin(dir) * t + rand(-0.8, 0.8); if (!okPt(x, z)) ok = false; pts.push([x, z]); }
+    if (ok) return pts;
+  }
+  return null;
+}
+function foxSpawn() {
+  const route = foxRoute(); if (!route) return;
+  const m = modelWild('fox'); ACT.layer.add(m.root);
+  const e = { m, x: route[0][0], z: route[0][1], heading: 0, kind: 'wild', wild: 'fox', name: 'キツネ', reach: 6, route: route.slice(1), phase: 0, pause: 0, pounces: 1 + (Math.random() < 0.6 ? 1 : 0), jump: 0, flee: false, lastP: [route[0][0], route[0][1]], snowFox: true };
+  ACT.wild.push(e); SN.fox.ent = e;
+}
+function foxGone() { const e = SN.fox.ent; if (!e) return; ACT.layer.remove(e.m.root); ACT.wild = ACT.wild.filter((w) => w !== e); SN.fox.ent = null; }
+function foxStep(e, dt) {
+  const P = ACT.player;
+  if (!e.flee && P && Math.hypot(P.x - e.x, P.z - e.z) < 13) { e.flee = true; e.pause = 0; e.jump = 0; }
+  let moving = false, y = heightAt(e.x, e.z);
+  if (e.jump > 0) { // ネズミの音のする所へ、弧を描いて跳びこむ
+    e.jump -= dt; const k = 1 - Math.max(0, e.jump) / 1.1, h = Math.sin(k * Math.PI) * 0.9;
+    e.x += Math.sin(e.heading) * 1.1 * dt; e.z += Math.cos(e.heading) * 1.1 * dt; y += h;
+    if (e.m.rig) e.m.rig.rotation.x = k < 0.5 ? -0.5 : 1.0;
+    if (e.jump <= 0) { e.jump = 0; e.pause = rand(1.5, 2.6); if (e.m.rig) e.m.rig.rotation.x = 0; snowPrint(e.x, e.z, e.heading, 0.35, 0.45); }
+  } else if (e.pause > 0) {
+    e.pause -= dt; if (e.m.head) e.m.head.rotation.x = 0.6; // 首をかしげて、雪の下の音を聞く
+    if (e.pause <= 0 && e.jumpNext && !e.flee) { e.jumpNext = false; e.jump = 1.1; }
+  } else {
+    const tgt = e.route[0]; if (!tgt) { foxGone(); return; }
+    const dx = tgt[0] - e.x, dz = tgt[1] - e.z, d = Math.hypot(dx, dz), spd = e.flee ? 4.2 : 1.35;
+    if (d < 0.4) { e.route.shift(); if (!e.flee && e.pounces > 0 && e.route.length > 1 && Math.random() < 0.55) { e.pounces--; e.pause = rand(2.4, 4); e.jumpNext = true; } }
+    else { e.x += dx / d * spd * dt; e.z += dz / d * spd * dt; e.heading = Math.atan2(dx, dz); e.phase += dt * spd * 4; moving = true; }
+  }
+  if (moving && Math.hypot(e.x - e.lastP[0], e.z - e.lastP[1]) > 0.34) { e.lastP = [e.x, e.z]; snowPrint(e.x, e.z, e.heading, 0.09, 0.12); }
+  e.m.root.position.set(e.x, y, e.z); e.m.root.rotation.y = e.heading;
+  if (e.m.legs) { const s = moving ? Math.sin(e.phase) * 0.5 : 0; e.m.legs.forEach((l, i) => { l.rotation.x = (i === 0 || i === 3 ? s : -s); }); }
+  if (e.m.head && moving) e.m.head.rotation.x = 0.15;
 }
 /* =========================================================
    登場するもの：あなた、スタッフ、動物、野生の生き物、見学の人
@@ -9710,7 +10531,19 @@ function clampToAreas(A, x, z) {
   return best;
 }
 // 今いる場所から行き先まで、口を通る道すじ（最後が行き先）
+// 小屋の出入りは、入口を通って（0.9.42：中に入れる小屋。前のひらいた小屋も、金網の小屋も）
 function animalRoute(e, target) {
+  if (e.a.sp === 'cat' || typeof SHL === 'undefined' || !SHL.list.length) return animalRoute0(e, target);
+  const hIn = SHL.list.find((h) => inRect(e.x, e.z, h.rect)), hT = SHL.list.find((h) => inRect(target[0], target[1], h.rect));
+  if (hIn === hT) return animalRoute0(e, target);
+  const pts = []; let sx = e.x, sz = e.z;
+  if (hIn) { pts.push(hIn.door.in.slice(), hIn.door.out.slice()); sx = hIn.door.out[0]; sz = hIn.door.out[1]; }
+  const from = { x: sx, z: sz, a: e.a };
+  if (hT) { pts.push(...animalRoute0(from, hT.door.out.slice()), hT.door.in.slice(), [target[0], target[1]]); }
+  else pts.push(...animalRoute0(from, target));
+  return pts;
+}
+function animalRoute0(e, target) {
   if (roams(e.a) || e.a.sp === 'cat') return roamRoute(e, target);
   const A = animalAreas(e.a), t = clampToAreas(A, target[0], target[1]);
   const s0 = areaOf(A, e.x, e.z), s1 = areaOf(A, t[0], t[1]);
@@ -9894,6 +10727,12 @@ function fenceSpot(e, r) {
   if (i === 2) { t[1] = r[2] + m; return { t, h: Math.random() < 0.5 ? 0 : Math.PI }; }
   t[1] = r[3] - m; return { t, h: Math.random() < 0.5 ? 0 : Math.PI };
 }
+// その子の好きな眠る場所へ（0.9.42。shelters.js の sleepPlan）。着いていれば、そこで眠る
+function goSleep(e) {
+  const S = sleepOf(e.a); if (!S) return false;
+  if (Math.hypot(S.x - e.x, S.z - e.z) < 0.45) { e.state = 'sleep'; e.target = null; e.timer = rand(14, 32); e.atSlot = S; e.sleepGo = S; e.heading = S.h; return true; }
+  e.sleepGo = S; e.atSlot = null; e.target = [S.x, S.z]; e.state = 'toRest'; e.timer = rand(10, 18); return true;
+}
 function animalThink(e) {
   if (e.a.sp === 'cat') { catThink(e); return; }
   const a = e.a, r = zoneRectFor(a), sp = a.sp, H = SP_HABIT[sp] || {}, T = temperOf(e);
@@ -9910,6 +10749,7 @@ function animalThink(e) {
     if (owl && owl.e === e && now < owl.until) { e.target = nearCoop(); e.state = 'walk'; e.timer = rand(3, 6); return; }
     if (owl && owl.e === e) ACT.nightOwl = null;
     else if (!owl && sp === 'chicken' && e.state === 'sleep' && Math.random() < 0.04) { ACT.nightOwl = { e, until: now + rand(15000, 30000) }; e.target = nearCoop(); e.state = 'walk'; e.timer = rand(3, 6); return; }
+    if (goSleep(e)) return;
     if (inRect(e.x, e.z, s0)) { e.state = 'sleep'; e.target = null; e.timer = rand(14, 32); return; }
     e.target = randIn(s0, 0.3); e.state = 'toRest'; e.timer = rand(8, 14); return;
   }
@@ -9926,6 +10766,7 @@ function animalThink(e) {
   const night = SKY.night, rain = WS.weather === 'rain', bird = !!SPECIES[sp].bird;
   const home = !quar && (!!a._outHome || (!P.playing && !P.sitting && (night > 0.75 || (G.dayOver && night > 0.15) || (night > 0.25 && Math.random() < 0.5) || (rain && Math.random() < (bird || sp === 'rabbit' ? 0.8 : 0.3)))));
   if (home) {
+    if (goSleep(e)) return;
     const s = shelterFor(a);
     if (inRect(e.x, e.z, s) && Math.random() < 0.85) { e.state = 'sleep'; e.target = null; e.timer = rand(14, 32); return; }
     e.target = randIn(s, 0.3); e.state = 'toRest'; e.timer = rand(8, 14); return;
@@ -10204,7 +11045,7 @@ function updateAnimals(dt, time) {
         e.target = null;
         if (e.state === 'toEat') { e.state = 'eat'; e.timer = rand(6, 10); }
         else if (e.state === 'toUse') { e.state = 'use'; e.timer = rand(6, 11); }
-        else if (e.state === 'toRest') { e.state = 'sleep'; e.timer = rand(6, 12) * (a.sp === 'cat' ? 2.4 : 1); }
+        else if (e.state === 'toRest') { e.state = 'sleep'; e.timer = rand(6, 12) * (a.sp === 'cat' ? 2.4 : 1); if (e.sleepGo && Math.hypot(e.sleepGo.x - e.x, e.sleepGo.z - e.z) < 0.7) { e.atSlot = e.sleepGo; e.heading = e.sleepGo.h; e.timer = rand(14, 32); } }
         else if (e.state === 'toBunt') { e.state = 'bunt'; e.timer = rand(3, 5); }
         else if (e.state === 'toPlayer') { e.state = 'nearPlayer'; e.timer = rand(4, 8) * T.stay; e.tagAlong = Math.random() < 0.5; }
         else if (e.state === 'toPeek') { e.state = 'look'; e.lookAt = [P.x, P.z]; e.peek = true; e.timer = rand(4, 8); }
@@ -10267,8 +11108,10 @@ function updateAnimals(dt, time) {
     const sliding = slideStep(e, dt);
     if (sliding) moving = true;
     // 同じ場所で暮らす仲間と重ならない（鼻を寄せている相手とは、少し近くてよい）
-    if (!sliding) for (const o of ACT.animals) {
-      if (!mateOf(e, o)) continue;
+    if (e.state !== 'sleep') e.atSlot = null;
+    if (e.atSlot) { e.x = e.atSlot.x; e.z = e.atSlot.z; e.heading = e.atSlot.h; }
+    if (!sliding && !e.atSlot) for (const o of ACT.animals) {
+      if (!mateOf(e, o) || o.atSlot) continue;
       const dx = e.x - o.x, dz = e.z - o.z, d2 = dx * dx + dz * dz, min = (SPECIES[o.a.sp].reach + sp.reach) * (e.partner === o || e._bond === o ? 0.24 : 0.32);
       if (d2 < min * min && d2 > 0.0001) { const d = Math.sqrt(d2), push = (min - d) * 0.5; e.x += dx / d * push; e.z += dz / d * push; }
     }
@@ -10276,7 +11119,8 @@ function updateAnimals(dt, time) {
     const AR = areasOf(e);
     if (sliding) { /* すべり終わるまで、そのまま */ } else if (AR.roam) {
       // 歩ける子：歩けない所（建物、小さな動物の区画、敷地の外）に押し出されたら、そっと戻す。小屋の中と、小屋へ向かう時はそのまま
-      const sh = shelterFor(a), inSh = inRect(e.x, e.z, [sh[0] - 1.2, sh[1] + 1.2, sh[2] - 1.2, sh[3] + 1.2]) || (e.target && inRect(e.target[0], e.target[1], sh));
+      const sh = shelterFor(a), hs = e.sleepGo && e.sleepGo.spot.house, ho = hs && hs.outer;
+      const inSh = inRect(e.x, e.z, [sh[0] - 1.2, sh[1] + 1.2, sh[2] - 1.2, sh[3] + 1.2]) || (e.target && inRect(e.target[0], e.target[1], sh)) || (ho && inRect(e.x, e.z, [ho[0] - 1, ho[1] + 1, ho[2] - 1, ho[3] + 1])) || (typeof SHL !== 'undefined' && SHL.list.some((h) => inRect(e.x, e.z, h.rect)));
       const gg = gridOf(a);
       const wet = inPond(e.x, e.z, -1.6) && (a.sp === 'duck' || e.state === 'wade' || e.state === 'toWade' || (e.target && inPond(e.target[0], e.target[1])));
       if (!inSh && !wet && !roamFree(e.x, e.z, gg)) { const c = roamClamp(e.x, e.z, gg), k = Math.min(1, dt * 6); e.x += (c[0] - e.x) * k; e.z += (c[1] - e.z) * k; }
@@ -10286,6 +11130,8 @@ function updateAnimals(dt, time) {
     // 高さ（アヒルは池で泳ぐ）
     let y = heightAt(e.x, e.z), swim = false;
     if (a.sp === 'duck' && WS.pond && Math.hypot(e.x - POND.x, e.z - POND.z) < POND.r - 0.4) { y = WATER_Y - 0.12; swim = true; }
+    // 止まり木や棚の上へ、ぴょんと上がる（降りる時も）
+    { const lt = e.atSlot ? e.atSlot.y : 0; e.lift = (e.lift || 0) + (lt - (e.lift || 0)) * Math.min(1, dt * 7); if (Math.abs(e.lift - lt) < 0.005) e.lift = lt; y += e.lift; }
     e.m.root.position.set(e.x, y, e.z); e.m.root.rotation.y = e.heading;
     animAnimal(e, moving, swim, dt, time);
     e.vt = (e.vt === undefined ? rand(4, 30) : e.vt) - dt;
@@ -10343,10 +11189,17 @@ function unstickCheck(e, dt, AR) {
   e.state = 'idle'; e.timer = again ? rand(2.5, 4) : rand(0.8, 1.6);
   UNSTICK.n++; if (UNSTICK.log.length < 50) UNSTICK.log.push({ id: e.a.id, sp: e.a.sp, x: +e.x.toFixed(1), z: +e.z.toFixed(1), d: +d.toFixed(2), why: shaking ? 'shake' : 'block', dbg });
 }
+// 馬は、仲間が立って見張っている時に、横になって深く眠る。ひとりの時は、立ったまま（0.9.42）
+function horseWatch(e) {
+  if (e.a.sp !== 'horse' || !e.atSlot) return false;
+  const S = e.atSlot, mates = ACT.animals.filter((o) => o !== e && o.a.sp === 'horse' && o.atSlot && o.atSlot.spot === S.spot).length;
+  if (!mates) return true;
+  return (S.slot % 2 === 0) === (SKY.t > 0.5);
+}
 function animAnimal(e, moving, swim, dt, time) {
   const m = e.m, st = e.state, an = e.anim, still = !moving, side = (e.tm && e.tm.side) || 1;
   const petting = st === 'pet' && still, petLie = petting && e.petLove && (m.kind === 'rabbit' || m.kind === 'bird' || m.kind === 'cat');
-  const lying = still && (st === 'rest' || st === 'sleep' || st === 'bask' || (st === 'alone' && e.aloneLie) || petLie || (st === 'dust' && m.kind === 'bird') || (st === 'sky' && e.skyLie && m.kind !== 'bird'));
+  const lying = still && (st === 'rest' || (st === 'sleep' && !horseWatch(e)) || st === 'bask' || (st === 'alone' && e.aloneLie) || petLie || (st === 'dust' && m.kind === 'bird') || (st === 'sky' && e.skyLie && m.kind !== 'bird'));
   an.lie += ((lying ? 1 : 0) - an.lie) * Math.min(1, dt * 3);
   const ease = (key, v, k) => { an[key] = (an[key] || 0) + (v - (an[key] || 0)) * Math.min(1, dt * k); return an[key]; };
   // 首：上下（食べる、見上げる）と、左右（見回す、羽づくろい）
@@ -10471,6 +11324,7 @@ function wildRect(r) {
 }
 function updateWild(dt, time) {
   for (const w of ACT.wild) {
+    if (w.snowFox) continue; // 雪の日のキツネは snow.js で動かす
     w.timer -= dt;
     // キツネは夕方だけ、森のはしを通る
     if (w.fox) w.m.root.visible = SKY.t > 0.64 || SKY.t < 0.25;
@@ -11003,7 +11857,7 @@ function weatherTick(dt) {
 function changeWeather(w) {
   const prev = G.weather; G.weather = w; WS.weather = w;
   // 雪が降りはじめたら、地面も雪に（少し降ってから）
-  if (w === 'snow' && snowOK() && !G.groundSnow) { const g0 = G; setTimeout(() => { if (G === g0 && G.weather === 'snow' && !G.groundSnow) setGroundSnow(true); }, 25000); }
+  // 雪は、降っている間に少しずつ積もる（snow.js の snowFrame）
   const p = curPage(); if (p) { p.wx = p.wx || [p.weather]; if (p.wx[p.wx.length - 1] !== w && p.wx.length < 3) p.wx.push(w); }
   if (prev === 'rain' && w !== 'rain' && SKY.t > 0.26 && SKY.t < 0.72) SKY.rbT = 100; // 雨あがりの昼は、虹
   UI.weatherChanged(prev, w);
@@ -11880,10 +12734,11 @@ function knowOf(a) {
 }
 function knowAdd(a, kind, id) {
   const K = knowOf(a);
-  if (kind === 'next') { const nx = (a.likes || []).find((l) => !K.likes.includes(l)); if (nx) return knowAdd(a, 'like', nx); if (!K.dis && (a.dislikes || []).length) return knowAdd(a, 'dis'); if (!K.fr && friendOf(a)) return knowAdd(a, 'fr'); return null; }
+  if (kind === 'next') { const nx = (a.likes || []).find((l) => !K.likes.includes(l)); if (nx) return knowAdd(a, 'like', nx); if (!K.dis && (a.dislikes || []).length) return knowAdd(a, 'dis'); if (!K.fr && friendOf(a)) return knowAdd(a, 'fr'); if (!K.sl && a.sp !== 'cat' && (a.trust || 0) >= 2) return knowAdd(a, 'sleep'); return null; }
   if (kind === 'like') { if (!id || !(a.likes || []).includes(id) || K.likes.includes(id)) return null; K.likes.push(id); return `好きなこと：${(ITEMS[id] || {}).name || id}`; }
   if (kind === 'dis') { if (K.dis || !(a.dislikes || []).length) return null; K.dis = true; return `苦手なもの：${a.dislikes.map((l) => (ITEMS[l] || {}).name || l).join('、')}`; }
   if (kind === 'fr') { const f = friendOf(a); if (K.fr || !f) return null; K.fr = true; return `仲良し：${f.name}${f.sp !== a.sp ? `（${SPECIES[f.sp].name}）` : ''}`; }
+  if (kind === 'sleep') { if (K.sl || a.sp === 'cat') return null; const st = sleepText(a); if (!st) return null; K.sl = true; return `眠る場所：${st.where}`; }
   return null;
 }
 function knowTell(a, txt) { if (!txt || hako()) return; note('daily', `${a.name}のことが、ひとつわかりました（${txt}）`, null, { quiet: true }); UI.toast(`${a.name}のことが、ひとつわかりました。${txt}`, 'daily', null, { animal: a.id }); GAME.save(); }
@@ -11891,7 +12746,7 @@ function knowTell(a, txt) { if (!txt || hako()) return; note('daily', `${a.name}
 function knowTick(a) {
   const K = knowOf(a), t = a.trust || 0, L = a.likes || [], got = [];
   if (t >= 2) { if (L[1] && !K.likes.includes(L[1])) got.push(knowAdd(a, 'like', L[1])); got.push(knowAdd(a, 'fr')); }
-  if (t >= 3) { for (const l of L) if (!K.likes.includes(l)) got.push(knowAdd(a, 'like', l)); got.push(knowAdd(a, 'dis')); }
+  if (t >= 3) { for (const l of L) if (!K.likes.includes(l)) got.push(knowAdd(a, 'like', l)); got.push(knowAdd(a, 'dis')); got.push(knowAdd(a, 'sleep')); }
   const g = got.filter(Boolean); if (g.length) knowTell(a, g.join('。'));
 }
 // 暮らしの様子を、ひとことで
@@ -11927,7 +12782,7 @@ function startDay(first) {
     G.dayOver = false; G.restDone = {}; G.petDone = {}; G.respectDone = {}; G.treatDone = {}; G.nearDone = {}; G.dayShift = 0;
   }
   applyCalendar(); rollWeather();
-  G.groundSnow = snowOK() && G.weather === 'snow'; G.wxT = wxDur(G.weather);
+  const snowMsgs = snowWeek(first); G.wxT = wxDur(G.weather); // 雪は、週のあいだの天気と気温で（0.9.42。snow.js）
   G.clock = 0.27; G.nightSaid = 0;
   if (!first) {
     // 検疫が終わる
@@ -11964,7 +12819,7 @@ function startDay(first) {
     G.requests = G.requests.filter((r) => r.left > 0);
     maybeRequest(false);
     if (G.season === 'winter' && prevSeason !== 'winter') G.overnight.push({ cat: 'news', text: '冬になりました。動物たちの冬支度が始まります' });
-    if (G.weather === 'snow') G.overnight.push({ cat: 'news', text: '雪が積もりました。東京の郊外ではめずらしい景色です' });
+    for (const t of snowMsgs) G.overnight.push({ cat: 'season', text: t });
   } else if (G.mode === 'normal' && G.turn === 1 && !G.requests.length) {
     // 最初の週：鶏の相談をひとつ
     const r = genRequest('chicken'); r.intro = `近所の採卵養鶏場が閉じます。鶏${r.members.length}羽の相談です。`; r.left = 3; G.requests.push(r); G.lastReqTurn = G.turn;
@@ -12177,7 +13032,7 @@ function jumpStage(n) {
   G.stage = n; fillForStage(n, 3); balanceSupport(1); initMoney(true); markPrepsDone();
   if (n >= 3) G.nestboxes = 1;
   if (bondMax() >= 1) formBond(true); // デモ用に、種類をこえた仲良しを1組（20頭いれば）
-  applyCalendar(); rollWeather(); G.groundSnow = snowOK() && G.weather === 'snow'; G.wxT = wxDur(G.weather);
+  applyCalendar(); rollWeather(); G.snow = null; snowWeek(true); G.wxT = wxDur(G.weather);
   G.diary.push({ turn: G.turn, date: G.date, weather: G.weather, season: G.season, events: G.events.slice(), stage: G.stage, entries: [{ cat: 'news', text: `デモ用に、「${STAGES[n].name}」の姿にしました` }], changes: [], summary: null });
   G.snapshot = snapshotNow();
   buildWorld(); syncNPCs(); syncAnimals(); syncWild();
@@ -12265,6 +13120,8 @@ const GAME = {
     G.settings.seasonOverride = season; G.settings.eventOverride = ev;
     applyCalendar();
     if (!snowOK() && G.weather === 'snow') G.weather = 'sunny';
+    if (!snowOK()) G.snow = null; // 冬ではない季節にしたら、雪の記録は空に
+    else if (G.weather === 'snow' && !snowState().ev.length) snowWeek(true);
     G.groundSnow = snowOK() && G.weather === 'snow';
     WS.weather = G.weather; skySnapWeather();
     buildWorld(); syncAnimals(); syncWild();
@@ -12272,10 +13129,9 @@ const GAME = {
   },
   setWeather(w) {
     if (w === 'snow' && !snowOK()) { UI.toast('雪は、12月の後半から2月の後半までです。季節を冬にすると見られます', 'news'); return; }
-    const before = WS.snow;
-    G.weather = w; WS.weather = w; G.groundSnow = snowOK() && w === 'snow'; WS.snow = G.groundSnow;
+    G.weather = w; WS.weather = w;
     G.wxT = 480; skySnapWeather(); // 選んだ天気は、しばらく続く
-    if (before !== WS.snow) { buildWorld(); syncAnimals(); }
+    if (w === 'snow') setGroundSnow(true); // テスト用：すぐに少し積もった所から
     GAME.save(); UI.refresh();
   },
   setAvatar(av) { G.avatar = Object.assign({}, AVATAR_DEFAULT, av); rebuildPlayer(G.avatar); GAME.save(); },
@@ -13368,8 +14224,10 @@ const UI = {
           const how = t === 'ss' ? 'ふたりとも静か。並んで、ゆっくり過ごすのが好き。' : t === 'oo' ? 'ふたりで、敷地のあちこちを歩きまわる。' : qq ? `${bp.name}のそばだと、落ち着いて過ごせる。` : `${bp.name}を連れて、先を歩くことが多い。`;
           me += `<dt>いつも一緒</dt><dd>${esc(bp.name)}（${SPECIES[bp.sp].name}）<span>種類はちがっても、惹かれあった相手。${how}${ROAM_SP.includes(a.sp) ? '' : '昼のあいだは、一緒に柵の外を歩きます。'}</span></dd>`; } }
         if (G.stage >= 2 && ROAM_SP.includes(a.sp)) me += `<dt>過ごし方</dt><dd>${roamPrefText(a)}</dd>`;
+        // 眠る場所（0.9.42）：夜に眠っている所を見ると、わかる
+        { const st = a.sp !== 'cat' && !q ? sleepText(a) : null; if (st) me += `<dt>眠る場所</dt><dd>${K.sl ? `${esc(st.where)}${st.why ? `<span>${esc(st.why)}</span>` : ''}` : unk('夜に見にいくと、わかります')}</dd>`; }
         me += `<dt>出身</dt><dd>${esc(a.origin)}</dd></dl>`;
-        const hidden = moreLikes || ((a.dislikes || []).length && !K.dis) || (friend && !K.fr);
+        const hidden = moreLikes || ((a.dislikes || []).length && !K.dis) || (friend && !K.fr) || (a.sp !== 'cat' && !K.sl);
         if (hidden && !hk) me += '<p class="ac-know">そばで過ごしたり、仲良くなったりすると、少しずつ書き足されていきます。</p>';
         h += sec('i-paw', 'この子のこと', me, 'ac-me-sec'); }
       // ふれあう：なでる・ブラッシング・季節のおやつ（大きなボタン）。そばへ行く・撮る
@@ -13990,7 +14848,7 @@ const UI = {
     if (p.kind === 'item') { UI.itemInfo(p.ent); return; }
     if (p.kind === 'npc') { UI.npcDialog(p.ent); return; }
     if (p.kind === 'wild') {
-      const t = { heron: '湿地に戻ってきたアオサギです。近づきすぎず、ここから見守ります。', tanuki: '雑木林から、タヌキが顔を出しました。野生の生き物には餌をあげず、そっと見送ります。', pheasant: 'キジが草地を歩いています。つながった雑木林から来たようです。' }[p.ent.wild];
+      const t = { heron: '湿地に戻ってきたアオサギです。近づきすぎず、ここから見守ります。', tanuki: '雑木林から、タヌキが顔を出しました。野生の生き物には餌をあげず、そっと見送ります。', pheasant: 'キジが草地を歩いています。つながった雑木林から来たようです。', fox: 'キツネです。雪の下のネズミの音を聞いて、ぴょんと跳びこみます。鶏たちは柵と夜の小屋で守られているので、追い払わずに、ここから見守ります。足あとが一直線に並ぶのは、前足の跡に後ろ足を重ねて歩くから。' }[p.ent.wild];
       animalVoice(p.ent.wild, 0.4, 0, 1);
       UI.modal(`<div class="dialog-who"><strong>${esc(p.ent.name)}</strong><span class="pill">野生の生き物</span></div><p class="said">${esc(t)}</p><div class="btn-row"><button class="btn small" data-act="close-modal">そっと離れる</button></div>`);
     }
@@ -14270,7 +15128,8 @@ const UI = {
     UI._tapAt = performance.now();
     if (UI.zenOn) { const gi = screenRay(cx, cy).intersectObject(TER.mesh, false)[0]; if (gi) movePlayerTo(gi.point.x, gi.point.z); return; }
     if (!$('#photo-ui').hidden) { if (UI.photoFrame === 'none') UI.photoFocus(cx, cy); return; }
-    if (!$('#music-ui').hidden || UI.rest) return;
+    if (!$('#music-ui').hidden) { UI.musicExtra(!$('#music-ui').classList.contains('extra')); return; }
+    if (UI.rest) return;
     const ray = screenRay(cx, cy);
     if (UI.placeItemId || UI.removeMode) { if (UI.markerTap(ray)) return; }
     const hit = pickEntity(ray);
@@ -14483,7 +15342,10 @@ const UI = {
   // そばで過ごした時間（0.9.38）：止まって（座って）6m以内にいる子に、時間がたまる。1分・2分・4分…ごとに、その子のことがひとつわかる
   knowWatch(dt) {
     if (!STARTED || !G || G.mode === 'hakoniwa' || !(dt > 0) || dt > 2) return;
-    const P = ACT.player; if (!P || P.moving || P.target) return;
+    const P = ACT.player; if (!P) return;
+    // 夜、眠っている所を見ると、その子の好きな眠る場所がわかる（0.9.42。歩いていても）
+    if (SKY.night > 0.45) for (const e of ACT.animals) { if (!e.atSlot || Math.hypot(e.x - P.x, e.z - P.z) > 9) continue; const K = GAME.knowOf(e.a); if (K.sl) continue; const t = GAME.knowAdd(e.a, 'sleep'); if (t) { GAME.knowTell(e.a, t); break; } }
+    if (P.moving || P.target) return;
     for (const e of ACT.animals) {
       if (Math.hypot(e.x - P.x, e.z - P.z) > 6) continue;
       const K = GAME.knowOf(e.a); K.w = (K.w || 0) + dt;
@@ -14813,6 +15675,8 @@ Object.assign(UI, {
   inst: 'ukulele', chord: 0, chordsUsed: [], rhythm: 'free', prog: 'none', progI: 0,
   initMusic() {
     $('#music-close').addEventListener('click', () => UI.closeMusic());
+    for (const sel of ['.music-top', '#music-opts']) $(sel).addEventListener('pointerdown', () => { if ($('#music-ui').classList.contains('extra')) UI.musicExtra(true); });
+    $('#rest-ui').addEventListener('pointerdown', (e) => { if (e.target.closest('.rest-top, .rest-bottom') && $('#rest-ui').classList.contains('extra')) UI.musicExtra(true); });
     $('#music-fold').addEventListener('click', () => { const pn = $('#music-ui .music-panel'), f = !pn.classList.contains('folded'); pn.classList.toggle('folded', f); $('#music-fold').setAttribute('aria-pressed', f ? 'true' : 'false'); $('#music-fold').textContent = f ? 'ひらく' : 'たたむ'; });
     $('#inst-seg').querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { UI.rhythmStop(); UI.inst = b.dataset.i; UI.chord = 0; UI.progI = 0; setPlaying(UI.inst); UI.renderMusic(); }));
     $('#music-opts').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; if (b.dataset.rh) UI.setRhythm(b.dataset.rh); if (b.dataset.pg) { UI.prog = b.dataset.pg; UI.progI = 0; UI.renderMusic(); } });
@@ -14847,8 +15711,8 @@ Object.assign(UI, {
     $('#inst-seg').querySelectorAll('button').forEach((b) => b.classList.toggle('on', b.dataset.i === UI.inst));
     $('#music-ui').classList.toggle('tine', tn);
     const P = PROGRESSIONS.find((x) => x.id === UI.prog) || PROGRESSIONS[0], want = P.chords.length ? P.chords[UI.progI % P.chords.length] : null;
-    $('#music-opts').innerHTML = tn ? '' : `<div class="mo-row"><span>リズム</span><div class="seg small">${Object.keys(RHYTHMS).map((k) => `<button type="button" data-rh="${k}" class="${UI.rhythm === k ? 'on' : ''}">${RHYTHMS[k].name}</button>`).join('')}</div></div>
-      <div class="mo-row"><span>流れ</span><div class="seg small">${PROGRESSIONS.map((p) => `<button type="button" data-pg="${p.id}" class="${UI.prog === p.id ? 'on' : ''}">${p.name}</button>`).join('')}</div></div>`;
+    // リズムは、いったん外した（0.9.42、Daiさん：ボタンが多すぎて、弾いている自分が見えにくい）
+    $('#music-opts').innerHTML = tn ? '' : `<div class="mo-row"><span>流れ</span><div class="seg small">${PROGRESSIONS.map((p) => `<button type="button" data-pg="${p.id}" class="${UI.prog === p.id ? 'on' : ''}">${p.name}</button>`).join('')}</div></div>`;
     $('#chord-grid').innerHTML = tn ? '' : I.chords.map(([n], i) => `<button type="button" data-c="${i}" class="${i === UI.chord ? 'on' : ''}${want && n === want ? ' next' : ''}">${IS_TOUCH ? '' : `<small>${i + 1}</small>`}${n}</button>`).join('');
     const pad = $('#string-pad'), n = tn ? I.notes.length : I.open.length;
     pad.querySelectorAll('.str, .tn').forEach((x) => x.remove());
@@ -14866,11 +15730,16 @@ Object.assign(UI, {
       $('#pad-chord').textContent = I.chords[UI.chord][0];
     }
     UI.musicHint(tn ? (IS_TOUCH ? '舌をタップすると、ポロン。左右になぞると、つながって鳴ります。どこを弾いても、ぶつからない音です' : '舌をクリック、またはドラッグ。数字キー1〜9でも鳴ります')
-      : UI.rhythm !== 'free' ? 'リズムに合わせて、コードを押してみてください。止める時は「自分で」'
       : want ? `光るコードを、順に押してみてください（${P.chords.join(' → ')}）`
       : IS_TOUCH ? 'コードを押すとジャラン。弦の上を上下になぞると、その順に。速くなぞると、強く鳴ります' : 'コードは数字キー1〜8、スペースで下へ、Bで上へ。弦の上をドラッグしても鳴ります');
   },
   musicHint(t) { $('#music-hint').textContent = t; },
+  // 弾いている間は、コードと弦だけ。景色をタップすると、楽器の切りかえ・流れ・説明・立ち上がるが出る（6秒でしまう）
+  musicExtra(on, ms) {
+    clearTimeout(UI._mxT);
+    for (const el of [$('#music-ui'), $('#rest-ui')]) if (el) el.classList.toggle('extra', !!on);
+    if (on) UI._mxT = setTimeout(() => UI.musicExtra(false), ms || 6000);
+  },
   pickChord(i) {
     const I = INSTRUMENTS[UI.inst]; if (!I.chords || !I.chords[i]) return;
     UI.chord = i;
@@ -15042,7 +15911,7 @@ Object.assign(UI, {
       if (mode === 'sky') UI.skyBegin(opt && opt.show);
       $('#hud').hidden = true; $('#rest-ui').hidden = false; $('#rest-ui').classList.toggle('music', mode === 'music');
       $('#rest-cap').classList.remove('on'); $('#rest-cap').textContent = '';
-      if (mode === 'music') { $('#music-ui').hidden = false; $('#music-close').textContent = spot.kind === 'bench' ? '立ち上がる' : 'しまう'; UI.renderMusic(); if (!audioReady()) UI.musicHint('音が出ない時は、設定の「音を出す」を確かめてください'); }
+      if (mode === 'music') { $('#music-ui').hidden = false; $('#music-close').textContent = spot.kind === 'bench' ? '立ち上がる' : 'しまう'; UI.renderMusic(); UI.musicExtra(true, 5000); if (!audioReady()) UI.musicHint('音が出ない時は、設定の「音を出す」を確かめてください'); }
       CAM.fovHold = true; R.camera.fov = R.camera.aspect < 0.8 ? 50 : 42; R.camera.updateProjectionMatrix();
       UI.rest.last = performance.now();
       if (mode === 'sky') { UI.restCam(0, true); const sh = UI.rest.show; setTimeout(() => { if (UI.rest && UI.rest.mode === 'sky' && !UI.rest.ending) droneStart(sh, R.camera.position.clone(), R.camera, UI.rest.look, (c) => UI.restCaption(c), () => UI.skyDone()); }, 1600); }
@@ -15241,7 +16110,7 @@ Object.assign(UI, {
     // 夜にする。保存する時間（G.settings.tod や G.clock）は変えない
     UI.skyOverride = 0.93; SKY.target = 0.93; SKY.t = 0.93; SKY.rbT = 0;
     // 冬は雪の夜に。雨の夜は、雨雲が切れたことに
-    if (snowOK() && !WS.snow) { G.weather = 'snow'; WS.weather = 'snow'; G.groundSnow = true; buildWorld(); syncAnimals(); }
+    if (snowOK() && G.weather !== 'snow') { G.weather = 'snow'; WS.weather = 'snow'; } // 雪の夜に（地面の雪は、そのまま）
     else if (G.weather === 'rain') { G.weather = 'cloudy'; WS.weather = 'cloudy'; }
     skySnapWeather();
     // 暗くなるあいだに、近くの子はもう前に集まっている
@@ -15282,7 +16151,7 @@ Object.assign(UI, {
     droneStop(); R.lamp.intensity = 0; UI.skyShowTrees(R0);
     const pv = R0.prev || {};
     UI.skyOverride = null;
-    if (pv.weather) { const snowBefore = WS.snow; G.weather = pv.weather; WS.weather = pv.weather; G.groundSnow = pv.groundSnow; if (pv.wxT !== undefined) G.wxT = pv.wxT; if (snowBefore !== !!pv.snow) { buildWorld(); syncAnimals(); } }
+    if (pv.weather) { G.weather = pv.weather; WS.weather = pv.weather; G.groundSnow = pv.groundSnow; if (pv.wxT !== undefined) G.wxT = pv.wxT; }
     SKY.target = dayTime(); SKY.t = SKY.target; skySnapWeather();
     ACT.animals.forEach((e) => { e.skyArrived = false; if (e.state === 'sky' || e.state === 'toSky') { e.state = 'idle'; e.target = null; e.timer = rand(0.5, 2.5); } });
   },
@@ -15812,14 +16681,14 @@ function bootWith(data) {
     const dt = Math.min(0.05, Math.max(0, (now - last) / 1000)); last = now; time += dt;
     if (G) {
       if (STARTED) updatePlayer(dt);
-      updateAnimals(dt, time); updatePeople(dt); updateDoors(dt); updateWild(dt, time); updateLittleLife(dt, time); updateTrain(dt);
+      updateAnimals(dt, time); updatePeople(dt); updateDoors(dt); updateShelters(dt); updateWild(dt, time); snowFrame(dt); updateLittleLife(dt, time); updateTrain(dt);
       if (STARTED) audioUpdate(dt);
       clockTick(dt); // 時間と天気が、ゆっくり流れる
       updateCamera(dt, ACT.player.m.root.position);
       applySky(dt, $('#app'));
       updateParticles(dt, CAM.target, time);
       updateFX(dt);
-      NM.water.opacity = (WS.snow ? 0.97 : 0.86) + Math.sin(time * 1.3) * 0.03;
+      NM.water.opacity = 0.87 + Math.sin(time * 1.3) * 0.03;
       UI.frame(dt);
     }
     renderMain();
@@ -15829,7 +16698,7 @@ function bootWith(data) {
   const av = $('#app-ver'); if (av) av.textContent = `${APP.label} ${APP.version}（${APP.date}）`;
   const eb = $('#start-eyebrow'); if (eb) eb.textContent = `${APP.label} ${APP.version}`;
   const fontWait = document.fonts && document.fonts.load
-    ? Promise.race([Promise.all([document.fonts.load("600 24px 'Klee One'", 'はるにれの丘'), document.fonts.load("700 24px 'Zen Maru Gothic'", 'はるにれの丘')]), new Promise((r) => setTimeout(r, 2500))])
+    ? Promise.race([Promise.all([document.fonts.load("600 24px 'Klee One'", 'はるにれの丘'), document.fonts.load("500 24px 'Kiwi Maru'", 'はるにれの丘')]), new Promise((r) => setTimeout(r, 2500))])
     : Promise.resolve();
   fontWait.catch(() => {}).then(() => {
     const hot = window.claude && window.claude.hot;
