@@ -1141,8 +1141,8 @@ button.tp-ch:active { background: #EEF4EF; }
 @keyframes behIn { from { opacity: 0; } }
 .beh-now { display: flex; gap: 8px; align-items: baseline; margin: 10px 0 4px; font-size: 13px; color: var(--ink-2); }
 .beh-list { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 8px; }
-.beh-list > b { font-size: 13px; }
-.beh-list > small { margin-left: 6px; color: var(--ink-3); font-size: 11px; }
+.beh-list > b, .beh-list > summary > b { font-size: 13px; }
+.beh-list > small, .beh-list > summary > small { color: var(--ink-3); font-size: 11px; }
 .beh-list ul { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 .beh-list li { display: flex; gap: 8px; align-items: baseline; }
 .beh-list li span { font-size: 12px; color: var(--ink-2); line-height: 1.5; }
@@ -1150,6 +1150,63 @@ button.tp-ch:active { background: #EEF4EF; }
 
 /* 0.9.34 遠い子の名前の札は、小さく、少し透かして */
 .lbl3d.far { font-size: 11px; font-weight: 600; background: rgba(244, 245, 239, .78); color: var(--ink-2); padding: 0 7px 1px; }
+
+/* 0.9.36 見つけたしぐさは、喜怒哀楽ごと。はじめは閉じておく */
+details.beh-list > summary { cursor: pointer; list-style: none; display: flex; align-items: baseline; gap: 6px; }
+details.beh-list > summary::-webkit-details-marker { display: none; }
+.beh-kind { margin: 10px 0 2px; font-size: 11px; font-weight: 700; letter-spacing: .1em; color: var(--ink-3); }
+
+/* 0.9.36 動物たちの暮らし */
+.life-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
+.life-list li { display: flex; gap: 8px; align-items: baseline; font-size: 13px; line-height: 1.5; }
+.life-list li i { font-style: normal; font-weight: 700; width: 1em; flex: none; text-align: center; }
+.life-list li.ok i { color: var(--leaf); }
+.life-list li.todo { color: var(--ink-2); }
+.life-list li.todo i { color: var(--ink-3); }
+.life-list small { display: block; font-size: 11px; color: var(--ink-3); }
+.life-sum { margin-top: 10px; background: var(--paper-2); border-radius: 12px; padding: 10px 12px; }
+.life-sum .ls-head { display: flex; align-items: baseline; justify-content: space-between; font-size: 13px; }
+.life-sum .ls-head .num { font-size: 15px; font-weight: 700; }
+.life-sum .bar i { background: #C9667E; }
+.life-sum ul { list-style: none; margin: 8px 0 4px; padding: 0; display: grid; gap: 2px; font-size: 12.5px; color: var(--ink-2); }
+.life-sum li { display: flex; justify-content: space-between; }
+.life-sum p { margin: 4px 0 0; }
+.life-sum .btn-row { margin-top: 8px; }
+
+/* 0.9.36 この丘の、これから */
+.vs-now { display: flex; gap: 10px; align-items: flex-start; background: var(--paper-2); border-radius: 12px; padding: 10px 12px; font-size: 13px; margin-bottom: 12px; }
+.vs-now svg { color: var(--leaf); margin-top: 2px; }
+.vs-now small { display: block; color: var(--ink-3); font-size: 11.5px; margin-top: 2px; }
+.vs-stage { border: 1px solid var(--line); border-radius: 14px; padding: 12px; margin-bottom: 12px; background: #FBFBF8; }
+.vs-stage.now { border: 2px solid var(--pine); }
+.vs-stage.done { opacity: .82; }
+.vs-stage h4 { margin: 0 0 8px; display: flex; align-items: center; gap: 8px; font-size: 15px; }
+.vs-stage h4 .pill { margin-left: auto; }
+.vs-stage.now h4 .pill { background: var(--pine); color: var(--paper); }
+.vs-n { width: 22px; height: 22px; border-radius: 50%; background: var(--paper-3); display: grid; place-items: center; font-size: 12px; flex: none; }
+.vs-stage.now .vs-n { background: var(--pine); color: var(--paper); }
+.vs-map { display: block; width: 100%; max-width: 300px; height: auto; margin: 0 auto 8px; border-radius: 10px; box-shadow: 0 0 0 1px var(--line); stroke: none; stroke-width: 0; fill: none; }
+.vs-look { margin: 0 0 6px; font-size: 13px; color: var(--ink-2); }
+.vs-facts dd span { display: block; }
+.vs-facts dd .vs-sp { display: inline-flex; align-items: center; margin-right: 10px; white-space: nowrap; }
+.vs-item { display: inline-block !important; font-size: 11.5px; background: var(--paper-2); border-radius: 999px; padding: 0 8px; margin: 0 4px 4px 0; color: var(--ink-2); }
+.vs-item.got { background: #E4EFDC; color: #3E6B2E; }
+.g-vis { border: 0; background: none; padding: 0; margin-left: auto; font-size: 12px; font-weight: 700; color: var(--lupine); text-decoration: underline; text-underline-offset: 2px; }
+
+/* 0.9.36 はじめの案内 */
+.coach { position: absolute; left: 50%; transform: translateX(-50%); top: 12px; z-index: 6; width: min(380px, calc(100% - 20px)); box-sizing: border-box; background: rgba(251, 251, 247, .97); border: 1.5px solid var(--pine); border-radius: 14px; box-shadow: var(--shadow); padding: 9px 12px 10px; pointer-events: auto; transition: border-color .3s, background .3s; animation: toastIn .35s ease-out; }
+.coach[hidden], .coach.away { display: none; }
+.coach .co-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.coach .co-step { font-size: 11px; font-weight: 700; color: var(--pine); letter-spacing: .04em; }
+.coach .co-skip { border: 0; background: none; padding: 4px 0 4px 8px; font-size: 12px; color: var(--ink-3); text-decoration: underline; text-underline-offset: 2px; min-height: 32px; }
+.coach .co-t { display: block; font-size: 15px; margin-top: 1px; }
+.coach .co-b { margin: 2px 0 0; font-size: 13px; line-height: 1.6; color: var(--ink-2); }
+.coach .co-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+.coach .co-btns:empty { display: none; }
+.coach.done { border-color: var(--leaf); background: #F1F7EA; }
+.coach.done .co-t::before { content: '✓ '; color: var(--leaf); }
+.coach-pulse { animation: coachPulse 1.6s ease-in-out infinite; }
+@keyframes coachPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(46, 90, 72, .45); } 50% { box-shadow: 0 0 0 7px rgba(46, 90, 72, 0); } }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1252,6 +1309,7 @@ button.tp-ch:active { background: #EEF4EF; }
     <div id="stick" class="vstick" hidden aria-hidden="true"><i></i></div>
     <div id="hint"></div>
     <div id="toasts" aria-live="polite"></div>
+    <div id="coach" class="coach" hidden aria-live="polite"><div class="co-top"><span class="co-step" id="co-step"></span><button type="button" class="co-skip" id="co-skip">案内をとばす</button></div><b class="co-t" id="co-t"></b><p class="co-b" id="co-b"></p><div class="co-btns" id="co-btns"></div></div>
     <div id="place-bar" hidden><span id="place-text"></span><button type="button" class="btn" id="place-cancel">やめる</button></div>
     <div id="banner" hidden></div>
   </div>
@@ -1340,7 +1398,12 @@ const SUPPORT = {
   corp:   { name: '企業',   icon: 'i-building', color: '#2F8A87' },
   nature: { name: '自然',   icon: 'i-leaf',     color: '#6BA646' },
 };
+// 0.9.36：動物たちの暮らしがよくなった時も、サンクチュアリは育つ（数ではなく、一頭ずつの過ごしやすさの平均で）
+SUPPORT.life = { name: '暮らし', icon: 'i-heart', color: '#C9667E' };
 const SUPPORT_KEYS = ['donate', 'help', 'policy', 'corp', 'nature'];
+const GAUGE_KEYS = SUPPORT_KEYS.concat(['life']);
+// 暮らしの質が、前の週より上がって、その段階ではじめてこの線をこえた時に、支えが届く（S 5・M 9）
+const LIFE_STEPS = [[70, 'S'], [80, 'S'], [90, 'M'], [97, 'M']];
 const SIZE_PTS = { S: 5, M: 9, L: 15 };
 const SIZE_LABEL = { S: '小', M: '中', L: '大' };
 
@@ -1704,22 +1767,155 @@ const PERSONALITY = {
 };
 const STORY_TRUST = [0, 2, 4, 7];
 // 性格が、しぐさにどう出るか（動物のカードに書く）
-/* 動物のしぐさと、その時の気持ち（0.9.31 パイロット：鶏から）
-   st：その子の今の過ごし方、item：使っている物。はじめて見た時だけ、吹き出しで少し長めに。
-   そのあとは、その日はじめての時に、気持ちの言葉だけを小さく。見つけたしぐさは、動物のカードに残る */
+/* 動物のしぐさと、その時の気持ち（0.9.31 鶏から。0.9.36 で、すべての動物に）
+   ・FEELS：気持ちの言葉。k は喜怒哀楽（ki 喜・do 怒・ai 哀・raku 楽・etc そのほか）。新しい気持ちは、ここに足す
+   ・BEHAVIORS：しぐさ。一つずつ「どの子が・何をしている時」かを書く
+       sp   種類。'chicken' のように1つ、['cow', 'goat'] のように複数、'*' はみんな。SP_GROUPS の名前（'hoof' など）も使える
+       st   その子の今の過ごし方（actors.js の state）。'*' はどれでも
+       item 使っている物（ITEMS の id）。cond はすべて満たす条件、not は満たしてはいけない条件（BEH_COND の名前。ui.js）
+       prio いくつも当てはまる時は、大きいほうを出す（種類だけのしぐさは、みんなのしぐさより先に）
+       line に {friend}（仲良しの名前）や {item}（使っている物）を書くと、その子に合わせて入れかわる
+   ・はじめて見た時だけ吹き出しで少し長めに。そのあとは、その日はじめての時に、気持ちの言葉だけを小さく。見つけたしぐさは、動物のカードに残る
+   ・言葉の約束：断定しすぎない（「〜と言われています」「〜の時によく見られます」）。いや・不安・さびしいも、その子のせいにも、誰かのせいにもしない */
+const FEEL_KINDS = { ki: '喜', raku: '楽', ai: '哀', do: '怒', etc: 'そのほか' };
 const FEELS = {
-  muchu:   { t: '夢中', c: '#C9772F' },
-  waku:    { t: 'わくわく', c: '#D6735A' },
-  kimochi: { t: 'きもちいい', c: '#4F955F' },
-  anshin:  { t: '安心', c: '#4C7FB0' },
-  nonbiri: { t: 'のんびり', c: '#B08A1E' },
-  kyomi:   { t: '興味しんしん', c: '#7E63B3' },
-  ochi:    { t: 'くつろいでいる', c: '#2F8A87' },
-  naka:    { t: 'なかよし', c: '#C9667E' },
-  shinrai: { t: '信頼', c: '#3E7F95' },
-  ureshi:  { t: 'うれしい', c: '#D88A2E' },
+  ureshi:  { t: 'うれしい', c: '#D88A2E', k: 'ki' },
+  naka:    { t: 'なかよし', c: '#C9667E', k: 'ki' },
+  muchu:   { t: '夢中', c: '#C9772F', k: 'ki' },
+  waku:    { t: 'わくわく', c: '#D6735A', k: 'ki' },
+  kimochi: { t: 'きもちいい', c: '#4F955F', k: 'raku' },
+  nonbiri: { t: 'のんびり', c: '#B08A1E', k: 'raku' },
+  ochi:    { t: 'くつろいでいる', c: '#2F8A87', k: 'raku' },
+  anshin:  { t: '安心', c: '#4C7FB0', k: 'raku' },
+  hitori:  { t: 'ひとりの時間', c: '#6F8A7E', k: 'raku' },
+  sabishi: { t: 'さびしい', c: '#7C7FB4', k: 'ai' },
+  fuan:    { t: '不安', c: '#8C7A9E', k: 'ai' },
+  iya:     { t: 'いやだ', c: '#B4584A', k: 'do' },
+  kyomi:   { t: '興味しんしん', c: '#7E63B3', k: 'etc' },
+  shinrai: { t: '信頼', c: '#3E7F95', k: 'etc' },
 };
+// 種類のまとまり（しぐさの sp に使える）
+const SP_GROUPS = { bird: ['chicken', 'duck', 'turkey'], hoof: ['goat', 'sheep', 'cow', 'donkey', 'horse', 'pig'], rumin: ['goat', 'sheep', 'cow'], equine: ['donkey', 'horse'] };
 const BEHAVIORS = [
+  // ----- みんな（その子の今の気持ちが、ふるまいに出る時） -----
+  { key: 'petNo', sp: '*', st: '*', cond: ['petNo'], prio: 20, name: 'するりと離れる', feel: 'iya',
+    line: '今は、さわられたくない気分。するりと離れていきました',
+    more: '離れるのは、ちゃんとした「いや」の伝え方。少し距離をとって見守ると、見守ったことも、ゆっくり信頼になります' },
+  { key: 'shyAway', sp: '*', st: ['walk'], cond: ['shyAway'], prio: 18, name: '距離をとる', feel: 'fuan',
+    line: '近づかれて、少し落ち着かない様子。ちょうどいい距離まで離れています',
+    more: '人見知りは、その子らしさのひとつ。時間をかけると、少しずつ近くまで来てくれます' },
+  { key: 'avoid', sp: '*', st: ['walk'], cond: ['avoid'], prio: 17, name: '苦手から離れる', feel: 'iya',
+    line: '苦手な{item}から、少し離れた所へ向かっています',
+    more: '苦手は、直すものではなく、その子の一部。離れられる場所があれば、大丈夫です' },
+  { key: 'alone', sp: '*', st: ['alone', 'toAlone'], prio: 16, name: 'ひとりで過ごす', feel: 'hitori',
+    line: '仲間から少し離れて、静かに過ごしています',
+    more: 'ひとりでいたい時間は、誰にでもあります。ほかの子も、あなたも、そっとしておきます' },
+  { key: 'seekFriend', sp: '*', st: ['walk'], cond: ['seekFriend'], prio: 15, name: '仲良しのところへ', feel: 'sabishi',
+    line: '仲良しの{friend}が見えなくなって、そばへ向かっています',
+    more: '仲良しの姿が見えると、ほっとします。また並んで過ごせますように' },
+  { key: 'trainLook', sp: '*', st: ['look'], cond: ['trainLook'], prio: 14, name: '電車を見送る', feel: 'kyomi',
+    line: '電車の音に顔を上げて、通り過ぎるのを見ています',
+    more: '大きな音には、耳がよく動きます。毎日の音なので、驚くより眺めている子が多いようです' },
+  { key: 'nearYou', sp: 'hoof', st: ['nearPlayer'], prio: 4, name: 'そばにいる', feel: 'shinrai',
+    line: 'あなたのそばで、ゆっくりしています',
+    more: '自分から近くに来るのは、あなたのそばを安心できる場所だと感じているしるし' },
+  { key: 'petLove', sp: 'hoof', st: ['pet'], cond: ['love'], prio: 5, name: 'なでられて', feel: 'kimochi',
+    line: '目を細めて、もっと、という顔をしています',
+    more: 'なでてほしい所は、その子によってちがいます。首すじ、肩、あごの下など' },
+  { key: 'nose', sp: 'hoof', st: ['nose'], prio: 4, name: '鼻を寄せる', feel: 'naka',
+    line: '仲間と鼻を寄せて、においであいさつしています',
+    more: 'においで、相手がだれか、元気かを確かめています' },
+  { key: 'nudge', sp: '*', st: ['nudge'], prio: 4, name: 'ちょっかい', feel: 'naka',
+    line: '仲間を軽く押して、ちょっかいを出しています',
+    more: '遊びに誘っているのかもしれません。いやな時は、相手がちゃんとよけます' },
+  { key: 'play', sp: 'hoof', st: ['play'], prio: 3, name: 'はしゃぐ', feel: 'ureshi',
+    line: '体をはずませて、走りまわっています',
+    more: '体が元気で、気持ちに余裕がある時のしぐさ。朝や夕方に多く見られます' },
+  { key: 'rub', sp: 'hoof', st: ['rub'], prio: 3, name: '体をかく', feel: 'kimochi',
+    line: '柵に体をこすりつけて、かゆい所をかいています',
+    more: '毛が生えかわる季節によく見られます。ブラシがあると、もっと気持ちよさそう' },
+  { key: 'roll', sp: 'hoof', st: ['roll'], prio: 3, name: 'ごろごろ', feel: 'kimochi',
+    line: '背中を地面にこすりつけて、ごろごろしています',
+    more: '背中をかいたり、体に土をつけたり。気持ちがゆるんでいる時のしぐさです' },
+  { key: 'graze', sp: 'hoof', st: ['graze', 'grazeStep'], prio: 1, name: '草を食べる', feel: 'nonbiri',
+    line: 'ゆっくり歩きながら、草を食べています',
+    more: '好きな草を選びながら、少しずつ。食べる時間は、一日の中でも長い時間です' },
+  { key: 'rest', sp: 'hoof', st: ['rest'], prio: 1, name: 'ひと休み', feel: 'nonbiri',
+    line: '足を折りたたんで、ゆっくり休んでいます',
+    more: '休める場所があること、そばに仲間がいることが、のんびりの元です' },
+  { key: 'sleep', sp: 'hoof', st: ['sleep'], prio: 1, name: '眠る', feel: 'anshin',
+    line: 'ぐっすり眠っています',
+    more: '安心できる場所だから、眠れます。仲間と寄りそって眠る子もいます' },
+  { key: 'look', sp: 'hoof', st: ['look'], still: true, prio: 1, name: 'じっと見る', feel: 'kyomi',
+    line: '顔を上げて、気になる方をじっと見ています',
+    more: '耳と目で、まわりの様子を確かめています' },
+  { key: 'stretch', sp: 'hoof', st: ['stretch'], prio: 2, name: 'のび', feel: 'nonbiri',
+    line: '起きてすぐ、大きくのびをしました',
+    more: '体をほぐして、次のことを始める準備です' },
+  { key: 'useItem', sp: '*', st: ['use'], prio: 1, name: '好きな物で過ごす', feel: 'ureshi',
+    line: '好きな{item}で過ごしています',
+    more: '好きな物がそばにあると、自分で選んで、のびのび過ごせます' },
+  { key: 'eatFood', sp: 'hoof', st: ['eat'], prio: 2, name: 'おやつ', feel: 'ureshi',
+    line: '{item}を食べています',
+    more: '季節のおやつは、ときどきの楽しみ。体を守るために、お休みする週もあります' },
+  { key: 'wade', sp: '*', st: ['wade'], prio: 3, name: '水に入る', feel: 'kimochi',
+    line: '池の浅い所で、足を水にひたしています',
+    more: '暑い日は、水で体を冷やします' },
+  // ----- 牛・ヤギ・羊（反すうする子） -----
+  { key: 'chew', sp: 'rumin', st: ['rest'], prio: 5, name: '反すう', feel: 'nonbiri',
+    line: '横になって、口をもぐもぐ。食べた草を、もう一度かんでいます',
+    more: '反すうは、ゆっくり消化するためのしぐさ。落ち着いている時に、よく見られます' },
+  // ----- 牛 -----
+  { key: 'cowLick', sp: 'cow', st: ['nose'], prio: 6, name: 'なめあう', feel: 'naka',
+    line: '仲間の首や顔を、舌でなめています',
+    more: '牛は、決まった相手となめあうことが多いと言われています。なかよしのしるし' },
+  { key: 'cowBrush', sp: 'cow', st: ['use'], item: ['brush'], prio: 6, name: 'ブラシで体をかく', feel: 'kimochi',
+    line: 'ブラシに体を押しつけて、気持ちよさそうにかいています',
+    more: '自分の舌が届かない所をかけるブラシは、牛にとても人気があります' },
+  { key: 'cowPlay', sp: 'cow', st: ['play'], prio: 6, name: '跳ねる', feel: 'ureshi',
+    line: '大きな体で、ぴょんと跳ねて走っています',
+    more: '広い所に出た時や、涼しい朝に。大人の牛も、うれしい時は跳ねます' },
+  // ----- ヤギ -----
+  { key: 'goatClimb', sp: 'goat', st: ['use'], item: ['climb'], prio: 6, name: '高い所に登る', feel: 'waku',
+    line: '登り台の上に登って、まわりを見渡しています',
+    more: 'ヤギは、高い所から見渡すのが好き。登れる場所があると、のびのび過ごせます' },
+  { key: 'goatTug', sp: 'goat', st: ['tug', 'toTug'], prio: 6, name: '結び目を引っぱる', feel: 'muchu',
+    line: '柵の結び目をくわえて、引っぱっています',
+    more: 'ヤギは好奇心が強く、口で何でも確かめます。柵の強さが大切な理由のひとつ' },
+  { key: 'goatPlay', sp: 'goat', st: ['play'], prio: 6, name: 'ぴょんぴょん', feel: 'ureshi',
+    line: '横っ跳びをしたり、跳ねたりしています',
+    more: '若い子に多い、うれしい時のしぐさ。仲間を遊びに誘っていることも' },
+  { key: 'goatRain', sp: 'goat', st: ['sleep', 'rest', 'idle', 'toRest'], cond: ['rain'], prio: 12, name: '雨はきらい', feel: 'iya',
+    line: '雨をさけて、小屋で過ごしています',
+    more: 'ヤギの毛は水をはじきにくいので、雨の日は屋根の下にいたがります' },
+  // ----- 羊 -----
+  { key: 'sheepFlock', sp: 'sheep', st: ['follow'], prio: 6, name: '群れで歩く', feel: 'anshin',
+    line: '仲間のすぐうしろを、一緒に歩いています',
+    more: '羊は、群れで動くと安心します。一頭だけになると、とても不安になります' },
+  // ----- 豚 -----
+  { key: 'pigRoot', sp: 'pig', st: ['graze', 'grazeStep'], prio: 6, name: '鼻で掘る', feel: 'muchu',
+    line: '鼻で土を掘って、根や虫を探しています',
+    more: '鼻で掘るのは、豚の大切な習性。掘れる地面があると、のびのび過ごせます' },
+  { key: 'pigMud', sp: 'pig', st: ['roll'], prio: 6, name: '泥浴び', feel: 'kimochi',
+    line: '泥の上でごろん。体に泥をつけています',
+    more: '豚は汗をかけないので、泥で体を冷やします。日差しや虫からも、肌を守ります' },
+  { key: 'pigBelly', sp: 'pig', st: ['pet'], cond: ['love'], prio: 8, name: 'おなかを見せる', feel: 'anshin',
+    line: 'ごろんと横になって、おなかを見せています',
+    more: 'おなかを見せるのは、安心しきっているしるし' },
+  { key: 'pigPlay', sp: 'pig', st: ['play'], prio: 6, name: 'はしゃぐ', feel: 'ureshi',
+    line: '首をふりながら、はねるように走っています',
+    more: '豚は、うれしい時に、首をふったり、くるっと回ったりします' },
+  { key: 'pigWade', sp: 'pig', st: ['wade'], prio: 6, name: '水浴び', feel: 'kimochi',
+    line: '池の浅い所で、水を浴びています',
+    more: '汗をかけない豚にとって、夏の水と泥は欠かせません' },
+  // ----- ロバ・馬 -----
+  { key: 'eqRoll', sp: 'equine', st: ['roll'], prio: 6, name: '砂浴び', feel: 'kimochi',
+    line: '地面に寝ころがって、背中を砂にこすりつけています',
+    more: 'ころがって体をかいたり、砂をつけて虫を防いだりします' },
+  { key: 'eqGroom', sp: 'equine', st: ['nose'], prio: 6, name: '毛づくろいしあう', feel: 'naka',
+    line: '仲間と並んで、首すじを歯でやさしくかきあっています',
+    more: '手の届かない所を、なかよしの相手とかきあいます' },
+  // ----- 鶏 -----
   { key: 'chkForage', sp: 'chicken', st: ['use'], item: ['puzzle'], name: '地面をかく', feel: 'muchu',
     line: '足で交互に地面をかいて、おやつを探しています。体が左右にゆれるのは、そのため',
     more: '鶏は、すぐ食べられる餌があっても、自分で探して食べるほうを選ぶことがあります' },
@@ -1741,7 +1937,64 @@ const BEHAVIORS = [
   { key: 'chkLook', sp: 'chicken', st: ['look'], still: true, name: '首をかしげる', feel: 'kyomi',
     line: '首をかしげて、片方の目でじっと見ています',
     more: '鶏の目は顔の横にあるので、気になる物は、片方の目で見るほうがよく見えます' },
-  // 地域猫
+  { key: 'chkPeck', sp: 'chicken', st: ['graze', 'eat'], prio: 2, name: 'つつく', feel: 'muchu',
+    line: '地面をつついて、草の芽や虫を探しています',
+    more: '鶏は、一日の多くの時間を、探して食べることに使います' },
+  { key: 'chkFollow', sp: 'chicken', st: ['follow'], prio: 2, name: 'ついていく', feel: 'anshin',
+    line: '仲間のあとを、とことこついていきます',
+    more: '鶏は、仲間と一緒に動くと安心します' },
+  { key: 'chkSleep', sp: 'chicken', st: ['sleep'], prio: 1, name: '羽をふくらませて眠る', feel: 'anshin',
+    line: '羽をふくらませて、目を閉じています',
+    more: '夜は、仲間と並んで止まり木で眠ります' },
+  // ----- アヒル -----
+  { key: 'duckSwim', sp: 'duck', st: '*', cond: ['swim'], prio: 6, name: '泳ぐ', feel: 'kimochi',
+    line: '池をすいすい泳いでいます',
+    more: '水に頭を入れて、羽を洗ったり、水浴びをしたりするのが、アヒルの大切な日課' },
+  { key: 'duckPreen', sp: 'duck', st: ['preen'], prio: 6, name: '羽づくろい', feel: 'ochi',
+    line: 'くちばしで、羽を一枚ずつ整えています',
+    more: '尾の付け根から出る脂を、羽に塗っています。水をはじくための大切な手入れ' },
+  { key: 'duckDabble', sp: 'duck', st: ['use'], item: ['floatveg'], prio: 6, name: '頭までもぐる', feel: 'muchu',
+    line: 'たらいの葉物を、頭までもぐってついばんでいます',
+    more: '水の中の物をさがして食べるのは、アヒルの好きなこと' },
+  { key: 'duckFollow', sp: 'duck', st: ['follow'], prio: 3, name: '並んで歩く', feel: 'anshin',
+    line: '仲間と一列になって、よちよち歩いています',
+    more: 'アヒルは、仲間と一緒に動くのが好きです' },
+  { key: 'duckPeck', sp: 'duck', st: ['graze', 'eat'], prio: 2, name: 'ついばむ', feel: 'muchu',
+    line: '草や水草を、くちばしでついばんでいます',
+    more: 'くちばしで、食べられる物をより分けています' },
+  // ----- 七面鳥 -----
+  { key: 'turkPreen', sp: 'turkey', st: ['preen'], prio: 4, name: '羽づくろい', feel: 'ochi',
+    line: '大きな羽を、くちばしで整えています',
+    more: '落ち着いている時に、よく見られるしぐさです' },
+  { key: 'turkLook', sp: 'turkey', st: ['look'], still: true, prio: 3, name: 'じっと見る', feel: 'kyomi',
+    line: '首をのばして、気になる方を見ています',
+    more: '七面鳥は、人の顔を覚えて、知っている人には近づいてくることもあります' },
+  { key: 'turkDust', sp: 'turkey', st: ['dust', 'use'], item: null, cond: ['dustOrBath'], prio: 4, name: '砂浴び', feel: 'kimochi',
+    line: '体を横にして、羽に砂をかけています',
+    more: '砂浴びで、羽の汚れやダニを落とします' },
+  { key: 'birdPlay', sp: 'bird', st: ['play'], prio: 2, name: '羽を広げて走る', feel: 'ureshi',
+    line: '羽を広げて、走りまわっています',
+    more: 'うれしい時や、涼しい朝に、よく見られます' },
+  // ----- ウサギ -----
+  { key: 'rabBinky', sp: 'rabbit', st: ['play'], prio: 6, name: 'ビンキー', feel: 'ureshi',
+    line: 'ぴょんと跳ねて、空中で体をひねりました',
+    more: 'うれしくて、たまらない時のしぐさ。「ビンキー」と呼ばれています' },
+  { key: 'rabFlop', sp: 'rabbit', st: ['sleep'], prio: 6, name: 'ごろん', feel: 'anshin',
+    line: '横にぱたんと倒れて、眠っています',
+    more: 'ウサギが横になって眠るのは、とても安心している時です' },
+  { key: 'rabWash', sp: 'rabbit', st: ['preen'], prio: 6, name: '顔を洗う', feel: 'ochi',
+    line: '前足で、顔を洗っています',
+    more: '体をきれいに保つのは、ウサギの大切な習慣' },
+  { key: 'rabLook', sp: 'rabbit', st: ['look'], still: true, prio: 4, name: '耳を立てる', feel: 'kyomi',
+    line: '長い耳を立てて、まわりの音を聞いています',
+    more: '耳を別々に動かして、遠くの音も聞き分けます' },
+  { key: 'rabGraze', sp: 'rabbit', st: ['graze', 'eat'], prio: 2, name: '牧草を食べる', feel: 'nonbiri',
+    line: '口をもぐもぐさせて、牧草を食べています',
+    more: 'ウサギの歯は伸び続けるので、牧草をよくかむことが大切です' },
+  { key: 'rabTunnel', sp: 'rabbit', st: ['use'], item: ['tunnel'], prio: 6, name: 'もぐる', feel: 'anshin',
+    line: 'トンネルにもぐって、顔だけ出しています',
+    more: '隠れられる場所があると、ウサギは安心して過ごせます' },
+  // ----- 猫（地域猫） -----
   { key: 'catLoaf', sp: 'cat', st: ['rest'], name: '香箱座り', feel: 'ochi',
     line: '前足を胸の下にしまって、座っています',
     more: 'すぐには立ち上がれない座り方。まわりを安心できる場所だと感じている時に、よく見られます' },
@@ -2087,14 +2340,15 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.35', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.36', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
   aim: ['遊びやすいか、わかりにくい所はないか', 'スマホやパソコンで重くないか、止まらないか', '動物、お金、牛と酪農の話が、楽しく伝わるか'],
-  try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '鶏のそばでしばらく眺めて、しぐさの意味を見つける（動物のカードの「見つけたしぐさ」に残ります）', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
+  try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.36', '2026年10月16日', 'はじめの案内（歩く・見回す・なでる・カード・はるこさん・行動・これからの姿。とばせて、設定からもう一度）。「この丘の、これから」：段階ごとの地図、広さ（テニスコート約2面分から1km四方まで）、世話をする人、迎えられる子、増えていくもの。どこまで育てるかは自由。動物たちの暮らし：一頭ずつの好きなこと・苦手・広さ・世話・季節の備え・安心を、カードと動物の画面に。暮らしの質が前より上がって線をこえると、「暮らし」の支えとしてサンクチュアリが育つ（頭数では育たない）。しぐさの気持ちを、すべての動物に（喜怒哀楽ごと。いや・不安・さびしい・ひとりの時間も）'],
     ['0.9.35', '2026年10月16日', '名前の札を、さらに控えめに。はじめは「すぐそばの子だけ」：止まっている時は、そばの3匹まで（パソコンは5匹）、歩いている間は、いちばん近い1匹だけ。いちばん近い子のほかは、小さく透かして。置いた物の札は、すぐそばの物だけ。設定の「名前の札」で「まわりの子も」（これまでの出し方）と「出さない」も選べます'],
     ['0.9.34', '2026年10月16日', '名前の札を見直しました。札が出るのは、あなたのそばの子だけ（スマホは6つまで、歩いている間はすぐそばの子だけ）。札どうしが重なる時は近い子の札だけを出し、遠い子の札は小さく。なでている子と、近くの案内の子の札は、いつも出ます。三毛の地域猫の名前を「もなか」に（鶏のすずと同じ名前だったので）'],
     ['0.9.33', '2026年10月16日', 'スマホで歩くスティックが出るのは、画面の下3分の1を指でなぞった時だけに。それより上をなぞると見回します（操作のヒントの絵と説明も合わせて直しました）'],
@@ -9128,7 +9382,7 @@ function animalThink(e) {
   const P = ACT.player, quar = a.quarantine && G.turn < a.quarantine, prev = e.state, roam = roams(a);
   // 行き先をひとつ選ぶ：区画の中の子は区画の中から、歩ける子は敷地の中から
   const pickR = (R, away) => roam ? roamPick(e, R, away) : randIn(r);
-  e.partner = null; e.lookAt = null; e.leader = null;
+  e.partner = null; e.lookAt = null; e.leader = null; e.seekFriend = false; e.avoidItem = null;
   // 夜の鶏・アヒル・七面鳥・ウサギは、小屋で眠る（あなたが座っていても、楽器を弾いていても、夜空のショーの時も）。0.9.30
   // ときどき鶏が1羽だけ、小屋のまわりをうろちょろする（同じ時に1羽まで）
   if ((SPECIES[sp].bird || sp === 'rabbit') && SKY.night > 0.45 && !quar) {
@@ -9265,7 +9519,7 @@ function animalThink(e) {
     return;
   }
   if (sp === 'duck' && a._out && roll < (bp ? 0.15 : 0.6) && G.stage >= 2) { const ang = rand(0, 6.28), rr = rand(0, POND.r - 1.5); e.target = [POND.x + Math.cos(ang) * rr, POND.z + Math.sin(ang) * rr]; e.state = 'walk'; e.timer = rand(6, 12); return; }
-  if (e.friend && !quar && !ALONE.has(e.friend.state) && Math.hypot(e.friend.x - e.x, e.friend.z - e.z) > 5 && roll < (bp && dB < 7 ? 0.12 : 0.65) && (!homeR || inRect(e.friend.x, e.friend.z, homeR) || goOut())) { const f = e.friend; e.target = [clamp(f.x + rand(-1.5, 1.5), r[0] + 0.6, r[1] - 0.6), clamp(f.z + rand(-1.5, 1.5), r[2] + 0.6, r[3] - 0.6)]; e.state = 'walk'; e.timer = rand(6, 10); return; }
+  if (e.friend && !quar && !ALONE.has(e.friend.state) && Math.hypot(e.friend.x - e.x, e.friend.z - e.z) > 5 && roll < (bp && dB < 7 ? 0.12 : 0.65) && (!homeR || inRect(e.friend.x, e.friend.z, homeR) || goOut())) { const f = e.friend; e.target = [clamp(f.x + rand(-1.5, 1.5), r[0] + 0.6, r[1] - 0.6), clamp(f.z + rand(-1.5, 1.5), r[2] + 0.6, r[3] - 0.6)]; e.state = 'walk'; e.timer = rand(6, 10); e.seekFriend = true; return; }
   // ふだんの過ごし方：時間帯、天気、性格、種類のくせで選ぶ
   const ph = dayPhase(), sunny = WS.weather === 'sunny';
   const mates = quar ? [] : ACT.animals.filter((o) => mateOf(e, o) && !(o.a.quarantine && G.turn < o.a.quarantine) && Math.hypot(o.x - e.x, o.z - e.z) < 14 && o.state !== 'sleep' && o.state !== 'toRest' && !ALONE.has(o.state));
@@ -9352,7 +9606,7 @@ function animalThink(e) {
       else t = roamClamp(...(Math.random() < 0.6 ? [clamp(e.x + rand(-7, 7), hr[0] + 1, hr[1] - 1), clamp(e.z + rand(-7, 7), hr[2] + 1, hr[3] - 1)] : randIn(hr, 1.2)));
     } else t = u < 0.32 + 0.5 * (1 - pref) ? roamClamp(...randIn(hr, 1.2)) : u < 0.9 ? roamClamp(e.x + rand(-7, 7), e.z + rand(-7, 7)) : roamPick(e, 0);
   } else t = Math.random() < 0.6 ? clampToAreas(AR, e.x + rand(-6, 6), e.z + rand(-6, 6)) : randIn(r);
-  if (disliked) { for (let i = 0; i < 6; i++) { const c = pickR(20); if (Math.hypot(c[0] - disliked.x, c[1] - disliked.z) > 6) { t = c; break; } } }
+  if (disliked) { for (let i = 0; i < 6; i++) { const c = pickR(20); if (Math.hypot(c[0] - disliked.x, c[1] - disliked.z) > 6) { t = c; break; } } if (Math.hypot(e.x - disliked.x, e.z - disliked.z) < 8) e.avoidItem = disliked.id; }
   e.target = t; e.state = 'walk'; e.timer = rand(6, 12);
 }
 const ANIMAL_IDLE = new Set(['idle', 'graze', 'rest', 'use', 'eat', 'nearPlayer', 'sleep', 'sky', 'look', 'rub', 'roll', 'dust', 'preen', 'stretch', 'nose', 'bask', 'tug', 'nudge', 'pet', 'alone', 'wade', 'bunt', 'blink']);
@@ -9852,7 +10106,7 @@ function yearsSince(a, iso) {
   for (let k = 0; k < 7; k++) { const d = dateOf(addDays(iso, k)); if (d.getMonth() === ar.getMonth() && d.getDate() === ar.getDate() && d.getFullYear() > ar.getFullYear()) return d.getFullYear() - ar.getFullYear(); }
   return 0;
 }
-function zeroTypes() { return { donate: 0, help: 0, policy: 0, corp: 0, nature: 0 }; }
+function zeroTypes() { return { donate: 0, help: 0, policy: 0, corp: 0, nature: 0, life: 0 }; }
 
 /* ---------- 状態 ---------- */
 function nextSunday(d) { d = new Date(d.getFullYear(), d.getMonth(), d.getDate()); d.setDate(d.getDate() + ((7 - d.getDay()) % 7)); return d; }
@@ -9960,25 +10214,8 @@ function axes() {
   nature += Object.values(G.placed).filter((v) => v === 'flowerbed' || v === 'sunflower').length * 2;
   if (prDone('land_shade')) nature += 3; if (prDone('land_biotope')) nature += 6;
   nature = clamp(Math.round(nature), 0, 100);
-  let calmSum = 0;
-  const repairsOpen = PROJECTS.some((p) => p.kind === 'repair' && G.proj && G.proj[p.id] && G.proj[p.id].state !== 'done');
-  for (const a of G.animals) {
-    let v = 58;
-    const r = ZONES[a.zone] ? ZONES[a.zone].rect : null;
-    // 区画を出て歩ける子は、行ける所にある物ならどこでも
-    const items = roams(a) ? itemsReach({ x: 0, z: 0, a }).map((x) => x.id) : r ? itemsInRect(r).map((x) => x.id) : [];
-    if (items.some((id) => (a.likes || []).includes(id))) v += 16;
-    if (items.some((id) => (a.dislikes || []).includes(id))) v -= 12;
-    if ((a.friend && G.animals.some((o) => o.key === a.friend)) || (a.friendId && G.animals.some((o) => o.id === a.friendId)) || G.animals.some((o) => o.friendId === a.id)) v += 8;
-    if (a.elderly && (G.flags.bedding || hasMilestone('warm_room'))) v += 8;
-    if (G.flags.cleanTurn === G.turn) v += 6;
-    if (a.sponsor) v += 3;
-    if (ratio > 0.92) v -= 10;
-    if (repairsOpen) v -= 6; // 直していない所がある
-    if (prDone('land_shade') && G.season === 'summer') v += 4;
-    calmSum += clamp(v, 0, 100);
-  }
-  const calm = G.animals.length ? Math.round(calmSum / G.animals.length) : 60;
+  // 動物たちの暮らし（0.9.36 から、一頭ずつの暮らしの様子の平均。lifeOf）
+  const calm = G.animals.length ? lifeIndex() : 60;
   return { care, nature, calm };
 }
 function axisWord(v) { return v >= 90 ? 'とても穏やか' : v >= 70 ? '穏やか' : v >= 45 ? '落ち着いてきた' : 'これから'; }
@@ -10014,11 +10251,11 @@ function addSupport(type, size, src, label) {
   if (!type || !size) return 0;
   let pts = SIZE_PTS[size];
   if (type === 'donate' && G.events.includes('farmday')) pts = Math.round(pts * 1.5);
-  if (G.mode === 'hakoniwa' || G.stage >= 5) { G.typeTotals[type] += pts; UI.floatPlus(type, pts, src); return pts; }
+  if (G.mode === 'hakoniwa' || G.stage >= 5) { G.typeTotals[type] = (G.typeTotals[type] || 0) + pts; UI.floatPlus(type, pts, src); return pts; }
   const before = G.gauge;
   G.gauge = Math.min(100, G.gauge + pts);
   G.contribs.push({ type, pts, src, label });
-  G.typeTotals[type] += pts;
+  G.typeTotals[type] = (G.typeTotals[type] || 0) + pts;
   if (G.settings.gauge) note('gauge', `${SUPPORT[type].name} ＋${pts}（${label}）`, null, { quiet: true });
   UI.floatPlus(type, pts, src); uiSound('plus');
   const g0 = G;
@@ -11055,6 +11292,63 @@ function worldEventRoll() {
 }
 function snapshotNow() { const ax = axes(); return { animals: G.animals.length, items: G.milestoneItems.length + Object.keys(G.placed).length + G.nameSigns.length, stage: G.stage, gauge: G.gauge, ax, turn: G.turn }; }
 
+/* ---------- 動物たちの暮らし（0.9.36） ----------
+   一頭ずつ、過ごしやすさを5つの面で見る。足りない所は「失敗」ではなく、これからの楽しみとして書く。
+   みんなの平均（暮らしの質）が前の週より上がり、その段階ではじめて 70・80・90・97 の線をこえた週に、「暮らし」の支えが届く（頭数では増えない） */
+function lifeOf(a) {
+  const c = capacity(), se = G.season, out = [], sp = SPECIES[a.sp] || {};
+  // 好きなこと
+  if (a.likeText) out.push({ k: 'like', ok: true, t: `好きなこと：${a.likeText.split('。')[0]}` });
+  else if (a.likes && a.likes.length) {
+    const reach = roams(a) ? itemsReach({ x: 0, z: 0, a }) : ZONES[a.zone] ? itemsInRect(ZONES[a.zone].rect) : [];
+    const have = a.likes.filter((l) => reach.some((x) => x.id === l));
+    out.push(have.length ? { k: 'like', ok: true, t: `好きな${ITEMS[have[0]].name}で過ごせる` } : { k: 'like', ok: false, t: `好きな${(ITEMS[a.likes[0]] || {}).name || '物'}が、${roams(a) ? '歩ける所' : 'この子の庭'}にあると` , hint: '「飾る」から置けます' });
+  } else out.push({ k: 'like', ok: true, t: 'のんびりできる場所がある' });
+  // 苦手なもの（ある子だけ）
+  if (a.dislikes && a.dislikes.length) {
+    const reach2 = roams(a) ? itemsReach({ x: 0, z: 0, a }) : ZONES[a.zone] ? itemsInRect(ZONES[a.zone].rect) : [];
+    const bad = a.dislikes.find((l) => reach2.some((x) => x.id === l));
+    out.push(bad ? { k: 'dislike', ok: false, t: `苦手な${(ITEMS[bad] || {}).name || '物'}が、すぐそばにある`, hint: '置く場所を変えると' } : { k: 'dislike', ok: true, t: `苦手な${(ITEMS[a.dislikes[0]] || {}).name || '物'}から、離れていられる` });
+  }
+  // 広さ・人手
+  out.push(c.landRatio <= 0.85 ? { k: 'space', ok: true, t: 'ゆったり過ごせる広さがある' } : { k: 'space', ok: false, t: '少し手狭。土地が広がると、もっとゆったり', hint: '段階が進むと、土地が広がります' });
+  out.push(c.peopleRatio <= 0.85 ? { k: 'care', ok: true, t: '毎日の世話が行き届いている' } : { k: 'care', ok: false, t: '人手が少し足りない。人が増えると、もっと目が届く', hint: '「人を増やす」から' });
+  // 季節
+  const shade = prDone('land_shade') || G.stage >= 4 || !!G.flags.borderTrees || !!G.flags.plantedTrees;
+  if (se === 'summer') out.push(a.sp === 'pig' ? (G.stage >= 2 ? { k: 'season', ok: true, t: '泥浴び場で、体を冷やせる' } : { k: 'season', ok: false, t: '汗をかけないので、泥浴び場があると' })
+    : a.sp === 'cat' || sp.bird ? { k: 'season', ok: true, t: '暑い日は、小屋のかげで休める' }
+    : shade ? { k: 'season', ok: true, t: '夏の日かげがある' } : { k: 'season', ok: false, t: '夏の日かげが、もう少しあると', hint: '木を植える・日よけを作る' });
+  else if (se === 'winter') { const warm = a.sp === 'cat' || hasMilestone('warm_room') || (G.flags.bedding && G.turn - G.flags.bedding < 10); out.push(warm ? { k: 'season', ok: true, t: '冬の寝床があたたかい' } : { k: 'season', ok: false, t: '冬の寝床に、厚いわらや毛布があると', hint: '「行動」の寝床と毛布の寄付から' }); }
+  else out.push({ k: 'season', ok: true, t: se === 'spring' ? '春の草を、のんびり食べられる' : '過ごしやすい季節' });
+  // 年を重ねた子
+  if (a.elderly) out.push(G.flags.bedding || hasMilestone('warm_room') ? { k: 'elder', ok: true, t: '年を重ねた体に、やわらかい寝床' } : { k: 'elder', ok: false, t: 'やわらかい寝床があると、関節が楽に' });
+  // 安心（人に慣れるのは、その子のペースで）
+  const shy = a.personality === '人見知り' || a.personality === 'ゆっくり近づいてくる';
+  out.push(a.trust >= (shy ? 2 : 3) ? { k: 'trust', ok: true, t: 'あなたのそばでも、落ち着いて過ごせる' } : { k: 'trust', ok: false, t: 'まだ人に慣れる途中。その子のペースで大丈夫', hint: 'そっと見守ると、少しずつ' });
+  return out;
+}
+function lifeScore(a) { const L = lifeOf(a); return L.filter((x) => x.ok).length / L.length; }
+// みんなの暮らしの質（0〜100）。一頭ずつの過ごしやすさの平均なので、頭数では上がらない
+function lifeIndex() { const as = G.animals.filter((a) => !(a.quarantine && G.turn < a.quarantine)); if (!as.length) return 0; return Math.round(as.reduce((s2, a) => s2 + lifeScore(a), 0) / as.length * 100); }
+function lifeSummary() {
+  const as = G.animals.filter((a) => !(a.quarantine && G.turn < a.quarantine)), by = {};
+  for (const a of as) for (const x of lifeOf(a)) { const b = by[x.k] || (by[x.k] = { ok: 0, n: 0, miss: null }); b.n++; if (x.ok) b.ok++; else if (!b.miss) b.miss = x; }
+  return { index: lifeIndex(), n: as.length, by };
+}
+function lifeCheck() {
+  if (G.mode === 'hakoniwa' || G.stage >= 5 || !G.animals.length) return;
+  // よくなった時だけ（前の週より上がって、その線をこえた時）。はじめから高い所にいても、それだけでは届かない
+  const idx = lifeIndex(), prev = G.lifePrev, got = (G.lifeGot = G.lifeGot || {}), mine = got[G.stage] || (got[G.stage] = []);
+  G.lifePrev = idx;
+  if (prev === undefined || idx <= prev) return;
+  for (const [th, size] of LIFE_STEPS) {
+    if (idx < th || prev >= th || mine.includes(th)) continue;
+    mine.push(th);
+    G.overnight.push({ cat: 'friends', text: th >= 90 ? `動物たちの暮らしが、とても過ごしやすくなりました（暮らしの質 ${idx}）。一頭ずつの好みや季節に、目が届いています` : th >= 75 ? `動物たちが、前よりのびのび過ごしています（暮らしの質 ${idx}）` : `動物たちの暮らしが、少しずつ整ってきました（暮らしの質 ${idx}）` });
+    { const g0 = G; setTimeout(() => { if (STARTED && G === g0) addSupport('life', size, 'animals', `動物たちの暮らし ${th}`); }, 2200); }
+    break; // 1週に1つまで
+  }
+}
 function startDay(first) {
   G.overnight = []; G.pendingSupports = [];
   const prevStage = G.stage, prevSeason = G.season, prevEvents = (G.decoEvents || []).join();
@@ -11093,6 +11387,7 @@ function startDay(first) {
     if (old.length && (G.season !== prevSeason || G.turn % 4 === 2)) old.forEach((a) => G.overnight.push({ cat: 'health', text: G.season === 'winter' ? `${a.name}は寒さで関節がこわばる朝があります。厚いわらの寝床で過ごしています` : G.season === 'summer' ? `${a.name}は暑い日の昼は、日陰でゆっくり休んでいます` : `${a.name}の関節は落ち着いています` }));
     // 今週の小さな出来事（季節ごとに。毎週ではなく、ときどき）
     smallNews();
+    lifeCheck();
     if (G.flags.b08 && G.turn % 4 === 0) G.overnight.push({ cat: 'health', text: `今月の健診：${G.animals.length}頭羽、みんな元気でした` });
     worldEventRoll();
     G.requests.forEach((r) => { r.left--; });
@@ -11320,7 +11615,7 @@ function jumpStage(n) {
 
 /* ---------- 保存 ---------- */
 const GAME = {
-  note, unlockCard, foodEaten, crackEgg, cowTag, pigOnDiet, capacity, axes, runAction, startBiz, restAction, petAnimal, petReact, respectAnimal, treatAnimal, sponsorAnimal, anniversary,
+  note, unlockCard, foodEaten, crackEgg, lifeOf, lifeIndex, lifeSummary, lifeCheck, cowTag, pigOnDiet, capacity, axes, runAction, startBiz, restAction, petAnimal, petReact, respectAnimal, treatAnimal, sponsorAnimal, anniversary,
   acceptRequest, rehomeRequest, declineRequest, requestChecks, hire, hireAvailable, finance, incomeView, savingWays, forecast, moritaState, moritaQuestion, moritaAnswer, talkState, talkNext, talkAvail, talkAnswer, talkPresent, talkCh, talkReady, bizMoney, feedBedCost, stockWeeks, coverText, reserveTarget, usableFunds, projList, projState, projPay, projCampaign, projGrant, prepDone, prepStarted, salary, hourlyWage, animalCost, teamCount, volunteerCap, staffMax, teamOf, placeItem, removeItem, startDay, endDay, jumpStage, actionAvailable,
   save() {
     // 箱庭モードは保存しない（毎回、すべてがそろった姿から）
@@ -11572,6 +11867,19 @@ const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const ico = (id) => `<svg aria-hidden="true"><use href="#${id}"/></svg>`;
 const CAT_COLOR = { friends: '#D6735A', added: '#D4A52F', health: '#2F8A87', daily: '#6BA646', season: '#4F86A8', news: '#6E62B0', people: '#7B8A82', event: '#B0579A', gauge: '#D4A52F', photo: '#22342C' };
+// しぐさの条件（data.js の BEHAVIORS の cond・not で使う名前）。新しい条件は、ここに足す（0.9.36）
+const BEH_COND = {
+  petNo: (e) => !!(e.petNo && performance.now() - e.petNo < 7000),
+  shyAway: (e) => !!e.shyAway,
+  avoid: (e) => !!(e.avoidItem && e.target),
+  seekFriend: (e) => !!(e.seekFriend && e.target),
+  trainLook: (e) => !!e.trainLook,
+  love: (e) => !!e.petLove,
+  rain: () => WS.weather === 'rain',
+  swim: (e) => e.a.sp === 'duck' && WS.pond && inPond(e.x, e.z, 0.4),
+  moving: (e) => !!e.target,
+  dustOrBath: (e) => e.state === 'dust' || !!(e.item && e.item.id === 'dustbath'),
+};
 const CAT_ICON = { friends: 'i-paw', added: 'i-spark', health: 'i-heart', daily: 'i-leaf', season: 'i-flower', news: 'i-doc', people: 'i-people', event: 'i-moon', gauge: 'i-spark', photo: 'i-camera' };
 
 function shortDesc(t) { t = String(t || ''); const i = t.indexOf('。'); return i > 0 && i < 40 ? t.slice(0, i + 1) : t.length > 34 ? t.slice(0, 33) + '…' : t; }
@@ -11651,6 +11959,17 @@ const UI = {
     $('#sheet-close').addEventListener('click', () => UI.closeSheet());
     $('#sheet-back').addEventListener('click', () => UI.back());
     $('#sheet-body').addEventListener('click', (e) => UI.onClick(e));
+    // はじめの案内のボタン
+    $('#co-skip').addEventListener('click', () => UI.tutEnd(true));
+    $('#co-btns').addEventListener('click', (e) => {
+      const b = e.target.closest('[data-co]'); if (!b) return; const a = b.dataset.co;
+      if (a === 'help') UI.ctlHelp();
+      else if (a === 'vision') UI.openSheet('vision');
+      else if (a === 'finish') UI.tutEnd(false);
+      else if (a === 'goHaruko') { const n = ACT.npcs.find((x) => x.d.id === 'haruko'); if (n) movePlayerTo(n.x, n.z, { ent: n, kind: 'npc', reach: 2.4 }); }
+    });
+    // 状態の札の中の「この丘の、これから」（0.9.36）
+    $('#g-legend').addEventListener('click', (e) => { if (e.target.closest('.g-vis')) { e.stopPropagation(); UI.openSheet('vision'); } });
     $('#sheet-body').addEventListener('input', (e) => UI.onInput(e));
     $('#sheet-body').addEventListener('scroll', () => UI.stickCheck(), { passive: true });
     // ひらく・とじる（＋／−）：長い中身には、下にも「とじる」
@@ -11659,7 +11978,7 @@ const UI = {
     $('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') { if (performance.now() - (UI._modalAt || 0) > 450) UI.closeModal(); } else UI.onClick(e); });
     $('#end-day').addEventListener('click', () => UI.endDayClick());
     // 視点：近く → ふつう → 遠く（0.9.30）
-    $('#view-btn').addEventListener('click', () => { if (CAM.overview) { setOverview(false); UI.refresh(); } const v = camView(camViewIndex() + 1); $('#view-name').textContent = v.n; uiSound('click'); });
+    $('#view-btn').addEventListener('click', () => { UI.tutMark('view'); if (CAM.overview) { setOverview(false); UI.refresh(); } const v = camView(camViewIndex() + 1); $('#view-name').textContent = v.n; uiSound('click'); });
     $('#end-tip-x').addEventListener('click', (ev) => { ev.stopPropagation(); G.flags.endTipX = G.turn; UI.refresh(); });
     $('#t-res').addEventListener('click', () => UI.handsInfo());
     $('#prompt-btn').addEventListener('click', () => { const n = nearestInteractable(); if (n) UI.interact(n); });
@@ -11727,8 +12046,8 @@ const UI = {
         $('#g-fill').innerHTML = G.contribs.map((c, i) => `<span class="${c.src === 'world' ? 'world' : ''}${i >= prev && n > prev ? ' new' : ''}" style="width:${c.pts}%;background:${SUPPORT[c.type].color}" title="${esc(SUPPORT[c.type].name + ' ＋' + c.pts + '：' + c.label)}"></span>`).join('');
         if (n > prev) { const st = $('#status'); st.classList.remove('bump'); void st.offsetWidth; st.classList.add('bump'); }
       }
-      const used = SUPPORT_KEYS.filter((k) => G.typeTotals[k] > 0);
-      $('#g-legend').innerHTML = (used.length ? used : SUPPORT_KEYS).map((k) => `<span style="color:${SUPPORT[k].color}">${ico(SUPPORT[k].icon)}<b style="color:var(--ink-2)">${SUPPORT[k].name}${G.typeTotals[k] ? ' ' + G.typeTotals[k] : ''}</b></span>`).join('') + '<span><i class="sw"></i>自分の行動</span><span><i class="sw w"></i>社会の動き</span>';
+      const used = GAUGE_KEYS.filter((k) => G.typeTotals[k] > 0);
+      $('#g-legend').innerHTML = (used.length ? used : GAUGE_KEYS).map((k) => `<span style="color:${SUPPORT[k].color}">${ico(SUPPORT[k].icon)}<b style="color:var(--ink-2)">${SUPPORT[k].name}${G.typeTotals[k] ? ' ' + G.typeTotals[k] : ''}</b></span>`).join('') + '<span><i class="sw"></i>自分の行動</span><span><i class="sw w"></i>社会の動き</span><button type="button" class="g-vis">この丘の、これから</button>';
     }
     // 変化があった時だけ、資源と道のりを見せる（しばらくすると、段階と日付だけに戻る）
     const sig = [G.date, G.hands, Math.round(G.yoyu / 5), G.gauge, G.stage, G.events.join()].join('|');
@@ -11842,7 +12161,71 @@ const UI = {
     const narrow = window.innerWidth < 720, open = document.body.classList.contains('sheet-open');
     let top = 12;
     if (st && !open && narrow) { const r = st.getBoundingClientRect(); if (r.height) top = Math.round(r.bottom + 8); }
-    box.style.top = `calc(env(safe-area-inset-top, 0px) + ${top}px)`;
+    const co = $('#coach'); if (co && !co.hidden && !co.classList.contains('away')) { const r = co.getBoundingClientRect(); if (r.height) top = Math.max(top, Math.round(r.bottom + 8)); }
+    box.style.top = co && !co.hidden && !co.classList.contains('away') ? `${top}px` : `calc(env(safe-area-inset-top, 0px) + ${top}px)`;
+  },
+  /* ---------- はじめの案内（0.9.36）：自分で動かしながら、できることと、目指す方向をつかむ。とばせる ----------
+     一歩ずつ、やってみたら次へ。全部を教えない。設定の「はじめの案内」から、いつでももう一度 */
+  tut: null,
+  tutSteps() {
+    const touch = IS_TOUCH, st = stickOn();
+    return [
+      { k: 'walk', t: '歩いてみましょう', b: touch ? (st ? '画面の下3分の1を指でなぞると、その向きへ歩きます。行きたい所をタップしても歩けます。' : '行きたい所をタップすると、そこまで歩きます。') : 'WASD か矢印キーで歩きます。行きたい所をクリックしても歩けます。', btn: touch ? [['操作のヒント', 'help']] : null },
+      { k: 'look', t: 'まわりを見回してみましょう', b: touch ? (st ? 'それより上を指でなぞると、まわりを見回せます。左下の「視点」で、近く・ふつう・遠くも切りかえられます。' : '指でなぞると、まわりを見回せます。左下の「視点」で、近く・ふつう・遠くも切りかえられます。') : 'ドラッグで見回します。ホイールで、寄ったり離れたり。' },
+      { k: 'pet', t: '鶏をなでてみましょう', b: `鶏を${touch ? 'タップ' : 'クリック'}すると、そばへ行ってなでます。苦手な子は、するりと離れることも。それも、その子の気持ちです。` },
+      { k: 'card', t: 'その子のカードを見てみましょう', b: '下の「〜のカードを見る」を押すと、その子の性格や好きなこと、暮らしの様子、しぐさの意味がわかります。', hl: '#prompt-btn' },
+      { k: 'talk', t: 'はるこさんと話してみましょう', b: '緑の名札が、ここで働く人。そばへ行って「はるこさんと話す」を押します。話すのは、今日できることを使いません。', btn: [['そばへ行く', 'goHaruko']] },
+      { k: 'act', t: '今日できること', b: '下のメニューの「行動」から、寄付や手伝いができます。そのたびに、サンクチュアリは少しずつ育ちます。1日にできることは4つ。', hl: '#rail [data-open="actions"]' },
+      { k: 'vision', t: 'この丘の、これから', b: 'どんな景色に育っていくか、目安を見られます。「動物」の画面からも開けます。どこまで育てるかは、自由です。', btn: [['見てみる', 'vision']] },
+      { k: 'end', t: 'あとは、自由に', b: '使いきったら、右下の「今日はここまで」で来週の日曜日へ。急がなくて大丈夫。眺めているだけの日曜日も、大切な一日です。', btn: [['はじめる', 'finish']] },
+    ];
+  },
+  tutStart(force) {
+    if (!G || !STARTED) return;
+    UI.tut = { i: 0, ev: {}, walk: 0, look: 0, px: ACT.player.x, pz: ACT.player.z, yaw: CAM.tYaw, doneAt: 0 };
+    G.flags.tut = 0; G.flags.tutDone = false;
+    UI.tutShow();
+  },
+  tutMark(k) { if (UI.tut) UI.tut.ev[k] = true; },
+  tutShow() {
+    const T = UI.tut, el = $('#coach'); if (!T || !el) return;
+    const S = UI.tutSteps(), st = S[T.i]; if (!st) { UI.tutEnd(false); return; }
+    el.hidden = false; el.classList.remove('done');
+    $('#co-step').textContent = `はじめの案内　${T.i + 1} / ${S.length}`;
+    $('#co-t').textContent = st.t; $('#co-b').textContent = st.b;
+    $('#co-btns').innerHTML = (st.btn || []).map(([t, a]) => `<button type="button" class="btn small ${a === 'finish' || a === 'vision' ? 'primary' : ''}" data-co="${a}">${t}</button>`).join('');
+    document.querySelectorAll('.coach-pulse').forEach((x) => x.classList.remove('coach-pulse'));
+    if (st.hl) document.querySelectorAll(st.hl).forEach((x) => x.classList.add('coach-pulse'));
+    if (st.k === 'walk' || st.k === 'look') { T.px = ACT.player.x; T.pz = ACT.player.z; T.yaw = CAM.tYaw; T.walk = 0; T.look = 0; }
+    G.flags.tut = T.i; UI.coachPlace(); UI.toastPlace();
+  },
+  tutNext() { const T = UI.tut; if (!T) return; T.i++; T.doneAt = 0; UI.tutShow(); GAME.save(); },
+  tutEnd(skipped) {
+    UI.tut = null; const el = $('#coach'); if (el) el.hidden = true;
+    document.querySelectorAll('.coach-pulse').forEach((x) => x.classList.remove('coach-pulse'));
+    G.flags.tutDone = true; G.flags.tut = null; try { localStorage.setItem('harunire-tut', 'done'); } catch (e) { /* なし */ }
+    if (skipped) UI.toast('はじめの案内は、設定の「はじめの案内」から、いつでも見直せます', 'news');
+    UI.toastPlace(); GAME.save();
+  },
+  coachPlace() {
+    const el = $('#coach'); if (!el || el.hidden) return;
+    const narrow = window.innerWidth < 720, open = document.body.classList.contains('sheet-open'), st = $('#status');
+    // パネルを開いている間：スマホでは隠す（パネルの見出しや「閉じる」にかからないように）。パソコンでは、パネルの右へ
+    el.classList.toggle('away', open && narrow);
+    if (open && !narrow) { const r = $('#sheet').getBoundingClientRect(); el.style.left = `${Math.round(r.right + 16 + Math.min(190, (window.innerWidth - r.right - 32) / 2))}px`; } else el.style.left = '';
+    let top = 12; if (narrow && st && !open) { const r = st.getBoundingClientRect(); if (r.height) top = Math.round(r.bottom + 8); }
+    el.style.top = `calc(env(safe-area-inset-top, 0px) + ${top}px)`;
+  },
+  tutFrame() {
+    const T = UI.tut; if (!T) return;
+    const S = UI.tutSteps(), st = S[T.i]; if (!st) return;
+    UI.coachPlace();
+    const P = ACT.player;
+    if (st.k === 'walk') { T.walk += Math.hypot(P.x - T.px, P.z - T.pz); T.px = P.x; T.pz = P.z; }
+    if (st.k === 'look') { let d = CAM.tYaw - T.yaw; d = Math.atan2(Math.sin(d), Math.cos(d)); T.look += Math.abs(d); T.yaw = CAM.tYaw; }
+    const ok = st.k === 'walk' ? T.walk > 4 : st.k === 'look' ? (T.look > 0.8 || T.ev.view) : st.k === 'pet' ? !!T.ev.pet : st.k === 'card' ? !!T.ev.card : st.k === 'talk' ? !!T.ev.talk : st.k === 'act' ? !!T.ev.act : st.k === 'vision' ? !!T.ev.vision : false;
+    if (ok && !T.doneAt) { T.doneAt = performance.now(); $('#coach').classList.add('done'); uiSound && uiSound('plus'); }
+    if (T.doneAt && performance.now() - T.doneAt > 1100) UI.tutNext();
   },
   statusWake(ms) {
     const st = $('#status'); if (!st) return;
@@ -11896,6 +12279,7 @@ const UI = {
   openSheet(name, arg, push) {
     if (push && UI.cur && !$('#sheet').hidden) UI.stack.push(UI.cur); else if (!push) UI.stack = [];
     UI.cur = { name, arg }; UI.confirm = null;
+    if (name === 'card' || name === 'actions' || name === 'vision') UI.tutMark(name === 'actions' ? 'act' : name);
     if (name === 'avatar') UI.avGroup = 'face'; // いつも 1 の「顔」から
     $('#sheet').classList.toggle('short', name === 'avatar');
     $('#sheet').hidden = false; document.body.classList.add('sheet-open'); UI.render(true);
@@ -12004,6 +12388,7 @@ const UI = {
       case 'talk': UI.closeModal(); UI.talkModal(id); break;
       case 'end-day-now': UI.closeSheet(); UI.endDayClick(); break;
       case 'ctl-help': UI.ctlHelp(); break;
+      case 'tut-start': UI.closeSheet(); setTimeout(() => UI.tutStart(true), 200); break;
       case 'ctl-mode': G.settings.ctl = v; GAME.save(); UI.render(); break;
       case 'toggle-follow': G.settings.camFollow = G.settings.camFollow === false; GAME.save(); break;
       case 'talk-ans': { const r = GAME.talkAnswer(id, +v); if (r) UI.talkModal(id, r); else UI.closeModal(); if (UI.cur && !$('#sheet').hidden) UI.render(); break; }
@@ -12255,11 +12640,42 @@ const UI = {
       h += `<div class="sec"><button class="btn small" data-act="remove">置いたものを片付ける</button></div>`;
       return { title: '飾る・置く', html: h };
     },
+    // この丘の、これから：段階ごとの地図・広さ・人・迎えられる子・増えるもの。どこまで育てるかは自由（0.9.36）
+    vision() {
+      const cur = G.stage, hk = G.mode === 'hakoniwa', team = (n) => FIN.baseTeam[n], capOf = (n) => FIN.haruko + team(n).staff * TEAM.staff.add + team(n).part * TEAM.part.add + team(n).volunteer * TEAM.volunteer.add;
+      const SIZE = { 1: 'テニスコート約2面分', 2: 'サッカーのグラウンド約4面分', 3: '東京ドーム約2個分', 4: '東京ドーム約6個分', 5: '1km四方。東京ドーム約21個分' };
+      const NATURE = { 1: '裏庭の草地に、鳥や虫が来はじめる', 2: '池ができて、カエルやトンボが来る', 3: '見学路に花。小川が流れはじめることも', 4: '野鳥やカエル、トンボが増え、観察小屋も', 5: '野生の生き物の通り道が、まわりの林とつながる' };
+      let h = `<p class="lead-s">どこまで育てるかは、あなたしだい。小さな裏庭のままでも、ここは立派なサンクチュアリです。下は、まわりの支えと、動物たちの暮らしがそろった時に開けていく景色の目安です。何を目指すか、目指さないかも、自由に決めてください。</p>`;
+      if (!hk) h += `<div class="vs-now">${ico('i-leaf')}<span>いまは <b>${esc(STAGES[cur].name)}</b>${cur < 5 ? `。次の「${esc(STAGES[cur + 1].name)}」まで、あと ${100 - G.gauge}` : ''}<small>寄付・手伝い・制度・企業・自然の支えと、動物たちの暮らし（いま ${GAME.lifeIndex()}）で育ちます</small></span></div>`;
+      for (let n = 1; n <= 5; n++) {
+        const S = STAGES[n], t = team(n), tag = hk ? '' : n < cur ? '通ってきた道' : n === cur ? 'いまここ' : n === cur + 1 ? '次' : 'その先';
+        const newSp = ANIMAL_ORDER.filter((sp) => SPECIES[sp].stage === n && !SPECIES[sp].community);
+        const items = Object.keys(CATALOG[n]).map((k) => CATALOG[n][k]);
+        const got = items.filter((it) => G.milestoneItems.includes(it.id));
+        h += `<section class="vs-stage ${hk ? '' : n < cur ? 'done' : n === cur ? 'now' : n === cur + 1 ? 'next' : 'later'}">
+          <h4><span class="vs-n">${n}</span>${esc(S.name)}${tag ? `<span class="pill">${tag}</span>` : ''}</h4>
+          ${UI.stageMapSvg(n)}
+          <p class="vs-look">${esc(S.look)}。${esc(NATURE[n])}</p>
+          <dl class="ac-facts vs-facts">
+            <dt>広さ</dt><dd><b>${S.land}ha</b><span>${SIZE[n]}</span></dd>
+            <dt>世話をする人</dt><dd>${esc(S.carers)}<span>${n === 1 ? 'はるこさん' : `はるこさん、職員${t.staff}人、アルバイト${t.part}人${t.volunteer ? `、ボランティア${t.volunteer}人` : ''}`}（人手の目安 ${capOf(n)}）</span></dd>
+            ${newSp.length ? `<dt>迎えられる子</dt><dd>${newSp.map((sp) => `<span class="vs-sp"><svg class="spi"><use href="#sp-${sp}"/></svg>${SPECIES[sp].name}</span>`).join('')}</dd>` : ''}
+            <dt>訪れる人</dt><dd>${esc(S.visitor)}</dd>
+            <dt>増えていくもの</dt><dd>${items.map((it) => `<span class="vs-item ${got.includes(it) ? 'got' : ''}">${esc(it.name)}</span>`).join('')}<span>支え方によって、このうち3つほど</span></dd>
+          </dl>
+        </section>`;
+      }
+      h += `<p class="muted">人手の目安は、世話ができる量です（はるこさん1人で${FIN.haruko}、職員1人で${TEAM.staff.add}、アルバイト${TEAM.part.add}、ボランティア${TEAM.volunteer.add}）。人の数ではありません。</p>`;
+      h += `<p class="muted">ゲームの中では、広さを小さく縮めて描いています。いちばん育った「はるにれの丘」の100haは、1km四方。動物を何頭迎えたかでは育たず、育つのは、まわりの支えが集まり、動物たちが過ごしやすくなった時です。</p>`;
+      if (!hk) h += `<div class="btn-row"><button class="btn small" data-act="open" data-v="settings">${ico('i-moon')}箱庭モードは「設定」から</button></div>`;
+      return { title: 'この丘の、これから', html: h };
+    },
     animals() {
       const c = capacity(), ax = axes(), hk = G.mode === 'hakoniwa';
       const fmt = (v) => (v < 1 ? v.toFixed(2) : v.toFixed(1)).replace(/\.?0+$/, '') || '0';
-      let h = `<div class="sec"><h3>サンクチュアリの様子</h3><div class="stat-row">${[['ケアの質', ax.care], ['自然の豊かさ', ax.nature], ['暮らしの穏やかさ', ax.calm]].map(([k, v]) => `<div class="stat"><div class="k">${k}</div><div class="v">${axisWord(v)}</div><div class="bar"><i style="width:${v}%"></i></div></div>`).join('')}</div>
+      let h = `<div class="sec"><h3>サンクチュアリの様子</h3><div class="stat-row">${[['ケアの質', ax.care], ['自然の豊かさ', ax.nature], ['動物たちの暮らし', ax.calm]].map(([k, v]) => `<div class="stat"><div class="k">${k}</div><div class="v">${axisWord(v)}</div><div class="bar"><i style="width:${v}%"></i></div></div>`).join('')}</div>
         <p class="muted" style="margin:6px 0 0">ここでは、何頭いるかよりも、ケアが行き届いているか、自然が豊かか、動物たちが穏やかに暮らせているかを大切にしています。</p>
+        ${UI.lifeBlockHtml()}
         ${hk ? '' : `<div class="cap-row"><div class="cap">${ico('i-land')}<span>土地<br><strong class="num">${fmt(c.landUsed)} / ${fmt(c.landCap)} ha</strong></span><span class="bar"><i class="${c.landRatio > 0.8 ? 'hi' : ''}" style="width:${Math.min(100, c.landRatio * 100)}%"></i></span></div>
         <div class="cap">${ico('i-people')}<span>人手<br><strong class="num">${c.peopleLoad} / ${c.peopleCap}</strong></span><span class="bar"><i class="${c.peopleRatio > 0.8 ? 'hi' : ''}" style="width:${Math.min(100, c.peopleRatio * 100)}%"></i></span></div></div>
         ${(() => { const f = GAME.finance(); return `<div class="money-line ${f.bal < 0 ? 'tight' : ''}">${ico('i-coin')}<span>毎月の収支</span><b class="num">${f.bal >= 0 ? '＋' : '−'}${yen(Math.abs(f.bal))}</b><small class="muted">預金 ${yenShort(G.savings || 0)}</small></div>`; })()}
@@ -12328,6 +12744,8 @@ const UI = {
         me += `<dt>いつも一緒</dt><dd>${esc(bp.name)}（${SPECIES[bp.sp].name}）<span>種類はちがっても、惹かれあった相手。${how}${ROAM_SP.includes(a.sp) ? '' : '昼のあいだは、一緒に柵の外を歩きます。'}</span></dd>`; } }
       if (G.stage >= 2 && ROAM_SP.includes(a.sp)) me += `<dt>過ごし方</dt><dd>${roamPrefText(a)}</dd>`;
       me += '</dl>' + UI.behHtml(a);
+      { const L = GAME.lifeOf(a), okN = L.filter((x) => x.ok).length;
+        h += sec('i-leaf', 'この子の暮らし', `<ul class="life-list">${L.map((x) => `<li class="${x.ok ? 'ok' : 'todo'}"><i aria-hidden="true">${x.ok ? '✓' : '○'}</i><span>${esc(x.t)}${!x.ok && x.hint ? `<small>${esc(x.hint)}</small>` : ''}</span></li>`).join('')}</ul>`, 'ac-life', `${okN} / ${L.length}`); }
       h += sec('i-paw', 'この子のこと', me, 'ac-me');
       // 物語
       let st = '<ul class="stories">';
@@ -12415,7 +12833,8 @@ const UI = {
       }
       h += `</div><div class="sec"><h3>操作</h3>${IS_TOUCH ? `<div class="field"><span class="flabel">移動のしかた</span><div class="seg"><button data-act="ctl-mode" data-v="stick" class="${G.settings.ctl !== 'tap' ? 'on' : ''}">なぞって歩く＋タップ</button><button data-act="ctl-mode" data-v="tap" class="${G.settings.ctl === 'tap' ? 'on' : ''}">タップだけ</button></div></div>
         <div class="switch"><span>歩くと、カメラがうしろへまわる</span><input type="checkbox" data-act="toggle-follow" ${G.settings.camFollow !== false ? 'checked' : ''}></div>
-        <div class="btn-row"><button class="btn small" data-act="ctl-help">操作のヒントを見る</button></div>` : ''}<p class="lead-s">${IS_TOUCH ? (G.settings.ctl !== 'tap' ? '画面の下3分の1を指でなぞると、その向きへ歩きます（指を置いた所がスティックに）。それより上をなぞると見回します。' : 'ドラッグで見回します。') + 'タップした場所へ歩き、動物をタップすると、そばへ行ってなでます。左下の「視点」で、近く・ふつう・遠く。ピンチでも寄ったり離れたりできます。動物のカードは、近くで出る「〜のカードを見る」か、下の「動物」から開けます。' : 'WASDか矢印キーで歩きます（Shiftで早歩き）。クリックした場所へ歩くこともできます。ドラッグで見回し、ホイールで寄ります。動物をクリックすると、そばへ行ってなでます。近くの動物のカードはEで開き、スタッフにはEで話しかけます。Escで閉じます。'}</p>
+        <div class="btn-row"><button class="btn small" data-act="ctl-help">操作のヒントを見る</button><button class="btn small" data-act="tut-start">はじめの案内</button></div>` : ''}<p class="lead-s">${IS_TOUCH ? (G.settings.ctl !== 'tap' ? '画面の下3分の1を指でなぞると、その向きへ歩きます（指を置いた所がスティックに）。それより上をなぞると見回します。' : 'ドラッグで見回します。') + 'タップした場所へ歩き、動物をタップすると、そばへ行ってなでます。左下の「視点」で、近く・ふつう・遠く。ピンチでも寄ったり離れたりできます。動物のカードは、近くで出る「〜のカードを見る」か、下の「動物」から開けます。' : 'WASDか矢印キーで歩きます（Shiftで早歩き）。クリックした場所へ歩くこともできます。ドラッグで見回し、ホイールで寄ります。動物をクリックすると、そばへ行ってなでます。近くの動物のカードはEで開き、スタッフにはEで話しかけます。Escで閉じます。'}</p>
+        ${IS_TOUCH ? '' : '<div class="btn-row" style="margin-bottom:8px"><button class="btn small" data-act="tut-start">はじめの案内</button></div>'}
         <p class="muted">${STORE.ok ? '進み具合は、claude.aiのあなたのアカウントに保存されます。ほかの端末で開いても続きから遊べます。アルバムの写真は、この端末にだけ残ります。' : '進み具合は、このブラウザに保存されます。「続きをファイルに」で、ファイルにも残せます。'}</p></div>`;
       return { title: '設定', html: h };
     },
@@ -12524,13 +12943,13 @@ const UI = {
       const first = UI.morningFirst;
       let h = '';
       if (first && G.mode === 'normal') h += `<div class="sec"><ul class="howto"><li>${ico('i-clock')}<span>日曜日ごとに通います。1日にできることは4つ。使いきったら「今日はここまで」で来週の日曜日へ。また4つに戻ります</span></li><li>${ico('i-paw')}<span>動物をタップすると、そばへ行ってなでます。近づくと、名前と物語がわかります</span></li><li>${ico('i-rest')}<span>何もしなくても大丈夫。眺めているだけ、ベンチに座っているだけ、ウクレレを弾いているだけの日曜日も、ここでは大切な一日です</span></li></ul>
-        <details class="more"><summary>くわしく</summary><p class="lead-s">寄付をしたり、掃除を手伝ったりするたびに、サンクチュアリは少しずつ育ちます。どんな支え方が多かったかで、増えていくものが変わります。</p><p class="lead-s">人見知りの子も、通ううちに自分から近づいてきます。受け入れの相談が来たら、土地と人手、設備、毎月のお金を確かめて決めます。</p></details></div>`;
+        <details class="more"><summary>くわしく</summary><p class="lead-s">寄付をしたり、掃除を手伝ったりするたびに、サンクチュアリは少しずつ育ちます。動物たちが過ごしやすくなった時（好きな物、季節の備え、ゆったりした広さなど）も育ちます。どんな支え方が多かったかで、増えていくものが変わります。「動物」の画面の「この丘の、これから」で、先の景色を見られます。</p><p class="lead-s">人見知りの子も、通ううちに自分から近づいてきます。受け入れの相談が来たら、土地と人手、設備、毎月のお金を確かめて決めます。</p></details></div>`;
       if (first && G.mode === 'hakoniwa') h += `<div class="sec"><p class="lead-s">世界がすっかり良くなった姿です。ここでは、いくらでも動けて、心の余裕も尽きません。失敗もありません。季節と行事は、日付の札から自由に変えられます。</p><p class="lead-s">動物への配慮は、ここでも変わりません。花火は置けず、イチイやヤドリギも飾れません。</p></div>`;
       if (p.changes && p.changes.length) {
         if (!first) h += `<p class="calm-line">前回から、${p.changes.length}つの変化がありました。</p>`;
         h += `<div class="sec"><h3>${first ? '今週の知らせ' : '前回来た時からの変化'}</h3><div class="changes">${p.changes.map((c) => { const f = c.focus; return `<button class="chg" ${f ? `data-act="chg" data-v="${f[0]},${f[1]}"` : c.req ? `data-act="req" data-id="${c.req}"` : c.money === 'build' ? 'data-act="prep"' : c.money ? 'data-act="open" data-v="money"' : ''}><i style="background:${CAT_COLOR[c.cat]}"></i><span>${spx(esc(c.text))}</span>${f ? '<span class="go">場所を見る</span>' : c.req ? '<span class="go">相談を見る</span>' : c.money === 'build' ? '<span class="go">整備を見る</span>' : c.money ? '<span class="go">収支を見る</span>' : ''}</button>`; }).join('')}</div></div>`;
       } else if (!first) h += '<p class="lead-s">静かな1週間でした。動物たちは変わらず、穏やかに過ごしています。</p>';
-      if (p.delta && (p.delta.nature || p.delta.calm)) h += `<p class="muted">自然の豊かさ ${p.delta.nature >= 0 ? '＋' : ''}${p.delta.nature}　暮らしの穏やかさ ${p.delta.calm >= 0 ? '＋' : ''}${p.delta.calm}</p>`;
+      if (p.delta && (p.delta.nature || p.delta.calm)) h += `<p class="muted">自然の豊かさ ${p.delta.nature >= 0 ? '＋' : ''}${p.delta.nature}　動物たちの暮らし ${p.delta.calm >= 0 ? '＋' : ''}${p.delta.calm}</p>`;
       h += `<div class="sticky-foot btn-row"><button class="btn primary" data-act="morning-go">${first ? 'はじめる' : '今日もはじめましょう'}</button>${G.requests.length ? `<button class="btn" data-act="open" data-v="animals">受け入れの相談（${G.requests.length}）</button>` : ''}</div>`;
       return { title: `${fmtDate(p.date, first)}　${first ? 'ようこそ' : 'の訪問'}`, html: h, keepScroll: false };
     },
@@ -12575,7 +12994,7 @@ const UI = {
     evening(p) {
       const ax = (p.summary && p.summary.ax) || axes();
       let h = UI.pageHtml(p, null, true);
-      h += `<div class="sec"><h3>今日のサンクチュアリ</h3><div class="stat-row">${[['ケアの質', ax.care], ['自然の豊かさ', ax.nature], ['暮らしの穏やかさ', ax.calm]].map(([k, v]) => `<div class="stat"><div class="k">${k}</div><div class="v">${axisWord(v)}</div><div class="bar"><i style="width:${v}%"></i></div></div>`).join('')}</div></div>`;
+      h += `<div class="sec"><h3>今日のサンクチュアリ</h3><div class="stat-row">${[['ケアの質', ax.care], ['自然の豊かさ', ax.nature], ['動物たちの暮らし', ax.calm]].map(([k, v]) => `<div class="stat"><div class="k">${k}</div><div class="v">${axisWord(v)}</div><div class="bar"><i style="width:${v}%"></i></div></div>`).join('')}</div></div>`;
       h += `<div class="sticky-foot btn-row"><button class="btn primary" data-act="next-visit">来週の日曜日へ</button><button class="btn" data-act="drone">${ico('i-spark')}夜空のドローンショー</button></div>`;
       return { title: '今日の日記', html: h, keepScroll: false };
     },
@@ -12881,6 +13300,8 @@ const UI = {
     UI.openSheet('morning', page);
     UI.onClose = () => {
       cb && cb();
+      // はじめの日：はじめの案内（この端末で一度も終えていなければ。とばせる）。続きから開いた時は、途中から
+      if (G.mode === 'normal' && !G.flags.tutDone) { let did = false; try { did = localStorage.getItem('harunire-tut') === 'done'; } catch (e) { /* なし */ } if (!did && (first || typeof G.flags.tut === 'number')) { const at = typeof G.flags.tut === 'number' ? G.flags.tut : 0; setTimeout(() => { UI.tutStart(); if (at) { UI.tut.i = at; UI.tutShow(); } }, 500); return; } }
       let seen = !!G.flags.ctlHelp; try { seen = seen || localStorage.getItem('harunire-ctlhelp') === '1'; } catch (e) { /* なし */ }
       if (IS_TOUCH && !seen) { G.flags.ctlHelp = 1; try { localStorage.setItem('harunire-ctlhelp', '1'); } catch (e) { /* なし */ } setTimeout(() => UI.ctlHelp(), 400); return; }
       if (G.turn <= 2 && G.mode !== 'hakoniwa') UI.hint(IS_TOUCH ? (stickOn() ? '下3分の1をなぞって歩く・それより上をなぞって見回す・動物をタップでなでる' : 'タップで歩く・ドラッグで見回す・動物をタップでなでる') : 'WASDで歩く・ドラッグで見回す・動物をクリックでなでる');
@@ -12944,7 +13365,7 @@ const UI = {
     // ひとりで過ごしている子は、そっとしておく（見守ったことは、ゆっくり伝わる）
     if (ALONE.has(e.state)) { GAME.respectAnimal(e.a); UI.toast(`${e.a.name}は今、ひとりで過ごしています。そっとしておきましょう`, 'friends'); return; }
     const react = GAME.petReact(e.a, mode);
-    P.petPlan = { id, mode, react, t0: performance.now() }; focusAnimal(e, 15000);
+    P.petPlan = { id, mode, react, t0: performance.now() }; focusAnimal(e, 15000); UI.tutMark('pet');
     const reach = (BODY[e.a.sp] || 0.6) + 0.62;
     // 好きな子は、自分から寄ってくる
     if (react === 'love' && e.state !== 'sleep') { const r = zoneRectFor(e.a); e.target = [clamp(P.x, r[0] + 0.6, r[1] - 0.6), clamp(P.z, r[2] + 0.6, r[3] - 0.6)]; e.state = 'toPlayer'; e.keep = 0; e.timer = 8; }
@@ -12955,7 +13376,7 @@ const UI = {
     const P = ACT.player, plan = P.petPlan; P.petPlan = null;
     if (P.pending && P.pending.kind === 'pet') { P.target = null; P.pending = null; P.path = null; }
     const a = e.a, r = zoneRectFor(a), dx = e.x - P.x, dz = e.z - P.z, d = Math.hypot(dx, dz) || 1, far = react === 'no' ? 6 : 3.2;
-    e.holdUntil = 0; focusAnimal(e, 8000);
+    e.holdUntil = 0; focusAnimal(e, 8000); e.petNo = react === 'no' ? performance.now() : 0;
     e.target = [clamp(e.x + dx / d * far, r[0] + 0.6, r[1] - 0.6), clamp(e.z + dz / d * far, r[2] + 0.6, r[3] - 0.6)]; e.state = 'walk'; e.timer = 4; e.shyAway = true;
     GAME.petAnimal(a, plan ? plan.mode : 'pet', react);
     if (react === 'no') GAME.respectAnimal(a);
@@ -12995,6 +13416,7 @@ const UI = {
     e.petLove = false; e.holdUntil = performance.now() + 8000; focusAnimal(e, 10000);
   },
   npcDialog(n) {
+    if (n.d.id === 'haruko') UI.tutMark('talk');
     const id = n.d.id, c = capacity(), hk = G.mode === 'hakoniwa';
     const cid = CHAT[id] ? id : n.d.hire ? CHAT_HIRE[n.d.name] : null;
     // 知らせておきたいこと（はるこさん）：言葉は週に一度だけ。ボタンはいつでも
@@ -13167,10 +13589,67 @@ const UI = {
   /* ---------- 毎フレーム：名前の札と近くの案内 ---------- */
   // しばらく（20秒）操作がなく、柵の中か、座れる所のそばに立っている時は、そこに座る
   /* ---------- しぐさの意味（0.9.31 パイロット：鶏）：はじめて見た時だけ吹き出しで。あとは、その日はじめての時に気持ちの言葉だけ ---------- */
+  // みんなの暮らし（動物の画面）：暮らしの質と、面ごとの様子。足りない所は、次の楽しみとして（0.9.36）
+  lifeBlockHtml() {
+    if (!G.animals.length) return '';
+    const S = GAME.lifeSummary(), K = [['like', '好きなことができる'], ['dislike', '苦手から離れていられる'], ['space', 'ゆったりした広さ'], ['care', '世話が行き届く'], ['season', '季節の備え'], ['elder', '年を重ねた体のケア'], ['trust', '安心して過ごせる']];
+    const rows = K.filter(([k]) => S.by[k]).map(([k, t]) => { const b = S.by[k]; return `<li><span>${t}</span><b class="num">${b.ok} / ${b.n}</b></li>`; }).join('');
+    const miss = K.map(([k]) => S.by[k] && S.by[k].miss).filter(Boolean)[0];
+    return `<div class="life-sum"><div class="ls-head"><b>動物たちの暮らし</b><span class="num">${S.index}</span></div><div class="bar"><i style="width:${S.index}%"></i></div><ul>${rows}</ul>${miss ? `<p class="muted">次の楽しみ：${esc(miss.t)}${miss.hint ? `（${esc(miss.hint)}）` : ''}</p>` : '<p class="muted">一頭ずつの好みや季節に、目が届いています。</p>'}<p class="muted">一頭ずつの過ごしやすさの平均です。頭数では上がりません。前より過ごしやすくなって、70・80・90・97 の線をこえた週に、「暮らし」の支えとして、サンクチュアリが育ちます。</p><div class="btn-row"><button class="btn small" data-act="open" data-v="vision">${ico('i-map')}この丘の、これから</button></div></div>`;
+  },
+  // 段階ごとの敷地の地図（上から見た絵。ゲームの中の配置どおり）（0.9.36）
+  stageMapSvg(n) {
+    const ZC = { chicken: '#F2DC9A', duck: '#C4E2EC', turkey: '#EBCFAE', cow: '#D6E8BE', goat: '#E8DEC6', pig: '#F2D3C8', sheep: '#ECE9DC', donkey: '#DCD4C8', rabbit: '#F0DCE8', horse: '#D3E3C6' };
+    const r = (x0, x1, z0, z1, f, extra) => `<rect x="${x0}" y="${z0}" width="${x1 - x0}" height="${z1 - z0}" fill="${f}" ${extra || ''}/>`;
+    let g = `<rect x="-58" y="-58" width="116" height="116" fill="#ECE5D3"/>`;
+    g += r(-58, 58, 49.6, 52.6, '#D9D3C5') + `<line x1="-58" y1="53.8" x2="58" y2="53.8" stroke="#A9A39A" stroke-width=".6"/><line x1="-58" y1="54.9" x2="58" y2="54.9" stroke="#A9A39A" stroke-width=".6"/>`;
+    // 敷地
+    if (n === 1) g += r(5, 33.5, 12, 47.5, '#CFE3B4', 'rx="2"');
+    else for (const q of PERIM_OUT[n]) g += r(q[0], q[1], q[2], q[3], '#CFE3B4');
+    // 森・小川（段階4から）
+    if (n >= 4) { for (let i = 0; i < 26; i++) { const x = -52 + (i % 13) * 8.3 + (i > 12 ? 4 : 0), z = n >= 5 ? -54 + (i > 12 ? 4 : 0) : -52.5 + (i > 12 ? 2.5 : 0); g += `<circle cx="${x}" cy="${z}" r="2.6" fill="#8DBA79"/>`; } let d = ''; for (let x = -56; x <= 56; x += 4) d += `${x === -56 ? 'M' : 'L'}${x} ${streamZ(x).toFixed(1)} `; g += `<path d="${d}" fill="none" stroke="#7FB4D6" stroke-width="2.2" stroke-linecap="round"/>`; }
+    // 池（段階2から）
+    if (n >= 2) g += `<circle cx="${POND.x}" cy="${POND.z}" r="${POND.r}" fill="#A9D2E6"/>`;
+    // 区画と、そこで暮らす子
+    for (const k of Object.keys(ZONES)) { const Z = ZONES[k]; if (Z.stage > n) continue; const q = Z.rect, cx = (q[0] + q[1]) / 2, cz = (q[2] + q[3]) / 2, s2 = Math.min(9, (q[1] - q[0]) * 0.5, (q[3] - q[2]) * 0.6);
+      g += r(q[0], q[1], q[2], q[3], ZC[k] || '#E4E0D4', 'stroke="#9C9384" stroke-width=".5" stroke-dasharray="1.6 1"') + `<use href="#sp-${k}" x="${cx - s2 / 2}" y="${cz - s2 / 2}" width="${s2}" height="${s2}" fill="#5A6B62"/>`; }
+    // 建物
+    const B = [[18.2, 25.8, 36, 43, '#B9A58A'], [11, 14, 15.2, 17.8, '#C9A27A']];
+    if (n >= 2) B.push([-24.2, -15.8, 14.8, 21.2, '#B48A6A'], [-10.2, -5.8, 19.4, 22.6, '#C9AE7E']);
+    if (n >= 3) B.push([6.2, 10.8, -24.1, -17.9, '#E2E2DA']);
+    if (n >= 4) B.push([37, 45, -29.3, -24.7, '#B48A6A']);
+    for (const b of B) g += r(b[0], b[1], b[2], b[3], b[4], 'stroke="#7C6A58" stroke-width=".5"');
+    // その段階までに増えた物（取った物は濃く）
+    for (let k = 1; k <= n; k++) for (const t of Object.keys(CATALOG[k])) { const it = CATALOG[k][t], have = G.milestoneItems.includes(it.id); if (!have && k < n) continue; g += `<circle cx="${it.x}" cy="${it.z}" r="${have ? 1.6 : 1.3}" fill="${have ? SUPPORT[t].color : 'none'}" stroke="${SUPPORT[t].color}" stroke-width=".7"><title>${esc(it.name)}</title></circle>`; }
+    // 縮めて描いている印
+    g += `<text x="-55" y="-50" font-size="5" fill="#6B6458" font-weight="700">${STAGES[n].land}ha</text>`;
+    return `<svg class="vs-map" viewBox="-58 -58 116 116" role="img" aria-label="${esc(STAGES[n].name)}の地図">${g}</svg>`;
+  },
+  // しぐさが、その種類の子のものか（'*'、種類の名前、種類のまとまり、その配列）
+  behSp(b, sp) { const one = (x) => x === '*' || x === sp || !!(SP_GROUPS[x] && SP_GROUPS[x].includes(sp)); return Array.isArray(b.sp) ? b.sp.some(one) : one(b.sp); },
+  // 見つけた印：1種類だけのしぐさは key、みんなのしぐさは key@種類（0.9.31 の印も、そのまま使える）
+  behSeenKey(b, sp) { return typeof b.sp === 'string' && b.sp === sp ? b.key : `${b.key}@${sp}`; },
   behOf(e) {
     if (!e || !e.a || typeof BEHAVIORS === 'undefined') return null;
-    const it = e.item && e.item.id;
-    return BEHAVIORS.find((b) => b.sp === e.a.sp && b.st.includes(e.state) && (!b.item || b.item.includes(it)) && (!b.still || !e.target)) || null;
+    const it = e.item && e.item.id, sp = e.a.sp; let best = null, bp = -1e9;
+    for (const b of BEHAVIORS) {
+      if (!UI.behSp(b, sp)) continue;
+      if (b.st !== '*' && !b.st.includes(e.state)) continue;
+      if (b.item && !b.item.includes(it)) continue;
+      if (b.still && e.target) continue;
+      if (b.cond && !b.cond.every((c) => BEH_COND[c] && BEH_COND[c](e))) continue;
+      if (b.not && b.not.some((c) => BEH_COND[c] && BEH_COND[c](e))) continue;
+      const pr = b.prio !== undefined ? b.prio : 6;
+      if (pr > bp) { bp = pr; best = b; }
+    }
+    return best;
+  },
+  // 見たままの一文に、その子の仲良しの名前や、使っている物を入れる
+  behLine(b, e, k) {
+    let t = b[k || 'line'] || '';
+    if (t.includes('{friend}')) { const f = e && (e.friend || bondEnt(e)); t = t.replace('{friend}', f ? f.a.name : '仲間'); }
+    if (t.includes('{item}')) { const id = e && ((e.item && e.item.id) || (e.food && e.food.item) || (e.avoidItem)), it = id && ITEMS[id]; t = t.replace('{item}', it ? it.name : id === 'pumpkin' ? 'かぼちゃ' : id === 'haybale' ? '干し草' : '好きな物'); }
+    return t;
   },
   beh: null, behLast: 0, behChk: 0,
   behHide(now) { const B = UI.beh, el = $('#beh'); if (!B || !el) return; UI.beh = null; if (now) { el.hidden = true; return; } el.classList.add('out'); setTimeout(() => { if (!UI.beh) el.hidden = true; }, 380); },
@@ -13185,7 +13664,7 @@ const UI = {
       const P = ACT.player, seen = G.seenBeh || (G.seenBeh = {}), day = G.behDay || (G.behDay = {});
       let best = null;
       for (const e of ACT.animals) {
-        const b = UI.behOf(e), k = b ? b.key : null;
+        const b = UI.behOf(e), k = b ? UI.behSeenKey(b, e.a.sp) : null;
         if (e.behK !== k) { e.behK = k; e.behS = now; }
         if (!b || now - e.behS < 1300) continue;
         const fresh = !seen[k], d = Math.hypot(e.x - P.x, e.z - P.z);
@@ -13194,15 +13673,15 @@ const UI = {
         const sc = toScreen(e.x, e.m.root.position.y + 1, e.z);
         if (!sc.vis || sc.x < 30 || sc.x > window.innerWidth - 30 || sc.y < 90 || sc.y > window.innerHeight - 120) continue;
         const score = d - (fresh ? 50 : 0);
-        if (!best || score < best.score) best = { e, b, score, fresh };
+        if (!best || score < best.score) best = { e, b, k, score, fresh };
       }
       if (best) {
-        const { e, b, fresh } = best, f = FEELS[b.feel] || { t: '', c: 'var(--ink-3)' };
+        const { e, b, k, fresh } = best, f = FEELS[b.feel] || { t: '', c: 'var(--ink-3)' };
         UI.beh = B = { e, b, fresh, until: now + (fresh ? 7000 : 3600) }; UI.behLast = now;
-        if (fresh) { seen[b.key] = G.turn; if (b.card) unlockCard(b.card, true); GAME.save(); } day[b.key] = G.turn;
+        if (fresh) { seen[k] = G.turn; if (b.card) unlockCard(b.card, true); GAME.save(); } day[k] = G.turn;
         el.className = 'beh' + (fresh ? ' full' : '');
         el.style.setProperty('--feel', f.c);
-        el.innerHTML = fresh ? `<span class="beh-top"><em>${esc(f.t)}</em><b>${esc(e.a.name)}・${esc(b.name)}</b></span><span class="beh-line">${esc(b.line)}</span>` : `<span class="beh-top"><em>${esc(f.t)}</em><b>${esc(b.name)}</b></span>`;
+        el.innerHTML = fresh ? `<span class="beh-top"><em>${esc(f.t)}</em><b>${esc(e.a.name)}・${esc(b.name)}</b></span><span class="beh-line">${esc(UI.behLine(b, e))}</span>` : `<span class="beh-top"><em>${esc(f.t)}</em><b>${esc(b.name)}</b></span>`;
         el.hidden = false;
       }
     }
@@ -13215,18 +13694,23 @@ const UI = {
       el.style.transform = `translate(${Math.round(x)}px, ${Math.round(s.y - (UI.showLabels ? 22 : 4))}px) translate(-50%, -100%)`;
     }
   },
-  // カードに：見つけたしぐさと、今していること
+  // カードに：今していることと、見つけたしぐさ（喜怒哀楽ごと。はじめは閉じておく）
   behHtml(a) {
     if (typeof BEHAVIORS === 'undefined') return '';
-    const list = BEHAVIORS.filter((b) => b.sp === a.sp); if (!list.length) return '';
+    const list = BEHAVIORS.filter((b) => UI.behSp(b, a.sp)); if (!list.length) return '';
     const seen = G.seenBeh || {}, e = animalById(a.id), now = UI.behOf(e);
-    const got = list.filter((b) => seen[b.key]);
+    const got = list.filter((b) => seen[UI.behSeenKey(b, a.sp)]);
     let h = '';
-    if (now) { const f = FEELS[now.feel]; h += `<p class="beh-now"><em style="--feel:${f.c}">${esc(f.t)}</em>今は「${esc(now.name)}」。${esc(now.line)}</p>`; }
-    h += `<div class="beh-list"><b>見つけたしぐさ</b><small>${got.length} / ${list.length}</small>`;
-    if (got.length) h += `<ul>${got.map((b) => { const f = FEELS[b.feel]; return `<li><em style="--feel:${f.c}">${esc(f.t)}</em><span><b>${esc(b.name)}</b>${esc(b.line)}。${esc(b.more)}</span></li>`; }).join('')}</ul>`;
-    else h += `<p class="muted">そばで眺めていると、しぐさの意味が少しずつわかってきます。</p>`;
-    return h + '</div>';
+    if (now) { const f = FEELS[now.feel]; h += `<p class="beh-now"><em style="--feel:${f.c}">${esc(f.t)}</em>今は「${esc(now.name)}」。${esc(UI.behLine(now, e))}</p>`; }
+    h += `<details class="beh-list"><summary><b>見つけたしぐさ</b><small>${got.length} / ${list.length}</small></summary>`;
+    if (got.length) {
+      for (const k of Object.keys(FEEL_KINDS)) {
+        const g = got.filter((b) => (FEELS[b.feel] || {}).k === k); if (!g.length) continue;
+        h += `<p class="beh-kind">${esc(FEEL_KINDS[k])}</p><ul>${g.map((b) => { const f = FEELS[b.feel]; return `<li><em style="--feel:${f.c}">${esc(f.t)}</em><span><b>${esc(b.name)}</b>${esc(UI.behLine(b, e))}。${esc(b.more)}</span></li>`; }).join('')}</ul>`;
+      }
+      if (got.length < list.length) h += `<p class="muted">まだ見ていないしぐさが、${list.length - got.length}つあります。</p>`;
+    } else h += `<p class="muted">そばで眺めていると、しぐさの意味が少しずつわかってきます。</p>`;
+    return h + '</details>';
   },
   idleSit() {
     if (!STARTED || !G || UI.rest || UI.zenOn || G.settings.autoSit === false) return;
@@ -13248,7 +13732,7 @@ const UI = {
     if (DOF.on && DOF.auto) { const v = CAM.target.clone().applyMatrix4(R.camera.matrixWorldInverse); DOF.focus = Math.max(1, -v.z); }
     if (UI.rest) UI.restFrame(dt);
     UI.markerT += dt; UI.marker.material.opacity = Math.max(0, 0.9 - UI.markerT * 1.2); UI.marker.scale.setScalar(1.2 + UI.markerT * 1.2);
-    UI.behFrame();
+    UI.behFrame(); UI.tutFrame();
     const lab = $('#labels');
     UI.showLabels = (G.settings.labels || 'near') !== 'off';
     const show = UI.showLabels && $('#photo-ui').hidden && !$('#hud').hidden;
