@@ -8,21 +8,24 @@
 <meta name="description" content="東京の郊外で、小さなサンクチュアリを育てる3Dゲーム（ベータテスト版）">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Kiwi+Maru:wght@400;500&display=swap" rel="stylesheet">
 <style>
 [hidden] { display: none !important; }
 :root {
-  --ink: #22342C; --ink-2: #4D5F56; --ink-3: #5F6E66; /* 0.9.38：明るい昼でも読めるように（紙の色の上で 4.9:1） */
-  --paper: #F4F5EF; --paper-2: #E9ECE3; --paper-3: #DCE2D6; --line: rgba(34, 52, 44, .13);
-  --pine: #2E5A48; --pine-2: #3E7560; --hay: #D4A52F; --lupine: #6E62B0; --coral: #D6735A; --teal: #2F8A87; --leaf: #6BA646;
-  --shadow: 0 1px 2px rgba(20, 34, 28, .12), 0 6px 18px rgba(20, 34, 28, .12);
-  --r: 12px;
-  --ui: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', sans-serif;
+  /* 0.9.39 紙芝居のように：画用紙の色、墨の茶色の文字、紙を重ねた硬い影。やわらかな丸ゴシックではなく、なつかしい丸明朝（Kiwi Maru）と、手書きの教科書体（Klee One） */
+  --ink: #33281F; --ink-2: #5A4A3C; --ink-3: #665545;
+  --paper: #F6EFDF; --paper-2: #EDE3CC; --paper-3: #E0D3B6; --line: rgba(74, 59, 46, .22);
+  --pine: #2E5A48; --pine-2: #3E7560; --hay: #D4A52F; --lupine: #5A4E9C; --coral: #C8553D; --teal: #2F7A77; --leaf: #6E9A3A;
+  --sumi: #4A3B2E; --wood: #8B5E34; --wood-d: #5C3A1E; --card: #FFFBF2;
+  --shadow: 2px 3px 0 rgba(74, 52, 30, .30);
+  --r: 8px;
+  --ui: 'Kiwi Maru', 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif JP', serif;
   --hand: 'Klee One', 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif JP', serif;
   --rail-w: 64px;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .36 0 0 0 0 .27 0 0 0 0 .17 0 0 0 .085 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 html, body { height: 100%; }
-body { margin: 0; background: #DCE6E4; color: var(--ink); font-family: var(--ui); font-size: 14px; line-height: 1.6; overflow: hidden; -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: #E9DFC8; color: var(--ink); font-family: var(--ui); font-size: 14px; line-height: 1.6; overflow: hidden; -webkit-font-smoothing: antialiased; }
 button { font-family: inherit; color: inherit; cursor: pointer; }
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--hay); outline-offset: 2px; }
 svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex: none; }
@@ -1284,6 +1287,179 @@ details.ac-fold > .af-body > .ac-facts:first-child { margin-top: 0; }
 .ac-me .unk { display: inline-block; font-size: 12.5px; color: var(--ink-3); background: var(--paper-2); border-radius: 999px; padding: 0 9px 1px; margin-left: 4px; }
 .ac-me dd > .unk:first-child { margin-left: 0; }
 .ac-know { margin: 8px 0 0; font-size: 12px; color: var(--ink-3); }
+
+/* この丘の、これから（0.9.39）：段階のボタンで入れ替える1枚のカード */
+.vs-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin: 0 0 10px; position: relative; }
+.vs-steps::before { content: ''; position: absolute; left: 10%; right: 10%; top: 17px; height: 2px; background: var(--paper-3); z-index: 0; }
+.vs-steps button { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; border: 0; background: transparent; padding: 2px 0 4px; font: inherit; color: var(--ink-2); min-height: 56px; }
+.vs-steps button b { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--paper); border: 2px solid var(--paper-3); font-size: 14px; }
+.vs-steps button span { font-size: 10.5px; line-height: 1.3; text-align: center; }
+.vs-steps button.done b { background: var(--paper-2); border-color: #B9C4B4; }
+.vs-steps button.now b { border-color: var(--pine); color: var(--pine); }
+.vs-steps button.on b { background: var(--pine); border-color: var(--pine); color: #fff; }
+.vs-steps button.on span { color: var(--ink); font-weight: 700; }
+.vs-card { border: 1px solid var(--line); border-radius: 14px; padding: 12px; margin-bottom: 12px; background: #FBFBF8; touch-action: pan-y; }
+.vs-card h4 { margin: 0 0 8px; display: flex; align-items: center; gap: 8px; font-size: 16px; }
+.vs-card h4 .pill { margin-left: auto; }
+.vs-notes { display: grid; gap: 8px; margin-top: 10px; }
+.vs-note { border-radius: 10px; padding: 8px 12px 10px; background: var(--paper-2); }
+.vs-note b { font-size: 13px; }
+.vs-note.ch { border-left: 4px solid #D9A441; }
+.vs-note.care { border-left: 4px solid #C9667E; }
+.vs-note ul { margin: 4px 0 0; padding-left: 1.1em; font-size: 13px; line-height: 1.6; color: var(--ink); }
+.vs-note li { margin: 3px 0; }
+.vs-nav { display: flex; justify-content: space-between; gap: 8px; margin-top: 12px; }
+.vs-nav .btn { display: inline-flex; align-items: center; gap: 4px; }
+.vs-nav .btn:disabled { visibility: hidden; }
+
+/* 楽器（0.9.39）：リズムと流れ、光るコード、カリンバの舌、音符 */
+.music-opts { display: grid; gap: 6px; margin-bottom: 8px; }
+.music-opts .mo-row { display: flex; align-items: center; gap: 8px; }
+.music-opts .mo-row > span { flex: none; width: 3em; font-size: 12px; font-weight: 700; color: var(--ink-2); }
+.music-opts .seg.small { display: flex; flex: 1; overflow-x: auto; }
+.music-opts .seg.small button { flex: 1; font-size: 12px; padding: 5px 6px; white-space: nowrap; }
+#chord-grid button.next { box-shadow: 0 0 0 3px #E8C25A; animation: chordGlow 1.4s ease-in-out infinite; }
+@keyframes chordGlow { 50% { box-shadow: 0 0 0 5px rgba(232, 194, 90, .55); } }
+#music-ui.tine #chord-grid { display: none; }
+#string-pad.tines { background: linear-gradient(#8A5A34, #6E4426); }
+#string-pad .tn { position: absolute; bottom: 8px; width: 18px; border-radius: 9px 9px 4px 4px; background: linear-gradient(90deg, #C9CFCF, #F4F6F6 45%, #AEB6B6); box-shadow: 0 2px 2px rgba(0, 0, 0, .35); transition: transform .08s; display: flex; justify-content: center; }
+#string-pad .tn em { position: absolute; bottom: 4px; font-style: normal; font-size: 10px; font-weight: 700; color: #5A4636; }
+#string-pad .tn.hit { transform: translateY(-4px); background: linear-gradient(90deg, #E8EDED, #FFFFFF 45%, #D0D6D6); }
+#note-fly { position: absolute; inset: 0; pointer-events: none !important; overflow: hidden; }
+#note-fly .nf { position: absolute; transform: translate(-50%, -50%); font-size: 22px; font-weight: 700; color: #FFF6D8; text-shadow: 0 1px 3px rgba(60, 40, 20, .55); animation: noteUp 1.8s ease-out forwards; }
+#note-fly .nf.guitar { color: #FFE2B8; }
+#note-fly .nf.kalimba { color: #E6F2F4; }
+@keyframes noteUp { 0% { opacity: 0; transform: translate(-50%, -30%) scale(.7); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), -190%) scale(1.1) rotate(8deg); } }
+@media (max-width: 720px) { #string-pad { height: 124px; } }
+@media (prefers-reduced-motion: reduce) { #note-fly .nf { animation-duration: .01s; } #chord-grid button.next { animation: none; } }
+
+
+/* =========================================================
+   0.9.39 紙芝居のような画面づくり
+   ・AIらしく見える「同じ丸ゴシック、うすい影のやわらかなカード、すりガラス、まん丸のボタン、細い線のアイコン」をやめる
+   ・画用紙（ざらっとした紙の地）に、墨の茶色の線。紙を重ねたような硬い影
+   ・お話の窓（会話、カード、卵の絵、知識カード）は、紙芝居の木の舞台に入れて、右から引き抜くようにあらわれる
+   ・説明の文は、手書きの教科書体（Klee One）。ボタンや見出しは、なつかしい丸明朝（Kiwi Maru）
+   ========================================================= */
+svg { stroke-width: 2; }
+/* 紙の地 */
+.toast, #hint, .status, #sheet, .modal-card, .coach, .hud-menu, .end-tip, .beh, #prompt-btn, .view-btn, #end-day, #rail, .zen-btn, .music-panel, .start-card, .lbl3d, .rest-btn, .page, .vs-card, .ac-sec, .life-sum {
+  background-color: var(--paper); background-image: var(--grain); -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+}
+.toast, #hint, .status, #sheet, .coach, .hud-menu, .end-tip, .beh, #prompt-btn, .view-btn, #end-day, #rail, .zen-btn, .music-panel, .rest-btn {
+  border: 2px solid var(--sumi) !important; box-shadow: var(--shadow) !important;
+}
+.toast, #hint, .status, .coach, .end-tip, .beh, .hud-menu, .music-panel { border-radius: 6px !important; }
+#sheet { border-radius: 8px !important; }
+#prompt-btn, .view-btn, #end-day, .rest-btn, .zen-btn { border-radius: 8px !important; }
+#rail { border-radius: 10px !important; }
+#prompt-btn { color: var(--pine); font-weight: 500; }
+#end-day.ready, #end-day.primary:not(:disabled) { background-color: var(--pine); background-image: var(--grain); color: var(--paper); }
+#end-day:not(.ready) { color: var(--ink); }
+/* 説明の文は、手書きの文字で */
+.toast > span:not([style]), #hint, .lead-s, .modal-card p, .co-b, .end-tip span, .beh-line, .ls-word, .life-sum ul.ls-adv li span, .vs-look, .vs-note li, .ac-me dd > span, .life-list span, .hr-note, .act .tx > span, .egg-box span, .ac-hint, .ac-know, .music-hint, .req p, .rest-cap {
+  font-family: var(--hand);
+}
+.toast { font-size: 15px; line-height: 1.65; }
+#hint { font-size: 14px; }
+.lead-s { font-size: 14.5px; line-height: 1.75; }
+/* 名前の札：小さな紙の札 */
+.lbl3d { border: 1.5px solid var(--sumi); border-radius: 5px !important; box-shadow: 1px 2px 0 rgba(74, 52, 30, .3) !important; color: var(--ink); font-weight: 500; }
+.lbl3d.npc { background-color: var(--pine); color: var(--paper); border-color: #1F3D30; }
+.lbl3d.far { border-width: 1px; }
+/* ボタン：まん丸ではなく、角の少し丸い、墨の線のある紙のボタン */
+.btn { border: 2px solid var(--sumi) !important; border-radius: 8px !important; background-color: var(--card); box-shadow: 1px 2px 0 rgba(74, 52, 30, .28); font-weight: 500; }
+.btn.primary { background-color: var(--pine); background-image: var(--grain); color: var(--paper); border-color: #1F3D30 !important; }
+.btn.ghost { box-shadow: none; }
+.btn:active:not(:disabled) { transform: translate(1px, 2px); box-shadow: none; }
+.seg { border-radius: 8px !important; }
+.seg button { border-radius: 6px !important; }
+.pill { border-radius: 4px !important; }
+/* 行動などの並び */
+.act { background-color: var(--card) !important; border: 1.5px solid var(--sumi) !important; border-radius: 8px !important; box-shadow: 1px 2px 0 rgba(74, 52, 30, .22) !important; }
+.act .ic { border-radius: 6px !important; }
+.ac-sec, .vs-card, .life-sum { border: 1.5px solid var(--sumi) !important; border-radius: 8px !important; }
+.ac-sec > h4 { color: var(--ink); border-bottom: 1.5px dashed rgba(74, 59, 46, .4); }
+#sheet-body details > summary, #modal-card details > summary { border: 1.5px solid var(--sumi) !important; border-radius: 8px !important; background-color: var(--card); box-shadow: 1px 2px 0 rgba(74, 52, 30, .2); }
+#sheet-body details > summary::after, #modal-card details > summary::after { border-radius: 6px !important; background: var(--sumi); box-shadow: none; }
+#sheet-body details[open] > summary, #modal-card details[open] > summary { background-color: var(--paper-2); }
+#sheet-body details[open] > summary::after, #modal-card details[open] > summary::after { background: var(--card); color: var(--sumi); box-shadow: inset 0 0 0 2px var(--sumi); }
+.life-sum ul.ls-adv li, .life-sum .ls-good { background-color: var(--card); }
+/* 気づきのメモは、色の太い線ではなく、紙片に小さな印 */
+.life-sum ul.ls-adv li { border: 1.5px solid rgba(74, 59, 46, .45) !important; border-radius: 4px !important; box-shadow: 1px 2px 0 rgba(74, 52, 30, .15); }
+.life-sum ul.ls-adv li em { display: inline-flex; align-items: center; gap: 5px; color: var(--ink-2); }
+.life-sum ul.ls-adv li em::before { content: ''; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--sumi); background: #C9667E; flex: none; }
+.life-sum ul.ls-adv li.ls-bt em::before { background: #6BA646; }
+.life-sum ul.ls-adv li.ls-wt em::before { background: #A9B4B8; }
+.life-sum .ls-good { border: 1.5px solid rgba(46, 90, 72, .5); border-radius: 4px !important; }
+/* 見出しのつまみ：まん丸の切りかえではなく、紙のインデックス */
+.tabs { background: transparent !important; border-radius: 0 !important; padding: 0 2px !important; gap: 3px !important; border-bottom: 2px solid var(--sumi); align-items: flex-end; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tabs button { border: 1.5px solid rgba(74, 59, 46, .45) !important; border-bottom: 0 !important; border-radius: 7px 7px 0 0 !important; background: var(--paper-2) !important; box-shadow: none !important; color: var(--ink-2); font-weight: 500 !important; }
+.tabs button.on { background: var(--card) !important; color: var(--ink) !important; border: 2px solid var(--sumi) !important; border-bottom: 0 !important; position: relative; top: 2px; padding-bottom: 9px; }
+.tabs.ico-tabs button { border-radius: 8px 8px 0 0 !important; }
+.filters button { border: 1.5px solid rgba(74, 59, 46, .5) !important; border-radius: 4px !important; background: var(--card) !important; font-weight: 500 !important; }
+.filters button.on { background: var(--sumi) !important; color: var(--paper) !important; border-color: var(--sumi) !important; }
+/* 設定などの札 */
+.home-btn { border: 2px solid var(--sumi) !important; border-radius: 8px !important; background-color: var(--card) !important; box-shadow: var(--shadow) !important; }
+.home-btn:active { transform: translate(1px, 2px); box-shadow: none !important; }
+.home-btn .hb-ic { border-radius: 6px !important; border: 1.5px solid #1F3D30; }
+.home-btn.av-btn .av-ic { border-color: var(--sumi); }
+.sec.tester { background-color: #FFF6DC !important; background-image: var(--grain); border: 1.5px dashed rgba(74, 59, 46, .5); border-radius: 4px !important; }
+.name-row input, input.txt { border: 1.5px solid var(--sumi) !important; border-radius: 4px !important; background: var(--card) !important; }
+/* 見出しの帯 */
+#sheet-head, .sheet-head { border-bottom: 2px solid var(--sumi) !important; }
+#sheet-title { font-weight: 500; }
+/* お話の窓は、紙芝居の木の舞台に。右から引き抜くようにあらわれる */
+#modal { background: rgba(40, 28, 16, .42); }
+.modal-card {
+  border: 11px solid var(--wood) !important; border-image: repeating-linear-gradient(90deg, #8B5E34 0 6px, #95683C 6px 8px, #7F5530 8px 15px, #8B5E34 15px 22px) 11 !important;
+  border-radius: 0 !important; box-shadow: 0 0 0 2px var(--wood-d), 6px 9px 0 2px rgba(40, 25, 10, .38) !important;
+  animation: kamiIn .5s cubic-bezier(.25, .8, .3, 1) both !important;
+}
+@keyframes kamiIn { from { clip-path: inset(0 0 0 62%); opacity: .6; } to { clip-path: inset(0 0 0 0); opacity: 1; } }
+.vs-card { animation: kamiIn .45s cubic-bezier(.25, .8, .3, 1) both; }
+.kcard-band { border-radius: 0 !important; }
+/* 知らせ・案内：紙の短冊 */
+.toast { border-left-width: 6px !important; }
+.coach { border-color: var(--coral) !important; border-width: 2px 2px 2px 6px !important; }
+.end-tip { background-color: #FFF6DC; }
+.beh { border-width: 1.5px !important; }
+/* ひと休みの言葉：景色の上の、紙の帯 */
+.rest-cap { color: var(--ink); text-shadow: none; }
+.rest-cap .in { background-color: var(--paper); background-image: var(--grain); color: var(--ink); border: 2px solid var(--sumi); border-radius: 6px; box-shadow: var(--shadow); -webkit-backdrop-filter: none; backdrop-filter: none; text-shadow: none; padding: 6px 16px 8px; }
+.rest-meter { background-color: var(--paper); background-image: var(--grain); color: var(--ink); border: 2px solid var(--sumi); border-radius: 6px; box-shadow: var(--shadow); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.rest-meter b { background: var(--paper-3); }
+.rest-breath span { background-color: var(--paper); color: var(--ink); border: 2px solid var(--sumi); border-radius: 6px; }
+.rest-btn { color: var(--ink); }
+.zen-exit { background: var(--paper) !important; background-image: var(--grain) !important; color: var(--ink) !important; border: 2px solid var(--sumi); border-radius: 8px !important; box-shadow: var(--shadow); -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+.music-top .seg { background: var(--paper) !important; background-image: var(--grain) !important; border: 2px solid var(--sumi); -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+.music-top .seg button { color: var(--ink) !important; }
+.music-top .seg button.on { background: var(--pine) !important; color: var(--paper) !important; }
+#chord-grid button { border: 1.5px solid var(--sumi) !important; border-radius: 7px !important; background-color: var(--card) !important; box-shadow: 1px 2px 0 rgba(74, 52, 30, .25); }
+#chord-grid button.on { background-color: var(--pine) !important; color: var(--paper); }
+#string-pad { border-radius: 6px !important; border: 2px solid var(--wood-d); }
+/* 日記のページは、もともと紙。少しだけ線を */
+.page { border: 1.5px solid rgba(74, 59, 46, .35); }
+@media (prefers-reduced-motion: reduce) { .modal-card, .vs-card { animation: none !important; } }
+
+.said, .egg-box, .ac-hint { border-radius: 6px !important; }
+.music-top { gap: 8px; flex-wrap: wrap; }
+.music-top .seg { flex-wrap: nowrap; }
+.music-top .seg button { padding: 6px 10px !important; white-space: nowrap; }
+.music-top .music-acts { display: flex; gap: 6px; }
+.music-top .rest-btn { white-space: nowrap; padding: 7px 12px; }
+@media (max-width: 720px) {
+  #hint { bottom: calc(env(safe-area-inset-bottom, 0px) + 196px) !important; }
+  .music-top .seg button { font-size: 12.5px !important; padding: 6px 8px !important; }
+}
+/* 話している人：色の丸ではなく、紙に描いた胸像と、判子のような名前の印 */
+.dialog-who .av.bust { width: 50px; height: 50px; border-radius: 0; background: none; transform: rotate(-2deg); filter: drop-shadow(1px 2px 0 rgba(74, 52, 30, .25)); }
+.dialog-who .av.bust svg { width: 50px; height: 50px; stroke: none; display: block; }
+.mav { border-radius: 6px !important; border: 2px solid var(--sumi); box-shadow: 1px 2px 0 rgba(74, 52, 30, .28); transform: rotate(-2deg); }
+.said { border-radius: 4px !important; border: 1.5px solid rgba(74, 59, 46, .3); background-image: var(--grain); }
+.stat-row .stat { border-radius: 4px !important; border: 1.5px solid rgba(74, 59, 46, .3); background-image: var(--grain); }
+.stat-row .stat .bar, .stat-row .stat .bar i { border-radius: 2px !important; }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1424,12 +1600,14 @@ details.ac-fold > .af-body > .ac-facts:first-child { margin-top: 0; }
   </div>
 
   <div id="music-ui" hidden>
-    <div class="music-top"><div class="seg" id="inst-seg" role="group" aria-label="楽器"><button type="button" data-i="ukulele">ウクレレ</button><button type="button" data-i="guitar">ギター</button></div><div class="music-acts"><button type="button" class="rest-btn" id="music-fold" aria-pressed="false">たたむ</button><button type="button" class="rest-btn strong" id="music-close">立ち上がる</button></div></div>
+    <div class="music-top"><div class="seg" id="inst-seg" role="group" aria-label="楽器"><button type="button" data-i="ukulele">ウクレレ</button><button type="button" data-i="guitar">ギター</button><button type="button" data-i="kalimba">カリンバ</button></div><div class="music-acts"><button type="button" class="rest-btn" id="music-fold" aria-pressed="false">たたむ</button><button type="button" class="rest-btn strong" id="music-close">立ち上がる</button></div></div>
     <div class="music-panel">
+      <div class="music-opts" id="music-opts"></div>
       <div id="chord-grid"></div>
       <div id="string-pad" aria-label="弦。指でなぞると鳴ります"><span id="pad-chord">C</span></div>
       <p class="music-hint" id="music-hint"></p>
     </div>
+    <div id="note-fly" aria-hidden="true"></div>
   </div>
 
   <div id="rest-ui" hidden>
@@ -2120,6 +2298,22 @@ const EGG_PICS = [
   { id: 'molt', title: '羽が生えかわる季節', body: '秋になると、鶏の羽は少しずつ生えかわります（換羽）。その間は、卵を産むのをお休みすることも。新しい羽を作るための、大切な時間です。' },
 ];
 
+/* 段階ごとの、チャレンジと気にかけること（0.9.39。「この丘の、これから」に）
+   出典：千葉県「飼養衛生管理基準と定期報告」、島根県「家畜排せつ物法の管理基準」、長野県 飯田家畜保健衛生所、
+   The Open Sanctuary Project「Choosing The Right Site」「The Challenges Of Responsible Rescue」、CFSPH「Agritourism tip sheet」 */
+const STAGE_NOTES = {
+  1: { ch: ['朝の鳴き声やにおいで、ご近所と気持ちよく暮らせるように。顔を合わせて話しておく', 'キツネやハクビシンから、夜の小屋と柵で鶏たちを守る', '鶏を診てくれる獣医さんを、近くに見つけておく'],
+       care: ['1羽からでも、家畜の飼い方の決まり（飼養衛生管理基準）の対象。毎年2月1日の数を、家畜保健衛生所に知らせる', '迎えきれない時は、断ることも責任ある答え。はるこさんひとりで抱えこまない'] },
+  2: { ch: ['牛や豚のような大きな子を診られる獣医さんと、運ぶための車', '新しく来た子は、ほかの子と分けて、30日ほど様子を見る（検疫）', '水をたっぷり。雨のあとにぬかるまない排水（足の病気を防ぐ）'],
+       care: ['豚は、野生のイノシシから豚熱がうつらないよう、柵と入口の消毒で守る', '牛が10頭をこえたら、堆肥置き場はコンクリートの床と屋根に（家畜排せつ物法）', '一生のお世話は、毎月の費用がずっと続くこと。借りた土地の約束も確かめておく'] },
+  3: { ch: ['見学の人と動物、どちらも安心できる道すじ。手洗い場と、食べる場所を動物の場所と分ける', 'ボランティアさんを迎えて、世話のしかたを伝える', '動物病院の小部屋を、毎日の健康チェックに生かす'],
+       care: ['子どもには、大人がそばに。小さな子どもや体の弱い人は、動物の菌に気をつけて', '働く人が疲れきらないように、休みと交代を', '見学の日も、動物たちが離れて休める場所を残す', '台風や大雨の時の、避難の計画'] },
+  4: { ch: ['森と小川と湿地の手入れ。外から来た植物や、水の量を見守る', '馬がのびのび走れる広さと、蹄の手入れ', '生態の専門家と、生き物の記録をつける'],
+       care: ['野鳥が集まる池は、鶏やアヒルの小屋から離し、小屋には野鳥が入らない網を（鳥インフルエンザ）', '新しい草地に、動物にとって毒になる植物がないか確かめる', '年を重ねた子が増える。やわらかい地面と寝床を'] },
+  5: { ch: ['地域のみんなで支え、続けていく仕組み。代表が代わっても続くように', '大勢の人が訪れる日と、動物たちの静かな時間の両立', '野生の生き物の通り道を、まわりの林とつなげて守る'],
+       care: ['土地は、団体として持つか、長く借りる約束を（代表の家に頼らない）', 'お祭りの音や人の多さが、動物の負担にならないように', '迎える子の数より、一頭ずつの暮らしを先に'] },
+};
+
 const PERS_DESC = {
   '好奇心旺盛': '新しいものや人に、まっさきに寄ってきます。歩くと、ときどきついてきます',
   'おだやか': 'あわてず、仲間のそばでゆったり過ごします',
@@ -2441,7 +2635,7 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.38', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.39', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -2449,6 +2643,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.39', '2026年10月16日', '画面を、紙芝居のように。字は、なつかしい丸明朝と手書きの教科書体に。画用紙の地に墨の茶色の線、紙を重ねたような影。お話やカードの窓は木の舞台に入って、紙を引き抜くようにあらわれます。話している人には、小さな似顔絵を。「この丘の、これから」は、1〜5の段階をボタンや横スワイプで入れ替える1枚に（ゲームの中の数字はなくしました）。それぞれの段階で実際にぶつかるチャレンジと、気にかけることを、調べて書き足しました（出典つき）。電車は、少し間をあけて走るように（夜はもっとまばらに）。楽器は、響きと指の当たる音、なでる速さで強さが変わるように。リズム（自分で・ゆっくり・はずむ・ワルツ）とコードの流れ（光るコードを順に押すだけ）、ひと息にカリンバを足しました。音符がふわりと上がります'],
     ['0.9.38', '2026年10月16日', 'ほかのアプリで好きな音楽を聴きながら遊べるように（iPhone では、ゲームの自然の音が音楽を止めずに重なります）。明るい昼でも読みやすいよう、うすい文字を濃く、景色に重なる文字には影の帯を。「動物たちの暮らし」は数字をなくし、言葉で（「こうすると、もっと良くなるかも」「ここが困っているかも」を、名前を添えて）。動物のカードの「この子のこと」を、いつも見える所に。はじめは性格と好きなことのひとつ。そばで過ごしたり、仲良くなったり、しぐさを見たりすると、好きなこと・苦手・仲良しが書き足されます。ひと息の「ベンチで眺める」と「動物たちと過ごす」を「ゆっくりする」ひとつに（近くに動物たちがいればそのそばに、いなければ近くのベンチや切り株に）。名前の看板は、庭の中に散らして立てるように。画面の表示が「少なめ」「名前だけ」でも、タップへの返事やカードの案内は出るように'],
     ['0.9.37', '2026年10月16日', 'スマホで、2本の指を同時に使えるように（下3分の1の指で歩きながら、上の指で見回せます）。歩く速さを、さらにゆっくり（遠くをタップした時だけ小走り）。メニューの「全体」をなくし、ピンチ（パソコンはホイール）で丘ぜんたいまで引けるように（遠くから見ている時は、タップした所へ移動）。右上の重なった紙のボタンで、画面の表示を4段階に（すべて・少なめ・名前だけ・景色だけ）。置いた物の札や案内は、近づいても出さず、タップした時に。動物のカードを、ひと目で見える所と、＋でひらく所に。しぐさは、立ち止まって眺めている時に、1日に3つまで、少しずつ見つかるように（人見知りの子は、仲良くなるまで見せないしぐさも）。今朝の卵は「無精卵です」をはっきり。割ると、殻の中から鶏たちの体と暮らしの絵が1枚（1日に1枚、全部で5枚）。代表のはるこさんにも、お給料が出るように。ひと休みは、40秒さわらなかった時に。「今日できることは、おしまい」の吹き出しは、はじめての日だけ。日記をつけたあとの「日記を見る」ボタンをなくしました'],
     ['0.9.36', '2026年10月16日', 'はじめの案内（歩く・見回す・なでる・カード・はるこさん・行動・これからの姿。とばせて、設定からもう一度）。「この丘の、これから」：段階ごとの地図、広さ（テニスコート約2面分から1km四方まで）、世話をする人、迎えられる子、増えていくもの。どこまで育てるかは自由。動物たちの暮らし：一頭ずつの好きなこと・苦手・広さ・世話・季節の備え・安心を、カードと動物の画面に。暮らしの質が前より上がって線をこえると、「暮らし」の支えとしてサンクチュアリが育つ（頭数では育たない）。しぐさの気持ちを、すべての動物に（喜怒哀楽ごと。いや・不安・さびしい・ひとりの時間も）'],
@@ -2999,7 +3194,23 @@ const INSTRUMENTS = {
     chords: [['C', [0, 0, 0, 3]], ['Am', [2, 0, 0, 0]], ['F', [2, 0, 1, 0]], ['G', [0, 2, 3, 2]], ['Em', [0, 4, 3, 2]], ['Dm', [2, 2, 1, 0]], ['G7', [0, 2, 1, 2]], ['A7', [0, 1, 0, 0]]] },
   guitar: { name: 'ギター', open: [40, 45, 50, 55, 59, 64], damp: 0.9968, bright: 0.62, dur: 2.6, gap: 0.013,
     chords: [['C', [-1, 3, 2, 0, 1, 0]], ['G', [3, 2, 0, 0, 0, 3]], ['Am', [-1, 0, 2, 2, 1, 0]], ['Em', [0, 2, 2, 0, 0, 0]], ['D', [-1, -1, 0, 2, 3, 2]], ['Dm', [-1, -1, 0, 2, 3, 1]], ['F', [1, 3, 3, 2, 1, 1]], ['E', [0, 2, 2, 1, 0, 0]]] },
+  // カリンバ（0.9.39）：やさしいペンタトニック（ド・レ・ミ・ソ・ラ）。どこを弾いても、ぶつからない
+  kalimba: { name: 'カリンバ', tine: true, notes: [60, 62, 64, 67, 69, 72, 74, 76, 79], names: ['ド', 'レ', 'ミ', 'ソ', 'ラ', 'ド', 'レ', 'ミ', 'ソ'], open: [], chords: [] },
 };
+// 伴奏のリズム（0.9.39）：1文字が8分音符。D＝下へジャラン、U＝上へ（やさしく）、B＝いちばん低い音だけ、.＝休み
+const RHYTHMS = {
+  free: { name: '自分で' },
+  slow: { name: 'ゆったり', bpm: 72, steps: 'D...D.U.' },
+  bounce: { name: 'はずむ', bpm: 88, steps: 'D.DU.UDU' },
+  waltz: { name: 'ワルツ', bpm: 104, steps: 'B.D.D.' },
+};
+// よく合うコードの流れ（0.9.39）：光るコードを順に押すと、それらしい曲になる
+const PROGRESSIONS = [
+  { id: 'none', name: 'なし', chords: [] },
+  { id: 'yasashii', name: 'やさしい', chords: ['C', 'Am', 'F', 'G'] },
+  { id: 'kanon', name: 'カノンふう', chords: ['C', 'G', 'Am', 'Em', 'F', 'C', 'F', 'G'] },
+  { id: 'yuugure', name: '夕ぐれ', chords: ['Am', 'F', 'C', 'G'] },
+];
 
 /* =========================================================
    働く人たちの会話：人ごとの話し方と話題。季節・天気・時間・そこにいる動物で変わる
@@ -4881,30 +5092,56 @@ function stringBuffer(midi, instId) {
   AU.bufs.set(key, buf);
   return buf;
 }
+// 楽器の音（0.9.39）：やわらかな響き（短い残響）、指が弦にふれる音、強さで明るさが変わる、胴の響きを2つ
+function makeIR(c, sec) {
+  const n = Math.floor(c.sampleRate * sec), b = c.createBuffer(2, n, c.sampleRate), a = c.sampleRate * 0.012;
+  for (let ch = 0; ch < 2; ch++) { const d = b.getChannelData(ch); for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 2.8) * (i < a ? i / a : 1); }
+  return b;
+}
+function musicBus() {
+  if (AU.mbus) return AU.mbus;
+  const c = AU.ctx, dry = c.createGain(), tone2 = c.createBiquadFilter(), conv = c.createConvolver(), wet = c.createGain();
+  tone2.type = 'lowpass'; tone2.frequency.value = 3000; conv.buffer = makeIR(c, 1.8); wet.gain.value = 0.22;
+  dry.connect(AU.music); dry.connect(tone2); tone2.connect(conv); conv.connect(wet); wet.connect(AU.music);
+  AU.mbus = dry; return dry;
+}
 function pluck(instId, string, midi, when, vel) {
   if (!audioReady()) return;
-  const c = AU.ctx, old = AU.strings[string];
+  vel = vel || 0.5;
+  const c = AU.ctx, old = AU.strings[string], bus = musicBus(), gtr = instId === 'guitar';
   if (old) { try { old.g.gain.setTargetAtTime(0, when, 0.015); old.s.stop(when + 0.1); } catch (e) { /* なし */ } }
-  const s = c.createBufferSource(); s.buffer = stringBuffer(midi, instId);
-  const lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = instId === 'guitar' ? 4200 : 3600;
-  const body = c.createBiquadFilter(); body.type = 'peaking'; body.frequency.value = instId === 'guitar' ? 120 : 420; body.gain.value = 4; body.Q.value = 1;
-  const g = c.createGain(); g.gain.value = (vel || 0.5) * (instId === 'guitar' ? 0.34 : 0.4);
+  const s = c.createBufferSource(); s.buffer = stringBuffer(midi, instId); s.detune.value = (Math.random() - 0.5) * 6;
+  const lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = (gtr ? 4200 : 3600) * (0.55 + vel * 0.9);
+  const b1 = c.createBiquadFilter(); b1.type = 'peaking'; b1.frequency.value = gtr ? 110 : 320; b1.gain.value = gtr ? 4 : 3; b1.Q.value = 1.1;
+  const b2 = c.createBiquadFilter(); b2.type = 'peaking'; b2.frequency.value = gtr ? 230 : 880; b2.gain.value = gtr ? 3 : 2; b2.Q.value = 1.4;
+  const g = c.createGain(); g.gain.value = vel * (gtr ? 0.34 : 0.4);
   const pn = c.createStereoPanner ? c.createStereoPanner() : null;
-  s.connect(lp); lp.connect(body); body.connect(g);
-  if (pn) { pn.pan.value = (string / (INSTRUMENTS[instId].open.length - 1) - 0.5) * 0.3; g.connect(pn); pn.connect(AU.music); } else g.connect(AU.music);
+  s.connect(lp); lp.connect(b1); b1.connect(b2); b2.connect(g);
+  if (pn) { pn.pan.value = (string / (INSTRUMENTS[instId].open.length - 1) - 0.5) * 0.3; g.connect(pn); pn.connect(bus); } else g.connect(bus);
   s.start(when);
+  noiseHit({ t: when, dur: 0.014, peak: 0.018 * vel, filter: ['bandpass', gtr ? 2200 : 2800, 1.2], dest: bus }); // 指が弦にふれる音
   AU.strings[string] = { s, g };
   s.onended = () => { try { g.disconnect(); if (pn) pn.disconnect(); } catch (e) { /* なし */ } if (AU.strings[string] && AU.strings[string].s === s) AU.strings[string] = null; };
 }
 function chordNotes(instId, frets) { const I = INSTRUMENTS[instId]; return frets.map((f, i) => (f < 0 ? null : I.open[i] + f)); }
-function strum(instId, frets, up) {
+function strum(instId, frets, up, when, velMul) {
   if (!audioReady()) return;
-  const I = INSTRUMENTS[instId], notes = chordNotes(instId, frets), t0 = AU.ctx.currentTime + 0.01;
+  const I = INSTRUMENTS[instId], notes = chordNotes(instId, frets), t0 = when || AU.ctx.currentTime + 0.01, vm = velMul || 1;
   const order = notes.map((n, i) => i); if (up) order.reverse();
-  let k = 0;
-  for (const i of order) { if (notes[i] === null) continue; pluck(instId, i, notes[i], t0 + k * I.gap * (up ? 0.8 : 1), (up ? 0.38 : 0.5) + Math.random() * 0.08); k++; }
+  let k = 0, t = t0;
+  for (const i of order) { if (notes[i] === null) continue; pluck(instId, i, notes[i], t, ((up ? 0.36 : 0.5) + Math.random() * 0.08) * vm); t += I.gap * (up ? 0.8 : 1) * (0.85 + Math.random() * 0.3); k++; }
 }
-function pluckOne(instId, frets, i) { const n = chordNotes(instId, frets)[i]; if (n === null || !audioReady()) return; pluck(instId, i, n, AU.ctx.currentTime + 0.005, 0.55); }
+// いちばん低い音だけ（ワルツの「ボン」）
+function bassNote(instId, frets, when, vel) { const notes = chordNotes(instId, frets); let i = -1, lo = 1e9; notes.forEach((n, k) => { if (n !== null && n < lo) { lo = n; i = k; } }); if (i < 0 || !audioReady()) return; pluck(instId, i, notes[i], when || AU.ctx.currentTime + 0.005, vel || 0.5); }
+function pluckOne(instId, frets, i, vel) { const n = chordNotes(instId, frets)[i]; if (n === null || !audioReady()) return; pluck(instId, i, n, AU.ctx.currentTime + 0.005, vel || 0.55); }
+// カリンバ（0.9.39）：やわらかな金属の舌の音。基音と、すぐ消える高い倍音と、小さな「コッ」
+function tine(midi, when, vel) {
+  if (!audioReady()) return;
+  const c = AU.ctx, t = when || c.currentTime + 0.005, v = vel || 0.6, f = 440 * Math.pow(2, (midi - 69) / 12), out = musicBus();
+  const voice = (fr, peak, dec) => { const o = c.createOscillator(), g = c.createGain(); o.type = 'sine'; o.frequency.value = fr; g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + 0.004); g.gain.exponentialRampToValueAtTime(0.0001, t + dec); o.connect(g); g.connect(out); o.start(t); o.stop(t + dec + 0.05); };
+  voice(f, 0.3 * v, 2.6); voice(f * 2.01, 0.05 * v, 0.7); voice(f * 5.4, 0.08 * v, 0.16);
+  noiseHit({ t, dur: 0.012, peak: 0.02 * v, filter: ['highpass', 2600, 0.7], dest: out });
+}
 
 /* =========================================================
    模型：建物、飾り、人、動物（ローポリの箱庭模型）
@@ -5290,6 +5527,14 @@ function modelTrainCar(front, clip) {
 
 /* ---------- 楽器（その場で弾く） ---------- */
 function modelInstrument(id) {
+  if (id === 'kalimba') { // カリンバ（0.9.39）：手のひらにのる木の箱と、金属の舌
+    const g = new THREE.Group();
+    part('box', '#B07A44', 0.32, 0.22, 0.07, 0, 0, 0, g);
+    part('cyl12', '#3A2A20', 0.06, 0.01, 0.06, 0, -0.04, 0.037, g, { noShadow: true }).rotation.x = Math.PI / 2;
+    for (let k = 0; k < 9; k++) { const off = Math.ceil(k / 2) * (k % 2 ? 1 : -1); part('box', '#D8DCDC', 0.012, 0.13 - k * 0.008, 0.008, off * 0.03, 0.03 + k * 0.004, 0.045, g, { noShadow: true }); }
+    part('box', '#5A3E2A', 0.3, 0.02, 0.02, 0, -0.005, 0.045, g, { noShadow: true });
+    return g;
+  }
   const g = new THREE.Group(), k = id === 'guitar' ? 1 : 0.62;
   const wood = id === 'guitar' ? '#B7813F' : '#C8904E';
   part('sph', wood, 0.5 * k, 0.44 * k, 0.16 * k, 0, 0, 0, g);
@@ -10178,7 +10423,7 @@ function nearestInteractable() {
 }
 
 /* ---------- 電車（南の線路。トンネルからトンネルへ） ---------- */
-const TRAIN = { g: null, x: -200, dir: 1, wait: 12, cars: [] };
+const TRAIN = { g: null, x: -200, dir: 1, wait: 45, cars: [] };
 function initTrain() {
   const clip = [new THREE.Plane(new THREE.Vector3(-1, 0, 0), 55.4), new THREE.Plane(new THREE.Vector3(1, 0, 0), 55.4)];
   TRAIN.g = new THREE.Group(); R.world.add(TRAIN.g);
@@ -10195,7 +10440,8 @@ function updateTrain(dt) {
   TRAIN.x += TRAIN.dir * 13 * dt;
   const zc = TRAIN.dir > 0 ? 54.85 - 0.55 : 53.75 + 0.55;
   TRAIN.cars.forEach((c, i) => { c.position.set(TRAIN.x - TRAIN.dir * i * 11.2, 0.28, zc); c.rotation.y = TRAIN.dir > 0 ? 0 : Math.PI; });
-  if (Math.abs(TRAIN.x) > 82 + 12) { TRAIN.g.visible = false; TRAIN.wait = rand(55, 95); }
+  // 0.9.38 → 0.9.39：行き来を減らす（前は1分ほどごと。今は3〜5分ほどごと、夜はもっと少なく）
+  if (Math.abs(TRAIN.x) > 82 + 12) { TRAIN.g.visible = false; TRAIN.wait = rand(170, 290) * (typeof SKY !== 'undefined' && SKY.night > 0.5 ? 1.6 : 1); }
   const P = ACT.player; const d = Math.hypot(clamp(P.x, TRAIN.x - 11, TRAIN.x + 11) - P.x, 54.3 - P.z);
   // 音の左右：画面の上で、電車がどちらにいるか
   let pan = 0; try { const sc = toScreen(clamp(TRAIN.x, -55, 55), 1, 54.3), w = R.renderer.domElement.clientWidth || 1; pan = clamp((sc.x / w) * 2 - 1, -0.85, 0.85); } catch (e) { /* なし */ }
@@ -12152,6 +12398,20 @@ function chatLine(cid) {
   bondFor(C.lines[i][0]);
   return wrap(C.lines[i][1]);
 }
+// 話している人の、紙に描いた胸像（0.9.39）。色の丸だけだと、誰と話しているのか顔が浮かばないので
+function npcBust(d) {
+  const hx = (h, f) => (/^#[0-9a-f]{6}$/i.test(h || '') ? h : f);
+  const top = hx(d.top, '#9CB6C8'), hair = hx(d.hair, '#2E2A26'), skin = '#EBC8A6', S = '#4A3B2E';
+  let h = `<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="1" y="1" width="46" height="46" rx="5" fill="#E9DCC0" stroke="${S}" stroke-width="2"/>`;
+  h += `<path d="M7 47 C8 36 15 32 24 32 C33 32 40 36 41 47 Z" fill="${top}" stroke="${S}" stroke-width="2" stroke-linejoin="round"/>`;
+  if (d.scarf) h += `<path d="M16 33.5 C20 37 28 37 32 33.5 L31 31 C27 33 21 33 17 31 Z" fill="${hx(d.scarf, '#D6735A')}" stroke="${S}" stroke-width="1.6" stroke-linejoin="round"/>`;
+  h += `<ellipse cx="24" cy="20" rx="9.5" ry="10.5" fill="${skin}" stroke="${S}" stroke-width="2"/>`;
+  h += `<path d="M14.6 19 C14 11 19 8.6 24 8.6 C29.5 8.6 34.4 11.4 33.4 19 C30 16 26 14.6 21 15.2 C18.6 15.6 16.4 17 14.6 19 Z" fill="${hair}" stroke="${S}" stroke-width="1.8" stroke-linejoin="round"/>`;
+  if (d.hat) h += `<path d="M11 13.5 C15 12 33 12 37 13.5 C35 9.5 32 5.5 24 5.5 C16 5.5 13 9.5 11 13.5 Z" fill="${hx(d.hat, '#C9A45A')}" stroke="${S}" stroke-width="1.8" stroke-linejoin="round"/>`;
+  h += `<circle cx="20.4" cy="21" r="1.2" fill="${S}"/><circle cx="27.6" cy="21" r="1.2" fill="${S}"/><path d="M21.6 25.4 Q24 27 26.4 25.4" fill="none" stroke="${S}" stroke-width="1.4" stroke-linecap="round"/>`;
+  h += `<circle cx="18.2" cy="24.2" r="1.6" fill="#E59A86" opacity=".55"/><circle cx="29.8" cy="24.2" r="1.6" fill="#E59A86" opacity=".55"/></svg>`;
+  return h;
+}
 function chatHtml(lines) {
   return lines.map((x) => x[0] === '>' ? `<p class="you">あなた「${said(x.slice(1))}」</p>` : `<p class="said">「${said(x)}」</p>`).join('');
 }
@@ -12194,6 +12454,10 @@ const UI = {
     $('#t-when').addEventListener('click', () => { const st = $('#status'), open = !st.classList.contains('open'); st.classList.toggle('open', open); $('#t-when').setAttribute('aria-expanded', open ? 'true' : 'false'); UI.statusWake(open ? 0 : 6000); });
     // 画面の表示（0.9.37）：すべて・少なめ・名前だけ・景色だけ の4段階
     $('#zen-btn').addEventListener('click', (e) => { e.stopPropagation(); UI.hudMenu(); });
+    // この丘の、これから：カードを左右にスワイプしても、段階を入れ替えられる（0.9.39）
+    { let sx = null, sy = 0; const sb = $('#sheet-body');
+      sb.addEventListener('pointerdown', (e) => { sx = e.target.closest('.vs-card') ? e.clientX : null; sy = e.clientY; }, { passive: true });
+      sb.addEventListener('pointerup', (e) => { if (sx == null) return; const dx = e.clientX - sx, dy = e.clientY - sy; sx = null; if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) { const n2 = clamp((UI.visSel || G.stage) + (dx < 0 ? 1 : -1), 1, 5); if (n2 !== UI.visSel) { UI.visSel = n2; UI.render(true); } } }, { passive: true }); }
     // カードの＋でひらく所は、ひらいた所を覚えておく（ほかの子のカードでも同じ所をひらく）
     $('#sheet-body').addEventListener('toggle', (e) => { const d = e.target; if (d && d.matches && d.matches('details.ac-fold[data-k]')) { if (d.open) UI.acOpen.add(d.dataset.k); else UI.acOpen.delete(d.dataset.k); } }, true);
     $('#hud-menu').addEventListener('click', (e) => { const b = e.target.closest('[data-lvl]'); if (b) { e.stopPropagation(); UI.setHud(b.dataset.lvl); } });
@@ -12520,6 +12784,7 @@ const UI = {
     if (push && UI.cur && !$('#sheet').hidden) UI.stack.push(UI.cur); else if (!push) UI.stack = [];
     UI.cur = { name, arg }; UI.confirm = null;
     if (name === 'card' || name === 'actions' || name === 'vision') UI.tutMark(name === 'actions' ? 'act' : name);
+    if (name === 'vision') UI.visSel = G && G.mode === 'hakoniwa' ? 5 : G ? G.stage : 1; // ひらいた時は、いまの段階から
     if (name === 'avatar') UI.avGroup = 'face'; // いつも 1 の「顔」から
     $('#sheet').classList.toggle('short', name === 'avatar');
     $('#sheet').hidden = false; document.body.classList.add('sheet-open'); UI.render(true);
@@ -12657,6 +12922,7 @@ const UI = {
       case 'toggle-paper': G.settings.paper = G.settings.paper === false; PAPER.ok = true; PAPER.an = null; GAME.save(); UI.render(); break;
       case 'toggle-labels': G.settings.labels = UI.showLabels ? 'off' : 'near'; UI.render(); break;
       case 'hud-lvl': UI.setHud(v); UI.render(); break;
+      case 'vis-go': { const n2 = +v; if (n2 >= 1 && n2 <= 5) { UI.visSel = n2; UI.render(true); } break; }
       case 'labels-mode': G.settings.labels = v; UI.showLabels = v !== 'off'; GAME.save(); UI.render(); break;
       case 'toggle-beh': G.settings.beh = G.settings.beh === false; if (G.settings.beh === false) UI.behHide(true); GAME.save(); break;
       case 'toggle-autosit': G.settings.autoSit = G.settings.autoSit === false; GAME.save(); UI.render(); break;
@@ -12884,32 +13150,36 @@ const UI = {
       return { title: '飾る・置く', html: h };
     },
     // この丘の、これから：段階ごとの地図・広さ・人・迎えられる子・増えるもの。どこまで育てるかは自由（0.9.36）
+    // この丘の、これから（0.9.39）：1つの画面で、段階のボタン（とスワイプ）で入れ替える。ゲームの中の数字は出さない。段階ごとのチャレンジと気にかけること
     vision() {
-      const cur = G.stage, hk = G.mode === 'hakoniwa', team = (n) => FIN.baseTeam[n], capOf = (n) => FIN.haruko + team(n).staff * TEAM.staff.add + team(n).part * TEAM.part.add + team(n).volunteer * TEAM.volunteer.add;
+      const cur = G.stage, hk = G.mode === 'hakoniwa', team = (n) => FIN.baseTeam[n];
+      const sel = clamp(UI.visSel || (hk ? 5 : cur), 1, 5); UI.visSel = sel;
       const SIZE = { 1: 'テニスコート約2面分', 2: 'サッカーのグラウンド約4面分', 3: '東京ドーム約2個分', 4: '東京ドーム約6個分', 5: '1km四方。東京ドーム約21個分' };
       const NATURE = { 1: '裏庭の草地に、鳥や虫が来はじめる', 2: '池ができて、カエルやトンボが来る', 3: '見学路に花。小川が流れはじめることも', 4: '野鳥やカエル、トンボが増え、観察小屋も', 5: '野生の生き物の通り道が、まわりの林とつながる' };
-      let h = `<p class="lead-s">どこまで育てるかは、あなたしだい。小さな裏庭のままでも、ここは立派なサンクチュアリです。下は、まわりの支えと、動物たちの暮らしがそろった時に開けていく景色の目安です。何を目指すか、目指さないかも、自由に決めてください。</p>`;
-      if (!hk) h += `<div class="vs-now">${ico('i-leaf')}<span>いまは <b>${esc(STAGES[cur].name)}</b>${cur < 5 ? `。次の「${esc(STAGES[cur + 1].name)}」まで、あと ${100 - G.gauge}` : ''}<small>寄付・手伝い・制度・企業・自然の支えと、動物たちの暮らしで育ちます</small></span></div>`;
-      for (let n = 1; n <= 5; n++) {
-        const S = STAGES[n], t = team(n), tag = hk ? '' : n < cur ? '通ってきた道' : n === cur ? 'いまここ' : n === cur + 1 ? '次' : 'その先';
-        const newSp = ANIMAL_ORDER.filter((sp) => SPECIES[sp].stage === n && !SPECIES[sp].community);
-        const items = Object.keys(CATALOG[n]).map((k) => CATALOG[n][k]);
-        const got = items.filter((it) => G.milestoneItems.includes(it.id));
-        h += `<section class="vs-stage ${hk ? '' : n < cur ? 'done' : n === cur ? 'now' : n === cur + 1 ? 'next' : 'later'}">
-          <h4><span class="vs-n">${n}</span>${esc(S.name)}${tag ? `<span class="pill">${tag}</span>` : ''}</h4>
-          ${UI.stageMapSvg(n)}
-          <p class="vs-look">${esc(S.look)}。${esc(NATURE[n])}</p>
-          <dl class="ac-facts vs-facts">
-            <dt>広さ</dt><dd><b>${S.land}ha</b><span>${SIZE[n]}</span></dd>
-            <dt>世話をする人</dt><dd>${esc(S.carers)}<span>${n === 1 ? 'はるこさん' : `はるこさん、職員${t.staff}人、アルバイト${t.part}人${t.volunteer ? `、ボランティア${t.volunteer}人` : ''}`}（人手の目安 ${capOf(n)}）</span></dd>
-            ${newSp.length ? `<dt>迎えられる子</dt><dd>${newSp.map((sp) => `<span class="vs-sp"><svg class="spi"><use href="#sp-${sp}"/></svg>${SPECIES[sp].name}</span>`).join('')}</dd>` : ''}
-            <dt>訪れる人</dt><dd>${esc(S.visitor)}</dd>
-            <dt>増えていくもの</dt><dd>${items.map((it) => `<span class="vs-item ${got.includes(it) ? 'got' : ''}">${esc(it.name)}</span>`).join('')}<span>支え方によって、このうち3つほど</span></dd>
-          </dl>
-        </section>`;
-      }
-      h += `<p class="muted">人手の目安は、世話ができる量です（はるこさん1人で${FIN.haruko}、職員1人で${TEAM.staff.add}、アルバイト${TEAM.part.add}、ボランティア${TEAM.volunteer.add}）。人の数ではありません。</p>`;
-      h += `<p class="muted">ゲームの中では、広さを小さく縮めて描いています。いちばん育った「はるにれの丘」の100haは、1km四方。動物を何頭迎えたかでは育たず、育つのは、まわりの支えが集まり、動物たちが過ごしやすくなった時です。</p>`;
+      const tagOf = (n) => hk ? '' : n < cur ? '通ってきた道' : n === cur ? 'いまここ' : n === cur + 1 ? '次' : 'その先';
+      let h = `<p class="lead-s">どこまで育てるかは、あなたしだい。小さな裏庭のままでも、ここは立派なサンクチュアリです。まわりの支えと、動物たちの暮らしがそろった時に開けていく景色の目安です。</p>`;
+      h += `<div class="vs-steps" role="tablist">${[1, 2, 3, 4, 5].map((n) => `<button type="button" role="tab" aria-selected="${n === sel}" data-act="vis-go" data-v="${n}" class="${n === sel ? 'on' : ''} ${hk ? '' : n < cur ? 'done' : n === cur ? 'now' : ''}"><b>${n}</b><span>${esc(STAGES[n].name)}</span></button>`).join('')}</div>`;
+      const n = sel, S = STAGES[n], t = team(n), tag = tagOf(n), N = STAGE_NOTES[n] || { ch: [], care: [] };
+      const newSp = ANIMAL_ORDER.filter((sp) => SPECIES[sp].stage === n && !SPECIES[sp].community);
+      const items = Object.keys(CATALOG[n]).map((k) => CATALOG[n][k]);
+      const got = items.filter((it) => G.milestoneItems.includes(it.id));
+      h += `<section class="vs-card" data-vs="${n}">
+        <h4>${esc(S.name)}${tag ? `<span class="pill">${tag}</span>` : ''}</h4>
+        ${UI.stageMapSvg(n)}
+        <p class="vs-look">${esc(S.look)}。${esc(NATURE[n])}</p>
+        <dl class="ac-facts vs-facts">
+          <dt>広さ</dt><dd><b>${S.land}ha</b><span>${SIZE[n]}</span></dd>
+          <dt>世話をする人</dt><dd>${esc(S.carers)}<span>${n === 1 ? 'はるこさんと、近所のボランティアさん' : `はるこさん、職員${t.staff}人、アルバイト${t.part}人${t.volunteer ? `、ボランティア${t.volunteer}人` : ''}`}</span></dd>
+          ${newSp.length ? `<dt>迎えられる子</dt><dd>${newSp.map((sp) => `<span class="vs-sp"><svg class="spi"><use href="#sp-${sp}"/></svg>${SPECIES[sp].name}</span>`).join('')}</dd>` : ''}
+          <dt>訪れる人</dt><dd>${esc(S.visitor)}</dd>
+          <dt>増えていくもの</dt><dd>${items.map((it) => `<span class="vs-item ${got.includes(it) ? 'got' : ''}">${esc(it.name)}</span>`).join('')}<span>支え方によって、このうちいくつか</span></dd>
+        </dl>
+        <div class="vs-notes"><div class="vs-note ch"><b>この段階のチャレンジ</b><ul>${N.ch.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>
+        <div class="vs-note care"><b>気にかけること</b><ul>${N.care.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div></div>
+        <div class="vs-nav"><button type="button" class="btn small" data-act="vis-go" data-v="${n - 1}" ${n <= 1 ? 'disabled' : ''}>${ico('i-left')}${n > 1 ? esc(STAGES[n - 1].name) : ''}</button><button type="button" class="btn small" data-act="vis-go" data-v="${n + 1}" ${n >= 5 ? 'disabled' : ''}>${n < 5 ? esc(STAGES[n + 1].name) : ''}${ico('i-right')}</button></div>
+      </section>`;
+      h += `<details class="db"><summary>調べたこと（出典）</summary><p class="muted">チャレンジと気にかけることは、次を参考にしました。<a href="https://www.pref.chiba.lg.jp/chikusan/tetsuzuki/siyoueiseikanrikijun.html" target="_blank" rel="noopener">千葉県：飼養衛生管理基準と定期報告</a>、<a href="https://www.pref.shimane.lg.jp/industry/norin/seisan/chikusan_shinkou/haisetubutukannri/kanrikizyun.html" target="_blank" rel="noopener">島根県：家畜排せつ物法の管理基準</a>、<a href="https://www.pref.nagano.lg.jp/iidakachiku/index.html" target="_blank" rel="noopener">長野県 飯田家畜保健衛生所</a>、<a href="https://opensanctuary.org/choosing-the-right-site-for-your-farmed-animal-sanctuary/" target="_blank" rel="noopener">The Open Sanctuary Project：土地の選び方</a>、<a href="https://opensanctuary.org/wp-content/uploads/2020/03/The-Challenges-Of-Responsible-Rescue-The-Open-Sanctuary-Project.pdf" target="_blank" rel="noopener">The Open Sanctuary Project：責任ある保護のむずかしさ</a>、<a href="https://www.cfsph.iastate.edu/Assets/tip-sheet-agritourism.pdf" target="_blank" rel="noopener">CFSPH：動物とふれあう施設の手引き</a></p></details>`;
+      h += `<p class="muted">ゲームの中では、広さを小さく縮めて描いています。動物を何頭迎えたかでは育たず、育つのは、まわりの支えが集まり、動物たちが過ごしやすくなった時です。</p>`;
       if (!hk) h += `<div class="btn-row"><button class="btn small" data-act="open" data-v="settings">${ico('i-moon')}箱庭モードは「設定」から</button></div>`;
       return { title: 'この丘の、これから', html: h };
     },
@@ -13773,7 +14043,7 @@ const UI = {
       if (nx && nx.c) { story = `<p class="talk-offer">${esc(n.d.name)}が、話したいことがあるようです<small>お話 ${nx.i + 1} / ${TALKS[tid].chapters.length}「${said(nx.c.t)}」</small></p>`; btn = `<button class="btn small primary" data-act="talk" data-id="${tid}">話を聞く</button>${btn.replace('btn small primary', 'btn small')}`; }
     }
     const about = cid && CHAT[cid].about;
-    UI.modal(`<div class="dialog-who"><span class="av" style="background:${n.d.top}"></span><div><strong>${esc(n.d.name)}</strong><br><span class="muted">${esc(n.d.role)}${about ? `・${esc(about.split('。')[0])}` : ''}</span></div></div>${chatHtml(lines)}${story}<div class="btn-row">${btn}<button class="btn small" data-act="close-modal">ありがとう</button></div>`);
+    UI.modal(`<div class="dialog-who"><span class="av bust">${npcBust(n.d)}</span><div><strong>${esc(n.d.name)}</strong><br><span class="muted">${esc(n.d.role)}${about ? `・${esc(about.split('。')[0])}` : ''}</span></div></div>${chatHtml(lines)}${story}<div class="btn-row">${btn}<button class="btn small" data-act="close-modal">ありがとう</button></div>`);
   },
   // はるこさん・ゆうとさんの話（森田さんの話と同じ形。正解はなく、返事を選ぶ）
   talkModal(id, res) {
@@ -14415,56 +14685,122 @@ const UI = {
 };
 /* ---------- 楽器 ---------- */
 Object.assign(UI, {
-  inst: 'ukulele', chord: 0, chordsUsed: [],
+  // 楽器（0.9.39）：ウクレレ・ギター・カリンバ。伴奏のリズム（自分で・ゆったり・はずむ・ワルツ）と、よく合うコードの流れ。弾くと音符がふわりと
+  inst: 'ukulele', chord: 0, chordsUsed: [], rhythm: 'free', prog: 'none', progI: 0,
   initMusic() {
     $('#music-close').addEventListener('click', () => UI.closeMusic());
     $('#music-fold').addEventListener('click', () => { const pn = $('#music-ui .music-panel'), f = !pn.classList.contains('folded'); pn.classList.toggle('folded', f); $('#music-fold').setAttribute('aria-pressed', f ? 'true' : 'false'); $('#music-fold').textContent = f ? 'ひらく' : 'たたむ'; });
-    $('#inst-seg').querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { UI.inst = b.dataset.i; UI.chord = 0; setPlaying(UI.inst); UI.renderMusic(); }));
+    $('#inst-seg').querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { UI.rhythmStop(); UI.inst = b.dataset.i; UI.chord = 0; UI.progI = 0; setPlaying(UI.inst); UI.renderMusic(); }));
+    $('#music-opts').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; if (b.dataset.rh) UI.setRhythm(b.dataset.rh); if (b.dataset.pg) { UI.prog = b.dataset.pg; UI.progI = 0; UI.renderMusic(); } });
     $('#chord-grid').addEventListener('pointerdown', (e) => { const b = e.target.closest('button'); if (!b) return; e.preventDefault(); UI.pickChord(+b.dataset.c); });
     const pad = $('#string-pad');
-    let lastY = null, moved = 0, downY = 0;
-    const strIndexAt = (y) => { const r = pad.getBoundingClientRect(), n = INSTRUMENTS[UI.inst].open.length; return clamp(Math.floor((y - r.top) / r.height * n), 0, n - 1); };
-    const crossed = (y0, y1) => { const r = pad.getBoundingClientRect(), n = INSTRUMENTS[UI.inst].open.length, out = []; for (let i = 0; i < n; i++) { const ly = r.top + (i + 0.5) / n * r.height; if ((y0 < ly && y1 >= ly) || (y0 > ly && y1 <= ly)) out.push(i); } if (y1 < y0) out.reverse(); return out; };
-    pad.addEventListener('pointerdown', (e) => { e.preventDefault(); pad.setPointerCapture && pad.setPointerCapture(e.pointerId); lastY = e.clientY; downY = e.clientY; moved = 0; audioInit(); });
-    pad.addEventListener('pointermove', (e) => { if (lastY === null) return; const hits = crossed(lastY, e.clientY); moved += Math.abs(e.clientY - lastY); lastY = e.clientY; hits.forEach((i) => UI.playString(i)); });
-    const up = (e) => { if (lastY !== null && moved < 6) UI.playString(strIndexAt(downY)); lastY = null; };
-    pad.addEventListener('pointerup', up); pad.addEventListener('pointercancel', () => { lastY = null; });
+    let last = null, moved = 0, down = null, lastT = 0;
+    const tine = () => !!INSTRUMENTS[UI.inst].tine;
+    const count = () => tine() ? INSTRUMENTS[UI.inst].notes.length : INSTRUMENTS[UI.inst].open.length;
+    // 弦は上下に、カリンバの舌は左右に並ぶ
+    const pos = (e) => (tine() ? e.clientX : e.clientY);
+    const idxAt = (p0) => { const r = pad.getBoundingClientRect(), n = count(), a = tine() ? r.left : r.top, L = tine() ? r.width : r.height; return clamp(Math.floor((p0 - a) / L * n), 0, n - 1); };
+    const crossed = (p0, p1) => { const r = pad.getBoundingClientRect(), n = count(), a = tine() ? r.left : r.top, L = tine() ? r.width : r.height, out = []; for (let i = 0; i < n; i++) { const lp = a + (i + 0.5) / n * L; if ((p0 < lp && p1 >= lp) || (p0 > lp && p1 <= lp)) out.push(i); } if (p1 < p0) out.reverse(); return out; };
+    pad.addEventListener('pointerdown', (e) => { e.preventDefault(); pad.setPointerCapture && pad.setPointerCapture(e.pointerId); last = pos(e); down = last; moved = 0; lastT = performance.now(); audioInit(); });
+    pad.addEventListener('pointermove', (e) => {
+      if (last === null) return; const p1 = pos(e), now = performance.now(), sp = Math.abs(p1 - last) / Math.max(8, now - lastT); // なぞる速さで、音の強さ
+      const hits = crossed(last, p1); moved += Math.abs(p1 - last); last = p1; lastT = now;
+      hits.forEach((i) => UI.playString(i, clamp(0.35 + sp * 0.35, 0.35, 0.85)));
+    });
+    const up = () => { if (last !== null && moved < 6) UI.playString(idxAt(down), 0.6); last = null; };
+    pad.addEventListener('pointerup', up); pad.addEventListener('pointercancel', () => { last = null; });
     window.addEventListener('keydown', (e) => {
       if ($('#music-ui').hidden) return;
-      if (/^Digit[1-8]$/.test(e.code)) { UI.pickChord(+e.code.slice(5) - 1); e.preventDefault(); }
-      if (e.code === 'Space') { UI.strumNow(false); e.preventDefault(); }
-      if (e.code === 'KeyB') UI.strumNow(true);
+      if (/^Digit[1-9]$/.test(e.code)) { const k = +e.code.slice(5) - 1; if (tine()) UI.playString(k, 0.6); else UI.pickChord(k); e.preventDefault(); }
+      if (e.code === 'Space' && !tine()) { UI.strumNow(false); e.preventDefault(); }
+      if (e.code === 'KeyB' && !tine()) UI.strumNow(true);
     });
   },
   openMusic() { audioInit(); UI.startRest('music'); },
-  closeMusic() { UI.endRest(); },
+  closeMusic() { UI.rhythmStop(); UI.endRest(); },
   renderMusic() {
-    const I = INSTRUMENTS[UI.inst];
+    const I = INSTRUMENTS[UI.inst], tn = !!I.tine;
     $('#inst-seg').querySelectorAll('button').forEach((b) => b.classList.toggle('on', b.dataset.i === UI.inst));
-    $('#chord-grid').innerHTML = I.chords.map(([n], i) => `<button type="button" data-c="${i}" class="${i === UI.chord ? 'on' : ''}">${IS_TOUCH ? '' : `<small>${i + 1}</small>`}${n}</button>`).join('');
-    const pad = $('#string-pad'), n = I.open.length, frets = I.chords[UI.chord][1];
-    pad.querySelectorAll('.str').forEach((x) => x.remove());
-    for (let i = 0; i < n; i++) { const d = document.createElement('i'); d.className = 'str' + (frets[i] < 0 ? ' mute' : ''); d.style.top = `calc(${((i + 0.5) / n) * 100}% - 1px)`; d.style.height = (UI.inst === 'guitar' ? 3.2 - i * 0.35 : 2.4) + 'px'; pad.appendChild(d); }
-    $('#pad-chord').textContent = I.chords[UI.chord][0];
-    UI.musicHint(IS_TOUCH ? 'コードを押すとジャラン。弦の上を上下になぞると、その順に鳴ります' : 'コードは数字キー1〜8、スペースで下へ、Bで上へ。弦の上をドラッグしても鳴ります');
+    $('#music-ui').classList.toggle('tine', tn);
+    const P = PROGRESSIONS.find((x) => x.id === UI.prog) || PROGRESSIONS[0], want = P.chords.length ? P.chords[UI.progI % P.chords.length] : null;
+    $('#music-opts').innerHTML = tn ? '' : `<div class="mo-row"><span>リズム</span><div class="seg small">${Object.keys(RHYTHMS).map((k) => `<button type="button" data-rh="${k}" class="${UI.rhythm === k ? 'on' : ''}">${RHYTHMS[k].name}</button>`).join('')}</div></div>
+      <div class="mo-row"><span>流れ</span><div class="seg small">${PROGRESSIONS.map((p) => `<button type="button" data-pg="${p.id}" class="${UI.prog === p.id ? 'on' : ''}">${p.name}</button>`).join('')}</div></div>`;
+    $('#chord-grid').innerHTML = tn ? '' : I.chords.map(([n], i) => `<button type="button" data-c="${i}" class="${i === UI.chord ? 'on' : ''}${want && n === want ? ' next' : ''}">${IS_TOUCH ? '' : `<small>${i + 1}</small>`}${n}</button>`).join('');
+    const pad = $('#string-pad'), n = tn ? I.notes.length : I.open.length;
+    pad.querySelectorAll('.str, .tn').forEach((x) => x.remove());
+    pad.classList.toggle('tines', tn);
+    if (tn) {
+      // カリンバの並び：まん中がいちばん低く、左右へ交互に高くなる
+      const order = []; for (let i = 0; i < n; i++) order[i] = null;
+      const mid = Math.floor(n / 2); I.notes.forEach((_, k) => { const off = Math.ceil(k / 2) * (k % 2 ? 1 : -1); order[clamp(mid + off, 0, n - 1)] = k; });
+      UI._tineOrder = order;
+      for (let i = 0; i < n; i++) { const k = order[i], d = document.createElement('i'); d.className = 'tn'; d.style.left = `calc(${((i + 0.5) / n) * 100}% - 9px)`; d.style.height = (92 - k * 6) + '%'; d.innerHTML = `<em>${I.names[k]}</em>`; pad.appendChild(d); }
+      $('#pad-chord').textContent = '';
+    } else {
+      const frets = I.chords[UI.chord][1];
+      for (let i = 0; i < n; i++) { const d = document.createElement('i'); d.className = 'str' + (frets[i] < 0 ? ' mute' : ''); d.style.top = `calc(${((i + 0.5) / n) * 100}% - 1px)`; d.style.height = (UI.inst === 'guitar' ? 3.2 - i * 0.35 : 2.4) + 'px'; pad.appendChild(d); }
+      $('#pad-chord').textContent = I.chords[UI.chord][0];
+    }
+    UI.musicHint(tn ? (IS_TOUCH ? '舌をタップすると、ポロン。左右になぞると、つながって鳴ります。どこを弾いても、ぶつからない音です' : '舌をクリック、またはドラッグ。数字キー1〜9でも鳴ります')
+      : UI.rhythm !== 'free' ? 'リズムに合わせて、コードを押してみてください。止める時は「自分で」'
+      : want ? `光るコードを、順に押してみてください（${P.chords.join(' → ')}）`
+      : IS_TOUCH ? 'コードを押すとジャラン。弦の上を上下になぞると、その順に。速くなぞると、強く鳴ります' : 'コードは数字キー1〜8、スペースで下へ、Bで上へ。弦の上をドラッグしても鳴ります');
   },
   musicHint(t) { $('#music-hint').textContent = t; },
   pickChord(i) {
-    const I = INSTRUMENTS[UI.inst]; if (!I.chords[i]) return;
-    UI.chord = i; UI.renderMusic(); UI.strumNow(false);
+    const I = INSTRUMENTS[UI.inst]; if (!I.chords || !I.chords[i]) return;
+    UI.chord = i;
+    const P = PROGRESSIONS.find((x) => x.id === UI.prog); if (P && P.chords.length && I.chords[i][0] === P.chords[UI.progI % P.chords.length]) UI.progI++;
+    UI.renderMusic();
+    if (UI.rhythm === 'free') UI.strumNow(false); else UI.noteChord(I.chords[i][0]); // リズムが動いている時は、次の拍から新しいコードで
   },
-  strumNow(up) {
+  strumNow(up, when, vel) {
     audioInit();
-    const I = INSTRUMENTS[UI.inst], c = I.chords[UI.chord];
-    strum(UI.inst, c[1], up); strumAnim();
-    const pad = $('#string-pad'); pad.querySelectorAll('.str').forEach((s, i) => { setTimeout(() => { s.classList.add('hit'); setTimeout(() => s.classList.remove('hit'), 120); }, (up ? pad.children.length - i : i) * I.gap * 1000); });
+    const I = INSTRUMENTS[UI.inst], c = I.chords[UI.chord]; if (!c) return;
+    strum(UI.inst, c[1], up, when, vel);
+    const delay = when && AU.ctx ? Math.max(0, (when - AU.ctx.currentTime) * 1000) : 0;
+    setTimeout(() => {
+      strumAnim(); UI.noteFly();
+      const pad = $('#string-pad'), ss = pad.querySelectorAll('.str'); ss.forEach((s, i) => { setTimeout(() => { s.classList.add('hit'); setTimeout(() => s.classList.remove('hit'), 120); }, (up ? ss.length - i : i) * I.gap * 1000); });
+    }, delay);
     UI.noteChord(c[0]);
   },
-  playString(i) {
-    const I = INSTRUMENTS[UI.inst], c = I.chords[UI.chord];
-    pluckOne(UI.inst, c[1], i); strumAnim();
+  playString(i, vel) {
+    const I = INSTRUMENTS[UI.inst];
+    if (I.tine) { const k = (UI._tineOrder || [])[i]; if (k == null) return; audioInit(); tine(I.notes[k], 0, vel || 0.6); strumAnim(); UI.noteFly(); const t = $('#string-pad').querySelectorAll('.tn')[i]; if (t) { t.classList.add('hit'); setTimeout(() => t.classList.remove('hit'), 160); } UI.noteChord(I.names[k]); return; }
+    const c = I.chords[UI.chord];
+    pluckOne(UI.inst, c[1], i, vel); strumAnim(); UI.noteFly();
     const s = $('#string-pad').querySelectorAll('.str')[i]; if (s) { s.classList.add('hit'); setTimeout(() => s.classList.remove('hit'), 120); }
     UI.noteChord(c[0]);
+  },
+  // 伴奏のリズム：少し先まで、音の時刻を決めておく（画面が重くても、拍がずれないように）
+  setRhythm(k) {
+    if (!RHYTHMS[k]) return;
+    UI.rhythm = k; UI.rhythmStop(true);
+    if (k !== 'free') { audioInit(); if (AU.ctx) { UI._rh = { step: 0, next: AU.ctx.currentTime + 0.08 }; UI._rhT = setInterval(UI.rhythmTick, 30); } }
+    UI.renderMusic();
+  },
+  rhythmStop(keep) { clearInterval(UI._rhT); UI._rhT = null; UI._rh = null; if (!keep) UI.rhythm = 'free'; },
+  rhythmTick() {
+    const R0 = RHYTHMS[UI.rhythm], st = UI._rh; if (!R0 || !st || !AU.ctx || $('#music-ui').hidden) { UI.rhythmStop(); return; }
+    const I = INSTRUMENTS[UI.inst]; if (!I.chords || !I.chords.length) { UI.rhythmStop(); return; }
+    const dur = 60 / R0.bpm / 2;
+    while (st.next < AU.ctx.currentTime + 0.12) {
+      const ch = R0.steps[st.step % R0.steps.length], c = I.chords[UI.chord];
+      if (ch === 'D') UI.strumNow(false, st.next, st.step % R0.steps.length === 0 ? 1 : 0.85);
+      else if (ch === 'U') UI.strumNow(true, st.next, 0.7);
+      else if (ch === 'B') { bassNote(UI.inst, c[1], st.next, 0.62); const d = Math.max(0, (st.next - AU.ctx.currentTime) * 1000); setTimeout(() => { strumAnim(); UI.noteFly(); }, d); }
+      st.next += dur; st.step++;
+    }
+  },
+  // 弾くと、頭の上に音符がふわり（少しずつ）
+  noteFly() {
+    const now = performance.now(); if (now - (UI._nfT || 0) < 260) return; UI._nfT = now;
+    const P = ACT.player, box = $('#note-fly'); if (!P || !box) return;
+    const sc = toScreen(P.x, (P.m ? P.m.root.position.y : 0) + 1.7, P.z); if (!sc.vis) return;
+    const el = document.createElement('span'); el.className = 'nf ' + UI.inst; el.textContent = Math.random() < 0.5 ? '♪' : '♫';
+    el.style.left = Math.round(sc.x + (Math.random() - 0.5) * 50) + 'px'; el.style.top = Math.round(sc.y) + 'px'; el.style.setProperty('--dx', Math.round((Math.random() - 0.5) * 40) + 'px');
+    box.appendChild(el); setTimeout(() => el.remove(), 1900);
   },
   noteChord(name) {
     if (!UI.chordsUsed.includes(name)) UI.chordsUsed.push(name);
@@ -14604,7 +14940,7 @@ Object.assign(UI, {
     setTimeout(() => {
       if (P.sitting === 'bench') { const f = [Math.sin(P.heading), Math.cos(P.heading)]; const rc = resolveCollision(P.x + f[0] * 1.2, P.z + f[1] * 1.2, 0.5); P.x = rc[0]; P.z = rc[1]; }
       P.sitting = null; P.seatY = undefined; P.seatDY = 0;
-      if (R0.mode === 'music') { setPlaying(null); $('#music-ui').hidden = true; }
+      if (R0.mode === 'music') { UI.rhythmStop(); setPlaying(null); $('#music-ui').hidden = true; }
       if (R0.mode === 'sky') UI.skyEnd(R0);
       UI.occlude(false);
       ACT.animals.forEach((e) => { e.restNear = false; e.musicNear = false; e.musicAway = false; e.timer = Math.min(e.timer, rand(0.5, 2)); });
@@ -14840,10 +15176,12 @@ Object.assign(UI, {
   },
   restIntro(mode) {
     const sb = UI.rest && UI.rest.spot && UI.rest.spot.bench;
+    if (mode === 'slow') mode = sb ? 'bench' : 'animals'; // ゆっくりする（0.9.38）
     if (mode === 'bench') return `${(sb && sb.seatName) || 'ベンチ'}に腰を下ろしました。しばらく、何もしなくて大丈夫です`;
     if (mode === 'here') return 'ひと休みしたくなって、その場に腰を下ろしました。動物たちが、少しずつ近づいてきます';
     if (mode === 'animals') return '草の上に座りました。動物たちが、少しずつ近づいてきます';
     const P = ACT.player;
+    if (UI.inst === 'kalimba') return P && P.sitting === 'bench' ? 'ベンチに腰かけて、カリンバを両手で包みました。どこを弾いても、やさしい音です' : 'カリンバを両手で包みました。どこを弾いても、やさしい音です';
     if (P && P.sitting === 'bench') return `ベンチに腰かけて、${INSTRUMENTS[UI.inst].name}を膝にのせました。好きなコードを、好きなだけ`;
     return `${INSTRUMENTS[UI.inst].name}を構えました。好きなコードを、好きなだけ`;
   },
