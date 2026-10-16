@@ -12,7 +12,7 @@
 <style>
 [hidden] { display: none !important; }
 :root {
-  --ink: #22342C; --ink-2: #4D5F56; --ink-3: #7B8A82;
+  --ink: #22342C; --ink-2: #4D5F56; --ink-3: #5F6E66; /* 0.9.38：明るい昼でも読めるように（紙の色の上で 4.9:1） */
   --paper: #F4F5EF; --paper-2: #E9ECE3; --paper-3: #DCE2D6; --line: rgba(34, 52, 44, .13);
   --pine: #2E5A48; --pine-2: #3E7560; --hay: #D4A52F; --lupine: #6E62B0; --coral: #D6735A; --teal: #2F8A87; --leaf: #6BA646;
   --shadow: 0 1px 2px rgba(20, 34, 28, .12), 0 6px 18px rgba(20, 34, 28, .12);
@@ -116,7 +116,8 @@ body.zen #hud, body.zen #labels { display: none !important; }
 .hud-menu button.on span { color: var(--pine); }
 .hud-menu button.on span::after { content: '　✓'; }
 body.hud-calm #hud-top { display: none !important; }
-body.hud-names #hud-top, body.hud-names #rail, body.hud-names #bottom-right, body.hud-names #prompt, body.hud-names #view-btn, body.hud-names #toasts, body.hud-names #hint, body.hud-names #beh, body.hud-names #coach { display: none !important; }
+body.hud-names #hud-top, body.hud-names #rail, body.hud-names #bottom-right, body.hud-names #view-btn, body.hud-names #hint, body.hud-names #beh, body.hud-names #coach { display: none !important; }
+/* 0.9.38：名前だけでも、近くの子のカードの案内と、タップへの返事（カードのボタンつき）は出す */
 body.hud-names .zen-btn { opacity: .78; }
 
 /* メニューは、ひとつの帯に */
@@ -143,7 +144,7 @@ body.hud-names .zen-btn { opacity: .78; }
 .btn.small { padding: 6px 13px; font-size: 13px; box-shadow: none; }
 .btn.ghost { box-shadow: none; background: transparent; }
 .btn:disabled { opacity: .45; cursor: not-allowed; }
-#hint { position: absolute; left: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 24px); max-width: 300px; font-size: 13px; line-height: 1.55; color: var(--ink-2); background: rgba(246, 247, 242, .9); border-radius: 10px; padding: 7px 12px; transition: opacity 1s; }
+#hint { position: absolute; left: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 24px); max-width: 300px; font-size: 13px; line-height: 1.55; color: var(--ink); background: rgba(246, 247, 242, .97); box-shadow: 0 2px 10px rgba(20, 34, 28, .14); border-radius: 10px; padding: 7px 12px; transition: opacity 1s; }
 #hint:empty { display: none; }
 /* 知らせは、ひとつずつ。読める長さだけ出して、日記に残る */
 #toasts { position: absolute; left: 50%; transform: translateX(-50%); top: calc(env(safe-area-inset-top, 0px) + 12px); width: min(400px, calc(100% - 24px)); display: flex; flex-direction: column; gap: 6px; pointer-events: none; z-index: 7; }
@@ -1163,7 +1164,7 @@ button.tp-ch:active { background: #EEF4EF; }
 .beh-list li span b { display: block; font-size: 13px; color: var(--ink); }
 
 /* 0.9.34 遠い子の名前の札は、小さく、少し透かして */
-.lbl3d.far { font-size: 11px; font-weight: 600; background: rgba(244, 245, 239, .78); color: var(--ink-2); padding: 0 7px 1px; }
+.lbl3d.far { font-size: 11px; font-weight: 700; background: rgba(244, 245, 239, .92); color: var(--ink-2); padding: 0 7px 1px; }
 
 /* 0.9.36 見つけたしぐさは、喜怒哀楽ごと。はじめは閉じておく */
 details.beh-list > summary { cursor: pointer; list-style: none; display: flex; align-items: baseline; gap: 6px; }
@@ -1259,6 +1260,30 @@ details.ac-fold > .af-body > .ac-facts:first-child { margin-top: 0; }
 .egg-pics .ep span { font-size: 12px; font-weight: 700; padding: 0 8px; color: var(--ink-2); }
 .egg-pics .ep.locked { aspect-ratio: 16 / 12.5; display: grid; place-items: center; background: var(--paper-2); color: var(--ink-3); font-weight: 700; }
 .er-pic, .er-cover { stroke: none; stroke-width: 0; }
+
+/* 0.9.38 明るい昼でも読めるように：景色の上の白い文字には、うすい影の帯を */
+.rest-cap .in { background: rgba(20, 30, 26, .46); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); border-radius: 14px; padding: 4px 16px 6px; text-shadow: 0 1px 2px rgba(0, 0, 0, .35); }
+.rest-meter { background: rgba(20, 30, 26, .46); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); border-radius: 999px; padding: 5px 12px; text-shadow: none; color: #fff; }
+.rest-breath span { background: rgba(20, 30, 26, .4); border-radius: 999px; padding: 2px 12px 4px; text-shadow: none; color: #fff; }
+.rest-btn { background: rgba(244, 245, 239, .9); }
+
+/* 動物たちの暮らし（0.9.38）：数字ではなく、言葉で */
+.life-sum .ls-word { margin: 4px 0 8px; font-size: 14px; line-height: 1.65; color: var(--ink); }
+.life-sum .ls-goods { display: flex; flex-wrap: wrap; gap: 4px 6px; margin: 0 0 8px; }
+.life-sum .ls-good { display: inline-flex; align-items: center; gap: 3px; font-size: 12px; font-weight: 700; color: var(--pine); background: #fff; border-radius: 999px; padding: 2px 9px 2px 6px; }
+.life-sum .ls-good svg { width: 13px; height: 13px; }
+.life-sum ul.ls-adv { display: flex; flex-direction: column; gap: 8px; margin: 4px 0 6px; font-size: 13px; color: var(--ink); }
+.life-sum ul.ls-adv li { display: flex; flex-direction: column; gap: 2px; justify-content: flex-start; background: #fff; border-radius: 10px; padding: 7px 10px; border-left: 4px solid #C9667E; }
+.life-sum ul.ls-adv li.ls-bt { border-left-color: #6BA646; }
+.life-sum ul.ls-adv li.ls-wt { border-left-color: #8C9AA0; }
+.life-sum ul.ls-adv li em { font-style: normal; font-size: 11px; font-weight: 700; color: var(--ink-3); letter-spacing: .04em; }
+.life-sum ul.ls-adv li span { line-height: 1.6; }
+.life-sum ul.ls-adv li small { display: block; font-size: 12px; color: var(--ink-3); }
+
+/* この子のこと（0.9.38）：まだわからない所は、やわらかく */
+.ac-me .unk { display: inline-block; font-size: 12.5px; color: var(--ink-3); background: var(--paper-2); border-radius: 999px; padding: 0 9px 1px; margin-left: 4px; }
+.ac-me dd > .unk:first-child { margin-left: 0; }
+.ac-know { margin: 8px 0 0; font-size: 12px; color: var(--ink-3); }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -2366,8 +2391,9 @@ const ACTIONS = [
 ];
 /* ひと息つける行動（手を使わない） */
 const REST_ACTIONS = [
-  { id: 'R1', name: 'ベンチで動物たちを眺める', yoyu: 15, need: 'bench', desc: 'ベンチに腰を下ろして、しばらく何もしない時間。なついている子が、そばに来てくれることもあります。' },
-  { id: 'R2', name: 'しばらく動物たちと過ごす', yoyu: 10, desc: '草の上に座って、動物たちが近づいてくるのを待ちます。仲良くなるきっかけにもなります。' },
+  // 0.9.38：ふたつの違いが場所だけだったので、ひとつに。近くに動物たちがいれば、そのそばの草の上に。いなければ、近くのベンチや切り株に（R1 は、ベンチに座った時の記録だけに使う）
+  { id: 'R1', name: 'ベンチで、ゆっくりする', yoyu: 15, hidden: true, desc: '' },
+  { id: 'R2', name: 'ゆっくりする', yoyu: 15, desc: '近くに動物たちがいれば、そのそばの草の上に。いなければ、近くのベンチや切り株に腰を下ろして、しばらく何もしない時間。なついている子が、そばに来てくれることもあります。' },
 ];
 
 /* =========================================================
@@ -2400,7 +2426,7 @@ const FIN = {
   facility: [0, 10000, 60000, 150000, 250000, 400000], // 段階ごと：光熱・水道、消耗品、保険、修繕
   landPerHa: 15000,                     // 借りている土地1haあたり（段階1の裏庭は、はるこさんの家なので0）
   baseTeam: [null, { staff: 0, part: 0, volunteer: 0 }, { staff: 1, part: 2, volunteer: 0 }, { staff: 3, part: 2, volunteer: 2 }, { staff: 5, part: 3, volunteer: 3 }, { staff: 8, part: 4, volunteer: 6 }],
-  haruko: 8,                            // 代表のはるこさんの人手（お給料は harukoPay。0.9.37 から無給ではなくなりました）
+  haruko: 8,                            // 代表のはるこさんの人手（お給料は game.js の harukoPay）
   income: {
     donor: 2000,                        // 継続寄付1人あたり
     you: 3000,                          // あなたの継続寄付
@@ -2415,7 +2441,7 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.37', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.38', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -2423,6 +2449,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.38', '2026年10月16日', 'ほかのアプリで好きな音楽を聴きながら遊べるように（iPhone では、ゲームの自然の音が音楽を止めずに重なります）。明るい昼でも読みやすいよう、うすい文字を濃く、景色に重なる文字には影の帯を。「動物たちの暮らし」は数字をなくし、言葉で（「こうすると、もっと良くなるかも」「ここが困っているかも」を、名前を添えて）。動物のカードの「この子のこと」を、いつも見える所に。はじめは性格と好きなことのひとつ。そばで過ごしたり、仲良くなったり、しぐさを見たりすると、好きなこと・苦手・仲良しが書き足されます。ひと息の「ベンチで眺める」と「動物たちと過ごす」を「ゆっくりする」ひとつに（近くに動物たちがいればそのそばに、いなければ近くのベンチや切り株に）。名前の看板は、庭の中に散らして立てるように。画面の表示が「少なめ」「名前だけ」でも、タップへの返事やカードの案内は出るように'],
     ['0.9.37', '2026年10月16日', 'スマホで、2本の指を同時に使えるように（下3分の1の指で歩きながら、上の指で見回せます）。歩く速さを、さらにゆっくり（遠くをタップした時だけ小走り）。メニューの「全体」をなくし、ピンチ（パソコンはホイール）で丘ぜんたいまで引けるように（遠くから見ている時は、タップした所へ移動）。右上の重なった紙のボタンで、画面の表示を4段階に（すべて・少なめ・名前だけ・景色だけ）。置いた物の札や案内は、近づいても出さず、タップした時に。動物のカードを、ひと目で見える所と、＋でひらく所に。しぐさは、立ち止まって眺めている時に、1日に3つまで、少しずつ見つかるように（人見知りの子は、仲良くなるまで見せないしぐさも）。今朝の卵は「無精卵です」をはっきり。割ると、殻の中から鶏たちの体と暮らしの絵が1枚（1日に1枚、全部で5枚）。代表のはるこさんにも、お給料が出るように。ひと休みは、40秒さわらなかった時に。「今日できることは、おしまい」の吹き出しは、はじめての日だけ。日記をつけたあとの「日記を見る」ボタンをなくしました'],
     ['0.9.36', '2026年10月16日', 'はじめの案内（歩く・見回す・なでる・カード・はるこさん・行動・これからの姿。とばせて、設定からもう一度）。「この丘の、これから」：段階ごとの地図、広さ（テニスコート約2面分から1km四方まで）、世話をする人、迎えられる子、増えていくもの。どこまで育てるかは自由。動物たちの暮らし：一頭ずつの好きなこと・苦手・広さ・世話・季節の備え・安心を、カードと動物の画面に。暮らしの質が前より上がって線をこえると、「暮らし」の支えとしてサンクチュアリが育つ（頭数では育たない）。しぐさの気持ちを、すべての動物に（喜怒哀楽ごと。いや・不安・さびしい・ひとりの時間も）'],
     ['0.9.35', '2026年10月16日', '名前の札を、さらに控えめに。はじめは「すぐそばの子だけ」：止まっている時は、そばの3匹まで（パソコンは5匹）、歩いている間は、いちばん近い1匹だけ。いちばん近い子のほかは、小さく透かして。置いた物の札は、すぐそばの物だけ。設定の「名前の札」で「まわりの子も」（これまでの出し方）と「出さない」も選べます'],
@@ -4613,8 +4640,13 @@ function updateDrones(dt, time) {
    ========================================================= */
 const AU = { ctx: null, master: null, sfx: null, music: null, amb: null, on: true, vol: 0.6, noise: null, bufs: new Map(), strings: [], lastVoice: 0, ambT: 3, insectT: 2, loops: {}, trainD: 999 };
 
+// ほかのアプリの音楽と一緒に（0.9.38）：iPhone の Safari では、音の種類を「ambient」にすると、ほかのアプリの音楽を止めずに重ねて鳴る。
+// このゲームに BGM はなく、鳴るのは自然の音・動物の声・合図・自分で弾く楽器だけ。消音スイッチがオンの時は、これまでどおり鳴らない
+function audioAmbient() { try { if (navigator.audioSession && navigator.audioSession.type !== 'ambient') navigator.audioSession.type = 'ambient'; } catch (e) { /* 使えないブラウザでは、何もしない */ } }
+audioAmbient();
 function audioInit() {
   const C = window.AudioContext || window.webkitAudioContext; if (!C) return;
+  audioAmbient();
   if (!AU.ctx) {
     try { AU.ctx = new C(); } catch (e) { return; }
     const c = AU.ctx;
@@ -4632,7 +4664,7 @@ function audioInit() {
     AU.loops.train = loopNoise('bandpass', 420, 0.55, true); // 走る音（ゴーッ）。低すぎると、スマホでは聞こえない
     AU.loops.trainLow = loopNoise('lowpass', 160, 0.9);
   }
-  if (AU.ctx.state === 'suspended') AU.ctx.resume().catch(() => {});
+  if (AU.ctx.state === 'suspended' || AU.ctx.state === 'interrupted') AU.ctx.resume().catch(() => {});
 }
 function loopNoise(type, f, q, panned) {
   const c = AU.ctx, s = c.createBufferSource(); s.buffer = AU.noise; s.loop = true;
@@ -7472,12 +7504,24 @@ function buildExtras() {
   if (W.shed) setHay(W.shed, hay);
   else if (G.hay > 0) { const h = modelItem('haybale'); place(L, h, 17, 30); }
   // 名前の看板
-  (G.nameSigns || []).forEach((key, i) => {
-    const a = G.animals.find((x) => x.key === key); if (!a) return;
-    const z = ZONES[a.zone]; if (!z) return;
-    const r = z.rect; const x = clamp((r[0] + r[1]) / 2 + (i % 3) * 2 - 2, r[0] + 1, r[1] - 1), zz = r[3] + 1.4;
-    const s = signBoard(`${a.name}の家`, 1.6, { h: 0.55, postH: 0.6, size: 100 }); place(L, s, x, zz);
-  });
+  // 0.9.38：同じ庭にいくつも並ぶと、縦に重なって読めなかったので、庭の中に散らして立てる（その子ごとに決まった場所。小屋や置いた物、ほかの看板からは離して）
+  { const byZone = {};
+    (G.nameSigns || []).forEach((key) => { const a = G.animals.find((x) => x.key === key); if (a && ZONES[a.zone]) (byZone[a.zone] = byZone[a.zone] || []).push(a); });
+    const rnd = (n) => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+    for (const zk in byZone) {
+      const z = ZONES[zk], r = z.rect, sh = z.shelter, pts = [], small = !!z.bird || zk === 'rabbit';
+      const bad = (x, y) => (sh && x > sh[0] - 1.2 && x < sh[1] + 1.2 && y > sh[2] - 1.2 && y < sh[3] + 1.2) || SLOTS.some((q) => G.placed[q.id] && Math.hypot(q.x - x, q.z - y) < 1.7) || pts.some((p) => Math.hypot(p[0] - x, p[1] - y) < 2.6);
+      byZone[zk].forEach((a, i) => {
+        let seed = 0; for (const ch of String(a.key)) seed = (seed * 31 + ch.charCodeAt(0)) % 9973;
+        let pt = null;
+        for (let t = 0; t < 60 && !pt; t++) { const x = r[0] + 1.3 + rnd(seed + t * 2) * (r[1] - r[0] - 2.6), y = r[2] + 1.3 + rnd(seed + t * 2 + 1) * (r[3] - r[2] - 2.6); if (!bad(x, y)) pt = [x, y]; }
+        if (!pt) pt = [clamp(r[0] + 1.5 + i * 2.4, r[0] + 1, r[1] - 1), r[3] - 1.2];
+        pts.push(pt);
+        const s = signBoard(a.name, small ? 1.05 : 1.3, { h: small ? 0.42 : 0.5, postH: small ? 0.42 : 0.55, size: 100, back: true });
+        place(L, s, pt[0], pt[1], (rnd(seed + 97) - 0.5) * 0.9);
+      });
+    }
+  }
   // 里親の名札
   G.animals.filter((a) => a.sponsor).forEach((a, i) => {
     const z = ZONES[a.zone]; if (!z) return; const sh = z.shelter;
@@ -10752,7 +10796,7 @@ function completeBiz(p) {
   G.pendingSupports.push({ type: b.type, size: b.size, src, label: b.name });
 }
 /* 座って休む：座っている時間に合わせて、心の余裕が少しずつ戻る（1日の上限つき） */
-const REST_TIME = { R1: 45, R2: 40, music: 40, sky: 60 };
+const REST_TIME = { R1: 45, R2: 45, music: 40, sky: 60 };
 function restMax(id) { const r = REST_ACTIONS.find((x) => x.id === id); return r ? r.yoyu : id === 'music' || id === 'sky' ? 8 : 0; }
 function restGot(id) { const v = G.restDone[id]; return v === true ? restMax(id) : (+v || 0); }
 function restTick(id, dt) {
@@ -10765,7 +10809,7 @@ function restTick(id, dt) {
 }
 function restFinish(id, gain, near, secs, show) {
   G.nearDone = G.nearDone || {};
-  near.forEach((a) => { if (!G.nearDone[a.id]) { G.nearDone[a.id] = true; a.trust = Math.min(10, a.trust + (id === 'R2' ? 0.5 : 0.25)); } });
+  near.forEach((a) => { if (!G.nearDone[a.id]) { G.nearDone[a.id] = true; a.trust = Math.min(10, a.trust + (id === 'R2' ? 0.5 : 0.25)); knowTick(a); } });
   if (secs > 6) {
     let t = id === 'R1' ? 'ベンチに座って、しばらく動物たちを眺めました' : id === 'sky' ? `夜空のドローンショー${show ? `「${show}」` : ''}を、動物たちと見上げました` : 'しばらく動物たちのそばで過ごしました';
     if (near.length) t += `。${near.slice(0, 3).map((a) => a.name).join('と')}が、そばに来てくれました`;
@@ -11267,7 +11311,7 @@ const PET_GAIN = { love: 1, ok: 0.6, shy: 0.25, no: 0 };
 function respectAnimal(a) {
   G.respectDone = G.respectDone || {};
   if (G.respectDone[a.id] || G.petDone[a.id]) return false;
-  G.respectDone[a.id] = true; a.trust = Math.min(10, a.trust + 0.2);
+  G.respectDone[a.id] = true; a.trust = Math.min(10, a.trust + 0.2); knowTick(a);
   note('friends', `${a.name}を、少し離れて見守りました`, null, { quiet: true });
   if (a.known < a.stories.length && a.trust >= STORY_TRUST[a.known]) { a.known++; note('daily', `${a.name}の話をひとつ知りました`, null, { quiet: true }); UI.toast(`${a.name}の新しい話がわかりました`, 'daily'); }
   GAME.save(); return true;
@@ -11277,7 +11321,7 @@ function petAnimal(a, mode, react) {
   const first = !G.petDone[a.id] && react !== 'no';
   if (first) {
     G.petDone[a.id] = true;
-    a.trust = Math.min(10, a.trust + PET_GAIN[react] * (a.personality === '人見知り' ? 0.7 : 1));
+    a.trust = Math.min(10, a.trust + PET_GAIN[react] * (a.personality === '人見知り' ? 0.7 : 1)); knowTick(a);
     if (react === 'love' || react === 'ok') G.yoyu = clamp(G.yoyu + (react === 'love' ? 5 : 3), 0, 100);
     if (a.known < a.stories.length && a.trust >= STORY_TRUST[a.known]) { a.known++; note('daily', `${a.name}の話をひとつ知りました`, null, { quiet: true }); UI.toast(`${a.name}の新しい話がわかりました`, 'daily'); }
   }
@@ -11299,7 +11343,7 @@ function treatAnimal(a) {
     unlockCard('pigDiet'); return;
   }
   G.treatDone[a.id] = true;
-  a.trust = Math.min(10, a.trust + 0.5);
+  a.trust = Math.min(10, a.trust + 0.5); knowTick(a);
   const how = a.sp === 'pig' ? 'を、ほんの少しだけ' : 'を';
   note('daily', `${a.name}に${t.name}${how}あげました`, null, { quiet: true });
   UI.toast(`${a.name}に${t.name}${how}あげました`, 'daily');
@@ -11403,37 +11447,85 @@ function snapshotNow() { const ax = axes(); return { animals: G.animals.length, 
    一頭ずつ、過ごしやすさを5つの面で見る。足りない所は「失敗」ではなく、これからの楽しみとして書く。
    みんなの平均（暮らしの質）が前の週より上がり、その段階ではじめて 70・80・90・97 の線をこえた週に、「暮らし」の支えが届く（頭数では増えない） */
 function lifeOf(a) {
+  // 0.9.38：足りない所には、まとめて言葉にするための g（まとまり）と adv（{names}に名前が入る）と tone（trouble：困っているかも／better：もっと良くなるかも／wait：見守る）
   const c = capacity(), se = G.season, out = [], sp = SPECIES[a.sp] || {};
+  const place = roams(a) ? '歩ける所' : 'この子の庭';
   // 好きなこと
   if (a.likeText) out.push({ k: 'like', ok: true, t: `好きなこと：${a.likeText.split('。')[0]}` });
   else if (a.likes && a.likes.length) {
     const reach = roams(a) ? itemsReach({ x: 0, z: 0, a }) : ZONES[a.zone] ? itemsInRect(ZONES[a.zone].rect) : [];
     const have = a.likes.filter((l) => reach.some((x) => x.id === l));
-    out.push(have.length ? { k: 'like', ok: true, t: `好きな${ITEMS[have[0]].name}で過ごせる` } : { k: 'like', ok: false, t: `好きな${(ITEMS[a.likes[0]] || {}).name || '物'}が、${roams(a) ? '歩ける所' : 'この子の庭'}にあると` , hint: '「飾る」から置けます' });
+    const nm = (ITEMS[a.likes[0]] || {}).name || '物';
+    out.push(have.length ? { k: 'like', ok: true, t: `好きな${ITEMS[have[0]].name}で過ごせる` } : { k: 'like', ok: false, t: `好きな${nm}が、${place}にあると`, hint: '「飾る」から置けます', g: 'like:' + a.likes[0] + ':' + place, tone: 'better', adv: `{names}は、好きな${nm}が${roams(a) ? '歩ける所' : '庭'}にあると、もっと楽しめそう` });
   } else out.push({ k: 'like', ok: true, t: 'のんびりできる場所がある' });
   // 苦手なもの（ある子だけ）
   if (a.dislikes && a.dislikes.length) {
     const reach2 = roams(a) ? itemsReach({ x: 0, z: 0, a }) : ZONES[a.zone] ? itemsInRect(ZONES[a.zone].rect) : [];
     const bad = a.dislikes.find((l) => reach2.some((x) => x.id === l));
-    out.push(bad ? { k: 'dislike', ok: false, t: `苦手な${(ITEMS[bad] || {}).name || '物'}が、すぐそばにある`, hint: '置く場所を変えると' } : { k: 'dislike', ok: true, t: `苦手な${(ITEMS[a.dislikes[0]] || {}).name || '物'}から、離れていられる` });
+    const bn = bad && ((ITEMS[bad] || {}).name || '物');
+    const kn = knowOf(a).dis; // 苦手がまだわかっていない時は、名前を出さない
+    out.push(bad ? (kn ? { k: 'dislike', ok: false, t: `苦手な${bn}が、すぐそばにある`, hint: '置く場所を変えると', g: 'dislike:' + bad, tone: 'trouble', adv: `{names}は、苦手な${bn}がすぐそばにあって、少し困っているかも` } : { k: 'dislike', ok: false, t: 'そばにある何かが、少し苦手そう', hint: 'そばで様子を見ると、何が苦手かわかるかも', g: 'dislike?', tone: 'trouble', adv: '{names}は、そばにある何かが、少し苦手そう' }) : { k: 'dislike', ok: true, t: kn ? `苦手な${(ITEMS[a.dislikes[0]] || {}).name || '物'}から、離れていられる` : '苦手なものから、離れていられる' });
   }
   // 広さ・人手
-  out.push(c.landRatio <= 0.85 ? { k: 'space', ok: true, t: 'ゆったり過ごせる広さがある' } : { k: 'space', ok: false, t: '少し手狭。土地が広がると、もっとゆったり', hint: '段階が進むと、土地が広がります' });
-  out.push(c.peopleRatio <= 0.85 ? { k: 'care', ok: true, t: '毎日の世話が行き届いている' } : { k: 'care', ok: false, t: '人手が少し足りない。人が増えると、もっと目が届く', hint: '「人を増やす」から' });
+  out.push(c.landRatio <= 0.85 ? { k: 'space', ok: true, t: 'ゆったり過ごせる広さがある' } : { k: 'space', ok: false, t: '少し手狭。土地が広がると、もっとゆったり', hint: '段階が進むと、土地が広がります', g: 'space', tone: 'trouble', adv: '少し手狭で、窮屈そうな子がいるかも' });
+  out.push(c.peopleRatio <= 0.85 ? { k: 'care', ok: true, t: '毎日の世話が行き届いている' } : { k: 'care', ok: false, t: '人手が少し足りない。人が増えると、もっと目が届く', hint: '「人を増やす」から', g: 'care', tone: 'trouble', adv: '世話の手が少し足りず、目が届きにくくなっているかも' });
   // 季節
   const shade = prDone('land_shade') || G.stage >= 4 || !!G.flags.borderTrees || !!G.flags.plantedTrees;
-  if (se === 'summer') out.push(a.sp === 'pig' ? (G.stage >= 2 ? { k: 'season', ok: true, t: '泥浴び場で、体を冷やせる' } : { k: 'season', ok: false, t: '汗をかけないので、泥浴び場があると' })
+  if (se === 'summer') out.push(a.sp === 'pig' ? (G.stage >= 2 ? { k: 'season', ok: true, t: '泥浴び場で、体を冷やせる' } : { k: 'season', ok: false, t: '汗をかけないので、泥浴び場があると', g: 'mud', tone: 'trouble', adv: '{names}は、汗をかけないので、暑い日は少しつらいかも。泥浴び場があると楽になりそう' })
     : a.sp === 'cat' || sp.bird ? { k: 'season', ok: true, t: '暑い日は、小屋のかげで休める' }
-    : shade ? { k: 'season', ok: true, t: '夏の日かげがある' } : { k: 'season', ok: false, t: '夏の日かげが、もう少しあると', hint: '木を植える・日よけを作る' });
-  else if (se === 'winter') { const warm = a.sp === 'cat' || hasMilestone('warm_room') || (G.flags.bedding && G.turn - G.flags.bedding < 10); out.push(warm ? { k: 'season', ok: true, t: '冬の寝床があたたかい' } : { k: 'season', ok: false, t: '冬の寝床に、厚いわらや毛布があると', hint: '「行動」の寝床と毛布の寄付から' }); }
+    : shade ? { k: 'season', ok: true, t: '夏の日かげがある' } : { k: 'season', ok: false, t: '夏の日かげが、もう少しあると', hint: '木を植える・日よけを作る', g: 'shade', tone: 'trouble', adv: '{names}は、夏の日ざしの下で暑そうかも。日かげがもう少しあると楽になりそう' });
+  else if (se === 'winter') { const warm = a.sp === 'cat' || hasMilestone('warm_room') || (G.flags.bedding && G.turn - G.flags.bedding < 10); out.push(warm ? { k: 'season', ok: true, t: '冬の寝床があたたかい' } : { k: 'season', ok: false, t: '冬の寝床に、厚いわらや毛布があると', hint: '「行動」の寝床と毛布の寄付から', g: 'warm', tone: 'trouble', adv: '{names}は、冬の夜が少し寒いかも。厚いわらや毛布があると、ぐっすり眠れそう' }); }
   else out.push({ k: 'season', ok: true, t: se === 'spring' ? '春の草を、のんびり食べられる' : '過ごしやすい季節' });
   // 年を重ねた子
-  if (a.elderly) out.push(G.flags.bedding || hasMilestone('warm_room') ? { k: 'elder', ok: true, t: '年を重ねた体に、やわらかい寝床' } : { k: 'elder', ok: false, t: 'やわらかい寝床があると、関節が楽に' });
+  if (a.elderly) out.push(G.flags.bedding || hasMilestone('warm_room') ? { k: 'elder', ok: true, t: '年を重ねた体に、やわらかい寝床' } : { k: 'elder', ok: false, t: 'やわらかい寝床があると、関節が楽に', hint: '「行動」の寝床と毛布の寄付から', g: 'elder', tone: 'better', adv: '年を重ねた{names}に、やわらかい寝床があると、関節が楽になりそう' });
   // 安心（人に慣れるのは、その子のペースで）
   const shy = a.personality === '人見知り' || a.personality === 'ゆっくり近づいてくる';
-  out.push(a.trust >= (shy ? 2 : 3) ? { k: 'trust', ok: true, t: 'あなたのそばでも、落ち着いて過ごせる' } : { k: 'trust', ok: false, t: 'まだ人に慣れる途中。その子のペースで大丈夫', hint: 'そっと見守ると、少しずつ' });
+  out.push(a.trust >= (shy ? 2 : 3) ? { k: 'trust', ok: true, t: 'あなたのそばでも、落ち着いて過ごせる' } : { k: 'trust', ok: false, t: 'まだ人に慣れる途中。その子のペースで大丈夫', hint: 'そっと見守ると、少しずつ', g: 'trust', tone: 'wait', adv: '{names}は、まだ人に慣れる途中。そっと見守ると、少しずつ近づいてくれそう' });
   return out;
 }
+// みんなの暮らしを、言葉で（0.9.38。数字は見せない）：足りない所を、まとまりごとに、名前を添えて
+function lifeAdvice() {
+  const as = G.animals.filter((a) => !(a.quarantine && G.turn < a.quarantine)), gs = {}, okK = {};
+  for (const a of as) for (const x of lifeOf(a)) {
+    okK[x.k] = okK[x.k] || { ok: 0, n: 0 }; okK[x.k].n++; if (x.ok) okK[x.k].ok++;
+    if (x.ok || !x.g) continue;
+    const g = gs[x.g] || (gs[x.g] = { g: x.g, k: x.k, tone: x.tone, adv: x.adv, hint: x.hint, names: [] }); g.names.push(a.name);
+  }
+  const order = { trouble: 0, better: 1, wait: 2 };
+  const list = Object.values(gs).sort((p, q) => order[p.tone] - order[q.tone] || q.names.length - p.names.length).map((g) => {
+    const nm = g.names.length > 3 ? g.names.slice(0, 2).join('、') + 'たち' : g.names.join('と');
+    return { k: g.k, tone: g.tone, text: g.adv.replace('{names}', nm), hint: g.tone === 'wait' ? null : g.hint };
+  });
+  const good = Object.keys(okK).filter((k) => okK[k].ok === okK[k].n);
+  return { list, good, index: lifeIndex(), n: as.length };
+}
+/* ---------- この子のこと：一緒に過ごすほど、わかっていく（0.9.38） ----------
+   はじめから分かっているのは、性格と、好きなことのひとつ。ほかの好きなこと・苦手・仲良しは、
+   なかよし度（2で好きなこと2つめと仲良し、3で好きなことすべてと苦手）、見たしぐさ（好きな物で遊ぶ・苦手から離れる・仲良しと鼻を寄せる）、
+   そばで過ごした時間（1分、2分、4分…ごとにひとつ）で、少しずつ書き足される */
+function friendOf(a) { return G.animals.find((o) => o !== a && ((a.friend && o.key === a.friend) || o.id === a.friendId || a.id === o.friendId)); }
+function knowOf(a) {
+  if (!a.know) { const t = a.trust || 0, L = a.likes || []; a.know = { likes: L.slice(0, t >= 3 ? L.length : t >= 2 ? 2 : 1), dis: t >= 3, fr: t >= 2, w: 0, wn: 60 }; }
+  return a.know;
+}
+function knowAdd(a, kind, id) {
+  const K = knowOf(a);
+  if (kind === 'next') { const nx = (a.likes || []).find((l) => !K.likes.includes(l)); if (nx) return knowAdd(a, 'like', nx); if (!K.dis && (a.dislikes || []).length) return knowAdd(a, 'dis'); if (!K.fr && friendOf(a)) return knowAdd(a, 'fr'); return null; }
+  if (kind === 'like') { if (!id || !(a.likes || []).includes(id) || K.likes.includes(id)) return null; K.likes.push(id); return `好きなこと：${(ITEMS[id] || {}).name || id}`; }
+  if (kind === 'dis') { if (K.dis || !(a.dislikes || []).length) return null; K.dis = true; return `苦手なもの：${a.dislikes.map((l) => (ITEMS[l] || {}).name || l).join('、')}`; }
+  if (kind === 'fr') { const f = friendOf(a); if (K.fr || !f) return null; K.fr = true; return `仲良し：${f.name}${f.sp !== a.sp ? `（${SPECIES[f.sp].name}）` : ''}`; }
+  return null;
+}
+function knowTell(a, txt) { if (!txt || hako()) return; note('daily', `${a.name}のことが、ひとつわかりました（${txt}）`, null, { quiet: true }); UI.toast(`${a.name}のことが、ひとつわかりました。${txt}`, 'daily', null, { animal: a.id }); GAME.save(); }
+// なかよし度が上がった時
+function knowTick(a) {
+  const K = knowOf(a), t = a.trust || 0, L = a.likes || [], got = [];
+  if (t >= 2) { if (L[1] && !K.likes.includes(L[1])) got.push(knowAdd(a, 'like', L[1])); got.push(knowAdd(a, 'fr')); }
+  if (t >= 3) { for (const l of L) if (!K.likes.includes(l)) got.push(knowAdd(a, 'like', l)); got.push(knowAdd(a, 'dis')); }
+  const g = got.filter(Boolean); if (g.length) knowTell(a, g.join('。'));
+}
+// 暮らしの様子を、ひとことで
+function lifeWord(idx) { return idx >= 90 ? 'みんな、それぞれの好みに合った場所で、のびのび過ごしています' : idx >= 75 ? 'おおむね穏やかに過ごしています。少し整えると、もっと過ごしやすくなりそうです' : idx >= 55 ? '過ごしやすい所と、少し困っていそうな所があります' : 'まだ整えている途中です。困っていそうな所から、少しずつ'; }
 function lifeScore(a) { const L = lifeOf(a); return L.filter((x) => x.ok).length / L.length; }
 // みんなの暮らしの質（0〜100）。一頭ずつの過ごしやすさの平均なので、頭数では上がらない
 function lifeIndex() { const as = G.animals.filter((a) => !(a.quarantine && G.turn < a.quarantine)); if (!as.length) return 0; return Math.round(as.reduce((s2, a) => s2 + lifeScore(a), 0) / as.length * 100); }
@@ -11451,8 +11543,8 @@ function lifeCheck() {
   for (const [th, size] of LIFE_STEPS) {
     if (idx < th || prev >= th || mine.includes(th)) continue;
     mine.push(th);
-    G.overnight.push({ cat: 'friends', text: th >= 90 ? `動物たちの暮らしが、とても過ごしやすくなりました（暮らしの質 ${idx}）。一頭ずつの好みや季節に、目が届いています` : th >= 75 ? `動物たちが、前よりのびのび過ごしています（暮らしの質 ${idx}）` : `動物たちの暮らしが、少しずつ整ってきました（暮らしの質 ${idx}）` });
-    { const g0 = G; setTimeout(() => { if (STARTED && G === g0) addSupport('life', size, 'animals', `動物たちの暮らし ${th}`); }, 2200); }
+    G.overnight.push({ cat: 'friends', text: th >= 90 ? '動物たちの暮らしが、とても過ごしやすくなりました。一頭ずつの好みや季節に、目が届いています' : th >= 75 ? '動物たちが、前よりのびのび過ごしています' : '動物たちの暮らしが、少しずつ整ってきました' });
+    { const g0 = G; setTimeout(() => { if (STARTED && G === g0) addSupport('life', size, 'animals', '動物たちの暮らしが、よくなりました'); }, 2200); }
     break; // 1週に1つまで
   }
 }
@@ -11726,7 +11818,7 @@ function jumpStage(n) {
 
 /* ---------- 保存 ---------- */
 const GAME = {
-  note, unlockCard, foodEaten, crackEgg, lifeOf, lifeIndex, lifeSummary, lifeCheck, cowTag, pigOnDiet, capacity, axes, runAction, startBiz, restAction, petAnimal, petReact, respectAnimal, treatAnimal, sponsorAnimal, anniversary,
+  note, unlockCard, foodEaten, crackEgg, lifeOf, lifeIndex, lifeSummary, lifeAdvice, lifeWord, lifeCheck, knowOf, knowAdd, knowTell, knowTick, friendOf, cowTag, pigOnDiet, capacity, axes, runAction, startBiz, restAction, petAnimal, petReact, respectAnimal, treatAnimal, sponsorAnimal, anniversary,
   acceptRequest, rehomeRequest, declineRequest, requestChecks, hire, hireAvailable, finance, harukoPay, incomeView, savingWays, forecast, moritaState, moritaQuestion, moritaAnswer, talkState, talkNext, talkAvail, talkAnswer, talkPresent, talkCh, talkReady, bizMoney, feedBedCost, stockWeeks, coverText, reserveTarget, usableFunds, projList, projState, projPay, projCampaign, projGrant, prepDone, prepStarted, salary, hourlyWage, animalCost, teamCount, volunteerCap, staffMax, teamOf, placeItem, removeItem, startDay, endDay, jumpStage, actionAvailable,
   save() {
     // 箱庭モードは保存しない（毎回、すべてがそろった姿から）
@@ -12255,13 +12347,16 @@ const UI = {
   },
 
   // 知らせはひとつずつ。読む速さ（1秒に約6文字）に合わせて出し、たまったら「ほか◯件」にまとめる（全部、日記に残る）
-  toast(text, cat, focus, opt) { UI.toastQ.push({ text, cat, focus, animal: opt && opt.animal }); UI.toastNext(); },
+  // direct：あなたがさわった（タップや押した）すぐあとの返事。「名前だけ」の表示でも、これだけは出す（0.9.38）
+  toast(text, cat, focus, opt) { UI.toastQ.push({ text, cat, focus, animal: opt && opt.animal, direct: !!(opt && opt.animal) || performance.now() - (UI._tapAt || -1e9) < 8000 }); UI.toastNext(); },
   cardToast(id) { const c = CARDS[id]; if (!c) return; UI.toastQ.push({ text: `知識カード「${c.title}」が手に入りました`, cat: 'card', card: id }); UI.toastNext(); },
   toastQ: [],
   toastNext() {
-    if (UI.toastBusy || UI.hudQuiet() || !UI.toastQ.length) return;
+    if (UI.toastBusy || UI.zenOn || !UI.toastQ.length) return;
     const box = $('#toasts');
-    let t = UI.toastQ.shift();
+    let t;
+    if (UI.hudLevel() === 'names') { const i = UI.toastQ.findIndex((x) => x.direct); if (i < 0) return; t = UI.toastQ.splice(i, 1)[0]; } // 名前だけの時は、返事だけ。ほかの知らせはためておく
+    else t = UI.toastQ.shift();
     // 待っている知らせが多い時は、最後の1件にまとめる
     let rest = 0; if (UI.toastQ.length >= 3) { rest = UI.toastQ.length; const last = UI.toastQ.filter((x) => x.focus || x.card).pop(); UI.toastQ = last ? [last] : []; rest -= UI.toastQ.length; }
     const el = document.createElement('div'); el.className = 'toast';
@@ -12490,6 +12585,7 @@ const UI = {
     }
   },
   onClick(e) {
+    UI._tapAt = performance.now();
     const b = e.target.closest('[data-act]'); if (!b) return;
     const a = b.dataset.act, v = b.dataset.v, id = b.dataset.id;
     const find = (x) => G.animals.find((q) => String(q.id) === String(x));
@@ -12501,7 +12597,7 @@ const UI = {
         GAME.runAction(id); if (id === 'L18') break; UI.render(); break; }
       case 'choose': GAME.runAction(id, v); UI.back(); break;
       case 'biz': GAME.startBiz(id); UI.render(); break;
-      case 'rest': UI.startRest(id === 'R1' ? 'bench' : 'animals'); break;
+      case 'rest': UI.startRest('slow'); break;
       case 'drone': UI.droneShow(); break;
       case 'show': { UI.closeModal(); UI.closeSheet(); const ks = Object.keys(DRONE_SHOWS); UI.startRest('sky', null, { show: v === 'random' ? pick(ks) : v }); break; }
       case 'deco': UI.startPlace(id); break;
@@ -12737,7 +12833,7 @@ const UI = {
           return `<button class="act" data-act="${act}" data-id="${id}" ${need ? 'disabled' : ''}><span class="ic" style="background:${col}">${ico(icon)}</span><span class="tx"><strong>${esc(name)}</strong><span>${esc(desc)}</span>${need ? `<span class="pill warn">${esc(need)}</span>` : full ? '<span class="pill ok">今日は十分に休めました。いつでも座れます</span>' : ''}</span></button>`;
         };
         const hasBench = W.benches && W.benches.length;
-        for (const r of REST_ACTIONS) h += restBtn('rest', r.id, r.id === 'R2' ? 'i-paw' : 'i-rest', 'var(--leaf)', r.name, r.desc, r.need === 'bench' && !hasBench ? 'ベンチがまだありません。「行動」の「見学者用のベンチを作る」で作れます' : '');
+        for (const r of REST_ACTIONS.filter((x) => !x.hidden)) h += restBtn('rest', r.id, 'i-rest', 'var(--leaf)', r.name, r.desc, '');
         h += restBtn('music', 'music', 'i-music', 'var(--lupine)', 'ウクレレやギターを弾く', 'すぐ近くにベンチがあれば座って、なければ立ったまま弾きます。好きな子はそばで横になり、苦手な子は離れていきます。', '');
         const sea = { spring: '春は夜桜と、舞う花びら。', summer: '夏は蛍も一緒に。', autumn: '秋はもみじと、お月さま。', winter: '冬は雪の夜に。' }[G.season] || '';
         h += restBtn('drone', 'sky', 'i-spark', 'var(--lupine)', '夜空のドローンショーを見る', `動物たちと並んで、夜空を見上げます。花火のかわりの、音のない光。演目は${Object.keys(DRONE_SHOWS).length}つ。${sea}`, '');
@@ -12793,7 +12889,7 @@ const UI = {
       const SIZE = { 1: 'テニスコート約2面分', 2: 'サッカーのグラウンド約4面分', 3: '東京ドーム約2個分', 4: '東京ドーム約6個分', 5: '1km四方。東京ドーム約21個分' };
       const NATURE = { 1: '裏庭の草地に、鳥や虫が来はじめる', 2: '池ができて、カエルやトンボが来る', 3: '見学路に花。小川が流れはじめることも', 4: '野鳥やカエル、トンボが増え、観察小屋も', 5: '野生の生き物の通り道が、まわりの林とつながる' };
       let h = `<p class="lead-s">どこまで育てるかは、あなたしだい。小さな裏庭のままでも、ここは立派なサンクチュアリです。下は、まわりの支えと、動物たちの暮らしがそろった時に開けていく景色の目安です。何を目指すか、目指さないかも、自由に決めてください。</p>`;
-      if (!hk) h += `<div class="vs-now">${ico('i-leaf')}<span>いまは <b>${esc(STAGES[cur].name)}</b>${cur < 5 ? `。次の「${esc(STAGES[cur + 1].name)}」まで、あと ${100 - G.gauge}` : ''}<small>寄付・手伝い・制度・企業・自然の支えと、動物たちの暮らし（いま ${GAME.lifeIndex()}）で育ちます</small></span></div>`;
+      if (!hk) h += `<div class="vs-now">${ico('i-leaf')}<span>いまは <b>${esc(STAGES[cur].name)}</b>${cur < 5 ? `。次の「${esc(STAGES[cur + 1].name)}」まで、あと ${100 - G.gauge}` : ''}<small>寄付・手伝い・制度・企業・自然の支えと、動物たちの暮らしで育ちます</small></span></div>`;
       for (let n = 1; n <= 5; n++) {
         const S = STAGES[n], t = team(n), tag = hk ? '' : n < cur ? '通ってきた道' : n === cur ? 'いまここ' : n === cur + 1 ? '次' : 'その先';
         const newSp = ANIMAL_ORDER.filter((sp) => SPECIES[sp].stage === n && !SPECIES[sp].community);
@@ -12866,6 +12962,22 @@ const UI = {
       if (diet) pills.push('<span class="pill">おやつはお休み中</span>');
       let h = `<div class="ac-hero"><span class="av" style="${avStyle(a)}"></span><div class="ac-id"><h3>${esc(a.name)}</h3><div class="ac-meta"><span class="ac-sp"><svg class="spi"><use href="#sp-${a.sp}"/></svg>${sp.name}</span><span>${a.age}歳</span></div><div class="ac-trust"><span>なかよし度</span>${heartsHtml(a.trust)}</div></div></div>${pills.length ? `<div class="ac-pills">${pills.join('')}</div>` : ''}`;
       { const B = UI.behParts(a); if (B && B.now) h += B.now; }
+      // この子のこと（0.9.38）：いつも見える所に。はじめは性格と好きなことのひとつ。一緒に過ごすほど、好きなこと・苦手・仲良しが書き足される
+      { const K = GAME.knowOf(a), unk = (t) => `<span class="unk">${t}</span>`;
+        const likes = a.likeText ? [esc(a.likeText.split('。')[0])] : K.likes.map((l) => esc(ITEMS[l] ? ITEMS[l].name : l));
+        const moreLikes = !a.likeText && (a.likes || []).length > K.likes.length;
+        let me = `<dl class="ac-facts ac-me"><dt>性格</dt><dd><b>${esc(a.personality)}</b>${PERS_DESC[a.personality] ? `<span>${esc(PERS_DESC[a.personality])}</span>` : ''}</dd>`;
+        me += `<dt>好きなこと</dt><dd>${likes.length ? likes.join('、') : 'のんびりすること'}${moreLikes ? unk('ほかにも、ありそう') : ''}</dd>`;
+        if ((a.dislikes || []).length) me += `<dt>苦手</dt><dd>${K.dis ? a.dislikes.map((l) => esc((ITEMS[l] || {}).name || l)).join('、') : unk('まだわかりません')}</dd>`;
+        me += `<dt>仲良し</dt><dd>${friend ? (K.fr ? esc(friend.name) + (friend.sp !== a.sp ? `（${SPECIES[friend.sp].name}）` : '') : unk('まだわかりません')) : '<span>まだ</span>'}</dd>`;
+        { const bp = bondPartnerOf(a); if (bp) { const bd = G.bonds.find((x) => x.a === a.id || x.b === a.id), t = bondType(bd), qq = isQuiet(a);
+          const how = t === 'ss' ? 'ふたりとも静か。並んで、ゆっくり過ごすのが好き。' : t === 'oo' ? 'ふたりで、敷地のあちこちを歩きまわる。' : qq ? `${bp.name}のそばだと、落ち着いて過ごせる。` : `${bp.name}を連れて、先を歩くことが多い。`;
+          me += `<dt>いつも一緒</dt><dd>${esc(bp.name)}（${SPECIES[bp.sp].name}）<span>種類はちがっても、惹かれあった相手。${how}${ROAM_SP.includes(a.sp) ? '' : '昼のあいだは、一緒に柵の外を歩きます。'}</span></dd>`; } }
+        if (G.stage >= 2 && ROAM_SP.includes(a.sp)) me += `<dt>過ごし方</dt><dd>${roamPrefText(a)}</dd>`;
+        me += `<dt>出身</dt><dd>${esc(a.origin)}</dd></dl>`;
+        const hidden = moreLikes || ((a.dislikes || []).length && !K.dis) || (friend && !K.fr);
+        if (hidden && !hk) me += '<p class="ac-know">そばで過ごしたり、仲良くなったりすると、少しずつ書き足されていきます。</p>';
+        h += sec('i-paw', 'この子のこと', me, 'ac-me-sec'); }
       // ふれあう：なでる・ブラッシング・季節のおやつ（大きなボタン）。そばへ行く・撮る
       const bird = !!sp.bird, lb = !bird && a.likes.includes('brush');
       let act = `<div class="ac-main">`;
@@ -12880,18 +12992,9 @@ const UI = {
       // 0.9.37：カードは、ひと目で見える所（絵・名前・今の様子・ふれあう）と、＋でひらく所に分ける。
       // ひらく所の見出しには、中身の要点（性格、暮らしの数、しぐさや物語の数）。ひらいた所は覚えておき、ほかの子のカードでも同じ所がひらく
       const fold = (k, icon, title, sum, body) => `<details class="ac-fold" data-k="${k}"${UI.acOpen.has(k) ? ' open' : ''}><summary>${ico(icon)}<span class="af-t">${title}</span><span class="af-s">${sum}</span></summary><div class="af-body">${body}</div></details>`;
-      // この子のこと：性格・好きなこと・仲良し・過ごし方
-      let me = `<dl class="ac-facts"><dt>性格</dt><dd><b>${esc(a.personality)}</b>${PERS_DESC[a.personality] ? `<span>${esc(PERS_DESC[a.personality])}</span>` : ''}</dd>`;
-      me += `<dt>好きなこと</dt><dd>${a.trust >= 2 ? (a.likeText ? esc(a.likeText) : '') || a.likes.map((l) => esc(ITEMS[l] ? ITEMS[l].name : l)).join('、') || 'のんびりすること' : '<span>もう少し仲良くなったら、教えてくれそうです</span>'}${a.trust >= 3 && a.dislikes.length ? `<span>苦手：${a.dislikes.map((l) => esc(ITEMS[l].name)).join('、')}</span>` : ''}</dd>`;
-      me += `<dt>仲良し</dt><dd>${friend ? esc(friend.name) + (friend.sp !== a.sp ? `（${SPECIES[friend.sp].name}）` : '') : '<span>まだ</span>'}</dd>`;
-      { const bp = bondPartnerOf(a); if (bp) { const bd = G.bonds.find((x) => x.a === a.id || x.b === a.id), t = bondType(bd), qq = isQuiet(a);
-        const how = t === 'ss' ? 'ふたりとも静か。並んで、ゆっくり過ごすのが好き。' : t === 'oo' ? 'ふたりで、敷地のあちこちを歩きまわる。' : qq ? `${bp.name}のそばだと、落ち着いて過ごせる。` : `${bp.name}を連れて、先を歩くことが多い。`;
-        me += `<dt>いつも一緒</dt><dd>${esc(bp.name)}（${SPECIES[bp.sp].name}）<span>種類はちがっても、惹かれあった相手。${how}${ROAM_SP.includes(a.sp) ? '' : '昼のあいだは、一緒に柵の外を歩きます。'}</span></dd>`; } }
-      if (G.stage >= 2 && ROAM_SP.includes(a.sp)) me += `<dt>過ごし方</dt><dd>${roamPrefText(a)}</dd>`;
-      me += '</dl>';
-      h += fold('me', 'i-paw', 'この子のこと', esc(a.personality) + (friend ? `・仲良し ${esc(friend.name)}` : ''), me);
       { const L = GAME.lifeOf(a), okN = L.filter((x) => x.ok).length;
-        h += fold('life', 'i-leaf', 'この子の暮らし', `${okN} / ${L.length}${okN < L.length ? '　次の楽しみあり' : ''}`, `<ul class="life-list">${L.map((x) => `<li class="${x.ok ? 'ok' : 'todo'}"><i aria-hidden="true">${x.ok ? '✓' : '○'}</i><span>${esc(x.t)}${!x.ok && x.hint ? `<small>${esc(x.hint)}</small>` : ''}</span></li>`).join('')}</ul>`); }
+        const trb = L.some((x) => !x.ok && x.tone === 'trouble');
+        h += fold('life', 'i-leaf', 'この子の暮らし', okN === L.length ? 'のびのび過ごしています' : trb ? '困っていることが、あるかも' : 'もっと良くなりそう', `<ul class="life-list">${L.map((x) => `<li class="${x.ok ? 'ok' : 'todo'}"><i aria-hidden="true">${x.ok ? '✓' : '○'}</i><span>${esc(x.t)}${!x.ok && x.hint ? `<small>${esc(x.hint)}</small>` : ''}</span></li>`).join('')}</ul>`); }
       { const B = UI.behParts(a); if (B) h += fold('beh', 'i-spark', 'しぐさ', `見つけた ${B.got} / ${B.total}`, B.body); }
       // 物語
       let st = '<ul class="stories">';
@@ -12906,7 +13009,7 @@ const UI = {
       if (help.length) h += fold('cheer', 'i-flower', '応援する', y ? '来た日のお祝いも' : '里親・名前の看板', `${hk ? '' : '<p class="muted" style="margin:0 0 8px">どれも、今日できることを1回分つかいます。</p>'}<div class="ac-help">${help.join('')}</div>`);
       // からだと記録：体調・出身・来た日・耳の番号、牛の世話メモ、種のカード
       let rec = `<dl class="ac-facts"><dt>体調とケア</dt><dd>${esc(a.health)}${q ? '<span class="pill q">検疫中：あと少しで区画の仲間に</span>' : ''}${diet ? `<span>体重が少し増えたので、おやつはお休み中（あと${G.pigDiet.until - G.turn}週）</span>` : ''}</dd>`;
-      rec += `<dt>出身</dt><dd>${esc(a.origin)}</dd><dt>来た日</dt><dd>${fmtDate(a.arrived, true)}</dd>`;
+      rec += `<dt>来た日</dt><dd>${fmtDate(a.arrived, true)}</dd>`;
       if (a.sp === 'cow') rec += `<dt>耳の番号</dt><dd>${esc(GAME.cowTag(a))}<span>両耳の黄色い耳標。名前で呼ぶけれど、法律で番号もつけています（このゲームの中だけの番号）</span></dd>`;
       rec += '</dl>';
       if (a.sp === 'cow') rec += `<details class="care-memo"><summary>牛の世話メモ</summary><ul><li>水：搾乳中の牛は1日80〜100L、放牧の牛で約45L</li><li>ひづめ：削蹄は少なくとも年2回</li><li>草地：1頭に25a以上が目安</li><li>寿命：牛の自然な寿命は約15〜20年。乳牛の多くは5〜6歳で農場を離れます</li></ul>${UI.srcLinks(['alicmilk', 'saga', 'kassai', 'souchi', 'mdpi'])}<button class="btn small ghost" data-act="go-cowbook">牛と酪農の手帳</button></details>`;
@@ -12951,7 +13054,7 @@ const UI = {
           <button class="btn small" data-act="rename">この名前にする</button>
           <p class="muted">門の看板、バス停、写真に入れる名前、画面の上の表示が変わります。空にすると「${DEFAULT_PLACE}」に戻ります。</p></div>
         <div class="switch"><span>音を出す</span><input type="checkbox" data-act="toggle-sound" ${G.settings.sound ? 'checked' : ''}></div>
-        <div class="field" style="margin-top:10px"><label for="vol">音の大きさ</label><input id="vol" type="range" min="0.1" max="1" step="0.05" value="${G.settings.vol}"><span class="muted">動物の声や虫の音は、アクセント程度の小さな音です。iPhoneは消音モードだと鳴りません</span></div>
+        <div class="field" style="margin-top:10px"><label for="vol">音の大きさ</label><input id="vol" type="range" min="0.1" max="1" step="0.05" value="${G.settings.vol}"><span class="muted">動物の声や虫の音は、アクセント程度の小さな音です。このゲームに音楽（BGM）はありません。ほかのアプリで好きな音楽を聴きながらでも、風や鳥などの自然の音は、そのまま重なって鳴ります。iPhoneは消音モードだと鳴りません</span></div>
         <div class="switch"><span>成長ゲージを表示する</span><input type="checkbox" data-act="toggle-gauge" ${G.settings.gauge ? 'checked' : ''} ${hk ? 'disabled' : ''}></div>
         <div class="switch"><span>しばらく操作しないと、その場に座る</span><input type="checkbox" data-act="toggle-autosit" ${G.settings.autoSit !== false ? 'checked' : ''}></div>
         <div class="field" style="margin-top:10px"><span class="flabel">画面の表示</span><div class="seg">${[['all', 'すべて'], ['calm', '少なめ'], ['names', '名前だけ']].map(([k, t]) => `<button data-act="hud-lvl" data-v="${k}" class="${(G.settings.hud || 'all') === k ? 'on' : ''}">${t}</button>`).join('')}</div><span class="muted" style="display:block;margin-top:4px">「少なめ」は状態の札をしまいます。「名前だけ」は、動物と人の名前の札のほかは出しません。右上の重なった紙のボタンからも選べます（「景色だけ」も）。</span></div>
@@ -13103,7 +13206,7 @@ const UI = {
         if (!first) h += `<p class="calm-line">前回から、${p.changes.length}つの変化がありました。</p>`;
         h += `<div class="sec"><h3>${first ? '今週の知らせ' : '前回来た時からの変化'}</h3><div class="changes">${p.changes.map((c) => { const f = c.focus; return `<button class="chg" ${f ? `data-act="chg" data-v="${f[0]},${f[1]}"` : c.req ? `data-act="req" data-id="${c.req}"` : c.money === 'build' ? 'data-act="prep"' : c.money ? 'data-act="open" data-v="money"' : ''}><i style="background:${CAT_COLOR[c.cat]}"></i><span>${spx(esc(c.text))}</span>${f ? '<span class="go">場所を見る</span>' : c.req ? '<span class="go">相談を見る</span>' : c.money === 'build' ? '<span class="go">整備を見る</span>' : c.money ? '<span class="go">収支を見る</span>' : ''}</button>`; }).join('')}</div></div>`;
       } else if (!first) h += '<p class="lead-s">静かな1週間でした。動物たちは変わらず、穏やかに過ごしています。</p>';
-      if (p.delta && (p.delta.nature || p.delta.calm)) h += `<p class="muted">自然の豊かさ ${p.delta.nature >= 0 ? '＋' : ''}${p.delta.nature}　動物たちの暮らし ${p.delta.calm >= 0 ? '＋' : ''}${p.delta.calm}</p>`;
+      if (p.delta && (p.delta.nature || p.delta.calm)) { const w = []; if (p.delta.nature > 0) w.push('自然が、少し豊かになりました'); else if (p.delta.nature < 0) w.push('自然が、少しさびしくなりました'); if (p.delta.calm > 0) w.push('動物たちの暮らしが、少し過ごしやすくなりました'); else if (p.delta.calm < 0) w.push('動物たちの暮らしに、気になる所が出てきました'); if (w.length) h += `<p class="muted">${w.join('。')}。</p>`; }
       h += `<div class="sticky-foot btn-row"><button class="btn primary" data-act="morning-go">${first ? 'はじめる' : '今日もはじめましょう'}</button>${G.requests.length ? `<button class="btn" data-act="open" data-v="animals">受け入れの相談（${G.requests.length}）</button>` : ''}</div>`;
       return { title: `${fmtDate(p.date, first)}　${first ? 'ようこそ' : 'の訪問'}`, html: h, keepScroll: false };
     },
@@ -13770,6 +13873,7 @@ const UI = {
 
   /* ---------- タップ ---------- */
   tap(cx, cy) {
+    UI._tapAt = performance.now();
     if (UI.zenOn) { const gi = screenRay(cx, cy).intersectObject(TER.mesh, false)[0]; if (gi) movePlayerTo(gi.point.x, gi.point.z); return; }
     if (!$('#photo-ui').hidden) { if (UI.photoFrame === 'none') UI.photoFocus(cx, cy); return; }
     if (!$('#music-ui').hidden || UI.rest) return;
@@ -13817,11 +13921,13 @@ const UI = {
   /* ---------- しぐさの意味（0.9.31 パイロット：鶏）：はじめて見た時だけ吹き出しで。あとは、その日はじめての時に気持ちの言葉だけ ---------- */
   // みんなの暮らし（動物の画面）：暮らしの質と、面ごとの様子。足りない所は、次の楽しみとして（0.9.36）
   lifeBlockHtml() {
+    // 0.9.38：数字は出さない。ひとことの様子と、「こうすると、もっと良くなるかも」「ここが困っているかも」を言葉で
     if (!G.animals.length) return '';
-    const S = GAME.lifeSummary(), K = [['like', '好きなことができる'], ['dislike', '苦手から離れていられる'], ['space', 'ゆったりした広さ'], ['care', '世話が行き届く'], ['season', '季節の備え'], ['elder', '年を重ねた体のケア'], ['trust', '安心して過ごせる']];
-    const rows = K.filter(([k]) => S.by[k]).map(([k, t]) => { const b = S.by[k]; return `<li><span>${t}</span><b class="num">${b.ok} / ${b.n}</b></li>`; }).join('');
-    const miss = K.map(([k]) => S.by[k] && S.by[k].miss).filter(Boolean)[0];
-    return `<div class="life-sum"><div class="ls-head"><b>動物たちの暮らし</b><span class="num">${S.index}</span></div><div class="bar"><i style="width:${S.index}%"></i></div><ul>${rows}</ul>${miss ? `<p class="muted">次の楽しみ：${esc(miss.t)}${miss.hint ? `（${esc(miss.hint)}）` : ''}</p>` : '<p class="muted">一頭ずつの好みや季節に、目が届いています。</p>'}<p class="muted">一頭ずつの過ごしやすさの平均です。頭数では上がりません。前より過ごしやすくなって、70・80・90・97 の線をこえた週に、「暮らし」の支えとして、サンクチュアリが育ちます。</p><div class="btn-row"><button class="btn small" data-act="open" data-v="vision">${ico('i-map')}この丘の、これから</button></div></div>`;
+    const A = GAME.lifeAdvice(), GOOD = { like: '好きなことができる', dislike: '苦手から離れていられる', space: 'ゆったりした広さ', care: '世話が行き届いている', season: '季節の備え', elder: '年を重ねた体のケア', trust: '安心して過ごせる' };
+    const good = A.good.filter((k) => GOOD[k]).map((k) => `<span class="ls-good">${ico('i-check')}${GOOD[k]}</span>`).join('');
+    const tone = { trouble: ['困っているかも', 'tr'], better: ['もっと良くなるかも', 'bt'], wait: ['見守っていること', 'wt'] };
+    const adv = A.list.slice(0, 3).map((x) => `<li class="ls-${tone[x.tone][1]}"><em>${tone[x.tone][0]}</em><span>${esc(x.text)}${x.hint ? `<small>${esc(x.hint)}</small>` : ''}</span></li>`).join('');
+    return `<div class="life-sum"><div class="ls-head"><b>動物たちの暮らし</b></div><p class="ls-word">${esc(GAME.lifeWord(A.index))}</p>${good ? `<div class="ls-goods">${good}</div>` : ''}${adv ? `<ul class="ls-adv">${adv}</ul>` : '<p class="muted">一頭ずつの好みや季節に、目が届いています。</p>'}${A.list.length > 3 ? '<p class="muted">ほかにも、それぞれのカードの「この子の暮らし」に書いてあります。</p>' : ''}<p class="muted">頭数ではなく、一頭ずつの過ごしやすさを見ています。前より過ごしやすくなった週に、「暮らし」の支えとして、丘が育ちます。</p><div class="btn-row"><button class="btn small" data-act="open" data-v="vision">${ico('i-map')}この丘の、これから</button></div></div>`;
   },
   // 段階ごとの敷地の地図（上から見た絵。ゲームの中の配置どおり）（0.9.36）
   stageMapSvg(n) {
@@ -13906,6 +14012,13 @@ const UI = {
       if (best) {
         const { e, b, k, fresh } = best, f = FEELS[b.feel] || { t: '', c: 'var(--ink-3)' };
         UI.beh = B = { e, b, fresh, until: now + (fresh ? 7000 : 3600) }; UI.behLast = now;
+        { // しぐさから、この子のことがわかる（0.9.38）：好きな物で遊ぶ、苦手から離れる、仲良しと鼻を寄せる・探す
+          const a = e.a, itId = e.item ? (e.item.id || G.placed[e.item.sid]) : null; let kt = null;
+          if (b.key === 'avoid') kt = GAME.knowAdd(a, 'dis');
+          else if (['seekFriend', 'nose', 'cowLick', 'eqGroom'].includes(b.key)) { const f = GAME.friendOf(a), fe = f && animalById(f.id); if (fe && Math.hypot(fe.x - e.x, fe.z - e.z) < 6) kt = GAME.knowAdd(a, 'fr'); }
+          else if (itId && e.state === 'use') kt = GAME.knowAdd(a, 'like', itId);
+          if (kt) setTimeout(() => GAME.knowTell(a, kt), 2600);
+        }
         if (fresh) { seen[k] = G.turn; UI.behNewAt = now; const nd = UI.behNewDay(); nd.n++; nd.by[e.a.id] = (nd.by[e.a.id] || 0) + 1; if (b.card) unlockCard(b.card, true); GAME.save(); } day[k] = G.turn;
         el.className = 'beh' + (fresh ? ' full' : '');
         el.style.setProperty('--feel', f.c);
@@ -13973,6 +14086,16 @@ const UI = {
     } else h += `<p class="muted">そばで眺めていると、しぐさの意味が少しずつわかってきます。</p>`;
     return h + '</details>';
   },
+  // そばで過ごした時間（0.9.38）：止まって（座って）6m以内にいる子に、時間がたまる。1分・2分・4分…ごとに、その子のことがひとつわかる
+  knowWatch(dt) {
+    if (!STARTED || !G || G.mode === 'hakoniwa' || !(dt > 0) || dt > 2) return;
+    const P = ACT.player; if (!P || P.moving || P.target) return;
+    for (const e of ACT.animals) {
+      if (Math.hypot(e.x - P.x, e.z - P.z) > 6) continue;
+      const K = GAME.knowOf(e.a); K.w = (K.w || 0) + dt;
+      if (K.w >= (K.wn || 60)) { K.w = 0; K.wn = Math.min(960, (K.wn || 60) * 2); const t = GAME.knowAdd(e.a, 'next'); if (t) { GAME.knowTell(e.a, t); break; } }
+    }
+  },
   idleSit() {
     if (!STARTED || !G || UI.rest || UI.zenOn || G.settings.autoSit === false) return;
     const P = ACT.player; if (!P || P.moving || P.target || P.petting || P.playing || P.sitting) return;
@@ -13986,7 +14109,7 @@ const UI = {
   },
   frame(dt) {
     UI.viewOffset(dt);
-    { const now = performance.now(); if (now - (UI._idleChk || 0) > 500) { UI._idleChk = now; UI.idleSit(); const vn = CAM_VIEWS[camViewIndex()].n, el = $('#view-name'); if (el && el.textContent !== vn) el.textContent = vn; } }
+    { const now = performance.now(); if (now - (UI._idleChk || 0) > 500) { UI.knowWatch((now - (UI._idleChk || now)) / 1000); UI._idleChk = now; UI.idleSit(); const vn = CAM_VIEWS[camViewIndex()].n, el = $('#view-name'); if (el && el.textContent !== vn) el.textContent = vn; } }
     // 時間帯（朝・昼・夕方・夜）は、変わった時だけ書きかえる
     const tn = todName(SKY.t); if (tn !== UI._tod) { UI._tod = tn; const el = $('#t-tod'); if (el) el.textContent = tn; }
     // 写真のピント：タップするまでは、見ている中心（あなたのあたり）に合わせ続ける
@@ -14400,6 +14523,19 @@ Object.assign(UI, {
     };
     if (mode === 'bench') return benchSpot();
     if (mode === 'animals') return groundSpot();
+    if (mode === 'slow') { // ゆっくりする（0.9.38）：近く（10m）に動物たちがいれば、そのそばの草の上に。いなければ、近くのベンチや切り株に。どちらもなければ、その場に
+      const near = ACT.animals.filter((e) => e.m.root.visible !== false && !(e.a.quarantine && G.turn < e.a.quarantine) && Math.hypot(e.x - P.x, e.z - P.z) < 10).sort((a, b) => Math.hypot(a.x - P.x, a.z - P.z) - Math.hypot(b.x - P.x, b.z - P.z)).slice(0, 4);
+      if (near.length) {
+        const cx = near.reduce((s2, e) => s2 + e.x, 0) / near.length, cz = near.reduce((s2, e) => s2 + e.z, 0) / near.length;
+        let ang = Math.atan2(P.z - cz, P.x - cx); if (!isFinite(ang)) ang = P.heading;
+        const d0 = Math.min(2.6, Math.max(1.2, Math.hypot(P.x - cx, P.z - cz)));
+        const rc = resolveCollision(cx + Math.cos(ang) * d0, cz + Math.sin(ang) * d0, 0.6);
+        return { kind: 'ground', x: rc[0], z: rc[1], y: heightAt(rc[0], rc[1]), heading: Math.atan2(cx - rc[0], cz - rc[1]) };
+      }
+      const nb = (W.benches || []).map((b) => ({ b, d: Math.hypot(b.x - P.x, b.z - P.z) })).filter((o) => o.d < 30).sort((a, b) => a.d - b.d)[0];
+      if (nb) { const b = nb.b, f = [Math.sin(b.ry), Math.cos(b.ry)], off = b.seatOff !== undefined ? b.seatOff : 0.14; return { kind: 'bench', x: b.x - f[0] * off, z: b.z - f[1] * off, y: heightAt(b.x, b.z), heading: b.ry, bench: b }; }
+      mode = 'here';
+    }
     if (mode === 'here') { // しばらく動かなかった時：その場に、動物たちのいる方を向いて
       const near = ACT.animals.filter((e) => Math.hypot(e.x - P.x, e.z - P.z) < 16);
       const h = near.length ? Math.atan2(near.reduce((s2, e) => s2 + e.x, 0) / near.length - P.x, near.reduce((s2, e) => s2 + e.z, 0) / near.length - P.z) : P.heading;
@@ -14431,7 +14567,7 @@ Object.assign(UI, {
     if (!spot) { UI.toast('ベンチがまだありません。「行動」の「見学者用のベンチを作る」で作れます', 'news'); return false; }
     audioInit();
     UI.closeSheet(); UI.endPlace(); UI.closeModal();
-    const key = mode === 'bench' ? 'R1' : mode === 'animals' || mode === 'here' ? 'R2' : mode === 'sky' ? 'sky' : 'music';
+    const key = mode === 'bench' || (mode === 'slow' && spot.kind === 'bench') ? 'R1' : mode === 'animals' || mode === 'here' || mode === 'slow' ? 'R2' : mode === 'sky' ? 'sky' : 'music';
     UI.occlude(false);
     const R0 = UI.rest = { mode, key, spot, t: 0, capT: 2.6, recent: [], breath: !!G.settings.breath, bt: 0, off: 0, pOff: 0, dMul: 1, lastYaw: null, lastPitch: null, lastDist: null, gain: 0, fullSaid: GAME.restGot(key) >= GAME.restMax(key), F: null, ending: false };
     UI.blockMove = true;
