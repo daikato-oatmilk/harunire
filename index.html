@@ -186,7 +186,7 @@ body.hud-names #coach { display: none !important; }
 #prompt { position: absolute; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 24px); transform: translateX(-50%); transition: opacity .3s; z-index: 2; }
 body.sheet-open #prompt { opacity: 0; pointer-events: none; }
 body.modal-open #prompt { opacity: 0; pointer-events: none; }
-#prompt-btn { padding: 9px 20px; font-size: var(--fs-body); display: inline-flex; align-items: center; gap: 8px; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-l); color: var(--pine); font-weight: 500; }
+#prompt-btn { white-space: nowrap; padding: 9px 20px; font-size: var(--fs-body); display: inline-flex; align-items: center; gap: 8px; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-l); color: var(--pine); font-weight: 500; }
 #prompt-btn:hover { background: var(--card-hi); }
 #prompt-btn kbd { font-family: var(--ui); font-size: var(--fs-xs); background: var(--paper-2); border-radius: var(--r-s); padding: 0 6px; color: var(--ink-2); }
 #end-day:not(.ready) { color: var(--ink); }
@@ -413,8 +413,13 @@ details.db .muted a { color: var(--lupine); }
 .dialog-who { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
 .dialog-who .av { width: 40px; height: 40px; border-radius: var(--r-round); flex: none; }
 .dialog-who strong { font-size: var(--fs-body-l); }
-.dialog-who .av.bust { width: 50px; height: 50px; border-radius: 0; background: none; transform: rotate(-2deg); filter: drop-shadow(1px 2px 0 rgba(var(--shade-rgb), .25)); }
-.dialog-who .av.bust svg { width: 50px; height: 50px; stroke: none; display: block; }
+/* 話している人の胸像：会話、人の話の一覧、森田さんの話で同じ絵 */
+.av.bust { display: block; flex: none; width: 50px; height: 50px; border-radius: 0; background: none; transform: rotate(-2deg); filter: drop-shadow(1px 2px 0 rgba(var(--shade-rgb), .25)); }
+.av.bust svg { width: 100%; height: 100%; stroke: none; display: block; }
+.dialog-who .av.bust { width: 50px; height: 50px; }
+.tp-head .av.bust { width: 56px; height: 56px; }
+.tp-row .av.bust, .morita-card .av.bust { width: 42px; height: 42px; }
+.av.bust.dim { filter: grayscale(.85) opacity(.55); }
 .said { font-family: var(--hand); font-size: var(--fs-head); line-height: 1.8; background: var(--paper-2); padding: 10px 14px; margin: 0 0 12px; border-radius: var(--r-s); border: 1.5px solid rgba(var(--sumi-rgb), .3); background-image: var(--grain); }
 .seg { display: inline-flex; background: var(--paper-2); padding: 3px; gap: 2px; flex-wrap: wrap; border-radius: var(--r-l); }
 .seg button { border: 0; background: transparent; font-weight: 700; color: var(--ink-2); font-size: var(--fs-note); padding: 5px 11px; border-radius: var(--r-m); }
@@ -1346,7 +1351,6 @@ select { touch-action: pan-x pan-y; }
 .tone-leaf { background: var(--leaf); }
 .tone-coral { background: var(--coral); }
 .tone-lupine { background: var(--lupine); }
-.tone-stone { background: var(--stone); }
 .u-block { display: block; }
 .u-ink2 { color: var(--ink-2); }
 .u-mt4 { margin-top: 4px; }
@@ -2536,7 +2540,7 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.44', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.45', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -2544,6 +2548,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.45', '2026年10月17日', '人の話の2ページ目からも、話している人の顔が出るようになりました（色の丸ではなく）。ベンチの前で少し立ち止まると、そのまま腰を下ろします（「座る」のボタンは増やしていません。タップでも座れます）。鶏やアヒル、七面鳥、うさぎ、猫のそばで立ち止まると、しゃがんで目線を合わせます。しゃがんでいると、小さな動物たちが寄ってきやすくなり、なでたあとも、しゃがんだまま。歩きだすと立ち上がります。池に、季節の生き物を足しました：一年じゅういるカルガモ（5〜6月は親子で）、秋から春まで渡ってくるコガモ、ときどき杭にとまるカワセミ。魚も見えやすくなり、冬は深いところで、じっとしている影が見えます。'],
     ['0.9.44', '2026年10月17日', '画面の見た目をそろえました（遊び方は変わりません）。紙芝居の紙と墨の色にそろっていなかった所を直しました：はじめの画面の札とボタン、お祝いの札、まん丸だった小さな札（紙の角に）、うすい緑の色、白すぎる面。字の大きさ（25通り→10段）、角の丸み、影を、決まった中から選ぶように。中の作りの整理（画面の作りを5つのファイルに分ける、版ごとに書き足していた見た目の指定を部品ごとにまとめる）。'],
     ['0.9.43', '2026年10月17日', '土台の手入れ（見た目はほとんど変わりません）。保存の形を整理して、1年遊んでも小さく収まるように（名前のある子の紹介文は保存に写さず、毎回データから読む。日記の同じ文を2回持たない）。claude.ai の保存で、古い日記が切られにくく。前の版の保存も、そのまま続きから遊べます。相談で来る子の名前を使いきった時、番号の名前（「ひなぎく2」など）にせず、どの種にも使える名前から。豚の話のひと言を、種を比べない言い方に。使っていない古いコードを片付け、名前の札の選び直しを少し軽く'],
     ['0.9.42', '2026年10月17日', '動物たちの小屋を、中に入れる広さと形に（サンクチュアリの目安の2〜3倍。大きな子の小屋は前がひらいて、外から眠る姿が見える。鳥とウサギの小屋は前が金網で、夜は戸を閉める）。眠る場所は種類で分けず、その子の好きな場所に（ヤギは高い棚、鶏は止まり木のいちばん上や端、豚はわらの山、馬は仲間が見張る時に横になる…。ヤギと羊とロバは同じ小屋でも。牛と仲良しのヤギは牛舎で）。夜に眠っている所を見ると、カードの「眠る場所」が書き足されます。雪は、ほんとうの積もり方・とけ方で（日かげ、建物の北側、軒下、吹きだまりに残り、木の根もとから先にとける）。大雪の日もあります。雪の朝と夕方には、キツネが通ることも（一直線の足あと）。あなたの足あとも残ります。楽器を弾いている間は、コードと弦だけに（景色をタップすると、楽器の切りかえや「立ち上がる」が出ます）。リズムは、いったん外しました'],
@@ -3931,13 +3936,17 @@ function updateCamera(dt, followPos) {
     CAM.tTarget.set(followPos.x + rx * off, followPos.y + 1.2 + 0.3 * CAM.shoulder, followPos.z + rz * off);
     const far = clamp((CAM.tDist - 60) / 100, 0, 1); if (far > 0) CAM.tTarget.lerp(_camCenter, far); // 遠くまで引いた時は、丘のまんなかを
   }
+  // しゃがんだ時（0.9.45）：見る所とカメラを低く、少し寄って、目線を小さな子に近づける（寄って見ている時だけ）
+  { const want = CAM.overview || CAM.focus ? 0 : (CAM.crouchK || 0) * clamp((20 - CAM.tDist) / 8, 0, 1); CAM.ck = (CAM.ck || 0) + (want - (CAM.ck || 0)) * Math.min(1, dt * 2); }
+  if (CAM.ck > 0.001 && !CAM.overview && !CAM.focus) CAM.tTarget.y -= 0.78 * CAM.ck;
   const k = 1 - Math.pow(0.001, dt);
   CAM.target.lerp(CAM.tTarget, CAM.overview ? k * 0.5 : k * 0.9);
   let dy = CAM.tYaw - CAM.yaw; dy = Math.atan2(Math.sin(dy), Math.cos(dy));
   CAM.yaw += dy * k; CAM.pitch += (CAM.tPitch - CAM.pitch) * k; CAM.dist += (CAM.tDist - CAM.dist) * k * 0.8;
   // 低い所まで下げたら、それ以上はカメラを下げずに、空のほうを見上げる
-  const low = 0.1, pe0 = Math.max(CAM.pitch, low), tilt = Math.max(0, low - CAM.pitch) * 1.15;
-  let dist = CAM.dist, lift = 0;
+  const ck = CAM.ck || 0, pitch = CAM.pitch + (0.13 - CAM.pitch) * ck * 0.8;
+  const low = 0.1, pe0 = Math.max(pitch, low), tilt = Math.max(0, low - pitch) * 1.15;
+  let dist = CAM.dist + (Math.min(CAM.dist, 4.4) - CAM.dist) * ck, lift = 0;
   if (!CAM.overview && dist < 30) camTrees(CAM.target, dist);
   // 建物の中や木の葉の中にカメラが入らないように。すぐ後ろに壁がある時は、寄りすぎずに、少し上から見る
   const clr = (pp) => camClear(CAM.target, Math.sin(CAM.yaw) * Math.cos(pp), Math.sin(pp), Math.cos(CAM.yaw) * Math.cos(pp), dist);
@@ -5101,6 +5110,10 @@ function animalVoice(sp, vol, pan, seed) {
     case 'rabbit': for (let i = 0; i < 3; i++) noiseHit({ t: t + i * 0.09, dur: 0.04, peak: 0.07, filter: ['highpass', 3200, 1], dest: out }); break;
     // 猫：小さく「にゃ」。地域猫は、人に向かって短く鳴くくらい（0.9.31）
     case 'cat': tone({ type: 'triangle', f0: 560 * k, f1: 760 * k, t, dur: 0.1, peak: 0.16, filter: ['bandpass', 1300, 2.5], dest: out }); tone({ type: 'triangle', f0: 760 * k, f1: 480 * k, t: t + 0.09, dur: 0.22, peak: 0.14, filter: ['bandpass', 1100, 2.5], dest: out }); break;
+    case 'karugamo': for (let i = 0; i < 3; i++) tone({ type: 'sawtooth', f0: 300 * k, f1: 250 * k, t: t + i * 0.2, dur: 0.14, peak: 0.16, filter: ['bandpass', 900, 5, 700], dest: out }); break;
+    case 'hina': for (let i = 0; i < 4; i++) tone({ f0: 3000 * k, f1: 2600 * k, t: t + i * 0.16 + Math.random() * 0.04, dur: 0.07, peak: 0.1, dest: out }); break;
+    case 'kogamo': for (let i = 0; i < 2; i++) tone({ f0: 1900 * k, f1: 2300 * k, t: t + i * 0.32, dur: 0.12, peak: 0.12, dest: out }); break; // ピリッ、ピリッ
+    case 'kawasemi': tone({ f0: 4200, f1: 3800, t, dur: 0.5, peak: 0.1, dest: out }); break; // チーッ
     case 'heron': tone({ type: 'sawtooth', f0: 300, f1: 260, t, dur: 0.22, peak: 0.12, filter: ['bandpass', 700, 3], dest: out }); break;
     case 'pheasant': for (let i = 0; i < 2; i++) tone({ type: 'sawtooth', f0: 980, f1: 820, t: t + i * 0.3, dur: 0.14, peak: 0.08, filter: ['bandpass', 1600, 3], dest: out }); break;
   }
@@ -8311,7 +8324,7 @@ function updateClouds(dt) {
 /* ---- 池の魚とカエル（少しだけ）----
    魚：水面のすぐ下の、小さな影（フナやモツゴ）。ゆっくり泳ぎ、ときどき水面に小さな輪。冬は深いところで休むので、見えない
    カエル：春から秋、岸に2匹。人や動物が近づくと、ぽちゃんと池へ。しばらくすると、また岸へ */
-const POND_LIFE = { g: null, fish: [], frogs: [], rings: [], tex: null, ringMat: null };
+const POND_LIFE = { g: null, fish: [], frogs: [], rings: [], birds: [], kawa: null, findT: 0, tex: null, ringMat: null };
 function fishTex() {
   return POND_LIFE.tex || (POND_LIFE.tex = canvasTex(128, 48, (g) => {
     g.fillStyle = '#ffffff'; g.beginPath(); g.ellipse(58, 24, 40, 12, 0, 0, Math.PI * 2); g.fill();
@@ -8321,19 +8334,20 @@ function fishTex() {
 }
 function buildPondLife() {
   if (POND_LIFE.g && POND_LIFE.g.parent) POND_LIFE.g.parent.remove(POND_LIFE.g);
-  POND_LIFE.fish = []; POND_LIFE.frogs = []; POND_LIFE.rings = [];
-  if (!WS.pond) return;
+  POND_LIFE.fish = []; POND_LIFE.frogs = []; POND_LIFE.rings = []; POND_LIFE.birds = []; POND_LIFE.kawa = null;
+  if (!WS.pond) { pondWildSync(); return; }
   const g = POND_LIFE.g = new THREE.Group(); W.layers.extra.add(g);
   const winter = G.season === 'winter';
-  if (!winter) {
-    for (let i = 0; i < 4; i++) {
-      const mtl = new THREE.MeshBasicMaterial({ map: fishTex(), color: i === 0 ? '#D07A36' : '#36423A', transparent: true, opacity: i === 0 ? 0.66 : 0.52, depthWrite: false });
-      mtl.userData.own = true;
-      const f = new THREE.Mesh(new THREE.PlaneGeometry(i === 0 ? 0.74 : 0.58, i === 0 ? 0.27 : 0.22), mtl); f.rotation.x = -Math.PI / 2; f.renderOrder = 3;
-      const m = new THREE.Group(); m.add(f); g.add(m);
-      POND_LIFE.fish.push({ m, a: rand(0, 6.28), r: rand(1.4, POND.r - 1.5), sp: rand(0.07, 0.16) * (Math.random() < 0.5 ? 1 : -1), wob: rand(0, 6), dart: 0, rt: rand(6, 20) });
-    }
+  // 魚：春〜秋は水面の近くを（緋鯉1、ほかはフナやコイの影）。冬は深い所で、ほとんど動かない（0.9.45：冬にも、うっすら見える）
+  const NF = winter ? 2 : 6;
+  for (let i = 0; i < NF; i++) {
+    const red = !winter && i === 0, mtl = new THREE.MeshBasicMaterial({ map: fishTex(), color: red ? '#D07A36' : winter ? '#2A3430' : '#36423A', transparent: true, opacity: red ? 0.72 : winter ? 0.34 : 0.6, depthWrite: false });
+    mtl.userData.own = true;
+    const big = red || i % 3 === 1, f = new THREE.Mesh(new THREE.PlaneGeometry(big ? 0.74 : 0.56, big ? 0.27 : 0.21), mtl); f.rotation.x = -Math.PI / 2; f.renderOrder = 3;
+    const m = new THREE.Group(); m.add(f); g.add(m);
+    POND_LIFE.fish.push({ m, a: rand(0, 6.28), r: rand(1.4, POND.r - 1.5), sp: rand(0.07, 0.16) * (Math.random() < 0.5 ? 1 : -1) * (winter ? 0.25 : 1), wob: rand(0, 6), dart: 0, rt: rand(6, 20), deep: winter });
   }
+  buildPondBirds(g, winter);
   if (!winter && WS.season !== 'winter') {
     for (let i = 0; i < 2; i++) {
       const f = new THREE.Group();
@@ -8344,6 +8358,14 @@ function buildPondLife() {
       POND_LIFE.frogs.push({ m: f, home: [x, z], ang, st: 'sit', t: rand(6, 30), k: 0 });
     }
   }
+  pondWildSync();
+}
+// 池の鳥も、野生の生き物の一覧に（名前の札・タップで見る。近づいても「〜を見る」は出さない）
+function pondWildSync() {
+  if (!ACT || !ACT.wild) return;
+  ACT.wild = ACT.wild.filter((w) => !w.pond);
+  for (const b of POND_LIFE.birds) ACT.wild.push(b.w);
+  if (POND_LIFE.kawa) ACT.wild.push(POND_LIFE.kawa.w);
 }
 function pondRing(x, z, big) {
   if (!POND_LIFE.g || POND_LIFE.rings.length > 6) return;
@@ -8357,17 +8379,18 @@ function updatePondLife(dt, t) {
   const P = ACT.player, rain = G.weather === 'rain';
   for (const f of POND_LIFE.fish) {
     // ゆっくり円を描き、ときどき向きを変えたり、すっと泳いだり
-    f.rt -= dt; if (f.rt < 0) { f.rt = rand(6, 20); if (Math.random() < 0.35) f.sp *= -1; if (Math.random() < 0.4) f.dart = 1.4; f.r = clamp(f.r + rand(-1.2, 1.2), 1.2, POND.r - 1.4); if (Math.random() < 0.25 && !rain) { const x = POND.x + Math.cos(f.a) * f.r, z = POND.z + Math.sin(f.a) * f.r; pondRing(x, z, false); } }
+    f.rt -= dt; if (f.rt < 0) { f.rt = rand(6, 20); if (Math.random() < 0.35) f.sp *= -1; if (Math.random() < 0.4 && !f.deep) f.dart = 1.4; f.r = clamp(f.r + rand(-1.2, 1.2), 1.2, POND.r - 1.4); if (Math.random() < 0.25 && !rain && !f.deep) { const x = POND.x + Math.cos(f.a) * f.r, z = POND.z + Math.sin(f.a) * f.r; pondRing(x, z, false); } }
     f.dart = Math.max(0, f.dart - dt);
     const v = f.sp * (1 + f.dart * 2.2); f.a += v * dt / Math.max(1, f.r) * 2.2; f.wob += dt * (2 + f.dart * 4);
     const x = POND.x + Math.cos(f.a) * f.r, z = POND.z + Math.sin(f.a) * f.r;
-    f.m.position.set(x, WATER_Y + 0.006, z);
+    f.m.position.set(x, WATER_Y + (f.deep ? -0.12 : 0.006), z);
     // 進む向き（円の接線）に、頭を向ける。尾は少し揺れる
     const sg = Math.sign(v) || 1; f.m.rotation.y = Math.atan2(Math.cos(f.a) * sg, Math.sin(f.a) * sg) + Math.sin(f.wob) * 0.18; // 頭（絵の左）を進む向きへ
   }
   for (const r of POND_LIFE.rings) { r.t += dt; const k = r.t / r.life; r.m.scale.setScalar(0.05 + k * r.size); r.m.material.opacity = 0.55 * (1 - k); }
   POND_LIFE.rings = POND_LIFE.rings.filter((r) => { if (r.t < r.life) return true; POND_LIFE.g.remove(r.m); r.m.geometry.dispose(); r.m.material.dispose(); return false; });
   if (rain && Math.random() < dt * 3) pondRing(POND.x + rand(-5, 5), POND.z + rand(-5, 5), false); // 雨の輪
+  updatePondBirds(dt, t, P);
   for (const fr of POND_LIFE.frogs) {
     fr.t -= dt;
     // 人や大きな動物が近づいたら、ぽちゃん
@@ -8383,6 +8406,116 @@ function updatePondLife(dt, t) {
       fr.home = [x, z]; fr.m.position.set(x, heightAt(x, z), z); fr.m.rotation.y = Math.atan2(POND.x - x, POND.z - z); fr.m.visible = true; fr.st = 'sit'; fr.t = rand(15, 45);
     }
   }
+}
+/* ---------- 池の野鳥（0.9.45）：カルガモ（一年じゅう。5〜6月は親子）、コガモ（冬に渡ってくる）、カワセミ（ときどき、杭の上から） ----------
+   どれも野生の鳥。餌はあげず、近づきすぎると、すっと離れる。タップすると、そっと見る */
+function modelPondDuck(kind) {
+  const root = new THREE.Group(), rig = new THREE.Group(); root.add(rig);
+  const NS = { noShadow: true };
+  const C = kind === 'kogamo-m' ? { body: '#9C9E98', back: '#7E807A', head: '#8A3A22', patch: '#2E6A4E', bill: '#2E2A26', tail: '#E2C860' }
+    : kind === 'kogamo-f' ? { body: '#8A7258', back: '#6E5A44', head: '#8A7258', patch: null, bill: '#4A4038', tail: '#7A6450' }
+    : kind === 'hina' ? { body: '#6E5A44', back: '#5A4836', head: '#D9C79A', patch: null, bill: '#3A3430', tail: '#6E5A44' }
+    : { body: '#7A6450', back: '#5E4C3C', head: '#D6C6A6', patch: null, bill: '#2E2A26', tail: '#4A3A2E' };
+  const s = kind === 'hina' ? 0.42 : kind.startsWith('kogamo') ? 0.78 : 1;
+  part('sph', C.body, 0.3 * s, 0.17 * s, 0.44 * s, 0, 0.06 * s, 0, rig, NS);
+  part('sph', C.back, 0.24 * s, 0.08 * s, 0.34 * s, 0, 0.12 * s, -0.03 * s, rig, NS);
+  part('cone', C.tail, 0.1 * s, 0.1 * s, 0.1 * s, 0, 0.1 * s, -0.24 * s, rig, NS).rotation.x = -Math.PI / 2.4;
+  const head = new THREE.Group(); head.position.set(0, 0.2 * s, 0.17 * s); rig.add(head);
+  part('sph', C.head, 0.14 * s, 0.14 * s, 0.16 * s, 0, 0, 0, head, NS);
+  if (kind === 'karugamo') { part('box', '#3A2E24', 0.145, 0.02, 0.1, 0, 0.005, 0.02, head, NS); part('box', '#4A3A2E', 0.15, 0.04, 0.12, 0, 0.055, -0.01, head, NS); } // 目の線と、頭の上
+  if (C.patch) for (const sx of [-1, 1]) part('box', C.patch, 0.02, 0.05, 0.08, sx * 0.065 * s, 0.01 * s, 0.01 * s, head, NS); // 目もとの緑
+  part('box', C.bill, 0.05 * s, 0.03 * s, 0.11 * s, 0, -0.02 * s, 0.11 * s, head, NS);
+  if (kind === 'karugamo') part('box', '#E3B23C', 0.05, 0.031, 0.025, 0, -0.02, 0.165, head, NS); // くちばしの先の黄色
+  for (const sx of [-1, 1]) part('sph', '#1E1A16', 0.025 * s, 0.025 * s, 0.025 * s, sx * 0.06 * s, 0.025 * s, 0.05 * s, head, NS);
+  return { root, rig, head };
+}
+function modelKawasemi() {
+  const root = new THREE.Group(), rig = new THREE.Group(); root.add(rig);
+  const NS = { noShadow: true };
+  part('sph', '#1F8FA8', 0.09, 0.1, 0.15, 0, 0.07, 0, rig, NS); // 青い背
+  part('sph', '#D9773A', 0.08, 0.07, 0.11, 0, 0.04, 0.02, rig, NS); // 橙のおなか
+  part('box', '#1B6E86', 0.04, 0.02, 0.1, 0, 0.06, -0.11, rig, NS); // 短い尾
+  const head = new THREE.Group(); head.position.set(0, 0.15, 0.04); rig.add(head);
+  part('sph', '#1F8FA8', 0.085, 0.08, 0.09, 0, 0, 0, head, NS);
+  part('box', '#F2EDE2', 0.07, 0.025, 0.03, 0, -0.03, 0.035, head, NS); // 白いのど
+  part('box', '#D9773A', 0.088, 0.02, 0.03, 0, 0, -0.01, head, NS); // 目の後ろの橙
+  part('cone', '#1E1A16', 0.025, 0.12, 0.025, 0, -0.005, 0.1, head, NS).rotation.x = Math.PI / 2; // 長いくちばし
+  const stake = new THREE.Group();
+  part('cyl6', '#7A6248', 0.09, 0.9, 0.09, 0, 0.25, 0, stake);
+  return { root, rig, head, stake };
+}
+function pondSpot(r0) { const a = rand(0, 6.28), r = rand(1.2, r0 || POND.r - 1.3); return [POND.x + Math.cos(a) * r, POND.z + Math.sin(a) * r]; }
+function buildPondBirds(g, winter) {
+  const md = calMD(), hinaSeason = !winter && (md[0] === 5 || md[0] === 6);
+  const add = (kind, name, follow) => {
+    const m = modelPondDuck(kind); m.root.scale.setScalar(1.2); g.add(m.root); // 少し大きめに（遠くからも見えるように）
+    const [x, z] = pondSpot(); const b = { m, kind, x, z, tx: x, tz: z, h: rand(0, 6.28), t: rand(2, 8), dab: 0, follow };
+    b.w = { m, x, z, heading: 0, kind: 'wild', wild: kind.startsWith('kogamo') ? 'kogamo' : kind === 'hina' ? 'hina' : 'karugamo', name, reach: 6, pond: true, h: 0.7 };
+    POND_LIFE.birds.push(b); return b;
+  };
+  const mom = add('karugamo', 'カルガモ');
+  if (hinaSeason) { let prev = mom; for (let i = 0; i < 4; i++) prev = add('hina', 'カルガモのヒナ', prev); }
+  else add('karugamo', 'カルガモ');
+  if (winter) { add('kogamo-m', 'コガモ'); add('kogamo-f', 'コガモ'); add('kogamo-m', 'コガモ'); }
+  else if (G.season === 'autumn') { add('kogamo-f', 'コガモ'); add('kogamo-m', 'コガモ'); } // 秋に渡ってきて、春まで
+  // カワセミ：池の東の岸に杭を1本。ときどき来て、杭の上から魚をねらう
+  const k = modelKawasemi(), sa = -0.35, sx = POND.x + Math.cos(sa) * (POND.r - 0.35), sz = POND.z + Math.sin(sa) * (POND.r - 0.35);
+  k.stake.position.set(sx, WATER_Y, sz); g.add(k.stake); g.add(k.root); k.root.visible = false;
+  POND_LIFE.kawa = { m: k, sx, sz, sy: WATER_Y + 0.72, st: 'away', t: rand(20, 70), x: sx, y: WATER_Y + 0.72, z: sz, dx: 0, dz: 0, dives: 0,
+    w: { m: k, x: sx, z: sz, heading: 0, kind: 'wild', wild: 'kawasemi', name: 'カワセミ', reach: 6, pond: true, h: 0.4 } };
+}
+function updatePondBirds(dt, t, P) {
+  const night = SKY.night > 0.5;
+  for (const b of POND_LIFE.birds) {
+    b.t -= dt;
+    if (b.follow) { // ヒナ：前の子のうしろに、一列で
+      const f = b.follow, bx = f.x - Math.sin(f.h) * 0.42, bz = f.z - Math.cos(f.h) * 0.42; b.tx = bx; b.tz = bz;
+    } else if (b.t < 0) {
+      b.t = rand(5, 14);
+      if (!night && Math.random() < 0.3) b.dab = 2.2; // 水に頭を入れて、草をつまむ
+      else { const sp = pondSpot(); b.tx = sp[0]; b.tz = sp[1]; }
+    }
+    // 人が岸から近づくと、すっと離れる（3.5mより近くには来ない）
+    if (P) { const d = Math.hypot(P.x - b.x, P.z - b.z); if (d < 3.5 && !b.follow) { const ux = (b.x - P.x) / (d || 1), uz = (b.z - P.z) / (d || 1); b.tx = b.x + ux * 2.5; b.tz = b.z + uz * 2.5; } }
+    { const dc = Math.hypot(b.tx - POND.x, b.tz - POND.z), rr = POND.r - 1.1; if (dc > rr) { b.tx = POND.x + (b.tx - POND.x) / dc * rr; b.tz = POND.z + (b.tz - POND.z) / dc * rr; } }
+    const dx = b.tx - b.x, dz = b.tz - b.z, d = Math.hypot(dx, dz), sp = b.follow ? 0.5 : night ? 0.08 : 0.32;
+    if (d > 0.05) { const st = Math.min(d, sp * dt); b.x += dx / d * st; b.z += dz / d * st; let dh = Math.atan2(dx, dz) - b.h; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); b.h += dh * Math.min(1, dt * 2.5); }
+    b.dab = Math.max(0, b.dab - dt);
+    const tip = b.dab > 0 ? Math.sin(Math.min(1, (2.2 - b.dab) / 0.4) * Math.PI / 2) * (b.dab < 0.4 ? b.dab / 0.4 : 1) : 0;
+    b.m.root.position.set(b.x, WATER_Y + 0.01 + Math.sin(t * 1.3 + b.h) * 0.008, b.z); b.m.root.rotation.y = b.h;
+    b.m.rig.rotation.x = tip * 1.1; b.m.head.rotation.x = night ? 0.6 : 0; // 夜は、首をすくめて浮かぶ
+    b.w.x = b.x; b.w.z = b.z; b.w.heading = b.h;
+  }
+  const K = POND_LIFE.kawa; if (!K) return;
+  const k = K.m, wet = G.weather === 'rain' || G.weather === 'snow';
+  K.t -= dt;
+  if (K.st === 'away') { k.root.visible = false; if (K.t < 0 && !night && !wet) { K.st = 'in'; K.t = 1.6; K.x = K.sx + 9; K.y = K.sy + 2.5; K.z = K.sz - 6; k.root.visible = true; K.dives = 0; } }
+  else if (K.st === 'in' || K.st === 'back') { // まっすぐ、杭へ
+    const k1 = Math.min(1, dt * 3); K.x += (K.sx - K.x) * k1; K.y += (K.sy - K.y) * k1; K.z += (K.sz - K.z) * k1;
+    if (Math.hypot(K.x - K.sx, K.z - K.sz) < 0.05) { K.st = 'perch'; K.t = rand(14, 30); }
+  } else if (K.st === 'perch') {
+    if (K.t < 0 || night || wet || (P && Math.hypot(P.x - K.sx, P.z - K.sz) < 2.6)) {
+      if (K.dives < 2 && !night && !wet && Math.random() < 0.6 && !(P && Math.hypot(P.x - K.sx, P.z - K.sz) < 2.6)) { K.st = 'dive'; K.t = 0; const sp = pondSpot(POND.r - 2.2); K.dx = sp[0]; K.dz = sp[1]; K.dives++; }
+      else { K.st = 'leave'; K.t = 1.6; }
+    }
+  } else if (K.st === 'dive') { // 水へ、まっすぐ飛びこむ
+    K.t += dt; const u = Math.min(1, K.t / 0.5);
+    K.x = lerp(K.sx, K.dx, u); K.z = lerp(K.sz, K.dz, u); K.y = lerp(K.sy, WATER_Y - 0.1, u * u);
+    if (u >= 1) { pondRing(K.dx, K.dz, false); if (P && Math.hypot(P.x - K.dx, P.z - K.dz) < 14) ambCue({ k: 'splash' }); K.st = 'back'; }
+  } else if (K.st === 'leave') {
+    K.x += 6 * dt; K.y += 1.6 * dt; K.z -= 3 * dt;
+    if (K.t < 0) { K.st = 'away'; K.t = rand(60, 160); }
+  }
+  k.root.position.set(K.x, K.y, K.z);
+  k.root.rotation.y = K.st === 'perch' ? Math.atan2(POND.x - K.sx, POND.z - K.sz) : K.st === 'dive' ? Math.atan2(K.dx - K.sx, K.dz - K.sz) : Math.atan2(K.sx - K.x, K.sz - K.z) || 0;
+  k.rig.rotation.x = K.st === 'dive' ? 0.9 : 0;
+  K.w.x = K.x; K.w.z = K.z;
+  // 見つけたもの（その週の日記の「季節のもの」）
+  POND_LIFE.findT -= dt; if (POND_LIFE.findT > 0 || !P || !STARTED) return; POND_LIFE.findT = 1;
+  if (k.root.visible && K.st === 'perch' && Math.hypot(P.x - K.sx, P.z - K.sz) < 14) seaFind('kawasemi', 'カワセミが、池の杭にとまっていました。青い背中が光って、すぐに水へ飛びこみました');
+  const kg = POND_LIFE.birds.find((b) => b.kind === 'kogamo-m'); if (kg && Math.hypot(P.x - kg.x, P.z - kg.z) < 12) seaFind('kogamo', 'コガモが、池に浮かんでいました。秋になると北の国から渡ってきて、春までここで過ごす、小さなカモです');
+  const hn = POND_LIFE.birds.find((b) => b.kind === 'hina'); if (hn && Math.hypot(P.x - hn.x, P.z - hn.z) < 12) seaFind('karugamo-hina', 'カルガモの親子が、池を一列になって泳いでいました');
+  if (G.season === 'winter' && POND_LIFE.fish.length && Math.hypot(P.x - POND.x, P.z - POND.z) < POND.r + 2.5) seaFind('deepfish', '池をのぞくと、深いところで魚がじっとしていました。冬は、あまり動かずに過ごします');
 }
 function updateLittleLife(dt, t) {
   updateClouds(dt);
@@ -10008,7 +10141,7 @@ function navFindIn(sx, sz, tx, tz) {
 }
 function updatePlayer(dt) {
   const p = ACT.player; if (!p) return;
-  if (p.sitting || p.playing) { poseSit(p, dt); umbrellaPose(p, dt); return; }
+  if (p.sitting || p.playing) { p.crouch = null; p.crouchK = 0; p.stillT = 0; CAM.crouchK = 0; poseSit(p, dt); umbrellaPose(p, dt); return; }
   const kv = UI.blockMove ? null : keyVector();
   // なでている・ブラッシングしている間。歩きだしたら、そこでおしまい
   if (p.petting) { if (kv || p.target) UI.petEnd(true); else { petPose(p, dt); umbrellaPose(p, dt); return; } }
@@ -10046,10 +10179,57 @@ function updatePlayer(dt) {
     camFollow(p, dt, kv);
   }
   p.moving = moving;
+  p.stillT = moving || p.target ? 0 : (p.stillT || 0) + dt;
+  crouchTick(p, dt, moving || !!kv || !!p.target);
   const y = heightAt(p.x, p.z);
   p.m.root.position.set(p.x, y, p.z); p.m.root.rotation.y = p.heading;
   animPerson(p.m, moving ? 1 : 0, p.phase, dt);
+  crouchPose(p);
   umbrellaPose(p, dt);
+}
+/* ---------- しゃがむ（0.9.45）：小さな子（鶏・アヒル・七面鳥・ウサギ・猫）のそばや、その子たちの庭の中で立ち止まると、
+   少しして、片ひざをついてしゃがむ。目線が近くなり、カメラも低くなる。歩きだすと立ち上がる。ボタンは出さない ---------- */
+const CROUCH_SP = new Set(['chicken', 'duck', 'turkey', 'rabbit', 'cat']);
+function crouchTarget(p) {
+  let best = null, bd = 3.2;
+  for (const e of ACT.animals) { if (!CROUCH_SP.has(e.a.sp)) continue; const d = Math.hypot(e.x - p.x, e.z - p.z); if (d < bd) { bd = d; best = e; } }
+  if (best) return best;
+  // 小さな子の庭の中なら、少し離れていても（その庭の子のほうを向く）
+  for (const k of ['chicken', 'duck', 'turkey', 'rabbit']) {
+    const Z = ZONES[k]; if (!Z || G.stage < Z.stage || !inRect(p.x, p.z, Z.rect)) continue;
+    let b2 = null, d2 = 9; for (const e of ACT.animals) { if (e.a.sp !== k) continue; const d = Math.hypot(e.x - p.x, e.z - p.z); if (d < d2) { d2 = d; b2 = e; } }
+    if (b2) return b2;
+  }
+  return null;
+}
+function crouchTick(p, dt, going) {
+  if (going || p.petting && !CROUCH_SP.has(p.petting.e.a.sp)) p.crouch = null;
+  else if (!p.crouch && p.stillT > 1.3 && !p.petting && !UI.rest && !UI.blockMove && !UI.placeItemId && !(W.benches || []).some((b) => Math.hypot(b.x - p.x, b.z - p.z) < 1.4)) {
+    const e = crouchTarget(p);
+    if (e) {
+      p.crouch = { e, t: 0 };
+      // その子が、あなたの肩ごしに見えるように、カメラをゆっくり後ろへ（見回している最中や、遠くから見ている時はそのまま）
+      if (camFree() && CAM.tDist < 20 && performance.now() - INPUT.lastLook > 2500) {
+        const want = Math.atan2(p.x - e.x, p.z - e.z) + 0.3; let d = want - CAM.tYaw; d = Math.atan2(Math.sin(d), Math.cos(d));
+        if (Math.abs(d) > 0.5) CAM.tYaw += d;
+      }
+    }
+  }
+  if (p.crouch) {
+    const c = p.crouch; c.t += dt;
+    if (c.t < 1.2 && c.e) { let dh = Math.atan2(c.e.x - p.x, c.e.z - p.z) - p.heading; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); p.heading += dh * Math.min(1, dt * 4); } // しゃがみながら、その子のほうを向く
+  }
+  const want = p.crouch || (p.petting && CROUCH_SP.has(p.petting.e.a.sp)) ? 1 : 0;
+  p.crouchK = clamp((p.crouchK || 0) + (want ? dt * 1.7 : -dt * (going ? 5 : 2.5)), 0, 1);
+  CAM.crouchK = (CAM.crouchK || 0) + ((p.crouch ? 1 : 0) - (CAM.crouchK || 0)) * Math.min(1, dt * 1.6);
+}
+function crouchPose(p) {
+  const k = smooth(p.crouchK || 0); if (k <= 0.001) return;
+  const m = p.m;
+  m.rig.position.y = -0.42 * k;
+  m.legs.forEach((l, i) => { l.rotation.x = l.rotation.x * (1 - k) - 1.25 * k * (i ? 1 : 0.55); });
+  (m.knees || []).forEach((kn, i) => { kn.rotation.x = kn.rotation.x * (1 - k) + (i ? 2.0 : 1.5) * k; });
+  m.arms[0].rotation.set(m.arms[0].rotation.x * (1 - k) - 0.62 * k, 0, 0.1 * k); m.arms[1].rotation.set(m.arms[1].rotation.x * (1 - k) - 0.5 * k, 0, -0.1 * k); // 手は、ひざの上に
 }
 // スマホで歩いている時は、カメラがゆっくり、あなたのうしろへまわる（見回したばかりの時と、こちらへ歩いてくる時はそのまま）。0.9.30
 function camFollow(p, dt, kv) {
@@ -10073,7 +10253,7 @@ function petPose(p, dt) {
   pe.t += dt;
   let dh = Math.atan2(e.x - p.x, e.z - p.z) - p.heading; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); p.heading += dh * Math.min(1, dt * 6);
   animPerson(m, 0, 0, dt);
-  const k = smooth(Math.min(1, pe.t * 2.5)), st = Math.sin(pe.t * (brush ? 6.5 : 4.2));
+  const k = Math.max(smooth(Math.min(1, pe.t * 2.5)), small ? smooth(p.crouchK || 0) : 0), st = Math.sin(pe.t * (brush ? 6.5 : 4.2)); // しゃがんでいたら、そのまま
   if (small) { // しゃがんで、片ひざをつく
     m.rig.position.y = -0.42 * k;
     m.legs.forEach((l, i) => { l.rotation.x = -1.25 * k * (i ? 1 : 0.55); });
@@ -10582,7 +10762,8 @@ function catThink(e) {
     if (prev === 'nearPlayer' && a.trust >= 3 && a.personality !== '人見知り' && Math.random() < 0.6) { const d = dP || 1; go(P.x + (e.x - P.x) / d * 0.5, P.z + (e.z - P.z) / d * 0.5, 'toBunt', 5); return; }
     e.state = 'blink'; e.target = null; e.timer = rand(3.5, 5); return;
   }
-  if (calm && dP > 2.4 && dP < 10 && a.trust >= 3 && Math.random() < 0.16 * (0.5 + T.soc)) { e.state = 'toPlayer'; e.target = [P.x, P.z]; e.keep = 0; e.timer = 12; e.tailUp = true; return; }
+  // しゃがんでいると、寄ってきやすい（0.9.45）
+  if (calm && dP > 2.4 && dP < 10 && a.trust >= (P.crouch ? 2 : 3) && Math.random() < 0.16 * (0.5 + T.soc) * (P.crouch ? 1.8 : 1)) { e.state = 'toPlayer'; e.target = [P.x, P.z]; e.keep = 0; e.timer = 12; e.tailUp = true; return; }
   if (dP < 6 && a.trust >= 2 && Math.random() < 0.12) { e.state = 'blink'; e.target = null; e.timer = rand(3.5, 5); return; }
   const L = [], add = (k, w) => { if (w > 0) L.push([k, w]); };
   const nap = ph === 'noon' || ph === 'afternoon', dusk = ph === 'morning' || ph === 'evening';
@@ -10808,7 +10989,7 @@ function animalThink(e) {
     }
   }
   // 性格ごとのしぐさ
-  if (!quar && pers === '人見知り' && dP < 16 && a.trust < 7 && roll < (bp && dB < 6 ? 0.12 : 0.35)) {
+  if (!quar && pers === '人見知り' && dP < 16 && a.trust < 7 && roll < (bp && dB < 6 ? 0.12 : 0.35) * (P.crouch && CROUCH_SP.has(sp) ? 0.5 : 1)) {
     // 仲良しのかげ（なければ少し離れた所）から、こちらをうかがう
     const f = mateOf(e, e.friend) ? e.friend : null, bx = f ? f.x : e.x, bz = f ? f.z : e.z;
     const dx = bx - P.x, dz = bz - P.z, dd = Math.hypot(dx, dz) || 1, want = Math.max(rand(6, 9), dd);
@@ -10833,8 +11014,10 @@ function animalThink(e) {
     }
   }
   if (!quar && T.sun && WS.weather === 'sunny' && SKY.night < 0.3 && roll < 0.2) { e.state = 'bask'; e.target = null; e.timer = rand(10, 20); return; }
-  const near0 = pers === 'あまえんぼう' ? 16 : 12, appChance = 0.4 + T.cur * 0.3 + (pers === 'あまえんぼう' ? 0.25 : 0);
-  if (dP < near0 && a.trust >= need && roll < appChance && (roam ? pointInOutline(W.perimIn, P.x, P.z) : inRect(P.x, P.z, [r[0] - 3, r[1] + 3, r[2] - 3, r[3] + 3]))) {
+  // しゃがんで待っていると、小さな子は寄ってきやすい（人見知りの子も、少しだけ。0.9.45）
+  const low = P.crouch && CROUCH_SP.has(sp) && dP < 9;
+  const near0 = pers === 'あまえんぼう' ? 16 : 12, appChance = 0.4 + T.cur * 0.3 + (pers === 'あまえんぼう' ? 0.25 : 0) + (low ? 0.25 : 0);
+  if (dP < near0 && a.trust >= need - (low ? 1 : 0) && roll < appChance && (roam ? pointInOutline(W.perimIn, P.x, P.z) : inRect(P.x, P.z, [r[0] - 3, r[1] + 3, r[2] - 3, r[3] + 3]))) {
     e.target = [clamp(P.x, r[0] + 0.6, r[1] - 0.6), clamp(P.z, r[2] + 0.6, r[3] - 0.6)]; e.state = 'toPlayer'; e.timer = rand(6, 10);
     // ゆっくり近づいてくる子は、近づくたびに、少しずつ距離を縮める。人見知りの子は、少し間をあける
     e.keep = pers === 'ゆっくり近づいてくる' ? Math.max(0, 3.6 - (e.apprN || 0) * 1.2) : pers === '人見知り' ? Math.max(0, 1.6 - (a.trust - need) * 0.3) : 0;
@@ -11296,6 +11479,7 @@ function syncWild() {
     for (let i = 0; i < 2; i++) { const m = modelWild('tanuki'); m.root.scale.setScalar(0.7); ACT.layer.add(m.root); ACT.wild.push({ m, x: -44 + i * 2, z: -52, heading: 0, kind: 'wild', wild: 'tanuki', name: 'タヌキの子', reach: 6, timer: rand(1, 4), target: null, phase: 0, rect: [-47, -20, -55, -46], fox: true }); }
     const m = modelWild('pheasant'); ACT.layer.add(m.root); ACT.wild.push({ m, x: -30, z: -50, heading: 0, kind: 'wild', wild: 'pheasant', name: 'キジ', reach: 6, timer: 2, target: null, phase: 0, rect: [-47, 20, -55, -47] });
   }
+  pondWildSync(); // 池の鳥（world.js で動かす）
 }
 // 野生の生き物が歩く範囲を、敷地のまわりの柵に合わせる（段階4は柵の外の林、段階5は柵の中の林）
 function wildRect(r) {
@@ -11305,7 +11489,7 @@ function wildRect(r) {
 }
 function updateWild(dt, time) {
   for (const w of ACT.wild) {
-    if (w.snowFox) continue; // 雪の日のキツネは snow.js で動かす
+    if (w.snowFox || w.pond) continue; // 雪の日のキツネは snow.js、池の鳥は world.js で動かす
     w.timer -= dt;
     // キツネは夕方だけ、森のはしを通る
     if (w.fox) w.m.root.visible = SKY.t > 0.64 || SKY.t < 0.25;
@@ -11329,9 +11513,9 @@ function pickEntity(ray) {
   const cands = [];
   const test = (ent, kind) => {
     const pos = ent.m.root.position;
-    const c = new THREE.Vector3(pos.x, pos.y + 0.8, pos.z);
+    const c = new THREE.Vector3(pos.x, pos.y + (ent.pond ? 0.15 : 0.8), pos.z);
     const d = ray.ray.distanceToPoint(c);
-    const rr = kind === 'animal' ? Math.max(1, SPECIES[ent.a.sp].reach * 0.55) : 1.1;
+    const rr = kind === 'animal' ? Math.max(1, SPECIES[ent.a.sp].reach * 0.55) : ent.pond ? 0.7 : 1.1;
     if (d < rr) cands.push({ ent, kind, dist: ray.ray.origin.distanceTo(c) });
   };
   ACT.animals.forEach((e) => test(e, 'animal'));
@@ -11373,7 +11557,7 @@ function nearestInteractable() {
   { const F = ACT.focus; if (F && performance.now() < F.until && ACT.animals.includes(F.e) && F.e.m.root.visible !== false && Math.hypot(F.e.x - P.x, F.e.z - P.z) < SPECIES[F.e.a.sp].reach + 2.4) return { ent: F.e, kind: 'animal' }; }
   ACT.animals.forEach((e) => test(e, 'animal', SPECIES[e.a.sp].reach + 0.8));
   ACT.npcs.forEach((e) => test(e, 'npc', 3));
-  ACT.wild.forEach((e) => test(e, 'wild', 7));
+  ACT.wild.forEach((e) => { if (!e.pond) test(e, 'wild', 7); }); // 池の鳥は、近づいても知らせない（タップで見る）
   for (const bn of (W.benches || [])) { const d = Math.hypot(bn.x - P.x, bn.z - P.z) - 0.6; if (d < 1.8 && d < bd) { bd = d; best = { ent: benchEnt(bn), kind: 'bench' }; } }
   for (const sid in (W.placedModels || {})) { const e = itemEnt(sid); if (!e) continue; const d = Math.hypot(e.x - P.x, e.z - P.z) - 0.7; if (d < 1.9 && d < bd) { bd = d; best = { ent: e, kind: 'item' }; } }
   for (const it of (W.eventItems || [])) { const d = Math.hypot(it.x - P.x, it.z - P.z) - 0.9; if (d < 1.9 && d < bd) { bd = d; best = { ent: evItemEnt(it), kind: 'evitem' }; } }
@@ -13442,6 +13626,24 @@ function npcBust(d) {
   h += `<circle cx="18.2" cy="24.2" r="1.6" fill="#E59A86" opacity=".55"/><circle cx="29.8" cy="24.2" r="1.6" fill="#E59A86" opacity=".55"/></svg>`;
   return h;
 }
+// 話の持ち主の見た目（会話の続き、人の話の一覧でも、同じ胸像に。0.9.45）
+function talkLook(id) {
+  const e = UI.talkNpc(id); if (e && e.d) return e.d;
+  const n = NPCS.find((x) => x.id === id); if (n) return n;
+  const name = Object.keys(CHAT_HIRE).find((k) => CHAT_HIRE[k] === id); if (!name) return null;
+  for (const kind of ['staff', 'part']) {
+    const i = (HIRE_NAMES[kind] || []).indexOf(name);
+    if (i >= 0) { const L = HIRE_LOOK[kind], look = L[i % L.length] || L[0]; return { top: look.top, hair: look.hair }; }
+  }
+  return null;
+}
+function talkFace(id, cls) {
+  const d = talkLook(id);
+  if (d) return `<span class="av bust${cls ? ' ' + cls : ''}">${npcBust(d)}</span>`;
+  const T = TALKS[id]; return `<span class="mav" style="background:${T.color}">${esc(T.mark)}</span>`;
+}
+// 町の酪農家・森田さん（丘には来ないので、ここで見た目を決める）
+const MORITA_LOOK = { top: '#6E7B5C', hair: '#8A847C', hat: '#4F6274' };
 function chatHtml(lines) {
   return lines.map((x) => x[0] === '>' ? `<p class="you">あなた「${said(x.slice(1))}」</p>` : `<p class="said">「${said(x)}」</p>`).join('');
 }
@@ -14433,7 +14635,7 @@ Object.assign(UI, {
     person(id) {
       const T = TALKS[id]; if (!T) return { title: '人の話', html: '' };
       const s = GAME.talkState(id), nx = GAME.talkNext(id), N = T.chapters.length, here = !!UI.talkNpc(id), about = CHAT[id] && CHAT[id].about;
-      let h = `<div class="tp-head"><span class="mav" style="background:${T.color}">${esc(T.mark)}</span><div><strong>${esc(T.name)}</strong><small>${esc(T.role || '')}</small><p>${esc(about || T.sub)}</p></div></div>`;
+      let h = `<div class="tp-head">${talkFace(id)}<div><strong>${esc(T.name)}</strong><small>${esc(T.role || '')}</small><p>${esc(about || T.sub)}</p></div></div>`;
       h += `<div class="tp-sum"><b>「${esc(T.title)}」</b><span>${s.ch >= N ? '全部聞きました' : `お話 ${s.ch} / ${N}`}</span><i class="rbar"><i style="width:${Math.min(100, s.ch / N * 100)}%"></i></i></div>`;
       h += '<ol class="tp-chaps">';
       T.chapters.forEach((c0, k) => {
@@ -14450,7 +14652,7 @@ Object.assign(UI, {
       const s = GAME.talkState(id), N = T.chapters.length, k = clamp(+arg.k || 0, 0, Math.max(0, s.ch - 1)), c = GAME.talkCh(id, k);
       if (!c || k >= s.ch) return { title: T.name, html: '<p class="muted">まだ聞いていないお話です。</p>' };
       const r = c.re[s.picks[k]] || c.re[0];
-      let h = `<div class="dialog-who"><span class="mav" style="background:${T.color}">${esc(T.mark)}</span><div><strong>${esc(T.name)}</strong><br><span class="muted">「${esc(T.title)}」　お話 ${k + 1} / ${N}</span></div></div>`;
+      let h = `<div class="dialog-who">${talkFace(id)}<div><strong>${esc(T.name)}</strong><br><span class="muted">「${esc(T.title)}」　お話 ${k + 1} / ${N}</span></div></div>`;
       h += `<h3 class="talk-t">${said(c.t)}</h3><div class="tr-body">${c.say.map((x) => `<p class="said">「${said(x)}」</p>`).join('')}<p class="you">あなた「${said(r[0])}」</p><p class="said">「${said(r[1])}」</p><p class="said">「${said(c.end)}」</p></div>`;
       h += `<div class="tr-nav">${k > 0 ? `<button class="btn small" data-act="talkread-go" data-id="${id}" data-v="${k - 1}">${ico('i-left')}お話 ${k}</button>` : '<span></span>'}${k + 1 < s.ch ? `<button class="btn small" data-act="talkread-go" data-id="${id}" data-v="${k + 1}">お話 ${k + 2}${ico('i-right')}</button>` : ''}</div>`;
       return { title: `${T.name}のお話`, html: h };
@@ -14650,7 +14852,7 @@ Object.assign(UI, {
   cowbookHtml() {
     const m = GAME.moritaState(), a19 = ACTIONS.find((x) => x.id === 'L19'), av = GAME.actionAvailable(a19);
     const got = Object.keys(COMPARE).filter((k) => m.cards[k]).length;
-    let h = `<div class="morita-card"><span class="mav">森</span><div><strong>町の酪農家・森田さん</strong><span>${m.done ? 'オーツ麦を育て始めました。ときどき、おさらいのクイズを出してくれます' : `お話 ${m.ch} / ${MORITA.length}。牛40頭、父の代からの牧場`}</span><i class="rbar"><i style="width:${Math.min(100, m.ch / MORITA.length * 100)}%"></i></i></div></div>`;
+    let h = `<div class="morita-card"><span class="av bust">${npcBust(MORITA_LOOK)}</span><div><strong>町の酪農家・森田さん</strong><span>${m.done ? 'オーツ麦を育て始めました。ときどき、おさらいのクイズを出してくれます' : `お話 ${m.ch} / ${MORITA.length}。牛40頭、父の代からの牧場`}</span><i class="rbar"><i style="width:${Math.min(100, m.ch / MORITA.length * 100)}%"></i></i></div></div>`;
     const hk = G.mode === 'hakoniwa', heard = hk ? MORITA.length : Math.min(m.ch, MORITA.length);
     h += hk ? `<div class="btn-row u-m-0-0-12"><button class="btn small primary" data-act="morita-talk" data-v="0">お話 1 から聞く</button></div>`
       : `<div class="btn-row u-m-0-0-12"><button class="btn small primary" data-act="run" data-id="L19" ${av.ok ? '' : 'disabled'}>${m.done ? 'おさらいのクイズ' : '森田さんと話す'}</button>${av.ok ? '' : `<span class="pill warn">${esc(av.why)}</span>`}</div>`;
@@ -14672,7 +14874,7 @@ Object.assign(UI, {
   moritaTalk(res, idx) {
     const replay = res ? !!res.replay : idx !== undefined && idx !== null;
     const m = GAME.moritaState(), q = res ? { i: res.i, review: res.review } : replay ? { i: idx, review: true } : GAME.moritaQuestion(), c = MORITA[q.i];
-    let h = `<div class="dialog-who"><span class="mav">森</span><div><strong>酪農家の森田さん</strong><br><span class="muted">${replay || !q.review ? `お話 ${q.i + 1} / ${MORITA.length}` : 'おさらい'}</span></div></div>`;
+    let h = `<div class="dialog-who"><span class="av bust">${npcBust(MORITA_LOOK)}</span><div><strong>酪農家の森田さん</strong><br><span class="muted">${replay || !q.review ? `お話 ${q.i + 1} / ${MORITA.length}` : 'おさらい'}</span></div></div>`;
     if (!q.review || replay) h += `<p class="said">${c.say.map((x) => `「${esc(x)}」`).join('<br>')}</p>`;
     h += `<div class="quiz"><p class="q">${esc(c.q)}</p><div class="opts">${c.a.map((x, i) => `<button class="opt ${res ? (i === c.ok ? 'right' : i === res.pick ? 'wrong' : '') : ''}" ${res ? 'disabled' : `data-act="morita-ans" data-v="${i}"${replay ? ` data-id="${q.i}"` : ''}`}>${esc(x)}</button>`).join('')}</div>`;
     if (res) {
@@ -14922,7 +15124,11 @@ Object.assign(UI, {
     if (p.kind === 'item') { UI.itemInfo(p.ent); return; }
     if (p.kind === 'npc') { UI.npcDialog(p.ent); return; }
     if (p.kind === 'wild') {
-      const t = { heron: '湿地に戻ってきたアオサギです。近づきすぎず、ここから見守ります。', tanuki: '雑木林から、タヌキが顔を出しました。野生の生き物には餌をあげず、そっと見送ります。', pheasant: 'キジが草地を歩いています。つながった雑木林から来たようです。', fox: 'キツネです。雪の下のネズミの音を聞いて、ぴょんと跳びこみます。鶏たちは柵と夜の小屋で守られているので、追い払わずに、ここから見守ります。足あとが一直線に並ぶのは、前足の跡に後ろ足を重ねて歩くから。' }[p.ent.wild];
+      const t = { karugamo: G.season === 'winter' ? 'カルガモです。一年じゅう、この池で暮らしています。冬は、渡ってきたコガモと並んで浮かんでいます。' : G.season === 'autumn' ? 'カルガモです。一年じゅう、この池で暮らしています。秋になると、北から来たコガモが仲間に加わります。' : 'カルガモです。一年じゅう、この池で暮らしています。くちばしの先だけが黄色いのが目印です。',
+        hina: 'カルガモのヒナです。お母さんのうしろを、一列になってついていきます。もう少し大きくなるまで、そっと見守ります。',
+        kogamo: 'コガモです。秋になると、北の国から渡ってきます。オスは栗色の頭に、目のまわりが緑。メスは落ち葉のような茶色です。春になると、また北へ帰っていきます。',
+        kawasemi: 'カワセミです。杭の上から水の中をじっと見て、魚を見つけると、まっすぐ飛びこみます。小さな魚がたくさんいる、きれいな水辺に来る鳥です。',
+        heron: '湿地に戻ってきたアオサギです。近づきすぎず、ここから見守ります。', tanuki: '雑木林から、タヌキが顔を出しました。野生の生き物には餌をあげず、そっと見送ります。', pheasant: 'キジが草地を歩いています。つながった雑木林から来たようです。', fox: 'キツネです。雪の下のネズミの音を聞いて、ぴょんと跳びこみます。鶏たちは柵と夜の小屋で守られているので、追い払わずに、ここから見守ります。足あとが一直線に並ぶのは、前足の跡に後ろ足を重ねて歩くから。' }[p.ent.wild];
       animalVoice(p.ent.wild, 0.4, 0, 1);
       UI.modal(`<div class="dialog-who"><strong>${esc(p.ent.name)}</strong><span class="pill">野生の生き物</span></div><p class="said">${esc(t)}</p><div class="btn-row"><button class="btn small" data-act="close-modal">そっと離れる</button></div>`);
     }
@@ -15067,6 +15273,7 @@ Object.assign(UI, {
     const e = pe.e; if (P.m.brush) P.m.brush.visible = false;
     if (e.state === 'pet') { if (pe.react === 'love') { e.state = 'nearPlayer'; e.timer = rand(4, 8) * ((e.tm && e.tm.stay) || 1); } else { e.state = 'idle'; e.timer = 0.3; } }
     e.petLove = false; e.holdUntil = performance.now() + 8000; focusAnimal(e, 10000);
+    if (!cancel && CROUCH_SP.has(e.a.sp)) { P.crouch = { e, t: 2 }; P.crouchK = 1; P.stillT = 2; } // 小さな子をなでたあとは、しゃがんだまま
   },
   npcDialog(n) {
     if (n.d.id === 'haruko') UI.tutMark('talk');
@@ -15106,7 +15313,7 @@ Object.assign(UI, {
     const T = TALKS[id]; if (!T) return;
     let i, c;
     if (res) { i = res.i; c = res.c; } else { const nx = GAME.talkNext(id); if (!nx || !nx.c) return; i = nx.i; c = nx.c; }
-    let h = `<div class="dialog-who"><span class="mav" style="background:${T.color}">${esc(T.mark)}</span><div><strong>${esc(T.name)}</strong><br><span class="muted">${esc(T.title)}　お話 ${i + 1} / ${T.chapters.length}</span></div></div>`;
+    let h = `<div class="dialog-who">${talkFace(id)}<div><strong>${esc(T.name)}</strong><br><span class="muted">${esc(T.title)}　お話 ${i + 1} / ${T.chapters.length}</span></div></div>`;
     h += `<h3 class="talk-t">${said(c.t)}</h3><p class="said">${c.say.map((x) => `「${said(x)}」`).join('<br>')}</p>`;
     if (!res) h += `<div class="quiz"><p class="q">あなたの返事</p><div class="opts">${c.re.map((r, k) => `<button class="opt" data-act="talk-ans" data-id="${id}" data-v="${k}">${said(r[0])}</button>`).join('')}</div></div>`;
     else {
@@ -15126,9 +15333,9 @@ Object.assign(UI, {
     let h = '<p class="lead-s">ここで働く人たちに話しかけると、週に1話ずつ、話を聞かせてくれます。名前を押すと、その人のお話が並びます。</p><ul class="tp-list">';
     for (const id of Object.keys(TALKS)) {
       const T = TALKS[id], s = GAME.talkState(id), nx = GAME.talkNext(id), N = T.chapters.length;
-      if (!s.ch && nx && (nx.absent || (nx.wait && G.stage < (T.chapters[0].stage || 1)))) { h += `<li><div class="tp-row locked"><span class="mav tone-stone">${esc(T.mark)}</span><span class="tp-tx"><b>${esc(T.name)}</b><small>${esc(T.role || '')}</small><span class="tp-why">${esc(nx.wait)}</span></span></div></li>`; continue; }
+      if (!s.ch && nx && (nx.absent || (nx.wait && G.stage < (T.chapters[0].stage || 1)))) { h += `<li><div class="tp-row locked">${talkFace(id, 'dim')}<span class="tp-tx"><b>${esc(T.name)}</b><small>${esc(T.role || '')}</small><span class="tp-why">${esc(nx.wait)}</span></span></div></li>`; continue; }
       const fresh = nx && nx.c;
-      h += `<li><button class="tp-row" data-act="open-person" data-id="${id}"><span class="mav" style="background:${T.color}">${esc(T.mark)}</span><span class="tp-tx"><b>${esc(T.name)}${fresh ? '<em class="tp-new">新しい話</em>' : ''}</b><small>${esc(T.role || '')}・「${esc(T.title)}」</small><span class="tp-prog"><i class="rbar"><i style="width:${Math.min(100, s.ch / N * 100)}%"></i></i><span>${s.ch >= N ? '全部聞きました' : `お話 ${s.ch} / ${N}`}</span></span></span><span class="tp-go">${ico('i-right')}</span></button></li>`;
+      h += `<li><button class="tp-row" data-act="open-person" data-id="${id}">${talkFace(id)}<span class="tp-tx"><b>${esc(T.name)}${fresh ? '<em class="tp-new">新しい話</em>' : ''}</b><small>${esc(T.role || '')}・「${esc(T.title)}」</small><span class="tp-prog"><i class="rbar"><i style="width:${Math.min(100, s.ch / N * 100)}%"></i></i><span>${s.ch >= N ? '全部聞きました' : `お話 ${s.ch} / ${N}`}</span></span></span><span class="tp-go">${ico('i-right')}</span></button></li>`;
     }
     return h + '</ul>';
   },
@@ -15209,6 +15416,7 @@ Object.assign(UI, {
     const hit = pickEntity(ray);
     const P = ACT.player;
     if (hit && hit.kind === 'animal') { UI.tapAnimal(hit.ent); return; }
+    if (hit && hit.kind === 'wild' && hit.ent.pond && Math.hypot(hit.ent.x - P.x, hit.ent.z - P.z) < 18) { UI.interact({ ent: hit.ent, kind: 'wild' }); return; } // 池の鳥は、岸から見る
     if (hit) {
       const e = hit.ent, reach = (hit.kind === 'animal' ? SPECIES[e.a.sp].reach : hit.kind === 'bench' ? 1.6 : 2.6) + 0.6;
       if (Math.hypot(e.x - P.x, e.z - P.z) < reach) UI.interact({ ent: e, kind: hit.kind });
@@ -15430,7 +15638,7 @@ Object.assign(UI, {
     if (P.moving || P.target) return;
     for (const e of ACT.animals) {
       if (Math.hypot(e.x - P.x, e.z - P.z) > 6) continue;
-      const K = GAME.knowOf(e.a); K.w = (K.w || 0) + dt;
+      const K = GAME.knowOf(e.a); K.w = (K.w || 0) + dt * (P.crouch && CROUCH_SP.has(e.a.sp) ? 1.5 : 1); // しゃがんで見ていると、少し早く気づける
       if (K.w >= (K.wn || 60)) { K.w = 0; K.wn = Math.min(960, (K.wn || 60) * 2); const t = GAME.knowAdd(e.a, 'next'); if (t) { GAME.knowTell(e.a, t); break; } }
     }
   },
@@ -15445,9 +15653,21 @@ Object.assign(UI, {
     UI.lastInput = performance.now();
     if (seat) UI.startRest('bench', seat); else UI.startRest('here');
   },
+  // ベンチの前で立ち止まると、少しして腰を下ろす（0.9.45。「座る」のボタンは出さず、歩いて行って止まるだけ）。
+  // 立ち上がったベンチには、いったん離れるまで座らない
+  benchStop() {
+    if (!STARTED || !G || UI.rest || UI.zenOn) return;
+    const P = ACT.player; if (!P || P.moving || P.target || P.petting || P.playing || P.sitting) return;
+    if (!$('#sheet').hidden || !$('#modal').hidden || !$('#photo-ui').hidden || $('#hud').hidden || UI.placeItemId || UI.removeMode) return;
+    const B = W.benches || [];
+    if (P.benchLeft) { const b = B.find((x) => x.sid === P.benchLeft); if (!b || Math.hypot(b.x - P.x, b.z - P.z) > 2.6) P.benchLeft = null; }
+    if ((P.stillT || 0) < 1.1) return;
+    const seat = B.find((b) => b.sid !== P.benchLeft && Math.hypot(b.x - P.x, b.z - P.z) < 1.25);
+    if (seat) UI.startRest('bench', seat);
+  },
   frame(dt) {
     UI.viewOffset(dt);
-    { const now = performance.now(); if (now - (UI._idleChk || 0) > 500) { UI.knowWatch((now - (UI._idleChk || now)) / 1000); UI._idleChk = now; UI.idleSit(); const vn = CAM_VIEWS[camViewIndex()].n, el = $('#view-name'); if (el && el.textContent !== vn) el.textContent = vn; } }
+    { const now = performance.now(); if (now - (UI._idleChk || 0) > 500) { UI.knowWatch((now - (UI._idleChk || now)) / 1000); UI._idleChk = now; UI.idleSit(); UI.benchStop(); const vn = CAM_VIEWS[camViewIndex()].n, el = $('#view-name'); if (el && el.textContent !== vn) el.textContent = vn; } }
     // 時間帯（朝・昼・夕方・夜）は、変わった時だけ書きかえる
     const tn = todName(SKY.t); if (tn !== UI._tod) { UI._tod = tn; const el = $('#t-tod'); if (el) el.textContent = tn; }
     // 写真のピント：タップするまでは、見ている中心（あなたのあたり）に合わせ続ける
@@ -15483,7 +15703,8 @@ Object.assign(UI, {
       if (few) an.forEach((x, i) => { if (i > 0 && x.d >= 0 && x.d > 3) x.cls = 'far'; });
       list.push(...an);
       for (const n of ACT.npcs) { const d = Math.hypot(n.x - P.x, n.z - P.z); if (d < R + 6) list.push({ e: n, d: d - 1.5, cls: 'npc', text: n.d.name + (UI.talkIdOf(n.d) && GAME.talkAvail(UI.talkIdOf(n.d)) ? ' ・お話' : ''), h: 2.5 }); }
-      for (const w of ACT.wild) { if (!w.m.root.visible) continue; const d = Math.hypot(w.x - P.x, w.z - P.z); if (d < 16) list.push({ e: w, d, cls: 'wild', text: w.name, h: 2 }); }
+      { const seen = new Set(); // 池の鳥は、近くで、同じ名前は1つだけ
+        for (const w of ACT.wild) { if (!w.m.root.visible) continue; const d = Math.hypot(w.x - P.x, w.z - P.z); if (d >= (w.pond ? 9 : 16) || w.pond && seen.has(w.name)) continue; if (w.pond) seen.add(w.name); list.push({ e: w, d, cls: 'wild', text: w.name, h: w.h || 2 }); } }
     }
     // 置いた物の札：ふだんは出さない（0.9.37）。タップすると、名前と説明が開く。「名前の札」を「まわりの子も」にした時だけ、近くの物の名前を小さく
     if (fresh && show && !UI.rest && (G.settings.labels || 'near') === 'all' && UI.hudLevel() === 'all') {
@@ -16538,7 +16759,8 @@ Object.assign(UI, {
     const away = ACT.animals.filter((e) => e.musicAway).map((e) => e.a.name);
     UI.veil(true);
     setTimeout(() => {
-      if (P.sitting === 'bench') { const f = [Math.sin(P.heading), Math.cos(P.heading)]; const rc = resolveCollision(P.x + f[0] * 1.2, P.z + f[1] * 1.2, 0.5); P.x = rc[0]; P.z = rc[1]; }
+      if (P.sitting === 'bench') { const f = [Math.sin(P.heading), Math.cos(P.heading)]; const rc = resolveCollision(P.x + f[0] * 1.2, P.z + f[1] * 1.2, 0.5); P.x = rc[0]; P.z = rc[1]; P.benchLeft = R0.spot && R0.spot.bench ? R0.spot.bench.sid : null; }
+      P.stillT = 0;
       P.sitting = null; P.seatY = undefined; P.seatDY = 0;
       if (R0.mode === 'music') { setPlaying(null); $('#music-ui').hidden = true; }
       if (R0.mode === 'sky') UI.skyEnd(R0);
@@ -16872,6 +17094,17 @@ Object.assign(UI, {
       else if (G.weather === 'snow') env.push('池のふちに、雪がうすく積もっています');
       else env.push('池の水面に、空と雲がうつっています', '風が、池の水面をそっとなでていきます');
       if (SKY.t > 0.62 && SKY.night < 0.4 && G.weather !== 'rain') env.push('夕日が、池の水面で揺れています');
+      // 池の鳥と魚（0.9.45）
+      const PB = POND_LIFE.birds, K = POND_LIFE.kawa;
+      if (K && K.m.root.visible && K.st === 'perch') env.unshift('池の杭に、カワセミがとまっています。じっと、水の中を見ています');
+      if (SKY.night > 0.5) { if (PB.length) env.push('池の上で、カモが首をすくめて、浮かんだまま眠っています'); }
+      else {
+        if (PB.some((b) => b.kind === 'hina')) env.unshift('カルガモの親子が、一列になって泳いでいきます');
+        if (PB.some((b) => b.kind === 'karugamo' && b.dab > 0)) env.unshift('カルガモが、水に頭を入れて、草をつまんでいます');
+        else if (PB.length) env.push('カルガモが、水面をゆっくり進んでいきます');
+        if (PB.some((b) => b.kind.startsWith('kogamo'))) env.push('コガモが、水面に浮かんで、うとうとしています', '北から渡ってきたコガモが、カルガモのそばで休んでいます');
+      }
+      if (POND_LIFE.fish.length && G.weather !== 'rain') env.push(G.season === 'winter' ? '池の深いところで、魚がじっとしているのが見えます' : '水の中を、魚の影がすうっと横切りました');
     }
     if (G.weather === 'rain') env.push('屋根を打つ雨の音が、やさしく続いています', '雨の匂いがします');
     if (G.weather === 'snow') env.push('音が雪に吸い込まれて、しんとしています');
