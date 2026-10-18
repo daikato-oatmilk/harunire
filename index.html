@@ -1403,6 +1403,12 @@ select { touch-action: pan-x pan-y; }
 .news-band { display: inline-block; font-size: var(--fs-xs); font-weight: 700; color: #FBF7EC; background: #5A6B62; padding: 2px 10px; border-radius: var(--r-pill); margin-bottom: 4px; }
 .news-item { border: 1.5px solid rgba(var(--sumi-rgb), .3); border-radius: var(--r-s); padding: 8px 12px; margin: 8px 0; background: #FFFDF6; }
 .news-item h4 { margin: 0 0 4px; }
+
+/* 0.9.50 写真に添えるひとこと・来週のたのしみ・おかえりなさい */
+.share-note { display: flex; gap: 8px; align-items: flex-start; margin: 4px 0 10px; font-size: .92em; color: var(--ink-2); cursor: pointer; }
+.share-note input { margin-top: 3px; width: 18px; height: 18px; flex: none; }
+.share-note small { display: block; color: var(--ink-3); }
+.sec.ahead h3, .sec.welcome h3 { margin-bottom: 4px; }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1677,6 +1683,8 @@ const ZONES = {
 };
 // ちくわとがんも（家の子）か。地域猫と分けるため（0.9.47）
 function petOf(a) { return !!a && a.zone === 'home'; }
+// 遊べるページ（写真に添えるリンク。送った人を見分ける印はつけない）
+const SITE_URL = 'https://daikato-oatmilk.github.io/harunire/';
 function commCat(a) { return !!a && a.sp === 'cat' && a.zone !== 'home'; }
 /* そらはヤギの庭と牛の牧草地を行き来できる（ももの近く） */
 const ZONE_UNION = { cowgoat: [-46, -4, -12, 12] };
@@ -2664,7 +2672,7 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.49', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.50', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -2672,6 +2680,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.50', '2026年10月18日', '続けて遊べるように。夕方の日記の下に「来週のたのしみ」を1〜2行。しばらくぶりに開いた時は、朝のページに「おかえりなさい」。その週いちばんそばにいた子の一週間を、日記に一行。遊び道具をはじめて置いた時は、好きな子がすぐに来て、苦手な子は少し離れて、そのようすを小さな札で。写真を送る時に、ひとことを添えられるように'],
     ['0.9.49', '2026年10月18日', '「丘のお茶の間」ができました。人がひと息つける場所です。段階1は、家の門のそばの「お知らせの板」。牧場になると、正門を入ってすぐ西に、小さな平屋ができます。中に入ると、紙の模型の部屋（丘の景色は消えて、画用紙の上に部屋だけ）。紙芝居（見学のお願い）、動物たちのこと（多くの農場とここ、出典つき）、この丘の一日とお金、ゲームの外の本当のお知らせ、座布団でひと息。段階4の節目「学びの館」は「見学の広間」に名前を変えました'],
     ['0.9.48', '2026年10月18日', '牛・ヤギ・羊・豚・ロバ・馬の区画の扉は、夜も開けたままに。多くの子は小屋で眠りますが、夜も歩きたい子は、晴れた夜にときどき起きて、ゆっくり歩いたり草を食べたりします（新しいしぐさ「夜のおさんぽ」）。閉めておくのは、キツネから守る鳥とウサギの庭、検疫の柵、ちくわとがんもの庭、敷地のまわりの柵だけ。がんもは、まだ若い猫なので、性格を「好奇心旺盛」に'],
     ['0.9.47', '2026年10月18日', '保護犬のちくわと、保護猫のがんもが、はるこさんの家族になりました（はじめから遊ぶと、5週目に来ます）。家の東どなりに、2匹の庭と、ひさしのある縁側。2匹はいつも一緒で、くっついて眠り、追いかけっこ、じゃれ合い、青いボールで遊びます。ちくわは、人が近づくと体が固まります。横を向いてしゃがみ、じっと待っていると、自分から近づいてくれることも。知識カードを3枚（保護犬と保護猫、こわがりな犬との距離、家の猫は家の中で）。'],
@@ -11255,6 +11264,13 @@ function animalThink(e) {
     e.target = randIn(s, 0.3); e.state = 'toRest'; e.timer = rand(8, 14); return;
   }
   const roll = Math.random();
+  // 置いたばかりの物へ（0.9.50。D1）：好きな子はすぐそちらへ、苦手な子は少し離れる
+  if (e.freshUse || e.freshAvoid) {
+    const fu = e.freshUse, fa = e.freshAvoid, f = fu || fa; e.freshUse = e.freshAvoid = null;
+    const sl = Date.now() < f.until && G.placed[f.sid] ? SLOTS.find((q) => q.id === f.sid) : null;
+    if (sl && fu) { const ang = rand(0, 6.28); e.target = [sl.x + Math.cos(ang) * 1.3, sl.z + Math.sin(ang) * 1.3]; e.state = 'toUse'; e.item = { id: G.placed[f.sid], x: sl.x, z: sl.z, sid: f.sid }; e.timer = rand(12, 18); return; }
+    if (sl && fa) { for (let i = 0; i < 8; i++) { const c = pickR(20); if (Math.hypot(c[0] - sl.x, c[1] - sl.z) > 7) { e.target = c; e.state = 'walk'; e.timer = rand(6, 10); e.avoidItem = G.placed[f.sid]; return; } } }
+  }
   // はじめの日（0.9.46）：はじめの3羽は、性格どおりの動きが少し出やすい。決まった動きではなく、近づくかどうかは、これまでどおりその子が選ぶ
   const day1 = G.mode === 'normal' && G.turn === 1 && !quar && SKY.night < 0.3 && (a.key === 'komugi' || a.key === 'goma' || a.key === 'azuki');
   if (day1 && a.key === 'goma' && prev === 'nearPlayer' && !P.moving && (e.shoeN || 0) < 2 && Math.random() < 0.7) {
@@ -13752,7 +13768,7 @@ function petAnimal(a, mode, react) {
   react = react || 'ok'; mode = mode || 'pet';
   const first = !G.petDone[a.id] && react !== 'no';
   if (first) {
-    G.petDone[a.id] = true;
+    G.petDone[a.id] = true; careAdd(a, 30);
     a.trust = Math.min(10, a.trust + PET_GAIN[react] * (a.personality === '人見知り' ? 0.7 : 1)); knowTick(a);
     if (react === 'love' || react === 'ok') G.yoyu = clamp(G.yoyu + (react === 'love' ? 5 : 3), 0, 100);
     if (a.known < a.stories.length && a.trust >= STORY_TRUST[a.known]) { a.known++; note('daily', `${a.name}の話をひとつ知りました`, null, { quiet: true }); UI.toast(`${a.name}の新しい話がわかりました`, 'daily'); }
@@ -13823,7 +13839,23 @@ function placeItem(sid, itemId) {
     if (fans.length) note('daily', `${fans.map((a) => a.name).join('と')}が${it.name}を気に入ったようです`, null);
     else if (avoid.length) note('daily', `${avoid.map((a) => a.name).join('と')}は${it.name}が苦手なようで、少し離れていきました`, null);
     else if (zoneAnimals.length) note('daily', `${it.name}を置きました。気に入る子がいるかは、しばらく様子を見ます`, null, { quiet: true });
-    ACT.animals.forEach((e) => { if (e.a.likes.includes(itemId) && (roams(e.a) ? (!s.zone || ROAM.has(s.zone)) && Math.hypot(s.x - e.x, s.z - e.z) < 30 : inRect(s.x, s.z, zoneRectFor(e.a)))) { e.timer = 0; e.state = 'idle'; } });
+    // 置いた直後に：好きな子はそちらへ、苦手な子は少し離れる（0.9.50。D1）。眠っている子は、そのまま
+    const near = ACT.animals.filter((e) => roams(e.a) ? (!s.zone || ROAM.has(s.zone)) && Math.hypot(s.x - e.x, s.z - e.z) < 30 : inRect(s.x, s.z, zoneRectFor(e.a)));
+    const goers = [], aways = [], until = Date.now() + 20000;
+    near.forEach((e) => {
+      if (e.state === 'sleep' || e.state === 'toRest' || (e.a.quarantine && G.turn < e.a.quarantine)) return;
+      if (e.a.likes.includes(itemId)) { e.freshUse = { sid, until }; e.timer = 0; e.state = 'idle'; goers.push(e.a); }
+      else if (e.a.dislikes.includes(itemId) && Math.hypot(s.x - e.x, s.z - e.z) < 14) { e.freshAvoid = { sid, until }; e.timer = 0; e.state = 'idle'; aways.push(e.a); }
+    });
+    // その道具をはじめて置いた時だけ、しぐさの吹き出しと同じ小さな札で、ひとこと
+    const fp = (G.flags.placedFirst = G.flags.placedFirst || {});
+    if (!fp[itemId] && (goers.length || aways.length)) {
+      fp[itemId] = 1;
+      const nm = (l) => l.length <= 2 ? l.map((a) => a.name).join('と') : `${l[0].name}や${l[1].name}たち`, parts = [];
+      if (goers.length) parts.push(`${nm(goers)}は、すぐに来ました`);
+      if (aways.length) parts.push(`${nm(aways)}は、少し離れたところから見ています`);
+      const g0 = G; setTimeout(() => { if (G === g0 && STARTED && G.placed[sid] === itemId) UI.spotNote(s.x, s.z, it.name, parts.join('。')); }, 900);
+    }
   } else if (itemId === 'flowerbed' || itemId === 'sunflower') { G.flags.butterflies = true; buildLittleLife(); }
   GAME.save(); UI.refresh();
   return { ok: true };
@@ -14148,10 +14180,64 @@ function eveningNotes(page) {
   page.entries.push({ cat: 'people', text: vols ? pick([`今週は${vols}人のボランティアさんが来てくれました`, `ボランティアさん${vols}人と、小屋の床替えをしました`, `ボランティアさんたちと、${pick(['水おけを洗いました', '柵の点検をしました', '干し草を運びました', '落ち葉を集めました'])}`]) : pick(['今週は、はるこさんの知り合いが少しだけ手伝いに来てくれました', 'はるこさんと二人で、ゆっくり見て回りました']) });
   if (helper.length && Math.random() < 0.6) page.entries.push({ cat: 'people', text: `${pick(helper)}さんが、${pick(['動物たちの体重を記録してくれました', '新しい寝わらを敷いてくれました', '見学の方に、動物たちの話をしてくれました', '水飲み場をきれいにしてくれました'])}` });
   if (G.stage >= 2 && G.visitors > 0) { const n = G.visitors * 3 + Math.floor(Math.random() * 5); page.entries.push({ cat: 'people', text: w0.includes('rain') ? `雨のなか、見学の方が${Math.max(1, Math.round(n / 2))}人来てくれました` : pick([`見学の方が${n}人来ました`, `見学の方が${n}人。${pick(['子どもたちが、動物の名前を覚えて帰りました', '「また来ます」と言ってくれた方がいました', '写真を撮っていく方が多い日でした'])}`]) }); }
+  try { careNote(page); } catch (err) { logErr(err, 'careNote'); }
   const c = capacity();
   if (c.peopleRatio >= 0.8) page.entries.push({ cat: 'health', text: 'スタッフの会話より：「そろそろ手が足りない」。受け入れの前に、行動の「人を増やす」から仲間を増やしたい' });
   const ax = axes();
   page.summary = { ax, gauge: G.gauge, stage: G.stage, animals: G.animals.length };
+}
+
+/* ---------- 続けて遊べる（0.9.50）：C3 気にかけている子、C1 来週のたのしみ、C2 おかえりなさい ---------- */
+// その週、そばで過ごした時間（なでた時も少し）。いちばん長かった子を、その週の「気にかけている子」に。選ぶボタンは増やさない
+function careWk() { if (!G.careWk || G.careWk.t !== G.turn) G.careWk = { t: G.turn, m: {} }; return G.careWk; }
+function careAdd(a, s) { if (!a || !G || hako() || G.dayOver) return; const m = careWk().m; m[a.id] = Math.round(((m[a.id] || 0) + s) * 10) / 10; }
+// 夕方の日記に一行。今ある記録（好きな物、仲良し、眠る場所）から
+function careNote(page) {
+  if (hako() || !G.careWk || G.careWk.t !== G.turn) return;
+  const m = G.careWk.m; let best = null;
+  for (const id in m) if (m[id] >= 30 && (!best || m[id] > m[best])) best = id;
+  const a = best && G.animals.find((x) => String(x.id) === best); if (!a) return;
+  const K = knowOf(a), f = friendOf(a), st = K.sl ? sleepText(a) : null, z = ZONES[a.zone];
+  const its = z ? (roams(a) ? itemsReach({ x: 0, z: 0, a }) : itemsInRect(z.rect)).filter((x) => K.likes.includes(x.id) && ITEMS[x.id]) : [];
+  const opts = [];
+  if (its.length) opts.push(`${a.name}は今週、${ITEMS[pick(its).id].name}のそばで過ごすことが多かったようです`);
+  if (K.fr && f) opts.push(`${a.name}は今週、${f.name}と並んで過ごすことが多かったようです`);
+  if (st) opts.push(`${a.name}は今週も、夜は${st.where}で眠っていたようです`);
+  page.entries.push({ cat: 'daily', text: opts.length ? pick(opts) : `今週は、${a.name}のそばで過ごすことが多い一週間でした` });
+}
+// 来週のたのしみ：今ある仕組みから、次に起きそうなことを2行まで。数字と残り時間は出さない。「来ないと〜」とは書かない
+function aheadTalk(id, nt) {
+  const T = TALKS[id], s = (G.talks && G.talks[id]) || null, ch = s ? s.ch : 0;
+  if (!T || ch >= T.chapters.length || !talkPresent(id)) return false;
+  const o = s && Array.isArray(s.order) && s.order.length === T.chapters.length ? s.order : T.chapters.map((c, k) => k);
+  for (let j = ch; j < o.length; j++) { const c = T.chapters[o[j]]; if (G.stage < (c.stage || 1) || nt < (c.after || 0)) { if (j === ch) return false; continue; } return talkReady(c); }
+  return false;
+}
+function knowLeft(a) { const K = knowOf(a); return (a.likes || []).some((l) => !K.likes.includes(l)) || (!K.dis && (a.dislikes || []).length > 0) || (!K.fr && !!friendOf(a)) || (!K.sl && !commCat(a)); }
+function aheadLines() {
+  if (hako()) return [];
+  const out = [], nd = addDays(G.date, 7), nt = G.turn + 1, heard = (id) => !!(G.talks && G.talks[id] && G.talks[id].turn === G.turn);
+  const q = G.animals.filter((a) => a.quarantine === nt);
+  if (q.length) out.push(`来週、${q.length <= 2 ? q.map((a) => a.name).join('と') : q[0].name + 'たち'}の検疫が終わります`);
+  const ids = Object.keys(TALKS).sort((x, y) => (heard(y) ? 1 : 0) - (heard(x) ? 1 : 0));
+  for (const id of ids) if (aheadTalk(id, nt)) { out.push(`来週は、${TALKS[id].name}の話${G.talks && G.talks[id] && G.talks[id].ch ? 'の続き' : ''}が聞けそうです`); break; }
+  if ((G.settings.eventOverride || 'auto') === 'auto') { const ev = activeEvents(nd).map((id) => EVENTS.find((e) => e.id === id)).find((e) => e && !(G.events || []).includes(e.id)); if (ev) out.push(/季節$/.test(ev.name) ? `来週から、${ev.name}です` : `来週は、${ev.name}です`); }
+  if ((G.settings.seasonOverride || 'auto') === 'auto') { const ns = seasonOf(nd); if (ns !== seasonOf(G.date)) out.push(`来週から、${SEASON_NAME[ns]}の日曜日です`); }
+  let kb = null, kr = 0.5;
+  for (const a of G.animals) { const K = a.know; if (!K || (a.quarantine && G.turn < a.quarantine)) continue; const r = (K.w || 0) / (K.wn || 60); if (r >= kr && knowLeft(a)) { kb = a; kr = r; } }
+  if (kb) out.push(`${kb.name}のことが、もう少しでわかりそう`);
+  return out.slice(0, 2);
+}
+// おかえりなさい：前に遊んだ日から10日以上たって開いた時だけ。「さびしがっていた」「待っていた」とは書かない
+function welcomeLines() {
+  const out = ['留守のあいだも、はるこさんたちが毎日お世話をしていました。'];
+  const fav = G.animals.filter((a) => !(a.quarantine && G.turn < a.quarantine) && a.know && (a.know.likes || []).some((l) => ITEMS[l]));
+  if (fav.length) { const a = pick(fav), l = pick(a.know.likes.filter((x) => ITEMS[x])); out.push(`${a.name}は、相変わらず${ITEMS[l].name}がお気に入りだそうです。`); }
+  else if (G.animals.length) out.push('動物たちは、それぞれのペースで過ごしていたそうです。');
+  const pj = projList().find((x) => x.st && (x.st.state === 'funding' || x.st.state === 'work'));
+  if (pj) out.push(`この前は、「${pj.p.name}」を進めている途中でした。`);
+  else if (!G.dayOver && G.hands < G.handsMax) out.push('この前は、日曜日の途中でした。続きから、どうぞ。');
+  return out.slice(0, 3);
 }
 
 // 里親さんへの近況：知っている話を、毎月順番に。季節のひとことも添えて
@@ -14254,7 +14340,7 @@ function jumpStage(n) {
 
 /* ---------- 保存 ---------- */
 const GAME = {
-  note, unlockCard, sniffVisit, addDuo, foodEaten, crackEgg, lifeOf, lifeIndex, lifeSummary, lifeAdvice, lifeWord, lifeCheck, knowOf, knowAdd, knowTell, knowTick, friendOf, cowTag, pigOnDiet, capacity, axes, runAction, startBiz, restAction, petAnimal, petReact, respectAnimal, treatAnimal, sponsorAnimal, anniversary,
+  note, unlockCard, careAdd, aheadLines, welcomeLines, sniffVisit, addDuo, foodEaten, crackEgg, lifeOf, lifeIndex, lifeSummary, lifeAdvice, lifeWord, lifeCheck, knowOf, knowAdd, knowTell, knowTick, friendOf, cowTag, pigOnDiet, capacity, axes, runAction, startBiz, restAction, petAnimal, petReact, respectAnimal, treatAnimal, sponsorAnimal, anniversary,
   acceptRequest, rehomeRequest, declineRequest, requestChecks, hire, hireAvailable, finance, harukoPay, incomeView, savingWays, forecast, moritaState, moritaQuestion, moritaAnswer, talkState, talkNext, talkAvail, talkAnswer, talkPresent, talkCh, talkReady, bizMoney, feedBedCost, stockWeeks, coverText, reserveTarget, usableFunds, projList, projState, projPay, projCampaign, projGrant, prepDone, prepStarted, salary, hourlyWage, animalCost, teamCount, volunteerCap, staffMax, teamOf, placeItem, removeItem, startDay, endDay, jumpStage, actionAvailable,
   save() {
     // 箱庭モードは保存しない（毎回、すべてがそろった姿から）
@@ -14329,6 +14415,9 @@ const GAME = {
     // 朝の知らせを読む前に閉じた週の支えは、ここで受け取る
     if (G.pendingSupports && G.pendingSupports.length) { const sups = G.pendingSupports.slice(); G.pendingSupports = []; setTimeout(() => { if (!STARTED) return; sups.forEach((s) => addSupport(s.type, s.size, s.src, s.label)); GAME.save(); UI.refresh(); }, 1200); }
     UI.refresh();
+    // しばらくぶり（10日以上）に開いた時は、朝のページのいちばん上に、おかえりなさい（0.9.50。C2）。今日を終えていれば、来週の朝に
+    { const gap = Date.now() - (o.savedAt || Date.now()); UI.welcome = G.mode !== 'hakoniwa' && curPage() && gap >= 10 * 864e5 ? welcomeLines() : null;
+      if (UI.welcome && !G.dayOver) { const g0 = G; setTimeout(() => { if (G === g0 && STARTED) UI.welcomeBack(); }, 700); } }
     if (G.dayOver) { const g0 = G; setTimeout(() => { if (G === g0 && STARTED && G.dayOver) UI.evening(curPage()); }, 600); }
   },
   setOverrides(season, ev) {
@@ -15747,6 +15836,10 @@ Object.assign(UI, {
     morning(p) {
       const first = UI.morningFirst;
       let h = '';
+      // おかえりなさい（0.9.50。C2）
+      const wl = !first && UI.welcome;
+      if (wl) h += `<div class="sec welcome">${UI.morningResume ? '' : '<h3>おかえりなさい</h3>'}${wl.map((t) => `<p class="lead-s">${spx(esc(t))}</p>`).join('')}</div>`;
+      if (UI.morningResume) return { title: `${fmtDate(p.date)}　おかえりなさい`, html: h + '<div class="sticky-foot btn-row"><button class="btn primary" data-act="morning-go">続きから</button></div>', keepScroll: false };
       if (first && G.mode === 'normal') h += `<div class="sec"><ul class="howto"><li>${ico('i-clock')}<span>日曜日ごとに通います。1日にできることは4つ。使いきったら「今日はここまで」で来週の日曜日へ。また4つに戻ります</span></li><li>${ico('i-paw')}<span>動物をタップすると、そばへ行ってなでます。近づくと、名前と物語がわかります</span></li><li>${ico('i-rest')}<span>何もしなくても大丈夫。眺めているだけ、ベンチに座っているだけ、ウクレレを弾いているだけの日曜日も、ここでは大切な一日です</span></li></ul>
         <details class="more"><summary>くわしく</summary><p class="lead-s">寄付をしたり、掃除を手伝ったりするたびに、サンクチュアリは少しずつ育ちます。動物たちが過ごしやすくなった時（好きな物、季節の備え、ゆったりした広さなど）も育ちます。どんな支え方が多かったかで、増えていくものが変わります。「動物」の画面の「この丘の、これから」で、先の景色を見られます。</p><p class="lead-s">人見知りの子も、通ううちに自分から近づいてきます。受け入れの相談が来たら、土地と人手、設備、毎月のお金を確かめて決めます。</p></details></div>`;
       if (first && G.mode === 'hakoniwa') h += `<div class="sec"><p class="lead-s">世界がすっかり良くなった姿です。ここでは、いくらでも動けて、心の余裕も尽きません。失敗もありません。季節と行事は、日付の札から自由に変えられます。</p><p class="lead-s">動物への配慮は、ここでも変わりません。花火は置けず、イチイやヤドリギも飾れません。</p></div>`;
@@ -15803,6 +15896,8 @@ Object.assign(UI, {
     evening(p) {
       const ax = (p.summary && p.summary.ax) || axes();
       let h = UI.pageHtml(p, null, true);
+      // 来週のたのしみ（0.9.50。C1）
+      { const ah = G.mode !== 'hakoniwa' && p.turn === G.turn ? GAME.aheadLines() : []; if (ah.length) h += `<div class="sec ahead"><h3>来週のたのしみ</h3>${ah.map((t) => `<p class="lead-s">${spx(esc(t))}</p>`).join('')}</div>`; }
       h += `<div class="sec"><h3>今日のサンクチュアリ</h3><div class="stat-row">${[['ケアの質', ax.care], ['自然の豊かさ', ax.nature], ['動物たちの暮らし', ax.calm]].map(([k, v]) => `<div class="stat"><div class="k">${k}</div><div class="v">${axisWord(v)}</div><div class="bar"><i style="width:${v}%"></i></div></div>`).join('')}</div></div>`;
       // おまかせの見た目で始めた人に、最初の夕方だけ（0.9.46）
       if (G.flags.avAuto && !G.flags.avAutoSaid && G.mode === 'normal') h += `<div class="sec"><p class="lead-s">あなたの見た目は、おまかせで決めました。顔や髪、服は、いつでも好きなものに変えられます（設定の「あなたの見た目を変える」からも）。</p><div class="btn-row"><button class="btn small" data-act="open" data-v="avatar">見た目を選ぶ</button></div></div>`;
@@ -16123,6 +16218,7 @@ Object.assign(UI, {
     UI.morningFirst = first;
     UI.openSheet('morning', page);
     UI.onClose = () => {
+      UI.welcome = null;
       cb && cb();
       // はじめの日：はじめの案内（この端末で一度も終えていなければ。とばせる）。続きから開いた時は、途中から
       if (G.mode === 'normal' && !G.flags.tutDone) { let did = false; did = devGet('tut') === 'done'; if (!did && (first || typeof G.flags.tut === 'number')) { const at = typeof G.flags.tut === 'number' ? G.flags.tut : 0; setTimeout(() => { UI.tutStart(); if (at) { UI.tut.i = at; UI.tutShow(); } }, 500); return; } }
@@ -16130,6 +16226,12 @@ Object.assign(UI, {
       if (IS_TOUCH && !seen) { G.flags.ctlHelp = 1; devSet('ctlhelp', '1'); setTimeout(() => UI.ctlHelp(), 400); return; }
       if (G.turn <= 2 && G.mode !== 'hakoniwa') UI.hint(IS_TOUCH ? (stickOn() ? '下3分の1をなぞって歩く・それより上をなぞって見回す・動物をタップでなでる' : 'タップで歩く・ドラッグで見回す・動物をタップでなでる') : 'WASDで歩く・ドラッグで見回す・動物をクリックでなでる');
     };
+  },
+  // 続きから開いた時の、おかえりなさい（今日の途中から）
+  welcomeBack() {
+    const page = curPage(); if (!page || !UI.welcome || !$('#sheet').hidden || !$('#modal').hidden) return;
+    UI.morningFirst = false; UI.morningResume = true; UI.openSheet('morning', page);
+    UI.onClose = () => { UI.morningResume = false; UI.welcome = null; };
   },
   evening(page) { UI._eveSeen = G.turn; UI.openSheet('evening', page); if (G.flags.avAuto) G.flags.avAutoSaid = true; if (curPage()) G.diarySeen = curPage().turn; UI.refresh(); },
   endDayClick() {
@@ -16604,12 +16706,21 @@ Object.assign(UI, {
   },
   beh: null, behLast: 0, behChk: 0,
   behHide(now) { const B = UI.beh, el = $('#beh'); if (!B || !el) return; UI.beh = null; if (now) { el.hidden = true; return; } el.classList.add('out'); setTimeout(() => { if (!UI.beh) el.hidden = true; }, 380); },
+  // 置いた物のそばに、しぐさの吹き出しと同じ小さな札（0.9.50。D1）
+  spotNote(x, z, title, line) {
+    const el = $('#beh'); if (!el || G.settings.beh === false) return;
+    const now = performance.now(); UI.beh = { spot: { x, y: 1.5, z }, until: now + 7000 }; UI.behLast = now;
+    el.className = 'beh full'; el.style.setProperty('--feel', CAT_COLOR.daily);
+    el.innerHTML = `<span class="beh-top"><b>${esc(title)}</b></span><span class="beh-line">${esc(line)}</span>`; el.hidden = false;
+  },
   behFrame() {
     const el = $('#beh'); if (!el || !G) return;
     const now = performance.now();
     const ok = STARTED && G.settings.beh !== false && UI.hudLevel() !== 'names' && (!$('#hud').hidden || !!UI.rest) && $('#photo-ui').hidden && $('#sheet').hidden && $('#modal').hidden && !farView() && !UI.placeItemId && !UI.removeMode;
+    // 置いた物への札（0.9.50）は、置く画面のままでも出す
+    const okSpot = STARTED && G.settings.beh !== false && UI.hudLevel() !== 'names' && !$('#hud').hidden && $('#photo-ui').hidden && $('#sheet').hidden && $('#modal').hidden && !farView();
     let B = UI.beh;
-    if (B && (!ok || now > B.until || !ACT.animals.includes(B.e) || UI.behOf(B.e) !== B.b)) { UI.behHide(); B = null; }
+    if (B && (!(B.spot ? okSpot : ok) || now > B.until || (!B.spot && (!ACT.animals.includes(B.e) || UI.behOf(B.e) !== B.b)))) { UI.behHide(); B = null; }
     if (!B && ok && now - UI.behChk > 600) {
       UI.behChk = now;
       const P = ACT.player, seen = G.seenBeh || (G.seenBeh = {}), day = G.behDay || (G.behDay = {});
@@ -16646,8 +16757,8 @@ Object.assign(UI, {
       }
     }
     if (B) {
-      const h = B.e.a.sp === 'cow' || B.e.a.sp === 'horse' ? 2.4 : B.e.a.sp === 'cat' || B.e.a.sp === 'dog' ? 0.95 : B.e.a.sp === 'chicken' || B.e.a.sp === 'duck' || B.e.a.sp === 'rabbit' ? 1.2 : 1.8;
-      const s = toScreen(B.e.x, B.e.m.root.position.y + h, B.e.z);
+      const h = B.spot ? 0 : B.e.a.sp === 'cow' || B.e.a.sp === 'horse' ? 2.4 : B.e.a.sp === 'cat' || B.e.a.sp === 'dog' ? 0.95 : B.e.a.sp === 'chicken' || B.e.a.sp === 'duck' || B.e.a.sp === 'rabbit' ? 1.2 : 1.8;
+      const s = B.spot ? toScreen(B.spot.x, B.spot.y, B.spot.z) : toScreen(B.e.x, B.e.m.root.position.y + h, B.e.z);
       if (!s.vis) { el.style.visibility = 'hidden'; return; }
       el.style.visibility = '';
       const w = el.offsetWidth || 200, x = clamp(s.x, w / 2 + 8, window.innerWidth - w / 2 - 8);
@@ -16714,6 +16825,7 @@ Object.assign(UI, {
     if (P.moving || P.target) return;
     for (const e of ACT.animals) {
       if (Math.hypot(e.x - P.x, e.z - P.z) > 6) continue;
+      GAME.careAdd(e.a, dt);
       const K = GAME.knowOf(e.a); K.w = (K.w || 0) + dt * (P.crouch && CROUCH_SP.has(e.a.sp) ? 1.5 : 1); // しゃがんで見ていると、少し早く気づける
       if (K.w >= (K.wn || 60)) { K.w = 0; K.wn = Math.min(960, (K.wn || 60) * 2); const t = GAME.knowAdd(e.a, 'next'); if (t) { GAME.knowTell(e.a, t); break; } }
     }
@@ -16955,23 +17067,23 @@ Object.assign(UI, {
   viewPhoto(id) {
     const ph = G.photos.find((x) => x.id === id); if (!ph) return;
     const c = coverPhoto(ph.turn), many = weekPhotos(ph.turn).length > 1, isCover = c && c.id === ph.id;
-    UI.modal(`<img class="shot" src="${ph.url}" alt="${esc(ph.caption || '写真')}"><p class="photo-cap">${esc(ph.caption || '')}<small>${fmtDate(ph.date, true)}・第${ph.turn}週${isCover ? '・この週の表紙' : ''}</small></p>${UI.saveHint()}<div class="btn-row"><button class="btn small primary" data-act="photo-save" data-id="${ph.id}">${ico('i-down')}保存する</button>${!isCover && many ? `<button class="btn small" data-act="cover" data-id="${ph.id}">この週の表紙にする</button>` : ''}<button class="btn small" data-act="close-modal">閉じる</button></div>`);
+    UI.modal(`<img class="shot" src="${ph.url}" alt="${esc(ph.caption || '写真')}"><p class="photo-cap">${esc(ph.caption || '')}<small>${fmtDate(ph.date, true)}・第${ph.turn}週${isCover ? '・この週の表紙' : ''}</small></p>${UI.saveHint()}${UI.shareNoteHtml()}<div class="btn-row"><button class="btn small primary" data-act="photo-save" data-id="${ph.id}">${ico('i-down')}保存する</button>${!isCover && many ? `<button class="btn small" data-act="cover" data-id="${ph.id}">この週の表紙にする</button>` : ''}<button class="btn small" data-act="close-modal">閉じる</button></div>`);
   },
   viewLastPhoto() {
     const url = UI._lastShot; if (!url) return;
     const ph = G.photos.find((x) => x.url === url);
-    UI.modal(`<img class="shot" src="${url}" alt="撮った写真"><p class="muted">アルバムと今日の日記に残っています。</p>${UI.saveHint()}<div class="btn-row"><button class="btn small primary" data-act="photo-save" data-id="${ph ? ph.id : ''}">${ico('i-down')}保存する</button><button class="btn small" data-act="photo-album">アルバムを見る</button><button class="btn small" data-act="close-modal">閉じる</button></div>`);
+    UI.modal(`<img class="shot" src="${url}" alt="撮った写真"><p class="muted">アルバムと今日の日記に残っています。</p>${UI.saveHint()}${UI.shareNoteHtml()}<div class="btn-row"><button class="btn small primary" data-act="photo-save" data-id="${ph ? ph.id : ''}">${ico('i-down')}保存する</button><button class="btn small" data-act="photo-album">アルバムを見る</button><button class="btn small" data-act="close-modal">閉じる</button></div>`);
   },
   /* ---------- 続きをファイルに ---------- */
   // claude.ai の外で、ファイルを端末へ（0.9.29）
   // スマホは、まず共有の画面（iPhone は「画像を保存」「"ファイル"に保存」）。共有できない時は、ふつうのダウンロード。
   // ダウンロードは新しいタブで開く：iPhone で「表示」を選んでも、ゲームの画面はそのまま残る
   // 戻り値：true 渡せた、null やめた、false できなかった
-  async handOff(name, blob, type) {
+  async handOff(name, blob, type, note) {
     if (IS_TOUCH && navigator.share && navigator.canShare) {
       let file = null; try { file = new File([blob], name, { type: type || blob.type }); } catch (e) { file = null; }
       if (file && navigator.canShare({ files: [file] })) {
-        try { await navigator.share({ files: [file] }); return true; }
+        try { await navigator.share(note ? { files: [file], text: note } : { files: [file] }); return true; }
         catch (e) { if (e && e.name === 'AbortError') return null; /* 共有できなかった時は、ダウンロードへ */ }
       }
     }
@@ -17032,6 +17144,8 @@ Object.assign(UI, {
   async savePhoto(id) {
     const ph = G.photos.find((x) => x.id === id) || (UI._lastShot ? { url: UI._lastShot, date: G.date, id: 'new' } : null); if (!ph) return;
     const name = `harunire_${String(ph.date || G.date).replace(/-/g, '')}_${ph.id}.jpg`;
+    // ひとことを添えるか（0.9.50。B3）：送る人が選ぶ。送っても、ゲームの中では何も増えない
+    const sn = $('#modal .share-note input'), note = sn && sn.checked ? `はるにれの丘で撮りました\n${SITE_URL}` : null; UI._shareNote = !!note;
     const m = /^data:([^;]+);base64,(.*)$/.exec(ph.url || ''); if (!m) return;
     const bin = atob(m[2]), buf = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
     const blob = new Blob([buf], { type: 'image/jpeg' });
@@ -17042,9 +17156,11 @@ Object.assign(UI, {
       return;
     }
     // claude.ai の外で開いた時は、スマホは共有の画面（「画像を保存」で写真アプリへ）、パソコンはダウンロード
-    await UI.handOff(name, blob, 'image/jpeg');
+    await UI.handOff(name, blob, 'image/jpeg', note);
   },
   // スマホで、保存のしかたを一行で（共有の画面が使える時）
+  // 写真を送る時の、ひとこと（共有の画面が使える時だけ。はじめは添えない）
+  shareNoteHtml() { return !window.claude && IS_TOUCH && navigator.share && navigator.canShare ? `<label class="share-note"><input type="checkbox"${UI._shareNote ? ' checked' : ''}><span>ひとことを添えて送る<small>「はるにれの丘で撮りました」と、遊べるページのリンク</small></span></label>` : ''; },
   saveHint() { return !window.claude && IS_TOUCH && navigator.share && navigator.canShare ? '<p class="muted save-hint">「保存する」で共有の画面が開きます。「画像を保存」を選ぶと、写真アプリに入ります。</p>' : ''; },
   autoPhoto(caption) {
     const wasHud = $('#hud').hidden; $('#hud').hidden = true;
