@@ -1414,6 +1414,11 @@ select { touch-action: pan-x pan-y; }
 .kami-pic { aspect-ratio: 16 / 9; object-fit: cover; }
 .egg-rev > img.er-pic { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .egg-pics .ep img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+
+/* 0.9.52 しぐさの一覧：気持ちの札は同じ幅にそろえ、名前と説明は同じ所から書きはじめる */
+.beh-ul li, .beh-list li { display: grid; grid-template-columns: 7.4em 1fr; column-gap: 10px; align-items: start; }
+.beh-ul li em, .beh-list li em { justify-self: stretch; text-align: center; margin-top: 2px; line-height: 1.6; }
+.beh-ul li span, .beh-list li span { min-width: 0; }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1663,8 +1668,8 @@ const SPECIES = {
   cat: { name: '猫', unit: '匹', stage: 1, min: 1, landHa: 0, landLabel: '家のまわり', care: 1, bird: false, community: true,
     facility: null, facilityLabel: '縁側の猫小屋', note: '地域猫。手術ずみのしるしに、耳の先が桜の花びらの形', card: 'communityCat', speed: 1.25, reach: 1.7 },
   // 家の犬（0.9.47）：はるこさんの家族になった、保護犬のちくわ。受け入れの相談には出てこない
-  dog: { name: '犬', unit: '匹', stage: 1, min: 1, landHa: 0, landLabel: '家と、囲いのある庭', care: 1, bird: false, pet: true,
-    facility: null, facilityLabel: '家の中と、囲いのある庭', note: '保護犬。家の中と、囲いのある庭で暮らす', card: 'rescuedPair', speed: 1.45, reach: 1.5 },
+  dog: { name: '犬', unit: '匹', stage: 1, min: 1, landHa: 0, landLabel: '家と、縁側のある庭', care: 1, bird: false, pet: true,
+    facility: null, facilityLabel: '家の中と、縁側のある庭', note: '保護犬。家の中と、縁側のある庭で暮らす', card: 'rescuedPair', speed: 1.45, reach: 1.5 },
 };
 const SPECIES_ORDER = ['chicken', 'duck', 'turkey', 'goat', 'sheep', 'pig', 'cow', 'donkey', 'rabbit', 'horse'];
 // 一覧に並べる順（地域猫は、受け入れの相談には出てこないので、いちばん最後に）
@@ -1965,7 +1970,7 @@ const ITEMS = {
   tunnel:   { name: 'くぐれるトンネル', kind: 'enrich', where: ['animal'], likes: ['rabbit'], desc: 'もぐれる場所があると、ウサギは安心します。' },
   // 飾り
   flowerbed: { name: '在来の草花の花壇', kind: 'deco', where: ['view', 'animal'], desc: '種ごとに安全を確かめた地域の草花。ミツバチや蝶が来ます。' },
-  sunflower: { name: 'ヒマワリの花壇', kind: 'deco', where: ['view'], desc: '安全性をまだ確かめていないので、観覧エリアにだけ植えます。' },
+  sunflower: { name: 'ヒマワリの花壇', kind: 'deco', where: ['view'], seasons: ['summer'], desc: '安全性をまだ確かめていないので、観覧エリアにだけ植えます。' },
   bench:     { name: 'ベンチ', kind: 'deco', where: ['view'], desc: '草地を眺めて、ひと息つけます。' },
   sign:      { name: '手作りの看板', kind: 'deco', where: ['view'], desc: '見学の人への、小さな案内。' },
   lantern:   { name: 'LED提灯', kind: 'deco', where: ['view'], desc: '火を使わない灯り。小屋には光を向けません。' },
@@ -2529,7 +2534,7 @@ const ROSTER = [
     stories: ['がんもは、子猫の時に保護された猫です。保護された先の家で、ちくわと出会いました。',
       'こわがりのちくわが、がんもには、少しずつ心をひらいていきました。',
       '今は、ちくわと同じくらいか、少し大きいくらい。一緒に遊んで、一緒に休む、大の仲良しです。',
-      '家の猫なので、外へ出るのは、囲いのある庭の中だけ。まだ若くて、庭の虫にも、転がるボールにも、なんにでも興味しんしんです。'] },
+      '家の猫なので、外で過ごすのは、縁側とその前の庭だけ。はるこさんたちが見ている時に。まだ若くて、庭の虫にも、転がるボールにも、なんにでも興味しんしんです。'] },
   // 地域猫：はじめから、家のまわりを居場所にしている3匹。受け入れの相談には出てこない（0.9.31）
   { key: 'mikan', sp: 'cat', name: 'みかん', color: 'orange', group: 'cat1', minStage: 1, origin: 'ずっと前から、この家の縁側に（地域猫）',
     personality: 'のんびり', likes: [], dislikes: [], likeText: 'あごの下をなでられること。縁側の日なた', age: 8, arrived: '2023-05-10', friend: null, trust: 4,
@@ -2677,7 +2682,7 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.51', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.52', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -2685,6 +2690,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.52', '2026年10月18日', 'ヒマワリが咲くのは夏だけに（春は芽、秋は実をつけてうつむき、冬は土とわら）。植えられるのも夏だけ。ちくわとがんもの庭の柵をはずして、縁側はそのまま、庭のすみに小さな隠れ家を。紙芝居と卵の絵を、このゲームと同じ切り紙の絵に。休んでいる時は、カメラが勝手に動かないように（入る時も、ゆっくり寄る）。動物カードの「しぐさ」の並びをそろえました'],
     ['0.9.51', '2026年10月18日', 'こまかな直し。お茶の間の紙芝居と、卵を割った時の卵の絵を、クレヨンと貼り絵の、子どもにも楽しい絵に。「本当のお知らせ」は「掲示板」に。お茶の間の中では、雨でも傘をささない。テーブルのベンチは、池を見ながら座るように。ベンチや切り株に座るのは、そこで5秒ほど立ち止まった時だけ。何もしないで自然に腰を下ろすのは、1分たってから。1月半ばから2月は、雨のかわりに雪が多く（雨は3分の1）。ちくわとがんもが来たのは、2026年10月に。写真のお正月のフレームを、門松と梅と初日の出に'],
     ['0.9.50', '2026年10月18日', '続けて遊べるように。夕方の日記の下に「来週のたのしみ」を1〜2行。しばらくぶりに開いた時は、朝のページに「おかえりなさい」。その週いちばんそばにいた子の一週間を、日記に一行。遊び道具をはじめて置いた時は、好きな子がすぐに来て、苦手な子は少し離れて、そのようすを小さな札で。写真を送る時に、ひとことを添えられるように'],
     ['0.9.49', '2026年10月18日', '「丘のお茶の間」ができました。人がひと息つける場所です。段階1は、家の門のそばの「お知らせの板」。牧場になると、正門を入ってすぐ西に、小さな平屋ができます。中に入ると、紙の模型の部屋（丘の景色は消えて、画用紙の上に部屋だけ）。紙芝居（見学のお願い）、動物たちのこと（多くの農場とここ、出典つき）、この丘の一日とお金、ゲームの外の本当のお知らせ、座布団でひと息。段階4の節目「学びの館」は「見学の広間」に名前を変えました'],
@@ -4088,7 +4094,9 @@ function updateCamera(dt, followPos) {
   // しゃがんだ時（0.9.45）：見る所とカメラを低く、少し寄って、目線を小さな子に近づける（寄って見ている時だけ）
   { const want = CAM.overview || CAM.focus ? 0 : (CAM.crouchK || 0) * clamp((20 - CAM.tDist) / 8, 0, 1); CAM.ck = (CAM.ck || 0) + (want - (CAM.ck || 0)) * Math.min(1, dt * 2); }
   if (CAM.ck > 0.001 && !CAM.overview && !CAM.focus) CAM.tTarget.y -= 0.78 * CAM.ck;
-  const k = 1 - Math.pow(0.001, dt);
+  // 休んでいる間（夜空のショーのほかは）は、ゆっくり寄る（0.9.52。前は1秒ほどで切りかわって、急だった）
+  const slow = typeof UI !== 'undefined' && UI.rest && UI.rest.mode !== 'sky';
+  const k = 1 - Math.pow(slow ? 0.25 : 0.001, dt);
   CAM.target.lerp(CAM.tTarget, CAM.overview ? k * 0.5 : k * 0.9);
   let dy = CAM.tYaw - CAM.yaw; dy = Math.atan2(Math.sin(dy), Math.cos(dy));
   CAM.yaw += dy * k; CAM.pitch += (CAM.tPitch - CAM.pitch) * k; CAM.dist += (CAM.tDist - CAM.dist) * k * 0.8;
@@ -5828,7 +5836,18 @@ function modelItem(id) {
       const cols = ['#E8D46A', '#F2F0EA', '#B8A4D8', '#E89A6A', '#F2F0EA'];
       for (let i = 0; i < 14; i++) { const x = -0.85 + (i % 7) * 0.28, z = i < 7 ? -0.3 : 0.3; part('cone', '#5E8A44', 0.12, 0.4, 0.12, x, 0.3, z, g, { noShadow: true }); part('sph', cols[i % cols.length], 0.2, 0.14, 0.2, x, 0.52, z, g, { noShadow: true }); }
       break; }
-    case 'sunflower': for (let i = 0; i < 5; i++) { const x = -0.8 + i * 0.4, z = (i % 2) * 0.3; part('cyl6', '#5E8A44', 0.08, 1.8, 0.08, x, 0.9, z, g); const f = part('cyl12', '#F2C230', 0.6, 0.06, 0.6, x, 1.85, z + 0.1, g); f.rotation.x = 1.2; const c = part('cyl12', '#6A4A2A', 0.28, 0.08, 0.28, x, 1.86, z + 0.13, g); c.rotation.x = 1.2; } break;
+    case 'sunflower': {
+      // 咲くのは夏だけ（0.9.52）。春は芽、秋は実をつけてうつむき、冬は土とわら
+      const se = (typeof G !== 'undefined' && G && G.season) || 'summer';
+      part('box', '#7A5A3E', 2.1, 0.1, 0.9, 0, 0.05, 0.15, g, { noShadow: true });
+      for (let i = 0; i < 5; i++) {
+        const x = -0.8 + i * 0.4, z = (i % 2) * 0.3;
+        if (se === 'summer') { part('cyl6', '#5E8A44', 0.08, 1.8, 0.08, x, 0.9, z, g); const f = part('cyl12', '#F2C230', 0.6, 0.06, 0.6, x, 1.85, z + 0.1, g); f.rotation.x = 1.2; const c = part('cyl12', '#6A4A2A', 0.28, 0.08, 0.28, x, 1.86, z + 0.13, g); c.rotation.x = 1.2; }
+        else if (se === 'spring') part('cone', '#7DB35C', 0.14, 0.32, 0.14, x, 0.26, z, g, { noShadow: true });
+        else if (se === 'autumn') { part('cyl6', '#8A7A48', 0.07, 1.5, 0.07, x, 0.75, z, g); const f = part('cyl12', '#5E4228', 0.42, 0.08, 0.42, x, 1.42, z + 0.16, g); f.rotation.x = 2.3; }
+        else part('box', '#C9B07A', 0.32, 0.05, 0.22, x, 0.12, z, g, { noShadow: true });
+      }
+      break; }
     case 'bench': part('box', WOOD, 2, 0.12, 0.6, 0, 0.55, 0, g); part('box', WOOD, 2, 0.5, 0.1, 0, 0.95, -0.28, g); for (const x of [-0.85, 0.85]) part('box', WOOD_D, 0.12, 0.55, 0.5, x, 0.27, 0, g); break;
     case 'sign': { const s = signBoard('ゆっくり歩いてね\n動物たちの家です', 1.8, { h: 0.9, postH: 0.8 }); g.add(s); break; }
     case 'lantern': part('cyl6', '#4A4A44', 0.08, 1.8, 0.08, 0, 0.9, 0, g); part('box', '#4A4A44', 0.5, 0.06, 0.06, 0.2, 1.8, 0, g); { const l = new THREE.Mesh(G3.cyl12, NM.lamp); l.scale.set(0.42, 0.55, 0.42); l.position.set(0.42, 1.5, 0); g.add(l); } break;
@@ -7615,8 +7634,7 @@ const PENS = [
   { zone: 'donkey', style: 'wood', gates: [['e', -22], ['w', -19]] },
   { zone: 'rabbit', style: 'wire', gates: [['e', 40], ['n', -16]] },
   { zone: 'horse', style: 'wood', gates: [['w', -22], ['s', 31]] },
-  // ちくわとがんもの庭（0.9.47）：西は家の壁なので、柵は北・東・南だけ。猫が越えられない高さの金網
-  { zone: 'home', style: 'wire', gates: [['s', 30]], skip: ['w'], tall: true },
+  // ちくわとがんもの庭は、0.9.52 から柵なし（縁側と、庭のすみの隠れ家）
 ];
 
 function disposeTree(o) {
@@ -7685,7 +7703,18 @@ function hasMilestone(id) { return G.milestoneItems.includes(id); }
 /* ---- ちくわとがんもの庭（0.9.47）：2匹がいる時だけ、区画になる ---- */
 function homeSync() { ZONES.home.stage = G.animals.some(petOf) ? 1 : 99; }
 // 縁側：家の東の壁（x=25.5）から 1.2m。床の高さ 0.36m。寝床と皿の位置は、actors.js の 2匹の動きも使う
+// ちくわとがんもの隠れ家（0.9.52）：庭のすみの、小さな木の家。入口は縁側のほう（西）
+const DUO_HUT = { x: 30.5, z: 37.5, door: [29.75, 37.5] };
 const ENGAWA = { rect: [25.5, 26.75, 37.3, 41.7], y: 0.36, bed: [[26.14, 39.08], [26.14, 39.44]], bowls: [[26.12, 40.75], [26.12, 41.2]] };
+function modelDuoHut() {
+  const g = new THREE.Group();
+  part('box', '#B08D63', 1.1, 0.68, 0.92, 0, 0.34, 0, g); // 壁
+  for (const s of [-1, 1]) { const r = part('box', '#7A5A48', 1.24, 0.06, 0.66, 0, 0.86, s * 0.25, g); r.rotation.x = s * 0.62; }
+  part('box', '#3A2E28', 0.03, 0.44, 0.44, -0.555, 0.25, 0, g, { noShadow: true }); // 入口
+  part('box', '#C9B28C', 0.46, 0.05, 0.5, -0.36, 0.03, 0, g, { noShadow: true }); // 入口の前の毛布
+  part('box', '#E8E2D6', 0.3, 0.02, 0.18, 0, 0.5, -0.462, g, { noShadow: true }); // 名札
+  return g;
+}
 function modelEngawa() {
   const g = new THREE.Group(), R = ENGAWA.rect, cx = (R[0] + R[1]) / 2, cz = (R[2] + R[3]) / 2, w = R[1] - R[0], d = R[3] - R[2], y = ENGAWA.y;
   part('box', WOOD, w, 0.08, d, cx, y - 0.04, cz, g); // 板
@@ -7752,7 +7781,7 @@ function buildBase() {
     const bw = new THREE.Group(); for (const dx of [-0.17, 0.17]) { part('cyl12', '#E8E2D6', 0.22, 0.07, 0.22, dx, 0.035, 0, bw); part('cyl12', '#B88A5A', 0.16, 0.02, 0.16, dx, 0.07, 0, bw, { noShadow: true }); } place('base', bw, CAT_BOWL.x, CAT_BOWL.z);
   }
   // ちくわとがんもの縁側（0.9.47）：家の東の壁に沿った、ひさしのある縁側。毛布の寝床と、ごはんの皿
-  if (G.stage >= ZONES.home.stage) { place('base', modelEngawa(), 0, 0); W.colliders.push(ENGAWA.rect.slice()); W.dryRects.push(ENGAWA.rect.slice()); W.keep.push([28.6, 39.5, 4.2]); }
+  if (G.stage >= ZONES.home.stage) { place('base', modelDuoHut(), DUO_HUT.x, DUO_HUT.z, 0); W.circles.push([DUO_HUT.x, DUO_HUT.z, 0.62]); place('base', modelEngawa(), 0, 0); W.colliders.push(ENGAWA.rect.slice()); W.dryRects.push(ENGAWA.rect.slice()); W.keep.push([28.6, 39.5, 4.2]); }
   // 丘のお茶の間（段階2から。段階1は、家の前の「お知らせの板」。0.9.49。ochanoma.js）
   buildOchaOutside();
   // 鶏の庭を眺める古いベンチ（はじめからある。ここでいつでもひと息つける）
@@ -12000,6 +12029,7 @@ function updateTrain(dt) {
 
 /* =========================================================
    ちくわとがんも（0.9.47）：保護犬のちくわと、保護猫のがんも。いつも一緒
+   ・庭に柵はない（0.9.52）。庭のすみに隠れ家があって、入口でお昼寝することも
    ・眠る時は、縁側の毛布の上で、くっついて。雨や雪の日は、縁側（ひさしの下）で。ごはんは朝と夕方、縁側に並べた皿で
    ・遊ぶ時は、追いかけっこ、じゃれ合い（ちくわは「あそぼう」のポーズ、がんもは前足でちょんちょん）、青いボール
    ・ちくわは、人が近づくと体が固まる。がんもがそばにいると、がんものかげへ。固まったちくわのそばへは、がんもが来る
@@ -12042,7 +12072,9 @@ function duoPlan() {
 }
 // お昼寝の場所：庭の日なたか、縁側の毛布。ふたりは横に並んで、同じ向きに
 function duoNapSpot() {
-  if (Math.random() < 0.3) { const b = ENGAWA.bed; return [b[0][0], (b[0][1] + b[1][1]) / 2, Math.PI / 2, true]; }
+  const r = Math.random();
+  if (r < 0.3) { const b = ENGAWA.bed; return [b[0][0], (b[0][1] + b[1][1]) / 2, Math.PI / 2, true]; }
+  if (r < 0.55) return [DUO_HUT.door[0], DUO_HUT.door[1], -Math.PI / 2, false]; // 隠れ家の入口で（0.9.52）
   const q = duoPick(); return [q[0], q[1], Math.random() < 0.5 ? Math.PI / 2 : -Math.PI / 2, false];
 }
 function duoThink(e) {
@@ -12736,7 +12768,7 @@ function addCats(quiet) {
 
 /* ---------- ちくわとがんも（0.9.47） ----------
    保護犬のちくわと、保護猫のがんも。はるこさんが、2匹そろって家族に迎える（受け入れの相談ではなく、少し遊んだころの出来事）。
-   家の東どなりの、囲いのある庭と、家の中で暮らす。仲良しのこと・眠る場所は、はじめからわかっている */
+   家の東どなりの、縁側のある庭と、家の中で暮らす。仲良しのこと・眠る場所は、はじめからわかっている */
 const DUO_WEEK = 5;
 // ちくわとがんもが、はるこさんの家族になった日（0.9.47 の日。ゲームの中の日付が進んでいても、ここに）
 const DUO_ARRIVED = '2026-10-18';
@@ -12750,7 +12782,7 @@ function addDuo(quiet) {
   G.doneGroups = G.doneGroups || {}; G.doneGroups.home1 = true; G.flags.duoIn = G.turn;
   if (add.length && !quiet) {
     G.overnight.push({ cat: 'friends', text: '保護犬のちくわと、保護猫のがんもが、はるこさんの家族になりました。保護された先の家で出会ってから、ずっと一緒の2匹です。離ればなれにならないように、2匹そろって迎えました', focus: [28.6, 39.5] });
-    G.overnight.push({ cat: 'added', text: '家の東どなりに、ちくわとがんもの庭ができました。がんもは家の猫なので、猫が越えられない高さの金網で囲っています', focus: [28.6, 39.5] });
+    G.overnight.push({ cat: 'added', text: '家の東どなりに、ちくわとがんもの庭ができました。縁側と、庭のすみに小さな隠れ家があります', focus: [28.6, 39.5] });
     unlockCard('rescuedPair', true);
   }
 }
@@ -13944,7 +13976,7 @@ function lifeOf(a) {
     : shade ? { k: 'season', ok: true, t: '夏の日かげがある' } : { k: 'season', ok: false, t: '夏の日かげが、もう少しあると', hint: '木を植える・日よけを作る', g: 'shade', tone: 'trouble', adv: '{names}は、夏の日ざしの下で暑そうかも。日かげがもう少しあると楽になりそう' });
   else if (se === 'winter') { const warm = a.sp === 'cat' || petOf(a) || hasMilestone('warm_room') || (G.flags.bedding && G.turn - G.flags.bedding < 10); out.push(warm ? { k: 'season', ok: true, t: '冬の寝床があたたかい' } : { k: 'season', ok: false, t: '冬の寝床に、厚いわらや毛布があると', hint: '「行動」の寝床と毛布の寄付から', g: 'warm', tone: 'trouble', adv: '{names}は、冬の夜が少し寒いかも。厚いわらや毛布があると、ぐっすり眠れそう' }); }
   else out.push({ k: 'season', ok: true, t: se === 'spring' ? '春の草を、のんびり食べられる' : '過ごしやすい季節' });
-  // ちくわとがんも：いつも一緒にいられる。がんもは家の猫なので、外へは囲いのある庭だけ
+  // ちくわとがんも：いつも一緒にいられる。がんもは家の猫なので、外は縁側と庭だけ
   if (petOf(a)) { const f = friendOf(a); if (f) out.push({ k: 'friend', ok: true, t: `${f.name}と、いつも一緒にいられる` }); if (a.sp === 'cat') out.push({ k: 'safe', ok: true, t: '外へ出るのは、囲いのある庭の中だけ' }); }
   // 年を重ねた子
   if (a.elderly) out.push(G.flags.bedding || hasMilestone('warm_room') ? { k: 'elder', ok: true, t: '年を重ねた体に、やわらかい寝床' } : { k: 'elder', ok: false, t: 'やわらかい寝床があると、関節が楽に', hint: '「行動」の寝床と毛布の寄付から', g: 'elder', tone: 'better', adv: '年を重ねた{names}に、やわらかい寝床があると、関節が楽になりそう' });
@@ -15482,7 +15514,7 @@ Object.assign(UI, {
       let h = `<p class="lead-s">${esc(a.desc)}</p>`;
       if (a.choice === 'paint') h += PAINTS.map((p) => `<button class="act" data-act="choose" data-id="${id}" data-v="${p.id}"><span class="ic" style="background:${p.color}"></span><span class="tx"><strong>${esc(p.name)}</strong></span></button>`).join('') + `<p class="muted">柵や小屋のペンキは、動物に安全なものだけを選べます。ヤギは塗面をかじることがあります。</p>`;
       if (a.choice === 'animal') h += G.animals.filter((x) => !(G.nameSigns || []).includes(x.key)).map((x) => `<button class="act" data-act="choose" data-id="${id}" data-v="${x.key || 'a' + x.id}"><span class="ic" style="${avStyle(x)}"></span><span class="tx"><strong>${esc(x.name)}</strong><span>${SPECIES[x.sp].name}</span></span></button>`).join('') || '<p class="muted">もう、みんなの看板ができています。</p>';
-      if (a.choice === 'flowers') h += FLOWER_CHOICES.map((f) => `<button class="act" data-act="choose" data-id="${id}" data-v="${f.id}"><span class="ic" style="background:${f.ok ? 'var(--leaf)' : 'var(--coral)'}">${ico(f.ok ? 'i-flower' : 'i-x')}</span><span class="tx"><strong>${esc(f.name)}</strong>${f.ok ? '' : '<span>動物に有毒なので植えられません。理由を読む</span>'}</span></button>`).join('');
+      if (a.choice === 'flowers') h += FLOWER_CHOICES.filter((f) => f.id !== 'sunflower' || G.season === 'summer' || G.mode === 'hakoniwa').map((f) => `<button class="act" data-act="choose" data-id="${id}" data-v="${f.id}"><span class="ic" style="background:${f.ok ? 'var(--leaf)' : 'var(--coral)'}">${ico(f.ok ? 'i-flower' : 'i-x')}</span><span class="tx"><strong>${esc(f.name)}</strong>${f.ok ? '' : '<span>動物に有毒なので植えられません。理由を読む</span>'}</span></button>`).join('');
       return { title: a.name, html: h };
     },
     deco() {
@@ -17715,8 +17747,9 @@ function drawEventArt(g, w, h, u, id, acc) {
   }
 }
 /* =========================================================
-   紙芝居と卵の絵（0.9.51）：子どもの絵本のような一枚
-   ・動物の似顔絵と同じクレヨンの筆（portrait.js の cy〜）で、日記の表紙と同じ、ちぎった紙の丘の上に描く
+   紙芝居と卵の絵（0.9.51、0.9.52 から切り紙）：子どもの絵本のような一枚
+   ・このゲームの景色と同じ切り紙：はさみで切った平らな色の紙を重ね、下に薄い影、和紙のつぶと白い切り口。線は描かない
+   ・丘は、日記の表紙と同じ、ちぎった紙を重ねたもの
    ・子どもにも伝わるように：大きくて丸い形、にこにこの顔、やさしい色。こわい顔の動物はいない
    ・一度描いたら覚えておく（KAMI_ART）
    ========================================================= */
@@ -17732,10 +17765,29 @@ function kamiArt(id) {
 function kamiKit(g, rnd, W, H) {
   const ink = '#3A2E28';
   const K = { g, rnd, W, H, ink };
-  const sh = (pts, fill, w) => cyShape(g, rnd, pts, fill, ink, w || 3.2);
-  const ln = (pts, col, w) => cyLine(g, rnd, pts, col || ink, w || 3);
-  const dot = (x, y, r, col) => cyDot(g, rnd, x, y, r, col || ink);
-  const blob = (x, y, rx, ry, wob, n) => cyBlob(rnd, x, y, rx, ry, wob == null ? 0.06 : wob, n || 18);
+  const path = (pts) => { g.beginPath(); g.moveTo(pts[0][0], pts[0][1]); for (let i = 1; i < pts.length; i++) g.lineTo(pts[i][0], pts[i][1]); g.closePath(); };
+  const bbox = (P) => { let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9; for (const [x, y] of P) { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); } return [x0, y0, x1 - x0, y1 - y0]; };
+  const shadowOn = (k) => { k = k || 1; g.shadowColor = `rgba(60,40,20,${0.3 * k})`; g.shadowBlur = 3 * k; g.shadowOffsetX = 1.5 * k; g.shadowOffsetY = 2.5 * k; };
+  // 和紙：白い繊維とつぶ、上から光が当たったような、ごく薄い濃淡
+  const paperTex = (x, y, w, h) => {
+    pcGrain(g, rnd, x, y, w, h, Math.min(900, w * h / 70), '#FFFFFF', 0.24, 1.6);
+    pcStrokes(g, rnd, x, y, w, h, '#FFFFFF', Math.max(2, Math.min(40, w * h / 900)), 14, 0.9, 0.22, rnd() * 3, 3);
+    const gr = g.createLinearGradient(0, y, 0, y + h); gr.addColorStop(0, 'rgba(255,255,255,.12)'); gr.addColorStop(1, 'rgba(70,50,30,.09)'); g.fillStyle = gr; g.fillRect(x, y, w, h);
+  };
+  // 切り紙の一枚：はさみで切った形（少し角ばる）、平らな色、下に落ちる影、和紙、白い切り口
+  const sh = (pts, fill, w) => {
+    const P = pts.map(([x, y]) => [x + (rnd() - 0.5) * 1.2, y + (rnd() - 0.5) * 1.2]);
+    if (!fill) { g.save(); shadowOn(0.7); g.strokeStyle = '#EDE6D8'; g.lineWidth = (w || 3) * 1.7; g.lineJoin = 'round'; path(P); g.stroke(); g.restore(); return; }
+    const [x, y, bw, bh] = bbox(P), area = bw * bh;
+    g.save(); if (area > 260) shadowOn(area < 2500 ? 0.6 : 1); g.fillStyle = fill; path(P); g.fill(); g.restore();
+    if (area > 260) { g.save(); path(P); g.clip(); paperTex(x, y, bw, bh); g.restore(); }
+    g.save(); g.strokeStyle = 'rgba(255,250,236,.55)'; g.lineWidth = 1; path(P); g.stroke(); g.restore();
+  };
+  // 細長い紙（足、腕、光の線）。細いもの（口もとなど）は、影なし
+  const ln = (pts, col, w) => { w = w || 3; g.save(); g.lineCap = 'round'; g.lineJoin = 'round'; g.strokeStyle = col || ink; g.lineWidth = w; if (w >= 3.4 && col && col !== ink) shadowOn(0.6); g.beginPath(); pts.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y))); g.stroke(); g.restore(); };
+  const dot = (x, y, r, col) => { g.save(); if (r > 5) shadowOn(0.5); g.fillStyle = col || ink; g.beginPath(); g.arc(x, y, Math.max(0.5, r), 0, 7); g.fill(); g.restore(); };
+  const blob = (x, y, rx, ry, wob, n) => cyBlob(rnd, x, y, rx, ry, wob == null ? 0.03 : wob, n || 18);
+  K.path = path; K.flat = (pts, col) => { g.fillStyle = col; path(pts); g.fill(); };
   K.sh = sh; K.ln = ln; K.dot = dot; K.blob = blob;
   // 角のある形（四角、三角）：辺を細かく分けて、クレヨンの線でも角が丸くなりすぎないように
   K.poly = (pts, fill, w) => { const P = [], N = 6; pts.forEach((p, i) => { const q = pts[(i + 1) % pts.length]; for (let j = 0; j < N; j++) P.push([p[0] + (q[0] - p[0]) * j / N, p[1] + (q[1] - p[1]) * j / N]); }); sh(P, fill, w); };
@@ -17752,7 +17804,7 @@ function kamiKit(g, rnd, W, H) {
     o = o || {};
     const sky = o.sky || ['#BFE0F2', '#F4F0DC'];
     const gr = g.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, sky[0]); gr.addColorStop(0.75, sky[1]); g.fillStyle = gr; g.fillRect(0, 0, W, H);
-    g.save(); g.globalAlpha = 0.5; pcStrokes(g, rnd, -10, -10, W + 20, H * 0.6, sky[0], 90, 70, 9, 0.6, -0.3, 0.4); g.restore();
+    for (let i = 0; i < 6; i++) { const x = rnd() * W, y = rnd() * H * 0.5, r = 60 + rnd() * 90, gr2 = g.createRadialGradient(x, y, 0, x, y, r); gr2.addColorStop(0, 'rgba(255,255,255,.22)'); gr2.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr2; g.fillRect(x - r, y - r, r * 2, r * 2); }
     const hills = o.hills || ['#BFDC9C', '#9CCB7A', '#84B866'];
     if (!o.noHills) { K.hill(H * 0.62, 18, hills[0], 1); K.hill(H * 0.74, 14, hills[1], 2); K.hill(H * 0.86, 8, hills[2], 3); }
   };
@@ -17760,8 +17812,8 @@ function kamiKit(g, rnd, W, H) {
     const pts = [];
     for (let x = -8; x <= W + 8; x += 8) pts.push([x, y0 - Math.sin(x / W * Math.PI * (1.1 + seed * 0.35) + seed * 1.7) * amp - (rnd() - 0.5) * 3]);
     g.save(); g.beginPath(); g.moveTo(-8, H + 8); pts.forEach(([x, y]) => g.lineTo(x, y)); g.lineTo(W + 8, H + 8); g.closePath();
-    g.fillStyle = col; g.fill();
-    g.clip(); g.globalAlpha = 0.35; pcStrokes(g, rnd, 0, y0 - amp, W, H - y0 + amp, pcCol(col, -0.06), 60, 40, 6, 0.6, 0.05, 0.3); g.restore();
+    g.shadowColor = 'rgba(60,40,20,.25)'; g.shadowBlur = 5; g.shadowOffsetY = -2; g.fillStyle = col; g.fill(); g.shadowColor = 'transparent';
+    g.clip(); paperTex(0, y0 - amp, W, H - y0 + amp); g.restore();
     // ちぎった縁の、白い繊維
     g.save(); g.strokeStyle = 'rgba(255,253,245,.75)'; g.lineWidth = 2.6; g.beginPath(); pts.forEach(([x, y], i) => (i ? g.lineTo(x, y - 1.6 + (rnd() - 0.5) * 1.6) : g.moveTo(x, y - 1.6))); g.stroke(); g.restore();
   };
@@ -17821,12 +17873,12 @@ function kamiKit(g, rnd, W, H) {
     [[-50], [-30], [30], [50]].forEach(([d]) => { sh([[X(d - 7), Y(-40)], [X(d - 7), Y(0)], [X(d + 7), Y(0)], [X(d + 7), Y(-40)]], '#FFFFFF', 2.8 * s); dot(X(d), Y(-3), 6 * s, '#4A3B32'); });
     ln([[X(-70), Y(-70)], [X(-80), Y(-40)]], ink, 3 * s); dot(X(-80), Y(-38), 6 * s, '#4A3B32');
     const body = blob(X(-4), Y(-66), 72 * s, 36 * s, 0.04, 20); sh(body, '#FFFFFF', 3.2 * s);
-    g.save(); cyPath(g, body, true); g.clip(); [[-36, -80, 20, 14], [10, -60, 18, 16], [38, -86, 14, 10]].forEach(([dx, dy, rx, ry]) => cyFill(g, rnd, blob(X(dx), Y(dy), rx * s, ry * s, 0.2, 12), '#3E3532')); g.restore();
+    g.save(); path(body); g.clip(); [[-36, -80, 20, 14], [10, -60, 18, 16], [38, -86, 14, 10]].forEach(([dx, dy, rx, ry]) => K.flat(blob(X(dx), Y(dy), rx * s, ry * s, 0.2, 12), '#3E3532')); g.restore();
     const hx = X(76), hy = Y(o.down ? -40 : -84);
     sh(blob(hx - 26 * s * f, hy - 18 * s, 12 * s, 6 * s, 0.1, 10), '#FFFFFF', 2.6 * s); sh(blob(hx + 26 * s * f, hy - 18 * s, 12 * s, 6 * s, 0.1, 10), '#FFFFFF', 2.6 * s);
     ln([[hx - 12 * s, hy - 28 * s], [hx - 16 * s, hy - 40 * s]], '#E8D6A8', 4 * s); ln([[hx + 12 * s, hy - 28 * s], [hx + 16 * s, hy - 40 * s]], '#E8D6A8', 4 * s);
     sh(blob(hx, hy, 24 * s, 28 * s, 0.04, 16), '#FFFFFF', 3 * s);
-    cyFill(g, rnd, blob(hx - 6 * s * f, hy - 14 * s, 9 * s, 8 * s, 0.2, 10), '#3E3532');
+    K.flat(blob(hx - 6 * s * f, hy - 14 * s, 9 * s, 8 * s, 0.2, 10), '#3E3532');
     sh(blob(hx, hy + 18 * s, 18 * s, 11 * s, 0.05, 12), '#F5B8B0', 2.6 * s); dot(hx - 6 * s, hy + 18 * s, 2.4 * s); dot(hx + 6 * s, hy + 18 * s, 2.4 * s);
     K.face(hx - 9 * s, hy - 2 * s, s * 0.95, { blush: false }); K.face(hx + 9 * s, hy - 2 * s, s * 0.95);
   };
@@ -17862,9 +17914,10 @@ function kamiKit(g, rnd, W, H) {
     else if (p === 'crouch' || p === 'reach') { arm([X(-16), Y(sy - 42)], [X(-24), Y(sy - 20)], [X(-20), Y(sy - 4)]); arm([X(16), Y(sy - 42)], [X(34), Y(sy - 22)], [X(52), Y(sy - (p === 'crouch' ? 2 : 22))]); }
     else { arm([X(-16), Y(sy - 42)], [X(-24), Y(sy - 20)], [X(-22), Y(sy - 2)]); arm([X(16), Y(sy - 42)], [X(24), Y(sy - 20)], [X(22), Y(sy - 2)]); }
     const hx = X(0), hy = Y(sy - 72);
-    sh(blob(hx, hy, 23 * s, 23 * s, 0.03, 16), skin, 3 * s);
-    g.save(); cyPath(g, blob(hx, hy, 23 * s, 23 * s, 0.02, 16), true); g.clip(); cyFill(g, rnd, [[hx - 30 * s, hy - 30 * s], [hx + 30 * s, hy - 30 * s], [hx + 30 * s, hy - 8 * s], [hx - 30 * s, hy - 6 * s]], o.hair || '#4A3A30'); g.restore();
-    cyLine(g, rnd, blob(hx, hy, 23 * s, 23 * s, 0.03, 16), ink, 3 * s, true);
+    const hair = o.hair || '#4A3A30';
+    sh(blob(hx, hy - 3 * s, 25 * s, 24 * s, 0.03, 16), hair);
+    sh(blob(hx, hy + 3 * s, 21 * s, 19 * s, 0.03, 16), skin);
+    sh(blob(hx - 4 * s * f, hy - 13 * s, 19 * s, 8 * s, 0.05, 12), hair);
     K.face(hx - 8 * s * f, hy + 2 * s, s * 0.9, { bx: -1 }); K.face(hx + 8 * s * f, hy + 2 * s, s * 0.9, { blush: false });
     ln([[hx - 5 * s, hy + 11 * s], [hx, hy + 14 * s], [hx + 5 * s, hy + 11 * s]], ink, 2.4 * s);
     return { hand };
@@ -17874,8 +17927,8 @@ function kamiKit(g, rnd, W, H) {
     sh(p, o.col || '#F8EEDC', 2.8 * s);
     if (o.heart) K.heart(x, y + 2 * s, 0.5 * s, '#F27D8C');
   };
-  K.bubble = (x, y, r) => { cyLine(g, rnd, blob(x, y, r, r, 0.03, 14), '#7FB8D8', 2.6, true); dot(x - r * 0.35, y - r * 0.35, r * 0.18, '#FFFFFF'); };
-  K.finish = () => { pcGrain(g, rnd, 0, 0, W, H, 2600, '#FFFFFF', 0.22, 2.2); pcStrokes(g, rnd, 0, 0, W, H, '#FFFFFF', 70, 26, 1.4, 0.16, rnd() * 3, 3); };
+  K.bubble = (x, y, r) => { g.save(); g.fillStyle = 'rgba(220,240,250,.55)'; g.strokeStyle = '#8FC3DE'; g.lineWidth = 2.4; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); g.stroke(); g.restore(); dot(x - r * 0.35, y - r * 0.35, r * 0.2, '#FFFFFF'); };
+  K.finish = () => { pcGrain(g, rnd, 0, 0, W, H, 1800, '#FFFFFF', 0.16, 1.8); pcGrain(g, rnd, 0, 0, W, H, 900, '#6A5640', 0.06, 1.4); };
   return K;
 }
 const KAMI_SCENES = {
@@ -18304,7 +18357,7 @@ Object.assign(UI, {
     for (const e of ACT.animals) { const d = Math.hypot(e.x - P.x, e.z - P.z); if (d < 16) { cx += e.x; cz += e.z; n++; } }
     const fwd = [Math.sin(P.heading), Math.cos(P.heading)];
     const F = n ? [cx / n, cz / n] : [P.x + fwd[0] * 8, P.z + fwd[1] * 8];
-    if (!R0.F || snap) R0.F = F; else { const k = Math.min(1, dt * 0.25); R0.F = [lerp(R0.F[0], F[0], k), lerp(R0.F[1], F[1], k)]; }
+    if (!R0.F || snap) R0.F = F; // 見る所は、休みはじめに一度だけ決める（0.9.52。動物を追いかけて、カメラが動かないように）
     const music = R0.mode === 'music', ground = P.sitting === 'ground';
     // 注視点はあなたの少し先。あなたが画面の下のほうに入るように
     const fx = R0.F[0] - P.x, fz = R0.F[1] - P.z, fl = Math.hypot(fx, fz) || 1, ahead = music ? Math.min(0.6, fl * 0.1) : Math.min(2.4, fl * 0.4);
@@ -18318,7 +18371,7 @@ Object.assign(UI, {
     }
     const narrow = R.camera.aspect < 0.8, t = R0.t;
     // スマホの縦長の画面では横の視野が狭いので、ほぼ真後ろ（楽器は斜め前）から、揺れも小さく
-    const amp = narrow ? 0.55 : 1, drift = (Math.sin(t * 0.09) * 0.3 + Math.sin(t * 0.031 + 1) * 0.18) * amp;
+    const drift = 0; void t; // 0.9.52：ゆれも止めて、固定
     // 楽器の時は、あなたの向こうがひらけて見える側から（壁を背景にしない）
     if (music && !R0.sideSign) {
       const base = P.sitting === 'stand' ? (narrow ? 1.9 : 2.1) : (narrow ? 1.0 : 1.3), open = (sg) => { const y = P.heading + base * sg; let f = 0; for (let d = 1; d <= 24; d += 1) { const c = navCellOf(P.x - Math.sin(y) * d, P.z - Math.cos(y) * d); if (!navFree(c[0], c[1])) break; f = d; } return f; };
@@ -18327,10 +18380,10 @@ Object.assign(UI, {
     }
     const side = music ? (P.sitting === 'stand' ? (narrow ? 1.9 : 2.1) : (narrow ? 1.0 : 1.3)) * (R0.sideSign || 1) : Math.PI - (narrow ? 0.18 : 0.5);
     CAM.tYaw = P.heading + side + drift + R0.off;
-    CAM.tPitch = clamp((music ? 0.26 : ground ? 0.34 : 0.3) + Math.sin(t * 0.05) * 0.04 + R0.pOff, 0.08, 1.25);
-    CAM.tDist = clamp((music ? 8.2 : ground ? (narrow ? 8.5 : 10) : (narrow ? 9 : 11)) * (1 + Math.sin(t * 0.043) * 0.08) * R0.dMul, 4, 60);
+    CAM.tPitch = clamp((music ? 0.26 : ground ? 0.34 : 0.3) + R0.pOff, 0.08, 1.25);
+    CAM.tDist = clamp((music ? 8.2 : ground ? (narrow ? 8.5 : 10) : (narrow ? 9 : 11)) * R0.dMul, 4, 60);
     R0.lastYaw = CAM.tYaw; R0.lastPitch = CAM.tPitch; R0.lastDist = CAM.tDist;
-    if (snap) { CAM.yaw = CAM.tYaw; CAM.pitch = CAM.tPitch; CAM.dist = CAM.tDist; CAM.target.copy(CAM.focus); }
+    // 休みはじめも、急に切りかえない（0.9.52）。engine.js の camera が、休んでいる間はゆっくり寄る
   },
   // 休んでいる間、カメラとあなたの間に入った看板や建物を、一時的に隠す
   occlude(on) {
