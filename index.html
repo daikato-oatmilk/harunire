@@ -1409,6 +1409,11 @@ select { touch-action: pan-x pan-y; }
 .share-note input { margin-top: 3px; width: 18px; height: 18px; flex: none; }
 .share-note small { display: block; color: var(--ink-3); }
 .sec.ahead h3, .sec.welcome h3 { margin-bottom: 4px; }
+
+/* 0.9.51 紙芝居と卵の絵は、クレヨンと貼り絵の絵（img） */
+.kami-pic { aspect-ratio: 16 / 9; object-fit: cover; }
+.egg-rev > img.er-pic { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.egg-pics .ep img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -2672,7 +2677,7 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.50', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.51', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -2680,6 +2685,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.51', '2026年10月18日', 'こまかな直し。お茶の間の紙芝居と、卵を割った時の卵の絵を、クレヨンと貼り絵の、子どもにも楽しい絵に。「本当のお知らせ」は「掲示板」に。お茶の間の中では、雨でも傘をささない。テーブルのベンチは、池を見ながら座るように。ベンチや切り株に座るのは、そこで5秒ほど立ち止まった時だけ。何もしないで自然に腰を下ろすのは、1分たってから。1月半ばから2月は、雨のかわりに雪が多く（雨は3分の1）。ちくわとがんもが来たのは、2026年10月に。写真のお正月のフレームを、門松と梅と初日の出に'],
     ['0.9.50', '2026年10月18日', '続けて遊べるように。夕方の日記の下に「来週のたのしみ」を1〜2行。しばらくぶりに開いた時は、朝のページに「おかえりなさい」。その週いちばんそばにいた子の一週間を、日記に一行。遊び道具をはじめて置いた時は、好きな子がすぐに来て、苦手な子は少し離れて、そのようすを小さな札で。写真を送る時に、ひとことを添えられるように'],
     ['0.9.49', '2026年10月18日', '「丘のお茶の間」ができました。人がひと息つける場所です。段階1は、家の門のそばの「お知らせの板」。牧場になると、正門を入ってすぐ西に、小さな平屋ができます。中に入ると、紙の模型の部屋（丘の景色は消えて、画用紙の上に部屋だけ）。紙芝居（見学のお願い）、動物たちのこと（多くの農場とここ、出典つき）、この丘の一日とお金、ゲームの外の本当のお知らせ、座布団でひと息。段階4の節目「学びの館」は「見学の広間」に名前を変えました'],
     ['0.9.48', '2026年10月18日', '牛・ヤギ・羊・豚・ロバ・馬の区画の扉は、夜も開けたままに。多くの子は小屋で眠りますが、夜も歩きたい子は、晴れた夜にときどき起きて、ゆっくり歩いたり草を食べたりします（新しいしぐさ「夜のおさんぽ」）。閉めておくのは、キツネから守る鳥とウサギの庭、検疫の柵、ちくわとがんもの庭、敷地のまわりの柵だけ。がんもは、まだ若い猫なので、性格を「好奇心旺盛」に'],
@@ -8273,13 +8279,13 @@ function buildPondSeats() {
       W.keep.push([x, z, 1.4]);
       return;
     }
-    // テーブルと、その両側の長いす。池に近いほうの長いすは、池に背を向けて座る
+    // テーブルと、その両側の長いす。座れるのは、池を見られる奥の長いすだけ（0.9.51。池に近いほうに座ると、池に背を向けてしまうので）
     const t = modelPicnicTable(); place('base', t, x, z, ry);
     const fx = Math.sin(ry), fz = Math.cos(ry), ax = Math.cos(ry), az = -Math.sin(ry);
     for (const [side, face] of [[-1, ry], [1, ry + Math.PI]]) {
       const bx = x + fx * 0.74 * side, bz = z + fz * 0.74 * side, b = modelPicnicBench();
       place('base', b, bx, bz, face);
-      W.benches.push({ sid: `pond-t${i}${side > 0 ? 'b' : 'a'}`, x: bx, z: bz, ry: face, model: b, seatName: 'テーブルのベンチ', seatOff: 0, seatDY: -0.15 });
+      if (side < 0) W.benches.push({ sid: `pond-t${i}${side > 0 ? 'b' : 'a'}`, x: bx, z: bz, ry: face, model: b, seatName: 'テーブルのベンチ', seatOff: 0, seatDY: -0.15 });
       for (const s2 of [-0.7, 0.7]) W.circles.push([bx + ax * s2, bz + az * s2, 0.28]);
     }
     for (const s2 of [-0.5, 0.5]) W.circles.push([x + ax * s2, z + az * s2, 0.5]);
@@ -10112,7 +10118,7 @@ function snowWeek(first) {
     let heavyDay = null, snowDay = null;
     for (let k = 0; k < 6; k++) {
       const iso = addDays(G.date, -6 + k), dt = dateOf(iso), md = [dt.getMonth() + 1, dt.getDate()], v = md[0] * 100 + md[1], ok = v >= 1216 || v <= 229;
-      const r = Math.random(), w = ok && r < 0.045 ? 'snow' : r < 0.13 ? 'rain' : r < 0.47 ? 'cloudy' : 'sunny';
+      const r = Math.random(); let w = ok && r < 0.045 ? 'snow' : r < 0.13 ? 'rain' : r < 0.47 ? 'cloudy' : 'sunny'; if (w === 'rain' && v >= 115 && v <= 229 && Math.random() < 2 / 3) w = 'snow'; // 1月半ば〜2月は、雨の3分の2が雪に（0.9.51）
       if (w === 'snow') { const heavy = Math.random() < 0.16, F = heavy ? rand(14, 26) : rand(3, 10); snowEvent('f', F); if (heavy) heavyDay = days[k]; else if (!snowDay) snowDay = days[k]; snowEvent('m', snowDayMelt('cloudy', md).map((x) => x * 0.3)); }
       else snowEvent('m', snowDayMelt(w, md));
     }
@@ -10615,7 +10621,7 @@ function modelUmbrella(col) {
 }
 const _umbV = new THREE.Vector3();
 function umbrellaPose(p, dt) {
-  const want = G && G.weather === 'rain' && !p.playing ? 1 : 0;
+  const want = G && G.weather === 'rain' && !p.playing && !(typeof OCHA !== 'undefined' && OCHA.on) ? 1 : 0; // 家の中（お茶の間）では、ささない（0.9.51）
   p.umbK = clamp((p.umbK || 0) + (want ? dt * 1.8 : -dt * 2.6), 0, 1);
   const m = p.m;
   if (!m.umb) { if (p.umbK <= 0) return; m.umb = modelUmbrella(umbrellaColor()); m.rig.add(m.umb); }
@@ -12196,10 +12202,10 @@ function duoKick(e) {
 }
 /* =========================================================
    丘のお茶の間（0.9.49）：人がひと息つく場所
-   ・見学の人へのお話（紙芝居）、動物たちのこと（多くの農場と、ここ。出典つき）、この丘の一日とお金、ゲームの外の本当のお知らせ
+   ・見学の人へのお話（紙芝居）、動物たちのこと（多くの農場と、ここ。出典つき）、この丘の一日とお金、ゲームの外の掲示板
    ・段階1は、家の前の小さな「お知らせの板」。段階2からは、正門を入ってすぐ西の、小さな平屋
    ・中は別の場所：入ると、丘の景色は消えて、画用紙の上に紙の模型の部屋だけ（外より中が広い。絵本の中に入るように）。歩いて回れる
-   ・本当のお知らせ（NEWS）は、build.js が pages/news.json から入れる。GitHub 版は、開いた時に news.json を読み直す
+   ・掲示板（NEWS）は、build.js が pages/news.json から入れる。GitHub 版は、開いた時に news.json を読み直す
    ========================================================= */
 const OCHA = { name: '丘のお茶の間', boardName: 'お知らせの板', on: false, busy: false, S: null, built: false, floor: null, pick: [], cols: [],
   px: 0, pz: 0, heading: 0, phase: 0, target: null, go: null, sit: false, camT: null, back: null, g: null, kami: 0, fadeEl: null };
@@ -12246,7 +12252,7 @@ const OCHA_SPOTS = [
   { id: 'kami', x: -4.6, z: 3.0, label: '紙芝居を見る', sign: '紙芝居', h: 0 },
   { id: 'animals', x: -3.4, z: -3.3, label: '動物たちのことを読む', sign: '動物たちのこと', h: Math.PI },
   { id: 'tea', x: 1.8, z: -0.45, label: '座布団に座って、ひと息', sign: 'お茶の間', h: Math.PI },
-  { id: 'news', x: 4.7, z: -3.3, label: '本当のお知らせを見る', sign: '本当のお知らせ', h: Math.PI },
+  { id: 'news', x: 4.7, z: -3.3, label: '掲示板を見る', sign: '掲示板', h: Math.PI },
   { id: 'days', x: 5.3, z: -1.2, label: 'この丘の一日を見る', sign: 'この丘の一日', h: Math.PI / 2 },
   { id: 'exit', x: 5.6, z: 3.0, label: '外へ出る', sign: '出口', h: Math.PI / 2 },
 ];
@@ -12339,11 +12345,11 @@ function ochaBuild() {
   for (let i = 0; i < 14; i++) part('box', ['#C9573F', '#3F6FA5', '#D9A23A', '#4E8A5A', '#8C79A8'][i % 5], 0.12, 0.26 + (i % 3) * 0.04, 0.3, 0.75 + i * 0.15, 0.95, -4.24, g, { noShadow: true });
   // 動物たちのポスター（奥の壁の左）
   { let x = -5.2; for (const f of OCHA_FACTS) { const p = ochaPoster(f.sp, f.color, f.name.replace(/（.*）/, '')); p.position.set(x, 1.5, -4.46); g.add(p); x += 1.75; } }
-  // 本当のお知らせ（奥の壁の右）：コルクの板に、ピンでとめた紙
+  // 掲示板（奥の壁の右）：コルクの板に、ピンでとめた紙
   { part('box', '#8A6A4A', 2.3, 1.4, 0.06, 4.75, 1.45, -4.47, g); part('box', '#C99A62', 2.15, 1.25, 0.03, 4.75, 1.45, -4.43, g, { noShadow: true });
     const n = Math.max(1, Math.min(4, NEWS.items.length || 1));
     for (let i = 0; i < 4; i++) { const p = part('box', i < n && NEWS.items.length ? '#FBF7EC' : '#F1E6CC', 0.5, 0.42, 0.012, 3.95 + (i % 2) * 1.1 + (i > 1 ? 0.25 : 0), 1.7 - Math.floor(i / 2) * 0.55, -4.41, g, { noShadow: true }); p.rotation.z = [0.05, -0.07, 0.03, -0.04][i]; part('sph', '#C9573F', 0.05, 0.05, 0.05, p.position.x, p.position.y + 0.17, -4.4, g, { noShadow: true }); }
-    const t = textPanel('ゲームの外の、本当のお知らせ', 2.0, 0.17, { size: 64, bg: '#F2EBDD' }); t.position.set(4.75, 2.25, -4.43); g.add(t); }
+    const t = textPanel('掲示板', 2.0, 0.17, { size: 64, bg: '#F2EBDD' }); t.position.set(4.75, 2.25, -4.43); g.add(t); }
   // たたみと、ちゃぶ台、座布団、急須と湯のみ
   { const cx = 1.8, cz = -1.6;
     part('box', '#CBC48C', 3.6, 0.06, 2.7, cx, 0.03, cz, g);
@@ -12458,7 +12464,7 @@ function ochaInside(on, stay) {
     OCHA.px = 5.3; OCHA.pz = 3.0; OCHA.heading = -Math.PI / 2; OCHA.target = null; OCHA.go = null; OCHA.sit = false;
     OCHA.camT.set(3.0, 0.4, 1.2); OCHA.on = true; CAM.yaw = CAM.tYaw = 0;
     G.flags.ochaIn = (G.flags.ochaIn || 0) + 1;
-    if (G.flags.ochaIn === 1) setTimeout(() => { if (OCHA.on) UI.toast(`${OCHA.name}です。紙芝居、動物たちのこと、この丘の一日、本当のお知らせ。座布団に座って、ひと息つくこともできます`, 'daily'); }, 900);
+    if (G.flags.ochaIn === 1) setTimeout(() => { if (OCHA.on) UI.toast(`${OCHA.name}です。紙芝居、動物たちのこと、この丘の一日、掲示板。座布団に座って、ひと息つくこともできます`, 'daily'); }, 900);
     UI.refresh();
   } else {
     const B = OCHA.back || {}; (B.parent || ACT.layer).add(P.m.root);
@@ -12538,17 +12544,10 @@ function ochaAct(v, id) {
   else if (v === 'leave') ochaLeave();
   else if (v === 'enter') { UI.closeModal(); ochaEnter(); }
 }
+// 紙芝居の絵（0.9.51）：クレヨンと貼り絵の、子どもにも楽しい一枚（kamie.js）
 function ochaPic(k) {
-  const t = (x, y, s, o) => `<text x="${x}" y="${y}" font-size="${(o && o.fs) || 13}" text-anchor="middle" fill="${(o && o.c) || '#3A2E24'}" font-family="'Klee One', sans-serif">${s}</text>`;
-  let b = '';
-  if (k === 'hill') b = `<rect width="320" height="180" fill="#BFDCEB"/><circle cx="262" cy="40" r="20" fill="#F7C948"/><path d="M0 128 Q90 70 180 118 T320 110 V180 H0Z" fill="#A9CF86"/><path d="M0 150 Q160 120 320 152 V180 H0Z" fill="#8DBB6C"/><rect x="58" y="96" width="44" height="30" fill="#E9D7B8"/><path d="M54 98 L80 78 L106 98Z" fill="#B5463F"/><ellipse cx="200" cy="132" rx="16" ry="9" fill="#F4F0E6"/><circle cx="214" cy="128" r="6" fill="#F4F0E6"/><ellipse cx="150" cy="140" rx="8" ry="6" fill="#E9B26A"/>`;
-  else if (k === 'hands') b = `<rect width="320" height="180" fill="#E8F2F6"/><rect x="120" y="20" width="16" height="40" rx="4" fill="#9AA6AA"/><path d="M128 60 v18" stroke="#7FB8D8" stroke-width="5"/>${[0, 1, 2, 3].map((i) => `<circle cx="${122 + i * 6}" cy="${88 + i * 9}" r="4" fill="#7FB8D8"/>`).join('')}<rect x="96" y="118" width="50" height="34" rx="16" fill="#F2C9A8"/><rect x="150" y="118" width="50" height="34" rx="16" fill="#F2C9A8"/>${[0, 1, 2].map((i) => `<circle cx="${220 + i * 18}" cy="${60 + (i % 2) * 16}" r="${8 + i * 2}" fill="none" stroke="#B9D9EA" stroke-width="3"/>`).join('')}${t(160, 172, '入る前と、帰る前に', { fs: 12 })}`;
-  else if (k === 'steps') b = `<rect width="320" height="180" fill="#F3E9D6"/>${[0, 1, 2, 3, 4].map((i) => `<ellipse cx="${60 + i * 46}" cy="${120 - (i % 2) * 22}" rx="8" ry="13" fill="#C9B497"/>`).join('')}<ellipse cx="262" cy="70" rx="18" ry="14" fill="#E9B26A"/><circle cx="276" cy="58" r="8" fill="#E9B26A"/><path d="M282 58 l8 2 -8 3z" fill="#E0A23A"/>${t(160, 170, 'そっと、そっと', { fs: 12 })}`;
-  else if (k === 'food') b = `<rect width="320" height="180" fill="#F6EFDF"/><rect x="118" y="66" width="84" height="60" rx="8" fill="#F3D9A0"/><rect x="128" y="76" width="64" height="18" fill="#E8B86A"/><circle cx="160" cy="96" r="58" fill="none" stroke="#C9573F" stroke-width="8"/><path d="M119 137 L201 55" stroke="#C9573F" stroke-width="8"/>${t(160, 174, 'おやつは、スタッフと一緒に', { fs: 12 })}`;
-  else if (k === 'near') b = `<rect width="320" height="180" fill="#E6F0DC"/><rect x="0" y="130" width="320" height="50" fill="#BBD69A"/><ellipse cx="226" cy="112" rx="26" ry="16" fill="#F4F0E6"/><circle cx="252" cy="100" r="10" fill="#F4F0E6"/><path d="M246 90 l4 -10 M256 90 l6 -9" stroke="#C9B497" stroke-width="3"/><circle cx="84" cy="96" r="12" fill="#F2C9A8"/><rect x="72" y="108" width="24" height="26" rx="6" fill="#8C79A8"/><path d="M150 84 q8 -10 16 0 q8 -10 16 0 q-8 14 -16 18 q-8 -4 -16 -18z" fill="#E88A9A"/>`;
-  else if (k === 'gate') b = `<rect width="320" height="180" fill="#EEF2E6"/><rect x="0" y="140" width="320" height="40" fill="#BBD69A"/><rect x="96" y="56" width="128" height="86" fill="none" stroke="#8A6A4A" stroke-width="7"/><path d="M96 142 L224 56" stroke="#8A6A4A" stroke-width="5"/>${Array.from({ length: 8 }, (_, i) => `<path d="M${102 + i * 15} 60 v78" stroke="#C4CACA" stroke-width="2"/>`).join('')}<rect x="216" y="92" width="16" height="10" fill="#4E4A44"/><ellipse cx="160" cy="132" rx="14" ry="10" fill="#E9B26A"/>${t(160, 172, '通ったら、閉める', { fs: 12 })}`;
-  else b = `<rect width="320" height="180" fill="#F3E9D6"/><ellipse cx="140" cy="118" rx="44" ry="30" fill="#5E7C68"/><path d="M180 108 q24 -6 30 -22" stroke="#5E7C68" stroke-width="8" fill="none"/><rect x="128" y="80" width="24" height="10" rx="4" fill="#4E6656"/><rect x="214" y="104" width="34" height="36" rx="6" fill="#EDE6D6"/>${[0, 1, 2].map((i) => `<path d="M${222 + i * 9} 96 q-6 -10 0 -20" stroke="#C9C2B4" stroke-width="3" fill="none"/>`).join('')}`;
-  return `<svg class="kami-pic" viewBox="0 0 320 180" role="img" aria-label="紙芝居の絵">${b}</svg>`;
+  const p = OCHA_KAMI.find((x) => x.pic === k);
+  return `<img class="kami-pic" src="${kamiArt(k)}" alt="紙芝居の絵：${esc(p ? p.t : '')}">`;
 }
 function ochaKami(i) {
   i = clamp(i, 0, OCHA_KAMI.length - 1); OCHA.kami = i;
@@ -12573,13 +12572,13 @@ function ochaDaysHtml() {
   try {
     const f = GAME.finance(), sum = (L) => L.reduce((s, x) => s + (x.amount || 0), 0);
     h += `<h4>この丘の1か月（今の目安）</h4><table class="ocha-money">${f.groups.map(([nm, L]) => `<tr><td>${esc(nm)}</td><td class="num">${yen(sum(L))}</td></tr>`).join('')}<tr class="tot"><td>あわせて</td><td class="num">${yen(f.cost)}</td></tr><tr><td>支え（寄付・手伝い・企業・制度など）</td><td class="num">${yen(f.inc)}</td></tr></table>`;
-    h += '<p class="muted">くわしくは、下の「行動」の「運営のお金」で。</p>';
+    h += '<p class="muted">くわしくは、お茶の間を出てから、メニューの「行動」→「収支」→「運営のお金をくわしく見る」で。</p>';
   } catch (e) { /* お金の画面がなくても */ }
   return h + '<div class="btn-row"><button class="btn small primary" data-act="close-modal">閉じる</button></div>';
 }
 function ochaNewsHtml(inside) {
   const ok = (u) => typeof u === 'string' && /^https:\/\//.test(u);
-  let h = `<div class="news-band">ゲームの外の、本当のお知らせ</div><h3>${inside ? '本当のお知らせ' : esc(OCHA.boardName)}</h3><p class="muted">ここには、動物たちのために活動している人や団体、本当のイベントのお知らせが載ります。ゲームの中のことではありません。</p>`;
+  let h = `<div class="news-band">掲示板　ゲームの外のお知らせ</div><h3>${inside ? '掲示板' : esc(OCHA.boardName)}</h3><p class="muted">ここには、動物たちのために活動している人や団体、本当のイベントのお知らせが載ります。ゲームの中のことではありません。</p>`;
   if (!NEWS.items.length) h += '<p class="said">いまは、お知らせはありません。</p>';
   else h += NEWS.items.map((n) => `<section class="news-item"><h4>${esc(n.title || '')}</h4>${n.date || n.place ? `<p class="muted">${esc([n.date, n.place].filter(Boolean).join('　'))}</p>` : ''}${n.body ? `<p>${esc(n.body)}</p>` : ''}${n.by ? `<p class="muted">${esc(n.by)}</p>` : ''}${ok(n.url) ? `<a class="btn small" href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">ページをひらく（ゲームの外）</a>` : ''}</section>`).join('');
   if (NEWS.updated) h += `<p class="muted">更新：${esc(NEWS.updated)}</p>`;
@@ -12629,6 +12628,8 @@ const mdv = (md) => md[0] * 100 + md[1];
 function sakuraPhase() { const v = mdv(calMD()); return { bloom: v >= 324 && v <= 414, petals: v >= 401 && v <= 414 }; }
 // 雪：降るのも、地面に積もるのも、12月の後半から2月の後半まで
 function snowOK() { const v = mdv(calMD()); return v >= 1216 || v <= 229; }
+// 1月半ば〜2月は、雨のかわりに雪が多く（雨は3分の1。0.9.51）
+function deepWinter() { const v = mdv(calMD()); return v >= 115 && v <= 229; }
 // 雨の降りやすさ：6月は2倍、1月と2月は1.5倍、ほかの月は半分（cloudy から雨へ移る重み。長く回して確かめた値）
 function rainK() { const m = calMD()[0]; return m === 6 ? 6.6 : m === 1 || m === 2 ? 2.3 : 0.37; }
 function rainF() { const m = calMD()[0]; return m === 6 ? 2 : m === 1 || m === 2 ? 1.5 : 0.5; }
@@ -12737,10 +12738,12 @@ function addCats(quiet) {
    保護犬のちくわと、保護猫のがんも。はるこさんが、2匹そろって家族に迎える（受け入れの相談ではなく、少し遊んだころの出来事）。
    家の東どなりの、囲いのある庭と、家の中で暮らす。仲良しのこと・眠る場所は、はじめからわかっている */
 const DUO_WEEK = 5;
+// ちくわとがんもが、はるこさんの家族になった日（0.9.47 の日。ゲームの中の日付が進んでいても、ここに）
+const DUO_ARRIVED = '2026-10-18';
 function addDuo(quiet) {
   const add = ROSTER.filter((r) => r.group === 'home1' && !G.animals.some((a) => a.key === r.key));
   add.forEach((r) => {
-    const a = makeAnimal(r, true); a.arrived = G.date; a.trust = r.trust || 1; a.known = 1;
+    const a = makeAnimal(r, true); a.arrived = G.date > DUO_ARRIVED ? DUO_ARRIVED : G.date; a.trust = r.trust || 1; a.known = 1;
     a.know = { likes: [], dis: true, fr: true, sl: true, w: 0, wn: 60 };
     G.animals.push(a);
   });
@@ -13061,7 +13064,7 @@ function weatherTick(dt) {
   const tbl = Object.assign({}, WX_NEXT[G.weather] || { sunny: 1 });
   if (tbl.rain) tbl.rain *= rainK(); // 月ごとの雨の降りやすさ
   // 雪のころ（12月後半〜2月後半）は、雨の一部が雪に。ほかの時期は、雪は降らない
-  if (snowOK() && tbl.rain) { tbl.snow = tbl.rain * 0.35; tbl.rain *= 0.65; }
+  if (snowOK() && tbl.rain) { const k = deepWinter() ? 2 / 3 : 0.35; tbl.snow = tbl.rain * k; tbl.rain *= 1 - k; }
   if (!snowOK()) delete tbl.snow;
   const next = wpick(Object.entries(tbl));
   G.wxT = wxDur(next);
@@ -13880,7 +13883,7 @@ function applyCalendar() {
 function rollWeather() {
   const r = Math.random(), wet = 0.125 * rainF(), dry = (1 - wet) / 7;
   // 朝の天気は、晴れ4：くもり3：雨1 を、月ごとの雨の降りやすさで変える。雪のころは、雨の一部が雪に
-  G.weather = r < wet ? (snowOK() && Math.random() < 0.35 ? 'snow' : 'rain') : r < wet + dry * 4 ? 'sunny' : 'cloudy';
+  G.weather = r < wet ? (snowOK() && Math.random() < (deepWinter() ? 2 / 3 : 0.35) ? 'snow' : 'rain') : r < wet + dry * 4 ? 'sunny' : 'cloudy';
   WS.weather = G.weather;
 }
 function worldEventRoll() {
@@ -14399,6 +14402,8 @@ const GAME = {
     migrateSave(o.schema || 1);
     G.animals.forEach(rosterFill); // 移しかえで key が変わった子も
     initMoney(false); if (!G.proj) markPrepsDone();
+    // ちくわとがんもが来た日は、2026年10月（0.9.51。前の版では、ゲームの中のその週の日付だった）
+    G.animals.filter(petOf).forEach((a) => { if (a.arrived > DUO_ARRIVED) a.arrived = DUO_ARRIVED; });
     // 前からの箱庭にも、ちくわとがんも（0.9.47）
     if (G.mode === 'hakoniwa' && !G.animals.some(petOf)) { addDuo(true); G.animals.filter(petOf).forEach((a) => { a.trust = 5; }); }
     if (G.mode !== 'hakoniwa' && curPage() && ROSTER.some((r) => r.group === 'cat1' && !G.animals.some((a) => a.key === r.key))) {
@@ -16330,39 +16335,8 @@ Object.assign(UI, {
     if (fresh) { uiSound('card'); const el0 = document.querySelector('#modal-card .egg-rev'); if (el0) { el0.getBoundingClientRect(); el0.querySelectorAll('.er-l, .er-r, .er-bg, .er-crack').forEach((x) => getComputedStyle(x).opacity); } setTimeout(() => { const el = document.querySelector('#modal-card .egg-rev'); if (el) el.classList.add('open'); }, 80); }
   },
   // 卵の絵（貼り絵ふう）。320×180
-  eggPicSvg(id) {
-    const hen = (x, y, s, o) => {
-      o = o || {}; const c = o.col || '#D9A35A', d = o.dark || '#B5823F', f = o.flip ? -1 : 1, hx = o.peck ? 30 : 21, hy = o.peck ? 9 : -15;
-      return `<g transform="translate(${x} ${y}) scale(${f * s} ${s})"><path d="M-18 -6 L-37 -27 L-33 -4 L-26 8 Z" fill="${o.tail || d}"/><line x1="-6" y1="16" x2="-8" y2="30" stroke="#C98B2E" stroke-width="3" stroke-linecap="round"/><line x1="6" y1="16" x2="8" y2="30" stroke="#C98B2E" stroke-width="3" stroke-linecap="round"/><ellipse cx="0" cy="0" rx="26" ry="19" fill="${c}"/><path d="M-13 -1 Q1 12 14 1" fill="none" stroke="${d}" stroke-width="3" stroke-linecap="round"/><circle cx="${hx}" cy="${hy}" r="10.5" fill="${c}"/><circle cx="${hx - 4}" cy="${hy - 10}" r="4" fill="#C9473A"/><circle cx="${hx + 1}" cy="${hy - 12}" r="4.4" fill="#C9473A"/><circle cx="${hx + 6}" cy="${hy - 10}" r="3.4" fill="#C9473A"/><path d="M${hx + 9} ${hy - 3} L${hx + 17} ${hy + 1} L${hx + 9} ${hy + 4} Z" fill="#E3A33A"/><ellipse cx="${hx + 8}" cy="${hy + 8}" rx="2.8" ry="4" fill="#C9473A"/><circle cx="${hx + 4}" cy="${hy - 3}" r="1.9" fill="#2B2B2B"/></g>`;
-    };
-    const cracked = (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><ellipse cx="0" cy="6" rx="30" ry="8" fill="#FFFDF4"/><circle cx="2" cy="4" r="10" fill="#F0B63E"/><path d="M-36 4 Q-34 -14 -22 -16 L-18 -8 L-24 -2 L-18 4 Z" fill="#EFE4D2"/><path d="M36 6 Q34 -12 22 -14 L18 -6 L24 0 L18 6 Z" fill="#EFE4D2"/></g>`;
-    const t = (x, y, str, o) => `<text x="${x}" y="${y}" font-size="${(o && o.fs) || 11}" font-weight="${(o && o.w) || 700}" fill="${(o && o.c) || '#5E4E3A'}" text-anchor="${(o && o.a) || 'middle'}" font-family="inherit">${str}</text>`;
-    const dots = (x0, y0, cols, n, r, gap, col) => { let h = ''; for (let i = 0; i < n; i++) h += `<circle cx="${x0 + (i % cols) * gap}" cy="${y0 + Math.floor(i / cols) * gap}" r="${r}" fill="${col}"/>`; return h; };
-    let b = '';
-    if (id === 'mujousei') {
-      b = `<rect width="320" height="180" fill="#F6EFDF"/><rect y="146" width="320" height="34" fill="#E6D5B2"/>${hen(84, 118, 1.35)}
-        <ellipse cx="222" cy="98" rx="48" ry="60" fill="#EFE4D2" stroke="#D9C7A6" stroke-width="3"/><ellipse cx="222" cy="100" rx="40" ry="51" fill="#FFFDF6"/><circle cx="222" cy="110" r="22" fill="#F0B63E"/><circle cx="222" cy="96" r="4.2" fill="#fff" stroke="#E2C27A" stroke-width="1.5"/>
-        <path d="M225 92 L250 32" stroke="#9B8668" stroke-width="1.4"/>${t(236, 25, '白い点は、受精していない胚盤', { fs: 10 })}${t(222, 172, '無精卵', { fs: 13 })}`;
-    } else if (id === 'together') {
-      b = `<rect width="320" height="180" fill="#E6F0F2"/><circle cx="282" cy="34" r="17" fill="#F2CD6B"/><path d="M0 122 Q80 112 160 120 T320 118 V180 H0 Z" fill="#D9C29A"/>${dots(40, 150, 14, 14, 1.6, 18, '#C2A574')}
-        ${hen(150, 96, 0.8, { col: '#8E4E2A', dark: '#6E3A1F', tail: '#3E5E3A', peck: true })}${hen(88, 126, 1.05, { peck: true })}${hen(242, 126, 1.05, { col: '#F4F0E6', dark: '#D8D2C3', flip: true, peck: true })}${cracked(164, 146, 1)}`;
-    } else if (id === 'calcium') {
-      b = `<rect width="320" height="180" fill="#EEF3EC"/><rect y="150" width="320" height="30" fill="#D8E2CF"/>${hen(108, 104, 1.7)}
-        <g opacity=".92"><circle cx="86" cy="114" r="5" fill="#fff"/><circle cx="86" cy="124" r="5" fill="#fff"/><rect x="88" y="115" width="38" height="8" rx="3" fill="#fff"/><circle cx="128" cy="114" r="5" fill="#fff"/><circle cx="128" cy="124" r="5" fill="#fff"/></g>
-        ${cracked(256, 140, 0.95)}<path d="M228 146 Q190 160 146 132" fill="none" stroke="#2E5A48" stroke-width="2.5" stroke-dasharray="5 5"/><path d="M146 132 L158 132 M146 132 L151 143" stroke="#2E5A48" stroke-width="2.5" stroke-linecap="round"/>
-        ${t(262, 96, '殻1つに', { fs: 11 })}${t(262, 112, 'カルシウム約2g', { fs: 12 })}${t(108, 172, '骨のカルシウムで、殻を作る', { fs: 11 })}`;
-    } else if (id === 'yakei') {
-      b = `<rect width="160" height="180" fill="#DCE8D2"/><rect x="160" width="160" height="180" fill="#F3E9D6"/><path d="M14 92 L34 40 L54 92 Z M112 96 L134 34 L156 96 Z" fill="#9DBB8A"/>
-        ${hen(74, 78, 1.05, { col: '#B5793E', dark: '#8A5A2C', tail: '#6E4A2A' })}${dots(30, 124, 10, 20, 2.6, 10, '#B9A27A')}${t(80, 160, '祖先の野鶏', { fs: 11 })}${t(80, 174, '年に20個ほど', { fs: 11, c: '#2E5A48' })}
-        ${hen(238, 66, 0.95, { col: '#F4F0E6', dark: '#D8D2C3' })}${dots(174, 102, 30, 300, 1.25, 4.4, '#B9A27A')}${t(240, 160, '今の採卵の鶏', { fs: 11 })}${t(240, 174, '年に250〜300個', { fs: 11, c: '#2E5A48' })}`;
-    } else if (id === 'molt') {
-      const leaf = (x, y, r, c, a) => `<path transform="translate(${x} ${y}) rotate(${a}) scale(${r})" d="M0 -10 L3 -3 L10 -4 L5 2 L7 9 L0 5 L-7 9 L-5 2 L-10 -4 L-3 -3 Z" fill="${c}"/>`;
-      const feather = (x, y, a) => `<g transform="translate(${x} ${y}) rotate(${a})"><ellipse cx="0" cy="0" rx="3.4" ry="11" fill="#E9D2A6"/><line x1="0" y1="-11" x2="0" y2="12" stroke="#C9A877" stroke-width="1"/></g>`;
-      b = `<rect width="320" height="180" fill="#F4E6D2"/><rect y="146" width="320" height="34" fill="#E2C9A0"/>${leaf(40, 30, 1.4, '#D8693A', 12)}${leaf(286, 46, 1.2, '#E59A3A', -20)}${leaf(250, 150, 1.1, '#C9473A', 30)}${leaf(60, 160, 1, '#E59A3A', -8)}
-        ${hen(158, 106, 1.45, { col: '#E1B676', dark: '#C49455' })}${feather(214, 70, 30)}${feather(236, 112, -40)}${feather(96, 82, -25)}${feather(198, 140, 70)}${feather(118, 150, 20)}${t(160, 172, '秋は、羽が生えかわる季節', { fs: 11 })}`;
-    }
-    return `<svg class="er-pic" viewBox="0 0 320 180" role="img" aria-label="卵の絵">${b}</svg>`;
-  },
+  // 卵の絵（0.9.51 から、紙芝居と同じクレヨンと貼り絵の絵。kamie.js）
+  eggPicSvg(id) { const p = EGG_PICS.find((x) => x.id === id); return `<img class="er-pic" src="${kamiArt('egg-' + id)}" alt="${esc(p ? p.title : '卵の絵')}">`; },
   /* ---------- なでる・ブラッシング ---------- */
   petGo(id, mode) {
     const e = animalById(id); if (!e) return;
@@ -16834,7 +16808,7 @@ Object.assign(UI, {
     if (!STARTED || !G || UI.rest || UI.zenOn || G.settings.autoSit === false) return;
     const P = ACT.player; if (!P || P.moving || P.target || P.petting || P.playing || P.sitting) return;
     if (!$('#sheet').hidden || !$('#modal').hidden || !$('#photo-ui').hidden || $('#hud').hidden || UI.placeItemId || UI.removeMode) return;
-    if (performance.now() - (UI.lastInput || 0) < 40000) return; // 40秒（0.9.37。前は20秒で、早すぎた）
+    if (performance.now() - (UI.lastInput || 0) < 60000) return; // 1分（0.9.51。0.9.37 から40秒）
     const seat = (W.benches || []).find((b) => Math.hypot(b.x - P.x, b.z - P.z) < 2.2);
     const inPen = Object.keys(ZONES).some((k) => G.stage >= ZONES[k].stage && inRect(P.x, P.z, [ZONES[k].rect[0] + 0.4, ZONES[k].rect[1] - 0.4, ZONES[k].rect[2] + 0.4, ZONES[k].rect[3] - 0.4]));
     if (!seat && !inPen) return;
@@ -16849,7 +16823,7 @@ Object.assign(UI, {
     if (!$('#sheet').hidden || !$('#modal').hidden || !$('#photo-ui').hidden || $('#hud').hidden || UI.placeItemId || UI.removeMode) return;
     const B = W.benches || [];
     if (P.benchLeft) { const b = B.find((x) => x.sid === P.benchLeft); if (!b || Math.hypot(b.x - P.x, b.z - P.z) > 2.6) P.benchLeft = null; }
-    if ((P.stillT || 0) < 1.1) return;
+    if ((P.stillT || 0) < 5) return; // 5秒ほど立ち止まった時だけ（0.9.51。前は1秒で、通りがかりに座ってしまった）
     const seat = B.find((b) => b.sid !== P.benchLeft && Math.hypot(b.x - P.x, b.z - P.z) < 1.25);
     if (seat) UI.startRest('bench', seat);
   },
@@ -17648,6 +17622,39 @@ function drCamellia(g, x, y, s) {
   for (let k = 0; k < 5; k++) { const a = k * 1.2566 - 1.57; oval(g, x + Math.cos(a) * s * 0.42, y + Math.sin(a) * s * 0.42, s * 0.42, s * 0.36, '#F0706A', '#A8242A', a); }
   ball(g, x, y, s * 0.24, '#FFE79A', '#E0A030');
 }
+// お正月（0.9.51）：門松（竹3本、松、わらの台、南天の実）、梅の花、初日の出
+function drKadomatsu(g, x, y, s, flip) {
+  g.save(); g.translate(x, y); g.scale(flip ? -1 : 1, 1); g.lineCap = 'round';
+  // 竹：切り口はななめ。節の線
+  for (const [dx, hk] of [[-0.15, 0.84], [0.15, 0.7], [0, 1]]) {
+    const bw = s * 0.15, top = -s * hk, x0 = dx * s - bw / 2, x1 = dx * s + bw / 2, cut = s * 0.12;
+    const gr = g.createLinearGradient(x0, 0, x1, 0); gr.addColorStop(0, '#3E7A34'); gr.addColorStop(0.45, '#7DB45A'); gr.addColorStop(1, '#3E7A34');
+    g.fillStyle = gr; g.beginPath(); g.moveTo(x0, -s * 0.2); g.lineTo(x0, top); g.lineTo(x1, top + cut); g.lineTo(x1, -s * 0.2); g.closePath(); g.fill();
+    g.fillStyle = '#EDE6B8'; g.beginPath(); g.ellipse(dx * s, top + cut / 2, bw / 2, cut * 0.38, Math.atan2(cut, bw), 0, 7); g.fill();
+    g.strokeStyle = 'rgba(40,80,30,.55)'; g.lineWidth = s * 0.012; for (let k = 1; k < 4; k++) { const yy = -s * 0.2 - (top * -1 - s * 0.2) * k / 4; g.beginPath(); g.moveTo(x0, yy); g.lineTo(x1, yy); g.stroke(); }
+  }
+  // 松：根もとのまわりに、針のような葉
+  for (const [px, py, r] of [[-0.22, -0.33, 0.17], [0.22, -0.31, 0.16], [0, -0.38, 0.15], [-0.08, -0.28, 0.13]]) {
+    for (let k = 0; k < 16; k++) { const a = -Math.PI * 0.95 + k / 15 * Math.PI * 0.9; g.strokeStyle = k % 2 ? '#2F6B3A' : '#3E7F45'; g.lineWidth = s * 0.022; g.beginPath(); g.moveTo(px * s, py * s); g.lineTo(px * s + Math.cos(a) * r * s, py * s + Math.sin(a) * r * s); g.stroke(); }
+  }
+  // 南天の赤い実
+  g.fillStyle = '#D23A2E'; for (const [px, py] of [[0.24, -0.36], [0.28, -0.33], [0.21, -0.31], [0.26, -0.29]]) { g.beginPath(); g.arc(px * s, py * s, s * 0.025, 0, 7); g.fill(); }
+  // わらの台と、なわの帯
+  g.fillStyle = '#D9B66C'; g.beginPath(); g.moveTo(-s * 0.32, 0); g.lineTo(-s * 0.26, -s * 0.3); g.lineTo(s * 0.26, -s * 0.3); g.lineTo(s * 0.32, 0); g.closePath(); g.fill();
+  g.strokeStyle = 'rgba(150,110,50,.55)'; g.lineWidth = s * 0.008; for (let k = -6; k <= 6; k++) { g.beginPath(); g.moveTo(k * s * 0.045, 0); g.lineTo(k * s * 0.038, -s * 0.3); g.stroke(); }
+  g.strokeStyle = '#8A5A2E'; g.lineWidth = s * 0.03; for (const yy of [-0.08, -0.2]) { g.beginPath(); g.moveTo(-s * 0.31, yy * s); g.lineTo(s * 0.31, yy * s); g.stroke(); }
+  g.restore();
+}
+function drUme(g, x, y, r) {
+  for (let k = 0; k < 5; k++) { const a = -Math.PI / 2 + k / 5 * Math.PI * 2; g.fillStyle = '#E8607A'; g.beginPath(); g.arc(x + Math.cos(a) * r * 0.55, y + Math.sin(a) * r * 0.55, r * 0.5, 0, 7); g.fill(); g.strokeStyle = 'rgba(255,240,244,.8)'; g.lineWidth = r * 0.08; g.stroke(); }
+  g.fillStyle = '#F7D774'; g.beginPath(); g.arc(x, y, r * 0.28, 0, 7); g.fill();
+  g.strokeStyle = '#C8902E'; g.lineWidth = r * 0.05; for (let k = 0; k < 8; k++) { const a = k / 8 * Math.PI * 2; g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * r * 0.42, y + Math.sin(a) * r * 0.42); g.stroke(); }
+}
+function drHinode(g, x, y, r) {
+  g.fillStyle = '#D8443A'; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill();
+  g.fillStyle = '#E8C874'; g.strokeStyle = '#FFF4D6'; g.lineWidth = r * 0.08;
+  for (const [dx, dy, L] of [[-1.3, 0.55, 1.7], [0.2, 0.95, 1.9], [-0.6, 1.35, 1.4]]) { const x0 = x + dx * r, y0 = y + dy * r, hh = r * 0.32; g.beginPath(); g.moveTo(x0 + hh / 2, y0 - hh / 2); g.lineTo(x0 + L * r - hh / 2, y0 - hh / 2); g.arc(x0 + L * r - hh / 2, y0, hh / 2, -Math.PI / 2, Math.PI / 2); g.lineTo(x0 + hh / 2, y0 + hh / 2); g.arc(x0 + hh / 2, y0, hh / 2, Math.PI / 2, Math.PI * 1.5); g.closePath(); g.fill(); g.stroke(); }
+}
 function drawEventArt(g, w, h, u, id, acc) {
   const s = u * 8, L = u * 9, Rt = w - u * 9, B = h - u * 8;
   switch (id) {
@@ -17674,7 +17681,7 @@ function drawEventArt(g, w, h, u, id, acc) {
       }
       break;
     }
-    case 'newyear': drKnot(g, w - u * 12, h - u * 11, u * 6); drStar(g, u * 10, u * 12, u * 2, acc); break;
+    case 'newyear': drHinode(g, w - u * 12, u * 11, u * 5.5); drUme(g, u * 8, u * 8, u * 4); drUme(g, u * 15, u * 5, u * 2.8); drUme(g, u * 5, u * 15, u * 2.6); drKadomatsu(g, u * 10, h - u * 2.5, u * 17); drKadomatsu(g, w - u * 10, h - u * 2.5, u * 17, true); drKnot(g, w / 2, h - u * 5, u * 4); break;
     case 'chickenday': drChicken(g, L + u, B, s, '#A45A2E'); drChicken(g, Rt - u, B, s * 0.9, '#F4F1E8', true); drHeart(g, w / 2, h - u * 5, u * 3, acc); break;
     case 'farmday': drCow(g, L + u * 2, B, s * 0.9); drPig(g, Rt - u * 2, B + u, s * 0.8, true); drHeart(g, w / 2, h - u * 5, u * 3, '#D6735A'); break;
     case 'animalday': drChicken(g, L, B, s * 0.8, '#A45A2E'); drCow(g, Rt - u * 3, B, s * 0.8, true); drHeart(g, w / 2 - u * 4, h - u * 5, u * 2.6, '#D6735A'); drHeart(g, w / 2 + u * 4, h - u * 5.5, u * 2.2, acc); break;
@@ -17707,6 +17714,285 @@ function drawEventArt(g, w, h, u, id, acc) {
     default: drHeart(g, w / 2, h - u * 5, u * 3, acc);
   }
 }
+/* =========================================================
+   紙芝居と卵の絵（0.9.51）：子どもの絵本のような一枚
+   ・動物の似顔絵と同じクレヨンの筆（portrait.js の cy〜）で、日記の表紙と同じ、ちぎった紙の丘の上に描く
+   ・子どもにも伝わるように：大きくて丸い形、にこにこの顔、やさしい色。こわい顔の動物はいない
+   ・一度描いたら覚えておく（KAMI_ART）
+   ========================================================= */
+const KAMI_ART = {};
+function kamiArt(id) {
+  if (KAMI_ART[id]) return KAMI_ART[id];
+  const W = 640, H = 360, c = pcCanvas(W, H), g = c.getContext('2d'), rnd = pcRng(strSeed('kami-' + id));
+  const K = kamiKit(g, rnd, W, H);
+  try { (KAMI_SCENES[id] || KAMI_SCENES.hill)(K); } catch (e) { logErr(e, 'kamiArt ' + id); }
+  K.finish();
+  return (KAMI_ART[id] = c.toDataURL('image/jpeg', 0.86));
+}
+function kamiKit(g, rnd, W, H) {
+  const ink = '#3A2E28';
+  const K = { g, rnd, W, H, ink };
+  const sh = (pts, fill, w) => cyShape(g, rnd, pts, fill, ink, w || 3.2);
+  const ln = (pts, col, w) => cyLine(g, rnd, pts, col || ink, w || 3);
+  const dot = (x, y, r, col) => cyDot(g, rnd, x, y, r, col || ink);
+  const blob = (x, y, rx, ry, wob, n) => cyBlob(rnd, x, y, rx, ry, wob == null ? 0.06 : wob, n || 18);
+  K.sh = sh; K.ln = ln; K.dot = dot; K.blob = blob;
+  // 角のある形（四角、三角）：辺を細かく分けて、クレヨンの線でも角が丸くなりすぎないように
+  K.poly = (pts, fill, w) => { const P = [], N = 6; pts.forEach((p, i) => { const q = pts[(i + 1) % pts.length]; for (let j = 0; j < N; j++) P.push([p[0] + (q[0] - p[0]) * j / N, p[1] + (q[1] - p[1]) * j / N]); }); sh(P, fill, w); };
+  K.rect = (x0, y0, x1, y1, fill, w) => K.poly([[x0, y0], [x1, y0], [x1, y1], [x0, y1]], fill, w);
+  // にこにこの顔（目と、ほっぺ）
+  K.face = (x, y, s, o) => {
+    o = o || {};
+    if (o.sleep) { ln([[x - 7 * s, y], [x - 3 * s, y + 2.5 * s], [x + 1 * s, y]], ink, 2.4 * s); }
+    else { dot(x, y, 3.4 * s); dot(x + 1 * s, y - 1.2 * s, 1 * s, '#FFFFFF'); }
+    if (o.blush !== false) { g.save(); g.globalAlpha = 0.5; dot(x + (o.bx || 2) * s, y + 7 * s, 4.2 * s, '#F29A9A'); g.restore(); }
+  };
+  // 紙と空と、ちぎった紙の丘
+  K.bg = (o) => {
+    o = o || {};
+    const sky = o.sky || ['#BFE0F2', '#F4F0DC'];
+    const gr = g.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, sky[0]); gr.addColorStop(0.75, sky[1]); g.fillStyle = gr; g.fillRect(0, 0, W, H);
+    g.save(); g.globalAlpha = 0.5; pcStrokes(g, rnd, -10, -10, W + 20, H * 0.6, sky[0], 90, 70, 9, 0.6, -0.3, 0.4); g.restore();
+    const hills = o.hills || ['#BFDC9C', '#9CCB7A', '#84B866'];
+    if (!o.noHills) { K.hill(H * 0.62, 18, hills[0], 1); K.hill(H * 0.74, 14, hills[1], 2); K.hill(H * 0.86, 8, hills[2], 3); }
+  };
+  K.hill = (y0, amp, col, seed) => {
+    const pts = [];
+    for (let x = -8; x <= W + 8; x += 8) pts.push([x, y0 - Math.sin(x / W * Math.PI * (1.1 + seed * 0.35) + seed * 1.7) * amp - (rnd() - 0.5) * 3]);
+    g.save(); g.beginPath(); g.moveTo(-8, H + 8); pts.forEach(([x, y]) => g.lineTo(x, y)); g.lineTo(W + 8, H + 8); g.closePath();
+    g.fillStyle = col; g.fill();
+    g.clip(); g.globalAlpha = 0.35; pcStrokes(g, rnd, 0, y0 - amp, W, H - y0 + amp, pcCol(col, -0.06), 60, 40, 6, 0.6, 0.05, 0.3); g.restore();
+    // ちぎった縁の、白い繊維
+    g.save(); g.strokeStyle = 'rgba(255,253,245,.75)'; g.lineWidth = 2.6; g.beginPath(); pts.forEach(([x, y], i) => (i ? g.lineTo(x, y - 1.6 + (rnd() - 0.5) * 1.6) : g.moveTo(x, y - 1.6))); g.stroke(); g.restore();
+  };
+  K.sun = (x, y, r) => {
+    for (let i = 0; i < 10; i++) { const a = i / 10 * Math.PI * 2 + 0.2; ln([[x + Math.cos(a) * r * 1.3, y + Math.sin(a) * r * 1.3], [x + Math.cos(a) * r * 1.65, y + Math.sin(a) * r * 1.65]], '#F2B33A', 4); }
+    sh(blob(x, y, r, r, 0.05, 16), '#F9D35A', 3); K.face(x - r * 0.3, y - r * 0.05, r / 22); K.face(x + r * 0.35, y - r * 0.05, r / 22, { blush: false });
+    ln([[x - r * 0.25, y + r * 0.3], [x, y + r * 0.45], [x + r * 0.25, y + r * 0.3]], ink, 2.6);
+  };
+  K.cloud = (x, y, s) => { const p = []; for (let i = 0; i < 14; i++) { const a = i / 14 * Math.PI * 2; p.push([x + Math.cos(a) * 46 * s * (1 + 0.18 * Math.sin(a * 3)), y + Math.sin(a) * 20 * s * (1 + 0.25 * Math.cos(a * 3)) - (Math.sin(a) < 0 ? 6 * s : 0)]); } sh(p, '#FFFFFF', 2.6); };
+  K.flower = (x, y, s, col) => { ln([[x, y], [x + 1, y - 18 * s]], '#6E9A3A', 3 * s); for (let i = 0; i < 5; i++) { const a = i / 5 * Math.PI * 2; dot(x + Math.cos(a) * 6 * s, y - 20 * s + Math.sin(a) * 6 * s, 4.6 * s, col || '#F49AB0'); } dot(x, y - 20 * s, 3.4 * s, '#F7D04A'); };
+  K.tuft = (x, y, s) => ln([[x - 8 * s, y], [x - 4 * s, y - 12 * s], [x, y], [x + 4 * s, y - 14 * s], [x + 8 * s, y]], '#5E8F3E', 2.6 * s);
+  // はるにれの木：まるい大きな葉のかたまり
+  K.tree = (x, y, s, col) => {
+    sh([[x - 9 * s, y], [x - 6 * s, y - 70 * s], [x + 6 * s, y - 70 * s], [x + 10 * s, y]], '#8B6244', 3);
+    const L = col || ['#7DB35C', '#94C46E', '#6EA552'];
+    [[-26, -96, 34, 28], [22, -100, 36, 30], [-2, -128, 38, 30], [0, -84, 30, 22]].forEach(([dx, dy, rx, ry], i) => sh(blob(x + dx * s, y + dy * s, rx * s, ry * s, 0.12, 16), L[i % 3], 3));
+  };
+  K.barn = (x, y, s) => {
+    K.rect(x - 46 * s, y - 52 * s, x + 46 * s, y, '#C8584A', 3.2);
+    K.poly([[x - 58 * s, y - 50 * s], [x, y - 94 * s], [x + 58 * s, y - 50 * s]], '#7A5A48', 3.2);
+    K.rect(x - 16 * s, y - 34 * s, x + 16 * s, y, '#F6E7CF', 2.6);
+    ln([[x - 16 * s, y - 34 * s], [x + 16 * s, y]], '#C8584A', 2.6); ln([[x + 16 * s, y - 34 * s], [x - 16 * s, y]], '#C8584A', 2.6);
+  };
+  K.heart = (x, y, s, col) => { const p = []; for (let i = 0; i < 20; i++) { const t = i / 20 * Math.PI * 2; p.push([x + 16 * Math.pow(Math.sin(t), 3) * s * 0.5, y - (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) * s * 0.5]); } sh(p, col || '#F27D8C', 2.4); };
+  K.sparkle = (x, y, s, col) => { ln([[x - 9 * s, y], [x + 9 * s, y]], col || '#F2B33A', 3 * s); ln([[x, y - 9 * s], [x, y + 9 * s]], col || '#F2B33A', 3 * s); };
+  K.text = (x, y, t, size, col) => { g.save(); g.font = `700 ${size}px 'Klee One', 'Kiwi Maru', 'Hiragino Maru Gothic ProN', sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.lineWidth = 6; g.strokeStyle = 'rgba(255,253,245,.9)'; g.strokeText(t, x, y); g.fillStyle = col || ink; g.fillText(t, x, y); g.restore(); };
+  // 鶏：x,y は足もと。o.col 体の色、o.flip 左向き、o.peck 下をつつく、o.sit すわる
+  K.hen = (x, y, s, o) => {
+    o = o || {}; const f = o.flip ? -1 : 1, X = (d) => x + d * s * f, Y = (d) => y + d * s, col = o.col || '#FFFFFF', dark = o.dark || pcCol(col, -0.12);
+    if (!o.sit) { ln([[X(-8), Y(-20)], [X(-10), Y(0)], [X(-17), Y(2)]], '#E39A2E', 3.6 * s); ln([[X(8), Y(-20)], [X(10), Y(0)], [X(3), Y(2)]], '#E39A2E', 3.6 * s); }
+    const by = o.sit ? -26 : -40;
+    sh([[X(-28), Y(by - 4)], [X(-50), Y(by - 36)], [X(-40), Y(by - 2)], [X(-48), Y(by - 20)], [X(-26), Y(by + 10)]], o.tail || dark, 3 * s);
+    sh(blob(X(-4), Y(by), 36 * s, 25 * s), col, 3.2 * s);
+    ln([[X(-20), Y(by - 4)], [X(-6), Y(by + 10)], [X(12), Y(by - 2)]], dark, 3 * s);
+    const hx = X(o.peck ? 34 : 24), hy = Y(o.peck ? by + 26 : by - 26);
+    for (let i = 0; i < 3; i++) dot(hx + (i - 1.4) * 6 * s * f, hy - 15 * s - (i === 1 ? 3 : 0) * s, 6 * s, '#E2483C');
+    sh(blob(hx, hy, 16 * s, 15 * s, 0.05, 14), col, 3 * s);
+    sh([[hx + 13 * s * f, hy - 3 * s], [hx + 27 * s * f, hy + 2 * s], [hx + 13 * s * f, hy + 6 * s]], '#F2A93B', 2.4 * s);
+    sh(blob(hx + 10 * s * f, hy + 14 * s, 4 * s, 6 * s, 0.1, 10), '#E2483C', 2 * s);
+    K.face(hx + 4 * s * f, hy - 3 * s, s * 0.9, { bx: -3 * f });
+  };
+  // 野鶏（祖先）：すらっとして、赤と緑の羽
+  K.yakei = (x, y, s, o) => K.hen(x, y, s, Object.assign({ col: '#D9783A', dark: '#A8502A', tail: '#2F6B4A' }, o || {}));
+  K.pig = (x, y, s, o) => {
+    o = o || {}; const f = o.flip ? -1 : 1, X = (d) => x + d * s * f, Y = (d) => y + d * s, col = '#F6BFB5';
+    [[-34, 0], [-18, 2], [18, 2], [34, 0]].forEach(([d]) => sh([[X(d - 6), Y(-24)], [X(d - 6), Y(0)], [X(d + 6), Y(0)], [X(d + 6), Y(-24)]], col, 2.6 * s));
+    ln([[X(-52), Y(-44)], [X(-62), Y(-50)], [X(-58), Y(-60)], [X(-50), Y(-54)]], '#E8958A', 3 * s);
+    sh(blob(X(-6), Y(-44), 54 * s, 32 * s), col, 3.2 * s);
+    const hx = X(44), hy = Y(o.sleep ? -36 : -48);
+    sh([[hx - 22 * s * f, hy - 18 * s], [hx - 12 * s * f, hy - 44 * s], [hx - 2 * s * f, hy - 22 * s]], '#F0A69B', 2.6 * s);
+    sh(blob(hx, hy, 28 * s, 26 * s, 0.05, 16), col, 3 * s);
+    sh(blob(hx + 18 * s * f, hy + 6 * s, 11 * s, 9 * s, 0.06, 12), '#F09A92', 2.6 * s); dot(hx + 15 * s * f, hy + 6 * s, 2.4 * s); dot(hx + 22 * s * f, hy + 6 * s, 2.4 * s);
+    K.face(hx - 2 * s * f, hy - 8 * s, s, { sleep: o.sleep, bx: -4 * f });
+  };
+  K.cow = (x, y, s, o) => {
+    o = o || {}; const f = o.flip ? -1 : 1, X = (d) => x + d * s * f, Y = (d) => y + d * s;
+    [[-50], [-30], [30], [50]].forEach(([d]) => { sh([[X(d - 7), Y(-40)], [X(d - 7), Y(0)], [X(d + 7), Y(0)], [X(d + 7), Y(-40)]], '#FFFFFF', 2.8 * s); dot(X(d), Y(-3), 6 * s, '#4A3B32'); });
+    ln([[X(-70), Y(-70)], [X(-80), Y(-40)]], ink, 3 * s); dot(X(-80), Y(-38), 6 * s, '#4A3B32');
+    const body = blob(X(-4), Y(-66), 72 * s, 36 * s, 0.04, 20); sh(body, '#FFFFFF', 3.2 * s);
+    g.save(); cyPath(g, body, true); g.clip(); [[-36, -80, 20, 14], [10, -60, 18, 16], [38, -86, 14, 10]].forEach(([dx, dy, rx, ry]) => cyFill(g, rnd, blob(X(dx), Y(dy), rx * s, ry * s, 0.2, 12), '#3E3532')); g.restore();
+    const hx = X(76), hy = Y(o.down ? -40 : -84);
+    sh(blob(hx - 26 * s * f, hy - 18 * s, 12 * s, 6 * s, 0.1, 10), '#FFFFFF', 2.6 * s); sh(blob(hx + 26 * s * f, hy - 18 * s, 12 * s, 6 * s, 0.1, 10), '#FFFFFF', 2.6 * s);
+    ln([[hx - 12 * s, hy - 28 * s], [hx - 16 * s, hy - 40 * s]], '#E8D6A8', 4 * s); ln([[hx + 12 * s, hy - 28 * s], [hx + 16 * s, hy - 40 * s]], '#E8D6A8', 4 * s);
+    sh(blob(hx, hy, 24 * s, 28 * s, 0.04, 16), '#FFFFFF', 3 * s);
+    cyFill(g, rnd, blob(hx - 6 * s * f, hy - 14 * s, 9 * s, 8 * s, 0.2, 10), '#3E3532');
+    sh(blob(hx, hy + 18 * s, 18 * s, 11 * s, 0.05, 12), '#F5B8B0', 2.6 * s); dot(hx - 6 * s, hy + 18 * s, 2.4 * s); dot(hx + 6 * s, hy + 18 * s, 2.4 * s);
+    K.face(hx - 9 * s, hy - 2 * s, s * 0.95, { blush: false }); K.face(hx + 9 * s, hy - 2 * s, s * 0.95);
+  };
+  K.fox = (x, y, s, o) => {
+    o = o || {}; const f = o.flip ? -1 : 1, X = (d) => x + d * s * f, Y = (d) => y + d * s;
+    sh([[X(-14), Y(-10)], [X(-50), Y(-30)], [X(-60), Y(-6)], [X(-20), Y(0)]], '#E8873A', 2.6 * s); dot(X(-56), Y(-14), 6 * s, '#FFF6E6');
+    sh(blob(X(0), Y(-30), 22 * s, 30 * s, 0.05, 16), '#E8873A', 3 * s); sh(blob(X(4), Y(-28), 11 * s, 18 * s, 0.1, 12), '#FFF6E6', 2 * s);
+    const hx = X(2), hy = Y(-70);
+    sh([[hx - 18 * s, hy - 6 * s], [hx - 16 * s, hy - 32 * s], [hx - 4 * s, hy - 14 * s]], '#E8873A', 2.6 * s); sh([[hx + 18 * s, hy - 6 * s], [hx + 16 * s, hy - 32 * s], [hx + 4 * s, hy - 14 * s]], '#E8873A', 2.6 * s);
+    sh([[hx - 22 * s, hy - 8 * s], [hx + 22 * s, hy - 8 * s], [hx, hy + 22 * s]], '#E8873A', 3 * s); sh([[hx - 10 * s, hy + 6 * s], [hx + 10 * s, hy + 6 * s], [hx, hy + 22 * s]], '#FFF6E6', 2 * s); dot(hx, hy + 20 * s, 3 * s);
+    K.face(hx - 8 * s, hy - 2 * s, s * 0.8, { sleep: true, blush: false }); K.face(hx + 12 * s, hy - 2 * s, s * 0.8, { sleep: true });
+  };
+  K.cat = (x, y, s) => {
+    sh(blob(x, y - 18 * s, 40 * s, 20 * s, 0.05, 16), '#F2B66A', 3 * s);
+    ln([[x + 36 * s, y - 12 * s], [x + 52 * s, y - 4 * s], [x + 30 * s, y - 2 * s]], '#E39A4A', 4 * s);
+    const hx = x - 34 * s, hy = y - 26 * s;
+    sh([[hx - 14 * s, hy - 6 * s], [hx - 12 * s, hy - 26 * s], [hx - 2 * s, hy - 14 * s]], '#F2B66A', 2.4 * s); sh([[hx + 14 * s, hy - 6 * s], [hx + 12 * s, hy - 26 * s], [hx + 2 * s, hy - 14 * s]], '#F2B66A', 2.4 * s);
+    sh(blob(hx, hy, 17 * s, 15 * s, 0.05, 14), '#F2B66A', 3 * s); K.face(hx - 6 * s, hy, s * 0.8, { sleep: true }); K.face(hx + 8 * s, hy, s * 0.8, { sleep: true, blush: false });
+  };
+  // 人：x,y は足もと。o.top 服、o.hair 髪、o.pose：stand・wave・crouch・tiptoe・reach
+  K.person = (x, y, s, o) => {
+    o = o || {}; const p = o.pose || 'stand', f = o.flip ? -1 : 1, X = (d) => x + d * s * f, Y = (d) => y + d * s, skin = '#F5D6BC', top = o.top || '#6FA3C8', pants = o.pants || '#5A6A84';
+    const lo = p === 'crouch' ? 34 : 0, hand = [];
+    if (p === 'crouch') { ln([[X(-10), Y(-46)], [X(-18), Y(-24)], [X(-10), Y(0)]], pants, 9 * s); ln([[X(10), Y(-46)], [X(20), Y(-26)], [X(14), Y(0)]], pants, 9 * s); }
+    else if (p === 'tiptoe') { ln([[X(-8), Y(-56)], [X(-10), Y(-4)]], pants, 9 * s); ln([[X(8), Y(-56)], [X(22), Y(-24)], [X(28), Y(-16)]], pants, 9 * s); }
+    else { ln([[X(-9), Y(-56)], [X(-10), Y(-4)]], pants, 9 * s); ln([[X(9), Y(-56)], [X(10), Y(-4)]], pants, 9 * s); }
+    dot(X(-12), Y(-2), 7 * s, '#6B4A3A'); if (p !== 'tiptoe') dot(X(14), Y(-2), 7 * s, '#6B4A3A'); else dot(X(30), Y(-14), 6 * s, '#6B4A3A');
+    const sy = -60 + lo;
+    sh([[X(-20), Y(sy)], [X(-16), Y(sy - 48)], [X(16), Y(sy - 48)], [X(20), Y(sy)]], top, 3 * s);
+    const arm = (a, b2, c2) => { ln([a, b2, c2], top, 8 * s); dot(c2[0], c2[1], 6 * s, skin); hand.push(c2); };
+    if (p === 'wave') { arm([X(-16), Y(sy - 42)], [X(-28), Y(sy - 22)], [X(-26), Y(sy - 4)]); arm([X(16), Y(sy - 42)], [X(32), Y(sy - 58)], [X(36), Y(sy - 78)]); }
+    else if (p === 'tiptoe') { arm([X(-16), Y(sy - 42)], [X(-36), Y(sy - 40)], [X(-50), Y(sy - 44)]); arm([X(16), Y(sy - 42)], [X(36), Y(sy - 40)], [X(50), Y(sy - 44)]); }
+    else if (p === 'crouch' || p === 'reach') { arm([X(-16), Y(sy - 42)], [X(-24), Y(sy - 20)], [X(-20), Y(sy - 4)]); arm([X(16), Y(sy - 42)], [X(34), Y(sy - 22)], [X(52), Y(sy - (p === 'crouch' ? 2 : 22))]); }
+    else { arm([X(-16), Y(sy - 42)], [X(-24), Y(sy - 20)], [X(-22), Y(sy - 2)]); arm([X(16), Y(sy - 42)], [X(24), Y(sy - 20)], [X(22), Y(sy - 2)]); }
+    const hx = X(0), hy = Y(sy - 72);
+    sh(blob(hx, hy, 23 * s, 23 * s, 0.03, 16), skin, 3 * s);
+    g.save(); cyPath(g, blob(hx, hy, 23 * s, 23 * s, 0.02, 16), true); g.clip(); cyFill(g, rnd, [[hx - 30 * s, hy - 30 * s], [hx + 30 * s, hy - 30 * s], [hx + 30 * s, hy - 8 * s], [hx - 30 * s, hy - 6 * s]], o.hair || '#4A3A30'); g.restore();
+    cyLine(g, rnd, blob(hx, hy, 23 * s, 23 * s, 0.03, 16), ink, 3 * s, true);
+    K.face(hx - 8 * s * f, hy + 2 * s, s * 0.9, { bx: -1 }); K.face(hx + 8 * s * f, hy + 2 * s, s * 0.9, { blush: false });
+    ln([[hx - 5 * s, hy + 11 * s], [hx, hy + 14 * s], [hx + 5 * s, hy + 11 * s]], ink, 2.4 * s);
+    return { hand };
+  };
+  K.egg = (x, y, s, o) => {
+    o = o || {}; const p = blob(x, y, 20 * s, 26 * s, 0.02, 18).map(([px, py]) => [px, py - (py < y ? (y - py) * 0.12 : 0)]);
+    sh(p, o.col || '#F8EEDC', 2.8 * s);
+    if (o.heart) K.heart(x, y + 2 * s, 0.5 * s, '#F27D8C');
+  };
+  K.bubble = (x, y, r) => { cyLine(g, rnd, blob(x, y, r, r, 0.03, 14), '#7FB8D8', 2.6, true); dot(x - r * 0.35, y - r * 0.35, r * 0.18, '#FFFFFF'); };
+  K.finish = () => { pcGrain(g, rnd, 0, 0, W, H, 2600, '#FFFFFF', 0.22, 2.2); pcStrokes(g, rnd, 0, 0, W, H, '#FFFFFF', 70, 26, 1.4, 0.16, rnd() * 3, 3); };
+  return K;
+}
+const KAMI_SCENES = {
+  // ようこそ：みんなで、にこにこ
+  hill(K) {
+    K.bg(); K.sun(572, 58, 30); K.cloud(170, 56, 1); K.cloud(390, 40, 0.7);
+    K.tree(78, 300, 1.35); K.barn(530, 292, 1.05);
+    K.cow(318, 336, 1.12); K.pig(132, 348, 0.9); K.hen(470, 350, 0.95, { flip: true }); K.hen(588, 352, 0.8, { flip: true, col: '#C98A4A' });
+    [[30, 356], [236, 358], [420, 358], [618, 356]].forEach(([x, y], i) => K.flower(x, y, 1.15, ['#F49AB0', '#F7D04A', '#B9A3E3', '#F49AB0'][i]));
+  },
+  // 手を洗いましょう：水と、あわあわ
+  hands(K) {
+    K.bg({ sky: ['#CDE8F2', '#F6F2E4'] });
+    K.rect(200, 36, 380, 62, '#B9C3C8', 3); K.rect(290, 60, 322, 96, '#AEB8BE', 3); K.sh(K.blob(306, 30, 18, 10, 0.1, 10), '#E2483C', 2.6);
+    for (let i = 0; i < 5; i++) K.ln([[298 + i * 4, 100], [294 + i * 5, 170]], '#7FB8D8', 5);
+    const hand = (x, y, flip) => { const f = flip ? -1 : 1; K.sh(K.blob(x, y, 52, 30, 0.06, 16), '#F5D6BC', 3.2); for (let k = 0; k < 4; k++) K.sh(K.blob(x + f * (44 + k * 2), y - 22 + k * 14, 16, 8, 0.06, 10), '#F5D6BC', 2.6); };
+    hand(250, 214, false); hand(362, 226, true);
+    [[196, 170, 16], [404, 168, 20], [430, 230, 14], [176, 248, 13], [300, 268, 11], [340, 186, 10], [262, 176, 9], [452, 184, 9], [150, 200, 9], [220, 280, 12]].forEach(([x, y, r]) => K.bubble(x, y, r));
+    K.rect(130, 300, 480, 340, '#D9E2E6', 3);
+    K.hen(560, 352, 1.1, { flip: true }); K.sparkle(520, 120, 1.2); K.sparkle(90, 110, 1, '#7FB8D8');
+  },
+  // ゆっくり歩こう：そーっと、つま先で
+  steps(K) {
+    K.bg({ sky: ['#F4E6C8', '#F8F2E2'], hills: ['#D6E4B0', '#C2D896', '#AECB80'] });
+    for (let i = 0; i < 5; i++) K.sh(K.blob(40 + i * 50, 340 - (i % 2) * 16, 9, 14, 0.1, 10), '#C9B497', 2.4);
+    K.person(320, 350, 1.4, { pose: 'tiptoe', top: '#E8A04A', hair: '#5A3E2E' });
+    K.pig(540, 350, 1.0, { sleep: true, flip: true });
+    K.text(468, 216, 'z', 38, '#6B7FA6'); K.text(492, 184, 'z', 30, '#6B7FA6'); K.text(512, 158, 'z', 22, '#6B7FA6');
+    K.hen(96, 352, 0.85);
+  },
+  // 食べものは、あげないで：おやつは、その子に合うものを
+  food(K) {
+    K.bg({ sky: ['#E9F2DC', '#F7F2E2'] });
+    const r = K.person(120, 352, 1.3, { pose: 'reach', top: '#D6735A', hair: '#3A2E28' });
+    const [hx, hy] = r.hand[1]; K.sh(K.blob(hx + 14, hy - 12, 24, 20, 0.12, 12), '#E8C089', 3);
+    K.ln([[hx - 14, hy - 44], [hx + 42, hy + 18]], '#E2483C', 7); K.ln([[hx + 42, hy - 44], [hx - 14, hy + 18]], '#E2483C', 7);
+    const s = K.person(540, 352, 1.3, { pose: 'reach', top: '#8C79A8', hair: '#A8A5A0', flip: true });
+    const [bx, by] = s.hand[1]; K.rect(bx - 34, by - 6, bx + 26, by + 22, '#B08D63', 2.8);
+    [[-24, '#F2913A'], [-8, '#7DB35C'], [8, '#F2913A']].forEach(([d, c]) => K.sh(K.blob(bx + d, by - 10, 10, 8, 0.1, 10), c, 2.2));
+    K.pig(330, 354, 0.95); K.heart(420, 150, 1.1, '#F27D8C');
+  },
+  // 近づくのは、動物たちから：しゃがんで、待つ
+  near(K) {
+    K.bg();
+    K.person(170, 350, 1.4, { pose: 'crouch', top: '#5E9E8A', hair: '#4A3A30' });
+    K.hen(370, 354, 1.15, { flip: true }); K.heart(396, 196, 1.1);
+    K.hen(570, 330, 0.75, {}); K.cloud(520, 56, 0.8); K.sun(80, 56, 24);
+    [[470, 356], [626, 350], [30, 356]].forEach(([x, y]) => K.tuft(x, y, 1.4));
+  },
+  // 扉は、閉めてね：キツネから、みんなを守る
+  gate(K) {
+    K.bg({ sky: ['#F7D9B0', '#F8EEDC'] });
+    for (let x = 30; x <= 270; x += 60) K.rect(x - 7, 196, x + 7, 344, '#B08D63', 2.6);
+    for (let y = 214; y <= 330; y += 18) K.ln([[24, y], [282, y]], 'rgba(120,110,100,.55)', 1.8);
+    K.rect(282, 200, 382, 344, '#C9A06A', 3.2); K.ln([[282, 204], [382, 340]], '#8B6244', 5); K.ln([[282, 272], [382, 272]], '#8B6244', 4);
+    K.hen(110, 344, 0.95); K.hen(220, 348, 0.85, { col: '#C98A4A', flip: true });
+    K.person(470, 352, 1.3, { pose: 'reach', top: '#6FA3C8', flip: true }); K.sparkle(392, 236, 1.2);
+    K.sh(K.blob(590, 318, 56, 34, 0.2, 14), '#6E9A50', 3); K.fox(592, 330, 0.85, { flip: true });
+  },
+  // ゆっくり、楽しんでね：お茶を一杯
+  tea(K) {
+    K.bg({ sky: ['#F2E2C6', '#F6ECD8'], noHills: true });
+    K.rect(48, 34, 300, 196, '#BFE0F2', 4); K.g.save(); K.g.beginPath(); K.g.rect(52, 38, 244, 154); K.g.clip(); K.hill(150, 10, '#9CCB7A', 2); K.cow(170, 186, 0.55); K.sun(256, 72, 16); K.g.restore();
+    K.ln([[174, 36], [174, 194]], '#8B6244', 6); K.ln([[50, 116], [298, 116]], '#8B6244', 6);
+    K.rect(-10, 262, 650, 370, '#D9B98A', 2);
+    K.rect(340, 240, 600, 264, '#A87A52', 3); K.rect(360, 262, 376, 300, '#A87A52', 2.6); K.rect(564, 262, 580, 300, '#A87A52', 2.6);
+    K.poly([[430, 240], [440, 196], [494, 196], [504, 240]], '#F4EEE2', 3); K.sh(K.blob(508, 214, 9, 12, 0.1, 10), null, 3);
+    for (let i = 0; i < 3; i++) K.ln([[452 + i * 14, 186], [444 + i * 14, 166], [456 + i * 14, 146], [448 + i * 14, 128]], 'rgba(170,160,150,.8)', 3.4);
+    K.sh(K.blob(556, 236, 26, 7, 0.1, 10), '#F4EEE2', 2.4); K.sh(K.blob(556, 228, 11, 6, 0.1, 8), '#E39A6A', 2);
+    K.sh(K.blob(190, 326, 120, 32, 0.06, 16), '#8C79A8', 3); K.cat(200, 328, 1.25);
+    K.heart(612, 110, 1, '#F27D8C');
+  },
+  // 卵の絵：この卵は、無精卵
+  'egg-mujousei'(K) {
+    K.bg({ sky: ['#F7E9C8', '#FBF4E4'] });
+    K.sh(K.blob(300, 336, 150, 30, 0.12, 18), '#E8C873', 3); for (let i = 0; i < 18; i++) K.ln([[170 + i * 15, 328 + (i % 3) * 6], [184 + i * 15, 316 + (i % 2) * 8]], '#C9A04A', 2.6);
+    K.hen(290, 334, 1.35, { sit: true });
+    K.hen(86, 352, 0.9, { col: '#C98A4A' }); K.hen(570, 352, 0.9, { flip: true });
+    K.egg(446, 318, 1.5, { heart: true }); K.sun(576, 60, 26);
+  },
+  // みんなで、つついて
+  'egg-together'(K) {
+    K.bg();
+    K.poly([[262, 344], [276, 300], [298, 320], [316, 296], [334, 344]], '#F8EEDC', 3); K.sh(K.blob(300, 348, 40, 11, 0.1, 12), '#F7C84A', 2.6);
+    K.poly([[352, 350], [364, 318], [382, 334], [396, 350]], '#F8EEDC', 2.8);
+    K.hen(160, 356, 1.1, { peck: true }); K.hen(500, 356, 1.1, { peck: true, flip: true, col: '#C98A4A' }); K.hen(330, 268, 0.75, { peck: true });
+    K.sparkle(330, 172, 1.2); K.cloud(130, 64, 0.9); K.cloud(520, 50, 0.6);
+  },
+  // 殻は、骨から
+  'egg-calcium'(K) {
+    K.bg({ sky: ['#E3EEF6', '#F8F4E8'] });
+    K.hen(330, 352, 1.4);
+    const bone = (x, y) => { K.rect(x - 46, y - 8, x + 46, y + 8, '#FFFDF6', 2.8); [[-50, -10], [-50, 10], [50, -10], [50, 10]].forEach(([dx, dy]) => K.sh(K.blob(x + dx, y + dy, 12, 12, 0.05, 10), '#FFFDF6', 2.8)); };
+    bone(540, 196); K.text(540, 150, 'Ca', 40, '#6B7FA6');
+    K.egg(108, 236, 1.8); K.text(108, 156, 'Ca', 40, '#6B7FA6');
+    K.ln([[160, 240], [228, 240]], '#6B7FA6', 5); K.ln([[212, 228], [228, 240], [212, 252]], '#6B7FA6', 5);
+    K.ln([[436, 226], [486, 206]], '#6B7FA6', 5); K.ln([[474, 196], [486, 206], [474, 218]], '#6B7FA6', 5);
+  },
+  // 年に20個と、300個
+  'egg-yakei'(K) {
+    K.bg({ sky: ['#DCEBD0', '#F6F2E0'], hills: ['#A9CF86', '#8DBB6C', '#76A85A'] });
+    K.tree(56, 300, 0.95, ['#5E9A50', '#6EA552', '#4C8444']);
+    K.yakei(170, 352, 1.1); for (let i = 0; i < 3; i++) K.egg(250 + i * 28, 346, 0.62, { col: '#F2E2C2' }); K.text(278, 278, '20', 46, '#3A2E28');
+    K.hen(430, 352, 1.1, { flip: true });
+    for (let row = 0; row < 4; row++) for (let i = 0; i < 6 - row; i++) K.egg(480 + i * 26 + row * 13, 346 - row * 30, 0.6, { col: '#F8EEDC' });
+    K.text(556, 196, '300', 46, '#3A2E28');
+  },
+  // 羽が生えかわる季節
+  'egg-molt'(K) {
+    K.bg({ sky: ['#F6E2C4', '#FAF2E2'], hills: ['#E2C27A', '#D4A860', '#C2924A'] });
+    const leaf = (x, y, c, r) => { K.g.save(); K.g.translate(x, y); K.g.rotate(r); K.sh(K.blob(0, 0, 16, 8, 0.08, 10), c, 2.4); K.g.restore(); };
+    [[60, 80, '#D8693A', 0.4], [580, 120, '#E59A3A', -0.6], [540, 316, '#D8693A', 1], [90, 316, '#E5B03A', -0.3], [250, 60, '#E59A3A', 0.8]].forEach((a) => leaf(...a));
+    K.hen(320, 354, 1.45, { col: '#F1D9B0', dark: '#D9B47A' });
+    const feather = (x, y, r) => { K.g.save(); K.g.translate(x, y); K.g.rotate(r); K.sh([[-5, 26], [-12, 0], [0, -28], [12, 0], [5, 26]], '#FFFDF6', 2.4); K.ln([[0, -24], [0, 30]], '#C9B497', 2.2); K.g.restore(); };
+    feather(470, 130, 0.5); feather(170, 110, -0.4); feather(500, 250, 1.2); feather(140, 230, 0.2); feather(400, 70, -0.9);
+  },
+};
 /* =========================================================
    楽器、座って休む、夜空を見上げる（0.9.44 で ui.js から分けた）
    ========================================================= */
