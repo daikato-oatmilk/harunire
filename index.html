@@ -1285,7 +1285,6 @@ details.ac-fold > .af-body > .ac-facts:first-child { margin-top: 0; }
 .ac-me dd > .unk:first-child { margin-left: 0; }
 .ac-me dd > span { font-family: var(--hand); }
 .ac-know { margin: 8px 0 0; font-size: var(--fs-s); color: var(--ink-3); font-family: var(--hand); }
-.ac-model { margin: 10px 0 0; padding: 6px 10px; font-size: var(--fs-s); color: var(--ink-2); background: var(--paper); border-radius: var(--r-m); border-left: 3px solid #D7A15E; }
 
 /* この丘の、これから：段階のボタンで入れ替える1枚のカード */
 .vs-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin: 0 0 10px; position: relative; }
@@ -1654,7 +1653,7 @@ function petOf(a) { return !!a && a.zone === 'home'; }
 function commCat(a) { return !!a && a.sp === 'cat' && a.zone !== 'home'; }
 /* そらはヤギの庭と牛の牧草地を行き来できる（ももの近く） */
 const ZONE_UNION = { cowgoat: [-46, -4, -12, 12] };
-/* 区画を出て、敷地の中を自由に歩ける子（昼は区画の扉を開けたまま。夜は扉を閉めて、それぞれの小屋で眠る）
+/* 区画を出て、敷地の中を自由に歩ける子（区画の扉は、昼も夜も開けたまま。多くの子は夜は小屋で眠り、夜も歩きたい子は歩く。0.9.48）
    鶏・ウサギ・アヒル・七面鳥は、キツネやカラスが心配なので、今の区画の柵の中で暮らす */
 const ROAM_SP = ['goat', 'sheep', 'pig', 'cow', 'donkey', 'horse'];
 /* 敷地のまわりの二重の柵（段階2から）。外側の柵の形を長方形の組み合わせで書き、内側の柵は1.2m内に
@@ -2198,6 +2197,10 @@ const BEHAVIORS = [
   { key: 'rabTunnel', sp: 'rabbit', st: ['use'], item: ['tunnel'], prio: 6, name: 'もぐる', feel: 'anshin',
     line: 'トンネルにもぐって、顔だけ出しています',
     more: '隠れられる場所があると、ウサギは安心して過ごせます' },
+  // ----- 夜のおさんぽ（0.9.48）：扉は夜も開けたまま -----
+  { key: 'nightStroll', sp: 'hoof', st: ['walk', 'graze', 'look'], cond: ['night'], prio: 10, name: '夜のおさんぽ', feel: 'nonbiri',
+    line: '静かな夜に、ゆっくり歩いています',
+    more: '夜に少し起きて、歩いたり、草を食べたりする子もいます。柵の扉は開けたままなので、行きたい所へ' },
   // ----- ちくわとがんも（0.9.47）。cond: ['duo'] は、そばに相手がいる時 -----
   { key: 'duoSleep', sp: ['dog', 'cat'], st: ['sleep'], cond: ['duo'], prio: 9, name: 'くっついて眠る', feel: 'anshin',
     line: '{friend}と、体をくっつけて眠っています',
@@ -2470,8 +2473,8 @@ const ROSTER = [
     personality: 'あまえんぼう', likes: ['brush'], dislikes: [], age: 3, arrived: '2025-06-06', friend: 'wata', health: '元気',
     stories: ['ふわりは、わたとくものあいだで眠るのが好きです。'] },
   // ちくわとがんも（0.9.47）：はるこさんの家族になった、保護犬と保護猫。2匹は、いつも一緒。家の東どなりの庭と、家の中で暮らす
-  // 2匹には、モデルになった本当の犬と猫がいる（model）。年は、わからない（ageText。age は動きの計算のため）
-  { key: 'chikuwa', sp: 'dog', zone: 'home', name: 'ちくわ', color: 'chikuwa', group: 'home1', minStage: 1, model: true, arrived: '2025-11-02',
+  // 年は、わからない（ageText。age は動きの計算のため）。がんもは、まだ若い（0.9.48：好奇心旺盛に）
+  { key: 'chikuwa', sp: 'dog', zone: 'home', name: 'ちくわ', color: 'chikuwa', group: 'home1', minStage: 1, arrived: '2025-11-02',
     origin: '保護団体から。たくさんの犬がいる、つらい場所から保護されました',
     personality: '人見知り', likes: [], dislikes: [], likeText: 'がんものそば。がんもとの追いかけっこと、青いボール', age: 4, ageText: '年はわかりません', friend: 'ganmo', trust: 1,
     health: '元気。年に一度の狂犬病の予防注射と、混合ワクチン、フィラリアの予防は、近くの動物病院で',
@@ -2479,14 +2482,14 @@ const ROSTER = [
       'しばらくして、子猫のがんもが、同じ家にやってきました。ちくわは、少しずつ、がんもに心をひらいていきました。',
       '今は、がんもと、ずっと一緒。ふざけ合って、追いかけっこをして、くっついて眠ります。',
       '人には、まだ少し慎重です。そばでしゃがんで、横を向いて待っていると、ちくわのほうから、においをかぎに来てくれる日があります。'] },
-  { key: 'ganmo', sp: 'cat', zone: 'home', name: 'がんも', color: 'ganmo', group: 'home1', minStage: 1, model: true, arrived: '2025-11-02',
+  { key: 'ganmo', sp: 'cat', zone: 'home', name: 'がんも', color: 'ganmo', group: 'home1', minStage: 1, arrived: '2025-11-02',
     origin: '保護団体から。子猫の時に保護されました',
-    personality: 'おだやか', likes: [], dislikes: [], likeText: 'ちくわのそば。ちくわとじゃれ合うことと、青いボール', age: 3, ageText: '年はわかりません', friend: 'chikuwa', trust: 3,
+    personality: '好奇心旺盛', likes: [], dislikes: [], likeText: 'ちくわのそば。ちくわとじゃれ合うことと、青いボール', age: 3, ageText: 'まだ若い猫', friend: 'chikuwa', trust: 3,
     health: '元気。不妊・去勢手術ずみ。ワクチンは、近くの動物病院で',
     stories: ['がんもは、子猫の時に保護された猫です。保護された先の家で、ちくわと出会いました。',
       'こわがりのちくわが、がんもには、少しずつ心をひらいていきました。',
       '今は、ちくわと同じくらいか、少し大きいくらい。一緒に遊んで、一緒に休む、大の仲良しです。',
-      '家の猫なので、外へ出るのは、囲いのある庭の中だけ。ちくわと一緒に、庭で日なたぼっこをします。'] },
+      '家の猫なので、外へ出るのは、囲いのある庭の中だけ。まだ若くて、庭の虫にも、転がるボールにも、なんにでも興味しんしんです。'] },
   // 地域猫：はじめから、家のまわりを居場所にしている3匹。受け入れの相談には出てこない（0.9.31）
   { key: 'mikan', sp: 'cat', name: 'みかん', color: 'orange', group: 'cat1', minStage: 1, origin: 'ずっと前から、この家の縁側に（地域猫）',
     personality: 'のんびり', likes: [], dislikes: [], likeText: 'あごの下をなでられること。縁側の日なた', age: 8, arrived: '2023-05-10', friend: null, trust: 4,
@@ -2634,7 +2637,7 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.47', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.48', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -2642,7 +2645,8 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
-    ['0.9.47', '2026年10月18日', '保護犬のちくわと、保護猫のがんもが、はるこさんの家族になりました（はじめから遊ぶと、5週目に来ます）。家の東どなりに、2匹の庭と、ひさしのある縁側。2匹はいつも一緒で、くっついて眠り、追いかけっこ、じゃれ合い、青いボールで遊びます。ちくわは、人が近づくと体が固まります。横を向いてしゃがみ、じっと待っていると、自分から近づいてくれることも。知識カードを3枚（保護犬と保護猫、こわがりな犬との距離、家の猫は家の中で）。2匹には、モデルになった本当の犬と猫がいます'],
+    ['0.9.48', '2026年10月18日', '牛・ヤギ・羊・豚・ロバ・馬の区画の扉は、夜も開けたままに。多くの子は小屋で眠りますが、夜も歩きたい子は、晴れた夜にときどき起きて、ゆっくり歩いたり草を食べたりします（新しいしぐさ「夜のおさんぽ」）。閉めておくのは、キツネから守る鳥とウサギの庭、検疫の柵、ちくわとがんもの庭、敷地のまわりの柵だけ。がんもは、まだ若い猫なので、性格を「好奇心旺盛」に'],
+    ['0.9.47', '2026年10月18日', '保護犬のちくわと、保護猫のがんもが、はるこさんの家族になりました（はじめから遊ぶと、5週目に来ます）。家の東どなりに、2匹の庭と、ひさしのある縁側。2匹はいつも一緒で、くっついて眠り、追いかけっこ、じゃれ合い、青いボールで遊びます。ちくわは、人が近づくと体が固まります。横を向いてしゃがみ、じっと待っていると、自分から近づいてくれることも。知識カードを3枚（保護犬と保護猫、こわがりな犬との距離、家の猫は家の中で）。'],
     ['0.9.46', '2026年10月18日', 'はじめの10分を軽くしました。見た目はおまかせで始まり、あとからいつでも選べます（はじめの画面の「見た目を選んでから、はじめる」で、先に選ぶこともできます）。はじめの案内は4つ（歩く・見回す・なでる・カード）に。そのあと、はるこさんが自分から話しかけに来てくれて、話したあとに「行動」をひとことだけ。最初の日は、3羽の性格の違いが見えやすくなりました（ごまは靴ひもをつつきに、こむぎは駆けてきて、あずきは少し離れたところから）。設定に「字の大きさ」（ふつう・大きめ）。GitHub 版は、リンクを送った時に題名と絵が出ます。'],
     ['0.9.45', '2026年10月17日', '人の話の2ページ目からも、話している人の顔が出るようになりました（色の丸ではなく）。ベンチの前で少し立ち止まると、そのまま腰を下ろします（「座る」のボタンは増やしていません。タップでも座れます）。鶏やアヒル、七面鳥、うさぎ、猫のそばで立ち止まると、しゃがんで目線を合わせます。しゃがんでいると、小さな動物たちが寄ってきやすくなり、なでたあとも、しゃがんだまま。歩きだすと立ち上がります。池に、季節の生き物を足しました：一年じゅういるカルガモ（5〜6月は親子で）、秋から春まで渡ってくるコガモ、ときどき杭にとまるカワセミ。魚も見えやすくなり、冬は深いところで、じっとしている影が見えます。'],
     ['0.9.44', '2026年10月17日', '画面の見た目をそろえました（遊び方は変わりません）。紙芝居の紙と墨の色にそろっていなかった所を直しました：はじめの画面の札とボタン、お祝いの札、まん丸だった小さな札（紙の角に）、うすい緑の色、白すぎる面。字の大きさ（25通り→10段）、角の丸み、影を、決まった中から選ぶように。中の作りの整理（画面の作りを5つのファイルに分ける、版ごとに書き足していた見た目の指定を部品ごとにまとめる）。'],
@@ -3248,7 +3252,7 @@ const CHAT = {
       ['a:goma', '{@goma}がまた、私の長靴のひもをほどいたの。どこで覚えたのかしら'],
       ['s2+', '頭数を増やすより、今いる子が穏やかに暮らせることを大事にしたいの'],
       ['s2+', '人が増えて、にぎやかになったわね。でも、朝の静かな時間は、今も好き'],
-      ['s2+', '昼のあいだは、柵の扉を開けておくの。みんな、行きたい所へ行けるように。夜は、それぞれの小屋でね'],
+      ['s2+', '柵の扉は、夜も開けたままなの。夜に歩きたい子もいるから。鶏やウサギの庭だけは、キツネが来るから、夕方に閉めるのよ'],
       ['s2+ sp:cow sp:duck', '池はね、アヒルだけのものにしないことにしたの。暑い日は、牛も足をつけに来るのよ'],
       ['s2+ sp:duck', '池のそばのテーブルで、お茶を飲むのが好きなの。アヒルが泳いでくるのを、ぼんやり眺めながらね'],
       ['ms:parking', '車で来る方は、家の東どなりの駐車場にね。柵の外に作ったの。電車やバスで来てくれる方も多いけど'],
@@ -3451,7 +3455,7 @@ const CHAT = {
       ['', '餌の量は、季節と体重で毎月見直してます。表にすると、変化がよく分かるんです'],
       ['', 'ホワイトボードの「今日のひとこと」、毎朝書いてるんです。今日は「水おけは満タン」'],
       ['', '当番表には、休憩もちゃんと書くんです。ひとりでぼーっとする時間も、ここの仕事のうちです'],
-      ['s2+ sp:goat', '朝いちばんに、扉を開けて回るんです。{goat}が、いつもいちばんに飛び出していきます'],
+      ['s2+ sp:goat', '朝いちばんに見回ると、{goat}が、もう小屋の外で待ってるんです。扉は開けたままなので'],
       ['', ['朝の会、短くしたんです。5分だけ', '>何を話すんですか', 'その日、気になる子の名前を言うだけ。それで、みんなの目が向くので']],
       ['rain', '雨の日用の段取り、作ってあります。わらは前の日に多めに運んでおきました'],
       ['winter', '冬の当番表は、水おけの氷割りの係がいちばん人気がないんです。……私がやります'],
@@ -7942,10 +7946,11 @@ function updateDoors(dt) {
   if (P && P.m.root.visible) near.push(P);
   for (const n of ACT.npcs) near.push(n);
   for (const e of ACT.extras) if (!e.away) near.push(e);
-  // 区画を出て歩ける子の扉は、昼のあいだ開けたまま（外へ大きく開いて、柵に沿わせておく）。夜は閉める
-  const dayOpen = G.stage >= 2 && SKY.night < 0.45;
+  // 区画を出て歩ける子の扉は、夜も開けたまま（外へ大きく開いて、柵に沿わせておく。0.9.48）。夜も歩きたい子が、歩けるように
+  // 閉めておくのは、キツネから守る鳥とウサギの小屋の庭、検疫、ちくわとがんもの庭、敷地のまわりの柵だけ（人が通る時に開く）
+  const roamOpen = G.stage >= 2;
   for (const d of W.doors) {
-    const wide = dayOpen && ROAM_SP.includes(d.zone);
+    const wide = roamOpen && ROAM_SP.includes(d.zone);
     if (d.wide === undefined) { d.wide = wide ? 1 : 0; if (wide) { d.open = 1; d.hold = 1.1; d.was = 1; } }
     d.wide += ((wide ? 1 : 0) - d.wide) * Math.min(1, dt * 1.2);
     let want = wide;
@@ -11144,6 +11149,8 @@ function temperOf(e) {
   }
   return e.tm;
 }
+// 夜も歩きたい子か（0.9.48）：その子らしさで、3割ほど。好奇心旺盛な子、いたずら好きな子は少し多め
+function nightWalker(a) { return hash2(a.id, 131) < 0.28 + (a.personality === '好奇心旺盛' || a.personality === 'いたずら好き' ? 0.2 : 0); }
 function dayPhase() { const t = SKY.t; return t < 0.24 || t > 0.8 ? 'night' : t < 0.42 ? 'morning' : t < 0.6 ? 'noon' : t < 0.72 ? 'afternoon' : 'evening'; }
 function wpick(list) { let s = 0; for (const x of list) s += x[1]; let r = Math.random() * s; for (const x of list) { r -= x[1]; if (r <= 0) return x[0]; } return list[list.length - 1][0]; }
 // いてよい場所は、世界を組み直すか週が変わるまで同じ
@@ -11200,6 +11207,15 @@ function animalThink(e) {
   // 夜と雨は小屋へ。夕暮れは、みんな一度にではなく、少しずつ帰っていく
   const night = SKY.night, rain = WS.weather === 'rain', bird = !!SPECIES[sp].bird;
   const home = !quar && (!!a._outHome || (!P.playing && !P.sitting && (night > 0.75 || (G.dayOver && night > 0.15) || (night > 0.25 && Math.random() < 0.5) || (rain && Math.random() < (bird || sp === 'rabbit' ? 0.8 : 0.3)))));
+  // 夜も歩きたい子（0.9.48）：扉は開けたまま。晴れた夜、ときどき起きて、ゆっくり歩いたり、草を食べたりして、また眠る（同じ時に2頭まで）
+  if (home && roam && night > 0.45 && !rain && WS.weather !== 'snow' && nightWalker(a)) {
+    const now = ACT.t || 0, NW = ACT.nightWalk || (ACT.nightWalk = new Map());
+    for (const [k, v] of NW) if (now > v) NW.delete(k);
+    const mine = NW.get(e);
+    if (mine) { const q = pickR(9); e.target = q; e.state = 'walk'; e.timer = rand(6, 10); e.then = Math.random() < 0.6 ? 'graze' : 'look'; e.thenT = rand(5, 10); e.nightOut = true; return; }
+    if (NW.size < 2 && (!e.nwCd || now > e.nwCd) && Math.random() < 0.12) { NW.set(e, now + rand(30, 60)); e.nwCd = now + rand(120, 240); e.atSlot = null; const q = pickR(9); e.target = q; e.state = 'walk'; e.timer = rand(6, 10); e.then = 'graze'; e.thenT = rand(5, 10); e.nightOut = true; return; }
+  }
+  e.nightOut = false;
   if (home) {
     if (goSleep(e)) return;
     const s = shelterFor(a);
@@ -11434,6 +11450,7 @@ function focusAnimal(e, ms) { ACT.focus = e ? { e, until: performance.now() + ms
 function updateAnimals(dt, time) {
   const P = ACT.player;
   let routeBudget = 1; // 歩ける子の道探しは、1コマに1つまで（重くならないように）
+  ACT.t = (ACT.t || 0) + dt; // 動物たちの時計（秒）
   duoFrame(dt, time);
   const train = TRAIN.g && TRAIN.g.visible && Math.abs(TRAIN.x) < 50;
   for (const e of ACT.animals) {
@@ -14125,6 +14142,7 @@ const BEH_COND = {
   rain: () => WS.weather === 'rain',
   swim: (e) => e.a.sp === 'duck' && WS.pond && inPond(e.x, e.z, 0.4),
   moving: (e) => !!e.target,
+  night: (e) => !!e.nightOut && SKY.night > 0.4, // 夜のおさんぽ（0.9.48）
   duo: (e) => petOf(e.a) && !!e.friend && Math.hypot(e.friend.x - e.x, e.friend.z - e.z) < 1.7, // ちくわとがんも（0.9.47）：相手がすぐそばに
   dustOrBath: (e) => e.state === 'dust' || !!(e.item && e.item.id === 'dustbath'),
 };
@@ -15021,7 +15039,7 @@ Object.assign(UI, {
       for (const sp of ANIMAL_ORDER) {
         for (const a of G.animals.filter((x) => x.sp === sp)) {
           const q = a.quarantine && G.turn < a.quarantine, y = yearsSince(a, G.date);
-          h += `<button class="arow" data-act="animal" data-id="${a.id}"><span class="av" style="${avStyle(a)}"></span><span><span class="nm">${esc(a.name)}</span><br><span class="meta">${SPECIES[a.sp].name}・${a.ageText ? '年はわからない' : a.age + '歳'}・${esc(a.personality)}</span></span><span class="tags2">${heartsHtml(a.trust)}${q ? '<span class="pill q">検疫中</span>' : ''}${a.elderly ? '<span class="pill">高齢</span>' : ''}${a.sponsor ? '<span class="pill ok">里親</span>' : ''}${y ? `<span class="pill warn">来てから${y}年</span>` : ''}</span></button>`;
+          h += `<button class="arow" data-act="animal" data-id="${a.id}"><span class="av" style="${avStyle(a)}"></span><span><span class="nm">${esc(a.name)}</span><br><span class="meta">${SPECIES[a.sp].name}・${a.ageText ? esc(a.ageText) : a.age + '歳'}・${esc(a.personality)}</span></span><span class="tags2">${heartsHtml(a.trust)}${q ? '<span class="pill q">検疫中</span>' : ''}${a.elderly ? '<span class="pill">高齢</span>' : ''}${a.sponsor ? '<span class="pill ok">里親</span>' : ''}${y ? `<span class="pill warn">来てから${y}年</span>` : ''}</span></button>`;
         }
       }
       h += '</div></div>';
@@ -15067,7 +15085,6 @@ Object.assign(UI, {
         // 眠る場所（0.9.42）：夜に眠っている所を見ると、わかる
         { const st = !commCat(a) && !q ? sleepText(a) : null; if (st) me += `<dt>眠る場所</dt><dd>${K.sl ? `${esc(st.where)}${st.why ? `<span>${esc(st.why)}</span>` : ''}` : unk('夜に見にいくと、わかります')}</dd>`; }
         me += `<dt>出身</dt><dd>${esc(a.origin)}</dd></dl>`;
-        if (a.model) me += '<p class="ac-model">ちくわとがんもには、モデルになった本当の犬と猫がいます。2匹は今も、一緒に暮らしています。</p>'; // ちくわとがんも（0.9.47）
         const hidden = moreLikes || ((a.dislikes || []).length && !K.dis) || (friend && !K.fr) || (!commCat(a) && !K.sl);
         if (hidden && !hk) me += '<p class="ac-know">そばで過ごしたり、仲良くなったりすると、少しずつ書き足されていきます。</p>';
         h += sec('i-paw', 'この子のこと', me, 'ac-me-sec'); }
