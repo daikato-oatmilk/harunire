@@ -1285,6 +1285,7 @@ details.ac-fold > .af-body > .ac-facts:first-child { margin-top: 0; }
 .ac-me dd > .unk:first-child { margin-left: 0; }
 .ac-me dd > span { font-family: var(--hand); }
 .ac-know { margin: 8px 0 0; font-size: var(--fs-s); color: var(--ink-3); font-family: var(--hand); }
+.ac-model { margin: 10px 0 0; padding: 6px 10px; font-size: var(--fs-s); color: var(--ink-2); background: var(--paper); border-radius: var(--r-m); border-left: 3px solid #D7A15E; }
 
 /* この丘の、これから：段階のボタンで入れ替える1枚のカード */
 .vs-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin: 0 0 10px; position: relative; }
@@ -1392,6 +1393,7 @@ select { touch-action: pan-x pan-y; }
     <symbol id="sp-rabbit" viewBox="0 0 24 24"><ellipse cx="14" cy="15.8" rx="6.6" ry="5.4"/><circle cx="17" cy="17" r="4"/><circle cx="8.4" cy="11.4" r="3.6"/><ellipse cx="8.8" cy="4.6" rx="1.4" ry="4" transform="rotate(-8 8.8 4.6)"/><ellipse cx="11.4" cy="5" rx="1.3" ry="3.8" transform="rotate(22 11.4 5)"/><circle cx="21.4" cy="14" r="1.8"/><ellipse cx="9.6" cy="20.2" rx="2.2" ry="1"/></symbol>
     <symbol id="sp-horse" viewBox="0 0 24 24"><rect x="8" y="9" width="12.6" height="6.2" rx="3"/><path d="M9 14h1.4v8H9zM11.3 14h1.4v8h-1.4zM16.8 14h1.4v8h-1.4zM19 14h1.4v8H19z"/><path d="M5.4 3.6 9.2 4.4 11.8 10.6 7.8 12.2z"/><ellipse cx="4.2" cy="6.8" rx="1.9" ry="3.7" transform="rotate(38 4.2 6.8)"/><path d="M6.8 3.6 7.4 1.2 8.2 3.8z"/><path d="M7.4 3 11 3.8 13.2 9.6 11.6 9.8z"/><path d="M20.2 10C23.8 12 23.2 16 22.4 18.2 21.6 15.4 21 13.8 20 12.6z"/></symbol>
     <symbol id="sp-cat" viewBox="0 0 24 24"><ellipse cx="14.2" cy="16.6" rx="6" ry="4.8"/><path d="M6.2 10.4h5.4l1.6 10.8H6.4z"/><circle cx="8.6" cy="8.4" r="3.7"/><path d="M5.1 6.6 5.2 2.4 8 5zM9.2 4.9l2.7-2.5.3 4.1z"/><path d="M18.8 20.4c2.6.4 4.6-.6 5-2.8.2-.8-.9-1.1-1.2-.3-.4 1.4-2 1.9-3.9 1.6z"/></symbol>
+    <symbol id="sp-dog" viewBox="0 0 24 24"><ellipse cx="14.2" cy="16.4" rx="6.2" ry="4.6"/><path d="M6.4 10.8h5.4l1.4 10.4H6.6z"/><circle cx="8.6" cy="8.8" r="3.5"/><path d="M4.6 7.2 3.4 1.8l4.4 3.6zM9.8 5.4l3.8-3.4.2 5z"/><path d="M5.6 9.4 2.4 10.4a1.5 1.5 0 0 0 1.6 1.8l2.2-.8z"/><path d="M19.4 13.4c2.8-.8 4-3.2 3-5.4-.4-.8-1.6-.4-1.4.4.4 1.5-.4 2.9-2.3 3.5z"/></symbol>
     <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M8.8 8.2 12 12l3.2-3.8M12 12v5.2M9.4 13.2h5.2M9.4 15.6h5.2"/></symbol>
     <symbol id="i-hand" viewBox="0 0 24 24"><path d="M8 12.5V6.8a1.4 1.4 0 0 1 2.8 0V11M10.8 10.6V5.4a1.4 1.4 0 0 1 2.8 0V11M13.6 10.8V6.6a1.4 1.4 0 0 1 2.8 0V14c0 3.8-2.4 6-5.6 6-2.3 0-3.7-1.1-4.9-3l-2.1-3.4a1.3 1.3 0 0 1 2.2-1.4L8 14"/></symbol>
     <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3.5h7l4 4V20.5H7z"/><path d="M14 3.5v4h4M9.6 12h5.8M9.6 15.4h5.8"/></symbol>
@@ -1623,10 +1625,13 @@ const SPECIES = {
   // 地域猫：受け入れの相談では来ない。前から、ここを居場所にしている子たち（0.9.31）
   cat: { name: '猫', unit: '匹', stage: 1, min: 1, landHa: 0, landLabel: '家のまわり', care: 1, bird: false, community: true,
     facility: null, facilityLabel: '縁側の猫小屋', note: '地域猫。手術ずみのしるしに、耳の先が桜の花びらの形', card: 'communityCat', speed: 1.25, reach: 1.7 },
+  // 家の犬（0.9.47）：はるこさんの家族になった、保護犬のちくわ。受け入れの相談には出てこない
+  dog: { name: '犬', unit: '匹', stage: 1, min: 1, landHa: 0, landLabel: '家と、囲いのある庭', care: 1, bird: false, pet: true,
+    facility: null, facilityLabel: '家の中と、囲いのある庭', note: '保護犬。家の中と、囲いのある庭で暮らす', card: 'rescuedPair', speed: 1.45, reach: 1.5 },
 };
 const SPECIES_ORDER = ['chicken', 'duck', 'turkey', 'goat', 'sheep', 'pig', 'cow', 'donkey', 'rabbit', 'horse'];
 // 一覧に並べる順（地域猫は、受け入れの相談には出てこないので、いちばん最後に）
-const ANIMAL_ORDER = SPECIES_ORDER.concat(['cat']);
+const ANIMAL_ORDER = SPECIES_ORDER.concat(['cat', 'dog']);
 
 /* 敷地の区画（x: 西- 東+、z: 北- 南+） */
 const ZONES = {
@@ -1641,7 +1646,12 @@ const ZONES = {
   donkey:  { rect: [-24, -5, -30, -15], shelter: [-11, -5.5, -29.5, -25], stage: 3, label: 'ロバの庭' },
   rabbit:  { rect: [-22, -11, 34, 44], shelter: [-21, -16, 35, 39], stage: 3, label: 'ウサギの家' },
   horse:   { rect: [16, 46, -30, -15], shelter: [39, 45, -29.5, -24], stage: 4, label: '馬の牧草地' },
+  // ちくわとがんもの庭（0.9.47）：家の東どなり。西は家の壁。2匹が来てから（stage は world.js の homeSync で 1 に）
+  home:    { rect: [25.8, 31.4, 36.4, 42.6], shelter: [25.9, 27.1, 37.4, 41.6], stage: 99, label: 'ちくわとがんもの庭', pet: true },
 };
+// ちくわとがんも（家の子）か。地域猫と分けるため（0.9.47）
+function petOf(a) { return !!a && a.zone === 'home'; }
+function commCat(a) { return !!a && a.sp === 'cat' && a.zone !== 'home'; }
 /* そらはヤギの庭と牛の牧草地を行き来できる（ももの近く） */
 const ZONE_UNION = { cowgoat: [-46, -4, -12, 12] };
 /* 区画を出て、敷地の中を自由に歩ける子（昼は区画の扉を開けたまま。夜は扉を閉めて、それぞれの小屋で眠る）
@@ -1840,6 +1850,12 @@ const CARDS = {
     src: [['牛の住まい', OS + 'building-a-good-home-for-cows/']] },
   communityCat: { title: '地域猫と、さくら耳', body: '地域猫は、決まった飼い主はいないけれど、地域の人たちが見守って暮らしている猫。これ以上増えないように不妊・去勢の手術をして、元の場所に戻す（TNR）。手術をしたしるしに耳の先を少し切ってあり、その形から「さくら耳」と呼ばれる。ごはんは決まった時間と場所で。食べ残しやトイレの片付けまでが、見守る人たちの約束。外で暮らす猫は、小鳥やトカゲなど小さな野生の生き物を狩ることもあるので、ここでは夜は猫小屋で休めるようにしている。',
     src: [['港区：まちの猫問題（地域猫活動）', 'https://www.city.minato.tokyo.jp/kankyo-machi/kankyo/kogai/cat/']] },
+  rescuedPair: { title: '保護犬と、保護猫', body: '飼い主が世話をしきれないほどの数の動物を飼い、動物の体や暮らし、飼い主の暮らし、まわりの環境が悪くなってしまうことを「多頭飼育問題」という。環境省は、動物のことだけでなく、飼い主の暮らしを支える福祉の人たちと一緒に取り組むためのガイドラインを作っている（2021年）。保護された犬や猫は、保護団体や自治体を通して、新しい家族のもとへ（譲渡）。こわい思いをしてきた子は、新しい暮らしに慣れるまで時間がかかる。無理をせず、ゆっくり見守る。',
+    src: [['環境省：人、動物、地域に向き合う多頭飼育対策ガイドライン', 'https://www.env.go.jp/press/110485.html'], ['環境省：譲渡でつなごう！', 'https://www.env.go.jp/nature/dobutsu/aigo/2_data/pamph/h2809a/pdf/full.pdf']] },
+  shyDog: { title: 'こわがりな犬との距離', body: 'こわい時、犬は逃げずに、その場で体を固くして動かなくなることがある。しっぽを下げる、口のまわりをなめる、そろそろと歩くのも、不安のサイン。近づく時は、こちらから寄っていかずに、犬のほうから来るのを待つ。体を横に向けて、顔をじっと見つめず、上から手をのばさない。安全なら、横を向いてしゃがんでもよい。',
+    src: [['How to interact with a Fearful Dog（オハイオ州立大学 獣医療センター）', 'https://vmc.vet.osu.edu/sites/default/files/documents/fearful%20dog.pdf'], ['Your Dog’s Fear（カリフォルニア大学デービス校 獣医学部）', 'https://www.vetmed.ucdavis.edu/sites/g/files/dgvnsk491/files/inline-files/Your_Dogs_Fear.pdf']] },
+  indoorCat: { title: '家の猫は、家の中で', body: '飼い猫は、家の中で暮らすことがすすめられている。交通事故にあわない、感染症にかかりにくい、ご近所の庭でのトラブルが少ない、などの理由から。保護猫を迎える時にも、完全に室内で飼えることが条件になっていることが多い。地域猫は、もともと外で暮らしてきた猫を、地域の人たちが見守る、別の取り組み。',
+    src: [['長野県：猫の室内飼いのすすめ', 'https://www.pref.nagano.lg.jp/shokusei/kurashi/aigo/aigo/aigo-nekoshitsunai.html'], ['環境省：譲渡でつなごう！', 'https://www.env.go.jp/nature/dobutsu/aigo/2_data/pamph/h2809a/pdf/full.pdf']] },
   slowBlink: { title: '猫のゆっくりまばたき', body: '猫に向かって、目をゆっくり細めてまばたきをすると、猫も目を細め返すことが多い。初めて会う人でも、ゆっくりまばたきをしたあとのほうが、猫が近づいてきやすかった、という研究がある（2020年、英国ポーツマス大学など）。',
     src: [['The role of cat eye narrowing movements in cat-human communication（ポーツマス大学）', 'https://researchportal.port.ac.uk/en/publications/the-role-of-cat-eye-narrowing-movements-in-cat-human-communicatio/']] },
   chickenNight: { title: '鶏は夜、小屋で眠る', body: 'タヌキやハクビシン、キツネなどから守るため、鶏は夜は必ず閉じられる小屋に入れる。小屋は1羽あたり約0.8〜0.9㎡が目安。',
@@ -2182,6 +2198,46 @@ const BEHAVIORS = [
   { key: 'rabTunnel', sp: 'rabbit', st: ['use'], item: ['tunnel'], prio: 6, name: 'もぐる', feel: 'anshin',
     line: 'トンネルにもぐって、顔だけ出しています',
     more: '隠れられる場所があると、ウサギは安心して過ごせます' },
+  // ----- ちくわとがんも（0.9.47）。cond: ['duo'] は、そばに相手がいる時 -----
+  { key: 'duoSleep', sp: ['dog', 'cat'], st: ['sleep'], cond: ['duo'], prio: 9, name: 'くっついて眠る', feel: 'anshin',
+    line: '{friend}と、体をくっつけて眠っています',
+    more: '体を寄せて眠るのは、そばにいて安心できる相手だから。ちくわとがんもは、いつもこうして眠ります' },
+  { key: 'duoRest', sp: ['dog', 'cat'], st: ['rest', 'bask'], cond: ['duo'], prio: 8, name: '並んで休む', feel: 'anshin',
+    line: '{friend}のとなりで、ゆっくり休んでいます',
+    more: '一緒に遊んで、一緒に休む。どちらかが起きると、もう片方も起きてきます' },
+  { key: 'duoChase', sp: ['dog', 'cat'], st: ['play', 'chase'], prio: 9, name: '追いかけっこ', feel: 'muchu',
+    line: '{friend}と、庭をぐるぐる、追いかけっこ',
+    more: '追いかける役と、追いかけられる役を、交代しながら遊びます' },
+  { key: 'dogBow', sp: 'dog', st: ['romp'], prio: 9, name: 'あそぼうのポーズ', feel: 'waku',
+    line: '前足をのばして、おしりを上げました。{friend}を、遊びにさそっています',
+    more: '「プレイバウ」と呼ばれる、遊びにさそうしぐさ。しっぽも、ふっています' },
+  { key: 'catRomp', sp: 'cat', st: ['romp'], prio: 9, name: 'じゃれ合う', feel: 'naka',
+    line: '前足で、{friend}に、ちょんちょん。じゃれ合っています',
+    more: '本気ではない、遊びのじゃれ合い。少しすると、また並んで休みます' },
+  { key: 'duoBall', sp: ['dog', 'cat'], st: ['ball'], prio: 9, name: '青いボール', feel: 'muchu',
+    line: '青いボールを、鼻先で転がしています',
+    more: '転がったボールを、ふたりで追いかけます' },
+  { key: 'duoEat', sp: ['dog', 'cat'], st: ['eat'], cond: ['duo'], prio: 8, name: '並んでごはん', feel: 'nonbiri',
+    line: '{friend}と並んで、ごはんを食べています',
+    more: 'ごはんは、朝と夕方。縁側に、2つの皿を並べて' },
+  { key: 'dogFreeze', sp: 'dog', st: ['freeze'], prio: 12, name: '体が固まる', feel: 'fuan',
+    line: '体を低くして、固まっています。動けなくなっているみたい',
+    more: 'こわい時、犬は逃げずに、その場で固まることがあります。近づかずに、しゃがんで、待ってみて', card: 'shyDog' },
+  { key: 'dogHide', sp: 'dog', st: ['hide'], prio: 12, name: 'がんものかげに', feel: 'anshin',
+    line: 'がんものかげから、そっとこちらを見ています',
+    more: 'こわい時は、安心できる相手のそばへ。ちくわにとっては、がんもがその相手です' },
+  { key: 'dogSniff', sp: 'dog', st: ['sniff'], prio: 12, name: 'においをかぐ', feel: 'kyomi',
+    line: '自分から近づいて、あなたのにおいを、そっとかいでいます',
+    more: '手を出さずに、そのままで。ちくわのほうから来てくれた、大切な一歩です' },
+  { key: 'dogWag', hard: 'trust', sp: 'dog', st: ['nearPlayer'], prio: 8, name: 'しっぽをふる', feel: 'ureshi',
+    line: 'しっぽをふって、あなたを見上げています',
+    more: '体の力が抜けて、しっぽが大きくゆれる時は、うれしい時' },
+  { key: 'dogLook', sp: 'dog', st: ['look'], still: true, prio: 4, name: '耳をすます', feel: 'kyomi',
+    line: '大きな耳を、気になる音のほうへ向けています',
+    more: '耳の向きで、何が気になっているのかが、わかります' },
+  { key: 'dogRest', sp: 'dog', st: ['rest', 'sleep'], prio: 4, name: '伏せて休む', feel: 'ochi',
+    line: '前足にあごをのせて、休んでいます',
+    more: 'まわりが静かで、安心している時の休み方' },
   // ----- 猫（地域猫） -----
   { key: 'catLoaf', sp: 'cat', st: ['rest'], name: '香箱座り', feel: 'ochi',
     line: '前足を胸の下にしまって、座っています',
@@ -2413,6 +2469,24 @@ const ROSTER = [
   { key: 'fuwari', sp: 'sheep', name: 'ふわり', color: 'white', group: 'sheep2', minStage: 5, origin: '飼い主が手放した羊',
     personality: 'あまえんぼう', likes: ['brush'], dislikes: [], age: 3, arrived: '2025-06-06', friend: 'wata', health: '元気',
     stories: ['ふわりは、わたとくものあいだで眠るのが好きです。'] },
+  // ちくわとがんも（0.9.47）：はるこさんの家族になった、保護犬と保護猫。2匹は、いつも一緒。家の東どなりの庭と、家の中で暮らす
+  // 2匹には、モデルになった本当の犬と猫がいる（model）。年は、わからない（ageText。age は動きの計算のため）
+  { key: 'chikuwa', sp: 'dog', zone: 'home', name: 'ちくわ', color: 'chikuwa', group: 'home1', minStage: 1, model: true, arrived: '2025-11-02',
+    origin: '保護団体から。たくさんの犬がいる、つらい場所から保護されました',
+    personality: '人見知り', likes: [], dislikes: [], likeText: 'がんものそば。がんもとの追いかけっこと、青いボール', age: 4, ageText: '年はわかりません', friend: 'ganmo', trust: 1,
+    health: '元気。年に一度の狂犬病の予防注射と、混合ワクチン、フィラリアの予防は、近くの動物病院で',
+    stories: ['ちくわは、たくさんの犬がいる、つらい場所から保護された犬です。はじめは、ごはんも食べず、人が近づくと、体が固まって動けなくなりました。',
+      'しばらくして、子猫のがんもが、同じ家にやってきました。ちくわは、少しずつ、がんもに心をひらいていきました。',
+      '今は、がんもと、ずっと一緒。ふざけ合って、追いかけっこをして、くっついて眠ります。',
+      '人には、まだ少し慎重です。そばでしゃがんで、横を向いて待っていると、ちくわのほうから、においをかぎに来てくれる日があります。'] },
+  { key: 'ganmo', sp: 'cat', zone: 'home', name: 'がんも', color: 'ganmo', group: 'home1', minStage: 1, model: true, arrived: '2025-11-02',
+    origin: '保護団体から。子猫の時に保護されました',
+    personality: 'おだやか', likes: [], dislikes: [], likeText: 'ちくわのそば。ちくわとじゃれ合うことと、青いボール', age: 3, ageText: '年はわかりません', friend: 'chikuwa', trust: 3,
+    health: '元気。不妊・去勢手術ずみ。ワクチンは、近くの動物病院で',
+    stories: ['がんもは、子猫の時に保護された猫です。保護された先の家で、ちくわと出会いました。',
+      'こわがりのちくわが、がんもには、少しずつ心をひらいていきました。',
+      '今は、ちくわと同じくらいか、少し大きいくらい。一緒に遊んで、一緒に休む、大の仲良しです。',
+      '家の猫なので、外へ出るのは、囲いのある庭の中だけ。ちくわと一緒に、庭で日なたぼっこをします。'] },
   // 地域猫：はじめから、家のまわりを居場所にしている3匹。受け入れの相談には出てこない（0.9.31）
   { key: 'mikan', sp: 'cat', name: 'みかん', color: 'orange', group: 'cat1', minStage: 1, origin: 'ずっと前から、この家の縁側に（地域猫）',
     personality: 'のんびり', likes: [], dislikes: [], likeText: 'あごの下をなでられること。縁側の日なた', age: 8, arrived: '2023-05-10', friend: null, trust: 4,
@@ -2538,6 +2612,8 @@ const FIN = {
     cow: { feed: 25000, bed: 3000, vet: 3000 },
     horse: { feed: 24000, bed: 3000, vet: 6000 },
     cat: { feed: 1500, bed: 200, vet: 800 },     // 地域猫：ごはんの一部は、地域猫の会や近所の人が持ち寄ってくれる
+    dog: { feed: 3000, bed: 300, vet: 2500 },    // ちくわ（0.9.47）：獣医は、年に一度の狂犬病の予防注射・混合ワクチン・フィラリアの予防を、月にならして
+    housecat: { feed: 2500, bed: 300, vet: 1200 }, // がんも（家の猫）
   },
   elderly: 0.4,                         // 高齢の子は、厚い寝床やサプリメントで4割増し
   facility: [0, 10000, 60000, 150000, 250000, 400000], // 段階ごと：光熱・水道、消耗品、保険、修繕
@@ -2558,14 +2634,15 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.46', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.47', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
   aim: ['遊びやすいか、わかりにくい所はないか', 'スマホやパソコンで重くないか、止まらないか', '動物、お金、牛と酪農の話が、楽しく伝わるか'],
-  try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
+  try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.47', '2026年10月18日', '保護犬のちくわと、保護猫のがんもが、はるこさんの家族になりました（はじめから遊ぶと、5週目に来ます）。家の東どなりに、2匹の庭と、ひさしのある縁側。2匹はいつも一緒で、くっついて眠り、追いかけっこ、じゃれ合い、青いボールで遊びます。ちくわは、人が近づくと体が固まります。横を向いてしゃがみ、じっと待っていると、自分から近づいてくれることも。知識カードを3枚（保護犬と保護猫、こわがりな犬との距離、家の猫は家の中で）。2匹には、モデルになった本当の犬と猫がいます'],
     ['0.9.46', '2026年10月18日', 'はじめの10分を軽くしました。見た目はおまかせで始まり、あとからいつでも選べます（はじめの画面の「見た目を選んでから、はじめる」で、先に選ぶこともできます）。はじめの案内は4つ（歩く・見回す・なでる・カード）に。そのあと、はるこさんが自分から話しかけに来てくれて、話したあとに「行動」をひとことだけ。最初の日は、3羽の性格の違いが見えやすくなりました（ごまは靴ひもをつつきに、こむぎは駆けてきて、あずきは少し離れたところから）。設定に「字の大きさ」（ふつう・大きめ）。GitHub 版は、リンクを送った時に題名と絵が出ます。'],
     ['0.9.45', '2026年10月17日', '人の話の2ページ目からも、話している人の顔が出るようになりました（色の丸ではなく）。ベンチの前で少し立ち止まると、そのまま腰を下ろします（「座る」のボタンは増やしていません。タップでも座れます）。鶏やアヒル、七面鳥、うさぎ、猫のそばで立ち止まると、しゃがんで目線を合わせます。しゃがんでいると、小さな動物たちが寄ってきやすくなり、なでたあとも、しゃがんだまま。歩きだすと立ち上がります。池に、季節の生き物を足しました：一年じゅういるカルガモ（5〜6月は親子で）、秋から春まで渡ってくるコガモ、ときどき杭にとまるカワセミ。魚も見えやすくなり、冬は深いところで、じっとしている影が見えます。'],
     ['0.9.44', '2026年10月17日', '画面の見た目をそろえました（遊び方は変わりません）。紙芝居の紙と墨の色にそろっていなかった所を直しました：はじめの画面の札とボタン、お祝いの札、まん丸だった小さな札（紙の角に）、うすい緑の色、白すぎる面。字の大きさ（25通り→10段）、角の丸み、影を、決まった中から選ぶように。中の作りの整理（画面の作りを5つのファイルに分ける、版ごとに書き足していた見た目の指定を部品ごとにまとめる）。'],
@@ -3196,6 +3273,8 @@ const CHAT = {
       ['morning', 'おはよう。朝いちばんのこの子たちの顔、見せたかったの'],
       ['evening', 'もうこんな時間。日曜日って、どうしてこう早いのかしらね'],
       ['a:mikan', '{@mikan}はね、私がここに来る前から、この縁側で昼寝してたの。だから、ここは{@mikan}の家でもあるのよ'],
+      ['a:chikuwa', '{@chikuwa}はね、知らない足音がすると、{@ganmo}のうしろに行くの。{@ganmo}は知らん顔で、毛づくろいしてるけどね'],
+      ['a:ganmo', ['{@chikuwa}と{@ganmo}、今朝も一枚の毛布で寝てたの', '>いつも一緒なんですね', 'そう。どっちが先にくっつくのかは、まだ見たことがないのよ']],
       ['a:monaka', ['{@monaka}が、ゆっくりまばたきしたら、こっちもゆっくり返すの', '>あいさつですか', 'そう。猫どうしの「こわくないよ」なんだって。……返してくれると、うれしいのよね']],
       ['sp:cat', '猫たちのごはんは、朝と夕方に一回ずつ。地域猫の会の人と、当番を決めてるの。食べ終わったら、お皿はすぐ片付けるのが約束'],
       ['npc:yuto', 'ゆうとさんはね、毎朝ノートに何か書いてるの。見せてくれないのよ'],
@@ -3255,6 +3334,7 @@ const CHAT = {
       ['rain sp:donkey', 'ロバの毛も、雨には弱いんです。乾いた土地の生き物なので。屋根の下にいられるようにしてます'],
       ['snow', '雪の上の足あと、見ました？　タヌキです。……夜のあいだに、ぐるっと一周してました'],
       ['a:kurumi', '{@kurumi}がまた柵の結び目をほどいてました。登り台を置いてから、少し減ったんですけどね'],
+      ['a:chikuwa', '{@chikuwa}は、ぼくが近くを通ると、まだ固まります。……だから、通る時は、少し遠回りしてます'],
       ['a:sora', '{@sora}は、最初の1か月、ぼくの前で一度も草を食べなかったんです。……今は、横で食べてくれます'],
       ['a:momo', '{@momo}は、ブラシを見せると、自分から首を出してくれます'],
       ['sp:cow', '牛は一日に、7〜8時間くらい反すうしてます。……あの、口をもぐもぐしてる時間です'],
@@ -3310,6 +3390,7 @@ const CHAT = {
       ['ev:rightsday', '動物の権利の日ですね。治療をどうするかは、いつも「この子にとって、どうか」から考えます'],
       ['ev:foodday', '人の食べものは、動物にあげないでくださいね。玉ねぎやチョコレートは、少しでも毒になることがあります'],
       ['sp:cat', '猫たちのワクチンとノミの薬は、地域猫の会の人と一緒に。……{@monaka}は、キャリーに入ってもらうまでが、いちばん大変です'],
+      ['a:chikuwa', '{@chikuwa}の診察は、{@ganmo}に横にいてもらうんです。そのほうが、体の力が抜けるので'],
       ['sp:pig', '豚は、食べることが大好きなんです。だから量を決めるのは、私たちの役目。あげられない日は、ちょっと心が痛みますけど'],
       ['sp:cow', '牛の足は、毎日見ます。乳をたくさん出すように変えられてきた体は、足に負担がかかりやすいので'],
     ],
@@ -5130,6 +5211,8 @@ function animalVoice(sp, vol, pan, seed) {
     case 'rabbit': for (let i = 0; i < 3; i++) noiseHit({ t: t + i * 0.09, dur: 0.04, peak: 0.07, filter: ['highpass', 3200, 1], dest: out }); break;
     // 猫：小さく「にゃ」。地域猫は、人に向かって短く鳴くくらい（0.9.31）
     case 'cat': tone({ type: 'triangle', f0: 560 * k, f1: 760 * k, t, dur: 0.1, peak: 0.16, filter: ['bandpass', 1300, 2.5], dest: out }); tone({ type: 'triangle', f0: 760 * k, f1: 480 * k, t: t + 0.09, dur: 0.22, peak: 0.14, filter: ['bandpass', 1100, 2.5], dest: out }); break;
+    // 犬（ちくわ。0.9.47）：小さく、短く「わふ」。人見知りなので、めったに鳴かない
+    case 'dog': tone({ type: 'triangle', f0: 620 * k, f1: 880 * k, t, dur: 0.07, peak: 0.12, filter: ['bandpass', 1500, 2], dest: out }); tone({ type: 'triangle', f0: 820 * k, f1: 560 * k, t: t + 0.06, dur: 0.1, peak: 0.1, filter: ['bandpass', 1200, 2], dest: out }); break;
     case 'karugamo': for (let i = 0; i < 3; i++) tone({ type: 'sawtooth', f0: 300 * k, f1: 250 * k, t: t + i * 0.2, dur: 0.14, peak: 0.16, filter: ['bandpass', 900, 5, 700], dest: out }); break;
     case 'hina': for (let i = 0; i < 4; i++) tone({ f0: 3000 * k, f1: 2600 * k, t: t + i * 0.16 + Math.random() * 0.04, dur: 0.07, peak: 0.1, dest: out }); break;
     case 'kogamo': for (let i = 0; i < 2; i++) tone({ f0: 1900 * k, f1: 2300 * k, t: t + i * 0.32, dur: 0.12, peak: 0.12, dest: out }); break; // ピリッ、ピリッ
@@ -5407,7 +5490,7 @@ function modelHouse() {
   const porch = part('box', '#4A5360', 3.4, 0.12, 1.6, 0, 2.55, 3.4, g); porch.rotation.x = 0.18; ROOFS.push(porch);
   for (const x of [-1.5, 1.5]) part('box', WOOD_D, 0.14, 2.3, 0.14, x, 1.4, 4.1, g);
   // エアコンの室外機と物干し（東京の家らしい小物）
-  part('box', '#E9E8E2', 0.95, 0.65, 0.38, 4.0, 0.55, -1.5, g); part('cyl12', '#6A6E70', 0.45, 0.02, 0.45, 4.0, 0.58, -1.3, g).rotation.x = Math.PI / 2;
+  part('box', '#E9E8E2', 0.95, 0.65, 0.38, 2.9, 0.55, -3.0, g); part('cyl12', '#6A6E70', 0.45, 0.02, 0.45, 2.9, 0.58, -3.2, g).rotation.x = Math.PI / 2; // 北の壁（0.9.47：東は、ちくわとがんもの縁側）
   for (const x of [-3.2, -1.2]) part('box', '#9A9A96', 0.08, 1.8, 0.08, x, 0.9, -4.2, g); part('cyl6', '#B8B8B4', 0.05, 2.1, 0.05, -2.2, 1.75, -4.2, g).rotation.z = Math.PI / 2;
   return g;
 }
@@ -5888,8 +5971,118 @@ const AC = {
   // 地域猫：茶トラ、三毛、キジトラ。sak はさくら耳の側（1：左、-1：右）
   cat: { orange: { body: '#E29A50', stripe: '#B9672C', belly: '#F5EDE0', sak: -1 },
          calico: { body: '#F4EFE6', patch: '#DE9548', patch2: '#2F2B28', belly: '#F7F3EC', head: '#F4EFE6', sak: 1 },
-         kiji: { body: '#8A7556', stripe: '#3F3428', belly: '#CDBB9C', sak: 1 } },
+         kiji: { body: '#8A7556', stripe: '#3F3428', belly: '#CDBB9C', sak: 1 },
+         ganmo: { body: '#DE8F3E', stripe: '#C5742F', belly: '#F7E4C2', ruff: '#EFB46C', sak: 0 } }, // がんも（似顔絵だけが使う。体は modelGanmo）
 };
+/* ---------- ちくわ（犬）とがんも（猫）（0.9.47 準備。Daiさんの家の2匹の写真から） ----------
+   どちらも、猫と同じ骨組み（脚4本・頭・しっぽ2つ・目）なので、猫のしぐさ（座る、香箱、丸くなる、まばたき）がそのまま使える
+   毛の長さは、ふさ（細い板）と、ふわふわの玉（面の少ない球）で */
+const DOG_CHIKUWA = { body: '#D7A15E', back: '#CC9453', light: '#EBCD9C', cream: '#F3E2C2', white: '#F7F1E6', fringe: '#E3BC84', earIn: '#E7C2A0', nose: '#1E1A17', eye: '#1B1714' };
+function modelChikuwa() {
+  // ちくわ：ロングコートのチワワ。明るい小麦色、大きく立った耳と耳の飾り毛、まん丸の黒い目、白いくつ下、胸の白い毛、背中に巻いた房のしっぽ
+  const C = DOG_CHIKUWA, NS = { noShadow: true };
+  const root = new THREE.Group(), rig = new THREE.Group(); root.add(rig);
+  const legH = 0.15, W = 0.19, H = 0.19, L = 0.4, legW = 0.045, legs = [];
+  for (const [sx, sz] of [[-1, 1], [1, 1], [-1, -1], [1, -1]]) {
+    const p = new THREE.Group(); p.position.set(sx * (W / 2 - legW * 0.45), legH, sz * (L / 2 - legW * 1.5)); rig.add(p);
+    part('box', sz > 0 ? C.light : C.body, legW, legH * 0.56, legW, 0, -legH * 0.27, 0, p);
+    part('box', C.white, legW * 0.94, legH * 0.5, legW * 0.94, 0, -legH * 0.74, 0, p); // 白いくつ下
+    part('box', C.white, legW * 1.05, 0.022, legW * 1.35, 0, -legH + 0.011, 0.012, p, NS);
+    if (sz > 0) part('box', C.fringe, legW * 0.35, legH * 0.42, 0.045, 0, -legH * 0.3, -legW * 0.75, p, NS); // 前脚のうしろの飾り毛
+    else part('dod', C.cream, legW * 2.2, legH * 0.95, legW * 2.1, -sx * 0.004, -legH * 0.18, -0.012, p, NS); // うしろ脚の、ふわふわのズボン
+    legs.push(p);
+  }
+  const bodyY = legH + H / 2;
+  part('sph', C.body, W, H, L, 0, bodyY, 0, rig);
+  part('sph', C.back, W * 0.78, H * 0.34, L * 0.72, 0, bodyY + H * 0.33, -0.02, rig, NS);
+  part('sph', C.cream, W * 0.84, H * 0.5, L * 0.74, 0, bodyY - H * 0.23, 0.01, rig, NS);
+  for (const sx of [-1, 1]) part('dod', C.light, W * 0.42, H * 0.62, L * 0.72, sx * W * 0.3, bodyY - H * 0.16, 0, rig, NS); // 脇の長い毛
+  for (const sx of [-1, 1]) for (let k = 0; k < 4; k++) { const f = part('box', C.fringe, 0.01, 0.055, 0.05, sx * W * 0.4, bodyY - H * 0.46, -0.1 + k * 0.065, rig, NS); f.rotation.z = sx * 0.25; } // おなかの飾り毛
+  // 首のまわりの、ふわっとした毛と、胸の白い毛
+  part('dod', C.light, W * 1.2, H * 1.02, 0.17, 0, bodyY + 0.025, L * 0.36, rig);
+  part('sph', C.white, W * 0.52, H * 0.72, 0.08, 0, bodyY - 0.015, L * 0.45, rig, NS);
+  part('dod', C.white, W * 0.5, H * 0.7, 0.09, 0, bodyY - H * 0.36, L * 0.4, rig, NS); // 前脚のあいだまで垂れる、胸の白い毛
+  // 頭：りんごのように丸い頭、短い鼻すじ
+  const head = new THREE.Group(); head.position.set(0, bodyY + H * 0.64, L / 2 + 0.012); rig.add(head);
+  part('sph', C.body, 0.2, 0.185, 0.17, 0, 0.024, 0.012, head);
+  part('sph', C.light, 0.13, 0.09, 0.075, 0, -0.028, 0.078, head, NS);
+  part('sph', C.cream, 0.072, 0.054, 0.062, 0, -0.036, 0.108, head); // 短い鼻すじ
+  part('sph', C.nose, 0.027, 0.022, 0.02, 0, -0.026, 0.14, head, NS);
+  part('box', '#6A5442', 0.02, 0.006, 0.01, 0, -0.058, 0.132, head, NS);
+  for (const s of [-1, 1]) part('dod', C.light, 0.08, 0.08, 0.07, s * 0.078, -0.035, 0.028, head, NS); // ほおの毛
+  const eyes = [];
+  for (const s of [-1, 1]) {
+    eyes.push(part('sph', C.eye, 0.047, 0.046, 0.024, s * 0.048, 0.028, 0.088, head, NS)); // まん丸の黒い目
+    eyes.push(part('sph', '#FFFFFF', 0.009, 0.009, 0.004, s * 0.048 + 0.011, 0.04, 0.1, head, NS));
+  }
+  for (const s of [-1, 1]) { // 大きく立った耳。外側のふちから、長い飾り毛が横へ流れる
+    const eg = new THREE.Group(); eg.position.set(s * 0.058, 0.08, -0.004); eg.rotation.set(-0.12, 0, -s * 0.5); head.add(eg);
+    part('dod', C.fringe, 0.155, 0.165, 0.02, s * 0.028, 0.064, -0.012, eg, NS); // 飾り毛：耳のうしろに、ふわっと
+    part('cone4', C.body, 0.11, 0.135, 0.034, 0, 0.066, 0, eg);
+    part('cone4', C.earIn, 0.064, 0.095, 0.02, 0, 0.055, 0.012, eg, NS);
+  }
+  // しっぽ：背中のほうへ巻き上げた、房のしっぽ（飾り毛は下へ垂れる）
+  const tail = new THREE.Group(); tail.position.set(0, bodyY + H * 0.3, -L / 2 + 0.03); rig.add(tail);
+  part('dod', C.body, 0.08, 0.08, 0.17, 0, 0, -0.07, tail);
+  part('dod', C.fringe, 0.05, 0.1, 0.14, 0, -0.045, -0.075, tail, NS); // 垂れる飾り毛
+  const tip = new THREE.Group(); tip.position.set(0, 0, -0.12); tail.add(tip);
+  part('dod', C.light, 0.09, 0.09, 0.16, 0, 0, -0.06, tip);
+  part('dod', C.cream, 0.055, 0.11, 0.14, 0, -0.05, -0.06, tip, NS);
+  return { root, rig, legs, head, tail, tailTip: tip, eyes, bodyY, legLen: legH, halfW: W / 2, kind: 'cat', dog: true, tailBase: 1.35 };
+}
+const CAT_GANMO = { body: '#DE8F3E', dark: '#BF6E2C', light: '#EFB46C', cream: '#F7E4C2', nose: '#E4908C', eye: '#C99A34', pupil: '#2A2016', earIn: '#F1CFAE' };
+function modelGanmo() {
+  // がんも：長い毛の茶トラ。ちくわと同じか、少し大きい。首まわりのたてがみ、ふわふわのズボン、大きな房のしっぽ、耳の先の飾り毛、ピンクの鼻、琥珀色の目
+  const C = CAT_GANMO, NS = { noShadow: true };
+  const root = new THREE.Group(), rig = new THREE.Group(); root.add(rig);
+  const legH = 0.16, W = 0.3, H = 0.29, L = 0.6, legW = 0.075, legs = [];
+  for (const [sx, sz] of [[-1, 1], [1, 1], [-1, -1], [1, -1]]) {
+    const p = new THREE.Group(); p.position.set(sx * (W / 2 - legW * 0.6), legH, sz * (L / 2 - legW * 1.3)); rig.add(p);
+    part('box', C.body, legW, legH, legW, 0, -legH / 2, 0, p);
+    part('dod', sz > 0 ? C.body : C.light, legW * 1.45, legH * 0.85, legW * 1.45, 0, -legH * 0.42, 0, p, NS); // 脚も長い毛で、ふっくら
+    part('box', '#CF8138', legW * 1.3, 0.01, legW * 1.3, 0, -legH * 0.55, 0, p, NS); // 脚のうすいしま
+    part('dod', C.cream, legW * 1.35, 0.05, legW * 1.6, 0, -legH + 0.02, 0.008, p, NS); // 白っぽい足先
+    if (sz < 0) part('dod', C.light, legW * 2.3, legH * 1.25, legW * 2.2, -sx * 0.008, -legH * 0.12, -0.012, p, NS); // ふわふわのズボン
+    else part('dod', C.body, legW * 1.7, legH * 0.62, legW * 1.6, 0, -legH * 0.2, 0, p, NS); // 前脚の上の、長い毛
+    legs.push(p);
+  }
+  const bodyY = legH + H / 2;
+  part('sph', C.body, W, H, L, 0, bodyY, 0, rig);
+  part('dod', C.body, W * 1.05, H * 0.9, L * 0.55, 0, bodyY + 0.01, -0.08, rig, NS); // 長い毛のふくらみ
+  part('sph', C.cream, W * 0.82, H * 0.45, L * 0.7, 0, bodyY - H * 0.27, 0.02, rig, NS);
+  // 首まわりの、たてがみ
+  part('dod', C.light, W * 1.36, H * 1.18, 0.26, 0, bodyY + 0.02, L * 0.32, rig);
+  part('dod', C.cream, W * 0.76, H * 0.82, 0.13, 0, bodyY - 0.03, L * 0.44, rig, NS);
+  // 頭
+  const head = new THREE.Group(); head.position.set(0, bodyY + H * 0.5, L / 2 + 0.005); rig.add(head);
+  part('sph', C.body, 0.26, 0.225, 0.22, 0, 0.02, 0.02, head);
+  for (const s of [-1, 1]) part('dod', C.light, 0.12, 0.11, 0.1, s * 0.1, -0.04, 0.02, head, NS); // ほおの毛
+  part('sph', C.cream, 0.12, 0.075, 0.07, 0, -0.045, 0.11, head);
+  part('box', C.nose, 0.032, 0.022, 0.02, 0, -0.012, 0.146, head, NS);
+  part('box', '#A6705A', 0.022, 0.006, 0.01, 0, -0.06, 0.142, head, NS);
+  for (const dx of [-0.03, 0, 0.03]) { const m = part('box', C.dark, 0.013, 0.006, 0.06, dx, 0.098, 0.06, head, NS); m.rotation.x = -0.55; } // ひたいの「M」のしま（頭に沿わせて）
+  for (const s of [-1, 1]) for (let k = 0; k < 3; k++) { const w = part('box', '#FBF7EE', 0.12, 0.004, 0.004, s * 0.11, -0.04 + k * 0.012, 0.115, head, NS); w.rotation.z = s * (k - 1) * 0.15; } // ひげ
+  const eyes = [];
+  for (const s of [-1, 1]) {
+    eyes.push(part('sph', C.eye, 0.048, 0.04, 0.02, s * 0.058, 0.03, 0.115, head, NS)); // 琥珀色の目
+    eyes.push(part('box', C.pupil, 0.012, 0.034, 0.008, s * 0.058, 0.03, 0.126, head, NS));
+  }
+  for (const s of [-1, 1]) { // 耳：内側の飾り毛と、先の房
+    const eg = new THREE.Group(); eg.position.set(s * 0.07, 0.1, 0.0); eg.rotation.z = -s * 0.22; head.add(eg);
+    part('cone4', C.body, 0.095, 0.115, 0.055, 0, 0.05, 0, eg);
+    part('cone4', C.earIn, 0.055, 0.08, 0.02, 0, 0.04, 0.022, eg, NS);
+    part('cone', C.light, 0.018, 0.055, 0.018, 0, 0.125, 0, eg, NS);
+  }
+  // しっぽ：太い房。先は明るく
+  const tail = new THREE.Group(); tail.position.set(0, bodyY + H * 0.18, -L / 2 + 0.05); rig.add(tail);
+  part('sph', C.body, 0.15, 0.15, 0.3, 0, 0, -0.13, tail);
+  part('sph', '#D3853A', 0.152, 0.152, 0.04, 0, 0, -0.17, tail, NS); // うすいしま
+  const tip = new THREE.Group(); tip.position.set(0, 0, -0.24); tail.add(tip);
+  part('sph', C.body, 0.17, 0.17, 0.26, 0, 0, -0.1, tip);
+  part('sph', C.light, 0.13, 0.13, 0.13, 0, 0, -0.22, tip);
+  for (const a of [0, 2.1, 4.2]) { const t = part('cone3', C.light, 0.04, 0.08, 0.03, Math.sin(a) * 0.075, Math.cos(a) * 0.075, -0.12, tip, NS); t.rotation.z = -a; } // 房の毛先
+  return { root, rig, legs, head, tail, tailTip: tip, eyes, bodyY, legLen: legH, halfW: W / 2, kind: 'cat' };
+}
 function quadBase(o) {
   const root = new THREE.Group(), rig = new THREE.Group(); root.add(rig);
   const legs = [];
@@ -5920,6 +6113,8 @@ const CHICKEN_PAL = {
 function modelChicken(color) { return pcChicken(color); }
 function modelAnimal(sp, color) {
   if (sp === 'chicken') { const c = modelChicken(color); c.sp = sp; return c; }
+  if (sp === 'dog') { const c = modelChikuwa(); c.sp = sp; return c; } // ちくわ（0.9.47）
+  if (sp === 'cat' && color === 'ganmo') { const c = modelGanmo(); c.sp = sp; return c; }
   let a;
   if (sp === 'cow') {
     const c = AC.cow[color] || AC.cow.holstein;
@@ -6663,6 +6858,7 @@ function drawPortrait(sp, color, seed) {
       cyShape(g, rnd, ear, ec, ink, 2.2);
       g.save(); g.globalAlpha = 0.5; cyFill(g, rnd, [[bx - s * 5, cy - 15], [bx + s * 3, tipY + 10], [bx + s * 6, cy - 14]], '#F0A8A8'); g.restore();
     }
+    if (v.ruff) { const R = []; for (let i = 0; i < 22; i++) { const t = i / 22 * Math.PI * 2, r = i % 2 ? 1.18 : 1.36; R.push([cx + Math.cos(t) * 26 * r, cy + 6 + Math.sin(t) * 22 * r]); } cyShape(g, rnd, R, v.ruff, ink, 1.8); } // 長い毛の、首まわり（がんも）
     const head = cyBlob(rnd, cx, cy, 26, 22, 0.08, 18); cyShape(g, rnd, head, v.head || v.body, ink);
     g.save(); cyPath(g, head, true); g.clip();
     if (v.stripe) for (let i = 0; i < 3; i++) cyLine(g, rnd, [[cx - 6 + i * 6, cy - 22], [cx - 5 + i * 5, cy - 12]], v.stripe, 3);
@@ -6674,6 +6870,25 @@ function drawPortrait(sp, color, seed) {
     cyLine(g, rnd, [[cx - 7, cy + 11], [cx - 3.5, cy + 13], [cx, cy + 10]], ink, 1.6); cyLine(g, rnd, [[cx, cy + 10], [cx + 3.5, cy + 13], [cx + 7, cy + 11]], ink, 1.6);
     for (const s of [-1, 1]) for (const dy of [-2, 3]) cyLine(g, rnd, [[cx + s * 10, cy + 7], [cx + s * 28, cy + 4 + dy * 1.3]], ink, 1);
     cheeks(cx, cy + 8, 16);
+  } else if (sp === 'dog') {
+    // ちくわ（ロングコートのチワワ）：飾り毛のついた大きな耳、丸い頭、短い口もと、大きな黒い目、白い胸
+    const cx = 56, cy = 58, body = '#D7A15E', light = '#EBCD9C', cream = '#F3E2C2';
+    cyShape(g, rnd, cyBlob(rnd, cx, cy + 36, 22, 15, 0.14, 14), body, ink); // 体
+    cyFill(g, rnd, cyBlob(rnd, cx, cy + 32, 11, 12, 0.2, 12), '#F7F1E6'); // 胸の白い毛
+    for (const s of [-1, 1]) {
+      const bx = cx + s * 16, ear = [[bx - s * 6, cy - 12], [bx + s * 9, cy - 40], [bx + s * 20, cy - 10]];
+      const fr = []; for (let i = 0; i <= 6; i++) { const t = i / 6; fr.push([bx + s * (9 + 11 * t) + s * (i % 2 ? 5 : 1), cy - 40 + 30 * t]); } // 耳のふちの飾り毛
+      cyShape(g, rnd, ear.concat(fr.slice().reverse().slice(0, 1)), body, ink, 2.2);
+      cyLine(g, rnd, fr, '#E3BC84', 2.4);
+      g.save(); g.globalAlpha = 0.55; cyFill(g, rnd, [[bx - s * 2, cy - 14], [bx + s * 9, cy - 33], [bx + s * 14, cy - 13]], '#E7C2A0'); g.restore();
+    }
+    const head = cyBlob(rnd, cx, cy, 24, 21, 0.08, 18); cyShape(g, rnd, head, body, ink);
+    g.save(); cyPath(g, head, true); g.clip(); cyFill(g, rnd, cyBlob(rnd, cx, cy + 4, 16, 14, 0.15, 12), light); g.restore();
+    cyShape(g, rnd, cyBlob(rnd, cx, cy + 10, 9, 7, 0.12, 12), cream, ink, 1.6); // 口もと
+    cyDot(g, rnd, cx - 10, cy - 1, 3.6, ink); cyDot(g, rnd, cx + 10, cy - 1, 3.6, ink); // 大きな黒い目
+    cyDot(g, rnd, cx - 9, cy - 2.5, 0.9, '#FFFFFF'); cyDot(g, rnd, cx + 11, cy - 2.5, 0.9, '#FFFFFF');
+    cyDot(g, rnd, cx, cy + 7, 2.4, ink); // 鼻
+    cyLine(g, rnd, [[cx - 3, cy + 12], [cx, cy + 13.5], [cx + 3, cy + 12]], ink, 1.4);
   } else {
     cyShape(g, rnd, cyBlob(rnd, 56, 60, 28, 26, 0.1, 16), '#D8D0C0', ink); eyes(56, 56, 10, 2.6); smile(56, 70, 5);
   }
@@ -7351,6 +7566,8 @@ const PENS = [
   { zone: 'donkey', style: 'wood', gates: [['e', -22], ['w', -19]] },
   { zone: 'rabbit', style: 'wire', gates: [['e', 40], ['n', -16]] },
   { zone: 'horse', style: 'wood', gates: [['w', -22], ['s', 31]] },
+  // ちくわとがんもの庭（0.9.47）：西は家の壁なので、柵は北・東・南だけ。猫が越えられない高さの金網
+  { zone: 'home', style: 'wire', gates: [['s', 30]], skip: ['w'], tall: true },
 ];
 
 function disposeTree(o) {
@@ -7416,9 +7633,33 @@ function initWorld() {
 }
 function hasMilestone(id) { return G.milestoneItems.includes(id); }
 
+/* ---- ちくわとがんもの庭（0.9.47）：2匹がいる時だけ、区画になる ---- */
+function homeSync() { ZONES.home.stage = G.animals.some(petOf) ? 1 : 99; }
+// 縁側：家の東の壁（x=25.5）から 1.2m。床の高さ 0.36m。寝床と皿の位置は、actors.js の 2匹の動きも使う
+const ENGAWA = { rect: [25.5, 26.75, 37.3, 41.7], y: 0.36, bed: [[26.12, 38.95], [26.12, 39.55]], bowls: [[26.12, 40.75], [26.12, 41.2]] };
+function modelEngawa() {
+  const g = new THREE.Group(), R = ENGAWA.rect, cx = (R[0] + R[1]) / 2, cz = (R[2] + R[3]) / 2, w = R[1] - R[0], d = R[3] - R[2], y = ENGAWA.y;
+  part('box', WOOD, w, 0.08, d, cx, y - 0.04, cz, g); // 板
+  for (let i = 1; i < 6; i++) part('box', WOOD_D, w * 0.98, 0.012, 0.02, cx, y + 0.002, R[2] + d * i / 6, g, { noShadow: true }); // 板の目
+  part('box', WOOD_D, 0.06, y - 0.06, d, R[1] - 0.05, (y - 0.06) / 2, cz, g); // 縁の下の板
+  for (const z of [R[2] + 0.15, cz, R[3] - 0.15]) part('box', WOOD_D, 0.1, y, 0.1, R[1] - 0.1, y / 2, z, g);
+  // ひさし：細い柱2本と、浅い屋根
+  for (const z of [R[2] + 0.1, R[3] - 0.1]) part('box', WOOD_D, 0.1, 2.1, 0.1, R[1] - 0.05, y + 1.0, z, g);
+  const roof = part('box', '#4A5360', w + 0.45, 0.08, d + 0.5, cx + 0.12, y + 2.12, cz, g); roof.rotation.z = -0.2; ROOFS.push(roof);
+  // 毛布の寝床（2匹で、くっついて眠る）。たたんだ毛布と、やわらかい敷物
+  part('box', '#C9B28C', 0.95, 0.05, 1.25, ENGAWA.bed[0][0], y + 0.025, (ENGAWA.bed[0][1] + ENGAWA.bed[1][1]) / 2, g, { noShadow: true });
+  part('dod', '#E3D3B4', 0.82, 0.1, 1.1, ENGAWA.bed[0][0], y + 0.06, (ENGAWA.bed[0][1] + ENGAWA.bed[1][1]) / 2, g, { noShadow: true });
+  for (let i = 0; i < 3; i++) part('box', '#B5463F', 0.84, 0.012, 0.035, ENGAWA.bed[0][0], y + 0.06, ENGAWA.bed[0][1] - 0.2 + i * 0.4, g, { noShadow: true }); // 毛布の線
+  // ごはんの皿（2つ）と、水の器
+  for (const [x, z] of ENGAWA.bowls) { part('cyl12', '#E8E2D6', 0.2, 0.06, 0.2, x, y + 0.03, z, g); part('cyl12', '#B88A5A', 0.15, 0.02, 0.15, x, y + 0.062, z, g, { noShadow: true }); }
+  part('cyl12', '#DDE6EA', 0.22, 0.07, 0.22, R[0] + 0.25, y + 0.035, R[3] - 0.25, g); part('cyl12', '#A9CFE0', 0.17, 0.02, 0.17, R[0] + 0.25, y + 0.07, R[3] - 0.25, g, { noShadow: true });
+  return g;
+}
+
 /* ---- 全体の組み立て（段階が変わった時、読み込み時） ---- */
 function buildWorld() {
   W.ver = (W.ver || 0) + 1;
+  homeSync();
   WS.stage = G.stage;
   WS.pond = G.stage >= 2; WS.mud = G.stage >= 2; WS.sand = G.stage >= 3;
   WS.stream = G.stage >= 4 || hasMilestone('early_stream') || !!G.flags.stream;
@@ -7456,11 +7697,13 @@ function buildBase() {
   W.house = place('base', modelHouse(), 22, 39.5, 0, [7.6, 7]);
   const mb = new THREE.Group(); part('box', WOOD_D, 0.12, 1.1, 0.12, 0, 0.55, 0, mb); part('box', '#B8483C', 0.5, 0.36, 0.3, 0, 1.2, 0, mb); place('base', mb, 26.5, 46.5);
   // 縁側の猫小屋と、ごはん皿（地域猫。0.9.31）
-  if (G.animals.some((a) => a.sp === 'cat')) {
+  if (G.animals.some(commCat)) {
     place('base', modelSmallHut('#D8B98A', '#7A5A44', 0.95, 0.75, 0.52), CAT_HOUSE[0], CAT_HOUSE[1], 0);
     const mt = new THREE.Group(); part('box', '#C7A69C', 1.6, 0.03, 0.85, 0, 0.015, 0, mt, { noShadow: true }); place('base', mt, CAT_HOUSE[0], CAT_HOUSE[1] + 0.95);
     const bw = new THREE.Group(); for (const dx of [-0.17, 0.17]) { part('cyl12', '#E8E2D6', 0.22, 0.07, 0.22, dx, 0.035, 0, bw); part('cyl12', '#B88A5A', 0.16, 0.02, 0.16, dx, 0.07, 0, bw, { noShadow: true }); } place('base', bw, CAT_BOWL.x, CAT_BOWL.z);
   }
+  // ちくわとがんもの縁側（0.9.47）：家の東の壁に沿った、ひさしのある縁側。毛布の寝床と、ごはんの皿
+  if (G.stage >= ZONES.home.stage) { place('base', modelEngawa(), 0, 0); W.colliders.push(ENGAWA.rect.slice()); W.dryRects.push(ENGAWA.rect.slice()); W.keep.push([28.6, 39.5, 4.2]); }
   // 鶏の庭を眺める古いベンチ（はじめからある。ここでいつでもひと息つける）
   // 座った時のカメラはベンチの後ろ（西）に来るので、後ろには建物を置かない（木も生やさない：buildTrees）
   { const bx = 5.2, bz = 22, ry = benchFacing(bx, bz), bm = modelItem('bench'); place('base', bm, bx, bz, ry); W.benches.push({ sid: 'base-bench', x: bx, z: bz, ry, model: bm }); W.itemCircles['base-bench'] = itemCircles('bench', bx, bz, ry); }
@@ -7526,12 +7769,13 @@ function buildFences() {
     if (G.stage < z.stage) continue;
     let r = z.rect.slice();
     if (pen.zone === 'cow' && WS.extraLand) r[0] = -54;
-    const tall = pen.zone === 'chicken' && hasMilestone('predator_fence');
+    const tall = (pen.zone === 'chicken' && hasMilestone('predator_fence')) || !!pen.tall;
     // 牛とヤギの間の口は、両方の区画がある時だけ
     const openings = (pen.openings || []).filter(() => pen.zone !== 'cow' && pen.zone !== 'goat' ? true : has('cow') && has('goat'));
     const edges = [['n', r[0], r[2], r[1], r[2]], ['e', r[1], r[2], r[1], r[3]], ['s', r[1], r[3], r[0], r[3]], ['w', r[0], r[3], r[0], r[2]]];
     const gaps = W.gaps[pen.zone] = [];
     for (const [side, ax, az, bx, bz] of edges) {
+      if ((pen.skip || []).includes(side)) continue;
       const len = Math.hypot(bx - ax, bz - az), n = Math.max(1, Math.round(len / 2.4));
       const segs = [];
       for (let i = 0; i < n; i++) {
@@ -9590,7 +9834,7 @@ function sleepPlan() {
   if (sig === SLEEP.sig) return SLEEP.plan;
   SLEEP.sig = sig; SLEEP.plan = new Map();
   SHL.outdoor = outdoorSpots();
-  const as = G.animals.filter((a) => a.sp !== 'cat' && !(a.quarantine && G.turn < a.quarantine));
+  const as = G.animals.filter((a) => a.sp !== 'cat' && !petOf(a) && !(a.quarantine && G.turn < a.quarantine));
   const used = new Map(), want = [];
   for (const a of as) {
     const C = sleepCands(a); if (!C.length) continue;
@@ -9632,9 +9876,10 @@ function sleepPlan() {
   }
   return SLEEP.plan;
 }
-function sleepOf(a) { if (!a || a.sp === 'cat') return null; const p = sleepPlan(); return p.get(a.id) || null; }
+function sleepOf(a) { if (!a || a.sp === 'cat' || petOf(a)) return null; const p = sleepPlan(); return p.get(a.id) || null; }
 // カードに書く言葉
 function sleepText(a) {
+  if (petOf(a)) { const f = friendOf(a); return { where: `縁側の毛布の上${f ? `（${f.name}とくっついて）` : ''}`, why: '家の子なので、夜と雨の日は、ひさしのある縁側で' }; } // ちくわとがんも（0.9.47）
   const p = sleepOf(a); if (!p) return null;
   const s = p.spot, where = s.house ? `${s.house.name}の${s.label}` : s.label;
   return { where: p.cross ? `${where}（${p.cross}の隣）` : where, why: sleepWhy(a, Object.assign({}, s, { cross: p.cross })) };
@@ -10220,7 +10465,7 @@ function updatePlayer(dt) {
 }
 /* ---------- しゃがむ（0.9.45）：小さな子（鶏・アヒル・七面鳥・ウサギ・猫）のそばや、その子たちの庭の中で立ち止まると、
    少しして、片ひざをついてしゃがむ。目線が近くなり、カメラも低くなる。歩きだすと立ち上がる。ボタンは出さない ---------- */
-const CROUCH_SP = new Set(['chicken', 'duck', 'turkey', 'rabbit', 'cat']);
+const CROUCH_SP = new Set(['chicken', 'duck', 'turkey', 'rabbit', 'cat', 'dog']);
 function crouchTarget(p) {
   let best = null, bd = 3.2;
   for (const e of ACT.animals) { if (!CROUCH_SP.has(e.a.sp)) continue; const d = Math.hypot(e.x - p.x, e.z - p.z); if (d < bd) { bd = d; best = e; } }
@@ -10574,7 +10819,7 @@ function bondKindOf(e) { const b = (G.bonds || []).find((x) => x.a === e.a.id ||
 function bondFree(o) { return o && !ALONE.has(o.state) && o.state !== 'sleep' && o.state !== 'toRest' && !(o.a.quarantine && G.turn < o.a.quarantine); }
 // 柵の中の子が、昼のあいだ仲良しと外へ。夕方（キツネが出る前）や雨の時は、早めに柵へ戻る。戻る途中は、柵に入るまで「外」
 function updateOut(e) {
-  const a = e.a; if (ROAM.has(a.sp) || a.sp === 'cat') { a._out = false; a._outHome = false; return; }
+  const a = e.a; if (ROAM.has(a.sp) || a.sp === 'cat' || petOf(a)) { a._out = false; a._outHome = false; return; }
   const p = bondEnt(e), q = (x) => x.quarantine && G.turn < x.quarantine;
   const day = G.stage >= 2 && SKY.night < 0.1 && SKY.t > 0.27 && SKY.t < 0.64 && WS.weather !== 'rain' && !G.dayOver;
   // アヒルは、昼のあいだ池で過ごす（池はみんなのもの）。ほかの柵の子は、外を歩ける仲良しといる時だけ
@@ -10584,9 +10829,9 @@ function updateOut(e) {
   a._outHome = a._out && !want;
 }
 // 自分の区画（小屋のある所）。迎えた時や、段階が変わった時は、ここから
-function homeRect(a) { if (a.sp === 'cat') return catRange(); if (a.zoneOverride && ZONE_UNION[a.zoneOverride]) { const u = ZONE_UNION[a.zoneOverride].slice(); if (WS.extraLand) u[0] = -54; return u; } const z = ZONES[a.zone]; if (!z) return [0, 1, 0, 1]; const r = z.rect.slice(); if (a.zone === 'cow' && WS.extraLand) r[0] = -54; return r; }
+function homeRect(a) { if (commCat(a)) return catRange(); if (a.zoneOverride && ZONE_UNION[a.zoneOverride]) { const u = ZONE_UNION[a.zoneOverride].slice(); if (WS.extraLand) u[0] = -54; return u; } const z = ZONES[a.zone]; if (!z) return [0, 1, 0, 1]; const r = z.rect.slice(); if (a.zone === 'cow' && WS.extraLand) r[0] = -54; return r; }
 // 同じ場所で暮らす仲間か（歩ける子どうし、または同じ区画の子どうし）
-function mateOf(e, o) { if (!o || o === e) return false; if (e.a.sp === 'cat' || o.a.sp === 'cat') return e.a.sp === o.a.sp; const ra = roams(e.a), rb = roams(o.a); return ra ? rb : (!rb && o.a.zone === e.a.zone); }
+function mateOf(e, o) { if (!o || o === e) return false; if (petOf(e.a) || petOf(o.a)) return petOf(e.a) && petOf(o.a); if (e.a.sp === 'cat' || o.a.sp === 'cat') return e.a.sp === o.a.sp; const ra = roams(e.a), rb = roams(o.a); return ra ? rb : (!rb && o.a.zone === e.a.zone); }
 // 歩ける子の道探しの格子：人の格子に、敷地の外、小さな動物の区画、検疫の柵、建物のまわりを足してふさぐ
 // open：その区画だけは開けておく（仲良しと外へ出る、柵の中の子のための格子）
 const ANAV = { grids: {}, ver: -1 };
@@ -10620,7 +10865,7 @@ function anavGrid(open) {
   for (let id = 0; id < n * n; id++) if (!g[id] && comp[id] !== best) g[id] = 1;
   ANAV.grids[key] = g; return g;
 }
-function gridOf(a) { return a.sp === 'cat' ? catGrid() : anavGrid(ROAM.has(a.sp) ? null : a.zone); }
+function gridOf(a) { return commCat(a) ? catGrid() : anavGrid(ROAM.has(a.sp) ? null : a.zone); }
 function roamFree(x, z, g) { g = g || anavGrid(); const c = navCellOf(x, z); return !g[c[1] * NAV.n + c[0]] && Math.abs(x) < 55.9 && Math.abs(z) < 55.9; }
 // 歩けない所なら、いちばん近い歩ける所へ
 function roamClamp(x, z, g) {
@@ -10665,7 +10910,7 @@ function penNear(e) {
   return null;
 }
 function zoneRectFor(a) {
-  if (a.sp === 'cat') return catRange();
+  if (commCat(a)) return catRange();
   if (a.quarantine && G.turn < a.quarantine) return QUAR_RECT;
   if (roams(a)) return W.perimBox;
   if (a.zoneOverride && ZONE_UNION[a.zoneOverride] && G.stage >= 2) return ZONE_UNION[a.zoneOverride];
@@ -10676,12 +10921,12 @@ function zoneRectFor(a) {
 }
 /* ---------- 柵の中にいるように：区画、牛舎への通り道、ヤギの庭とつながる口 ----------
    動物は「いてよい場所」（長方形）の中だけを動き、別の場所へは決まった口を通って行く */
-const BODY = { cat: 0.3, chicken: 0.35, duck: 0.4, turkey: 0.5, rabbit: 0.35, goat: 0.75, sheep: 0.8, pig: 0.85, donkey: 1.0, cow: 1.3, horse: 1.4 };
+const BODY = { dog: 0.28, cat: 0.3, chicken: 0.35, duck: 0.4, turkey: 0.5, rabbit: 0.35, goat: 0.75, sheep: 0.8, pig: 0.85, donkey: 1.0, cow: 1.3, horse: 1.4 };
 function bodyOf(a) { return BODY[a.sp] || 0.6; }
 function inset(r, m) { const cx = (r[0] + r[1]) / 2, cz = (r[2] + r[3]) / 2; return [Math.min(cx, r[0] + m), Math.max(cx, r[1] - m), Math.min(cz, r[2] + m), Math.max(cz, r[3] - m)]; }
 function animalAreas(a) {
   const m = bodyOf(a), areas = [], links = [], out = { areas, links, lane: -1 };
-  if (a.sp === 'cat') { out.roam = true; out.cat = true; out.open = null; areas.push(catRange()); return out; }
+  if (commCat(a)) { out.roam = true; out.cat = true; out.open = null; areas.push(catRange()); return out; }
   if (a.quarantine && G.turn < a.quarantine) { areas.push(inset(QUAR_RECT, 0.6)); return out; }
   if (roams(a)) { out.roam = true; out.open = ROAM.has(a.sp) ? null : a.zone; areas.push(W.perimBox); return out; }
   const r = zoneRectFor(a);
@@ -10720,7 +10965,7 @@ function clampToAreas(A, x, z) {
 // 今いる場所から行き先まで、口を通る道すじ（最後が行き先）
 // 小屋の出入りは、入口を通って（0.9.42：中に入れる小屋。前のひらいた小屋も、金網の小屋も）
 function animalRoute(e, target) {
-  if (e.a.sp === 'cat' || typeof SHL === 'undefined' || !SHL.list.length) return animalRoute0(e, target);
+  if (commCat(e.a) || typeof SHL === 'undefined' || !SHL.list.length) return animalRoute0(e, target);
   const hIn = SHL.list.find((h) => inRect(e.x, e.z, h.rect)), hT = SHL.list.find((h) => inRect(target[0], target[1], h.rect));
   if (hIn === hT) return animalRoute0(e, target);
   const pts = []; let sx = e.x, sz = e.z;
@@ -10731,7 +10976,7 @@ function animalRoute(e, target) {
   return pts;
 }
 function animalRoute0(e, target) {
-  if (roams(e.a) || e.a.sp === 'cat') return roamRoute(e, target);
+  if (roams(e.a) || commCat(e.a)) return roamRoute(e, target);
   const A = animalAreas(e.a), t = clampToAreas(A, target[0], target[1]);
   const s0 = areaOf(A, e.x, e.z), s1 = areaOf(A, t[0], t[1]);
   if (s0 < 0 || s1 < 0 || s0 === s1 || !A.links.length) return [t];
@@ -10742,7 +10987,7 @@ function animalRoute0(e, target) {
   pts.push(t); return pts;
 }
 function shelterFor(a) {
-  if (a.sp === 'cat') return [CAT_HOUSE[0] - 1.1, CAT_HOUSE[0] + 1.1, CAT_HOUSE[1] - 0.6, CAT_HOUSE[1] + 1.6];
+  if (commCat(a)) return [CAT_HOUSE[0] - 1.1, CAT_HOUSE[0] + 1.1, CAT_HOUSE[1] - 0.6, CAT_HOUSE[1] + 1.6];
   if (a.quarantine && G.turn < a.quarantine) return [-44.5, -41.5, 39.5, 42.5];
   const z = ZONES[a.zone]; return z ? z.shelter : [0, 1, 0, 1];
 }
@@ -10844,16 +11089,17 @@ function syncAnimals() {
     if (have.has(a.id)) continue;
     const m = modelAnimal(a.sp, a.color);
     if (a.elderly) pcAge(m); // 年老いた子は、しわの寄った紙で
-    const sc = a.age <= 2 && a.sp !== 'chicken' ? 0.85 : 1;
+    const sc = a.age <= 2 && a.sp !== 'chicken' && !petOf(a) ? 0.85 : 1;
     m.root.scale.setScalar(sc * (a.sp === 'chicken' ? 1.05 : 1));
     ACT.layer.add(m.root);
-    const r = roams(a) ? homeRect(a) : zoneRectFor(a), p = a.sp === 'cat' ? catSpawn(a) : randIn(r);
+    const r = roams(a) ? homeRect(a) : zoneRectFor(a), p = commCat(a) ? catSpawn(a) : petOf(a) ? duoSpawn(a) : randIn(r);
     ACT.animals.push({ a, m, x: p[0], z: p[1], heading: rand(0, 6.28), target: null, state: 'idle', timer: rand(0.5, 3), phase: rand(0, 6), kind: 'animal', name: a.name, reach: SPECIES[a.sp].reach, anim: { head: 0, lie: 0, use: 0 }, lastApproach: false });
   }
   // 仲良し：名前のある子は key で、あとから来た2頭は friendId で
   for (const e of ACT.animals) { e.friend = ACT.animals.find((o) => o !== e && ((o.a.key && o.a.key === e.a.friend) || (e.a.friendId && o.a.id === e.a.friendId) || (o.a.friendId && o.a.friendId === e.a.id))) || null; }
+  duoBallSync();
 }
-function reshuffleAnimals() { for (const e of ACT.animals) { const r = roams(e.a) ? homeRect(e.a) : zoneRectFor(e.a), p = e.a.sp === 'cat' ? catSpawn(e.a) : randIn(r); e.x = p[0]; e.z = p[1]; e.target = null; e.state = 'idle'; } }
+function reshuffleAnimals() { for (const e of ACT.animals) { const r = roams(e.a) ? homeRect(e.a) : zoneRectFor(e.a), p = commCat(e.a) ? catSpawn(e.a) : petOf(e.a) ? duoSpawn(e.a) : randIn(r); e.x = p[0]; e.z = p[1]; e.target = null; e.state = 'idle'; } }
 function likesItem(a, id) { return (a.likes || []).includes(id); }
 function dislikesItem(a, id) { return (a.dislikes || []).includes(id); }
 function itemsInRect(r) {
@@ -10922,6 +11168,7 @@ function goSleep(e) {
   e.sleepGo = S; e.atSlot = null; e.target = [S.x, S.z]; e.state = 'toRest'; e.timer = rand(10, 18); return true;
 }
 function animalThink(e) {
+  if (petOf(e.a)) { duoThink(e); return; }
   if (e.a.sp === 'cat') { catThink(e); return; }
   const a = e.a, r = zoneRectFor(a), sp = a.sp, H = SP_HABIT[sp] || {}, T = temperOf(e);
   const P = ACT.player, quar = a.quarantine && G.turn < a.quarantine, prev = e.state, roam = roams(a);
@@ -11172,7 +11419,7 @@ function animalThink(e) {
   if (disliked) { for (let i = 0; i < 6; i++) { const c = pickR(20); if (Math.hypot(c[0] - disliked.x, c[1] - disliked.z) > 6) { t = c; break; } } if (Math.hypot(e.x - disliked.x, e.z - disliked.z) < 8) e.avoidItem = disliked.id; }
   e.target = t; e.state = 'walk'; e.timer = rand(6, 12);
 }
-const ANIMAL_IDLE = new Set(['shoe', 'idle', 'graze', 'rest', 'use', 'eat', 'nearPlayer', 'sleep', 'sky', 'look', 'rub', 'roll', 'dust', 'preen', 'stretch', 'nose', 'bask', 'tug', 'nudge', 'pet', 'alone', 'wade', 'bunt', 'blink']);
+const ANIMAL_IDLE = new Set(['freeze', 'hide', 'sniff', 'romp', 'ball', 'shoe', 'idle', 'graze', 'rest', 'use', 'eat', 'nearPlayer', 'sleep', 'sky', 'look', 'rub', 'roll', 'dust', 'preen', 'stretch', 'nose', 'bask', 'tug', 'nudge', 'pet', 'alone', 'wade', 'bunt', 'blink']);
 // ひとりの時間（向かっている途中も）。ほかの子は、あいさつや、ちょっかいに来ない
 const ALONE = new Set(['alone', 'toAlone']);
 // 見ている子は、しばらくその場に：カードを開いている間、なでに行くあいだ、なでたあとの少しの間（0.9.31）
@@ -11187,16 +11434,18 @@ function focusAnimal(e, ms) { ACT.focus = e ? { e, until: performance.now() + ms
 function updateAnimals(dt, time) {
   const P = ACT.player;
   let routeBudget = 1; // 歩ける子の道探しは、1コマに1つまで（重くならないように）
+  duoFrame(dt, time);
   const train = TRAIN.g && TRAIN.g.visible && Math.abs(TRAIN.x) < 50;
   for (const e of ACT.animals) {
     const a = e.a, sp = SPECIES[a.sp], T = temperOf(e);
     e.timer -= dt;
+    if (petOf(a)) duoTick(e, dt);
     const was = !!a._out; updateOut(e); if (was !== !!a._out) { e.timer = Math.min(e.timer, 0.2); e.wp = null; e.routeFor = null; }
     // 苦手なものの近く、人見知りの時は距離をとる
     const dP = Math.hypot(P.x - e.x, P.z - e.z);
     const need = PERSONALITY[a.personality] !== undefined ? PERSONALITY[a.personality] : 2;
     // 人見知りの子は、なついていないうちは、近くに来られると離れる（立ち止まっていても、すぐそばなら）
-    let shyR = a.personality === '人見知り' ? lerp(3.4, 1.2, clamp(a.trust / 7, 0, 1)) : a.trust < need - 2 ? 2 : 0;
+    let shyR = petOf(a) ? 0 : a.personality === '人見知り' ? lerp(3.4, 1.2, clamp(a.trust / 7, 0, 1)) : a.trust < need - 2 ? 2 : 0;
     { const bq = bondEnt(e); if (shyR && bq && Math.hypot(bq.x - e.x, bq.z - e.z) < 6) shyR *= 0.5; } // 仲良しがそばにいると、人見知りの子も少し落ち着いている
     if (shyR && dP < shyR && (P.moving || dP < shyR * 0.6) && e.state !== 'pet' && e.state !== 'walk' && !P.sitting) { const r = zoneRectFor(a), k = (shyR + 2.5) / (dP || 0.5); e.target = [clamp(P.x + (e.x - P.x) * k, r[0] + 0.6, r[1] - 0.6), clamp(P.z + (e.z - P.z) * k, r[2] + 0.6, r[3] - 0.6)]; e.state = 'walk'; e.timer = 3; e.shyAway = true; }
     // 固まりすぎたら、ばらける：すぐそばに仲間が何羽もいる時は、少し離れた所へ
@@ -11252,6 +11501,9 @@ function updateAnimals(dt, time) {
         else if (e.state === 'toRest') { e.state = 'sleep'; e.timer = rand(6, 12) * (a.sp === 'cat' ? 2.4 : 1); if (e.sleepGo && Math.hypot(e.sleepGo.x - e.x, e.sleepGo.z - e.z) < 0.7) { e.atSlot = e.sleepGo; e.heading = e.sleepGo.h; e.timer = rand(14, 32); } }
         else if (e.state === 'toBunt') { e.state = 'bunt'; e.timer = rand(3, 5); }
         else if (e.state === 'toShoe') { e.state = 'shoe'; e.timer = rand(3.5, 5.5); }
+        else if (e.state === 'toBall') duoKick(e);
+        else if (e.state === 'toSniff') { if (Math.hypot(P.x - e.x, P.z - e.z) < 1.4) { e.state = 'sniff'; e.timer = rand(3.2, 4.2); } else { e.state = 'look'; e.lookAt = [P.x, P.z]; e.timer = rand(2, 4); } } // 柵ごしの時は、見るだけ
+        else if (e.state === 'hide' || e.state === 'freeze') { e.timer = Math.max(e.timer, 1.5); }
         else if (e.state === 'toPlayer') { e.state = 'nearPlayer'; e.timer = rand(4, 8) * T.stay; e.tagAlong = Math.random() < 0.5; }
         else if (e.state === 'toPeek') { e.state = 'look'; e.lookAt = [P.x, P.z]; e.peek = true; e.timer = rand(4, 8); }
         else if (e.state === 'toTug') { e.state = 'tug'; e.timer = rand(3, 6); }
@@ -11291,7 +11543,7 @@ function updateAnimals(dt, time) {
         if (e.state === 'rub' && e.rubH !== undefined) e.heading = e.rubH;
         e.wp = null; e.routeFor = null;
       } else {
-        const mul = e.state === 'play' ? 2.3 : e.state === 'grazeStep' ? 0.35 : e.state === 'toRest' ? 1.2 : e.state === 'follow' ? 1.15 : 1;
+        const mul = e.state === 'play' ? 2.3 : e.state === 'chase' ? 2.2 : e.state === 'toBall' ? 1.7 : e.state === 'toSniff' ? 0.45 : e.state === 'hide' ? 0.8 : e.state === 'grazeStep' ? 0.35 : e.state === 'toRest' ? 1.2 : e.state === 'follow' ? 1.15 : 1;
         const spd = sp.speed * T.spd * mul * (a.elderly ? 0.7 : 1); // 年老いた子は、ゆっくり歩く
         const stepL = Math.min(dn, spd * dt);
         e.x += dx / dn * stepL; e.z += dz / dn * stepL;
@@ -11326,7 +11578,7 @@ function updateAnimals(dt, time) {
     if (e.atSlot) { e.x = e.atSlot.x; e.z = e.atSlot.z; e.heading = e.atSlot.h; }
     if (!sliding && !e.atSlot) for (const o of ACT.animals) {
       if (!mateOf(e, o) || o.atSlot) continue;
-      const dx = e.x - o.x, dz = e.z - o.z, d2 = dx * dx + dz * dz, min = (SPECIES[o.a.sp].reach + sp.reach) * (e.partner === o || e._bond === o ? 0.24 : 0.32);
+      const dx = e.x - o.x, dz = e.z - o.z, d2 = dx * dx + dz * dz, min = petOf(a) ? 0.3 : (SPECIES[o.a.sp].reach + sp.reach) * (e.partner === o || e._bond === o ? 0.24 : 0.32);
       if (d2 < min * min && d2 > 0.0001) { const d = Math.sqrt(d2), push = (min - d) * 0.5; e.x += dx / d * push; e.z += dz / d * push; }
     }
     // いてよい場所の外には出ない（柵を通り抜けない）
@@ -11345,7 +11597,7 @@ function updateAnimals(dt, time) {
     let y = heightAt(e.x, e.z), swim = false;
     if (a.sp === 'duck' && WS.pond && Math.hypot(e.x - POND.x, e.z - POND.z) < POND.r - 0.4) { y = WATER_Y - 0.12; swim = true; }
     // 止まり木や棚の上へ、ぴょんと上がる（降りる時も）
-    { const lt = e.atSlot ? e.atSlot.y : 0; e.lift = (e.lift || 0) + (lt - (e.lift || 0)) * Math.min(1, dt * 7); if (Math.abs(e.lift - lt) < 0.005) e.lift = lt; y += e.lift; }
+    { const lt = e.atSlot ? e.atSlot.y : petOf(a) && inRect(e.x, e.z, ENGAWA.rect) ? ENGAWA.y : 0; e.lift = (e.lift || 0) + (lt - (e.lift || 0)) * Math.min(1, dt * 7); if (Math.abs(e.lift - lt) < 0.005) e.lift = lt; y += e.lift; }
     e.m.root.position.set(e.x, y, e.z); e.m.root.rotation.y = e.heading;
     animAnimal(e, moving, swim, dt, time);
     e.vt = (e.vt === undefined ? rand(4, 30) : e.vt) - dt;
@@ -11356,7 +11608,7 @@ function updateAnimals(dt, time) {
    0.8秒ほどのあいだ、行ったり来たりばかりで前へ進まない時（柵と建物のすき間、仲間どうしの押し合いなど）や、
    歩こうとしているのに少しも進めない時は、まわりの広く空いた所へ、柵をすり抜けてそっとすべらせ、行き先を選び直す */
 const UNSTICK = { n: 0, log: [] };
-const WALKING = new Set(['toShoe', 'toBunt', 'walk', 'toEat', 'toUse', 'toRest', 'toPeek', 'toTug', 'toAlone', 'toNudge', 'toSky', 'toRub', 'toGreet', 'play', 'grazeStep']);
+const WALKING = new Set(['chase', 'toBall', 'toSniff', 'toShoe', 'toBunt', 'walk', 'toEat', 'toUse', 'toRest', 'toPeek', 'toTug', 'toAlone', 'toNudge', 'toSky', 'toRub', 'toGreet', 'play', 'grazeStep']);
 function roomySpot(e, g) {
   const n = NAV.n, k = Math.max(1, Math.ceil(bodyOf(e.a) * 0.8 / NAV.cs)), c = navCellOf(e.x, e.z);
   const ok = (i, j) => { for (let di = -k; di <= k; di++) for (let dj = -k; dj <= k; dj++) { const ii = i + di, jj = j + dj; if (ii < 0 || jj < 0 || ii >= n || jj >= n || g[jj * n + ii]) return false; } return true; };
@@ -11427,6 +11679,10 @@ function animAnimal(e, moving, swim, dt, time) {
   if (st === 'rub' && still) headT = 0.3;
   if (st === 'stretch' && still) headT = -0.4;
   if (st === 'bask' && still) headT = -0.12; // 日なたで、あごを少し上げて
+  // ちくわとがんも（0.9.47）：ボールを鼻で押す、においをかぐ、固まる時はうつむいて
+  if (st === 'ball' && still) headT = 0.6;
+  if (st === 'sniff' && still) headT = 0.3 + Math.sin(time * 11 + e.phase) * 0.07;
+  if (st === 'freeze' && still) headT = 0.26;
   // なでられている：大きな子は首をのばし、小さな子は伏せて目を細める
   if (petting) headT = ['cow', 'horse', 'donkey'].includes(e.a.sp) ? -0.28 + Math.sin(time * 1.2) * 0.05 : m.kind === 'quad' ? 0.05 + Math.sin(time * 1.5) * 0.04 : 0.25;
   if (st === 'tug' && still) headT = 0.35 + Math.sin(time * 6.5 + e.phase) * 0.28; // 柵の結び目を、くわえて引っぱる
@@ -11440,7 +11696,7 @@ function animAnimal(e, moving, swim, dt, time) {
   an.head += (headT - an.head) * Math.min(1, dt * (m.kind === 'bird' ? 14 : 4));
   const yaw = ease('yaw', yawT, st === 'preen' ? 6 : 2.5);
   if (m.head) { m.head.rotation.x = an.head; m.head.rotation.y = yaw; }
-  const play = ease('play', st === 'play' && moving ? 1 : 0, 6);
+  const play = ease('play', (st === 'play' || st === 'chase') && moving ? 1 : 0, 6);
   const swing = moving ? Math.sin(e.phase) * (m.kind === 'bird' ? 0.8 : 0.55) * (1 + play * 0.5) : 0;
   const happy = st === 'nearPlayer' || st === 'nose' || st === 'play' || st === 'use' || st === 'pet' || st === 'nudge';
   if (m.kind === 'quad') {
@@ -11478,8 +11734,10 @@ function animAnimal(e, moving, swim, dt, time) {
     m.rig.rotation.x = st === 'preen' && still ? 0.12 + Math.sin(time * 6) * 0.05 : 0;
   } else if (m.kind === 'cat') {
     // 猫：座る（おすわり）、香箱座り、丸くなる、おなかを見せる、のび、すりすり。しっぽは立てたり、体に巻いたり
-    const sit = ease('sit', still && (st === 'idle' || st === 'look' || st === 'preen' || st === 'nearPlayer' || st === 'blink' || st === 'eat' || (st === 'pet' && !e.petLove)) ? 1 : 0, 4);
-    const belly = ease('belly', st === 'bask' && still ? 1 : 0, 2.2);
+    const sitOn = m.dog ? ['idle', 'look', 'nearPlayer', 'hide', 'blink'].includes(st) || (st === 'pet' && !e.petLove)
+      : (st === 'idle' || st === 'look' || st === 'preen' || st === 'nearPlayer' || st === 'blink' || st === 'eat' || (st === 'romp' && e.rompK !== 'roll') || (st === 'pet' && !e.petLove));
+    const sit = ease('sit', still && sitOn ? 1 : 0, 4);
+    const belly = ease('belly', (st === 'bask' || (st === 'romp' && e.rompK === 'roll' && !m.dog)) && still ? 1 : 0, 2.2);
     const str = ease('str', st === 'stretch' && still ? 1 : 0, 3);
     const bunt = ease('bunt', st === 'bunt' && still ? 1 : 0, 3);
     const lieK = an.lie * (1 - belly);
@@ -11492,7 +11750,9 @@ function animAnimal(e, moving, swim, dt, time) {
     const th = belly * 1.35 * side + Math.sin(time * 2.2 + e.phase) * 0.1 * bunt;
     m.rig.rotation.z = th; m.rig.position.x = Math.sin(th) * (m.bodyY || 0.3);
     m.rig.rotation.x = -0.32 * sit + 0.16 * str;
-    m.rig.position.y = -m.legLen * 0.86 * lieK - 0.04 * sit + ((m.bodyY || 0.3) * Math.cos(th) - (m.bodyY || 0.3)) + (moving ? Math.abs(Math.cos(e.phase)) * 0.025 : 0);
+    m.rig.position.y = -m.legLen * 0.86 * lieK - 0.04 * sit + ((m.bodyY || 0.3) * Math.cos(th) - (m.bodyY || 0.3)) + (moving ? Math.abs(Math.cos(e.phase)) * (0.025 + (st === 'chase' || st === 'play' ? 0.035 : 0)) : 0);
+    // がんも：じゃれ合う時は、前足でちょんちょん（おなかを見せた時は、4本の足で）
+    if (!m.dog && st === 'romp' && still) m.legs.forEach((l, i) => { if (e.rompK === 'roll') l.rotation.x += Math.sin(time * 8 + i * 1.7) * 0.45; else if (i === (side > 0 ? 1 : 0)) { l.rotation.x = -1.25 + Math.sin(time * 9 + e.phase) * 0.4; l.scale.y = 1; } });
     if (m.head) {
       m.head.rotation.x += 0.32 * sit;
       if (st === 'sleep' && still) { m.head.rotation.x = 0.5 * an.lie; m.head.rotation.y = side * 0.95 * an.lie; }
@@ -11501,7 +11761,8 @@ function animAnimal(e, moving, swim, dt, time) {
     }
     const up = ease('tup', ((moving && (st === 'toPlayer' || st === 'toBunt' || e.tailUp)) || st === 'nearPlayer' || st === 'bunt') ? 1 : 0, 3);
     const wrap = ease('wrap', ((an.lie > 0.4 && belly < 0.3) || sit > 0.6) && !moving ? 1 : 0, 2.5);
-    if (m.tail) {
+    if (m.dog) dogPose(e, m, st, still, moving, time, ease, wrap, side);
+    else if (m.tail) {
       m.tail.rotation.x = up * 1.25 + (1 - up) * (-0.22 - wrap * 0.12);
       m.tail.rotation.y = (1 - up) * wrap * side * 1.45 + Math.sin(time * (st === 'look' ? 2.4 : 1.1) + e.phase) * 0.2 * (1 - wrap);
       if (m.tailTip) { m.tailTip.rotation.x = -0.75 * up + (1 - up) * 0.5 * sit * wrap; m.tailTip.rotation.y = (1 - up) * wrap * side * 1.25 + Math.sin(time * 1.7 + e.phase) * 0.25 * (1 - wrap); }
@@ -11516,6 +11777,29 @@ function animAnimal(e, moving, swim, dt, time) {
       const v = ease('eye', ey, st === 'blink' ? 14 : 22); m.eyes.forEach((q) => { if (q.userData.sy === undefined) q.userData.sy = q.scale.y; q.scale.y = q.userData.sy * Math.max(0.08, v); });
     }
   }
+}
+/* ちくわ（0.9.47）：猫の動きの上に、犬らしさを足す。くるっと巻いた尾は背中の上で、うれしい時はふる。
+   こわい時は、体を低くして、尾を下げる（固まる）。「あそぼう」のポーズは、前足をのばして、おしりを上げる */
+function dogPose(e, m, st, still, moving, time, ease, wrap, side) {
+  const fr = ease('fr', st === 'freeze' && still ? 1 : st === 'hide' && still ? 0.55 : 0, 5);
+  const bow = ease('bow', st === 'romp' && still ? 1 : 0, 6);
+  const sniff = ease('sn', st === 'sniff' && still ? 1 : 0, 4);
+  const wag = ease('wag', ['romp', 'play', 'chase', 'nearPlayer', 'toBall', 'ball'].includes(st) || (st === 'pet' && e.petLove) ? 1 : ['walk', 'eat', 'sniff', 'toEat'].includes(st) ? 0.3 : 0, 4) * (1 - fr);
+  if (fr > 0.01) {
+    m.rig.position.y -= 0.05 * fr; m.rig.rotation.x -= 0.08 * fr;
+    m.legs.forEach((l) => { l.scale.y = Math.min(l.scale.y, 1 - 0.32 * fr); });
+    m.rig.position.x += Math.sin(time * 37) * 0.003 * fr; // こまかく、ふるえる
+  }
+  if (bow > 0.01) {
+    m.rig.rotation.x += 0.48 * bow; m.rig.position.y += -0.045 * bow + Math.abs(Math.sin(time * 7 + e.phase)) * 0.02 * bow;
+    m.legs.forEach((l, i) => { if (i < 2) l.rotation.x = l.rotation.x * (1 - bow) - 0.95 * bow; });
+  }
+  if (sniff > 0.01) m.rig.rotation.x += 0.07 * sniff;
+  if (!m.tail) return;
+  const lieTail = wrap * (1 - fr);
+  m.tail.rotation.x = (m.tailBase || 1.3) * (1 - fr) * (1 - lieTail * 0.85) - 0.55 * fr + lieTail * 0.05;
+  m.tail.rotation.y = Math.sin(time * 15 + e.phase) * 0.55 * wag + lieTail * side * 1.1;
+  if (m.tailTip) { m.tailTip.rotation.x = 1.05 * (1 - fr) * (1 - lieTail * 0.6) + 0.15 * fr; m.tailTip.rotation.y = lieTail * side * 0.9; }
 }
 function animalById(id) { return ACT.animals.find((e) => e.a.id === id); }
 
@@ -11642,6 +11926,208 @@ function updateTrain(dt) {
 }
 
 /* =========================================================
+   ちくわとがんも（0.9.47）：保護犬のちくわと、保護猫のがんも。いつも一緒
+   ・眠る時は、縁側の毛布の上で、くっついて。雨や雪の日は、縁側（ひさしの下）で。ごはんは朝と夕方、縁側に並べた皿で
+   ・遊ぶ時は、追いかけっこ、じゃれ合い（ちくわは「あそぼう」のポーズ、がんもは前足でちょんちょん）、青いボール
+   ・ちくわは、人が近づくと体が固まる。がんもがそばにいると、がんものかげへ。固まったちくわのそばへは、がんもが来る
+   ・しゃがんで、じっと待っていると、ちくわのほうから、においをかぎに来てくれることがある（週に一度、信頼が少し）
+   動きの場所は world.js の ZONES.home（庭）と ENGAWA（縁側）。ふつうの動物の動き（actors.js）の上に、この2匹だけの決まりを足す
+   ========================================================= */
+const DUO = { t: 0, mode: null, until: 0, lead: 'ganmo', meal: '', ate: {}, spot: null, ball: null, waitT: 0, calmT: 0, sniffToast: false };
+// 庭の中で、遊んだり休んだりする所（縁側の板の上は除く）
+function duoYard(m) { const r = ZONES.home.rect; m = m === undefined ? 0.6 : m; return [Math.max(r[0], ENGAWA.rect[1]) + m, r[1] - m, r[2] + m, r[3] - m]; }
+function duoPick(R, e) {
+  const y = duoYard();
+  if (!e || !R) return randIn(y, 0.1);
+  for (let k = 0; k < 12; k++) { const x = e.x + rand(-R, R), z = e.z + rand(-R, R); if (inRect(x, z, y) && Math.hypot(x - e.x, z - e.z) > R * 0.5) return [x, z]; }
+  return randIn(y, 0.1);
+}
+function duoWet() { return WS.weather === 'rain' || WS.weather === 'snow'; }
+function duoSpawn(a) {
+  const me = a.key === 'chikuwa' ? 0 : 1;
+  if (SKY.night > 0.4 || duoWet()) { const b = ENGAWA.bed[me]; return [b[0], b[1]]; }
+  return [28.6 + me * 0.45, 39.4 + me * 0.25];
+}
+// ふたりの今の過ごし方（ふたりで同じものを。順番に、ちがう遊びへ）
+function duoPlan() {
+  if (DUO.mode && DUO.t < DUO.until) return DUO.mode;
+  const night = SKY.night > 0.4 || (G.dayOver && SKY.night > 0.15);
+  const meal = SKY.t > 0.27 && SKY.t < 0.38 ? 'm' : SKY.t > 0.63 && SKY.t < 0.74 ? 'e' : null;
+  let m, dur;
+  if (night) { m = 'bed'; dur = 15; }
+  else if (meal && DUO.meal !== G.turn + meal) { DUO.meal = G.turn + meal; DUO.ate = {}; m = 'meal'; dur = 30; }
+  else if (duoWet()) { m = 'porch'; dur = rand(25, 40); }
+  else {
+    const ph = dayPhase(), nap = ph === 'noon' || ph === 'afternoon';
+    m = wpick([['nap', nap ? 0.3 : 0.15], ['chase', nap ? 0.14 : 0.22], ['romp', 0.15], ['ball', 0.16], ['potter', 0.25]]);
+    if (m === DUO.mode && m !== 'potter') m = 'potter'; // 同じ遊びは、続けすぎない
+    dur = m === 'nap' ? rand(45, 80) : m === 'potter' ? rand(18, 30) : m === 'chase' ? rand(14, 22) : rand(12, 18);
+  }
+  if (m !== DUO.mode) { DUO.spot = null; DUO.lead = Math.random() < 0.5 ? 'chikuwa' : 'ganmo'; }
+  DUO.mode = m; DUO.until = DUO.t + dur;
+  return m;
+}
+// お昼寝の場所：庭の日なたか、縁側の毛布。ふたりは横に並んで、同じ向きに
+function duoNapSpot() {
+  if (Math.random() < 0.3) { const b = ENGAWA.bed; return [b[0][0], (b[0][1] + b[1][1]) / 2, Math.PI / 2, true]; }
+  const q = duoPick(); return [q[0], q[1], Math.random() < 0.5 ? Math.PI / 2 : -Math.PI / 2, false];
+}
+function duoThink(e) {
+  const a = e.a, c = a.key === 'chikuwa', o = e.friend, P = ACT.player, prev = e.state;
+  e.lookAt = null; e.partner = null; e.leader = null; e.then = null; e.tailUp = false; e.food = null; e.atSlot = null;
+  const go = (x, z, st, t, then, thenT) => { e.target = clampToAreas(areasOf(e), x, z); e.state = st; e.timer = t; e.then = then || null; e.thenT = thenT; };
+  const near = (x, z, r) => Math.hypot(x - e.x, z - e.z) < (r || 0.3);
+  const m = duoPlan();
+  // においをかいだあと：仲良くなった子は、そのまま、しっぽをふって。まだの子は、がんものそばへ戻る
+  if (prev === 'sniff') {
+    e.sniffed = false;
+    if (a.trust >= 5) { e.state = 'nearPlayer'; e.target = null; e.timer = rand(5, 9); return; }
+    const t = o || { x: e.x + (e.x - P.x), z: e.z + (e.z - P.z) }; go(t.x + rand(-0.4, 0.4), t.z + rand(-0.4, 0.4), 'walk', 8, 'look', rand(2, 4)); e.lookAt = [P.x, P.z]; return;
+  }
+  if (m !== 'bed' && (prev === 'sleep' || (prev === 'rest' && Math.random() < 0.4)) && Math.random() < 0.6) { e.state = 'stretch'; e.target = null; e.timer = rand(1.6, 2.4); return; } // 起きたら、のび
+  // がんも：人に、しっぽを立てて近づく。足にすりすり、ゆっくりまばたき（地域猫と同じ）
+  if (!c && (m === 'potter' || m === 'nap' || m === 'porch') && a.trust >= 3) {
+    const dP = Math.hypot(P.x - e.x, P.z - e.z), calm = !P.moving && !P.target && !P.playing;
+    if ((prev === 'nearPlayer' || prev === 'bunt') && dP < 3) {
+      if (prev === 'nearPlayer' && Math.random() < 0.5 && inRect(P.x, P.z, ZONES.home.rect)) { const d = dP || 1; go(P.x + (e.x - P.x) / d * 0.5, P.z + (e.z - P.z) / d * 0.5, 'toBunt', 5); return; }
+      e.state = 'blink'; e.target = null; e.timer = rand(3.5, 5); return;
+    }
+    if (calm && dP > 2.2 && dP < 8 && Math.random() < 0.08 * (P.crouch ? 2 : 1)) { e.state = 'toPlayer'; e.target = [P.x, P.z]; e.keep = 0; e.timer = 10; e.tailUp = true; return; }
+  }
+  const potter = () => {
+    // のんびり：がんもは毛づくろい・香箱座り・見回し。ちくわは、がんものそばで、においをかいだり、伏せたり
+    if (o && Math.hypot(o.x - e.x, o.z - e.z) > 1.6 && Math.random() < 0.7) { const g2 = Math.atan2(e.x - o.x, e.z - o.z) + rand(-0.8, 0.8); go(o.x + Math.sin(g2) * 0.6, o.z + Math.cos(g2) * 0.6, 'walk', 10, c ? 'look' : 'rest', rand(5, 10)); return; }
+    const k = wpick(c ? [['look', 0.35], ['rest', 0.3], ['nose', 0.2], ['walk', 0.15]] : [['preen', 0.25], ['rest', 0.3], ['look', 0.25], ['idle', 0.1], ['walk', 0.1]]);
+    if (k === 'walk' || k === 'nose') { const q = duoPick(2, e); go(q[0], q[1], 'walk', 8, k === 'nose' ? 'graze' : null, rand(3, 6)); return; }
+    e.state = k; e.target = null; e.timer = rand(4, 10); if (k === 'look') e.lookAt = [e.x + rand(-6, 6), e.z + rand(-6, 6)];
+  };
+  switch (m) {
+    case 'bed': {
+      const b = ENGAWA.bed[c ? 0 : 1];
+      if (!near(b[0], b[1], 0.2)) { go(b[0], b[1], 'toRest', 30); return; }
+      e.state = 'sleep'; e.target = null; e.timer = rand(20, 40); e.atSlot = { x: b[0], z: b[1], y: ENGAWA.y, h: Math.PI / 2 }; return;
+    }
+    case 'porch': { // 雨や雪の日：ひさしの下の縁側で
+      const b = ENGAWA.bed[c ? 0 : 1];
+      if (!near(b[0], b[1], 0.25)) { go(b[0], b[1], 'walk', 25, 'rest', rand(10, 20)); e.duoH = Math.PI / 2; return; }
+      const st = wpick([['rest', 0.5], ['look', 0.3], [c ? 'rest' : 'preen', 0.2]]); e.state = st; e.target = null; e.timer = rand(8, 16); e.duoH = Math.PI / 2;
+      if (st === 'look') e.lookAt = [e.x + 6, e.z + rand(-3, 3)]; return;
+    }
+    case 'meal': {
+      if (DUO.ate[a.key]) break;
+      if (prev === 'eat') { DUO.ate[a.key] = true; e.state = c ? 'look' : 'preen'; e.target = null; e.timer = rand(4, 7); return; }
+      const bw = ENGAWA.bowls[c ? 0 : 1];
+      go(bw[0] + 0.3, bw[1], 'toEat', 25); e.food = { x: bw[0], z: bw[1], left: 1e9, bowl: true }; e.tailUp = !c; return;
+    }
+    case 'nap': {
+      if (!DUO.spot) DUO.spot = duoNapSpot();
+      const S = DUO.spot, off = c ? -0.16 : 0.16, tx = S[0], tz = S[1] + off;
+      if (!near(tx, tz, 0.3)) { go(tx, tz, 'walk', 20, Math.random() < 0.5 ? 'sleep' : 'rest', rand(14, 30)); e.duoH = S[2]; return; }
+      e.state = Math.random() < 0.55 ? 'sleep' : c ? 'rest' : wpick([['rest', 0.5], ['bask', S[3] ? 0 : 0.25], ['preen', 0.25]]); e.target = null; e.timer = rand(14, 30); e.duoH = S[2]; return;
+    }
+    case 'chase': {
+      if (!o) break;
+      if (DUO.lead === a.key) {
+        if (e.ran) { e.ran = false; if (Math.random() < 0.55) DUO.lead = o.a.key; e.state = 'look'; e.lookAt = [o.x, o.z]; e.target = null; e.timer = rand(0.8, 1.6); return; }
+        const q = duoPick(3, e); go(q[0], q[1], 'play', rand(5, 8)); e.playN = 2 + Math.floor(Math.random() * 3); e.tailUp = true; e.ran = true; return;
+      }
+      if (o.state === 'play') { e.state = 'chase'; e.target = [o.x, o.z]; e.timer = rand(6, 9); e.tailUp = true; return; }
+      e.state = 'look'; e.lookAt = [o.x, o.z]; e.target = null; e.timer = rand(0.6, 1.4); return;
+    }
+    case 'romp': {
+      if (!o) break;
+      if (prev === 'romp') { e.state = Math.random() < 0.5 ? 'idle' : 'look'; e.lookAt = [o.x, o.z]; e.target = null; e.timer = rand(1, 2); DUO.until = Math.min(DUO.until, DUO.t + rand(2, 6)); return; }
+      const d = Math.hypot(o.x - e.x, o.z - e.z);
+      if (d > 0.75) { const k = (d - 0.55) / d * (c ? 1 : 0.5); go(e.x + (o.x - e.x) * k, e.z + (o.z - e.z) * k, 'walk', 6, 'romp', rand(3.5, 6)); e.tailUp = true; e.rompK = Math.random() < 0.6 ? 'paw' : 'roll'; return; }
+      e.state = 'romp'; e.target = null; e.timer = rand(3.5, 6); e.rompK = Math.random() < 0.6 ? 'paw' : 'roll'; return;
+    }
+    case 'ball': {
+      const B = DUO.ball; if (!B) break;
+      if (prev === 'ball' && Math.random() < 0.3) { e.state = 'look'; e.lookAt = [B.x, B.z]; e.target = null; e.timer = rand(1, 2.5); return; }
+      go(B.x, B.z, 'toBall', 8); e.tailUp = true; return;
+    }
+    default: break;
+  }
+  potter();
+}
+// 毎フレーム（その子ごと）：追いかけっこ・ボール・じゃれ合いの向き。ちくわは、人が近づくと固まる
+function duoTick(e, dt) {
+  const a = e.a, c = a.key === 'chikuwa', o = e.friend, P = ACT.player;
+  const turn = (x, z, k) => { let dh = Math.atan2(x - e.x, z - e.z) - e.heading; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); e.heading += dh * Math.min(1, dt * k); };
+  // 休んでいる時は、ふたり同じ向きに（横に並んで、くっつく）
+  if (!e.target && e.duoH !== undefined && ['sleep', 'rest', 'bask'].includes(e.state)) { let dh = e.duoH - e.heading; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); e.heading += dh * Math.min(1, dt * 2); }
+  if (!['sleep', 'rest', 'bask', 'walk', 'preen', 'look', 'stretch'].includes(e.state)) e.duoH = undefined;
+  if (e.state === 'chase' && o) {
+    if (o.state !== 'play') { e.state = 'look'; e.lookAt = [o.x, o.z]; e.target = null; e.timer = rand(0.6, 1.2); }
+    else { const d = Math.hypot(o.x - e.x, o.z - e.z) || 1; e.target = [o.x - (o.x - e.x) / d * 0.35, o.z - (o.z - e.z) / d * 0.35]; }
+  }
+  if (e.state === 'toBall' && DUO.ball) { const B = DUO.ball; if (!e.target || Math.hypot(e.target[0] - B.x, e.target[1] - B.z) > 0.3) e.target = clampToAreas(areasOf(e), B.x, B.z); }
+  if (e.state === 'romp' && o) turn(o.x, o.z, 4);
+  if (e.state === 'sniff' && !e.target) turn(P.x, P.z, 3);
+  if (!c) return;
+  // ---- ちくわ：人が近づくと、体が固まる。がんもがそばにいれば、がんものかげへ ----
+  const dP = Math.hypot(P.x - e.x, P.z - e.z), inYard = inRect(P.x, P.z, ZONES.home.rect), still = !P.moving && !P.target;
+  const tr = clamp(a.trust / 7, 0, 1), R = lerp(4.2, 1.5, tr) * (inYard ? 1 : 0.55);
+  const busy = ['eat', 'pet', 'sniff', 'toSniff', 'nearPlayer'].includes(e.state) || (e.state === 'sleep' && (still || dP > 1.3)) || (P.petting && P.petting.e === e);
+  const scary = !busy && P.m.root.visible && !P.sitting && !P.playing && dP < R && (!still || (!P.crouch && dP < R * 0.6));
+  if (scary) {
+    DUO.calmT = 0;
+    const g = o, gN = g && g.state !== 'sleep' && Math.hypot(g.x - e.x, g.z - e.z) < 2.4;
+    if (gN && e.state !== 'hide') {
+      const d = Math.hypot(g.x - P.x, g.z - P.z) || 1;
+      e.target = clampToAreas(areasOf(e), g.x + (g.x - P.x) / d * 0.42, g.z + (g.z - P.z) / d * 0.42); e.state = 'hide'; e.timer = 3; e.then = null; e.wp = null; e.routeFor = null;
+    } else if (!gN && e.state !== 'freeze') {
+      e.state = 'freeze'; e.target = null; e.wp = null; e.timer = 3; e.then = null;
+      // がんもが、そばへ来てくれる
+      if (g && g.state !== 'sleep' && g.state !== 'pet' && Math.hypot(g.x - e.x, g.z - e.z) < 7) { const k = Math.atan2(g.x - e.x, g.z - e.z); g.target = clampToAreas(areasOf(g), e.x + Math.sin(k) * 0.4, e.z + Math.cos(k) * 0.4); g.state = 'walk'; g.timer = 6; g.then = 'idle'; g.thenT = rand(4, 7); g.wp = null; g.routeFor = null; }
+    } else e.timer = Math.max(e.timer, 1.2); // こわいあいだは、そのまま
+  } else if (e.state === 'freeze' || e.state === 'hide') {
+    DUO.calmT += dt; e.timer = Math.max(e.timer, 0.5);
+    if (DUO.calmT > 2.2) { DUO.calmT = 0; e.state = 'look'; e.lookAt = [P.x, P.z]; e.target = null; e.timer = rand(1.5, 3); }
+  }
+  if ((e.state === 'hide' || e.state === 'freeze') && !e.target) turn(P.x, P.z, 1.5);
+  // しゃがんで、じっと待っていると、自分から近づいてくる（仲良くなるほど、早く）
+  const waiting = !!P.crouch && still && dP < 4.8 && dP > 0.9 && !P.petting;
+  DUO.waitT = waiting ? DUO.waitT + dt : Math.max(0, DUO.waitT - dt * 2);
+  const again = G.sniffDone && G.sniffDone[a.id] === G.turn;
+  if (waiting && DUO.waitT > lerp(9, 4, tr) * (again ? 2.5 : 1) && a.trust >= 1 && !['sleep', 'eat', 'toSniff', 'sniff', 'freeze', 'hide', 'pet'].includes(e.state)) {
+    DUO.waitT = 0;
+    const d = dP || 1; e.target = clampToAreas(areasOf(e), P.x + (e.x - P.x) / d * 0.5, P.z + (e.z - P.z) / d * 0.5); e.state = 'toSniff'; e.timer = 14; e.then = null; e.wp = null; e.routeFor = null;
+    if (o && o.state !== 'sleep' && o.state !== 'pet') { const k = Math.atan2(e.x - P.x, e.z - P.z) + 0.9; o.target = clampToAreas(areasOf(o), P.x + Math.sin(k) * 0.9, P.z + Math.cos(k) * 0.9); o.state = 'walk'; o.timer = 10; o.then = 'blink'; o.thenT = rand(3, 5); o.wp = null; o.routeFor = null; }
+  }
+  if (e.state === 'sniff' && !e.sniffed) {
+    e.sniffed = true; focusAnimal(e, 8000);
+    if (GAME.sniffVisit(a) || !DUO.sniffToast) { DUO.sniffToast = true; UI.toast(`${a.name}が、自分から近づいてきて、においをかいでいます。手を出さずに、そのままで`, 'friends', null, { animal: a.id }); }
+  }
+}
+// 毎フレーム（1回）：青いボールが転がる。庭の柵と、縁側の板にあたると、はね返る
+function duoFrame(dt) {
+  DUO.t += dt;
+  const B = DUO.ball; if (!B) return;
+  if (Math.hypot(B.vx, B.vz) > 0.01) {
+    B.x += B.vx * dt; B.z += B.vz * dt;
+    const r = duoYard(0.12);
+    if (B.x < r[0]) { B.x = r[0]; B.vx = Math.abs(B.vx) * 0.6; } if (B.x > r[1]) { B.x = r[1]; B.vx = -Math.abs(B.vx) * 0.6; }
+    if (B.z < r[2]) { B.z = r[2]; B.vz = Math.abs(B.vz) * 0.6; } if (B.z > r[3]) { B.z = r[3]; B.vz = -Math.abs(B.vz) * 0.6; }
+    const k = Math.exp(-1.5 * dt); B.vx *= k; B.vz *= k;
+    B.m.rotation.x += B.vz * dt / 0.07; B.m.rotation.z -= B.vx * dt / 0.07;
+  } else { B.vx = 0; B.vz = 0; }
+  B.m.position.set(B.x, heightAt(B.x, B.z) + 0.07, B.z);
+}
+function duoBallSync() {
+  if (!G || !G.animals.some(petOf)) { if (DUO.ball) { ACT.layer.remove(DUO.ball.m); DUO.ball = null; } return; }
+  if (DUO.ball && DUO.ball.m.parent === ACT.layer) return;
+  const m = new THREE.Group(); part('sph', '#4F86C6', 0.14, 0.14, 0.14, 0, 0, 0, m); part('box', '#E8F0F8', 0.146, 0.02, 0.03, 0, 0, 0, m, { noShadow: true }); // 青いボール（白い線）
+  const y = duoYard(); DUO.ball = { m, x: (y[0] + y[1]) / 2 + 1.2, z: y[3] - 0.8, vx: 0, vz: 0 }; ACT.layer.add(m);
+}
+function duoKick(e) {
+  const B = DUO.ball;
+  if (B && Math.hypot(B.x - e.x, B.z - e.z) < 0.6) {
+    const h = Math.atan2(B.x - e.x, B.z - e.z) + rand(-0.7, 0.7), v = rand(1.4, 2.8); B.vx = Math.sin(h) * v; B.vz = Math.cos(h) * v;
+    e.heading = Math.atan2(B.x - e.x, B.z - e.z); e.state = 'ball'; e.timer = rand(0.7, 1.2);
+  } else { e.state = 'look'; e.lookAt = B ? [B.x, B.z] : null; e.timer = rand(0.5, 1); }
+}
+/* =========================================================
    ルール：ゲージと節目、容量と受け入れ、1週間ごとの訪問、日記
    ========================================================= */
 let G = null;
@@ -11737,7 +12223,7 @@ function addBond(a, b, turn) {
 }
 function formBond(quiet) {
   G.bonds = G.bonds || [];
-  const free = G.animals.filter((a) => !bondPartnerOf(a) && !(a.quarantine && G.turn < a.quarantine) && G.stage >= ((ZONES[a.zone] || {}).stage || 9));
+  const free = G.animals.filter((a) => !bondPartnerOf(a) && !petOf(a) && !(a.quarantine && G.turn < a.quarantine) && G.stage >= ((ZONES[a.zone] || {}).stage || 9));
   const pairs = [];
   for (let i = 0; i < free.length; i++) for (let j = i + 1; j < free.length; j++) {
     const a = free[i], b = free[j];
@@ -11762,15 +12248,16 @@ function maybeBond() {
 }
 function makeAnimal(r, fromPreset) {
   return Object.assign({ id: G.nextId++, key: r.key || null, sp: r.sp }, rosterStatic(r), {
-    arrived: fromPreset ? r.arrived : G.date, zone: r.sp, zoneOverride: r.zoneOverride || null,
+    arrived: fromPreset ? r.arrived : G.date, zone: r.zone || r.sp, zoneOverride: r.zoneOverride || null,
     known: 1, trust: fromPreset ? 3 : 0, sponsor: false, bonded: !!r.bonded, quarantine: 0, approached: fromPreset,
   });
 }
 // 名前のある子（ROSTER）と、相談で来た子に共通の、その子の紹介（性格・好き嫌い・体のこと・物語）
-const ROSTER_STATIC = ['name', 'color', 'origin', 'personality', 'likes', 'dislikes', 'age', 'elderly', 'friend', 'health', 'stories', 'likeText'];
+const ROSTER_STATIC = ['name', 'color', 'origin', 'personality', 'likes', 'dislikes', 'age', 'elderly', 'friend', 'health', 'stories', 'likeText', 'ageText', 'model'];
 function rosterStatic(r) {
   return { name: r.name, color: r.color, origin: r.origin, personality: r.personality, likes: (r.likes || []).slice(), dislikes: (r.dislikes || []).slice(),
-    age: r.age, elderly: !!r.elderly, friend: r.friend || null, health: r.health || '元気', stories: (r.stories || []).slice(), likeText: r.likeText || null };
+    age: r.age, elderly: !!r.elderly, friend: r.friend || null, health: r.health || '元気', stories: (r.stories || []).slice(), likeText: r.likeText || null,
+    ageText: r.ageText || null, model: !!r.model };
 }
 // 名前のある子は、key からデータを読む。種がちがう時は読まない（前の版の、猫の「すず」など）
 function rosterOf(a) { const r = a && a.key && ROSTER_BY_KEY[a.key]; return r && r.sp === a.sp ? r : null; }
@@ -11781,6 +12268,38 @@ function addCats(quiet) {
   add.forEach((r) => { const a = makeAnimal(r, true); a.trust = r.trust || 3; a.known = 1; G.animals.push(a); });
   G.doneGroups = G.doneGroups || {}; G.doneGroups.cat1 = true; G.flags.catsIn = true;
   if (add.length) note('friends', `縁側の猫小屋に、地域猫の${add.map((r) => r.name).join('、')}がいます。前から、この家のまわりで暮らしている子たちです`, null, { quiet: !!quiet });
+}
+
+/* ---------- ちくわとがんも（0.9.47） ----------
+   保護犬のちくわと、保護猫のがんも。はるこさんが、2匹そろって家族に迎える（受け入れの相談ではなく、少し遊んだころの出来事）。
+   家の東どなりの、囲いのある庭と、家の中で暮らす。仲良しのこと・眠る場所は、はじめからわかっている */
+const DUO_WEEK = 5;
+function addDuo(quiet) {
+  const add = ROSTER.filter((r) => r.group === 'home1' && !G.animals.some((a) => a.key === r.key));
+  add.forEach((r) => {
+    const a = makeAnimal(r, true); a.arrived = G.date; a.trust = r.trust || 1; a.known = 1;
+    a.know = { likes: [], dis: true, fr: true, sl: true, w: 0, wn: 60 };
+    G.animals.push(a);
+  });
+  G.doneGroups = G.doneGroups || {}; G.doneGroups.home1 = true; G.flags.duoIn = G.turn;
+  if (add.length && !quiet) {
+    G.overnight.push({ cat: 'friends', text: '保護犬のちくわと、保護猫のがんもが、はるこさんの家族になりました。保護された先の家で出会ってから、ずっと一緒の2匹です。離ればなれにならないように、2匹そろって迎えました', focus: [28.6, 39.5] });
+    G.overnight.push({ cat: 'added', text: '家の東どなりに、ちくわとがんもの庭ができました。がんもは家の猫なので、猫が越えられない高さの金網で囲っています', focus: [28.6, 39.5] });
+    unlockCard('rescuedPair', true);
+  }
+}
+function maybeDuo() {
+  if (G.mode !== 'normal' || G.turn < DUO_WEEK || G.animals.some(petOf) || (G.doneGroups && G.doneGroups.home1)) return;
+  addDuo(false);
+}
+// ちくわが、自分から近づいて、においをかいでいった（週に一度。しゃがんで待っていた時）
+function sniffVisit(a) {
+  G.sniffDone = G.sniffDone || {};
+  if (G.sniffDone[a.id] === G.turn) return false;
+  G.sniffDone[a.id] = G.turn; a.trust = Math.min(10, a.trust + 0.6); knowTick(a);
+  note('friends', `${a.name}が、自分から近づいて、においをかいでいきました`, null, { quiet: true });
+  if (a.known < a.stories.length && a.trust >= STORY_TRUST[a.known]) { a.known++; note('daily', `${a.name}の話をひとつ知りました`, null, { quiet: true }); UI.toast(`${a.name}の新しい話がわかりました`, 'daily'); }
+  GAME.save(); return true;
 }
 
 /* ---------- 容量と評価（第7-2、7-3章） ---------- */
@@ -12296,7 +12815,7 @@ function salary(kind) { const h = hourlyWage(); return kind === 'staff' ? Math.r
 function harukoPay() { const h = hourlyWage(); return G.stage <= 1 ? h * FIN.wage.hours.haruko1 : salary('staff'); }
 const RUMINANT_PIG = ['cow', 'goat', 'sheep', 'pig', 'donkey', 'horse'];
 function animalCost(a) {
-  const c = FIN.animal[a.sp]; if (!c) return 0;
+  const c = FIN.animal[petOf(a) && a.sp === 'cat' ? 'housecat' : a.sp]; if (!c) return 0;
   const feed = c.feed * (G.flags.b07 && RUMINANT_PIG.includes(a.sp) ? 1 - FIN.save.oatFeed : 1);
   const vet = c.vet * (G.flags.b08 ? 1 - FIN.save.healthCheck : 1);
   return Math.round((feed + c.bed + vet) * (a.elderly ? 1 + FIN.elderly : 1));
@@ -12316,8 +12835,9 @@ function balanceSupport(k) { setBaseSupport(); const f = finance(); G.baseSuppor
 function setBaseSupport(k) { G.baseSupport = Math.round(baselineCost() * (k || 1) / 1000) * 1000; }
 function finance() {
   const tc = teamCount(), h = hourlyWage();
-  const by = {}; G.animals.forEach((a) => { (by[a.sp] = by[a.sp] || { n: 0, sum: 0, old: 0 }); by[a.sp].n++; by[a.sp].sum += animalCost(a); if (a.elderly) by[a.sp].old++; });
-  const animals = ANIMAL_ORDER.filter((k) => by[k]).map((k) => ({ label: `${SPECIES[k].name} ${by[k].n}${SPECIES[k].unit}${k === 'cat' ? '（地域猫）' : ''}`, amount: by[k].sum, note: k === 'cat' ? 'ごはんとワクチン。ごはんの一部は、地域猫の会の人たちが持ち寄ってくれます' : `餌・寝床・獣医${by[k].old ? `（高齢の子 ${by[k].old}${SPECIES[k].unit}は${Math.round(FIN.elderly * 100)}%増し）` : ''}` }));
+  const by = {}; G.animals.forEach((a) => { const k = petOf(a) ? 'pet' : a.sp; (by[k] = by[k] || { n: 0, sum: 0, old: 0, names: [] }); by[k].n++; by[k].sum += animalCost(a); by[k].names.push(a.name); if (a.elderly) by[k].old++; });
+  const animals = ANIMAL_ORDER.filter((k) => by[k] && k !== 'dog').map((k) => ({ label: `${SPECIES[k].name} ${by[k].n}${SPECIES[k].unit}${k === 'cat' ? '（地域猫）' : ''}`, amount: by[k].sum, note: k === 'cat' ? 'ごはんとワクチン。ごはんの一部は、地域猫の会の人たちが持ち寄ってくれます' : `餌・寝床・獣医${by[k].old ? `（高齢の子 ${by[k].old}${SPECIES[k].unit}は${Math.round(FIN.elderly * 100)}%増し）` : ''}` }));
+  if (by.pet) animals.push({ label: by.pet.names.join('と'), amount: by.pet.sum, note: '家の犬と猫。ごはん、ワクチン、フィラリアの予防' });
   const people = [{ label: '代表 はるこさん', amount: harukoPay(), note: G.stage <= 1 ? `裏庭の間は、週末を中心に月${FIN.wage.hours.haruko1}時間（時給${yen(h)}）` : `職員と同じ。時給${yen(h)}×月${FIN.wage.hours.staff}時間＋社会保険など${Math.round(FIN.wage.welfare * 100)}%` }];
   if (tc.staff) people.push({ label: `職員 ${tc.staff}人`, amount: tc.staff * salary('staff'), note: `時給${yen(h)}×月${FIN.wage.hours.staff}時間＋社会保険など${Math.round(FIN.wage.welfare * 100)}%` });
   if (tc.policyStaff) people.push({ label: '支援制度で来てくれた職員 1人', amount: salary('staff'), note: '制度の補助でまかなっています' });
@@ -12930,10 +13450,13 @@ function lifeOf(a) {
   // 季節
   const shade = prDone('land_shade') || G.stage >= 4 || !!G.flags.borderTrees || !!G.flags.plantedTrees;
   if (se === 'summer') out.push(a.sp === 'pig' ? (G.stage >= 2 ? { k: 'season', ok: true, t: '泥浴び場で、体を冷やせる' } : { k: 'season', ok: false, t: '汗をかけないので、泥浴び場があると', g: 'mud', tone: 'trouble', adv: '{names}は、汗をかけないので、暑い日は少しつらいかも。泥浴び場があると楽になりそう' })
+    : petOf(a) ? { k: 'season', ok: true, t: '暑い日は、家の中で涼しく過ごせる' }
     : a.sp === 'cat' || sp.bird ? { k: 'season', ok: true, t: '暑い日は、小屋のかげで休める' }
     : shade ? { k: 'season', ok: true, t: '夏の日かげがある' } : { k: 'season', ok: false, t: '夏の日かげが、もう少しあると', hint: '木を植える・日よけを作る', g: 'shade', tone: 'trouble', adv: '{names}は、夏の日ざしの下で暑そうかも。日かげがもう少しあると楽になりそう' });
-  else if (se === 'winter') { const warm = a.sp === 'cat' || hasMilestone('warm_room') || (G.flags.bedding && G.turn - G.flags.bedding < 10); out.push(warm ? { k: 'season', ok: true, t: '冬の寝床があたたかい' } : { k: 'season', ok: false, t: '冬の寝床に、厚いわらや毛布があると', hint: '「行動」の寝床と毛布の寄付から', g: 'warm', tone: 'trouble', adv: '{names}は、冬の夜が少し寒いかも。厚いわらや毛布があると、ぐっすり眠れそう' }); }
+  else if (se === 'winter') { const warm = a.sp === 'cat' || petOf(a) || hasMilestone('warm_room') || (G.flags.bedding && G.turn - G.flags.bedding < 10); out.push(warm ? { k: 'season', ok: true, t: '冬の寝床があたたかい' } : { k: 'season', ok: false, t: '冬の寝床に、厚いわらや毛布があると', hint: '「行動」の寝床と毛布の寄付から', g: 'warm', tone: 'trouble', adv: '{names}は、冬の夜が少し寒いかも。厚いわらや毛布があると、ぐっすり眠れそう' }); }
   else out.push({ k: 'season', ok: true, t: se === 'spring' ? '春の草を、のんびり食べられる' : '過ごしやすい季節' });
+  // ちくわとがんも：いつも一緒にいられる。がんもは家の猫なので、外へは囲いのある庭だけ
+  if (petOf(a)) { const f = friendOf(a); if (f) out.push({ k: 'friend', ok: true, t: `${f.name}と、いつも一緒にいられる` }); if (a.sp === 'cat') out.push({ k: 'safe', ok: true, t: '外へ出るのは、囲いのある庭の中だけ' }); }
   // 年を重ねた子
   if (a.elderly) out.push(G.flags.bedding || hasMilestone('warm_room') ? { k: 'elder', ok: true, t: '年を重ねた体に、やわらかい寝床' } : { k: 'elder', ok: false, t: 'やわらかい寝床があると、関節が楽に', hint: '「行動」の寝床と毛布の寄付から', g: 'elder', tone: 'better', adv: '年を重ねた{names}に、やわらかい寝床があると、関節が楽になりそう' });
   // 安心（人に慣れるのは、その子のペースで）
@@ -12968,11 +13491,11 @@ function knowOf(a) {
 }
 function knowAdd(a, kind, id) {
   const K = knowOf(a);
-  if (kind === 'next') { const nx = (a.likes || []).find((l) => !K.likes.includes(l)); if (nx) return knowAdd(a, 'like', nx); if (!K.dis && (a.dislikes || []).length) return knowAdd(a, 'dis'); if (!K.fr && friendOf(a)) return knowAdd(a, 'fr'); if (!K.sl && a.sp !== 'cat' && (a.trust || 0) >= 2) return knowAdd(a, 'sleep'); return null; }
+  if (kind === 'next') { const nx = (a.likes || []).find((l) => !K.likes.includes(l)); if (nx) return knowAdd(a, 'like', nx); if (!K.dis && (a.dislikes || []).length) return knowAdd(a, 'dis'); if (!K.fr && friendOf(a)) return knowAdd(a, 'fr'); if (!K.sl && !commCat(a) && (a.trust || 0) >= 2) return knowAdd(a, 'sleep'); return null; }
   if (kind === 'like') { if (!id || !(a.likes || []).includes(id) || K.likes.includes(id)) return null; K.likes.push(id); return `好きなこと：${(ITEMS[id] || {}).name || id}`; }
   if (kind === 'dis') { if (K.dis || !(a.dislikes || []).length) return null; K.dis = true; return `苦手なもの：${a.dislikes.map((l) => (ITEMS[l] || {}).name || l).join('、')}`; }
   if (kind === 'fr') { const f = friendOf(a); if (K.fr || !f) return null; K.fr = true; return `仲良し：${f.name}${f.sp !== a.sp ? `（${SPECIES[f.sp].name}）` : ''}`; }
-  if (kind === 'sleep') { if (K.sl || a.sp === 'cat') return null; const st = sleepText(a); if (!st) return null; K.sl = true; return `眠る場所：${st.where}`; }
+  if (kind === 'sleep') { if (K.sl || commCat(a)) return null; const st = sleepText(a); if (!st) return null; K.sl = true; return `眠る場所：${st.where}`; }
   return null;
 }
 function knowTell(a, txt) { if (!txt || hako()) return; note('daily', `${a.name}のことが、ひとつわかりました（${txt}）`, null, { quiet: true }); UI.toast(`${a.name}のことが、ひとつわかりました。${txt}`, 'daily', null, { animal: a.id }); GAME.save(); }
@@ -13026,7 +13549,7 @@ function startDay(first) {
     G.pending.filter((p) => p.done <= G.turn).forEach((p) => completeBiz(p));
     G.pending = G.pending.filter((p) => p.done > G.turn);
     teamOf(); arriveHires(true);
-    maybeBond();
+    maybeBond(); maybeDuo();
     projTick(); maybeRepair();
     if (G.morita && G.morita.reqPending && G.stage >= 2) { G.morita.reqPending = false; const r = moritaRequest(); G.requests.push(r); G.overnight.push({ cat: 'news', text: `受け入れの相談：${r.intro}`, req: r.id }); }
     if (G.turn % 4 === 1 && G.mode !== 'hakoniwa') G.monthRec = settleMonth();
@@ -13277,7 +13800,7 @@ function jumpStage(n) {
 
 /* ---------- 保存 ---------- */
 const GAME = {
-  note, unlockCard, foodEaten, crackEgg, lifeOf, lifeIndex, lifeSummary, lifeAdvice, lifeWord, lifeCheck, knowOf, knowAdd, knowTell, knowTick, friendOf, cowTag, pigOnDiet, capacity, axes, runAction, startBiz, restAction, petAnimal, petReact, respectAnimal, treatAnimal, sponsorAnimal, anniversary,
+  note, unlockCard, sniffVisit, addDuo, foodEaten, crackEgg, lifeOf, lifeIndex, lifeSummary, lifeAdvice, lifeWord, lifeCheck, knowOf, knowAdd, knowTell, knowTick, friendOf, cowTag, pigOnDiet, capacity, axes, runAction, startBiz, restAction, petAnimal, petReact, respectAnimal, treatAnimal, sponsorAnimal, anniversary,
   acceptRequest, rehomeRequest, declineRequest, requestChecks, hire, hireAvailable, finance, harukoPay, incomeView, savingWays, forecast, moritaState, moritaQuestion, moritaAnswer, talkState, talkNext, talkAvail, talkAnswer, talkPresent, talkCh, talkReady, bizMoney, feedBedCost, stockWeeks, coverText, reserveTarget, usableFunds, projList, projState, projPay, projCampaign, projGrant, prepDone, prepStarted, salary, hourlyWage, animalCost, teamCount, volunteerCap, staffMax, teamOf, placeItem, removeItem, startDay, endDay, jumpStage, actionAvailable,
   save() {
     // 箱庭モードは保存しない（毎回、すべてがそろった姿から）
@@ -13336,6 +13859,8 @@ const GAME = {
     migrateSave(o.schema || 1);
     G.animals.forEach(rosterFill); // 移しかえで key が変わった子も
     initMoney(false); if (!G.proj) markPrepsDone();
+    // 前からの箱庭にも、ちくわとがんも（0.9.47）
+    if (G.mode === 'hakoniwa' && !G.animals.some(petOf)) { addDuo(true); G.animals.filter(petOf).forEach((a) => { a.trust = 5; }); }
     if (G.mode !== 'hakoniwa' && curPage() && ROSTER.some((r) => r.group === 'cat1' && !G.animals.some((a) => a.key === r.key))) {
       const first = !G.flags.catsIn, before = new Set(G.animals.map((a) => a.key)); addCats(true);
       const names = ROSTER.filter((r) => r.group === 'cat1' && !before.has(r.key)).map((r) => r.name).join('、');
@@ -13600,6 +14125,7 @@ const BEH_COND = {
   rain: () => WS.weather === 'rain',
   swim: (e) => e.a.sp === 'duck' && WS.pond && inPond(e.x, e.z, 0.4),
   moving: (e) => !!e.target,
+  duo: (e) => petOf(e.a) && !!e.friend && Math.hypot(e.friend.x - e.x, e.friend.z - e.z) < 1.7, // ちくわとがんも（0.9.47）：相手がすぐそばに
   dustOrBath: (e) => e.state === 'dust' || !!(e.item && e.item.id === 'dustbath'),
 };
 const CAT_ICON = { friends: 'i-paw', added: 'i-spark', health: 'i-heart', daily: 'i-leaf', season: 'i-flower', news: 'i-doc', people: 'i-people', event: 'i-moon', gauge: 'i-spark', photo: 'i-camera' };
@@ -14495,7 +15021,7 @@ Object.assign(UI, {
       for (const sp of ANIMAL_ORDER) {
         for (const a of G.animals.filter((x) => x.sp === sp)) {
           const q = a.quarantine && G.turn < a.quarantine, y = yearsSince(a, G.date);
-          h += `<button class="arow" data-act="animal" data-id="${a.id}"><span class="av" style="${avStyle(a)}"></span><span><span class="nm">${esc(a.name)}</span><br><span class="meta">${SPECIES[a.sp].name}・${a.age}歳・${esc(a.personality)}</span></span><span class="tags2">${heartsHtml(a.trust)}${q ? '<span class="pill q">検疫中</span>' : ''}${a.elderly ? '<span class="pill">高齢</span>' : ''}${a.sponsor ? '<span class="pill ok">里親</span>' : ''}${y ? `<span class="pill warn">来てから${y}年</span>` : ''}</span></button>`;
+          h += `<button class="arow" data-act="animal" data-id="${a.id}"><span class="av" style="${avStyle(a)}"></span><span><span class="nm">${esc(a.name)}</span><br><span class="meta">${SPECIES[a.sp].name}・${a.ageText ? '年はわからない' : a.age + '歳'}・${esc(a.personality)}</span></span><span class="tags2">${heartsHtml(a.trust)}${q ? '<span class="pill q">検疫中</span>' : ''}${a.elderly ? '<span class="pill">高齢</span>' : ''}${a.sponsor ? '<span class="pill ok">里親</span>' : ''}${y ? `<span class="pill warn">来てから${y}年</span>` : ''}</span></button>`;
         }
       }
       h += '</div></div>';
@@ -14513,8 +15039,9 @@ Object.assign(UI, {
       const q = a.quarantine && G.turn < a.quarantine, y = yearsSince(a, G.date), treat = treatFor(a.sp), diet = GAME.pigOnDiet(a);
       const hk = G.mode === 'hakoniwa', ent = animalById(a.id), alone = ent && ALONE.has(ent.state) && !q;
       if (a.sp === 'cow' && !G.cards.earTag) setTimeout(() => { if (unlockCard('earTag')) GAME.save(); }, 700);
-      if (a.sp === 'cat' && !G.cards.communityCat) setTimeout(() => { if (unlockCard('communityCat')) GAME.save(); }, 700);
-      const comm = !!sp.community;
+      if (commCat(a) && !G.cards.communityCat) setTimeout(() => { if (unlockCard('communityCat')) GAME.save(); }, 700);
+      if (petOf(a)) setTimeout(() => { if (unlockCard('rescuedPair') | unlockCard(a.sp === 'dog' ? 'shyDog' : 'indoorCat')) GAME.save(); }, 700);
+      const comm = !!sp.community || petOf(a);
       const sec = (icon, title, body, cls, note) => `<section class="ac-sec ${cls || ''}"><h4>${ico(icon)}<span>${title}</span>${note ? `<small>${note}</small>` : ''}</h4>${body}</section>`;
       // あたま：絵・名前・種類と年・なかよし度（ハート）。今の様子は小さな札で
       const pills = [];
@@ -14523,7 +15050,7 @@ Object.assign(UI, {
       if (a.sponsor) pills.push('<span class="pill ok">里親になっています</span>');
       if (y) pills.push(`<span class="pill warn">今週で${y}年</span>`);
       if (diet) pills.push('<span class="pill">おやつはお休み中</span>');
-      let h = `<div class="ac-hero"><span class="av" style="${avStyle(a)}"></span><div class="ac-id"><h3>${esc(a.name)}</h3><div class="ac-meta"><span class="ac-sp"><svg class="spi"><use href="#sp-${a.sp}"/></svg>${sp.name}</span><span>${a.age}歳</span></div><div class="ac-trust"><span>なかよし度</span>${heartsHtml(a.trust)}</div></div></div>${pills.length ? `<div class="ac-pills">${pills.join('')}</div>` : ''}`;
+      let h = `<div class="ac-hero"><span class="av" style="${avStyle(a)}"></span><div class="ac-id"><h3>${esc(a.name)}</h3><div class="ac-meta"><span class="ac-sp"><svg class="spi"><use href="#sp-${a.sp}"/></svg>${sp.name}</span><span>${a.ageText ? esc(a.ageText) : a.age + '歳'}</span></div><div class="ac-trust"><span>なかよし度</span>${heartsHtml(a.trust)}</div></div></div>${pills.length ? `<div class="ac-pills">${pills.join('')}</div>` : ''}`;
       { const B = UI.behParts(a); if (B && B.now) h += B.now; }
       // この子のこと（0.9.38）：いつも見える所に。はじめは性格と好きなことのひとつ。一緒に過ごすほど、好きなこと・苦手・仲良しが書き足される
       { const K = GAME.knowOf(a), unk = (t) => `<span class="unk">${t}</span>`;
@@ -14538,9 +15065,10 @@ Object.assign(UI, {
           me += `<dt>いつも一緒</dt><dd>${esc(bp.name)}（${SPECIES[bp.sp].name}）<span>種類はちがっても、惹かれあった相手。${how}${ROAM_SP.includes(a.sp) ? '' : '昼のあいだは、一緒に柵の外を歩きます。'}</span></dd>`; } }
         if (G.stage >= 2 && ROAM_SP.includes(a.sp)) me += `<dt>過ごし方</dt><dd>${roamPrefText(a)}</dd>`;
         // 眠る場所（0.9.42）：夜に眠っている所を見ると、わかる
-        { const st = a.sp !== 'cat' && !q ? sleepText(a) : null; if (st) me += `<dt>眠る場所</dt><dd>${K.sl ? `${esc(st.where)}${st.why ? `<span>${esc(st.why)}</span>` : ''}` : unk('夜に見にいくと、わかります')}</dd>`; }
+        { const st = !commCat(a) && !q ? sleepText(a) : null; if (st) me += `<dt>眠る場所</dt><dd>${K.sl ? `${esc(st.where)}${st.why ? `<span>${esc(st.why)}</span>` : ''}` : unk('夜に見にいくと、わかります')}</dd>`; }
         me += `<dt>出身</dt><dd>${esc(a.origin)}</dd></dl>`;
-        const hidden = moreLikes || ((a.dislikes || []).length && !K.dis) || (friend && !K.fr) || (a.sp !== 'cat' && !K.sl);
+        if (a.model) me += '<p class="ac-model">ちくわとがんもには、モデルになった本当の犬と猫がいます。2匹は今も、一緒に暮らしています。</p>'; // ちくわとがんも（0.9.47）
+        const hidden = moreLikes || ((a.dislikes || []).length && !K.dis) || (friend && !K.fr) || (!commCat(a) && !K.sl);
         if (hidden && !hk) me += '<p class="ac-know">そばで過ごしたり、仲良くなったりすると、少しずつ書き足されていきます。</p>';
         h += sec('i-paw', 'この子のこと', me, 'ac-me-sec'); }
       // ふれあう：なでる・ブラッシング・季節のおやつ（大きなボタン）。そばへ行く・撮る
@@ -15284,6 +15812,15 @@ Object.assign(UI, {
     // ひとりで過ごしている子は、そっとしておく（見守ったことは、ゆっくり伝わる）
     if (ALONE.has(e.state)) { GAME.respectAnimal(e.a); UI.toast(`${e.a.name}は今、ひとりで過ごしています。そっとしておきましょう`, 'friends'); return; }
     const react = GAME.petReact(e.a, mode);
+    // ちくわ（0.9.47）：まだ人がこわい時は、そばまで行かない。少し離れて、しゃがんで待つ
+    if (e.a.key === 'chikuwa' && (react === 'no' || react === 'shy')) {
+      GAME.respectAnimal(e.a); focusAnimal(e, 15000);
+      const d = Math.hypot(P.x - e.x, P.z - e.z) || 1;
+      if (d > 3) { const g = Math.min(d - 2.6, d); movePlayerTo(P.x + (e.x - P.x) / d * g, P.z + (e.z - P.z) / d * g, { silent: true, reach: 0.4 }); }
+      UI.toast(`${e.a.name}は、まだ人が少しこわいようです。そばで、横を向いてしゃがんで、待ってみましょう。${e.a.name}のほうから来てくれるかもしれません`, 'friends', null, { animal: e.a.id });
+      if (!G.cards.shyDog && unlockCard('shyDog')) GAME.save();
+      return;
+    }
     P.petPlan = { id, mode, react, t0: performance.now() }; focusAnimal(e, 15000); UI.tutMark('pet');
     const reach = (BODY[e.a.sp] || 0.6) + 0.62;
     // 好きな子は、自分から寄ってくる
@@ -15316,12 +15853,13 @@ Object.assign(UI, {
     if (first || Math.random() < 0.5) animalVoice(a.sp, 0.5, 0, a.id);
     framePair(P.x, P.z, e.x, e.z, BODY[a.sp] || 0.6, (dur + 1.5) * 1000, ACT.animals.filter((o) => o !== e).map((o) => [o.x, o.z, BODY[o.a.sp] || 0.6]).concat(ACT.npcs.map((n) => [n.x, n.z, 0.4]))); // あなたと、その子が、横から見えるように（ほかの子が間に入らない向きで）
     const sp = a.sp, sp0 = a.sp;
-    const t = !love ? (sp0 === 'cat' ? `${nm}が、ほおを少しだけ、なでさせてくれました` : `${nm}が、少しだけ${brush ? 'ブラッシング' : 'なで'}させてくれました`)
+    const t = !love ? (sp0 === 'cat' ? `${nm}が、ほおを少しだけ、なでさせてくれました` : sp0 === 'dog' ? `${nm}が、においをかいでから、少しだけ、なでさせてくれました` : `${nm}が、少しだけ${brush ? 'ブラッシング' : 'なで'}させてくれました`)
       : sp === 'pig' ? `${nm}が、ごろんと横になって、おなかを見せました`
       : brush && sp === 'cow' ? `${nm}が、首をのばして、もっと、という顔をしています`
       : brush && (sp === 'horse' || sp === 'donkey') ? `${nm}が、目を半分閉じて、じっとしています`
       : brush ? `${nm}が、体をあずけてきます`
       : sp === 'cat' ? (brush ? `${nm}が、目を細めて、のどを鳴らしています` : `${nm}が、あごを上げて、のどを鳴らしています`)
+      : sp === 'dog' ? `${nm}が、体の力を抜いて、しっぽをゆっくりふっています`
       : sp === 'chicken' ? `${nm}が、すっとしゃがんで、なでさせてくれました`
       : sp === 'rabbit' ? `${nm}が、ぺたんと伏せて、目を細めています`
       : sp === 'duck' || sp === 'turkey' ? `${nm}が、羽を少しふくらませて、じっとしています`
@@ -15544,7 +16082,7 @@ Object.assign(UI, {
   },
   // 段階ごとの敷地の地図（上から見た絵。ゲームの中の配置どおり）（0.9.36）
   stageMapSvg(n) {
-    const ZC = { chicken: '#F2DC9A', duck: '#C4E2EC', turkey: '#EBCFAE', cow: '#D6E8BE', goat: '#E8DEC6', pig: '#F2D3C8', sheep: '#ECE9DC', donkey: '#DCD4C8', rabbit: '#F0DCE8', horse: '#D3E3C6' };
+    const ZC = { chicken: '#F2DC9A', duck: '#C4E2EC', turkey: '#EBCFAE', cow: '#D6E8BE', goat: '#E8DEC6', pig: '#F2D3C8', sheep: '#ECE9DC', donkey: '#DCD4C8', rabbit: '#F0DCE8', horse: '#D3E3C6', home: '#F3E1C8' };
     const r = (x0, x1, z0, z1, f, extra) => `<rect x="${x0}" y="${z0}" width="${x1 - x0}" height="${z1 - z0}" fill="${f}" ${extra || ''}/>`;
     let g = `<rect x="-58" y="-58" width="116" height="116" fill="#ECE5D3"/>`;
     g += r(-58, 58, 49.6, 52.6, '#D9D3C5') + `<line x1="-58" y1="53.8" x2="58" y2="53.8" stroke="#A9A39A" stroke-width=".6"/><line x1="-58" y1="54.9" x2="58" y2="54.9" stroke="#A9A39A" stroke-width=".6"/>`;
@@ -15565,7 +16103,7 @@ Object.assign(UI, {
     if (n >= 2) g += `<circle cx="${POND.x}" cy="${POND.z}" r="${POND.r}" fill="#A9D2E6"/>`;
     // 区画と、そこで暮らす子
     for (const k of Object.keys(ZONES)) { const Z = ZONES[k]; if (Z.stage > n) continue; const q = Z.rect, cx = (q[0] + q[1]) / 2, cz = (q[2] + q[3]) / 2, s2 = Math.min(9, (q[1] - q[0]) * 0.5, (q[3] - q[2]) * 0.6);
-      g += r(q[0], q[1], q[2], q[3], ZC[k] || '#E4E0D4', 'stroke="#9C9384" stroke-width=".5" stroke-dasharray="1.6 1"') + `<use href="#sp-${k}" x="${cx - s2 / 2}" y="${cz - s2 / 2}" width="${s2}" height="${s2}" fill="#5A6B62"/>`; }
+      g += r(q[0], q[1], q[2], q[3], ZC[k] || '#E4E0D4', 'stroke="#9C9384" stroke-width=".5" stroke-dasharray="1.6 1"') + `<use href="#sp-${k === 'home' ? 'dog' : k}" x="${cx - s2 / 2}" y="${cz - s2 / 2}" width="${s2}" height="${s2}" fill="#5A6B62"/>`; }
     // 建物
     const B = [[18.2, 25.8, 36, 43, '#B9A58A'], [11, 14, 15.2, 17.8, '#C9A27A']];
     if (n >= 2) B.push([-24.2, -15.8, 14.8, 21.2, '#B48A6A'], [-10.2, -5.8, 19.4, 22.6, '#C9AE7E']);
@@ -15648,7 +16186,7 @@ Object.assign(UI, {
       }
     }
     if (B) {
-      const h = B.e.a.sp === 'cow' || B.e.a.sp === 'horse' ? 2.4 : B.e.a.sp === 'cat' ? 0.95 : B.e.a.sp === 'chicken' || B.e.a.sp === 'duck' || B.e.a.sp === 'rabbit' ? 1.2 : 1.8;
+      const h = B.e.a.sp === 'cow' || B.e.a.sp === 'horse' ? 2.4 : B.e.a.sp === 'cat' || B.e.a.sp === 'dog' ? 0.95 : B.e.a.sp === 'chicken' || B.e.a.sp === 'duck' || B.e.a.sp === 'rabbit' ? 1.2 : 1.8;
       const s = toScreen(B.e.x, B.e.m.root.position.y + h, B.e.z);
       if (!s.vis) { el.style.visibility = 'hidden'; return; }
       el.style.visibility = '';
@@ -15775,7 +16313,7 @@ Object.assign(UI, {
       for (const e of ACT.animals) {
         const d = Math.hypot(e.x - P.x, e.z - P.z), key = e === F || e === pe;
         if (d >= R && !key) continue;
-        an.push({ e, d: key ? -1 : d, cls: d > 6.5 && !key ? 'far' : '', text: e.a.name + (UI._ann.has(e.a.id) && d < 6.5 ? ' ・来た日' : ''), h: e.a.sp === 'cow' || e.a.sp === 'horse' ? 2.4 : e.a.sp === 'cat' ? 0.95 : e.a.sp === 'chicken' || e.a.sp === 'duck' || e.a.sp === 'rabbit' ? 1.2 : 1.8 });
+        an.push({ e, d: key ? -1 : d, cls: d > 6.5 && !key ? 'far' : '', text: e.a.name + (UI._ann.has(e.a.id) && d < 6.5 ? ' ・来た日' : ''), h: e.a.sp === 'cow' || e.a.sp === 'horse' ? 2.4 : e.a.sp === 'cat' || e.a.sp === 'dog' ? 0.95 : e.a.sp === 'chicken' || e.a.sp === 'duck' || e.a.sp === 'rabbit' ? 1.2 : 1.8 });
       }
       an.sort((a, b) => a.d - b.d); an.length = Math.min(an.length, few ? (P.moving ? 1 : narrow ? 3 : 5) + an.filter((x) => x.d < 0).length : narrow ? 6 : 9);
       if (few) an.forEach((x, i) => { if (i > 0 && x.d >= 0 && x.d > 3) x.cls = 'far'; });
@@ -17127,6 +17665,21 @@ Object.assign(UI, {
     for (const e of ACT.animals) {
       const d = Math.hypot(e.x - P.x, e.z - P.z); if (d > 14) continue;
       const nm = e.a.name, sp = e.a.sp, bird = sp === 'chicken' || sp === 'duck' || sp === 'turkey';
+      // ちくわとがんも（0.9.47）：ふたりでしていること
+      if (petOf(e.a)) {
+        const f = e.friend, fn = f ? f.a.name : '', tog = f && Math.hypot(f.x - e.x, f.z - e.z) < 1.7;
+        const dt = e.state === 'sleep' && tog ? `${nm}と${fn}が、縁側で、くっついて眠っています` : e.state === 'chase' && f ? `${nm}が、${fn}を追いかけて、庭をぐるぐる走っています`
+          : e.state === 'romp' && sp === 'dog' ? `${nm}が、前足をのばして、${fn}を遊びにさそっています` : e.state === 'romp' ? `${nm}が、前足で、${fn}にちょんちょん` : e.state === 'ball' || e.state === 'toBall' ? `${nm}が、青いボールを追いかけています`
+          : e.state === 'freeze' ? `${nm}が、体を低くして、固まっています。近づかずに、待ってみましょう` : e.state === 'hide' ? `${nm}が、${fn}のかげから、そっとこちらを見ています`
+          : e.state === 'sniff' ? `${nm}が、自分から近づいてきて、においをかいでいます` : e.state === 'eat' && tog ? `${nm}と${fn}が、並んでごはんを食べています`
+          : (e.state === 'rest' || e.state === 'bask') && tog ? `${nm}が、${fn}のとなりで、ゆっくり休んでいます` : null;
+        if (dt) { out.push(dt); continue; }
+        if (sp === 'dog') {
+          const t2 = e.state === 'look' ? `${nm}が、大きな耳を、音のほうへ向けています` : e.state === 'stretch' ? `${nm}が、前足をのばして、のびをしました` : e.state === 'graze' ? `${nm}が、草のにおいを、ていねいにかいでいます` : e.state === 'rest' ? `${nm}が、前足にあごをのせて、休んでいます` : null;
+          if (t2) out.push(t2);
+          continue;
+        }
+      }
       if (sp === 'cat') {
         const ct = e.state === 'sleep' ? `${nm}が、丸くなって眠っています` : e.state === 'rest' ? `${nm}が、前足をしまって、香箱座りをしています` : e.state === 'bask' ? `${nm}が、日なたで、おなかを見せてのびています`
           : e.state === 'bunt' ? `${nm}が、足もとに、ほおをすりつけてきました` : e.state === 'blink' ? `${nm}が、こちらを見て、ゆっくりまばたきをしました` : e.state === 'eat' ? `${nm}が、ごはん皿に顔をうずめています`
