@@ -1462,6 +1462,10 @@ select { touch-action: pan-x pan-y; }
 .ttl em { font-style: normal; font-size: var(--fs-xs); color: var(--ink-3); }
 .ttl.on { border-color: var(--hay); box-shadow: inset 0 0 0 1px var(--hay); background: var(--note); }
 .ttl-left { margin-top: 10px; }
+
+/* 先月のこと（0.9.55。F7） */
+.ms-note { display: flex; gap: 6px; align-items: flex-start; margin: 8px 0 0; font-size: var(--fs-s); color: var(--ink-2); line-height: 1.55; }
+.ms-note svg { flex: none; width: 16px; height: 16px; margin-top: 2px; opacity: .7; }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -2012,6 +2016,10 @@ const CARDS = {
     src: [['The Open Sanctuary Project', OS + 'nutritional-enrichment-at-animal-sanctuaries/']] },
   noPesticide: { title: '農薬を使わない草地', body: '所有地で農薬を使わないことは、実際のサンクチュアリでも勧められるやり方。花と昆虫が戻ってくる。',
     src: [['The Open Sanctuary Project', OS + 'tips-for-creating-a-more-eco-friendly-sanctuary/']] },
+  noFeedWild: { title: '池のカモには、えさをあげない', body: '池のカルガモやコガモは、野生の鳥です。人が食べものをあげると、人の食べものに頼るようになったり、たくさん集まって病気が広がりやすくなったりします。ここでは、えさはあげずに、見守ってもらっています。',
+    src: [['山梨県「野生鳥獣への餌付けの防止について」', 'https://www.pref.yamanashi.jp/shizen/201219.html'], ['厚生労働省「野鳥との接し方について」', 'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000025912.html']] },
+  noFeedVisitor: { title: '見学の人の「あげたい」', body: 'やさしい気持ちは、うれしいもの。でも、年を重ねて歯が少なくなった子や、食べものに気をつけている子がいます。イギリスのサンクチュアリでは、見学の人からもらった草を、歯の少ない子がのどにつまらせ、動物病院で手当てを受けたことがあります。ここでは、ごはんは世話をする人が用意しています。',
+    src: [['Hopefield Animal Sanctuary「Why it\'s so important not to ignore our do not feed signs」', 'https://hopefield.org.uk/latest-news/why-its-so-important-not-to-ignore-our-do-not-feed-signs-get-well-soon-gremlin/']] },
   rehome: { title: '安全な家につなぐ', body: 'すべてを受け入れられないとき、現実のサンクチュアリは動物を安全な家につなぐネットワークを使っている。断ることは、見捨てることではない。',
     src: [['K12 Enrichment：Farm Sanctuary', 'http://enrichment.k12.com/2026/06/19/discovering-heart-hope-at-farm-sanctuary/']] },
   farmSanctuary: { title: '「はるにれの丘」の規模感', body: 'Farm Sanctuaryは1986年の開設から、275エーカーの土地で400頭超の牛、羊、ヤギ、豚、鶏、七面鳥、アヒル、ガチョウをケアする規模になった。',
@@ -2090,6 +2098,18 @@ const ITEMS = {
 const ENRICH_ORDER = ['brush', 'climb', 'puzzle', 'rope', 'haynet', 'dustbath', 'perch', 'pool', 'floatveg', 'ball', 'tunnel', 'music'];
 const DECO_ORDER = ['flowerbed', 'sign', 'lantern', 'haybale', 'pumpkin', 'ppumpkin', 'susuki', 'ribbon', 'paperorn', 'snowman', 'sunflower', 'sakura', 'holly'];
 const BLOCKED_ORDER = ['fireworks', 'yew', 'mistletoe', 'azalea', 'asebi', 'oleander', 'aconite', 'avocado'];
+// 置かないものと、出会う場面（0.9.55。F5）：はじめから並べず、出来事の中で出会った時に、ひとつずつ加わる。くださった人を悪者にしない
+const BLOCKED_MEET = {
+  azalea: { when: (m) => m === 4 || m === 5, text: 'お隣さんから、ツツジの鉢植えをいただきました。お礼を言って、動物たちの届かない、柵の外の花壇に置きました。ツツジは、動物たちにも、家のまわりを歩く猫たちにも毒になるので' },
+  asebi: { when: (m) => m === 3, text: 'お隣さんが庭木の手入れをして、アセビの枝を分けてくださいました。お礼を言って、柵の外の、動物たちの届かない所に置きました。アセビは、ヤギに毒になる木なので' },
+  oleander: { when: (m) => m === 7 || m === 8, stage: 2, text: '見学の人が「夏は、キョウチクトウを植えたら、きれいですよ」と教えてくれました。お礼を言ってから、ここでは植えないわけを話しました' },
+  fireworks: { ev: 'natsumatsuri', text: '町の夏祭りの週。はるこさん「花火は動物がこわがるから、今年もドローンにお願いしたの」' },
+  aconite: { when: (m) => m === 9 || m === 10, stage: 4, text: '森の見回りで、トリカブトの花を見つけました。柵の外の、動物たちの届かない森のはしでした。そのままにして、柵の内側に種が来ていないかを確かめました' },
+  avocado: { dinner: true, text: '食事会のあと、残ったアボカドの種を植えようという話になりました。葉や皮が、ヤギや羊に毒になるので、ここでは植えないことにしました' },
+  yew: { ev: 'christmas', text: 'クリスマスの週。本物の枝のリース（イチイとヤドリギ）をいただきました。お礼を言って、柵の外の、動物たちの届かない所に飾りました。どちらも、動物たちに毒になる木なので', also: 'mistletoe' },
+};
+// 見送った子の、その後（0.9.55。F8）：行き先は、地方と場所の種類だけ（実在の施設の名前は書かない）
+const AFTER_PLACES = { chicken: ['神奈川の、鶏を迎えているサンクチュアリ', '近くの農家さんの、広い庭'], duck: ['千葉の、池のあるサンクチュアリ'], turkey: ['群馬の、鳥たちを迎えている農園'], goat: ['山梨の牧場', '長野の、ヤギと暮らす農園'], sheep: ['岩手の牧場'], pig: ['千葉のサンクチュアリ'], cow: ['北海道の、広い牧場'], donkey: ['静岡の、ロバのいる牧場'], rabbit: ['ウサギの保護団体の、里親さんの家'], horse: ['引退した馬たちの牧場'] };
 
 /* 性格：どのくらい信頼が積もると自分から近づいてくるか */
 const PERSONALITY = {
@@ -2776,7 +2796,7 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.54', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.55', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -2784,6 +2804,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.55', '2026年10月19日', '見学の人が動物に食べものをあげようとした時は、働く人の名札に「・お話」。お礼を言ってから、わけを話します（手作りの看板の文も選べるように）。「置かないもの」は、いただいた物や見つけた物の中で出会った時に、わけと一緒に加わります。大雨の次の週は、牧草地に飛んできた桜の枝を拾う見回り。運営のお金に、その月の大きな出来事を一行。見送った相談の子の、その後を日記に'],
     ['0.9.54', '2026年10月19日', '設備を整える所を「行動」の「設備」に。寄付は何回かに分けて呼びかけ、返事は次の週に届きます。助成金は募集の時期だけ申し込めて、選ばれない時もあります（次の週に、また申し込めます）。工事の期間も、少し現実に近く。池を約1.8倍の、瓢箪のような形に。縁側を広げて、南の端に低い板の壁。称号（設定の「あなた」で見られます）。いきもの記録に、カエルとトカゲ、クモ、けもの（キタキツネ・エゾタヌキ・エゾリス）。行事の食事会のテーブルと、植えた木が重ならないように。なでた時などに出ていた数字を、見せないように'],
     ['0.9.53', '2026年10月19日', '「いきもの記録」：丘で出会う鳥と虫を、写真に撮ると記録が残ります（捕まえない、えさもあげない）。日記の「いきもの」で読めて、特性は図鑑や国・県の資料から。スズメ、シジュウカラ、ハクセキレイ、モンシロチョウ、エゾオオマルハナバチが来るように。その子の「はじめて」（砂浴び、鼻で土を掘る、牧草地、雪など）を、カードに日付と一行で。鶏の「来る前の暮らし」と、鶏と豚の「日本と世界、くらべてみよう」。受け入れの相談は、土地と人手に空きがある時は少し多く、ふたつまで。ギターや休む時は、あぐらで座るように。丘のお茶の間は「ウェルカムセンター」に'],
     ['0.9.52', '2026年10月18日', 'ヒマワリが咲くのは夏だけに（春は芽、秋は実をつけてうつむき、冬は土とわら）。植えられるのも夏だけ。ちくわとがんもの庭の柵をはずして、縁側はそのまま、庭のすみに小さな隠れ家を。紙芝居と卵の絵を、このゲームと同じ切り紙の絵に。休んでいる時は、カメラが勝手に動かないように（入る時も、ゆっくり寄る）。動物カードの「しぐさ」の並びをそろえました'],
@@ -5959,7 +5980,7 @@ function modelItem(id) {
       }
       break; }
     case 'bench': part('box', WOOD, 2, 0.12, 0.6, 0, 0.55, 0, g); part('box', WOOD, 2, 0.5, 0.1, 0, 0.95, -0.28, g); for (const x of [-0.85, 0.85]) part('box', WOOD_D, 0.12, 0.55, 0.5, x, 0.27, 0, g); break;
-    case 'sign': { const s = signBoard('ゆっくり歩いてね\n動物たちの家です', 1.8, { h: 0.9, postH: 0.8 }); g.add(s); break; }
+    case 'sign': { const s = signBoard(G && G.signText === 'nofeed' ? '動物たちに\n食べ物をあげないでください' : 'ゆっくり歩いてね\n動物たちの家です', 1.8, { h: 0.9, postH: 0.8 }); g.add(s); break; } // 文は、置いた看板を押すと選べる（0.9.55）
     case 'lantern': part('cyl6', '#4A4A44', 0.08, 1.8, 0.08, 0, 0.9, 0, g); part('box', '#4A4A44', 0.5, 0.06, 0.06, 0.2, 1.8, 0, g); { const l = new THREE.Mesh(G3.cyl12, NM.lamp); l.scale.set(0.42, 0.55, 0.42); l.position.set(0.42, 1.5, 0); g.add(l); } break;
     case 'ribbon': part('box', WOOD_D, 0.14, 2, 0.14, 0, 1, 0, g); for (const s of [-1, 1]) { const c = part('cone', '#C8453A', 0.35, 0.45, 0.2, s * 0.22, 1.9, 0.08, g); c.rotation.z = s * Math.PI / 2; } part('sph', '#B23A30', 0.16, 0.16, 0.16, 0, 1.9, 0.1, g); for (const s of [-1, 1]) { const t = part('box', '#C8453A', 0.1, 0.5, 0.04, s * 0.1, 1.6, 0.1, g); t.rotation.z = s * 0.3; } break;
     case 'paperorn': part('box', WOOD_D, 0.1, 1.6, 0.1, 0, 0.8, 0, g); part('box', WOOD_D, 1.4, 0.06, 0.06, 0, 1.6, 0, g); ['#D4A52F', '#6E62B0', '#D6735A', '#2F8A87'].forEach((c, i) => { part('cone4', c, 0.22, 0.28, 0.22, -0.5 + i * 0.33, 1.35, 0, g); part('cyl6', '#EDE9DF', 0.01, 0.2, 0.01, -0.5 + i * 0.33, 1.5, 0, g, { noShadow: true }); }); break;
@@ -7851,6 +7872,18 @@ function modelEngawa() {
   return g;
 }
 
+// 大雨の翌朝に飛んできた桜の枝（0.9.55。F6）。拾うと、カード「桜は生活エリアの外に」
+function buildBranch() {
+  if (W.branch && W.branch.parent) W.branch.parent.remove(W.branch);
+  W.branch = null; W.pickups = [];
+  const b = G && G.branch; if (!b || !W.layers) return;
+  const g = new THREE.Group();
+  const st = part('cyl', '#6E5240', 0.07, 1.5, 0.07, 0, 0.06, 0, g); st.rotation.z = Math.PI / 2;
+  for (let i = 0; i < 3; i++) { const tw = part('cyl', '#6E5240', 0.04, 0.6, 0.04, -0.4 + i * 0.4, 0.1, (i % 2 ? 1 : -1) * 0.18, g); tw.rotation.z = Math.PI / 2; tw.rotation.y = (i % 2 ? 1 : -1) * 0.7; }
+  for (let i = 0; i < 7; i++) part('sph', i % 3 ? '#9AA25A' : '#B88A4A', 0.16, 0.06, 0.12, -0.6 + i * 0.2, 0.12, Math.sin(i * 1.7) * 0.25, g, { noShadow: true });
+  g.position.set(b.x, heightAt(b.x, b.z), b.z); g.rotation.y = 0.6; W.layers.extra.add(g);
+  W.branch = g; W.pickups = [{ id: 'branch', name: '飛んできた桜の枝', model: g, x: b.x, z: b.z }];
+}
 /* ---- 全体の組み立て（段階が変わった時、読み込み時） ---- */
 function buildWorld() {
   W.ver = (W.ver || 0) + 1;
@@ -7864,6 +7897,7 @@ function buildWorld() {
   updateTerrain();
   ROOFS.length = 0; W.colliders = []; W.dryRects = []; W.shadeBoxes = []; W.foods = []; W.circles = []; W.itemCircles = {}; NAV.dirty = true;
   for (const k of ['base', 'fence', 'trees', 'milestone', 'extra', 'deco', 'event', 'markers']) clearGroup(W.layers[k]);
+  W.branch = null; W.pickups = [];
   W.placedModels = {}; W.butterflies = []; W.dragonflies = []; W.frogs = []; W.benches = []; W.keep = [];
   buildBase(); buildFences(); buildTrees(); buildGrass();
   G.milestoneItems.forEach((id) => buildMilestone(id, false));
@@ -7901,6 +7935,7 @@ function buildBase() {
   if (G.stage >= ZONES.home.stage) { place('base', modelDuoHut(), DUO_HUT.x, DUO_HUT.z, 0); W.circles.push([DUO_HUT.x, DUO_HUT.z, 0.62]); place('base', modelEngawa(), 0, 0); W.colliders.push(ENGAWA.rect.slice()); W.dryRects.push(ENGAWA.rect.slice()); W.keep.push([28.6, 39.5, 4.2]); }
   // ウェルカムセンター（段階2から。段階1は、家の前の「お知らせの板」。0.9.49。ochanoma.js）
   buildOchaOutside();
+  buildBranch(); // 大雨の翌朝の桜の枝（0.9.55）
   // 鶏の庭を眺める古いベンチ（はじめからある。ここでいつでもひと息つける）
   // 座った時のカメラはベンチの後ろ（西）に来るので、後ろには建物を置かない（木も生やさない：buildTrees）
   { const bx = 5.2, bz = 22, ry = benchFacing(bx, bz), bm = modelItem('bench'); place('base', bm, bx, bz, ry); W.benches.push({ sid: 'base-bench', x: bx, z: bz, ry, model: bm }); W.itemCircles['base-bench'] = itemCircles('bench', bx, bz, ry); }
@@ -12120,6 +12155,7 @@ function pickEntity(ray) {
   for (const bn of (W.benches || [])) { const h = ray.intersectObject(bn.model, true)[0]; if (h) return { ent: benchEnt(bn), kind: 'bench', dist: h.distance }; }
   // 行事の飾り（ツリー、笹飾り、記念日の黒板）
   for (const it of (W.eventItems || [])) { const h = ray.intersectObject(it.model, true)[0]; if (h) return { ent: evItemEnt(it), kind: 'evitem', dist: h.distance }; }
+  for (const it of (W.pickups || [])) { const h = ray.intersectObject(it.model, true)[0]; if (h) return { ent: { x: it.x, z: it.z, name: it.name, pick: it.id, m: { root: it.model } }, kind: 'pickup', dist: h.distance }; }
   // 置いた物（エンリッチメントや飾り）
   let best = null;
   for (const sid in (W.placedModels || {})) {
@@ -12149,6 +12185,7 @@ function nearestInteractable() {
   for (const bn of (W.benches || [])) { const d = Math.hypot(bn.x - P.x, bn.z - P.z) - 0.6; if (d < 1.8 && d < bd) { bd = d; best = { ent: benchEnt(bn), kind: 'bench' }; } }
   for (const sid in (W.placedModels || {})) { const e = itemEnt(sid); if (!e) continue; const d = Math.hypot(e.x - P.x, e.z - P.z) - 0.7; if (d < 1.9 && d < bd) { bd = d; best = { ent: e, kind: 'item' }; } }
   for (const it of (W.eventItems || [])) { const d = Math.hypot(it.x - P.x, it.z - P.z) - 0.9; if (d < 1.9 && d < bd) { bd = d; best = { ent: evItemEnt(it), kind: 'evitem' }; } }
+  for (const it of (W.pickups || [])) { const d = Math.hypot(it.x - P.x, it.z - P.z) - 0.6; if (d < 1.9 && d < bd) { bd = d; best = { ent: { x: it.x, z: it.z, name: it.name, pick: it.id, m: { root: it.model } }, kind: 'pickup' }; } }
   for (const it of (EGG.items || [])) { if (it.eg.st !== 'egg') continue; const d = Math.hypot(it.eg.x - P.x, it.eg.z - P.z) - 0.3; if (d < 1.6 && d < bd) { bd = d; best = { ent: eggEnt(it), kind: 'egg' }; } }
   { const od = ochaNear(); if (od !== null && od - 0.4 < bd) { bd = od; best = { ent: W.ocha.ent, kind: 'ocha' }; } } // ウェルカムセンター・お知らせの板
   return best;
@@ -13232,6 +13269,7 @@ function acceptRequest(id) {
   G.animals.push(...newOnes);
   syncAnimals();
   const names = newOnes.map((a) => a.name).join('と');
+  monthNote(`${names}を迎えて、餌や寝わらの分が少し増えました`, 2);
   const z = G.stage >= 2 ? [-43, 41] : [(ZONES[req.sp].rect[0] + ZONES[req.sp].rect[1]) / 2, (ZONES[req.sp].rect[2] + ZONES[req.sp].rect[3]) / 2];
   note('friends', G.stage >= 2 ? `${names}が来ました。まずは検疫小屋で1週間、様子を見ます` : `${names}が来ました。鶏の庭の仲間になりました`, [z[0], z[1], 3]);
   if (firstOfKind && SPECIES[req.sp].card) unlockCard(SPECIES[req.sp].card);
@@ -13255,6 +13293,7 @@ function declineRequest(id) {
   G.requests = G.requests.filter((r) => r.id !== id);
   if (req.group) G.skipGroups[req.group] = G.turn + 3;
   note('news', '今回は見送りました。はるこさんが、ほかの受け入れ先を一緒に探してくれるそうです', null, { quiet: false });
+  if (!hako()) { G.afterDecline = G.afterDecline || []; G.afterDecline.push({ due: G.turn + 2 + Math.floor(Math.random() * 3), turn: G.turn, sp: req.sp, n: req.members.length, names: req.members.map((m) => m.name) }); }
   GAME.save(); UI.refresh();
 }
 
@@ -13698,8 +13737,10 @@ function settleMonth() {
     if (need - draw > 0) r.cover = coverShortfall(need - draw);
   }
   r.savings = G.savings;
+  { const ns = (G.monthNotes || []).slice().sort((a, b) => b.pr - a.pr || b.turn - a.turn); r.note = ns.length ? ns[0].t : ''; G.monthNotes = []; }
   // 日記：あたたかく、事実だけ
   const lines = [`今月の運営：支え ${yen(f.inc)} ／ 費用 ${yen(f.cost)}`];
+  if (r.note) lines.push(`今月は、${r.note}`);
   if (used >= 500) lines.push(`物資の備え（${yen(used)}分）で、餌や寝床をまかないました`);
   if (r.toSave) lines.push(`残った${yen(r.toSave)}を、預金にまわしました（預金 ${yen(G.savings)}）`);
   if (r.drawn) lines.push(`足りない${yen(r.drawn)}は、預金から出しました（預金 ${yen(G.savings)}）`);
@@ -13885,7 +13926,7 @@ function projFinish(id, overnight) {
     const wait = (G.waiting || []).filter((w) => w.sp === p.sp);
     G.waiting = (G.waiting || []).filter((w) => w.sp !== p.sp);
     wait.forEach((w) => { w.animals.forEach((a) => { if (G.stage >= 2) a.quarantine = G.turn + 1; }); G.animals.push(...w.animals); say('friends', `ネットワークのサンクチュアリに預かってもらっていた${w.animals.map((a) => a.name).join('と')}が、やって来ました`); if (SPECIES[p.sp].card) unlockCard(SPECIES[p.sp].card, true); });
-  } else if (p.kind === 'repair') say('added', `「${p.name}」が終わりました。動物たちも落ち着いています`);
+  } else if (p.kind === 'repair') { say('added', `「${p.name}」が終わりました。動物たちも落ち着いています`); monthNote(`「${p.name}」の修繕がありました`, 3); }
   else say('added', `「${p.name}」が終わりました。${p.effect ? `（${p.effect}）` : ''}`);
   if (p.card) unlockCard(p.card, true);
   G.pendingSupports = G.pendingSupports || [];
@@ -13931,6 +13972,66 @@ function projTick() {
     if (st.state === 'work' && G.turn >= st.workDone) projFinish(id, overnight);
   }
 }
+// 見送った子の、その後（0.9.55。F8）：2〜4週あとに、一行だけ。誰のせいにもしない。見つからない時も、正直に短く
+function afterDeclineTick() {
+  const list = G.afterDecline || []; if (!list.length) return;
+  const now = list.filter((x) => x.due <= G.turn); if (!now.length) return;
+  G.afterDecline = list.filter((x) => x.due > G.turn);
+  for (const x of now.slice(0, 1)) {
+    const sp = SPECIES[x.sp], who = x.names && x.names.length <= 2 ? x.names.join('と') : `${sp ? sp.name : ''}の${x.n}${sp ? sp.unit : ''}`;
+    const ago = G.turn - x.turn >= 4 ? '先月' : 'この前';
+    const found = Math.random() < 0.7, place = pick(AFTER_PLACES[x.sp] || ['ネットワークのサンクチュアリ']);
+    G.overnight.push({ cat: 'news', text: found ? `${ago}お話のあった${who}は、${place}に行き先が見つかったそうです` : `${ago}お話のあった${who}は、まだ行き先を探しています。元の場所で、もう少し待てることになりました` });
+    unlockCard('rehome', true);
+  }
+  if (now.length > 1) G.afterDecline.push(...now.slice(1).map((x) => Object.assign(x, { due: G.turn + 1 })));
+}
+// 運営のお金の、その月の大きな出来事（0.9.55。F7）：数字ではなく、言葉で一行
+function monthNote(text, pr) { if (hako()) return; G.monthNotes = G.monthNotes || []; G.monthNotes.push({ t: text, pr: pr || 1, turn: G.turn }); }
+// 置かないものと、出会う（0.9.55。F5）：週にひとつまで
+function blockedSeen(id) { const it = ITEMS[id]; return hako() || !!((G.blockedSeen || {})[id] || (it && it.card && G.cards[it.card])); }
+function blockedMeet() {
+  if (hako()) return;
+  const m = dateOf(G.date).getMonth() + 1;
+  for (const id of BLOCKED_ORDER) {
+    const b = BLOCKED_MEET[id]; if (!b || blockedSeen(id)) continue;
+    if (b.stage && G.stage < b.stage) continue;
+    const ok = b.ev ? (G.events || []).includes(b.ev) : b.dinner ? (G.flags.dinnerN || 0) > 0 && G.flags.dinnerMet !== true : b.when(m) && Math.random() < 0.5;
+    if (!ok) continue;
+    if (b.dinner) G.flags.dinnerMet = true;
+    G.blockedSeen = G.blockedSeen || {}; G.blockedSeen[id] = G.turn; if (b.also) G.blockedSeen[b.also] = G.turn;
+    unlockCard(ITEMS[id].card, true); if (b.also) unlockCard(ITEMS[b.also].card, true);
+    G.overnight.push({ cat: 'news', text: b.text + '（「飾る」の「置かないもの」に、わけが加わりました）' });
+    return;
+  }
+}
+// 大雨の翌朝の見回り（0.9.55。F6）：牧草地に、観覧エリアの桜の枝が飛んできていることがある
+function stormBranch() {
+  if (hako() || G.stage < 2 || G.w09Turn !== G.turn - 1) return;
+  const own = Object.values(G.placed || {}).includes('sakura'); // 観覧エリアに桜を植えていれば、その枝。なければ、お隣の庭の桜の枝
+  const z = ZONES.cow.rect, x = (z[0] + z[1]) / 2 + 6 + Math.random() * 4, zz = (z[2] + z[3]) / 2 - 2 + Math.random() * 4;
+  G.branch = { x, z: zz, turn: G.turn };
+  G.overnight.push({ cat: 'health', text: `大雨の次の朝。見回りをすると、牛の牧草地に、${own ? '観覧エリアの' : 'お隣の庭の'}桜の枝が飛んできていました。牧草地で見つけたら、拾ってください`, focus: [x, zz, 2] });
+}
+function pickBranch() {
+  if (!G.branch) return;
+  G.branch = null; buildBranch();
+  note('health', '牧草地に飛んできた桜の枝を拾いました。しおれた桜の葉は、牛やヤギ、羊に危ないので。ついでに、柵のゆるみも確かめました');
+  unlockCard('sakura');
+  GAME.save(); UI.refresh();
+}
+// 見学の人の「あげたい」（0.9.55。F4）：働く人の名札に「・お話」がつき、話しかけると、その場面に
+function feedSceneRoll() {
+  if (hako() || G.stage < 2) { G.feedScene = null; return; }
+  if (G.feedScene && !G.feedScene.done && G.feedScene.turn >= G.turn - 1) return;
+  G.feedScene = null;
+  const sign = Object.entries(G.placed || {}).some(([k, v]) => v === 'sign') && G.signText === 'nofeed';
+  if (Math.random() > (sign ? 0.06 : 0.22)) return;
+  const old = G.animals.filter((a) => a.elderly && !petOf(a)), kind = old.length && (Math.random() < 0.5 || !WS.pond) ? 'grass' : 'bread';
+  G.feedScene = { kind, turn: G.turn, host: 'yuto', a: kind === 'grass' ? pick(old).name : null, done: false };
+}
+function feedScenePending(id) { const f = G.feedScene; return !!(f && !f.done && f.host === id && G.turn - f.turn <= 1); }
+function feedSceneDone() { const f = G.feedScene; if (!f) return null; f.done = true; const card = f.kind === 'bread' ? 'noFeedWild' : 'noFeedVisitor'; unlockCard(card, true); note('people', f.kind === 'bread' ? '見学の人が、池のカモにパンをあげようとしていました。ゆうとさんが、お礼を言ってから、わけを話しました' : `見学の人が、${f.a}に抜いた草をあげようとしていました。ゆうとさんが、お礼を言ってから、わけを話しました`, null, { quiet: true }); titleCount('listen'); GAME.save(); return card; }
 // できごと：修繕が必要になる（たまに）
 function maybeRepair() {
   if (hako() || G.turn < 4) return;
@@ -13946,7 +14047,7 @@ function logMonth(r) {
   if (hako()) return;
   const f = finance();
   G.finLog = (G.finLog || []).filter((x) => x.turn !== G.turn && x.turn < G.turn);
-  G.finLog.push(Object.assign({ turn: G.turn, date: G.date, inc: f.inc, cost: f.cost, savings: G.savings }, r ? { used: r.used, toSave: r.toSave, drawn: r.drawn, cover: r.cover } : {}));
+  G.finLog.push(Object.assign({ turn: G.turn, date: G.date, inc: f.inc, cost: f.cost, savings: G.savings }, r ? { used: r.used, toSave: r.toSave, drawn: r.drawn, cover: r.cover, note: r.note || '' } : {}));
   while (G.finLog.length > 12) G.finLog.shift();
 }
 // これから決まっていることを入れて、この先 n か月の見通し
@@ -14017,6 +14118,7 @@ function arriveHires(overnight) {
     t[h.kind]++; t.names.push({ kind: h.kind, name: h.name });
     const text = h.kind === 'staff' ? `職員の${h.name}が来てくれました。毎日の世話と体調の記録を任せられます` : `アルバイトの${h.name}が来てくれました。週末の餌やりと掃除を手伝ってくれます`;
     if (overnight) G.overnight.push({ cat: 'people', text }); else note('people', text);
+    monthNote(`${h.name}が来てくれて、お給料の分が増えました`, 2);
   });
   G.hiring = G.hiring.filter((h) => h.done > G.turn);
   if (now.length && !overnight) syncNPCs();
@@ -14318,7 +14420,8 @@ function startDay(first) {
     G.pending = G.pending.filter((p) => p.done > G.turn);
     teamOf(); arriveHires(true);
     maybeBond(); maybeDuo(); ochaNote();
-    projTick(); maybeRepair();
+    projTick(); maybeRepair(); afterDeclineTick(); blockedMeet(); stormBranch(); feedSceneRoll();
+    if (G.branch && G.branch.turn < G.turn) { G.branch = null; G.overnight.push({ cat: 'health', text: 'ゆうとさんが、牧草地の桜の枝を片付けてくれました' }); }
     if (G.morita && G.morita.reqPending && G.stage >= 2) { G.morita.reqPending = false; const r = moritaRequest(); G.requests.push(r); G.overnight.push({ cat: 'news', text: `受け入れの相談：${r.intro}`, req: r.id }); }
     if (G.turn % 4 === 1 && G.mode !== 'hakoniwa') G.monthRec = settleMonth();
     if (G.bizRepeat.B01 && G.turn >= G.bizRepeat.B01) { G.bizRepeat.B01 = G.turn + 4; G.pendingSupports.push({ type: 'corp', size: 'S', src: 'self', label: '売上の一部の寄付' }); G.overnight.push({ cat: 'people', text: '町のオーツミルク工房から、今月の寄付が届きました' }); }
@@ -14623,7 +14726,7 @@ function jumpStage(n) {
 /* ---------- 保存 ---------- */
 const GAME = {
   note, unlockCard, careAdd, aheadLines, welcomeLines, sniffVisit, addDuo, foodEaten, crackEgg, lifeOf, lifeIndex, lifeSummary, lifeAdvice, lifeWord, lifeCheck, knowOf, knowAdd, knowTell, knowTick, friendOf, cowTag, pigOnDiet, capacity, axes, runAction, startBiz, restAction, petAnimal, petReact, respectAnimal, treatAnimal, sponsorAnimal, anniversary,
-  grantOpen, grantNext, campaignRounds, projTick, campaignNext: campaignStepName, acceptRequest, rehomeRequest, declineRequest, requestChecks, hire, hireAvailable, finance, harukoPay, incomeView, savingWays, forecast, moritaState, moritaQuestion, moritaAnswer, talkState, talkNext, talkAvail, talkAnswer, talkPresent, talkCh, talkReady, bizMoney, feedBedCost, stockWeeks, coverText, reserveTarget, usableFunds, projList, projState, projPay, projCampaign, projGrant, prepDone, prepStarted, salary, hourlyWage, animalCost, teamCount, volunteerCap, staffMax, teamOf, placeItem, removeItem, startDay, endDay, jumpStage, actionAvailable,
+  grantOpen, grantNext, pickBranch, feedScenePending, feedSceneDone, blockedSeen, campaignRounds, projTick, campaignNext: campaignStepName, acceptRequest, rehomeRequest, declineRequest, requestChecks, hire, hireAvailable, finance, harukoPay, incomeView, savingWays, forecast, moritaState, moritaQuestion, moritaAnswer, talkState, talkNext, talkAvail, talkAnswer, talkPresent, talkCh, talkReady, bizMoney, feedBedCost, stockWeeks, coverText, reserveTarget, usableFunds, projList, projState, projPay, projCampaign, projGrant, prepDone, prepStarted, salary, hourlyWage, animalCost, teamCount, volunteerCap, staffMax, teamOf, placeItem, removeItem, startDay, endDay, jumpStage, actionAvailable,
   save() {
     // 箱庭モードは保存しない（毎回、すべてがそろった姿から）
     if (!G || !STARTED || G._backdrop || G.mode === 'hakoniwa') return;
@@ -15575,6 +15678,7 @@ const UI = {
       case 'weather': GAME.setWeather(v); UI.render(); break;
       case 'morning-go': UI.closeModal(); UI.closeSheet(); break;
       case 'next-visit': UI.closeModal(); UI.closeSheet(); GAME.startDay(false); break;
+      case 'sign-text': G.signText = v; GAME.save(); UI.closeModal(); buildWorld(); syncAnimals(); break;
       case 'title-on': G.titleOn = id; GAME.save(); UI.render(); break;
       case 'open': { const push = !$('#sheet').hidden && $('#modal').hidden; UI.closeModal(); UI.openSheet(v, undefined, push); break; }
       case 'npc-req': UI.closeModal(); UI.openSheet('animals'); break;
@@ -15677,6 +15781,7 @@ const UI = {
       }
     }
     if (f.pend) h += `<p class="muted u-m-n4-0-10">迎える準備中の人のお給料（毎月 ${yen(f.pend)}）は、来てくれた週から費用に入ります。「見通し」で確かめられます。</p>`;
+    { const ln = (G.finLog || []).slice().reverse().find((x) => x.note && G.turn - x.turn < 4); if (!hk && ln) h += `<p class="ms-note">${ico('i-doc')}${ln.turn === G.turn ? '今月は' : '先月は'}、${esc(ln.note)}</p>`; } // 0.9.55（F7）：お金の大変さは、数字ではなく言葉で
     return h;
   },
 };
@@ -15773,7 +15878,7 @@ Object.assign(UI, {
     },
     deco() {
       const tab = UI.tab.deco || 'enrich', hk = G.mode === 'hakoniwa';
-      let h = `<div class="tabs">${[['enrich', 'エンリッチメント'], ['deco', '飾り'], ['blocked', '置けないもの']].map(([k, n]) => `<button data-act="tab" data-v="${k}" class="${tab === k ? 'on' : ''}">${n}</button>`).join('')}</div>`;
+      let h = `<div class="tabs">${[['enrich', 'エンリッチメント'], ['deco', '飾り'], ['blocked', '置かないもの']].map(([k, n]) => `<button data-act="tab" data-v="${k}" class="${tab === k ? 'on' : ''}">${n}</button>`).join('')}</div>`;
       if (tab === 'enrich') {
         // 手元の数は、いちばん上に大きく。0の時は、作り方をすぐ横に
         if (!hk) { const a9 = ACTIONS.find((x) => x.id === 'L09'), av9 = GAME.actionAvailable(a9), none = G.tokens <= 0;
@@ -15795,8 +15900,9 @@ Object.assign(UI, {
           h += `<button class="act" data-act="deco" data-id="${id}" ${off ? 'disabled' : ''}><span class="ic tone-leaf">${ico('i-flower')}</span>${UI.placedBadge(id)}<span class="tx"><strong>${esc(it.name)}</strong><span>${esc(it.desc)}</span>${off ? `<span class="pill warn">${it.seasons.map((s) => SEASON_NAME[s]).join('・')}のあいだだけ</span>` : `<span class="pill q">${it.where.includes('animal') ? '観覧エリア・動物の区画' : '観覧エリアだけ'}</span>`}${UI.placedWhere(id)}</span></button>`;
         }
       } else {
-        h += `<p class="lead-s">きれいでも、動物にとって危ないものがあります。ここには置けませんが、かわりに楽しめるものを用意しました。</p>`;
-        for (const id of BLOCKED_ORDER) {
+        const seen = BLOCKED_ORDER.filter((id) => GAME.blockedSeen(id));
+        h += seen.length ? `<p class="lead-s">きれいでも、動物にとって危ないものがあります。いただいた物や、見つけた物の中で出会ったものが、わけと一緒に並びます。かわりに楽しめるものもあります。</p>` : '<p class="lead-s">まだありません。いただいた物や、丘で見つけた物の中に、動物たちにとって危ないものがあった時、ここにわけと一緒に並びます。</p>';
+        for (const id of seen) {
           const it = ITEMS[id];
           h += `<button class="act" data-act="blocked" data-id="${id}"><span class="ic tone-coral">${ico('i-x')}</span><span class="tx"><strong>${esc(it.name)}</strong><span>${esc(CARDS[it.card].title)}${it.altLabel ? '　かわりに：' + esc(it.altLabel) : ''}</span></span></button>`;
         }
@@ -16583,6 +16689,7 @@ Object.assign(UI, {
     if (p.kind === 'inspot') { ochaOpen(p.ent.id); return; }
     if (p.kind === 'pet') { UI.petStart(p.ent); return; }
     if (p.kind === 'evitem') { UI.evItemInfo(p.ent); return; }
+    if (p.kind === 'pickup') { if (p.ent.pick === 'branch') GAME.pickBranch(); return; }
     if (p.kind === 'egg') { UI.eggInfo(p.ent); return; }
     if (p.kind === 'bench') { UI.startRest('bench', p.ent.bench); return; }
     if (p.kind === 'item') { UI.itemInfo(p.ent); return; }
@@ -16738,6 +16845,7 @@ Object.assign(UI, {
   },
   npcDialog(n) {
     titleCountOnce('chat', n && n.d ? n.d.name : '');
+    if (n && n.d && GAME.feedScenePending(n.d.id)) { UI.feedScene(n); return; }
     if (n.d.id === 'haruko') UI.tutMark('talk');
     const id = n.d.id, c = capacity(), hk = G.mode === 'hakoniwa';
     const cid = CHAT[id] ? id : n.d.hire ? CHAT_HIRE[n.d.name] : null;
@@ -16769,6 +16877,19 @@ Object.assign(UI, {
     }
     const about = cid && CHAT[cid].about;
     UI.modal(`<div class="dialog-who"><span class="av bust">${npcBust(n.d)}</span><div><strong>${esc(n.d.name)}</strong><br><span class="muted">${esc(n.d.role)}${about ? `・${esc(about.split('。')[0])}` : ''}</span></div></div>${chatHtml(lines)}${story}<div class="btn-row">${btn}<button class="btn small" data-act="close-modal">ありがとう</button></div>`);
+  },
+  // 見学の人の「あげたい」（0.9.55。F4）：働く人が、まずお礼を言ってから、わけを話す。あなたは、そばで一緒に聞く
+  feedScene(n) {
+    const f = G.feedScene; if (!f) return;
+    const bread = f.kind === 'bread';
+    const lines = bread
+      ? ['見学の方が、池のカモに、パンをあげようとしていたんです', 'まず、「気にかけてくださって、ありがとうございます」とお伝えしました', '池のカルガモやコガモは、野生の鳥なんです。人の食べものに頼るようになったり、たくさん集まって病気が広がりやすくなったりするので、ここでは、えさはあげずに見守ってもらっています', 'わけを話したら、「知らなかった。教えてくれてよかった」って。いっしょに、泳ぐところを眺めていかれました']
+      : [`見学の方が、抜いた草を、${f.a}にあげようとしていたんです`, 'やさしい気持ちが、うれしかったです。まず、お礼を言いました', `${f.a}は年を重ねて、歯が少なくなっています。食べやすいように、ごはんを用意しているんです`, 'イギリスのサンクチュアリでは、見学の人からもらった草を、歯の少ない子がのどにつまらせて、動物病院で手当てを受けたことがあるそうです。だから、ごはんは私たちが用意しています、とお話ししました'];
+    const card = GAME.feedSceneDone();
+    UI.modal(`<div class="dialog-who"><span class="av bust">${npcBust(n.d)}</span><div><strong>${esc(n.d.name)}</strong><br><span class="muted">${esc(n.d.role)}</span></div></div>
+      <p class="said">${lines.map((x) => `「${esc(x)}」`).join('<br>')}</p><p class="you">あなたは、そばで一緒に聞きました。</p>
+      <p class="muted">「飾る」の手作りの看板は、文を選べます。「動物たちに、食べ物をあげないでください」の看板を立てると、気づいてもらいやすくなります。</p>
+      <div class="btn-row"><button class="btn small primary" data-act="close-modal">ありがとう</button>${card ? `<button class="btn small" data-act="card" data-id="${card}">カードを見る</button>` : ''}</div>`);
   },
   // はるこさん・ゆうとさんの話（森田さんの話と同じ形。正解はなく、返事を選ぶ）
   talkModal(id, res) {
@@ -17177,7 +17298,7 @@ Object.assign(UI, {
       an.sort((a, b) => a.d - b.d); an.length = Math.min(an.length, few ? (P.moving ? 1 : narrow ? 3 : 5) + an.filter((x) => x.d < 0).length : narrow ? 6 : 9);
       if (few) an.forEach((x, i) => { if (i > 0 && x.d >= 0 && x.d > 3) x.cls = 'far'; });
       list.push(...an);
-      for (const n of ACT.npcs) { const d = Math.hypot(n.x - P.x, n.z - P.z); if (d < R + 6) list.push({ e: n, d: d - 1.5, cls: 'npc', text: n.d.name + (UI.talkIdOf(n.d) && GAME.talkAvail(UI.talkIdOf(n.d)) ? ' ・お話' : ''), h: 2.5 }); }
+      for (const n of ACT.npcs) { const d = Math.hypot(n.x - P.x, n.z - P.z); if (d < R + 6) list.push({ e: n, d: d - 1.5, cls: 'npc', text: n.d.name + ((UI.talkIdOf(n.d) && GAME.talkAvail(UI.talkIdOf(n.d))) || GAME.feedScenePending(n.d.id) ? ' ・お話' : ''), h: 2.5 }); }
       { const seen = new Set(); // 池の鳥は、近くで、同じ名前は1つだけ
         for (const w of ACT.wild) { if (!w.m.root.visible) continue; const d = Math.hypot(w.x - P.x, w.z - P.z); if (d >= (w.pond ? 9 : 16) || w.pond && seen.has(w.name)) continue; if (w.pond) seen.add(w.name); list.push({ e: w, d, cls: 'wild', text: w.name, h: w.h || 2 }); } }
     }
@@ -17221,7 +17342,7 @@ Object.assign(UI, {
       if (key !== UI.lastPrompt) {
         UI.lastPrompt = key;
         const name = n.kind === 'animal' ? n.ent.a.name : n.kind === 'bench' ? (n.ent.seatName || '') : n.kind === 'inspot' ? n.ent.label : n.ent.name;
-        const verb = n.kind === 'inspot' ? '' : n.kind === 'ocha' ? (W.ocha && W.ocha.kind === 'hut' ? 'に入る' : 'を見る') : n.kind === 'animal' ? 'のカードを見る' : n.kind === 'npc' ? 'と話す' : n.kind === 'bench' ? (n.ent.seatName ? 'に座る' : 'ベンチに座る') : n.kind === 'item' || n.kind === 'evitem' || n.kind === 'egg' ? 'を見る' : 'をそっと見る';
+        const verb = n.kind === 'inspot' ? '' : n.kind === 'ocha' ? (W.ocha && W.ocha.kind === 'hut' ? 'に入る' : 'を見る') : n.kind === 'animal' ? 'のカードを見る' : n.kind === 'npc' ? 'と話す' : n.kind === 'pickup' ? 'を拾う' : n.kind === 'bench' ? (n.ent.seatName ? 'に座る' : 'ベンチに座る') : n.kind === 'item' || n.kind === 'evitem' || n.kind === 'egg' ? 'を見る' : 'をそっと見る';
         E.promptBtn.innerHTML = `${esc(name)}${verb}${IS_TOUCH ? '' : ' <kbd>E</kbd>'}`;
       }
       pr.hidden = false;
@@ -17239,6 +17360,7 @@ Object.assign(UI, {
     if (likes.length) h += `<p class="muted">好きな子：${likes.map((sp) => `${SPECIES[sp].name}${here.has(sp) ? '' : '（まだいません）'}`).join('、')}</p>`;
     if (users.length || eaters.length) h += `<p class="muted">今、${esc(users.concat(eaters).slice(0, 3).join('と'))}が${eaters.length ? '食べています' : '楽しんでいます'}</p>`;
     if (zone) h += `<p class="muted">場所：${esc(ZONES[zone].label)}</p>`;
+    if (e.item === ITEMS.sign) h += `<div class="field u-mt10"><span class="flabel">看板の文</span><div class="seg">${[['slow', 'ゆっくり歩いてね'], ['nofeed', '食べ物をあげないでください']].map(([k, t]) => `<button data-act="sign-text" data-v="${k}" class="${(G.signText || 'slow') === k ? 'on' : ''}">${t}</button>`).join('')}</div></div>`;
     h += `<div class="btn-row"><button class="btn small" data-act="close-modal">閉じる</button></div>`;
     UI.modal(h);
   },
