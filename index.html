@@ -1925,6 +1925,15 @@ const DECO_EVENTS = ['newyear', 'hanami', 'chickenday', 'tanabata', 'natsumatsur
 
 const SEASON_NAME = { spring: '春', summer: '夏', autumn: '秋', winter: '冬' };
 const WEATHER_NAME = { sunny: '晴れ', cloudy: 'くもり', rain: '雨', snow: '雪' };
+// 雨の強さ（0.9.56）：小雨・雨・大雨。大雨は台風のころ（7〜9月）だけ。雨の日のおよそ9割は、小雨と雨
+//   n：降る粒の多さ、spd：落ちる速さ、snd：雨音、dark：空の暗さ、crowd：人の出かたの割合
+const RAIN_LV = {
+  light: { name: '小雨', n: 0.32, spd: 17, snd: 0.03, dark: 0.26, crowd: 0.75 },
+  normal: { name: '雨', n: 0.7, spd: 24, snd: 0.06, dark: 0.42, crowd: 0.45 },
+  heavy: { name: '大雨', n: 1, spd: 31, snd: 0.11, dark: 0.58, crowd: 0.18 },
+};
+function rainLv() { return (typeof G !== 'undefined' && G && RAIN_LV[G.rainLv]) ? G.rainLv : 'normal'; }
+function typhoonSeason(m) { return m >= 7 && m <= 9; }
 
 /* 知識カード（第10・13・18章の出典つき） */
 const OS = 'https://opensanctuary.org/';
@@ -2796,7 +2805,7 @@ const FIN = {
 
 /* ベータテスト版の情報（0.9.18 から。1.0 で正式公開） */
 const APP = {
-  version: '0.9.55', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.56', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -2804,6 +2813,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.56', '2026年10月19日', '雨の強さを、小雨・雨・大雨に（大雨は7〜9月だけ。雨の日のおよそ9割は、小雨と雨）。雨の日は、見学の人が傘を、働く人がレインコートを（小雨の時は、傘をささない人も）。ウェルカムセンターの中では、雨音が聞こえないように。いきもの記録の分け方を「虫」「野生動物」に'],
     ['0.9.55', '2026年10月19日', '見学の人が動物に食べものをあげようとした時は、働く人の名札に「・お話」。お礼を言ってから、わけを話します（手作りの看板の文も選べるように）。「置かないもの」は、いただいた物や見つけた物の中で出会った時に、わけと一緒に加わります。大雨の次の週は、牧草地に飛んできた桜の枝を拾う見回り。運営のお金に、その月の大きな出来事を一行。見送った相談の子の、その後を日記に'],
     ['0.9.54', '2026年10月19日', '設備を整える所を「行動」の「設備」に。寄付は何回かに分けて呼びかけ、返事は次の週に届きます。助成金は募集の時期だけ申し込めて、選ばれない時もあります（次の週に、また申し込めます）。工事の期間も、少し現実に近く。池を約1.8倍の、瓢箪のような形に。縁側を広げて、南の端に低い板の壁。称号（設定の「あなた」で見られます）。いきもの記録に、カエルとトカゲ、クモ、けもの（キタキツネ・エゾタヌキ・エゾリス）。行事の食事会のテーブルと、植えた木が重ならないように。なでた時などに出ていた数字を、見せないように'],
     ['0.9.53', '2026年10月19日', '「いきもの記録」：丘で出会う鳥と虫を、写真に撮ると記録が残ります（捕まえない、えさもあげない）。日記の「いきもの」で読めて、特性は図鑑や国・県の資料から。スズメ、シジュウカラ、ハクセキレイ、モンシロチョウ、エゾオオマルハナバチが来るように。その子の「はじめて」（砂浴び、鼻で土を掘る、牧草地、雪など）を、カードに日付と一行で。鶏の「来る前の暮らし」と、鶏と豚の「日本と世界、くらべてみよう」。受け入れの相談は、土地と人手に空きがある時は少し多く、ふたつまで。ギターや休む時は、あぐらで座るように。丘のお茶の間は「ウェルカムセンター」に'],
@@ -4632,13 +4642,14 @@ function updateParticles(dt, center, time) {
   // 降りはじめは小雨から。やむ時も、少しずつ
   PT.snow.visible = wv.snow > 0.02; PT.rain.visible = wv.rain > 0.02;
   if (PT.snow.visible) PT.snow.geometry.setDrawRange(0, Math.ceil(PT.snow.geometry.attributes.position.count * Math.min(1, wv.snow)));
-  if (PT.rain.visible) { PT.rain.geometry.setDrawRange(0, Math.ceil(PT.rain.geometry.attributes.position.count * Math.min(1, wv.rain))); PT.rain.material.opacity = 0.35 + 0.25 * wv.rain; }
+  const RL = RAIN_LV[rainLv()];
+  if (PT.rain.visible) { PT.rain.geometry.setDrawRange(0, Math.ceil(PT.rain.geometry.attributes.position.count * Math.min(1, wv.rain) * RL.n)); PT.rain.material.opacity = (0.35 + 0.25 * wv.rain) * (RL.n < 0.5 ? 0.8 : 1); }
   PT.leaves.visible = season === 'autumn' && w !== 'rain';
   PT.petals.visible = !!PT.petalsOn && !!WS.sakuraPetals && w !== 'rain' && w !== 'snow'; // 桜が散るのは4月だけ
   PT.flies.visible = season === 'summer' && SKY.night > 0.4 && w !== 'rain';
   // 雪は、激しくなく、ゆっくり。ひとひらずつ、ふわりと揺れながら
   if (PT.snow.visible) updatePoints(PT.snow, dt, center, (a, j, d) => { a[j + 1] -= d * (0.62 + (j % 7) * 0.05); a[j] += Math.sin(time * 0.55 + j * 0.37) * d * 0.3; a[j + 2] += Math.cos(time * 0.42 + j * 0.53) * d * 0.22; if (a[j + 1] < 0) a[j + 1] += 34; });
-  if (PT.rain.visible) updatePoints(PT.rain, dt, center, (a, j, d) => { a[j + 1] -= d * 24; if (a[j + 1] < 0) a[j + 1] += 34; });
+  if (PT.rain.visible) updatePoints(PT.rain, dt, center, (a, j, d) => { a[j + 1] -= d * RL.spd; if (a[j + 1] < 0) a[j + 1] += 34; });
   if (PT.leaves.visible) fallFromTrees(PT.leaves, dt, time, center, 'leaf', 1.0);
   if (PT.petals.visible) fallFromTrees(PT.petals, dt, time, center, 'petal', 0.75);
   if (PT.flies.visible) { updatePoints(PT.flies, dt, { x: 0, z: 0 }, (a, j, d) => { a[j] += Math.sin(time * 0.7 + j) * d * 0.6; a[j + 2] += Math.cos(time * 0.5 + j * 1.3) * d * 0.6; a[j + 1] = 0.6 + (j % 7) * 0.25 + Math.sin(time + j) * 0.3; }); PT.flies.material.opacity = 0.6 + 0.4 * Math.sin(time * 3); }
@@ -5430,7 +5441,7 @@ function audioUpdate(dt) {
   AU.hush = ws > 0.3;
   AU.amb.gain.setTargetAtTime(0.8 * Math.max(0, 1 - ws * 1.25), now, 1.2);
   set(AU.loops.wind, (s === 'winter' ? 0.03 : 0.018) * (1 - wr * 0.4) * (w === 'cloudy' ? 1.25 : 1));
-  set(AU.loops.rain, 0.06 * wr);
+  set(AU.loops.rain, (typeof OCHA !== 'undefined' && OCHA.on ? 0 : RAIN_LV[rainLv()].snd) * wr); // ウェルカムセンターの中は室内なので、雨音なし（0.9.56）
   // 電車：ゴーッという走る音と、レールの継ぎ目のガタン、ゴトン（小さなスピーカーでも聞こえる高さで）
   const td = AU.trainD, tv = td < 70 ? Math.pow(1 - td / 70, 1.4) : 0;
   set(AU.loops.train, 0.11 * tv); set(AU.loops.trainLow, 0.08 * tv);
@@ -8823,7 +8834,7 @@ function updateClouds(dt) {
   if (!CLOUDS.g) buildClouds();
   const w = WS.weather, cloudy = w === 'cloudy' || w === 'rain' || w === 'snow';
   CLOUDS.op += ((cloudy ? 1 : 0) - CLOUDS.op) * Math.min(1, dt * 0.2);
-  const dk = w === 'rain' ? 0.42 : w === 'snow' ? 0.18 : w === 'cloudy' ? 0.08 : 0; CLOUDS.dark += (dk - CLOUDS.dark) * Math.min(1, dt * 0.3);
+  const dk = w === 'rain' ? RAIN_LV[rainLv()].dark : w === 'snow' ? 0.18 : w === 'cloudy' ? 0.08 : 0; CLOUDS.dark += (dk - CLOUDS.dark) * Math.min(1, dt * 0.3);
   // 夜は暗く、夕方は少し茜に
   const night = SKY.night || 0, dusk = SKY.t > 0.62 && SKY.t < 0.82 ? Math.sin((SKY.t - 0.62) / 0.2 * Math.PI) : 0;
   const lv = (1 - CLOUDS.dark) * (1 - night * 0.72);
@@ -10813,11 +10824,11 @@ function modelUmbrella(col) {
   return g;
 }
 const _umbV = new THREE.Vector3();
-function umbrellaPose(p, dt) {
-  const want = G && G.weather === 'rain' && !p.playing && !(typeof OCHA !== 'undefined' && OCHA.on) ? 1 : 0; // 家の中（ウェルカムセンター）では、ささない（0.9.51）
+function umbrellaPose(p, dt, wantIn) {
+  const want = wantIn != null ? (wantIn ? 1 : 0) : G && G.weather === 'rain' && !p.playing && !(typeof OCHA !== 'undefined' && OCHA.on) ? 1 : 0; // 家の中（ウェルカムセンター）では、ささない（0.9.51）
   p.umbK = clamp((p.umbK || 0) + (want ? dt * 1.8 : -dt * 2.6), 0, 1);
   const m = p.m;
-  if (!m.umb) { if (p.umbK <= 0) return; m.umb = modelUmbrella(umbrellaColor()); m.rig.add(m.umb); }
+  if (!m.umb) { if (p.umbK <= 0) return; m.umb = modelUmbrella(p.umbCol || umbrellaColor()); m.rig.add(m.umb); }
   const k = smooth(p.umbK);
   m.umb.visible = k > 0.01; if (!m.umb.visible) return;
   // 右手を胸の前に上げて、柄を持つ
@@ -10827,6 +10838,32 @@ function umbrellaPose(p, dt) {
   m.umb.position.copy(_umbV); m.umb.rotation.set(-0.12 * k, 0, -0.1 * k);
   const cv = m.umb.userData.canopy, o = clamp(k * 1.25 - 0.1, 0, 1);
   cv.scale.set(0.16 + 0.84 * o, 0.7 + 0.3 * o, 0.16 + 0.84 * o);
+}
+// 雨の日の人（0.9.56）：見学の人や、獣医さん・専門家さんは傘。働く人（はるこさん、ゆうとさん、職員さん、アルバイトさん、ボランティアさん）はレインコート
+//   小雨の時は、傘をさす人と、ささない人がいる（その人ごとに決まっている）
+const RAIN_UMB_COLS = ['#3F6A8C', '#B95E48', '#5E7A4E', '#8C5E8A', '#D9B04A', '#2E2E30', '#E8E2D6'];
+const RAIN_COAT_COLS = ['#E8C43A', '#3E5A7A', '#5E8A5A', '#C8553E', '#7A8A9A'];
+function rainWorker(p) { return p.kind === 'vol' || (p.kind === 'npc' && p.d && (p.d.hire || p.d.id === 'haruko' || p.d.id === 'yuto')); }
+function modelRaincoat(m, col) {
+  const g = new THREE.Group(), hood = new THREE.Group();
+  part('box', col, 0.6, 0.86, 0.38, 0, 1.02, 0, g);                 // 胴から腿まで
+  part('box', col, 0.62, 0.05, 0.4, 0, 0.6, 0, g, { noShadow: true }); // すその折り返し
+  part('sph', col, 0.52, 0.48, 0.5, 0, 1.79, -0.06, hood);          // フード
+  part('box', col, 0.5, 0.06, 0.06, 0, 1.56, 0.17, hood, { noShadow: true }); // あごの下
+  g.add(hood); m.rig.add(g);
+  const sleeves = m.arms.map((a) => { const s = part('box', col, 0.19, 0.5, 0.21, 0, -0.24, 0, a); return s; });
+  return { g, sleeves, set(v) { g.visible = v; for (const s of sleeves) s.visible = v; } };
+}
+function rainGear(p, dt) {
+  const rain = G && G.weather === 'rain' && !(typeof OCHA !== 'undefined' && OCHA.on);
+  if (rainWorker(p)) {
+    if (!p.m.coat) { if (!rain) return; p.m.coat = modelRaincoat(p.m, p.coatCol || (p.coatCol = pick(RAIN_COAT_COLS))); }
+    p.m.coat.set(!!rain);
+    return;
+  }
+  if (p.lightUmb == null) p.lightUmb = Math.random() < 0.5;
+  if (!p.umbCol) p.umbCol = pick(RAIN_UMB_COLS);
+  umbrellaPose(p, dt, rain && (rainLv() !== 'light' || p.lightUmb));
 }
 /* 座る：ベンチでは膝を曲げて、草の上では膝を立てて。弾いている時は楽器を抱える */
 function poseSit(p, dt) {
@@ -10955,14 +10992,14 @@ function updatePeople(dt) {
         if (!n.comePath || performance.now() > (n.comeRe || 0)) { const d = dP || 1; n.comePath = navFind(n.x, n.z, P.x + (n.x - P.x) / d * 1.8, P.z + (n.z - P.z) / d * 1.8) || []; n.comeRe = performance.now() + 2500; }
         const w = n.comePath; while (w.length > 1 && Math.hypot(w[0][0] - n.x, w[0][1] - n.z) < 0.4) w.shift();
         n.target = w.length ? [w[0][0], w[0][1]] : [P.x, P.z]; n.stall = 0;
-        stepWalker(n, dt, 1.6); n.m.root.position.set(n.x, heightAt(n.x, n.z), n.z); n.m.root.rotation.y = n.heading;
+        stepWalker(n, dt, 1.6); n.m.root.position.set(n.x, heightAt(n.x, n.z), n.z); n.m.root.rotation.y = n.heading; rainGear(n, dt);
         continue;
       }
     }
     if (dP < 4.5) { n.target = null; const h = Math.atan2(P.x - n.x, P.z - n.z); let dh = h - n.heading; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); n.heading += dh * Math.min(1, dt * 5); }
     else if (!n.target && n.timer < 0) { n.target = walkTarget(n.home, 4, 3); n.timer = rand(3, 7); }
     stepWalker(n, dt, 2.2);
-    n.m.root.position.set(n.x, heightAt(n.x, n.z), n.z); n.m.root.rotation.y = n.heading;
+    n.m.root.position.set(n.x, heightAt(n.x, n.z), n.z); n.m.root.rotation.y = n.heading; rainGear(n, dt);
   }
   const crowd = peopleCrowd();
   for (const e of ACT.extras) {
@@ -10977,7 +11014,7 @@ function updatePeople(dt) {
       e.target = e.home ? walkTarget(e.home, 3, 3) || e.home.slice() : [e.lat || 0, rand(36, 45)]; e.timer = e.home ? rand(2, 5) : rand(0, 4);
     }
     if (e.away) continue;
-    if (e.leaving) { stepWalker(e, dt, e.spd ? e.spd + 0.3 : 2.2); if (!e.target) e.target = (e.route && e.route.shift()) || [rand(-1.2, 1.2), 53.5]; e.m.root.position.set(e.x, heightAt(e.x, e.z), e.z); e.m.root.rotation.y = e.heading; continue; }
+    if (e.leaving) { stepWalker(e, dt, e.spd ? e.spd + 0.3 : 2.2); if (!e.target) e.target = (e.route && e.route.shift()) || [rand(-1.2, 1.2), 53.5]; e.m.root.position.set(e.x, heightAt(e.x, e.z), e.z); e.m.root.rotation.y = e.heading; rainGear(e, dt); continue; }
     if (e.kind === 'visitor') {
       // 見学路をたどって、気になった所まで歩き、しばらく立ち止まって眺める
       if (!e.target && e.route && e.route.length) e.target = e.route.shift();
@@ -10992,7 +11029,7 @@ function updatePeople(dt) {
       }
     } else if (!e.target && e.timer < 0) { e.target = walkTarget(e.home, 5, 4); e.timer = rand(2, 6); }
     stepWalker(e, dt, e.kind === 'visitor' ? e.spd || 1.4 : 2.4);
-    e.m.root.position.set(e.x, heightAt(e.x, e.z), e.z); e.m.root.rotation.y = e.heading;
+    e.m.root.position.set(e.x, heightAt(e.x, e.z), e.z); e.m.root.rotation.y = e.heading; rainGear(e, dt);
   }
 }
 /* ---------- 見学の人の行き先：見学路（まん中の道と、そこから分かれる道）の上のどこか ---------- */
@@ -11040,7 +11077,7 @@ function peopleCrowd() {
   if (night > 0.7) k = 0;
   const seed = ((G && G.turn) || 1) * 9301 + 49297, day = (seed % 233280) / 233280;
   if (day < 0.13) k = 0; else if (day < 0.35) k *= 0.5; // 誰も来ない静かな日、少なめの日
-  if (WS.weather === 'rain') k *= 0.45; else if (WS.weather === 'snow') k *= 0.6;
+  if (WS.weather === 'rain') k *= RAIN_LV[rainLv()].crowd; else if (WS.weather === 'snow') k *= 0.6;
   return k;
 }
 function onScreenNear(x, z) { const P = ACT.player; return P && Math.hypot(P.x - x, P.z - z) < 30; }
@@ -12855,6 +12892,8 @@ function snowOK() { const v = mdv(calMD()); return v >= 1216 || v <= 229; }
 function deepWinter() { const v = mdv(calMD()); return v >= 115 && v <= 229; }
 // 雨の降りやすさ：6月は2倍、1月と2月は1.5倍、ほかの月は半分（cloudy から雨へ移る重み。長く回して確かめた値）
 function rainK() { const m = calMD()[0]; return m === 6 ? 6.6 : m === 1 || m === 2 ? 2.3 : 0.37; }
+// 雨の強さを決める（0.9.56）：7〜9月は 小雨3：雨3：大雨4、ほかの月は 小雨1：雨1（大雨はない）
+function rollRainLv() { const m = calMD()[0], r = Math.random(); return typhoonSeason(m) ? (r < 0.3 ? 'light' : r < 0.6 ? 'normal' : 'heavy') : (r < 0.5 ? 'light' : 'normal'); }
 function rainF() { const m = calMD()[0]; return m === 6 ? 2 : m === 1 || m === 2 ? 1.5 : 0.5; }
 function activeEvents(iso) {
   // その日から1週間のあいだに重なる行事
@@ -13351,6 +13390,7 @@ function weatherTick(dt) {
 }
 function changeWeather(w) {
   const prev = G.weather; G.weather = w; WS.weather = w;
+  if (w === 'rain' && prev !== 'rain') G.rainLv = rollRainLv();
   // 雪が降りはじめたら、地面も雪に（少し降ってから）
   // 雪は、降っている間に少しずつ積もる（snow.js の snowFrame）
   const p = curPage(); if (p) { p.wx = p.wx || [p.weather]; if (p.wx[p.wx.length - 1] !== w && p.wx.length < 3) p.wx.push(w); }
@@ -14266,12 +14306,13 @@ function rollWeather() {
   // 朝の天気は、晴れ4：くもり3：雨1 を、月ごとの雨の降りやすさで変える。雪のころは、雨の一部が雪に
   G.weather = r < wet ? (snowOK() && Math.random() < (deepWinter() ? 2 / 3 : 0.35) ? 'snow' : 'rain') : r < wet + dry * 4 ? 'sunny' : 'cloudy';
   WS.weather = G.weather;
+  if (G.weather === 'rain') G.rainLv = rollRainLv();
 }
 function worldEventRoll() {
   if (G.mode === 'hakoniwa') return;
   if (Math.random() > 0.38) return;
   // 大雨の予報は、ときどきだけ（ほかの出来事を見終えても、毎週は来ない）
-  const cand = WORLD_EVENTS.filter((w) => G.stage >= w.stage && (w.repeat || !G.worldDone[w.id]) && !(w.id === 'W07' && G.season !== 'summer' && Math.random() < 0.7) && !(w.id === 'W09' && (Math.random() < 0.7 || G.turn - (G.w09Turn || -99) < 6)));
+  const cand = WORLD_EVENTS.filter((w) => G.stage >= w.stage && (w.repeat || !G.worldDone[w.id]) && !(w.id === 'W07' && G.season !== 'summer' && Math.random() < 0.7) && !(w.id === 'W09' && (!typhoonSeason(calMD()[0]) || Math.random() < 0.7 || G.turn - (G.w09Turn || -99) < 6)));
   if (!cand.length) return;
   const w = pick(cand);
   G.worldDone[w.id] = true;
@@ -14284,7 +14325,7 @@ function worldEventRoll() {
     case 'W06': G.flags.flowers = true; G.cards.noPesticide = G.cards.noPesticide || G.turn; break;
     case 'W07': G.cards.drone = G.cards.drone || G.turn; break;
     case 'W08': G.visitors = Math.min(6, G.visitors + 2); G.donors += 10; break;
-    case 'W09': G.weather = 'rain'; WS.weather = 'rain'; G.w09Turn = G.turn; break;
+    case 'W09': G.weather = 'rain'; WS.weather = 'rain'; G.rainLv = 'heavy'; G.w09Turn = G.turn; break;
   }
   G.overnight.push({ cat: 'news', text: `世界のニュース：${w.name}。${w.diary}`, world: true });
   if (w.type) { G.pendingSupports = G.pendingSupports || []; G.pendingSupports.push({ type: w.type, size: w.size, src: 'world', label: w.name }); }
@@ -14820,8 +14861,10 @@ const GAME = {
     buildWorld(); syncAnimals(); syncWild();
     GAME.save(); UI.refresh();
   },
+  setRainLv(v) { if (RAIN_LV[v]) { G.rainLv = v; if (G.weather !== 'rain') { G.weather = 'rain'; WS.weather = 'rain'; G.wxT = 480; skySnapWeather(); } GAME.save(); UI.refresh(); } },
   setWeather(w) {
     if (w === 'snow' && !snowOK()) { UI.toast('雪は、12月の後半から2月の後半までです。季節を冬にすると見られます', 'news'); return; }
+    if (w === 'rain' && G.weather !== 'rain') G.rainLv = rollRainLv();
     G.weather = w; WS.weather = w;
     G.wxT = 480; skySnapWeather(); // 選んだ天気は、しばらく続く
     if (w === 'snow') setGroundSnow(true); // テスト用：すぐに少し積もった所から
@@ -15244,7 +15287,7 @@ const UI = {
     $('#t-season').textContent = SEASON_NAME[G.season] + (G.settings.seasonOverride && G.settings.seasonOverride !== 'auto' ? '（固定）' : '');
     const evs = G.events.map((id) => (EVENTS.find((e) => e.id === id) || {}).name).filter(Boolean);
     $('#t-event').hidden = !evs.length; $('#t-event').textContent = evs.slice(0, 2).join('・');
-    $('#t-weather').textContent = WEATHER_NAME[G.weather] || '';
+    $('#t-weather').textContent = G.weather === 'rain' ? RAIN_LV[rainLv()].name : WEATHER_NAME[G.weather] || '';
     const hk = G.mode === 'hakoniwa';
     $('#t-hands').innerHTML = hk ? '<span class="inf">∞</span>' : Array.from({ length: G.handsMax }, (_, i) => `<i class="${i >= G.hands ? 'used' : ''}"></i>`).join('');
     $('#t-res').querySelectorAll('.lbl')[1].textContent = '心の余裕';
@@ -15676,6 +15719,7 @@ const UI = {
       case 'season': GAME.setOverrides(v, G.settings.eventOverride); UI.render(); break;
       case 'event': GAME.setOverrides(G.settings.seasonOverride, v); UI.render(); break;
       case 'weather': GAME.setWeather(v); UI.render(); break;
+      case 'rain-lv': GAME.setRainLv(v); UI.render(); break;
       case 'morning-go': UI.closeModal(); UI.closeSheet(); break;
       case 'next-visit': UI.closeModal(); UI.closeSheet(); GAME.startDay(false); break;
       case 'sign-text': G.signText = v; GAME.save(); UI.closeModal(); buildWorld(); syncAnimals(); break;
@@ -16234,6 +16278,7 @@ Object.assign(UI, {
       h += `<div class="field"><span class="flabel">季節</span><div class="seg">${[['auto', '自動'], ['spring', '春'], ['summer', '夏'], ['autumn', '秋'], ['winter', '冬']].map(([k, n]) => `<button data-act="season" data-v="${k}" class="${so === k ? 'on' : ''}">${n}</button>`).join('')}</div></div>`;
       h += `<div class="field"><span class="flabel">行事の飾り</span><div class="seg">${[['auto', '自動'], ['none', 'なし']].concat(DECO_EVENTS.map((id) => [id, EVENTS.find((e) => e.id === id).name])).map(([k, n]) => `<button data-act="event" data-v="${k}" class="${eo === k ? 'on' : ''}">${esc(n)}</button>`).join('')}</div></div>`;
       h += `<div class="field"><span class="flabel">天気</span><div class="seg">${['sunny', 'cloudy', 'rain', 'snow'].map((k) => `<button data-act="weather" data-v="${k}" class="${G.weather === k ? 'on' : ''}">${WEATHER_NAME[k]}</button>`).join('')}</div></div>`;
+      if (G.weather === 'rain') h += `<div class="field"><span class="flabel">雨の強さ</span><div class="seg">${Object.keys(RAIN_LV).map((k) => `<button data-act="rain-lv" data-v="${k}" class="${rainLv() === k ? 'on' : ''}">${RAIN_LV[k].name}</button>`).join('')}</div></div>`;
       h += `<div class="field"><label for="tod">時間　<span id="tod-val">${tod === null || tod === undefined ? '自動' : todName(tod)}</span></label><input id="tod" type="range" min="-0.05" max="0.98" step="0.01" value="${tod === null || tod === undefined ? -0.05 : tod}"><span class="muted">いちばん左にすると自動です。自動の時は、時間がゆっくり流れます（昼は約9分、夜は約2分半）。天気も、数分ごとに移ろいます</span></div>`;
       const evs = G.events.map((id) => EVENTS.find((e) => e.id === id)).filter(Boolean);
       if (evs.length) h += `<div class="sec"><h3>今週の行事</h3>${evs.map((e) => `<p class="lead-s"><b>${esc(e.name)}</b>　${esc(e.desc)}</p>`).join('')}</div>`;
@@ -18219,7 +18264,7 @@ IKIMONO.push(
     facts: ['北海道にすむリスです。冬眠をせず、いちばん寒いころも動きまわります', '夏は赤茶色、冬は灰色がかった茶色の毛に生えかわります', '子どもは毛のない姿で生まれ、およそ2か月、お乳を飲んで育ちます', '札幌の山では、オニグルミの実を食べた跡が見つかっています'],
     src: [['札幌市円山動物園　エゾリスの繁殖', 'https://www.city.sapporo.jp/zoo/topics/2025/ezorisu_hansyoku.html'], ['札幌市博物館活動センター　藻岩山・円山の動物の調査', 'https://www.city.sapporo.jp/museum/curator/documents/moiwamaruyama-4.pdf']] },
 );
-const IKI_KINDS = [['bird', '鳥'], ['bug', '虫とクモ'], ['amph', 'カエルとトカゲ'], ['beast', 'けもの']];
+const IKI_KINDS = [['bird', '鳥'], ['bug', '虫'], ['amph', 'カエルとトカゲ'], ['beast', '野生動物']]; // 0.9.56：クモも「虫」に、けものは「野生動物」に
 const IKI = { list: [], tex: null, webTex: null };
 function ikiDef(id) { return IKIMONO.find((x) => x.id === id); }
 
@@ -19533,7 +19578,7 @@ Object.assign(UI, {
       }
       if (POND_LIFE.fish.length && G.weather !== 'rain') env.push(G.season === 'winter' ? '池の深いところで、魚がじっとしているのが見えます' : '水の中を、魚の影がすうっと横切りました');
     }
-    if (G.weather === 'rain') env.push('屋根を打つ雨の音が、やさしく続いています', '雨の匂いがします');
+    if (G.weather === 'rain') { const lv = rainLv(); env.push(lv === 'light' ? 'こまかい雨が、音もなく草をぬらしています' : lv === 'heavy' ? '強い雨が、地面を打っています' : '雨の音が、やさしく続いています', '雨の匂いがします'); }
     if (G.weather === 'snow') env.push('音が雪に吸い込まれて、しんとしています');
     if (G.weather === 'cloudy') env.push('雲の切れ間から、ときどき日が差します');
     if (SKY.night > 0.5) env.push('虫の声が、遠くから聞こえてきます', '空に、星がひとつ見えました');
