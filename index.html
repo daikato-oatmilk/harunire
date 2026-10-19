@@ -2964,7 +2964,7 @@ const TITLES = []; // 称号の入れ物（0.9.58。中身は src/content/titles
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.58', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.59', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -2972,6 +2972,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.59', '2026年10月20日', '働く人たちが、丘の上で毎日の仕事をするようになりました。朝は水おけを洗って干し草を運び、昼は小屋の前を掃き、午後は寝床のわらを替え、日が暮れかけたら鶏やウサギたちが小屋に入るのを見届けて戸を閉め、夜は懐中電灯で足もとを照らして最後の見回り。仕事は週ごとの当番で回し、3人以上いる時は、週に1人がお休みです（お休みの日のはるこさんは、縁側でのんびり）。手が足りない時は、同じ人が何度も行き来します。働く人の仕事を見ていると、知識カード「引き取ることは、一生分の毎日」が開き、称号「毎日を知る人」も。'],
     ['0.9.58', '2026年10月19日', '作る側の整理（遊び方は変わりません）：しぐさや知識カード、いきもの記録、称号を小さなファイルに分けて、いくつかの作業を同時に進められるように'],
     ['0.9.57', '2026年10月19日', 'ウェルカムセンターの紙芝居と、卵の絵を、丘の景色と同じ絵に（動物や人や木を、ゲームの中と同じ模型で並べて、同じ貼り絵の加工で）'],
     ['0.9.56', '2026年10月19日', '雨の強さを、小雨・雨・大雨に（大雨は7〜9月だけ。雨の日のおよそ9割は、小雨と雨）。雨の日は、見学の人が傘を、働く人がレインコートを（小雨の時は、傘をささない人も）。ウェルカムセンターの中では、雨音が聞こえないように。いきもの記録の分け方を「虫」「野生動物」に'],
@@ -3422,8 +3423,8 @@ Object.assign(CARDS, {
     src: [['鶏の住まい', OS + 'building-a-good-home-for-chickens/']] },
   enrichLike: { title: '楽しめてこそのエンリッチメント', body: 'エンリッチメントは、その動物が楽しんでこそ意味がある。嫌がったり怖がったりするなら逆効果。合わないものを置くと、動物はそこから離れていく。',
     src: [['The Open Sanctuary Project', OS + 'nutritional-enrichment-at-animal-sanctuaries/']] },
-  dailyCare: { title: '引き取ることは、一生分の毎日', body: '動物を引き取ることは、一生分の毎日の世話を引き受けること。餌やり、水の確認、体調確認、放牧地への移動、床替えが毎日繰り返される。',
-    src: [['The Open Sanctuary Project：はじめに', OS + 'start/']] },
+  dailyCare: { title: '引き取ることは、一生分の毎日', body: '動物を引き取ることは、一生分の毎日の世話を引き受けること。餌やり、水の確認、体調確認、放牧地への移動、床替えが毎日繰り返される。サンクチュアリの仕事の手引き（The Open Sanctuary Project）では、水おけを毎日洗うこと、干し草を毎日あげること、寝床を替える間隔を小屋ごとに決めること、仕事を当番に割りふることがすすめられている。',
+    src: [['The Open Sanctuary Project「Keeping Track Of Sanctuary Tasks Part 2」', OS + 'keeping-track-of-sanctuary-tasks-part-2-tasks-that-happen-more-frequently-than-monthly/'], ['The Open Sanctuary Project：はじめに', OS + 'start/']] },
   elderCare: { title: '年を重ねた動物のケア', body: '関節のサプリメントや痛みのケア、関節を守る厚く柔らかい床、歯が少ない動物には草や干し草を混ぜた柔らかい食事。',
     src: [['Farm Sanctuary：Growing Old at Sanctuary', 'https://www.farmsanctuary.org/news-stories/growing-old-at-sanctuary']] },
   friendship: { title: '種を超えた友情', body: '群れに馴染めなかったヤギが、血液検査や蹄の手入れのときに牛のそばで落ち着く、という話がある。別々に来た動物同士が深い絆を結ぶことがある。',
@@ -3557,6 +3558,10 @@ TITLES.push(
   { id: 'music', name: '丘の音楽家', how: '動物たちのそばで、よく楽器を弾いてきた人に', hint: '音に関すること', stat: 'music', n: 10 },
   { id: 'sky', name: '夜空好き', how: '動物たちと、よく夜空を見上げてきた人に', hint: '夜に関すること', stat: 'sky', n: 5 },
   { id: 'regular', name: 'いつもの人', how: '何週も、この丘に通ってきた人に', hint: '通うことに関すること', stat: 'day', n: 20 },
+);
+/* 称号：働く人たちの毎日（0.9.59。F1） */
+TITLES.push(
+  { id: 'everyday', name: '毎日を知る人', how: '働く人たちの、毎日の仕事を見てきた人に', hint: '働く人たちのこと', stat: 'work', n: 15 },
 );
 /* =========================================================
    働く人たちの会話：人ごとの話し方と話題。季節・天気・時間・そこにいる動物で変わる
@@ -10303,7 +10308,7 @@ function updateShelters(dt) {
     const o = h.outer, inside = P.x > o[0] - 0.2 && P.x < o[1] + 0.2 && P.z > o[2] - 0.2 && P.z < o[3] + 0.2;
     for (const r of h.roofs) r.visible = !inside;
     if (h.coopDoor) {
-      const D = h.coopDoor.userData.coopDoor, tgt = night ? D.shut : D.open;
+      const D = h.coopDoor.userData.coopDoor, tgt = night || workShut(h) ? D.shut : D.open; // 夕方の戸じまり（work.js）
       h.coopDoor.position.x += (tgt - h.coopDoor.position.x) * Math.min(1, dt * 1.5);
     }
   }
@@ -11133,9 +11138,11 @@ function syncNPCs() {
   }
   const crowd = peopleCrowd();
   for (const e of ACT.extras) if (crowd <= e.stay) { e.away = true; e.m.root.visible = false; }
+  WORK.away = []; WORK.turn = -1; // 働く人の当番とお休みは、次のコマで決め直す（work.js）
 }
 function updatePeople(dt) {
   const P = ACT.player;
+  workFrame(dt); // 働く人の毎日（work.js。0.9.59）
   for (const n of ACT.npcs) {
     n.timer -= dt;
     const dP = Math.hypot(P.x - n.x, P.z - n.z);
@@ -11150,6 +11157,7 @@ function updatePeople(dt) {
         continue;
       }
     }
+    if (workTick(n, dt, dP)) continue; // 今日の仕事をしている時は、その動き
     if (dP < 4.5) { n.target = null; const h = Math.atan2(P.x - n.x, P.z - n.z); let dh = h - n.heading; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); n.heading += dh * Math.min(1, dt * 5); }
     else if (!n.target && n.timer < 0) { n.target = walkTarget(n.home, 4, 3); n.timer = rand(3, 7); }
     stepWalker(n, dt, 2.2);
@@ -12408,6 +12416,323 @@ function updateTrain(dt) {
   trainSound(Math.abs(TRAIN.x) < 64 ? d : 999, pan);
 }
 
+/* =========================================================
+   働く人の毎日（0.9.59。F1：play-improvement-plan.md 2章 F）
+   ---------------------------------------------------------
+   朝：水おけを洗う・干し草を運ぶ／昼：小屋の前を掃く／午後：床替え／夕方：戸じまり／夜：懐中電灯で最後の見回り
+   ・仕事は、性別や役ではなく、その週の当番で回す（約束3）。週ごとに、朝の受け持ちと夜の見回りの人がずれる
+   ・3人以上いる時は、週に1人がお休み（約束7）。はるこさんは縁側でのんびり。ゆうとさん・職員さん・アルバイトさんは来ない
+   ・人手が足りない時は、ひとりが受け持つ小屋が増えて、足早に行き来する（説明の文は出さない。数字も出さない）
+   ・鶏・七面鳥・アヒル・ウサギの小屋の戸は、みんなが中に入ったのを見てから閉める（キツネが来るので）
+   ・夜の見回りの灯りは、足もとだけ（小屋の中に光を向けない）
+   ・かるい表示では、働く人を2人までに。灯りの帯も出さない
+   ・見た仕事の種類は G.workSeen に。3種類で、知識カード「引き取ることは、一生分の毎日」（dailyCare）
+   ========================================================= */
+const WORK_KINDS = {
+  water: { phase: 'morning', tag: '水おけ洗い', doing: '水おけを洗っています', dur: 7 },
+  hay: { phase: 'morning', tag: '干し草運び', doing: '干し草を運んでいます', dur: 1.2 },
+  sweep: { phase: 'noon', tag: '掃除', doing: '小屋の前を掃いています', dur: 8 },
+  bed: { phase: 'afternoon', tag: '床替え', doing: '寝床のわらを替えています', dur: 8 },
+  close: { phase: 'evening', tag: '戸じまり', doing: '小屋の戸じまりをしています', dur: 2.2 },
+  patrol: { phase: 'night', tag: '見回り', doing: '懐中電灯で、最後の見回りをしています', dur: 1.6 },
+};
+const WORK_HAY_SP = ['cow', 'goat', 'sheep', 'donkey', 'horse', 'rabbit'];
+const WORK_COOPS = ['chicken', 'turkey', 'duck', 'rabbit'];
+// お休みの日のはるこさん：縁側のふち（足は庭へ）。ちくわとがんもの寝床と皿のあいだ
+const WORK_REST = { seat: [26.95, 39.6], stand: [27.9, 39.6] };
+const WORK_OFF_LINES = [
+  'きょうは、わたしがお休みの日。……休むのも、ここを長く続けるための仕事なんだって。みんなに言われちゃった',
+  'お休みの日は、ここでぼんやり。働いているみんなの声が聞こえるのも、悪くないのよ',
+];
+const WORK = { turn: -1, ver: -1, ids: [], tasks: [], route: [], shut: {}, shutIn: {}, holdT: 0, away: [], ph: null, busy: false, busyT: 0, seeT: 0, patrolBy: null, patrolDone: false };
+
+/* ---------- 当番の人たち ---------- */
+function workRosterIds() {
+  if (!G) return [];
+  const ids = ['haruko']; if (G.stage >= 2) ids.push('yuto');
+  for (const t of ((G.team && G.team.names) || [])) ids.push('hire:' + t.name);
+  return ids;
+}
+// その週のお休みの人（3人以上の時だけ。週ごとに順番に）
+function workOff() {
+  const ids = workRosterIds(); if (ids.length < 3) return null;
+  const id = ids[(G.turn || 0) % ids.length], d = NPCS.find((x) => x.id === id);
+  return { id, name: d ? d.name : id.slice(5) };
+}
+// お休みの人を、丘から外す（はるこさんは家の人なので、縁側に）。前の週のお休みの人は戻す
+function workApplyOff() {
+  for (const n of WORK.away) if (!ACT.npcs.includes(n)) { ACT.npcs.push(n); ACT.layer.add(n.m.root); }
+  WORK.away = [];
+  for (const n of ACT.npcs) { n.off = false; n.seated = false; n.sitK = 0; }
+  const o = workOff(); if (!o) return;
+  const n = ACT.npcs.find((x) => x.d.id === o.id); if (!n) return;
+  n.job = null; workProps(n, []);
+  if (o.id === 'haruko') { n.off = true; return; }
+  ACT.npcs.splice(ACT.npcs.indexOf(n), 1); ACT.layer.remove(n.m.root); WORK.away.push(n);
+}
+// 働ける人（お休みの人をのぞく。当番の順に）。かるい表示では2人まで
+function workCrew() {
+  const ids = WORK.ids;
+  let crew = ACT.npcs.filter((n) => ids.includes(n.d.id) && !n.off).sort((a, b) => ids.indexOf(a.d.id) - ids.indexOf(b.d.id));
+  if (G.settings && G.settings.lite) crew = crew.slice(0, 2);
+  return crew;
+}
+function workOffName() { const o = workOff(); return o ? o.name : null; }
+
+/* ---------- その日の仕事 ---------- */
+function workPlan() {
+  WORK.turn = G.turn; WORK.ver = W.shelterVer; WORK.tasks = []; WORK.shut = {}; WORK.shutIn = {}; WORK.patrolBy = null; WORK.patrolDone = false;
+  for (const n of ACT.npcs.concat(WORK.away)) { n.job = null; n.homing = false; if (n.m.wp) workProps(n, []); }
+  const occ = (SHL.list || []).filter((h) => G.animals.some((a) => a.zone === h.id));
+  const barn = SHL.houses && SHL.houses.cow;
+  occ.forEach((h, i) => {
+    WORK.tasks.push({ k: 'water', h });
+    if (barn && WORK_HAY_SP.includes(h.id)) WORK.tasks.push({ k: 'hay', h });
+    WORK.tasks.push({ k: 'sweep', h });
+    if ((i + (G.turn || 0)) % 2 === 0) WORK.tasks.push({ k: 'bed', h }); // 寝床のわらは、汚れた所を毎日。全部を替えるのは、小屋ごとに日をずらして
+    if (WORK_COOPS.includes(h.id)) WORK.tasks.push({ k: 'close', h });
+  });
+  WORK.route = occ.slice();
+}
+function workNext(n, ph) {
+  const crew = workCrew(), idx = crew.indexOf(n); if (idx < 0) return null;
+  if (ph === 'night' && !WORK.tasks.some((t) => t.k === 'close' && !t.by)) {
+    // 見回りは、その週の当番の人から。手がふさがっていたら、次の人が
+    const d0 = ((G.turn || 0) + 1) % crew.length, order = crew.slice(d0).concat(crew.slice(0, d0));
+    if (WORK.patrolDone || WORK.patrolBy || !WORK.route.length || order.find((m) => !m.job || m === n) !== n) return null;
+    WORK.patrolBy = n.d.id;
+    // 近い小屋から、次に近い小屋へと順に
+    const left = WORK.route.slice(), route = []; let px = n.x, pz = n.z;
+    while (left.length) { let bi = 0, bd = 1e9; left.forEach((h, i) => { const d = Math.hypot(h.door.out[0] - px, h.door.out[1] - pz); if (d < bd) { bd = d; bi = i; } }); const h = left.splice(bi, 1)[0]; route.push(h); px = h.door.out[0]; pz = h.door.out[1]; }
+    return { k: 'patrol', route, stage: 'go', t: 0 };
+  }
+  // 戸じまりは、日が暮れかけてから（夜に入っても、残っていれば続ける）
+  const open = WORK.tasks.filter((t) => !t.by && (t.k === 'close' ? SKY.t > 0.76 && SKY.t < 0.95 : WORK_KINDS[t.k].phase === ph));
+  if (!open.length) return null;
+  // 朝は、週ごとに「水おけ」と「干し草」の受け持ちを入れかえる（当番）
+  const pref = ph === 'morning' ? ((idx + (G.turn || 0)) % 2 ? 'hay' : 'water') : null;
+  const pool = pref && open.some((t) => t.k === pref) ? open.filter((t) => t.k === pref) : open;
+  let best = null, bd = 1e9;
+  for (const t of pool) { const p = workSpot(t.h), d = Math.hypot(p[0] - n.x, p[1] - n.z); if (d < bd) { bd = d; best = t; } }
+  best.by = n.d.id;
+  return { k: best.k, task: best, h: best.h, stage: best.k === 'hay' ? 'fetch' : 'go', t: 0 };
+}
+// 戸口の少し外。顔は小屋のほうへ
+function workSpot(h) { const o = h.door.out, i = h.door.in, d = Math.hypot(i[0] - o[0], i[1] - o[1]) || 1; return [o[0] + (o[0] - i[0]) / d * 0.25, o[1] + (o[1] - i[1]) / d * 0.25]; }
+function workFace(h) { const o = h.door.out, i = h.door.in; return Math.atan2(i[0] - o[0], i[1] - o[1]); }
+// 鶏たちが、みんな小屋の中にいるか
+function workBirdsIn(h) {
+  const r = h.rect;
+  for (const e of ACT.animals) { if (!e.a || e.a.zone !== h.id) continue; if (e.x < r[0] - 0.3 || e.x > r[1] + 0.3 || e.z < r[2] - 0.3 || e.z > r[3] + 0.3) return false; }
+  return true;
+}
+// 夕方に戸じまりをした小屋は、みんなが中に入ったら戸を閉める（夜は、これまでどおり閉まる）
+function workShut(h) {
+  if (WORK.shut[h.id] !== G.turn) return false;
+  if (WORK.shutIn[h.id] === G.turn) return true;
+  if (workBirdsIn(h)) { WORK.shutIn[h.id] = G.turn; return true; }
+  return false;
+}
+// 戸を閉めたあとは、中の子たちは朝まで小屋の中で（外へ出ようとしたら、寝床へ戻す）
+function workHoldIn(dt) {
+  if ((WORK.holdT -= dt) > 0) return; WORK.holdT = 2;
+  for (const id in WORK.shutIn) { if (WORK.shutIn[id] !== G.turn) continue; for (const e of ACT.animals) if (e.a && e.a.zone === id && e.state !== 'sleep' && e.state !== 'toRest') goSleep(e); }
+}
+
+/* ---------- 毎フレーム ---------- */
+function workFrame(dt) {
+  if (!G || !ACT.npcs || !SHL.list || !SHL.list.length) return;
+  WORK.ids = workRosterIds();
+  if (WORK.turn !== G.turn || WORK.ver !== W.shelterVer) { workPlan(); workApplyOff(); }
+  const t = SKY.t; WORK.ph = t > 0.8 ? 'night' : t < 0.24 ? null : dayPhase();
+  if ((WORK.busyT -= dt) < 0) { WORK.busyT = 1; const c = capacity(); WORK.busy = !hako() && (c.peopleRatio >= 0.9 || c.peopleCap <= 0); }
+  workHoldIn(dt);
+  // あなたが見ていた仕事（種類だけ覚える。数は画面に出さない）
+  if ((WORK.seeT -= dt) < 0) {
+    WORK.seeT = 0.5; const P = ACT.player; if (!P) return;
+    for (const n of ACT.npcs) {
+      const j = n.job; if (!j || (j.stage === 'go' && j.k !== 'patrol') || Math.hypot(n.x - P.x, n.z - P.z) > 10) continue;
+      const S = G.workSeen || (G.workSeen = {}); if (!S[j.k]) S[j.k] = G.turn;
+      titleCountOnce('work', j.k);
+      if (Object.keys(S).length >= 3) unlockCard('dailyCare');
+    }
+  }
+}
+// その人を、今日の仕事で動かす。動かした時は true（いつもの歩き方はしない）
+function workTick(n, dt, dP) {
+  if (!WORK.ids.includes(n.d.id) || !SHL.list || !SHL.list.length) return false;
+  n.m.rig.rotation.x = 0;
+  if (n.off) return workRest(n, dt);
+  let j = n.job;
+  if (!j && WORK.ph) j = n.job = workNext(n, WORK.ph);
+  if (!j) { if (n.m.wp) workProps(n, []); return workHome(n, dt, dP); }
+  const spd = WORK.busy ? 2.8 : 2.1, slow = WORK.busy ? 0.7 : 1;
+  if (j.stage === 'go' || j.stage === 'fetch' || j.stage === 'carry') {
+    if (dP > 3.5) j.pauseT = 0;
+    if (dP < 2.4 && (j.pauseT = (j.pauseT || 0) + dt) < 3) { workFacePlayer(n, dt); animPerson(n.m, 0, 0, dt); workPose(n, j, false); workPlace(n, dt); return true; } // 近くに来たら、少しだけ立ち止まる
+    const h = j.stage === 'fetch' ? SHL.houses.cow : j.k === 'patrol' ? j.route[0] : j.h;
+    if (!h) { workEnd(n, j); workPlace(n, dt); return true; }
+    const to = workSpot(h), r = workWalk(n, dt, to[0], to[1], spd);
+    workPose(n, j, true);
+    j.walkT = (j.walkT || 0) + dt;
+    if ((r === 'stuck' || j.walkT > 50) && Math.hypot(to[0] - n.x, to[1] - n.z) > 3) { WORK.gaveUp = (WORK.gaveUp || 0) + 1; WORK.lastGaveUp = j.k + '@' + h.id; if (j.k === 'patrol') { j.route.shift(); j.walkT = 0; if (!j.route.length) { WORK.patrolDone = true; workEnd(n, j); } } else workEnd(n, j); } // 行けない時は、あきらめる
+    else if (r) {
+      j.t = 0; j.walkT = 0;
+      if (j.stage === 'fetch') { j.stage = 'pick'; j.dur = 1.0; }
+      else if (j.stage === 'carry') { j.stage = 'put'; j.dur = WORK_KINDS.hay.dur; }
+      else { j.stage = 'do'; j.dur = WORK_KINDS[j.k].dur * slow * rand(0.85, 1.2); }
+    }
+    workPlace(n, dt); return true;
+  }
+  // その場での仕事
+  j.t += dt;
+  workTurn(n, workFace(j.stage === 'pick' ? SHL.houses.cow : j.k === 'patrol' ? j.route[0] : j.h), dt);
+  animPerson(n.m, 0, 0, dt);
+  if (j.k === 'close' && WORK_COOPS.includes(j.h.id) && !j.pushed) {
+    // みんなが中に入るのを、少し待ってから（長くは待たない。入っていなければ、入ったあとで戸が閉まる）
+    if (!j.called) { j.called = true; for (const e of ACT.animals) if (e.a && e.a.zone === j.h.id && e.state !== 'sleep') goSleep(e); }
+    if (workBirdsIn(j.h) || j.t > 20) { j.pushed = true; j.t = 0; j.dur = 1.2; WORK.shut[j.h.id] = G.turn; } else j.dur = 99;
+  }
+  workPose(n, j, false);
+  if (j.t >= j.dur) {
+    if (j.stage === 'pick') { j.stage = 'carry'; j.t = 0; }
+    else if (j.k === 'patrol') { j.route.shift(); if (j.route.length) { j.stage = 'go'; j.t = 0; } else { WORK.patrolDone = true; workEnd(n, j); } }
+    else workEnd(n, j);
+  }
+  workPlace(n, dt); return true;
+}
+function workEnd(n, j) { n.job = null; if (j && j.task) j.task.done = true; workProps(n, []); }
+function workPlace(n, dt) { n.m.root.position.set(n.x, heightAt(n.x, n.z), n.z); n.m.root.rotation.y = n.heading; rainGear(n, dt); }
+function workTurn(n, h, dt) { let dh = h - n.heading; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); n.heading += dh * Math.min(1, dt * 5); }
+function workFacePlayer(n, dt) { const P = ACT.player; workTurn(n, Math.atan2(P.x - n.x, P.z - n.z), dt); }
+// 道を探して歩く。着いたら true、進めない時は 'stuck'
+function workWalk(n, dt, tx, tz, spd) {
+  if (!n.wPath || n.wGoal[0] !== tx || n.wGoal[1] !== tz) { n.wGoal = [tx, tz]; n.wPath = (navFind(n.x, n.z, tx, tz) || []).concat([[tx, tz]]); n.wStuck = 0; }
+  if (Math.hypot(tx - n.x, tz - n.z) < 0.45) { n.target = null; n.wPath = null; animPerson(n.m, 0, 0, dt); return true; }
+  const w = n.wPath; while (w.length > 1 && Math.hypot(w[0][0] - n.x, w[0][1] - n.z) < 0.45) w.shift();
+  n.target = [w[0][0], w[0][1]];
+  const ox = n.x, oz = n.z; stepWalker(n, dt, spd);
+  if (Math.hypot(n.x - ox, n.z - oz) < spd * dt * 0.2) { n.wStuck = (n.wStuck || 0) + dt; if (n.wStuck > 4) { n.wPath = null; n.target = null; return 'stuck'; } } else n.wStuck = 0;
+  return false;
+}
+// 仕事のない時は、いつもの場所へ戻る（近くまで来たら、いつもの歩き方に）
+function workHome(n, dt, dP) {
+  const hm = n.home; if (!hm) return false;
+  if (!n.homing && Math.hypot(hm[0] - n.x, hm[1] - n.z) < 6) return false;
+  if (dP < 2.4) { workFacePlayer(n, dt); animPerson(n.m, 0, 0, dt); workPlace(n, dt); return true; }
+  n.homing = true;
+  if (workWalk(n, dt, hm[0], hm[1], 1.9)) n.homing = false;
+  workPlace(n, dt); return true;
+}
+// お休みの日のはるこさん：縁側のふちに腰かけて、庭を眺める
+function workRest(n, dt) {
+  const R = WORK_REST, m = n.m;
+  n.breathT = (n.breathT || 0) + dt;
+  if (!n.seated) {
+    const near = Math.hypot(R.stand[0] - n.x, R.stand[1] - n.z) < 5; // 近くまで来たら、まっすぐ
+    let r;
+    if (near) { n.target = R.stand.slice(); const ox = n.x, oz = n.z; stepWalker(n, dt, 1.4); r = !n.target || Math.hypot(R.stand[0] - n.x, R.stand[1] - n.z) < 0.35 || (Math.hypot(n.x - ox, n.z - oz) < 0.005 && Math.hypot(R.stand[0] - n.x, R.stand[1] - n.z) < 1.5); }
+    else r = workWalk(n, dt, R.stand[0], R.stand[1], 1.6);
+    if (!r) { workPlace(n, dt); return true; }
+    n.seated = true; n.sitK = 0; n.x = R.stand[0]; n.z = R.stand[1];
+  }
+  n.sitK = Math.min(1, (n.sitK || 0) + dt * 1.2);
+  const e = smooth(n.sitK);
+  n.x = lerp(R.stand[0], R.seat[0], e); n.z = R.seat[1];
+  workTurn(n, Math.PI / 2, dt * 2);
+  animPerson(m, 0, 0, dt);
+  m.rig.position.y = -0.36 * e + Math.sin(n.breathT * 1.1) * 0.006 * e;
+  m.legs.forEach((l) => { l.rotation.x = -1.45 * e; });
+  (m.knees || []).forEach((k) => { k.rotation.x = 1.45 * e; });
+  m.arms[0].rotation.set(-0.55 * e, 0, 0.12 * e); m.arms[1].rotation.set(-0.55 * e, 0, -0.12 * e);
+  workPlace(n, dt); return true;
+}
+
+/* ---------- 道具と、仕事の姿勢 ---------- */
+function workPropMake(k, m) {
+  const g = new THREE.Group(), o = { noShadow: true };
+  if (k === 'bucket') { part('cyl12', '#8C9AA0', 0.27, 0.26, 0.27, 0, -0.2, 0, g); part('cyl12', '#6E98AC', 0.23, 0.02, 0.23, 0, -0.08, 0, g, o); part('box', '#55595C', 0.02, 0.1, 0.02, 0, -0.03, 0, g, o); m.arms[0].add(g); g.position.set(0, -0.6, 0); }
+  else if (k === 'brush') { const b = modelBrush(); g.add(b); m.arms[0].add(g); g.position.set(0, -0.6, 0.08); }
+  else if (k === 'hay') { part('box', '#D9BC6A', 0.62, 0.34, 0.4, 0, 0, 0, g); for (const z of [-0.1, 0.1]) part('box', '#9A7A4A', 0.625, 0.345, 0.025, 0, 0, z, g, o); m.rig.add(g); g.position.set(0, 1.02, 0.46); }
+  else if (k === 'broom') { part('box', '#B08D63', 0.035, 1.1, 0.035, 0, -0.55, 0, g, o); part('box', '#C9A85A', 0.34, 0.12, 0.06, 0, -1.12, 0, g); m.arms[0].add(g); g.position.set(0, -0.55, 0.03); }
+  else if (k === 'fork') { part('box', '#8C6B4A', 0.035, 1.15, 0.035, 0, -0.575, 0, g, o); part('box', '#6A6E70', 0.22, 0.025, 0.025, 0, -1.15, 0, g, o); for (const x of [-0.09, 0, 0.09]) part('box', '#6A6E70', 0.015, 0.22, 0.015, x, -1.27, 0, g, o); m.arms[0].add(g); g.position.set(0, -0.55, 0.03); }
+  else if (k === 'torch') {
+    part('cyl12', '#3A3A36', 0.07, 0.24, 0.07, 0, -0.1, 0, g, o);
+    const l = new THREE.Mesh(G3.cyl12, NM.lamp); l.scale.set(0.075, 0.03, 0.075); l.position.y = -0.23; g.add(l);
+    m.arms[0].add(g); g.position.set(0, -0.58, 0.04);
+  }
+  return g;
+}
+// 灯りの帯（足もとだけ）。かるい表示では出さない
+function workBeam(m) {
+  if (m.wp.beam) return m.wp.beam;
+  if (!WORK.beamMat) {
+    WORK.beamMat = new THREE.MeshBasicMaterial({ color: 0xFFE7A8, transparent: true, opacity: 0.13, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide });
+    WORK.poolMat = new THREE.MeshBasicMaterial({ color: 0xFFE7A8, transparent: true, opacity: 0.22, depthWrite: false, blending: THREE.AdditiveBlending });
+    WORK.coneGeo = new THREE.ConeGeometry(0.42, 1.9, 12, 1, true); WORK.poolGeo = new THREE.CircleGeometry(0.55, 16);
+  }
+  const g = new THREE.Group(), piv = new THREE.Group(); piv.position.set(-0.32, 1.05, 0.45); g.add(piv);
+  const c = new THREE.Mesh(WORK.coneGeo, WORK.beamMat); c.position.y = -0.95; piv.add(c);
+  const p = new THREE.Mesh(WORK.poolGeo, WORK.poolMat); p.rotation.x = -Math.PI / 2; p.scale.set(1, 1.35, 1); g.add(p);
+  g.userData = { piv, cone: c, pool: p }; m.root.add(g); m.wp.beam = g; return g;
+}
+function workProps(n, list) {
+  const m = n.m, P = m.wp || (m.wp = {});
+  for (const k of list) if (!P[k]) P[k] = workPropMake(k, m);
+  for (const k in P) if (k !== 'beam') P[k].visible = list.includes(k);
+  if (P.beam) P.beam.visible = false;
+}
+function workPose(n, j, moving) {
+  const m = n.m, A = m.arms, k = j.k, st = j.stage, tt = j.t || 0, doing = st === 'do';
+  const crouch = (e) => { m.rig.position.y = -0.42 * e; m.legs.forEach((l, i) => { l.rotation.x = -1.25 * e * (i ? 1 : 0.55); }); (m.knees || []).forEach((kn, i) => { kn.rotation.x = (i ? 2.0 : 1.5) * e; }); };
+  if (k === 'water') {
+    workProps(n, doing ? ['bucket', 'brush'] : ['bucket']);
+    const b = m.wp.bucket;
+    if (doing) { // しゃがんで、水おけをブラシでこする。バケツは足もとに
+      if (b.parent !== m.root) m.root.add(b); b.position.set(0.42, 0.33, 0.42); b.rotation.set(0, 0, 0);
+      const e = smooth(Math.min(1, tt * 2.5)), s = Math.sin(tt * 7);
+      crouch(e); A[0].rotation.set(-0.8 * e + s * 0.18 * e, 0, 0.12 * e); A[1].rotation.set(-0.45 * e, 0, -0.1 * e);
+    } else { if (b.parent !== A[0]) A[0].add(b); b.position.set(0, -0.6, 0); A[0].rotation.x *= 0.25; b.rotation.set(-A[0].rotation.x, 0, 0); }
+  } else if (k === 'hay') {
+    const carry = st === 'carry' || st === 'put';
+    workProps(n, carry || (st === 'pick' && tt > 0.5) ? ['hay'] : []);
+    const bend = st === 'pick' ? Math.sin(Math.min(1, tt) * Math.PI) : st === 'put' ? Math.sin(Math.min(1, tt / j.dur) * Math.PI) : 0;
+    if (carry || st === 'pick') { A[0].rotation.set(-1.15 - bend * 0.25, 0, 0.18); A[1].rotation.set(-1.15 - bend * 0.25, 0, -0.18); m.rig.rotation.x = bend * 0.38; }
+    if (m.wp.hay) m.wp.hay.position.set(0, 1.02 - bend * 0.3, 0.46 + bend * 0.12);
+    if (st === 'put' && tt > j.dur * 0.6) m.wp.hay.visible = false; // 小屋の中へ
+  } else if (k === 'sweep' || k === 'bed') {
+    const tool = k === 'sweep' ? 'broom' : 'fork'; workProps(n, [tool]);
+    const g = m.wp[tool];
+    if (!doing) { A[0].rotation.set(-0.35, 0, 0.05); g.rotation.x = Math.PI - 0.4; } // 歩く時は、肩にかつぐ
+    else if (k === 'sweep') { const s = Math.sin(tt * 2.6); g.rotation.x = 0; A[0].rotation.set(-0.62, 0, 0.12 + 0.28 * s); A[1].rotation.set(-0.85, 0, -0.05 + 0.28 * s); m.rig.rotation.z = 0.04 * s; }
+    else { const s = Math.max(0, Math.sin(tt * 2.2)); g.rotation.x = 0; A[0].rotation.set(-0.55 - 0.45 * s, 0, 0.1); A[1].rotation.set(-0.9 - 0.4 * s, 0, -0.1); m.rig.rotation.x = 0.18 - 0.1 * s; }
+  } else if (k === 'close') {
+    workProps(n, []);
+    if (doing && j.pushed) { const e = Math.sin(Math.min(1, tt / j.dur) * Math.PI); A[0].rotation.set(-1.3 * e, 0, 0.1 * e); }
+  } else if (k === 'patrol') {
+    workProps(n, ['torch']);
+    A[0].rotation.set(doing ? -0.7 : -0.9, 0, 0.05);
+    const show = !(G.settings && G.settings.lite) && SKY.night > 0.35;
+    if (show) { const B = workBeam(m); B.visible = true; B.userData.piv.rotation.x = doing ? -0.45 : -1.0; B.userData.pool.position.set(-0.3, 0.04, doing ? 1.05 : 2.05); } // 小屋の前では、灯りを足もとに落とす
+  }
+}
+// 立ち止まって休む時の、ひとこと（ui-rest.js）。仕事をしている時は、その仕事
+function workDoing(n) { return n.off ? 'お休みの日で、のんびりしています' : n.job ? WORK_KINDS[n.job.k].doing : null; }
+// 名札に添える、今の仕事
+function workTag(n) { return n.off ? '（お休み）' : n.job ? '（' + WORK_KINDS[n.job.k].tag + '）' : ''; }
+
+/* ---------- 働く人たちの会話に、当番とお休みの話を足す（chatter.js の終わりに足すのと同じ。番号がずれないように、いちばん後ろに） ---------- */
+CHAT.haruko.lines.push(
+  ['off', '今日は{off}がお休み。ここでは当番を決めて、みんな交代で休むことにしているの'],
+  ['busy', '手が足りない日は、同じ道を何度も行ったり来たり。動物たちの一日は、待ってくれないからね'],
+);
+CHAT.yuto.lines.push(
+  ['sp:chicken evening', '夕方は戸じまりです。みんなが中に入ったのを見てから閉めます。キツネが来るので'],
+  ['s2+', '夜の見回りの懐中電灯は、足もとだけを照らします。眠っている子の目に、光を当てないように'],
+  ['team', '当番表は、毎週ずらしています。同じ係ばかりだと、体の同じところが痛くなるので'],
+  ['off', '今日は{off}がお休みです。休む日はちゃんと休む。それも仕事のうち、だそうです'],
+  ['busy morning', '水おけを洗って、干し草を運んで、また次の小屋へ。……今日は、走ったほうが早そうです'],
+);
 /* =========================================================
    ちくわとがんも（0.9.47）：保護犬のちくわと、保護猫のがんも。いつも一緒
    ・庭に柵はない（0.9.52）。庭のすみに隠れ家があって、入口でお昼寝することも
@@ -15283,6 +15608,8 @@ function chatOk(tags) {
     else if (t === 'team') { if (!((G.team && G.team.names) || []).length) return false; }
     else if (t === 'bond') { if (!(G.bonds || []).length) return false; }
     else if (t.startsWith('bond:')) { if (!(G.bonds || []).some((b) => bondType(b) === t.slice(5))) return false; }
+    else if (t === 'busy') { if (!WORK.busy) return false; } // 手が足りない日（work.js）
+    else if (t === 'off') { const o = workOff(); if (!o || o.id === chatFill.who) return false; } // 誰かがお休みの日（自分のことは話さない）
     else if (t === 'intro') return false;
   }
   return true;
@@ -15295,6 +15622,7 @@ function spx(html) { return String(html).replace(/\u2045(\w+)\u2046/g, (m, sp) =
 const said = (t) => spx(esc(nameFill(t))); // 人の言葉を、名前の絵つきで
 function chatFill(t) {
   return nameFill(t).replace(/\{(\w+)\}/g, (m, k) => {
+    if (k === 'off') return workOffName() || 'だれか'; // その週のお休みの人（work.js）
     // {b1} {b2}：種類をこえた仲良しの2頭（{b1sp} {b2sp} はその種類）。ひとつの話の中では同じ2頭
     if (/^b[12](sp)?$/.test(k)) { const b = chatFill.bond, x = b && G.animals.find((q) => q.id === (k[1] === '1' ? b.a : b.b)); return x ? (k.endsWith('sp') ? SPECIES[x.sp].name : nameSp(x)) : 'みんな'; }
     const list = k === 'a' ? G.animals : G.animals.filter((a) => a.sp === k);
@@ -15304,6 +15632,7 @@ function chatFill(t) {
 // その人の言葉を1つ。はじめて話す時は自己紹介。同じ言葉が続かないように、最近の言葉は避ける
 function chatLine(cid) {
   const C = CHAT[cid]; if (!C) return null;
+  chatFill.who = cid;
   const met = G.chatMet || (G.chatMet = {}), seenAll = G.chatSeen || (G.chatSeen = {});
   chatFill.bond = (G.bonds || []).length ? pick(G.bonds) : null;
   const wrap = (x) => (Array.isArray(x) ? x : [x]).map(chatFill);
@@ -16535,6 +16864,7 @@ Object.assign(UI, {
       <li><span>アルバイト　${tc.part}人${t.names.filter((x) => x.kind === 'part').length ? '（' + t.names.filter((x) => x.kind === 'part').map((x) => esc(x.name)).join('、') + 'ほか）' : ''}</span><b class="num">＋${tc.part * TEAM.part.add}</b></li>
       <li><span>ボランティア　${tc.volunteer}人</span><b class="num">＋${tc.volunteer * TEAM.volunteer.add}</b></li>
       ${G.staffBonus ? `<li><span>支援制度で来てくれた職員</span><b class="num">＋${G.staffBonus}</b></li>` : ''}</ul>
+      ${(() => { const o = workOff(); return o ? `<p class="muted u-m-6-0-0">今日のお休み：${esc(o.name)}（当番を決めて、交代で休みます）</p>` : ''; })()}
       ${hk ? '' : `<div class="money-line ${f.bal < 0 ? 'tight' : ''}">${ico('i-coin')}<span>毎月の収支</span><b class="num">${f.bal >= 0 ? '＋' : '−'}${yen(Math.abs(f.bal))}</b><small class="muted">預金 ${yenShort(G.savings || 0)}</small><button class="btn small" data-act="open" data-v="money">運営のお金</button></div>`}</div>`;
     if (G.hiring.length) h += `<div class="sec"><h3>もうすぐ来てくれる人</h3>${G.hiring.map((x) => `<div class="act static"><span class="ic tone-ink3">${ico('i-clock')}</span><span class="tx"><strong>${TEAM[x.kind].name}の${esc(x.name)}</strong><span>${x.done - G.turn <= 1 ? '来週から来てくれます' : `あと${x.done - G.turn}週で来てくれます`}。お給料は月${yen(GAME.salary(x.kind))}</span></span></div>`).join('')}</div>`;
     const rows = [
@@ -17066,6 +17396,7 @@ Object.assign(UI, {
     let lines;
     if (func && fs[fk] !== G.turn && (G.chatMet || {})[cid]) { fs[fk] = G.turn; lines = [func.t]; } // はじめて話す時は、自己紹介を先に（ボタンはそのまま。0.9.46）
     else lines = chatLine(cid) || [n.d.hire === 'staff' ? '平日は私たちが見ていますから、日曜日はゆっくりしていってください。' : '週末だけですが、ここに来るとほっとします。'];
+    if (n.off && !(func && lines[0] === func.t)) lines = [pick(WORK_OFF_LINES)]; // お休みの日（work.js）
     let btn = func ? func.btn : '';
     // 続きのある話：今週聞ける話があれば、そっと誘う
     let story = '';
@@ -17497,7 +17828,7 @@ Object.assign(UI, {
       an.sort((a, b) => a.d - b.d); an.length = Math.min(an.length, few ? (P.moving ? 1 : narrow ? 3 : 5) + an.filter((x) => x.d < 0).length : narrow ? 6 : 9);
       if (few) an.forEach((x, i) => { if (i > 0 && x.d >= 0 && x.d > 3) x.cls = 'far'; });
       list.push(...an);
-      for (const n of ACT.npcs) { const d = Math.hypot(n.x - P.x, n.z - P.z); if (d < R + 6) list.push({ e: n, d: d - 1.5, cls: 'npc', text: n.d.name + ((UI.talkIdOf(n.d) && GAME.talkAvail(UI.talkIdOf(n.d))) || GAME.feedScenePending(n.d.id) ? ' ・お話' : ''), h: 2.5 }); }
+      for (const n of ACT.npcs) { const d = Math.hypot(n.x - P.x, n.z - P.z); if (d < R + 6) list.push({ e: n, d: d - 1.5, cls: 'npc', text: n.d.name + workTag(n) + ((UI.talkIdOf(n.d) && GAME.talkAvail(UI.talkIdOf(n.d))) || GAME.feedScenePending(n.d.id) ? ' ・お話' : ''), h: 2.5 }); }
       { const seen = new Set(); // 池の鳥は、近くで、同じ名前は1つだけ
         for (const w of ACT.wild) { if (!w.m.root.visible) continue; const d = Math.hypot(w.x - P.x, w.z - P.z); if (d >= (w.pond ? 9 : 16) || w.pond && seen.has(w.name)) continue; if (w.pond) seen.add(w.name); list.push({ e: w, d, cls: 'wild', text: w.name, h: w.h || 2 }); } }
     }
@@ -19853,7 +20184,7 @@ Object.assign(UI, {
     env.push('何も考えずに、ただ眺めています', '風が、頬をなでていきます', '遠くで、車の音がかすかにします');
     if (TRAIN.g && TRAIN.g.visible && Math.abs(TRAIN.x) < 60) env.unshift('遠くを、電車が通りすぎていきます');
     const npc = ACT.npcs.find((n) => Math.hypot(n.x - P.x, n.z - P.z) < 26);
-    if (npc) { const cid = CHAT[npc.d.id] ? npc.d.id : npc.d.hire ? CHAT_HIRE[npc.d.name] : null, dl = (cid && CHAT[cid].doing) || ['水おけの水を替えています', '小屋の前を掃いています', 'こちらに気づいて、小さく手を振りました']; env.push(`${npc.d.name}が、${pick(dl)}`); }
+    if (npc) { const cid = CHAT[npc.d.id] ? npc.d.id : npc.d.hire ? CHAT_HIRE[npc.d.name] : null, dl = (cid && CHAT[cid].doing) || ['水おけの水を替えています', '小屋の前を掃いています', 'こちらに気づいて、小さく手を振りました']; env.push(`${npc.d.name}が、${workDoing(npc) || pick(dl)}`); }
     // 雪が降っている時は、音のない言葉だけ（鳥や車、電車の音の言葉は出さない）
     if (G.weather === 'snow') { env.length = 0; env.push('音が雪に吸い込まれて、しんとしています', '大きな雪が、ゆっくり落ちてきます', 'しんと静かで、自分の息の音が聞こえます', '雪のひとひらが、手のひらで消えました', '吐く息が、白くのぼっていきます'); }
     const fresh = (arr) => arr.filter((x) => !R0.recent.includes(x));
