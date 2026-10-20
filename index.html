@@ -14,29 +14,46 @@
 <script>(function () {
   var st = false; try { st = navigator.standalone === true || matchMedia('(display-mode: standalone)').matches; } catch (e) {}
   if (!st && !/diag/.test(location.search)) return;
-  var t0 = Date.now(), errs = [], last = Date.now(), lag = 0, lost = 0, ticks = 0, shut = false;
+  var t0 = Date.now(), errs = [], last = Date.now(), lag = 0, lost = 0, ticks = 0, shut = false, did = [];
   addEventListener('error', function (e) { var t = e && e.target, m = (e && e.message) || (t && (t.src || t.href)) || '?'; errs.push(((Date.now() - t0) / 1000).toFixed(1) + 's ' + String(m).slice(0, 120) + (e && e.lineno ? ' @' + e.lineno : '')); }, true);
   addEventListener('unhandledrejection', function (e) { var r = e && e.reason; errs.push(((Date.now() - t0) / 1000).toFixed(1) + 's (p) ' + String((r && (r.message || r)) || r).slice(0, 120)); });
   document.addEventListener('webglcontextlost', function () { lost++; }, true);
   function r(id) { var el = document.getElementById(id); if (!el) return '-'; var b = el.getBoundingClientRect(), cs = getComputedStyle(el); return Math.round(b.width) + 'x' + Math.round(b.height) + '@' + Math.round(b.left) + ',' + Math.round(b.top) + (cs.display === 'none' ? ' none' : '') + (cs.visibility !== 'visible' ? ' ' + cs.visibility : '') + (+cs.opacity < 1 ? ' op' + cs.opacity : '') + (el.hidden ? ' hidden' : ''); }
+  function who(x, y) { var el = document.elementFromPoint(x, y), out = []; while (el && el !== document.body && out.length < 4) { out.push(el.id ? '#' + el.id : el.tagName.toLowerCase() + (el.className && typeof el.className === 'string' ? '.' + el.className.split(' ')[0] : '')); el = el.parentElement; } return out.join('<') || '-'; }
+  function anims(id) { var el = document.getElementById(id); if (!el || !el.getAnimations) return '-'; return el.getAnimations().map(function (a) { return (a.transitionProperty || a.animationName || 'a') + ':' + a.playState; }).join(',') || 'なし'; }
   function text() {
     var vv = window.visualViewport, de = document.documentElement, rec = '';
     try { rec = localStorage.getItem('harunire-boot') || ''; } catch (e) { rec = 'LS×'; }
     var l = document.getElementById('loading'), c = document.getElementById('gl'), ua = (navigator.userAgent.match(/OS [0-9_]+/) || [''])[0];
-    return ['【診断】はるにれの丘 ' + ua + ' ' + ((Date.now() - t0) / 1000).toFixed(0) + '秒 tick' + ticks + ' 止まり最大' + lag + 'ms',
-      'inner ' + innerWidth + 'x' + innerHeight + ' / vv ' + (vv ? Math.round(vv.width) + 'x' + Math.round(vv.height) + ' s' + vv.scale.toFixed(2) : '-') + ' / client ' + (de ? de.clientWidth + 'x' + de.clientHeight : '-') + ' / screen ' + screen.width + 'x' + screen.height + ' dpr' + devicePixelRatio,
-      'body ' + (document.body ? r('app').replace(/.*/, '') + Math.round(document.body.getBoundingClientRect().height) : '-') + ' app ' + r('app') + ' load ' + r('loading') + (l ? ' [' + l.className + '] ' + (l.textContent || '').trim().slice(0, 8) : ''),
-      'start ' + r('start') + ' gl ' + (c ? c.width + 'x' + c.height : '-') + ' lost' + lost + ' THREE ' + (typeof THREE) + ' sw ' + (navigator.serviceWorker && navigator.serviceWorker.controller ? 'on' : 'off') + ' ready ' + document.readyState + ' font ' + (document.fonts ? document.fonts.status : '-'),
-      '足あと ' + rec.slice(0, 110),
-      'エラー ' + (errs.length ? errs.slice(-4).join(' | ') : 'なし')].join('\n');
+    return ['【診断2】はるにれの丘 ' + ua + ' ' + ((Date.now() - t0) / 1000).toFixed(0) + '秒 tick' + ticks + ' 止まり最大' + lag + 'ms 押した:' + (did.join(',') || 'なし'),
+      'inner ' + innerWidth + 'x' + innerHeight + ' / vv ' + (vv ? Math.round(vv.width) + 'x' + Math.round(vv.height) : '-') + ' / screen ' + screen.width + 'x' + screen.height + ' dpr' + devicePixelRatio,
+      'app ' + r('app') + ' load ' + r('loading') + (l ? ' [' + l.className + ']' : '') + ' 動き ' + anims('loading') + ' 全' + (document.getAnimations ? document.getAnimations().length : '-'),
+      'start ' + r('start') + ' gl ' + (c ? c.width + 'x' + c.height : '-') + ' lost' + lost + ' sw ' + (navigator.serviceWorker && navigator.serviceWorker.controller ? 'on' : 'off'),
+      'まん中 ' + who(innerWidth / 2, innerHeight / 2) + ' / 下の方 ' + who(innerWidth / 2, innerHeight * 0.75),
+      '足あと ' + rec.replace(/"at":[0-9]+,/, '').slice(0, 80) + ' / エラー ' + (errs.length ? errs.slice(-3).join(' | ') : 'なし')].join('\n');
   }
   var css = 'z-index:2147483647;margin:0;padding:6px 8px;background:#FFFFFF;color:#111111;font:11px/1.45 Menlo,monospace;white-space:pre-wrap;word-break:break-all;border:2px solid #C0392B;';
-  var a, b;
+  var bcss = 'display:inline-block;margin:6px 6px 0 0;padding:8px 10px;border:1px solid #555;border-radius:8px;background:#F4F4F4;color:#111;font:13px sans-serif;';
+  var a, t, b;
+  var acts = {
+    A: ['A 読み込みの画面を外す', function () { var l = document.getElementById('loading'); if (l) l.style.display = 'none'; }],
+    B: ['B 絵（canvas）を隠す', function () { var c = document.getElementById('gl'); if (c) c.style.visibility = 'hidden'; }],
+    C: ['C 重ねを作り直す', function () { var p = document.getElementById('app'); if (!p) return; p.style.display = 'none'; void p.offsetHeight; p.style.display = ''; p.style.transform = 'translateZ(0)'; }],
+    D: ['D 固定をやめる', function () { var p = document.getElementById('app'); if (p) { p.style.position = 'absolute'; p.style.width = innerWidth + 'px'; p.style.height = innerHeight + 'px'; } }]
+  };
   function put() {
     if (shut || !document.body) return;
-    if (!a) { a = document.createElement('div'); a.setAttribute('style', 'position:relative;display:block;padding-top:calc(env(safe-area-inset-top) + 6px);' + css); a.onclick = function () { shut = true; a.remove(); b.remove(); }; document.body.insertBefore(a, document.body.firstChild); }
-    if (!b) { b = document.createElement('div'); b.setAttribute('style', 'position:fixed;left:0;right:0;bottom:0;padding-bottom:calc(env(safe-area-inset-bottom) + 6px);' + css); b.onclick = a.onclick; document.body.appendChild(b); }
-    var t = text(); a.textContent = '上（ふつうの位置）\n' + t + '\n（押すと消えます。直すための一時的な表示です）'; b.textContent = '下（固定の位置）\n' + t;
+    if (!a) {
+      a = document.createElement('div'); a.setAttribute('style', 'position:relative;display:block;padding-top:calc(env(safe-area-inset-top) + 6px);' + css);
+      t = document.createElement('div'); a.appendChild(t);
+      var row = document.createElement('div'); a.appendChild(row);
+      Object.keys(acts).forEach(function (k) { var x = document.createElement('button'); x.setAttribute('style', bcss); x.textContent = acts[k][0]; x.onclick = function (ev) { ev.stopPropagation(); if (did.indexOf(k) < 0) did.push(k); try { acts[k][1](); } catch (e) { errs.push('btn ' + k + ' ' + e.message); } put(); }; row.appendChild(x); });
+      var cl = document.createElement('button'); cl.setAttribute('style', bcss); cl.textContent = '閉じる'; cl.onclick = function (ev) { ev.stopPropagation(); shut = true; a.remove(); b.remove(); }; row.appendChild(cl);
+      var note = document.createElement('div'); note.textContent = '（A〜D を1つずつ押して、ゲームの画面が出たら、そこで写真を。直すための一時的な表示です）'; a.appendChild(note);
+      document.body.insertBefore(a, document.body.firstChild);
+    }
+    if (!b) { b = document.createElement('div'); b.setAttribute('style', 'position:fixed;left:0;right:0;bottom:0;padding-bottom:calc(env(safe-area-inset-bottom) + 6px);' + css); document.body.appendChild(b); }
+    var x = text(); t.textContent = '上（ふつうの位置）\n' + x; b.textContent = '下（固定の位置）\n' + x;
   }
   setInterval(function () { var n = Date.now(); lag = Math.max(lag, n - last - 500); last = n; ticks++; put(); }, 500);
 })();(function () {
@@ -3065,7 +3082,7 @@ const TITLES = []; // 称号の入れ物（0.9.58。中身は src/content/titles
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.67', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.68', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -3073,6 +3090,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.68', '2026年10月21日', 'iPhone のホーム画面から開いた時、読み込みの画面が消えきらずに残って見えることへの直しを入れました（うすくしたあと、画面から外します）。診断の札に、確かめるためのボタンを足しました（直ったら外します）。'],
     ['0.9.67', '2026年10月21日', 'iPhone のホーム画面から開くと、うすい茶色の画面のまま進まないことを調べるため、ホーム画面から開いた時だけ、画面の大きさや読み込みの進みを小さく表示するようにしました（押すと消えます。直ったら外します）。ゲームの画面の大きさが 0 になっている時に、測った大きさで置き直すようにもしました。'],
     ['0.9.66', '2026年10月21日', 'iPhone のホーム画面から開くと真っ白のままになることへの、2つめの直しです。開いた直後に画面の大きさが 0 と伝えられても、ほかの測り方で補い、あとから大きさが決まった時も合わせるようにしました。前に開いた時にとちゅうで止まっていたら、次に開いた時に、止まった所を見せて「このまま開く」か「かるい表示で開く」を選べるようにしました。'],
     ['0.9.65', '2026年10月21日', 'iPhone でホーム画面から開くと、画面が真っ白のまま進まないことがあったので、オフライン用の仕組みを直しました（読んだものを、しまい終わるのを待たずに渡します）。開くのに30秒以上かかった時は、白いままにせず、読み込み直すボタンを出します。'],
@@ -20931,6 +20949,9 @@ function bootSafe(p, go) {
   const start = (lite) => { if (lite) window.HARU_LITE = 1; el.innerHTML = '<span>箱庭を組み立てています</span>'; setTimeout(go, 60); };
   $('#bs-go').onclick = () => start(false); $('#bs-lite').onclick = () => start(true);
 }
+// 読み込みの画面を消す（0.9.68）：うすくしたあと、display: none で、重ねの層ごと外す
+// （iPhone のホーム画面から開いた時、うすくなる動きが画面の上で止まり、読み込みの画面だけが残って見えることがあるため）
+function loadingGone() { const l = $('#loading'); if (!l) return; l.classList.add('gone'); setTimeout(() => { if (l.classList.contains('gone')) l.style.display = 'none'; }, 800); }
 function beginPlay() {
   UI._gN = undefined; UI._gSig = null;
   STARTED = true;
@@ -21013,12 +21034,12 @@ function bootWith(data) {
       const o = JSON.parse(data.save), saved = GAME.hasSave(slotOf(o.mode));
       if (saved && saved.photos && saved.photos.length && !(o.photos || []).length) o.photos = saved.photos;
       if (saved && saved.coverThumbs && !Object.keys(o.coverThumbs || {}).length) o.coverThumbs = saved.coverThumbs;
-      GAME.loadGame(o); beginPlay(); $('#loading').classList.add('gone'); bootStep('ok'); storeInit(); return;
+      GAME.loadGame(o); beginPlay(); loadingGone(); bootStep('ok'); storeInit(); return;
     } catch (e) { /* 通常の起動へ */ }
   }
   bootStep('backdrop');
   backdrop();
-  $('#loading').classList.add('gone');
+  loadingGone();
   bootStep('title'); setTimeout(() => bootStep('ok'), 1500);
   GAME.hasSave('normal'); // 前の版の、箱庭モードの保存は片付ける（migrateLocal）
   refreshStart();
