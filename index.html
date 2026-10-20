@@ -11,6 +11,28 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <script>window.HARU_WEB = 1; if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });</script>
+<script>(function () {
+  var errs = [];
+  addEventListener('error', function (e) { var t = e && e.target, m = (e && e.message) || (t && (t.src || t.href)) || ''; if (m) errs.push(String(m).slice(0, 140)); }, true);
+  function gone() { var l = document.getElementById('loading'); return !l || / gone( |$)/.test(' ' + l.className); }
+  setTimeout(function () {
+    if (gone() || !document.body) return;
+    var d = document.createElement('div'); d.id = 'boot-help';
+    d.setAttribute('style', 'position:fixed;inset:0;z-index:99;display:flex;align-items:center;justify-content:center;padding:24px;background:#F6EFDF;color:#3A3A32;font:16px/1.8 sans-serif;text-align:center');
+    var b = 'display:block;margin:12px auto 0;padding:10px 18px;border-radius:12px;border:1px solid #8A8F7E;background:#FFFDF6;color:#2E4A3A;font:inherit';
+    d.innerHTML = '<div style="max-width:340px"><p style="margin:0">開くのに、いつもより時間がかかっています。</p><button id="bh-re" style="' + b + '">もう一度読み込む</button><button id="bh-clr" style="' + b + '">しまった写しを消して、読み込み直す</button><p style="margin:12px 0 0;font-size:13px;color:#6A6A5E">育てている続きは、消えません。</p><p id="bh-err" style="margin:10px 0 0;font-size:11px;color:#8A8A7E;word-break:break-all"></p></div>';
+    document.body.appendChild(d);
+    document.getElementById('bh-err').textContent = errs.slice(-3).join(' / ');
+    document.getElementById('bh-re').onclick = function () { location.reload(); };
+    document.getElementById('bh-clr').onclick = function () {
+      var w = [];
+      try { if (navigator.serviceWorker) w.push(navigator.serviceWorker.getRegistrations().then(function (rs) { return Promise.all(rs.map(function (r) { return r.unregister(); })); })); } catch (e) {}
+      try { if (window.caches) w.push(caches.keys().then(function (ks) { return Promise.all(ks.filter(function (k) { return k.indexOf('harunire-') === 0; }).map(function (k) { return caches.delete(k); })); })); } catch (e) {}
+      Promise.all(w).then(function () { location.reload(); }, function () { location.reload(); });
+    };
+    var iv = setInterval(function () { if (gone()) { clearInterval(iv); if (d.parentNode) d.parentNode.removeChild(d); } }, 1000);
+  }, 30000);
+})();</script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="はるにれの丘">
 <meta property="og:title" content="はるにれの丘">
@@ -3001,7 +3023,7 @@ const TITLES = []; // 称号の入れ物（0.9.58。中身は src/content/titles
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.64', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.65', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -3009,6 +3031,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.65', '2026年10月21日', 'iPhone でホーム画面から開くと、画面が真っ白のまま進まないことがあったので、オフライン用の仕組みを直しました（読んだものを、しまい終わるのを待たずに渡します）。開くのに30秒以上かかった時は、白いままにせず、読み込み直すボタンを出します。'],
     ['0.9.64', '2026年10月20日', 'GitHub 版を、スマホやパソコンのホーム画面に置けるようになりました（アイコンは、はるにれの木と牛と鶏）。一度開いたら、電波が弱い所でも遊べます（ゲームのページは、いつも新しい版を先に読みます）。iPhone と iPad では、3日目に遊んだ日に一度だけ、ホーム画面に置く案内が出ます。ホーム画面から開く丘は、はじめは新しい丘なので、今の続きをファイルで持っていく方法も添えました。'],
     ['0.9.63', '2026年10月20日', '季節の世話の出来事が、ひと月に1つほど起きるようになりました（ヤギの蹄の手入れ、鶏小屋のすきま掃除、ウサギが朝ごはんを食べない日、羊の毛刈り、牛の蹄の手入れ）。働く人の名札に「・手を貸す」がついたら、話しかけると手を貸せます。手を貸さなくても、働く人がします。ヤギの手入れでは、落ち着き方が一頭ずつ違います。知識カードが4枚と、称号「手を貸す人」が増えました'],
     ['0.9.62', '2026年10月20日', '「観察ノート」ができました（右のメニューの「観察」）。丘の野生の生き物を近くでしばらく見ていると、その子がすること（エソグラム）が、自然に書きこまれていきます。写真もページに貼られます。ウェルカムセンターに、地域猫が来ていることも（ときどき、ヤギやアヒルも）。日記のタブは折り返して、全部見えるように。日記の1行は、はじめの一文だけを見せて、続きは押すと開きます。夜のドローンショーに、20秒の短い版。秋の感謝祭の干し草の迷路は、広い所へ移して、押すと説明が出ます（ベールは通れません）。仲良しの印が5つになった子は、歩きだすと、柵の外でもよくついて来ます。「見る」で場所を見る時は、遠く斜め上から。'],

@@ -1,9 +1,9 @@
-// はるにれの丘：一度開いたら、電波が弱くても遊べるように（B1。0.9.64）
+// はるにれの丘：一度開いたら、電波が弱くても遊べるように（B1。0.9.64、0.9.65 で直した）
 // build.js が版の数字を入れて dist/sw.js にする（版が変わるたびに、この文が変わり、新しい仕組みに入れかわる）
 // ・ゲームのページ（index.html）と本当のお知らせ（news.json）は、いつも新しい版を先に読む。
 //   読めない時と、WAIT をすぎても届かない時だけ、しまっておいた写しを出す（届いたら、次のために写しを新しくする）
 // ・three.js・字体・アイコンは、しまっておいた写しを先に使う
-const VER = '0.9.64';
+const VER = '0.9.65';
 const CACHE = 'harunire-' + VER;
 const PAGE = new URL('./', self.location).href;
 const CORE = ['manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'];
@@ -32,30 +32,33 @@ self.addEventListener('activate', (e) => {
     await self.clients.claim();
   })());
 });
-// 新しい版を先に。WAIT をすぎたら写しを出し、ネットの返事は裏で待って写しを新しくする
-async function fresh(e, url, key) {
-  const c = await caches.open(CACHE);
-  const net = fetch(url, { cache: 'no-cache', credentials: 'same-origin' }).then((r) => { if (r && r.ok) return c.put(key, r.clone()).then(() => r, () => r); return r; });
-  e.waitUntil(net.catch(() => {}));
-  const first = await Promise.race([net.catch(() => null), new Promise((ok) => setTimeout(() => ok(undefined), WAIT))]);
-  if (first) return first;
-  const old = await c.match(key);
-  if (old) return old;
-  try { return await net; } catch (err) { return Response.error(); }
+// 新しい版を先に。WAIT をすぎたら写しを出す。ネットの返事は、届いたらすぐページへ渡し、写しは裏でしまう
+// （0.9.65：しまい終わるまで渡さない作りだと、iPhone の WebKit で止まり、画面の頭の字体の CSS を待って真っ白になることがあった）
+function fresh(e, url, key) {
+  const net = fetch(url, { cache: 'no-cache', credentials: 'same-origin' });
+  // 写しのための複製は、ページが読みはじめる前に（この then が、下の race より先に呼ばれる）
+  e.waitUntil(net.then((r) => { if (r && r.ok) { const cp = r.clone(); return caches.open(CACHE).then((c) => c.put(key, cp)); } }).catch(() => {}));
+  const timer = new Promise((ok) => setTimeout(() => ok(null), WAIT));
+  return Promise.race([net.catch(() => null), timer]).then((r) => r || caches.match(key).then((old) => old || net));
 }
-// 写しを先に。ない時はネットから読んで、しまう（同じ所の小さなファイルと字体の CSS は、裏で新しくする）
-async function kept(e, req, quiet) {
-  const c = await caches.open(CACHE);
-  const hit = await c.match(req, { ignoreVary: true });
-  const net = () => fetch(req).then((r) => { if (r && (r.ok || r.type === 'opaque')) return c.put(req, r.clone()).then(() => r, () => r); return r; });
-  if (hit) { if (!quiet) e.waitUntil(net().catch(() => {})); return hit; }
-  try { return await net(); } catch (err) { return Response.error(); }
+// 写しを先に。ない時はネットから読んで、すぐ渡す（写しは裏でしまう。同じ所の小さなファイルと字体の CSS は、裏で新しくする）
+function kept(e, req, quiet) {
+  return caches.match(req, { ignoreVary: true }).then((hit) => {
+    if (hit && quiet) return hit;
+    const net = fetch(req);
+    e.waitUntil(net.then((r) => { if (r && (r.ok || r.type === 'opaque')) { const cp = r.clone(); return caches.open(CACHE).then((c) => c.put(req, cp)); } }).catch(() => {}));
+    return hit || net;
+  });
 }
 self.addEventListener('fetch', (e) => {
   const req = e.request; if (req.method !== 'GET') return;
   const url = new URL(req.url), same = url.origin === self.location.origin;
-  if (req.mode === 'navigate' || (same && (url.href === PAGE || url.pathname.endsWith('/index.html')))) { e.respondWith(fresh(e, req.url, PAGE)); return; }
-  if (same && url.pathname.endsWith('/news.json')) { e.respondWith(fresh(e, req.url, url.origin + url.pathname)); return; }
-  if (url.href === THREE_URL || /^https:\/\/fonts\.gstatic\.com\//.test(url.href)) { e.respondWith(kept(e, req, true)); return; }
-  if (same || FONT.test(url.href)) { e.respondWith(kept(e, req, false)); return; }
+  let p = null;
+  if (req.mode === 'navigate' || (same && (url.href === PAGE || url.pathname.endsWith('/index.html')))) p = fresh(e, req.url, PAGE);
+  else if (same && url.pathname.endsWith('/news.json')) p = fresh(e, req.url, url.origin + url.pathname);
+  else if (url.href === THREE_URL || /^https:\/\/fonts\.gstatic\.com\//.test(url.href)) p = kept(e, req, true);
+  else if (same || FONT.test(url.href)) p = kept(e, req, false);
+  if (!p) return;
+  // どこかでつまずいても、ふつうにネットから読む（仕組みのせいで開けない、ということがないように）
+  e.respondWith(p.then((r) => r || fetch(req)).catch(() => fetch(req)));
 });
