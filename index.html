@@ -25,13 +25,14 @@
     var vv = window.visualViewport, de = document.documentElement, rec = '';
     try { rec = localStorage.getItem('harunire-boot') || ''; } catch (e) { rec = 'LS×'; }
     var l = document.getElementById('loading'), c = document.getElementById('gl'), ua = (navigator.userAgent.match(/OS [0-9_]+/) || [''])[0];
-    return ['【診断4】はるにれの丘 ' + ua + ' ' + ((Date.now() - t0) / 1000).toFixed(0) + '秒 tick' + ticks + ' 止まり最大' + lag + 'ms 押した:' + (did.join(',') || 'なし'),
+    return ['【診断5】はるにれの丘 ' + ua + ' ' + ((Date.now() - t0) / 1000).toFixed(0) + '秒 tick' + ticks + ' 止まり最大' + lag + 'ms 押した:' + (did.join(',') || 'なし'),
       'inner ' + innerWidth + 'x' + innerHeight + ' / vv ' + (vv ? Math.round(vv.width) + 'x' + Math.round(vv.height) : '-') + ' / screen ' + screen.width + 'x' + screen.height + ' dpr' + devicePixelRatio,
       'app ' + r('app') + ' load ' + r('loading') + (l ? ' [' + l.className + ']' : '') + ' 動き ' + anims('loading') + ' 全' + (document.getAnimations ? document.getAnimations().length : '-'),
       'start ' + r('start') + ' gl ' + (c ? c.width + 'x' + c.height : '-') + ' lost' + lost + ' sw ' + (navigator.serviceWorker && navigator.serviceWorker.controller ? 'on' : 'off'),
       'まん中 ' + who(innerWidth / 2, innerHeight / 2) + ' / 下の方 ' + who(innerWidth / 2, innerHeight * 0.75),
       'GL ' + (function () { var g = glOf(); if (!g) return 'なし'; var k = (typeof WebGL2RenderingContext !== 'undefined' && g instanceof WebGL2RenderingContext) ? 'webgl2' : 'webgl1'; return k + ' ' + g.drawingBufferWidth + 'x' + g.drawingBufferHeight + (g.isContextLost() ? ' 失った' : '') + ' maxTex' + g.getParameter(g.MAX_TEXTURE_SIZE); })() + (window.HARU_LITE === 1 ? ' かるい表示' : ''),
       qLine(),
+      'app の形 ' + (function () { var el = document.getElementById('app') || document.getElementById('app-old'); if (!el) return '-'; var cs = getComputedStyle(el), k = ['position', 'zIndex', 'transform', 'filter', 'clipPath', 'webkitClipPath', 'mask', 'webkitMask', 'contentVisibility', 'isolation', 'willChange', 'mixBlendMode', 'backfaceVisibility', 'perspective', 'contain'], o = []; k.forEach(function (x) { var v = cs[x]; if (v && v !== 'none' && v !== 'auto' && v !== 'normal' && v !== 'visible' && v !== 'static') o.push(x + '=' + String(v).slice(0, 40)); }); return (el.id) + ' ' + (o.join(' ') || '特になし') + ' 子' + el.children.length; })(),
       '足あと ' + rec.replace(/"at":[0-9]+,/, '').slice(0, 80) + ' / エラー ' + (errs.length ? errs.slice(-3).join(' | ') : 'なし')].join('\n');
   }
   var css = 'z-index:2147483647;margin:0;padding:6px 8px;background:#FFFFFF;color:#111111;font:11px/1.45 Menlo,monospace;white-space:pre-wrap;word-break:break-all;border:2px solid #C0392B;';
@@ -91,11 +92,16 @@
     var what = Q.stage === 'all' ? '中の物を全部隠しました' : Q.stage === 'allk' ? Q.path + ' の中を全部隠しました' : Q.stage === 'prop' ? '#app の ' + PROPS[Q.pi][0] + ' をやめました' : Q.path + ' の中の ' + Q.trial.map(label).join(' ').slice(0, 90) + ' を隠しました（のこり ' + Q.cand.length + '）';
     return '◆ ' + what + '。赤い目じるしは見えますか？';
   }
+  function rebuild() {
+    var old = document.getElementById('app'); if (!old) return;
+    var n = document.createElement('div');
+    n.setAttribute('style', 'position:fixed;left:0;top:0;right:0;bottom:0;overflow:hidden;background:linear-gradient(#9CBFD9,#E8EFEA 78%)');
+    while (old.firstChild) n.appendChild(old.firstChild);
+    old.parentNode.replaceChild(n, old); n.id = 'app';
+  }
   var acts = {
-    I: ['I 原因をさがす', function () { qStart(); }],
-    Y: ['見える', function () { qAnswer(true); }],
-    N: ['見えない', function () { qAnswer(false); }],
-    H: ['H かるい表示で開き直す', function () { try { localStorage.setItem('harunire-lite-once', '1'); } catch (e) {} location.reload(); }]
+    J: ['J 入れ物を作り直す', function () { probe(); rebuild(); }],
+    K: ['K 入れ物の名前を変える', function () { probe(); var p = document.getElementById('app'); if (p) p.id = 'app-old'; }]
   };
   function put() {
     if (shut || !document.body) return;
@@ -105,7 +111,7 @@
       var row = document.createElement('div'); a.appendChild(row);
       Object.keys(acts).forEach(function (k) { var x = document.createElement('button'); x.setAttribute('style', bcss); x.textContent = acts[k][0]; x.onclick = function (ev) { ev.stopPropagation(); did.push(k); if (did.length > 12) did.shift(); try { acts[k][1](); } catch (e) { errs.push('btn ' + k + ' ' + e.message); } put(); }; row.appendChild(x); });
       var cl = document.createElement('button'); cl.setAttribute('style', bcss); cl.textContent = '閉じる'; cl.onclick = function (ev) { ev.stopPropagation(); shut = true; a.remove(); b.remove(); }; row.appendChild(cl);
-      var note = document.createElement('div'); note.textContent = '（I を押して、赤い目じるしが見えるかを「見える／見えない」で答えてください。結果が出たら写真を。直すための一時的な表示です）'; a.appendChild(note);
+      var note = document.createElement('div'); note.textContent = '（J を押して、ゲームの画面か赤い目じるしが出るかを見てください。出なければ、アプリを閉じて開き直し、K を。どちらも、押したあとの写真を。直すための一時的な表示です）'; a.appendChild(note);
       document.body.insertBefore(a, document.body.firstChild);
     }
     if (!b) { b = document.createElement('div'); b.setAttribute('style', 'position:fixed;left:0;right:0;bottom:0;padding-bottom:calc(env(safe-area-inset-bottom) + 6px);' + css); document.body.appendChild(b); }
@@ -3139,7 +3145,7 @@ const TITLES = []; // 称号の入れ物（0.9.58。中身は src/content/titles
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.70', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.71', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -3147,6 +3153,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.71', '2026年10月21日', 'iPhone のホーム画面から開いた時の、診断の札のボタンを入れかえました（直ったら外します）。ゲームの中身は変わっていません。'],
     ['0.9.70', '2026年10月21日', 'iPhone のホーム画面から開いた時の、診断の札に「原因をさがす」を足しました（直ったら外します）。ゲームの中身は変わっていません。'],
     ['0.9.69', '2026年10月21日', 'iPhone のホーム画面から開いた時の、診断の札のボタンを入れかえました（直ったら外します）。ゲームの中身は変わっていません。'],
     ['0.9.68', '2026年10月21日', 'iPhone のホーム画面から開いた時、読み込みの画面が消えきらずに残って見えることへの直しを入れました（うすくしたあと、画面から外します）。診断の札に、確かめるためのボタンを足しました（直ったら外します）。'],
