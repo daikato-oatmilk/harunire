@@ -12,6 +12,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <script>window.HARU_WEB = 1; if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });</script>
 <script>(function () {
+  try {
+    var k = 'harunire-boot', p = JSON.parse(localStorage.getItem(k) || 'null'), now = Date.now(), st = false;
+    try { st = navigator.standalone === true || matchMedia('(display-mode: standalone)').matches; } catch (e) {}
+    var bad = p && p.s !== 'ok' && p.s !== 'title' && now - (p.at || 0) < 1800000;
+    if (bad) window.HARU_HOLD = p;
+    localStorage.setItem(k, JSON.stringify({ at: now, s: 'head', n: bad ? (p.n || 1) + 1 : 1, w: innerWidth, h: innerHeight, st: st }));
+  } catch (e) {}
+})();(function () {
   var errs = [];
   addEventListener('error', function (e) { var t = e && e.target, m = (e && e.message) || (t && (t.src || t.href)) || ''; if (m) errs.push(String(m).slice(0, 140)); }, true);
   function gone() { var l = document.getElementById('loading'); return !l || / gone( |$)/.test(' ' + l.className); }
@@ -1523,6 +1531,12 @@ ul.etho li { display: flex; align-items: center; gap: 6px; padding: 3px 0; borde
 ul.etho li svg { width: 16px; height: 16px; color: var(--pine, #3F7D6D); }
 ul.etho li small { margin-left: auto; color: var(--ink-3, #888); }
 ul.etho li .q { color: var(--ink-3, #999); }
+
+/* 前に開いた時、とちゅうで止まった時の画面（0.9.66。main.js の bootSafe） */
+.boot-safe { max-width: 360px; padding: 24px; text-align: center; font-weight: 400; line-height: 1.8; }
+.boot-safe .bs-t { font-weight: 700; color: var(--ink); }
+.boot-safe .bs-btns { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+.boot-safe .bs-info { font-size: 12px; color: var(--ink-2); word-break: break-all; }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -3023,7 +3037,7 @@ const TITLES = []; // 称号の入れ物（0.9.58。中身は src/content/titles
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.65', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.66', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -3031,6 +3045,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.66', '2026年10月21日', 'iPhone のホーム画面から開くと真っ白のままになることへの、2つめの直しです。開いた直後に画面の大きさが 0 と伝えられても、ほかの測り方で補い、あとから大きさが決まった時も合わせるようにしました。前に開いた時にとちゅうで止まっていたら、次に開いた時に、止まった所を見せて「このまま開く」か「かるい表示で開く」を選べるようにしました。'],
     ['0.9.65', '2026年10月21日', 'iPhone でホーム画面から開くと、画面が真っ白のまま進まないことがあったので、オフライン用の仕組みを直しました（読んだものを、しまい終わるのを待たずに渡します）。開くのに30秒以上かかった時は、白いままにせず、読み込み直すボタンを出します。'],
     ['0.9.64', '2026年10月20日', 'GitHub 版を、スマホやパソコンのホーム画面に置けるようになりました（アイコンは、はるにれの木と牛と鶏）。一度開いたら、電波が弱い所でも遊べます（ゲームのページは、いつも新しい版を先に読みます）。iPhone と iPad では、3日目に遊んだ日に一度だけ、ホーム画面に置く案内が出ます。ホーム画面から開く丘は、はじめは新しい丘なので、今の続きをファイルで持っていく方法も添えました。'],
     ['0.9.63', '2026年10月20日', '季節の世話の出来事が、ひと月に1つほど起きるようになりました（ヤギの蹄の手入れ、鶏小屋のすきま掃除、ウサギが朝ごはんを食べない日、羊の毛刈り、牛の蹄の手入れ）。働く人の名札に「・手を貸す」がついたら、話しかけると手を貸せます。手を貸さなくても、働く人がします。ヤギの手入れでは、落ち着き方が一頭ずつ違います。知識カードが4枚と、称号「手を貸す人」が増えました'],
@@ -20843,17 +20858,44 @@ window.addEventListener('unhandledrejection', (e) => { const r = e && e.reason; 
 // 字の大きさ（0.9.46）：style.css の --fs-* をまとめて 1.15 倍に
 function applyTextSize() { document.body.classList.toggle('text-l', !!(G && G.settings && G.settings.textSize === 'l')); }
 function applyLite() {
-  const lite = !!(G && G.settings && G.settings.lite);
+  const lite = !!(G && G.settings && G.settings.lite) || window.HARU_LITE === 1; // HARU_LITE：止まった時の画面で「かるい表示で開く」を選んだ回（0.9.66）
   R.renderer.setPixelRatio(lite ? 1 : Math.min(window.devicePixelRatio || 1, IS_TOUCH ? 1.6 : 2));
   R.sun.castShadow = !lite;
   resize();
 }
+// 画面の大きさ（0.9.66）：iPhone のホーム画面から開いた直後などに、innerWidth・innerHeight が 0 のことがある。
+// 0 のまま描くと、毎コマがとても重くなる（真っ白のまま止まる・落ちる）。ほかの測り方で補い、どうしても 0 なら 1 にする
+function viewSize() {
+  const de = document.documentElement, vv = window.visualViewport;
+  const w = window.innerWidth || (vv && vv.width) || (de && de.clientWidth) || screen.width || 1;
+  const h = window.innerHeight || (vv && vv.height) || (de && de.clientHeight) || screen.height || 1;
+  return [Math.max(1, Math.round(w)), Math.max(1, Math.round(h))];
+}
 function resize() {
-  const w = window.innerWidth, h = window.innerHeight;
+  const [w, h] = viewSize(); VIEW.w = w; VIEW.h = h;
   R.renderer.setSize(w, h, false);
   R.camera.aspect = w / h; R.camera.updateProjectionMatrix();
   if (CAM.shiftPx) camShift(CAM.shiftPx);
   if (CAM.overview) CAM.tDist = overviewDist();
+}
+const VIEW = { w: 0, h: 0, check: 0 };
+// 大きさが変わったのに知らせ（resize）が来ない時のために、ときどき確かめる
+function viewHeal(dt) { VIEW.check += dt; if (VIEW.check < 1) return; VIEW.check = 0; const [w, h] = viewSize(); if (w !== VIEW.w || h !== VIEW.h) resize(); }
+/* ---------- 起動の足あと（0.9.66。GitHub 版だけ）----------
+ * どこまで進んだかを、この端末に残す（harunire-boot）。途中で止まったり落ちたりしても、次に開いた時に、文書の頭（build.js の BOOT_REC）が見つけて
+ * window.HARU_HOLD に入れる。その時は、重い準備の前に「とちゅうで止まったようです」の画面を出し、止まった所と画面の大きさを見せる */
+const BOOT_STEPS = { head: 'ページを読みこむ', main: 'しかけの用意', gl: '絵を描く用意', world: '丘を作る', actors: '動物と人の用意', ui: '画面の用意', loop: '描きはじめ', frame: 'はじめのひとコマ', fonts: '字の用意', backdrop: 'はじめの景色', title: 'はじめの画面' };
+const BOOT_ORDER = ['head', 'main', 'gl', 'world', 'actors', 'ui', 'loop', 'frame', 'fonts', 'backdrop', 'title', 'ok']; // 足あとは、前へだけ進む
+function bootStep(st) {
+  if (window.HARU_WEB !== 1) return;
+  try { const k = 'harunire-boot', o = JSON.parse(localStorage.getItem(k) || '{}') || {}; if (BOOT_ORDER.indexOf(st) <= BOOT_ORDER.indexOf(o.s)) return; o.s = st; o.ms = Date.now() - (o.at || Date.now()); o.vw = window.innerWidth; o.vh = window.innerHeight; localStorage.setItem(k, JSON.stringify(o)); } catch (e) { /* 保存できない時は、残さない */ }
+}
+function bootSafe(p, go) {
+  const el = $('#loading'); if (!el) { go(); return; }
+  const step = BOOT_STEPS[p.s] || p.s || '？', home = p.st ? '／ホーム画面から' : '';
+  el.innerHTML = `<div class="boot-safe"><p class="bs-t">前に開いた時、とちゅうで止まったか、閉じられたようです。</p><p>重さや画面の大きさのせいで、うまく開けないことがあります。「かるい表示で開く」は、絵を少し軽くして開きます（この回だけ。設定の「かるい表示」で、いつでも選べます）。</p><div class="bs-btns"><button class="btn primary" id="bs-go">このまま開く</button><button class="btn" id="bs-lite">かるい表示で開く</button></div><p class="bs-info">止まったところ：${esc(step)}（${p.n || 1}回目）／画面 ${p.w | 0}×${p.h | 0}${p.vw != null ? '（止まった時 ' + (p.vw | 0) + '×' + (p.vh | 0) + '）' : ''}${home}<br>うまく開けない時は、この画面を写して、ご意見・感想フォームで教えていただけると、直せます。</p></div>`;
+  const start = (lite) => { if (lite) window.HARU_LITE = 1; el.innerHTML = '<span>箱庭を組み立てています</span>'; setTimeout(go, 60); };
+  $('#bs-go').onclick = () => start(false); $('#bs-lite').onclick = () => start(true);
 }
 function beginPlay() {
   UI._gN = undefined; UI._gSig = null;
@@ -20937,30 +20979,43 @@ function bootWith(data) {
       const o = JSON.parse(data.save), saved = GAME.hasSave(slotOf(o.mode));
       if (saved && saved.photos && saved.photos.length && !(o.photos || []).length) o.photos = saved.photos;
       if (saved && saved.coverThumbs && !Object.keys(o.coverThumbs || {}).length) o.coverThumbs = saved.coverThumbs;
-      GAME.loadGame(o); beginPlay(); $('#loading').classList.add('gone'); storeInit(); return;
+      GAME.loadGame(o); beginPlay(); $('#loading').classList.add('gone'); bootStep('ok'); storeInit(); return;
     } catch (e) { /* 通常の起動へ */ }
   }
+  bootStep('backdrop');
   backdrop();
   $('#loading').classList.add('gone');
+  bootStep('title'); setTimeout(() => bootStep('ok'), 1500);
   GAME.hasSave('normal'); // 前の版の、箱庭モードの保存は片付ける（migrateLocal）
   refreshStart();
   // claude.ai に保存した続きがあれば、それぞれ新しい方を使う（どの端末でも続きから）
   storeInit().then(() => { if (!STARTED) refreshStart(); });
 }
 
-(function boot() {
+function bootGame() {
+  bootStep('main');
   initGeos();
   const canvas = $('#gl');
   initRenderer(canvas);
+  if (window.HARU_LITE === 1) { R.renderer.setPixelRatio(1); R.sun.castShadow = false; }
+  bootStep('gl');
   initTerrain(); initSky(); initParticles(); initWorld(); initActors();
+  bootStep('world');
   createPlayer(); initTrain();
+  bootStep('actors');
   window.addEventListener('pointerdown', () => { if (STARTED && G && G.settings.sound) audioInit(); }, { passive: true });
   document.addEventListener('visibilitychange', () => { if (document.hidden && STARTED) cloudFlushNow(); if (!AU.ctx) return; if (document.hidden) AU.ctx.suspend().catch(() => {}); else if (G && G.settings.sound) AU.ctx.resume().catch(() => {}); });
   window.addEventListener('pagehide', () => { if (STARTED) { GAME.save(); cloudFlushNow(); } });
   UI.init();
+  bootStep('ui');
   zoomGuard();
   initInput(canvas, (x, y) => { if (STARTED) UI.tap(x, y); });
   resize(); window.addEventListener('resize', resize);
+  // iPhone のホーム画面から開いた時などに、あとから大きさが決まることがある（0.9.66）
+  window.addEventListener('orientationchange', () => setTimeout(resize, 300));
+  window.addEventListener('pageshow', resize);
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', resize);
+  [300, 1000, 2500].forEach((ms) => setTimeout(resize, ms));
 
   let last = performance.now(), time = 0;
   const appEl = $('#app');
@@ -20970,8 +21025,10 @@ function bootWith(data) {
     requestAnimationFrame(loop);
     try { frame(now); } catch (err) { const k = String((err && err.message) || err); if (!loopErr[k] || now - loopErr[k] > 10000) { loopErr[k] = now; logErr(err, 'loop'); } }
   }
+  let first = true;
   function frame(now) {
     const dt = Math.min(0.05, Math.max(0, (now - last) / 1000)); last = now; time += dt;
+    viewHeal(dt);
     if (G) {
       if (STARTED) { if (OCHA.on) ochaFrame(dt); else updatePlayer(dt); } // ウェルカムセンターの中では、部屋の中を歩く（0.9.49）
       updateAnimals(dt, time); updatePeople(dt); updateDoors(dt); updateShelters(dt); updateWild(dt, time); snowFrame(dt); updateLittleLife(dt, time); updateTrain(dt);
@@ -20987,7 +21044,9 @@ function bootWith(data) {
       UI.frame(dt);
     }
     renderMain();
+    if (first) { first = false; bootStep('frame'); }
   }
+  bootStep('loop');
   requestAnimationFrame(loop);
 
   const av = $('#app-ver'); if (av) av.textContent = `${APP.label} ${APP.version}（${APP.date}）`;
@@ -20996,12 +21055,15 @@ function bootWith(data) {
     ? Promise.race([Promise.all([document.fonts.load("600 24px 'Klee One'", 'はるにれの丘'), document.fonts.load("500 24px 'Kiwi Maru'", 'はるにれの丘')]), new Promise((r) => setTimeout(r, 2500))])
     : Promise.resolve();
   fontWait.catch(() => {}).then(() => {
+    bootStep('fonts');
     const hot = window.claude && window.claude.hot;
     if (hot && typeof hot.snapshot === 'function') { try { hot.snapshot(() => ({ save: G && STARTED ? JSON.stringify(Object.assign({}, G, { photos: [], coverThumbs: {} })) : null, started: STARTED })); } catch (e) { /* なし */ } }
     if (hot && typeof hot.ready === 'function') { try { hot.ready((d) => bootWith(d || {})); } catch (e) { bootWith({}); } }
     else bootWith((hot && hot.data) || {});
   });
-})();
+}
+// 前に開いた時に、とちゅうで止まっていたら、重い準備の前に、止まった所を見せて選んでもらう（GitHub 版だけ。0.9.66）
+if (window.HARU_WEB === 1 && window.HARU_HOLD) bootSafe(window.HARU_HOLD, bootGame); else bootGame();
 
 })();
 </script>
