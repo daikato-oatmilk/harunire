@@ -2994,7 +2994,7 @@ const TITLES = []; // 称号の入れ物（0.9.58。中身は src/content/titles
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.62', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.63', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -3002,6 +3002,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.63', '2026年10月20日', '季節の世話の出来事が、ひと月に1つほど起きるようになりました（ヤギの蹄の手入れ、鶏小屋のすきま掃除、ウサギが朝ごはんを食べない日、羊の毛刈り、牛の蹄の手入れ）。働く人の名札に「・手を貸す」がついたら、話しかけると手を貸せます。手を貸さなくても、働く人がします。ヤギの手入れでは、落ち着き方が一頭ずつ違います。知識カードが4枚と、称号「手を貸す人」が増えました'],
     ['0.9.62', '2026年10月20日', '「観察ノート」ができました（右のメニューの「観察」）。丘の野生の生き物を近くでしばらく見ていると、その子がすること（エソグラム）が、自然に書きこまれていきます。写真もページに貼られます。ウェルカムセンターに、地域猫が来ていることも（ときどき、ヤギやアヒルも）。日記のタブは折り返して、全部見えるように。日記の1行は、はじめの一文だけを見せて、続きは押すと開きます。夜のドローンショーに、20秒の短い版。秋の感謝祭の干し草の迷路は、広い所へ移して、押すと説明が出ます（ベールは通れません）。仲良しの印が5つになった子は、歩きだすと、柵の外でもよくついて来ます。「見る」で場所を見る時は、遠く斜め上から。'],
     ['0.9.61', '2026年10月20日', 'ちくわとがんもの話は、もとに戻しました。ちくわが、たくさんの犬がいるつらい場所から保護されたことも、そのままの現実として書いています。'],
     ['0.9.60', '2026年10月20日', '心の余裕は「見え方」になりました。少ない時も、できることは同じ。かわりに、しぐさの吹き出しが出にくく、小鳥や虫の声が遠く、季節のものに気づきにくく、画面のまわりが少しかげります。ひと息つくと、世界の音と小さなしぐさが戻ってきます（行動での減り方は、少し大きくなりました）。知識カードは、1枚目を子どもも読める言葉に、数字や重い事実は「詳しく（大人の方へ）」の中に。森田さんの話と手帳も同じ形です。新しいカード「卵をたくさん産む体と、病気」。舞台の東京の郊外に合わせて、野生の生き物をキツネ・タヌキ・ニホンリス・クロマルハナバチ・カワウに、雨は東京の月ごとの雨量に（雪は、これまでどおり）。森田さんの話の終わりは、ほかの道と並べて、自分たちで選んだ道に。'],
@@ -3520,6 +3521,25 @@ Object.assign(CARDS, {
     more: 'たくさん卵を産むように改良された鶏は、卵の通り道がつまる、卵黄が体の中にこぼれて炎症をおこす（卵黄性腹膜炎）、総排泄腔が外に出てしまう（脱出）、卵巣のがん、などの生殖の病気になりやすく、その多くは命にかかわります。海外のサンクチュアリでは、獣医さんと相談して、卵を産むのを休ませる薬（デスロレリン。米粒ほどの大きさ）を、皮ふの下に埋めこむことがあります。効き目の長さは、2週間から2年ほどと、鶏によって大きくちがいます。アメリカでは、鶏に使うことは認められていない（食べ物になる動物のため）とされ、使うかどうかは獣医さんが判断します。日本では、この薬は2025年に販売の許可が出ましたが、犬や猫などの薬としてです。鶏に使えるかどうかは、獣医さんの判断と薬の決まりによります。このゲームでは、まだ確かめきれていません。',
     src: [['The Open Sanctuary Project「Suprelorin Implants: A Critical Tool In Chicken Health」', OS + 'suprelorin-implants-a-critical-tool-in-chicken-health/'], ['Virbac「Dogs & cats: reversible contraceptive implant available in Japan」（2025年）', 'https://corporate.virbac.com/home/news-media/products/pagecontent/toutes-les-actualites-produits-v/dogs-cats-reversible-contraceptive-implant-available-in-japan.html']] },
 });
+/* 知識カード：季節の世話の出来事（0.9.63。F2） */
+Object.assign(CARDS, {
+  goatHoof: { title: 'ヤギの蹄の手入れ',
+    body: 'ヤギの蹄は、少しずつのび続けます。ここでは、ときどき、のびた所を削って整えます。手入れの時に落ち着く形も、一頭ずつ違います。人がそばにいると落ち着く子、仲良しのそばだと落ち着く子、少し離れて見守ってほしい子。',
+    more: 'アメリカのサンクチュアリ、パサドス・セーフヘイブンでは、ヤギの蹄は4〜6週ごとに手入れをするのがよいとしています。のびすぎた蹄は、歩き方がくずれたり、足を痛めたりするもとになります。このゲームでは、その子が落ち着ける形を、働く人と一緒に探します。',
+    src: [['Pasado\'s Safe Haven「Hoof Trims」', 'https://www.pasadosafehaven.org/adopt/resources/hoof-trims/']] },
+  coopMites: { title: '鶏小屋のすきま',
+    body: '鶏小屋のすきまには、とても小さなダニがかくれていることがあります。夜に出てきて、鶏の血を吸います。すきまを減らして、こまめに掃除をして、早めに見つけます。',
+    more: 'このダニは、ワクモといいます。昼は小屋のすきまや止まり木のつなぎ目にかくれ、夜に出てきて鶏の血を吸います。多くなると、鶏が貧血になることがあります。福岡県の資料では、すきまを減らすこと、こまめに掃除をして早く見つけることが大切だとしています。京都府では、ワクモが集まる性質を使って、すきまに置いたわなで見つける道具の研究も行われました。',
+    src: [['福岡県「採卵鶏農場におけるワクモ対策の取り組み」', 'https://www.pref.fukuoka.lg.jp/uploaded/attachment/229437.pdf'], ['京都府農林水産技術センター「ワクモの集合性を利用した捕捉器の開発」', 'https://www.naro.go.jp/org/warc/research_results/r1/pdf/10_chikusan/26_1001_19.pdf']] },
+  rabbitStasis: { title: 'ウサギが食べない時',
+    body: 'ウサギのおなかは、いつも少しずつ食べることで動いています。だから、食べないのは、とても危ないサインです。朝ごはんを食べず、ふんも出ていない時は、急いで動物病院へ。',
+    more: 'アメリカのハウスラビット・ソサエティは、ウサギが12時間食べず、ふんも出ない時は、急いで獣医さんに診てもらうよう呼びかけています。おなかの動きが止まる「うっ滞」は、ストレスや痛み、ほかの病気がきっかけになることもあり、早く気づくことが大切です。干し草をいつでも食べられるようにしておくことが、日ごろの備えになります。',
+    src: [['House Rabbit Society「When Your Rabbit Stops Eating」（2026年6月）', 'https://houserabbit.org/updates/2026-june-when-your-rabbit-stops-eating']] },
+  sheepShear: { title: '羊の毛刈り',
+    body: '多くの羊は、毛が自然には抜けかわりません。暑くなる前に毛を刈って、体を守ります。刈るのは、慣れた毛刈りの人です。',
+    more: 'ウールのために改良されてきた羊の多くは、毛がのび続け、自然には抜けかわりません。サンクチュアリでは、少なくとも年に一度、毛を刈ります。刈らずにおくと、夏の暑さで体が弱ったり、汚れた毛にハエが卵を産みつけたりすることがあります。毛刈りは、羊の体を守るケアとして行います。',
+    src: [['The Open Sanctuary Project「So You Want To Rescue A Sheep」', 'https://opensanctuary.org/the-open-sanctuary-projects-so-you-want-to-rescue-a-sheep-brochure/']] },
+});
 /* いきもの記録：鳥（0.9.58 から、種類ごとのファイルに。docs/recipes/add-ikimono.md）
    丘に出す・写真で見つける仕組みは src/ikimono.js（ikiBuild・ikiInView）。特性は正式な資料から、出典つきで */
 IKIMONO.push(
@@ -3642,6 +3662,10 @@ TITLES.push(
 /* 称号：観察ノート（0.9.62） */
 TITLES.push(
   { id: 'observer', name: 'じっと見る人', how: '野生の生き物の行動を、たくさん見てきた人に', hint: '野生の生き物のこと', stat: 'obs', n: 20 },
+);
+/* 称号：世話の出来事に手を貸す（0.9.63。F2） */
+TITLES.push(
+  { id: 'carehand', name: '手を貸す人', how: '季節の世話の出来事に、手を貸してきた人に', hint: '世話の出来事', stat: 'care', n: 4 },
 );
 /* =========================================================
    働く人たちの会話：人ごとの話し方と話題。季節・天気・時間・そこにいる動物で変わる
@@ -11653,10 +11677,10 @@ function randIn(r, m) { m = m || 0.8; return [rand(r[0] + m, r[1] - m), rand(r[2
 function syncAnimals() {
   // 同じ番号でも、別のゲーム（はじめの画面の箱庭など）の動物は作り直す
   const byId = new Map(G.animals.map((a) => [a.id, a]));
-  ACT.animals = ACT.animals.filter((e) => { if (byId.get(e.a.id) !== e.a) { ACT.layer.remove(e.m.root); return false; } return true; });
+  ACT.animals = ACT.animals.filter((e) => { if (byId.get(e.a.id) !== e.a || careAway(e.a)) { ACT.layer.remove(e.m.root); return false; } return true; });
   const have = new Set(ACT.animals.map((e) => e.a.id));
   for (const a of G.animals) {
-    if (have.has(a.id)) continue;
+    if (have.has(a.id) || careAway(a)) continue; // 動物病院にいる子（care.js）
     const m = modelAnimal(a.sp, a.color);
     if (a.elderly) pcAge(m); // 年老いた子は、しわの寄った紙で
     const sc = a.age <= 2 && a.sp !== 'chicken' && !petOf(a) ? 0.85 : 1;
@@ -12599,6 +12623,7 @@ function workPlan() {
     if (WORK_COOPS.includes(h.id)) WORK.tasks.push({ k: 'close', h });
   });
   WORK.route = occ.slice();
+  careWorkTasks(occ); // 世話の出来事（care.js。0.9.63）
 }
 function workNext(n, ph) {
   const crew = workCrew(), idx = crew.indexOf(n); if (idx < 0) return null;
@@ -12613,11 +12638,12 @@ function workNext(n, ph) {
     return { k: 'patrol', route, stage: 'go', t: 0 };
   }
   // 戸じまりは、日が暮れかけてから（夜に入っても、残っていれば続ける）
-  const open = WORK.tasks.filter((t) => !t.by && (t.k === 'close' ? SKY.t > 0.76 && SKY.t < 0.95 : WORK_KINDS[t.k].phase === ph));
+  const open = WORK.tasks.filter((t) => !t.by && (!t.host || t.host === n.d.id) && (t.k === 'close' ? SKY.t > 0.76 && SKY.t < 0.95 : WORK_KINDS[t.k].phase === ph));
   if (!open.length) return null;
   // 朝は、週ごとに「水おけ」と「干し草」の受け持ちを入れかえる（当番）
   const pref = ph === 'morning' ? ((idx + (G.turn || 0)) % 2 ? 'hay' : 'water') : null;
-  const pool = pref && open.some((t) => t.k === pref) ? open.filter((t) => t.k === pref) : open;
+  const mine = open.filter((t) => t.host); // 世話の出来事は、受け持ちの人が先に
+  const pool = mine.length ? mine : pref && open.some((t) => t.k === pref) ? open.filter((t) => t.k === pref) : open;
   let best = null, bd = 1e9;
   for (const t of pool) { const p = workSpot(t.h), d = Math.hypot(p[0] - n.x, p[1] - n.z); if (d < bd) { bd = d; best = t; } }
   best.by = n.d.id;
@@ -12791,6 +12817,11 @@ function workProps(n, list) {
 function workPose(n, j, moving) {
   const m = n.m, A = m.arms, k = j.k, st = j.stage, tt = j.t || 0, doing = st === 'do';
   const crouch = (e) => { m.rig.position.y = -0.42 * e; m.legs.forEach((l, i) => { l.rotation.x = -1.25 * e * (i ? 1 : 0.55); }); (m.knees || []).forEach((kn, i) => { kn.rotation.x = (i ? 2.0 : 1.5) * e; }); };
+  if (WORK_KINDS[k] && WORK_KINDS[k].care) { // 世話の出来事（0.9.63）：しゃがんで、手もとの作業
+    if (m.wp) workProps(n, []);
+    if (doing) { const e = smooth(Math.min(1, tt * 2)), s = Math.sin(tt * 3); crouch(e * 0.7); A[0].rotation.set(-0.9 * e + s * 0.1 * e, 0, 0.12 * e); A[1].rotation.set(-0.75 * e - s * 0.1 * e, 0, -0.12 * e); }
+    return;
+  }
   if (k === 'water') {
     workProps(n, doing ? ['bucket', 'brush'] : ['bucket']);
     const b = m.wp.bucket;
@@ -15079,7 +15110,7 @@ function startDay(first) {
     G.pending = G.pending.filter((p) => p.done > G.turn);
     teamOf(); arriveHires(true);
     maybeBond(); maybeDuo(); ochaNote();
-    projTick(); maybeRepair(); afterDeclineTick(); blockedMeet(); stormBranch(); feedSceneRoll();
+    projTick(); maybeRepair(); afterDeclineTick(); blockedMeet(); stormBranch(); feedSceneRoll(); careRoll();
     if (G.branch && G.branch.turn < G.turn) { G.branch = null; G.overnight.push({ cat: 'health', text: 'ゆうとさんが、牧草地の桜の枝を片付けてくれました' }); }
     if (G.morita && G.morita.reqPending && G.stage >= 2) { G.morita.reqPending = false; const r = moritaRequest(); G.requests.push(r); G.overnight.push({ cat: 'news', text: `受け入れの相談：${r.intro}`, req: r.id }); }
     if (G.turn % 4 === 1 && G.mode !== 'hakoniwa') G.monthRec = settleMonth();
@@ -15160,8 +15191,7 @@ function dailyRealities(first) {
   // 豚熱のワクチン：豚がはじめて検疫を終えた週
   const newPigs = G.animals.filter((a) => a.sp === 'pig' && a.quarantine === G.turn);
   if (newPigs.length && !G.flags.csf) { G.flags.csf = true; unlockCard('csfVaccine', true); G.overnight.push({ cat: 'health', text: `${newPigs.map((a) => a.name).join('と')}が、豚熱のワクチンを受けました。この地域では、ペットの豚も受けることになっています` }); }
-  // 蹄の手入れ（4月と10月）
-  if (here('cow').length && (mo === 4 || mo === 10) && !G.flags['hoof' + yr + mo]) { G.flags['hoof' + yr + mo] = true; unlockCard('cowLegs', true); G.overnight.push({ cat: 'health', text: '蹄の手入れの日でした。牛たちの蹄を削って整え、足の様子を見ました（少なくとも年に2回）' }); }
+  // 蹄の手入れ（4月と10月）は、世話の出来事に（care.js。0.9.63）
   // 年に一度の報告（2月のはじめ）
   if (G.animals.length && mo === 2 && day <= 7 && !G.flags['report' + yr]) { G.flags['report' + yr] = true; unlockCard('annualReport', true); G.overnight.push({ cat: 'news', text: `2月1日時点の動物の数（${G.animals.length}頭羽）を、家畜保健衛生所に報告しました。1頭・1羽からの、毎年の決まりです` }); }
   // 雪の朝の、キツネの足跡（鶏たちは、柵と小屋で守られている）
@@ -16400,6 +16430,7 @@ const UI = {
       case 'title-on': G.titleOn = id; GAME.save(); UI.render(); break;
       case 'open': { const push = !$('#sheet').hidden && $('#modal').hidden; UI.closeModal(); UI.openSheet(v, undefined, push); break; }
       case 'npc-req': UI.closeModal(); UI.openSheet('animals'); break;
+      case 'care': UI.careAct(v); break; // 世話の出来事（care.js）
       case 'close-modal': UI.closeModal(); break;
       case 'ocha': ochaAct(v, id); break; // ウェルカムセンター（0.9.49）
       case 'photo-album': UI.closeModal(); UI.closePhoto(); UI.tab.diary = 'album'; UI.openSheet('diary'); break;
@@ -16704,8 +16735,9 @@ Object.assign(UI, {
       const comm = !!sp.community || petOf(a);
       const sec = (icon, title, body, cls, note) => `<section class="ac-sec ${cls || ''}"><h4>${ico(icon)}<span>${title}</span>${note ? `<small>${note}</small>` : ''}</h4>${body}</section>`;
       // あたま：絵・名前・種類と年・なかよし度（ハート）。今の様子は小さな札で
-      const pills = [];
+      const pills = [], vet = careAway(a);
       if (q) pills.push('<span class="pill q">検疫中</span>');
+      if (vet) pills.push('<span class="pill q">動物病院</span>');
       if (alone) pills.push('<span class="pill">ひとりの時間</span>');
       if (a.sponsor) pills.push('<span class="pill ok">里親になっています</span>');
       if (y) pills.push(`<span class="pill warn">今週で${y}年</span>`);
@@ -16737,9 +16769,10 @@ Object.assign(UI, {
       if (!bird) act += `<button class="ac-btn${lb ? ' on' : ''}" data-act="pet" data-id="${a.id}" data-v="brush" ${q ? 'disabled' : ''}>${ico('i-spark')}<b>ブラッシング</b>${lb ? '<small>好き</small>' : ''}</button>`;
       if (treat) act += `<button class="ac-btn" data-act="treat" data-id="${a.id}" ${G.treatDone[a.id] && !hk ? 'disabled' : ''}>${ico('i-leaf')}<b>${G.treatDone[a.id] && !hk ? '今日はあげました' : diet ? 'おやつはお休み中' : esc(treat.name)}</b><small>${SEASON_JP[G.season]}のおやつ</small></button>`;
       act += '</div>';
-      const hint = alone ? '今は、ひとりで過ごしています。そっとしておきましょう。' : q ? '検疫中は、柵の外から見守ります。' : G.petDone[a.id] ? '' : '好きな子は、自分から寄ってきます。苦手な子は、離れていくこともあります。離れていったら、少し距離をとって見守ります。';
+      if (vet) act = '';
+      const hint = vet ? '動物病院で、みてもらっています。来週には、戻ってくる予定です。' : alone ? '今は、ひとりで過ごしています。そっとしておきましょう。' : q ? '検疫中は、柵の外から見守ります。' : G.petDone[a.id] ? '' : '好きな子は、自分から寄ってきます。苦手な子は、離れていくこともあります。離れていったら、少し距離をとって見守ります。';
       if (hint) act += `<p class="ac-hint">${hint}</p>`;
-      act += `<div class="ac-sub"><button class="btn small ghost" data-act="goto" data-id="${a.id}">${ico('i-map')}そばへ行く</button><button class="btn small ghost" data-act="photo-animal" data-id="${a.id}">${ico('i-camera')}撮る</button></div>`;
+      if (!vet) act += `<div class="ac-sub"><button class="btn small ghost" data-act="goto" data-id="${a.id}">${ico('i-map')}そばへ行く</button><button class="btn small ghost" data-act="photo-animal" data-id="${a.id}">${ico('i-camera')}撮る</button></div>`;
       h += sec('i-hand', 'ふれあう', act, 'ac-act');
       // 0.9.37：カードは、ひと目で見える所（絵・名前・今の様子・ふれあう）と、＋でひらく所に分ける。
       // ひらく所の見出しには、中身の要点（性格、暮らしの数、しぐさや物語の数）。ひらいた所は覚えておき、ほかの子のカードでも同じ所がひらく
@@ -17573,6 +17606,7 @@ Object.assign(UI, {
   },
   npcDialog(n) {
     titleCountOnce('chat', n && n.d ? n.d.name : '');
+    if (n && n.d && careScenePending(n.d.id)) { UI.careScene(n); return; } // 世話の出来事（care.js）
     if (n && n.d && GAME.feedScenePending(n.d.id)) { UI.feedScene(n); return; }
     if (n.d.id === 'haruko') UI.tutMark('talk');
     const id = n.d.id, c = capacity(), hk = G.mode === 'hakoniwa';
@@ -18028,7 +18062,7 @@ Object.assign(UI, {
       an.sort((a, b) => a.d - b.d); an.length = Math.min(an.length, few ? (P.moving ? 1 : narrow ? 3 : 5) + an.filter((x) => x.d < 0).length : narrow ? 6 : 9);
       if (few) an.forEach((x, i) => { if (i > 0 && x.d >= 0 && x.d > 3) x.cls = 'far'; });
       list.push(...an);
-      for (const n of ACT.npcs) { const d = Math.hypot(n.x - P.x, n.z - P.z); if (d < R + 6) list.push({ e: n, d: d - 1.5, cls: 'npc', text: n.d.name + workTag(n) + ((UI.talkIdOf(n.d) && GAME.talkAvail(UI.talkIdOf(n.d))) || GAME.feedScenePending(n.d.id) ? ' ・お話' : ''), h: 2.5 }); }
+      for (const n of ACT.npcs) { const d = Math.hypot(n.x - P.x, n.z - P.z); if (d < R + 6) list.push({ e: n, d: d - 1.5, cls: 'npc', text: n.d.name + workTag(n) + ((UI.talkIdOf(n.d) && GAME.talkAvail(UI.talkIdOf(n.d))) || GAME.feedScenePending(n.d.id) ? ' ・お話' : careScenePending(n.d.id) ? ' ・手を貸す' : ''), h: 2.5 }); }
       { const seen = new Set(); // 池の鳥は、近くで、同じ名前は1つだけ
         for (const w of ACT.wild) { if (!w.m.root.visible) continue; const d = Math.hypot(w.x - P.x, w.z - P.z); if (d >= (w.pond ? 9 : 16) || w.pond && seen.has(w.name)) continue; if (w.pond) seen.add(w.name); list.push({ e: w, d, cls: 'wild', text: w.name, h: w.h || 2 }); } }
     }
@@ -18095,6 +18129,209 @@ Object.assign(UI, {
     UI.modal(h);
   },
 
+});
+/* 世話の出来事（0.9.63。play-improvement-plan.md の F2）
+   季節に合った世話の出来事を、ひと月に1つまで。働く人の名札に「・手を貸す」がつき、話しかけると、その場面に。
+   手を貸すと、今日できることを1つ使う。手を貸さなくても、働く人がする（できなかったことにはならない。約束8）。
+   結末は、どれも落ち着いた形で。
+   - goatHoof：ヤギの蹄の手入れ。落ち着き方は一頭ずつ違う（そばで／仲良しのそばで／少し離れて）
+   - coop：鶏小屋のすきま掃除（ワクモ。5〜10月）
+   - rabbit：ウサギが朝ごはんを食べない。働く人がすぐに動物病院へ。その子は次の週に戻る（a.vetAway）。あなたは、残った仲良しのそばに
+   - shear：羊の毛刈り（5月）
+   - cowHoof：牛の蹄の手入れ（4月と10月。前は game.js の dailyRealities の知らせだけだった）
+   保存：G.care（今の出来事）、G.careMonth（月ごとに、もう決めたか）、G.careKnow（その子が落ち着いた形）、G.careRabbitAt */
+const CARE_KINDS = {
+  goatHoof: { sp: 'goat', hosts: ['yuto', 'haruko'], work: 'careHoof', card: 'goatHoof', name: 'ヤギの蹄の手入れ' },
+  coop: { sp: 'chicken', hosts: ['yuto', 'haruko'], months: [5, 6, 7, 8, 9, 10], work: 'careCoop', card: 'coopMites', name: '鶏小屋のすきま掃除' },
+  rabbit: { sp: 'rabbit', hosts: ['yuto', 'haruko'], card: 'rabbitStasis', name: 'ウサギの通院' },
+  shear: { sp: 'sheep', hosts: ['yuto', 'haruko'], months: [5], work: 'careShear', card: 'sheepShear', name: '羊の毛刈り' },
+  cowHoof: { sp: 'cow', hosts: ['haruko', 'yuto'], months: [4, 10], work: 'careCowHoof', card: 'cowLegs', name: '牛の蹄の手入れ' },
+};
+// 働く人の仕事（work.js）。その日の受け持ちの人だけがする
+Object.assign(WORK_KINDS, {
+  careHoof: { phase: 'morning', tag: '蹄の手入れ', doing: 'ヤギの蹄を、少しずつ削っています', dur: 40, care: true },
+  careCoop: { phase: 'noon', tag: 'すきま掃除', doing: '鶏小屋のすきまを掃除しています', dur: 40, care: true },
+  careShear: { phase: 'morning', tag: '毛刈りの手伝い', doing: '刈った毛を集めています', dur: 40, care: true },
+  careCowHoof: { phase: 'morning', tag: '蹄の手入れの手伝い', doing: '削蹄師さんの手伝いをしています', dur: 40, care: true },
+});
+const CARE_HINT = { you: 'あなたがそばにいる', friend: null, apart: '少し離れて見守ってもらう' };
+
+function careAway(a) { return !!(a && G && a.vetAway && a.vetAway > G.turn); }
+function careAnimal(id) { return id ? G.animals.find((a) => a.id === id) || null : null; }
+function careHere(sp) { return G.animals.filter((a) => a.sp === sp && !petOf(a) && !careAway(a) && !(a.quarantine && G.turn < a.quarantine)); }
+function careName(id) { const d = NPCS.find((x) => x.id === id); return d ? d.name : id ? id.replace(/^hire:/, '') : ''; }
+// 受け持ちの人：お休みの人ではない人から
+function careHostFor(pref, excl) {
+  const ids = workRosterIds(), off = workOff(), ok = (id) => ids.includes(id) && (!off || off.id !== id) && id !== excl;
+  return pref.find(ok) || ids.find(ok) || pref[0];
+}
+function careShelter(sp) { return (SHL.list || []).find((h) => h.id === sp) || null; }
+function careFocus(sp) { const h = careShelter(sp); return h ? [h.door.out[0], h.door.out[1], 4] : undefined; }
+function careSync() { if (typeof ACT !== 'undefined' && ACT.layer) syncAnimals(); }
+
+// 週のはじめに（game.js の startDay）
+function careRoll() {
+  if (!G) return;
+  const prev = G.care;
+  if (prev && prev.turn < G.turn) { if (!prev.helped) careAuto(prev); G.care = null; }
+  // 動物病院から戻る
+  let back = false;
+  for (const a of G.animals) if (a.vetAway && a.vetAway <= G.turn) { a.vetAway = 0; back = true; careBack(a); }
+  if (back) careSync();
+  if (hako() || G.turn < 3 || G.care) return;
+  const mo = +G.date.slice(5, 7), day = +G.date.slice(8, 10), mk = G.date.slice(0, 7);
+  const M = G.careMonth || (G.careMonth = {});
+  if (M[mk]) return;
+  let kind = null;
+  if ((mo === 4 || mo === 10) && careHere('cow').length) kind = 'cowHoof';
+  else if (mo === 5 && careHere('sheep').length) kind = 'shear';
+  else {
+    if (Math.random() > (day > 21 ? 0.6 : 0.3)) return; // ひと月に1つまで。起きない月もある
+    const pool = [];
+    if (careHere('goat').length) pool.push('goatHoof', 'goatHoof');
+    if (careHere('chicken').length && CARE_KINDS.coop.months.includes(mo)) pool.push('coop', 'coop');
+    if (careHere('rabbit').length >= 2 && G.turn - (G.careRabbitAt == null ? -99 : G.careRabbitAt) >= 16) pool.push('rabbit');
+    if (!pool.length) return;
+    kind = pick(pool);
+  }
+  M[mk] = kind;
+  careStart(kind);
+}
+function careStart(kind) {
+  const K = CARE_KINDS[kind], A = careHere(K.sp); if (!A.length) return null;
+  const c = G.care = { kind, turn: G.turn, helped: false, left: false, host: careHostFor(K.hosts) };
+  const H = careName(c.host);
+  let text;
+  if (kind === 'goatHoof') {
+    const sora = A.find((x) => x.key === 'sora');
+    const a = sora && Math.random() < 0.5 ? sora : pick(A), f = friendOf(a);
+    c.a = a.id; c.f = f && !careAway(f) ? f.id : null;
+    text = `今日は、ヤギたちの蹄の手入れの日です。${H}が、そばで落ち着かせてくれる人を探しています`;
+  } else if (kind === 'coop') {
+    text = `今日は、鶏小屋のすきま掃除の日です。${H}が、手を借りたいそうです`;
+  } else if (kind === 'shear') {
+    c.a = pick(A).id;
+    text = '今日は、羊たちの毛刈りの日です。毛刈りの人が来てくれました';
+  } else if (kind === 'cowHoof') {
+    const yr = G.date.slice(0, 4), mo = +G.date.slice(5, 7);
+    G.flags['hoof' + yr + mo] = true; unlockCard('cowLegs', true);
+    c.a = pick(A).id;
+    text = '今日は、牛たちの蹄の手入れの日です。削蹄師さんが来てくれました';
+  } else if (kind === 'rabbit') {
+    const a = pick(A), fr = friendOf(a), f = fr && fr.sp === 'rabbit' && !careAway(fr) ? fr : A.find((x) => x !== a && x.zone === a.zone) || A.find((x) => x !== a);
+    c.a = a.id; c.f = f ? f.id : null;
+    c.taker = careHostFor(K.hosts); c.host = careHostFor(['haruko', 'yuto'], c.taker);
+    a.vetAway = G.turn + 1; G.careRabbitAt = G.turn;
+    monthNote(`${a.name}の通院がありました`, 3);
+    unlockCard('rabbitStasis', true);
+    careSync();
+    text = `${a.name}が、朝ごはんを食べていませんでした。ふんも出ていないので、${careName(c.taker)}が、すぐに動物病院へ連れて行きました`;
+  }
+  if (typeof WORK !== 'undefined') WORK.turn = -1; // 働く人の今日の仕事を決め直す
+  G.overnight.push({ cat: 'health', text, focus: careFocus(K.sp) });
+  return c;
+}
+function careScenePending(id) { const c = G && G.care; return !!(c && !c.helped && !c.left && c.turn === G.turn && c.host === id && !hako()); }
+// その子が落ち着く形：そらは、牛のもものそばで（今ある物語とつながる）。なかよし度の高い子は、あなたのそばで。人見知りの子は、少し離れて
+function careCalmFit(a, f) {
+  if (a.key === 'sora' && f) return 'friend';
+  if (a.personality === '人見知り' && (a.trust || 0) < 7) return 'apart';
+  if ((a.trust || 0) >= 6) return 'you';
+  if (f) return 'friend';
+  return (a.trust || 0) >= 3 ? 'you' : 'apart';
+}
+function careHintText(fit, f) { return fit === 'friend' ? `${f ? f.name : '仲良し'}のそばの` : CARE_HINT[fit]; }
+// 手を貸す
+function careHelp(v) {
+  const c = G.care; if (!c || c.helped || c.left || !canSpend(1)) return null;
+  const K = CARE_KINDS[c.kind], H = careName(c.host), a = careAnimal(c.a), f = careAnimal(c.f);
+  spend(1, 2); c.helped = v;
+  titleCount('care');
+  let text;
+  if (c.kind === 'goatHoof') {
+    const fit = careCalmFit(a, f), K2 = G.careKnow || (G.careKnow = {});
+    K2[a.id] = fit;
+    text = fit === v
+      ? `${a.name}は、すぐに落ち着きました。${H}が、のびた蹄を少しずつ削って、手入れは、すぐに終わりました`
+      : `${a.name}は、少しそわそわしていました。${H}が「${a.name}は、${careHintText(fit, f)}ほうが、落ち着くみたいです」と教えてくれました。そうしてみると、${a.name}は落ち着いて、手入れは、ゆっくり終わりました`;
+  } else if (c.kind === 'coop') {
+    text = `${H}と一緒に、止まり木を外して、すきまを掃除しました。小さなダニが、少しだけ見つかりました。すきまをふさいで、寝わらも新しくしました。今夜は、鶏たちも、ゆっくり眠れそうです`;
+  } else if (c.kind === 'shear') {
+    text = `毛刈りの人が、一頭ずつ、ていねいに刈っていきました。あなたは、刈った毛を集めて、順番を待つ${a ? a.name : '羊'}のそばにいました。刈り終わった羊たちは、身軽になって、草地を歩いています`;
+  } else if (c.kind === 'cowHoof') {
+    text = `削蹄師さんが、牛たちの蹄を、一頭ずつ削って整えました。あなたは、順番を待つ${a ? a.name : '牛'}のそばで、ブラシをかけていました。${a ? a.name : '牛'}は、落ち着いて待っていました`;
+  } else if (c.kind === 'rabbit') {
+    text = `あなたは、${f ? f.name : 'ウサギたち'}のそばで、静かに過ごしました。${f ? f.name : 'ウサギたち'}は、ときどき戸口のほうを見ていましたが、やがて、あなたのとなりで丸くなりました。夕方、${careName(c.taker)}から知らせがありました。「${a ? a.name : 'あの子'}は、何日か病院でみてもらうことになりました。点滴とお薬で、少しずつ食べはじめています」`;
+  }
+  note('health', text);
+  unlockCard(K.card, true);
+  GAME.save(); UI.refresh();
+  return { text, card: K.card };
+}
+function careLeave() { const c = G.care; if (!c || c.helped) return; c.left = true; GAME.save(); UI.refresh(); }
+// 手を貸さなかった時：働く人がした（次の週のはじめに、一行）
+function careAuto(c) {
+  const H = careName(c.host), K = CARE_KINDS[c.kind];
+  const t = {
+    goatHoof: `この前の週、${H}が、ヤギたちの蹄の手入れをしました。みんな、落ち着いて終わりました`,
+    coop: `この前の週、${H}が、鶏小屋のすきまを掃除しました。すきまをふさいで、寝わらも新しくしました`,
+    shear: 'この前の週、羊たちの毛刈りが終わりました。みんな、身軽になって草地を歩いています',
+    cowHoof: 'この前の週、削蹄師さんが来て、牛たちの蹄の手入れが終わりました。少なくとも年に2回、来てもらいます',
+  }[c.kind];
+  if (K) unlockCard(K.card, true);
+  if (t && !hako()) G.overnight.push({ cat: 'health', text: t, focus: careFocus(K.sp) });
+}
+function careBack(a) {
+  const fr = friendOf(a), f = fr && fr.sp === a.sp ? fr : G.animals.find((x) => x !== a && x.sp === a.sp && x.zone === a.zone);
+  G.overnight.push({ cat: 'health', text: `${a.name}が、動物病院から戻ってきました。干し草を、よく食べています${f ? `。${f.name}が、すぐにそばへ行きました` : ''}`, focus: careFocus(a.sp) });
+}
+// 働く人の今日の仕事に、世話の出来事を足す（work.js の workPlan）
+function careWorkTasks(occ) {
+  const c = G && G.care; if (!c || c.turn !== G.turn) return;
+  const K = CARE_KINDS[c.kind]; if (!K || !K.work) return;
+  const h = occ.find((x) => x.id === K.sp); if (!h) return;
+  WORK.tasks.push({ k: K.work, h, host: c.host });
+}
+
+/* 場面（話しかけると） */
+Object.assign(UI, {
+  careScene(n) {
+    const c = G.care; if (!c) return;
+    const H = careName(c.host), a = careAnimal(c.a), f = careAnimal(c.f), can = canSpend(1);
+    const an = a ? a.name : '', fn = f ? f.name : '';
+    let lines = [], opts = [];
+    if (c.kind === 'goatHoof') {
+      const k = (G.careKnow || {})[c.a];
+      lines = ['今日は、ヤギたちの蹄の手入れの日です。のびた蹄を、少しずつ削って整えます', `${an}の番の時、そばで落ち着かせてもらえますか？`, '落ち着き方は、一頭ずつ違うんです' + (k ? `。前は、${careHintText(k, f)}ほうが、落ち着いていましたね` : '')];
+      opts = [{ v: 'you', t: 'そばで、声をかける' }];
+      if (f) opts.push({ v: 'friend', t: `仲良しの${fn}のそばで` });
+      opts.push({ v: 'apart', t: '少し離れて、見守る' });
+    } else if (c.kind === 'coop') {
+      lines = ['今日は、鶏小屋のすきま掃除の日です', 'すきまに、小さなダニがひそんでいることがあるんです。夜に出てきて、鶏たちの血を吸うので', '止まり木を外すのを、手伝ってもらえますか？'];
+      opts = [{ v: 'help', t: '一緒に掃除する' }];
+    } else if (c.kind === 'shear') {
+      lines = ['今日は、羊たちの毛刈りの日です。毛刈りの人が来てくれました', '羊たちの毛は、自分では抜けかわらないんです。暑くなる前に、刈ってあげます', '刈った毛を集めて、順番を待つ子のそばにいてもらえますか？'];
+      opts = [{ v: 'help', t: '手を貸す' }];
+    } else if (c.kind === 'cowHoof') {
+      lines = ['今日は、牛たちの蹄の手入れの日。削蹄師さんが来てくれたよ', `順番を待つ${an}のそばにいてくれる？知っている人がそばにいると、落ち着くから`];
+      opts = [{ v: 'help', t: `${an}のそばにいる` }];
+    } else if (c.kind === 'rabbit') {
+      lines = [`${an}が、朝ごはんを食べていなかったの。ふんも出ていなくて`, `ウサギは、食べないことが危ないサインだから、${careName(c.taker)}が、すぐに動物病院へ連れて行ったよ`];
+      if (f) { lines.push(`${fn}が、ひとりで待ってるの。そばにいてあげてくれる？`); opts = [{ v: 'help', t: `${fn}のそばにいる` }]; }
+    }
+    const btns = can ? opts.map((o, i) => `<button class="btn small${i ? '' : ' primary'}" data-act="care" data-v="${o.v}">${esc(o.t)}</button>`).join('') : '';
+    const sub = opts.length ? (can ? '<p class="muted">手を貸すと、今日できることを1つ使います。手を貸さなくても、働く人がします。</p>' : '<p class="muted">今日は、もう手がいっぱいです。働く人に、おまかせしましょう。</p>') : '';
+    UI.modal(`<div class="dialog-who"><span class="av bust">${npcBust(n.d)}</span><div><strong>${esc(n.d.name)}</strong><br><span class="muted">${esc(n.d.role)}</span></div></div>
+      <p class="said">${lines.map((x) => `「${esc(x)}」`).join('<br>')}</p>${sub}
+      <div class="btn-row">${btns}<button class="btn small" data-act="care" data-v="leave">${opts.length ? `${esc(H)}に、おまかせする` : 'わかりました'}</button></div>`);
+  },
+  careAct(v) {
+    if (v === 'leave') { careLeave(); UI.closeModal(); return; }
+    const r = careHelp(v);
+    if (!r) { UI.closeModal(); return; }
+    UI.modal(`<p class="you">${esc(r.text)}</p>
+      <div class="btn-row"><button class="btn small primary" data-act="close-modal">ありがとう</button><button class="btn small" data-act="card" data-id="${r.card}">カードを見る</button></div>`);
+  },
 });
 /* =========================================================
    撮影と写真、続きをファイルに、写真の絵（セピア調・行事のフレーム・表紙の貼り絵）（0.9.44 で ui.js から分けた）
