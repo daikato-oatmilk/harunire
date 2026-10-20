@@ -4,6 +4,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F6EFDF">
 <meta name="apple-mobile-web-app-title" content="はるにれの丘">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<script>window.HARU_WEB = 1; if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });</script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="はるにれの丘">
 <meta property="og:title" content="はるにれの丘">
@@ -2994,7 +3001,7 @@ const TITLES = []; // 称号の入れ物（0.9.58。中身は src/content/titles
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.63', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.64', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -3002,6 +3009,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.64', '2026年10月20日', 'GitHub 版を、スマホやパソコンのホーム画面に置けるようになりました（アイコンは、はるにれの木と牛と鶏）。一度開いたら、電波が弱い所でも遊べます（ゲームのページは、いつも新しい版を先に読みます）。iPhone と iPad では、3日目に遊んだ日に一度だけ、ホーム画面に置く案内が出ます。ホーム画面から開く丘は、はじめは新しい丘なので、今の続きをファイルで持っていく方法も添えました。'],
     ['0.9.63', '2026年10月20日', '季節の世話の出来事が、ひと月に1つほど起きるようになりました（ヤギの蹄の手入れ、鶏小屋のすきま掃除、ウサギが朝ごはんを食べない日、羊の毛刈り、牛の蹄の手入れ）。働く人の名札に「・手を貸す」がついたら、話しかけると手を貸せます。手を貸さなくても、働く人がします。ヤギの手入れでは、落ち着き方が一頭ずつ違います。知識カードが4枚と、称号「手を貸す人」が増えました'],
     ['0.9.62', '2026年10月20日', '「観察ノート」ができました（右のメニューの「観察」）。丘の野生の生き物を近くでしばらく見ていると、その子がすること（エソグラム）が、自然に書きこまれていきます。写真もページに貼られます。ウェルカムセンターに、地域猫が来ていることも（ときどき、ヤギやアヒルも）。日記のタブは折り返して、全部見えるように。日記の1行は、はじめの一文だけを見せて、続きは押すと開きます。夜のドローンショーに、20秒の短い版。秋の感謝祭の干し草の迷路は、広い所へ移して、押すと説明が出ます（ベールは通れません）。仲良しの印が5つになった子は、歩きだすと、柵の外でもよくついて来ます。「見る」で場所を見る時は、遠く斜め上から。'],
     ['0.9.61', '2026年10月20日', 'ちくわとがんもの話は、もとに戻しました。ちくわが、たくさんの犬がいるつらい場所から保護されたことも、そのままの現実として書いています。'],
@@ -20751,6 +20759,53 @@ Object.assign(UI, {
     return line;
   },
 });
+/* ---------- ホーム画面に置ける形（B1。0.9.64）：GitHub 版だけ ----------
+ * GitHub 版（dist/web.html）は、文書の頭で window.HARU_WEB = 1 を立て、アプリの説明（manifest.webmanifest）と
+ * オフライン用の仕組み（sw.js。pages/sw.js から build.js が作る）を読む。claude.ai 版と試験の版では、ここは何もしない
+ * iPhone・iPad で、ホーム画面から開いていない時：別の日に3回遊んだら、その日に一度だけ案内を出す（閉じたら、もう出さない）
+ * なぜ：Safari の保存は、7日ほど使わないと消えることがある。ホーム画面のアプリは別に数えられる（WebKit、2020年）
+ * 気をつけること：ホーム画面から開く丘は、Safari とは別の保存の場所。はじめは新しい丘なので、続きの引っ越し（ファイル）も添える
+ */
+const HOME = { at: 0, force: false, wait: 20000 }; // force は試験だけ。wait：静かな時間がこれだけ続いたら出す
+function homeWeb() { try { return window.HARU_WEB === 1 || HOME.force; } catch (e) { return false; } }
+function homeIOS() { const ua = navigator.userAgent || ''; return /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1); }
+function homeStandalone() { try { return navigator.standalone === true || matchMedia('(display-mode: standalone)').matches; } catch (e) { return false; } }
+function homeToday() { const d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+// 遊んだ日を数える（同じ日に何度開いても1回）。beginPlay から
+function homeCount() {
+  if (!homeWeb()) return 0;
+  const p = devGet('plays'), o = p && typeof p === 'object' ? p : { n: 0, d: '' }, t = homeToday();
+  if (o.d !== t) { o.n = (o.n || 0) + 1; o.d = t; devSet('plays', o); }
+  return o.n;
+}
+// 案内を出してよい時：ほかの知らせ・画面・案内が出ていない時だけ（知らせはひとつずつ）
+function homeQuiet() {
+  if (!STARTED || !G || G._backdrop || UI.rest || UI.tut) return false;
+  if (!$('#sheet').hidden || !$('#modal').hidden || $('#hud').hidden || UI.hudQuiet()) return false;
+  if (UI.toastQ && UI.toastQ.length) return false;
+  return true;
+}
+function homeTipWanted() {
+  if (!homeWeb() || !homeIOS() || homeStandalone() || devGet('hometip')) return false;
+  const p = devGet('plays'); return !!(p && p.n >= 3);
+}
+function homeTick() {
+  if (!homeTipWanted() || !homeQuiet()) { HOME.at = 0; return false; }
+  const now = performance.now(); if (!HOME.at) HOME.at = now;
+  if (now - HOME.at < HOME.wait) return false;
+  devSet('hometip', '1'); HOME.at = 0; UI.homeTip(); return true;
+}
+UI.homeTip = () => {
+  const out = G && G.mode === 'normal';
+  UI.modal(`<h3>ホーム画面に置く</h3>
+    <p>ホーム画面に追加すると、続きが消えにくくなります。</p>
+    <p class="muted">Safari の共有のメニューから「ホーム画面に追加」を選びます。共有のボタンが見えない時は、「…」の中にあります。</p>
+    <details class="db"><summary>今の続きを、ホーム画面の丘へ持っていくには</summary>
+      <p class="muted">ホーム画面から開く丘は、Safari とは別の場所に続きをしまうので、はじめは新しい丘です。先にここで「ファイルに保存」をして、ホーム画面から開いた丘の設定で「ファイルから読み込む」を選ぶと、続きを持っていけます。アルバムの写真は入りません。</p>
+      ${out ? '<div class="btn-row"><button class="btn small" data-act="save-export">ファイルに保存</button></div>' : ''}</details>
+    <div class="btn-row"><button class="btn small primary" data-act="close-modal">閉じる</button></div>`);
+};
+if (homeWeb()) setInterval(homeTick, 2000);
 /* =========================================================
    起動とループ
    ========================================================= */
@@ -20780,6 +20835,7 @@ function resize() {
 function beginPlay() {
   UI._gN = undefined; UI._gSig = null;
   STARTED = true;
+  homeCount(); // 遊んだ日を数える（GitHub 版だけ。ホーム画面の案内のため）
   $('#start').hidden = true; $('#hud').hidden = false;
   ACT.player.m.root.visible = true;
   CAM.spin = false; CAM.overview = false; CAM.lock = false;
