@@ -1953,7 +1953,7 @@ const CATALOG = {
   4: { donate: { id: 'warm_room', name: '高齢動物専用の暖かい部屋', x: -8, z: 28 },
        help:   { id: 'story_boards', name: '動物の物語を記した案内板', x: 3.5, z: 20 },
        policy: { id: 'learning_hall', name: '見学の広間', x: -31, z: 41 }, // 0.9.49：「学びの館」から。学校や団体の見学の人が集まる広間
-       corp:   { id: 'cafe', name: 'カフェ', x: 9, z: 41.8 },
+       corp:   { id: 'cafe', name: 'カフェ', x: 38.6, z: 34.2 }, // 0.9.78：はるにれの木と重なっていたので、駐車場の北へ
        nature: { id: 'bird_hide', name: '森、湿地、野鳥の観察小屋', x: 40, z: -45.2 } },
   5: { donate: { id: 'winter_barn', name: '広い冬の過ごし場', x: -50.2, z: -24 },
        help:   { id: 'mural', name: 'みんなで作った大きな壁画', x: -20, z: 46.4 },
@@ -3038,7 +3038,7 @@ const TITLES = []; // 称号の入れ物（0.9.58。中身は src/content/titles
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.77', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.78', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -3046,6 +3046,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.78', '2026年10月21日', '小川の橋を作り直しました（岸から岸へ、ゆるい弧の板橋。歩いても水にぬれません）。ドローンショーに、20秒ほどの短い演目「ひとときの空」を足しました。写真は、タップした所に写っている物（小さな虫や壁、木の上のリスも）にピントが合います。牛舎に入った時、屋根のパネルだけが浮かんで見えないように。カフェは、はるにれの木と重ならないよう、駐車場の北へ。これから建つ物や置く物の場所は、木を生やさずに空けておきます。10からの数は「17件」「17個」のように数えます。'],
     ['0.9.77', '2026年10月21日', 'iPhone のホーム画面から開いても、ゲームが遊べるようになりました（0.9.76 で直り、確かめのための小さな表示を外しました）。'],
     ['0.9.76', '2026年10月21日', 'iPhone のホーム画面から開いた時の、ゲームの画面の入れ物の作り直し方を、うまくいった時と同じ形に直しました。'],
     ['0.9.75', '2026年10月21日', 'iPhone のホーム画面から開くと、ゲームの画面が描かれないことへの直しです。ホーム画面から開いた時だけ、はじめの画面が出たあとに、ゲームの画面の入れ物を自動で作り直します。'],
@@ -4210,6 +4211,15 @@ function heightAt(x, z) {
   if (WS.mud) { const d = Math.hypot(x - MUD.x, z - MUD.z); if (d < MUD.r) h -= 0.18 * (1 - d / MUD.r); }
   return h;
 }
+// 歩く高さ（0.9.78）：橋の上は、橋の板の上。橋は小川の上に、ゆるい弧を描いて渡る（models.js の modelBridge と同じ形）
+const BRIDGE = { hw: 1.3, hl: 3.5, top: 0.08, arch: 0.34 };
+function bridgeTop(d) { const t = d / BRIDGE.hl; return BRIDGE.top + BRIDGE.arch * (1 - t * t); }
+function walkH(x, z) {
+  const h = heightAt(x, z);
+  if (!WS.stream || Math.abs(x) > BRIDGE.hw) return h;
+  const d = Math.abs(z - streamZ(0));
+  return d < BRIDGE.hl ? Math.max(h, bridgeTop(d)) : h;
+}
 function isLandAt(x, z) {
   const rs = LAND_RECTS[WS.stage] || LAND_RECTS[1];
   for (const r of rs) if (inRect(x, z, r)) return true;
@@ -4874,6 +4884,42 @@ function dofSetup() {
     const q = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), DOF.mat); q.frustumCulled = false; DOF.scene.add(q);
   } else if (DOF.rt.width !== size.x || DOF.rt.height !== size.y) { DOF.rt.setSize(size.x, size.y); DOF.rt.depthTexture.image.width = size.x; DOF.rt.depthTexture.image.height = size.y; }
 }
+// 写真のピント（0.9.78）：タップした点のまわり（半径12px）に写っている、いちばん近い物までの距離（m）。直前に描いた画面の奥行き（DOF.rt）から読む
+function dofProbe(cx, cy) {
+  if (!DOF.rt || !DOF.rt.depthTexture || !DOF.cam) return null;
+  const r = R.renderer, rect = r.domElement.getBoundingClientRect();
+  const u = (cx - rect.left) / rect.width, v = 1 - (cy - rect.top) / rect.height;
+  if (!(u >= 0 && u <= 1 && v >= 0 && v <= 1)) return null;
+  if (!DOF.probe) {
+    const mat = new THREE.ShaderMaterial({
+      uniforms: { tDepth: { value: null }, at: { value: new THREE.Vector2() }, rad: { value: new THREE.Vector2() }, near: { value: 0.5 }, far: { value: 900 } },
+      vertexShader: 'void main() { gl_Position = vec4(position.xy, 0.0, 1.0); }',
+      fragmentShader: `#include <packing>
+        uniform sampler2D tDepth; uniform vec2 at; uniform vec2 rad; uniform float near; uniform float far;
+        void main() {
+          float best = far;
+          for (int i = -4; i <= 4; i++) for (int j = -4; j <= 4; j++) {
+            vec2 o = vec2(float(i), float(j)) / 4.0;
+            if (dot(o, o) > 1.0) continue;
+            float d = texture2D(tDepth, at + o * rad).x;
+            if (d < 0.99999) best = min(best, -perspectiveDepthToViewZ(d, near, far));
+          }
+          float e = clamp(best / 1000.0, 0.0, 0.999);
+          vec3 enc = fract(e * vec3(1.0, 255.0, 65025.0));
+          enc -= enc.yzz * vec3(1.0 / 255.0, 1.0 / 255.0, 0.0);
+          gl_FragColor = vec4(enc, 1.0);
+        }`,
+      depthTest: false, depthWrite: false, blending: THREE.NoBlending,
+    });
+    const sc = new THREE.Scene(), q = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mat); q.frustumCulled = false; sc.add(q);
+    DOF.probe = { mat, sc, rt: new THREE.WebGLRenderTarget(1, 1, { minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter, format: THREE.RGBAFormat, depthBuffer: false }), buf: new Uint8Array(4) };
+  }
+  const P = DOF.probe, U = P.mat.uniforms, cam = R.camera, prev = r.getRenderTarget();
+  U.tDepth.value = DOF.rt.depthTexture; U.at.value.set(u, v); U.rad.value.set(12 / rect.width, 12 / rect.height); U.near.value = cam.near; U.far.value = cam.far;
+  try { r.setRenderTarget(P.rt); r.render(P.sc, DOF.cam); r.readRenderTargetPixels(P.rt, 0, 0, 1, 1, P.buf); } catch (e) { return null; } finally { r.setRenderTarget(prev); }
+  const b = P.buf;
+  return (b[0] / 255 + b[1] / 65025 + b[2] / 16581375) * 1000;
+}
 // 画面を描く：ふだんは貼り絵の加工を1回かける。写真のボケを使う時は、貼り絵のあとにボケをかける
 function renderMain() {
   const r = R.renderer, dof = DOF.on && DOF.amount > 0.02 && DOF.ok, paper = paperOn();
@@ -5218,7 +5264,7 @@ function paperOn() { return PAPER.ok && !(G && G.settings && G.settings.paper ==
 
 /* =========================================================
    夜空のドローンショー：一年中。花火のかわりに、静かな光で
-   ・演目は4つ（季節のうた／動物たちのパレード／星空の物語／この丘の名前）
+   ・演目は5つ（季節のうた／動物たちのパレード／星空の物語／この丘の名前／ひとときの空（20秒ほどの短い演目。0.9.78））
    ・見る人の正面の、高い空に。区画や巣の上は飛ばない
    ・形は、正規化した座標（縦の半分 = 1）で作る。x は ±1.6 まで、z は奥行き
    ========================================================= */
@@ -5538,6 +5584,14 @@ const DRONE_SHOWS = {
       return [{ m: 'rise', t: 4, cap: '今夜は、この丘のための演目です' }, { m: 'ring', t: 6, mv: 'spin', sp: 0.6 }, { m: 'elm', t: 7, mv: 'twinkle', cap: 'はるにれの木' }, { m: 'house', t: 6 }, { m: 'text:' + nm, t: 8, mv: 'twinkle', cap: nm + 'サンクチュアリ' }, { m: 'heart', t: 6, mv: 'twinkle' }, { m: 'helix', t: 6, mv: 'spin', sp: 0.7 }, { m: 'text:またらいしゅう', t: 6, cap: 'また来週' }];
     },
   },
+  // 短い演目（0.9.78）：20秒ほど。季節の絵をひとつと、星
+  mini: {
+    name: 'ひとときの空', desc: '短い演目。季節の絵をひとつと、星',
+    steps() {
+      const m = DRONE_SHOWS.season.steps().find((st) => st.m !== 'rise' && st.m !== 'cloud') || { m: 'heart', mv: 'twinkle' };
+      return [{ m: 'rise', t: 3, cap: 'ドローンが、静かに上がってきました' }, Object.assign({}, m, { t: 5.5 }), { m: 'star', t: 5, mv: 'twinkle', cap: 'おやすみなさい' }];
+    },
+  },
 };
 function droneShape(m, rnd) {
   const n = DRONE.n;
@@ -5568,9 +5622,7 @@ function droneFrame(viewer, cam, look) {
 }
 function droneStart(key, viewer, cam, look, onCap, onEnd) {
   const show = DRONE_SHOWS[key] || DRONE_SHOWS.season;
-  // 短い版（0.9.62）：20秒に収まるよう、ひとつずつの時間を縮める
-  const k = droneScale(key);
-  DRONE.prog = key; DRONE.steps = show.steps().map((st) => Object.assign({}, st, { t: st.t * 1.2 * k })).concat([{ m: 'rise', t: DRONE.short ? 2 : 3.5, end: true }]);
+  DRONE.prog = key; DRONE.steps = show.steps().map((st) => Object.assign({}, st, { t: st.t * 1.2 })).concat([{ m: 'rise', t: 3.5, end: true }]);
   DRONE.frame = droneFrame(viewer, cam, look);
   DRONE.rnd = pcRng(0.37 + Math.random() * 0.5);
   DRONE.onCap = onCap; DRONE.onEnd = onEnd; DRONE.on = true; DRONE.i = -1; DRONE.t = 0;
@@ -5579,9 +5631,7 @@ function droneStart(key, viewer, cam, look, onCap, onEnd) {
   DRONE.pts.material.uniforms.size.value = sz; DRONE.glow.material.uniforms.size.value = sz * 3.4;
   droneNext();
 }
-function droneTotal(key) { const s = (DRONE_SHOWS[key] || DRONE_SHOWS.season).steps(); return s.reduce((a, b) => a + b.t * 1.2, 0) * droneScale(key) + (DRONE.short ? 2 : 3.5); }
-// 短い版は、全部で20秒に
-function droneScale(key) { if (!DRONE.short) return 1; const s = (DRONE_SHOWS[key] || DRONE_SHOWS.season).steps(), sum = s.reduce((a, b) => a + b.t * 1.2, 0); return sum > 0 ? Math.min(1, 18 / sum) : 1; }
+function droneTotal(key) { const s = (DRONE_SHOWS[key] || DRONE_SHOWS.season).steps(); return s.reduce((a, b) => a + b.t * 1.2, 0) + 3.5; }
 function droneNext() {
   DRONE.i++;
   if (DRONE.i >= DRONE.steps.length) { droneStop(); const f = DRONE.onEnd; DRONE.onEnd = null; if (f) f(); return; }
@@ -6164,17 +6214,39 @@ function modelBusStop() {
   part('box', '#E0DDD4', 2.4, 0.12, 0.5, 1.8, 0.55, -0.2, g);
   return g;
 }
+// 小川の橋（0.9.78）：岸から岸へ、ゆるい弧を描く板橋。板の上面は bridgeTop（engine.js）。板の下に桁と橋脚、両端に石の土台、両側に手すり
 function modelBridge() {
-  const g = new THREE.Group();
-  const d = part('box', WOOD, 2.8, 0.2, 6.5, 0, 0.35, 0, g);
-  for (const x of [-1.35, 1.35]) { part('box', WOOD_D, 0.12, 0.9, 6.5, x, 0.8, 0, g); }
+  const g = new THREE.Group(), L = BRIDGE.hl, HW = BRIDGE.hw, N = 15, step = 2 * L / N;
+  const tilt = (z) => Math.atan(2 * BRIDGE.arch * z / (L * L)); // 弧の傾き（+z の端が下がる向き）
+  for (let i = 0; i < N; i++) {
+    const z = -L + step * (i + 0.5);
+    part('box', i % 3 === 1 ? WOOD_L : WOOD, 2.5, 0.08, step - 0.05, 0, bridgeTop(Math.abs(z)) - 0.04, z, g).rotation.x = tilt(z);
+  }
+  for (const x of [-0.85, 0.85]) for (let i = 0; i < 7; i++) { // 桁
+    const z = -L + (2 * L / 7) * (i + 0.5);
+    part('box', WOOD_D, 0.14, 0.18, 2 * L / 7 + 0.04, x, bridgeTop(Math.abs(z)) - 0.17, z, g).rotation.x = tilt(z);
+  }
+  for (const z of [-1.5, 1.5]) { // 橋脚（小川の底まで）と、はり
+    const top = bridgeTop(Math.abs(z)) - 0.26;
+    for (const x of [-0.95, 0.95]) part('box', WOOD_D, 0.16, top + 1.0, 0.16, x, (top - 1.0) / 2, z, g);
+    part('box', WOOD_D, 2.1, 0.12, 0.14, 0, top - 0.06, z, g);
+  }
+  for (const s of [-1, 1]) part('box', '#A49E90', 2.9, 0.34, 0.7, 0, -0.08, s * (L - 0.3), g); // 石の土台
+  const posts = [-L + 0.25, -1.5, 0, 1.5, L - 0.25];
+  for (const x of [-HW, HW]) { // 手すり：柱と、上と中の横木
+    for (const z of posts) part('box', WOOD_D, 0.11, 0.78, 0.11, x, bridgeTop(Math.abs(z)) + 0.37, z, g);
+    for (let i = 0; i < posts.length - 1; i++) {
+      const z0 = posts[i], z1 = posts[i + 1], y0 = bridgeTop(Math.abs(z0)), y1 = bridgeTop(Math.abs(z1)), len = Math.hypot(z1 - z0, y1 - y0), a = Math.atan2(y1 - y0, z1 - z0);
+      for (const [hh, th, col] of [[0.74, 0.09, WOOD], [0.4, 0.06, WOOD_D]]) part('box', col, 0.09, th, len + 0.06, x, (y0 + y1) / 2 + hh, (z0 + z1) / 2, g).rotation.x = -a;
+    }
+  }
   return g;
 }
 
 /* ---------- 木（インスタンスで大量に並べる） ---------- */
 class Forest {
   constructor() { this.items = []; this.meshes = []; }
-  add(type, x, z, s) { this.items.push({ type, x, z, s: s || 1, r: hash2(x, z) * 6.28 }); }
+  add(type, x, z, s, keep) { const it = { type, x, z, s: s || 1, r: hash2(x, z) * 6.28 }; if (keep) it.keep = true; this.items.push(it); return it; }
   // 木の絵を切り抜いた紙を3枚組んで立てる（craft.js）。種類ごとに1つにまとめて描く
   build(parent) { pcCardForestBuild(this, parent); }
 }
@@ -8238,11 +8310,13 @@ function buildWorld() {
   for (const k of ['base', 'fence', 'trees', 'milestone', 'extra', 'deco', 'event', 'markers']) clearGroup(W.layers[k]);
   W.branch = null; W.pickups = [];
   W.placedModels = {}; W.butterflies = []; W.dragonflies = []; W.frogs = []; W.benches = []; W.keep = [];
+  W.building = true; W.treesDropped = []; W.reserve = layoutReserve();
   buildBase(); buildFences(); buildTrees(); buildGrass();
   G.milestoneItems.forEach((id) => buildMilestone(id, false));
   buildExtras();
   for (const sid in G.placed) buildPlaced(sid);
   buildSeats();
+  W.building = false; finishTrees();
   W.eventSig = ''; applyEvents();
   snowRebuild(); // 雪（0.9.42。snow.js）：小屋や木が建ってから、積もりやすさを決めて、記録をたどる
   applySeasonVisuals();
@@ -8301,17 +8375,17 @@ function buildBase() {
     W.vet = place('base', modelVet(), 8.5, -21, -Math.PI / 2, [6.2, 4.6]);
     if (hasMilestone('vet_heater')) W.vet.userData.chimney.visible = true;
   }
-  if (s >= 4) {
-    place('base', modelBridge(), 0, streamZ(0));
-  }
-  if (WS.stream && s < 4) place('base', modelBridge(), 0, streamZ(0));
+  // 小川の橋（0.9.78：岸の高さに置く。板の上を歩く高さは walkH）
+  if (WS.stream) { const br = place('base', modelBridge(), 0, streamZ(0)); br.position.y = 0; }
   // 動物たちの小屋（0.9.42：中に入れる、ひらいた小屋。shelters.js）
   W.barn = null; buildShelters();
   if (s >= 2 && W.barn) {
     const big = hasMilestone('bigbarn_solar'), k = big ? 1.25 : 1, B = W.barn.userData.barnDims;
     const w = B.w, h = B.h, rh = B.rh, a = Math.atan2(rh, w / 2), y = h + rh / 2 + 0.12;
-    if (big) { const p = solarPanels(W.barn, w / 4, y, 0, w * 0.42, B.d * 0.75); p.rotation.set(0, 0, -a); }
-    if (G.flags.solar) { const p = solarPanels(W.barn, -w / 4, y, 0, w * 0.42, B.d * 0.75); p.rotation.set(0, 0, a); }
+    // 屋根の上のパネルは、屋根と一緒に（中に入って屋根を隠す時は、パネルも。0.9.78）
+    const roofs = SHL.houses.cow ? SHL.houses.cow.roofs : [];
+    if (big) { const p = solarPanels(W.barn, w / 4, y, 0, w * 0.42, B.d * 0.75); p.rotation.set(0, 0, -a); roofs.push(p); }
+    if (G.flags.solar) { const p = solarPanels(W.barn, -w / 4, y, 0, w * 0.42, B.d * 0.75); p.rotation.set(0, 0, a); roofs.push(p); }
   }
 }
 
@@ -8564,10 +8638,66 @@ function keptClear(x, z, pad) {
   const L = W.lot; if (L && x > L[0] - pad && x < L[1] + pad && z > L[2] - pad && z < L[3] + 1.5) return true;
   return false;
 }
+/* ---- 木を生やさない所（0.9.78） ----
+   あとから建つ物や置く物の場所は、建つ前から空けておく（建った時に、木が建物を突き抜けないように）。
+   ・カタログの建物と飾り（MS_RESERVE）、行動で増える物（EXTRA_RESERVE）、物を置ける場所（SLOTS）、座る所（SEATS）
+   ・今の段階までの物だけ（段階が変わる時は、丘を組み直すので）
+   ・新しく建物や飾りを足す時は、ここにも1行足す。tools/layout.js が、建てた物がここに収まっているか、木や置く物と重なっていないかを確かめる
+   [x, z, 幅, 奥行き] は長方形（向きをつけて置く建物は、置いた向きでの幅と奥行き）、[x, z, 半径] は円。x・z が null なら、カタログの場所 */
+const MS_RESERVE = {
+  perch_feeder: [[19, 17.2, 2.2]], nameplate_bed: [[18.5, 44.1, 2.1]], thanks_small: [[null, null, 1.5]], grass_patch: [[14.2, 36.4, 3.3]],
+  trough_hayshed: [[-16.5, 8, 3.6, 1.6], [-2, -9, 3.2, 4.2]], namesign_play: [[null, null, 1.8], [-3.5, 3.2, 1.4]], barn_ext: [[-26.2, 18, 4.8, 6.4]],
+  parking: [[40.6, 45.65, 13.2, 7.3]], nestbox_insects: [[6, 12, 0.8], [-3, -1, 0.8], [4.5, -9, 0.8]], vet_heater: [[12.5, -18, 1.1]],
+  bench_flowers: [[3.4, 6, 1.4], [-3.4, 17, 1.4], [3.4, 24, 1.4], [-3.4, 36, 1.4]], story_boards: [[3.5, 19.5, 1.3], [3.5, 28, 1.3], [3.5, 30.5, 1.3]],
+  warm_room: [[null, null, 5.2, 4.4]], learning_hall: [[-31, 41.45, 9.2, 7]], cafe: [[38.6, 36.0, 6.6, 8.8]], bird_hide: [[null, null, 4.4, 3.4]],
+  winter_barn: [[null, null, 8, 11]], mural: [[null, null, 14.6, 1.6]], disaster_base: [[-50.75, 16.6, 7.2, 8.8]], lodge: [[49.8, -35.5, 9, 9]],
+  wildlife_path: [[-44, -50, 1.6]],
+};
+const EXTRA_RESERVE = [[17, 30, 1.2], [-36, -9.5, 5.8, 4.4], [25, 15.5, 4.2, 3.4], [-12, 23.5, 1.5], [27, 30, 1.5], [-30, -4, 0.8], [18, 8, 0.8], [-38, -20, 0.8], [28, -24, 0.8], [-6, 32, 0.8], [-30, 10, 1.6], [22, 24, 1.6]];
+function layoutReserve() {
+  const out = [], put = (q, c) => out.push(q.length === 3 ? [q[0] == null ? c.x : q[0], q[1] == null ? c.z : q[1], q[2]] : [q[0] == null ? c.x : q[0], q[1] == null ? c.z : q[1], q[2], q[3]]);
+  for (const id in MS_RESERVE) { const c = catalogEntry(id); if (c && c.stage <= G.stage) MS_RESERVE[id].forEach((q) => put(q, c)); }
+  EXTRA_RESERVE.forEach((q) => put(q, {}));
+  for (const q of SLOTS) if (slotAvailable(q)) out.push([q.x, q.z, 1.4]);
+  for (const q of SEATS) if (G.stage >= q[3]) out.push([q[0], q[1], 1.2]);
+  return out;
+}
+function reservedAt(x, z, pad) {
+  for (const q of W.reserve || []) {
+    if (q.length === 3) { if (Math.hypot(x - q[0], z - q[1]) < q[2] + pad) return true; }
+    else if (Math.abs(x - q[0]) < q[2] / 2 + pad && Math.abs(z - q[1]) < q[3] / 2 + pad) return true;
+  }
+  return false;
+}
+// 木を立ててよい所：freeSpot と、予約のない所
+function treeSpot(x, z, pad) { return freeSpot(x, z, pad) && !reservedAt(x, z, pad); }
+// 決めた場所の木（木陰の木など）は、ふさがっていたら、少しずらす
+function treeNear(x, z, pad) {
+  for (const [dx, dz] of [[0, 0], [1.5, 0], [-1.5, 0], [0, 1.5], [0, -1.5], [1.5, 1.5], [-1.5, 1.5], [1.5, -1.5], [-1.5, -1.5], [3, 0], [-3, 0], [0, 3], [0, -3]]) if (treeSpot(x + dx, z + dz, pad)) return [x + dx, z + dz];
+  return null;
+}
+const TREE_TRUNK = { elm: 0.55, conifer: 0.4, birch: 0.3, maple: 0.35, sakura: 0.35, young: 0.22, bush: 0.75, bamboo: 0.16 };
+// その木が、建物（幹と、枝葉の広さの半分）や置いた物（幹）と重ならないか
+function treeClear(t, builds) {
+  const C = PC_CARDS[t.type], tr = (TREE_TRUNK[t.type] || 0.1) * t.s, cr = C ? C.w / 2 * t.s : 0, low = !C || t.type === 'bush' || t.type === 'bamboo';
+  for (const c of builds) { const d = Math.hypot(Math.max(c[0] - t.x, 0, t.x - c[1]), Math.max(c[2] - t.z, 0, t.z - c[3])); if (d < tr + 0.2 || (!low && d < cr * 0.5)) return false; }
+  for (const k in W.itemCircles) for (const q of W.itemCircles[k]) if (Math.hypot(q[0] - t.x, q[1] - t.z) < q[2] + (t.type === 'bush' ? cr : tr)) return false;
+  return true;
+}
+// 木を描く（0.9.78）：建物・置いた物が決まってから。それでも重なる木は立てない（はるにれのような keep の木はそのまま。tools/layout.js が確かめる）
+function finishTrees() {
+  const f = W.forest; if (!f) return;
+  const builds = W.colliders.concat(W.extraCols || []), drop = new Set();
+  f.items = f.items.filter((t) => { if (t.keep || treeClear(t, builds)) return true; if (t.circ) drop.add(t.circ); W.treesDropped = (W.treesDropped || []).concat([`${t.type}(${t.x.toFixed(1)}, ${t.z.toFixed(1)})`]); return false; });
+  if (drop.size) { W.circles = W.circles.filter((c) => !drop.has(c)); NAV.dirty = true; }
+  if (!drop.size && f.meshes.length) return;
+  clearGroup(W.layers.trees); f.meshes = [];
+  f.build(W.layers.trees);
+}
 function buildTrees() {
   const f = new Forest(); W.forest = f;
   const s = G.stage;
-  f.add('elm', 11, 42.5, 1.15); // はるにれ（名前の由来の木）
+  f.add('elm', 11, 42.5, 1.15, true); // はるにれ（名前の由来の木。まわりに建物を建てない：tools/layout.js）
   // 竹林と、住宅地の庭木
   for (let i = 0; i < 16; i++) { const x = -53.5 + hash2(i, 5) * 5, z = -54 + hash2(i, 6) * 7; f.add('bamboo', x, z, 0.8 + hash2(i, 7) * 0.4); }
   for (const z of [40, 31, 22, 13, -2]) f.add(z % 2 ? 'maple' : 'young', 54.8, z, 0.7);
@@ -8580,7 +8710,7 @@ function buildTrees() {
     if (x < -48 && z > -50 && z < 50 && s < 5) continue; // 畑
     if (x > 48 && z > -12) continue; // 住宅地
     if (z > 48) continue;
-    if (!freeSpot(x, z, 2)) continue;
+    if (!treeSpot(x, z, 2)) continue;
     f.add(i % 3 ? 'birch' : 'conifer', x, z, 0.8 + hash2(i, 3) * 0.5);
   }
   // 使っていない土地の雑木（段階1〜3）
@@ -8588,13 +8718,13 @@ function buildTrees() {
     const x = -46 + hash2(i, 41) * 92, z = -46 + hash2(i, 43) * 92;
     if (isLandAt(x, z)) continue;
     if (inRect(x, z, BENCH_VIEW)) continue; // 古いベンチに座った時の眺め
-    if (!freeSpot(x, z, 1.5)) continue;
+    if (!treeSpot(x, z, 1.5)) continue;
     if (i % 4 === 0) f.add(i % 8 ? 'birch' : 'maple', x, z, 0.7 + hash2(i, 5) * 0.5);
     else if (i % 3 === 0) f.add('bush', x, z, 0.8);
   }
   // 敷地の中の木陰
   const inner = [[-33, 25, 'elm', 2], [-28, -2, 'elm', 2], [-40, -6, 'birch', 2], [36, 26, 'maple', 2], [18, 10, 'birch', 2], [-6, 30, 'birch', 2], [30, -10, 'birch', 2], [-20, -20, 'elm', 3], [-38, -18, 'birch', 3], [30, -26, 'elm', 4], [6, 26, 'maple', 2], [-14, 10, 'birch', 2]];
-  for (const [x, z, t, st] of inner) if (s >= st && freeSpot(x, z, 1)) f.add(t, x, z, 0.9);
+  for (const [x, z, t, st] of inner) { const p = s >= st && treeNear(x, z, 1); if (p) f.add(t, p[0], p[1], 0.9); }
   // 段階4：森と湿地
   if (s >= 4) {
     for (let i = 0; i < 160; i++) {
@@ -8602,31 +8732,29 @@ function buildTrees() {
       if (z > streamZ(x) - 4) continue;
       if (Math.abs(x) < 3) continue;
       if (Math.hypot(x - 31, z + 41.5) < 7.5) continue;
-      if (!freeSpot(x, z, 1)) continue;
+      if (!treeSpot(x, z, 1)) continue;
       const k = i % 5;
       f.add(k < 2 ? 'conifer' : k < 4 ? 'birch' : 'maple', x, z, 0.75 + hash2(i, 7) * 0.5);
     }
     for (let i = 0; i < 26; i++) { const a = i / 26 * 6.28; f.add('reed', 31 + Math.cos(a) * (4 + hash2(i, 2) * 2.5), -41.5 + Math.sin(a) * (3 + hash2(i, 3) * 2), 1); }
   }
-  if (hasMilestone('bird_hide')) for (let i = 0; i < 30; i++) { const x = 20 + hash2(i, 71) * 26, z = -54 + hash2(i, 73) * 6; if (freeSpot(x, z, 1)) f.add(i % 2 ? 'conifer' : 'birch', x, z, 0.9); }
+  if (hasMilestone('bird_hide')) for (let i = 0; i < 30; i++) { const x = 20 + hash2(i, 71) * 26, z = -54 + hash2(i, 73) * 6; if (treeSpot(x, z, 1)) f.add(i % 2 ? 'conifer' : 'birch', x, z, 0.9); }
   // 段階5：外周も敷地に
   if (s >= 5) {
     for (let i = 0; i < 90; i++) {
       const x = -55 + hash2(i, 81) * 110, z = -55 + hash2(i, 83) * 104;
       if (Math.abs(x) < 49 && Math.abs(z) < 49) continue;
-      if (!freeSpot(x, z, 2)) continue;
+      if (!treeSpot(x, z, 2)) continue;
       f.add(i % 3 === 0 ? 'conifer' : i % 3 === 1 ? 'birch' : 'elm', x, z, 0.8 + hash2(i, 9) * 0.4);
     }
   }
   // W04：境界に木が育つ／B04：社員が植えた木
-  if (G.flags.borderTrees) for (let i = 0; i < 12; i++) { const x = -46 + i * 8, z = 47; if (freeSpot(x, z, 1)) f.add('young', x, z, 1.1); }
+  if (G.flags.borderTrees) for (let i = 0; i < 12; i++) { const x = -46 + i * 8, z = 47; if (treeSpot(x, z, 1)) f.add('young', x, z, 1.1); }
   // 0.9.54：(6, 34) は、行事の飾り（感謝祭の干し草の迷路、食事会のテーブル）の場所と重なっていたので、少し北東へ
   { const A = eventAnchors(), evFree = (x, z) => Math.hypot(x - A.c[0], z - A.c[1]) > 4.8;
-    if (G.flags.plantedTrees) for (const [x, z] of [[10.6, 36.2], [-6, 36], [5, 16]]) if (freeSpot(x, z, 1) && evFree(x, z)) f.add('young', x, z, 1); }
-  f.build(W.layers.trees);
-  // 木の幹は通れない
-  const TR = { elm: 0.55, conifer: 0.4, birch: 0.3, maple: 0.35, sakura: 0.35, young: 0.22, bush: 0.75, bamboo: 0.16 };
-  for (const it of f.items) if (TR[it.type] && Math.abs(it.x) < 55.5 && Math.abs(it.z) < 55.5) W.circles.push([it.x, it.z, TR[it.type] * it.s]);
+    if (G.flags.plantedTrees) for (const [x, z] of [[10.6, 36.2], [-6, 36], [5, 16]]) if (treeSpot(x, z, 1) && evFree(x, z)) f.add('young', x, z, 1); }
+  // 木の幹は通れない（描くのは finishTrees。建物と置く物が決まってから）
+  for (const it of f.items) if (TREE_TRUNK[it.type] && Math.abs(it.x) < 55.5 && Math.abs(it.z) < 55.5) { it.circ = [it.x, it.z, TREE_TRUNK[it.type] * it.s]; W.circles.push(it.circ); }
 }
 function buildGrass() {
   const tall = [], flowers = [];
@@ -8727,6 +8855,7 @@ function buildMilestone(id, glow) {
     case 'wildlife_path': { const s = signBoard('けもの道　静かに見守ってね', 2.4, { h: 0.55, postH: 0.8, size: 80 }); place(L, s, -44, -50, Math.PI / 4); G.flags.deer = true; break; }
   }
   if (glow) glowRing(c.x, c.z, 3.2);
+  if (!W.building) finishTrees(); // 遊んでいる途中に建った時も、重なる木は立てない
   NAV.dirty = true;
 }
 
@@ -8745,7 +8874,7 @@ function buildExtras() {
     const rnd = (n) => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
     for (const zk in byZone) {
       const z = ZONES[zk], r = z.rect, sh = z.shelter, pts = [], small = !!z.bird || zk === 'rabbit';
-      const bad = (x, y) => (sh && x > sh[0] - 1.2 && x < sh[1] + 1.2 && y > sh[2] - 1.2 && y < sh[3] + 1.2) || SLOTS.some((q) => G.placed[q.id] && Math.hypot(q.x - x, q.z - y) < 1.7) || pts.some((p) => Math.hypot(p[0] - x, p[1] - y) < 2.6);
+      const bad = (x, y) => (W.forest && W.forest.items.some((t) => Math.hypot(t.x - x, t.z - y) < (TREE_TRUNK[t.type] || 0.2) * t.s + 0.6)) || (sh && x > sh[0] - 1.2 && x < sh[1] + 1.2 && y > sh[2] - 1.2 && y < sh[3] + 1.2) || SLOTS.some((q) => G.placed[q.id] && Math.hypot(q.x - x, q.z - y) < 1.7) || pts.some((p) => Math.hypot(p[0] - x, p[1] - y) < 2.6);
       byZone[zk].forEach((a, i) => {
         let seed = 0; for (const ch of String(a.key)) seed = (seed * 31 + ch.charCodeAt(0)) % 9973;
         let pt = null;
@@ -8887,6 +9016,7 @@ function buildPlaced(sid) {
   W.itemCircles[sid] = itemCircles(id, s.x, s.z, ry); NAV.dirty = true;
   m.userData.slotId = sid;
   W.placedModels[sid] = m;
+  if (!W.building) finishTrees();
   if (id === 'sakura') PT.petalsOn = true;
   if (s.kind === 'animal' && (id === 'pumpkin' || id === 'haybale')) W.foods.push({ sid, x: s.x, z: s.z, zone: s.zone, left: id === 'pumpkin' ? 6 : 10, model: m, item: id });
 }
@@ -9931,13 +10061,14 @@ function seaPuffs(dt, P) {
 /* ---- 冬：雪の週は、軒先につらら ---- */
 function buildIcicles(g) {
   const ic = new THREE.Group(); ic.visible = false; g.add(ic); SEA.icicles = ic;
+  const icb = new THREE.Group(); ic.add(icb); SEA.icicleBarn = icb; // 牛舎の軒のつらら（中に入って屋根を隠す時は、一緒に隠す。0.9.78）
   if (!SEA.mats.ice) SEA.mats.ice = new THREE.MeshPhongMaterial({ color: '#E6F1F7', transparent: true, opacity: 0.86, shininess: 70, specular: 0x9ab8cc });
   const eaves = [];
   if (W.house) { const h = W.house.position; for (const s of [-1, 1]) eaves.push([h.x + s * 3.8, h.y + 3.01, h.z, 3.0]); }
-  if (W.barn) { const B = W.barn.userData.barnDims, b = W.barn.position; for (const s of [-1, 1]) eaves.push([b.x + s * (B.w / 2 + 0.33), b.y + B.h - 0.16, b.z, B.d / 2 + 0.3]); }
-  for (const [x, y, zc, hl] of eaves) for (let i = 0; i < 10; i++) {
+  if (W.barn) { const B = W.barn.userData.barnDims, b = W.barn.position; for (const s of [-1, 1]) eaves.push([b.x + s * (B.w / 2 + 0.33), b.y + B.h - 0.16, b.z, B.d / 2 + 0.3, icb]); }
+  for (const [x, y, zc, hl, to] of eaves) for (let i = 0; i < 10; i++) {
     const z = zc - hl + (i + 0.5) * (2 * hl / 10) + rand(-0.12, 0.12), len = rand(0.12, 0.55);
-    const m = new THREE.Mesh(G3.cone, SEA.mats.ice); m.scale.set(0.06, len, 0.06); m.rotation.x = Math.PI; m.position.set(x, y - len / 2 + 0.02, z); ic.add(m);
+    const m = new THREE.Mesh(G3.cone, SEA.mats.ice); m.scale.set(0.06, len, 0.06); m.rotation.x = Math.PI; m.position.set(x, y - len / 2 + 0.02, z); (to || ic).add(m);
   }
 }
 
@@ -10493,11 +10624,14 @@ function updateShelters(dt) {
   for (const h of SHL.list) {
     const o = h.outer, inside = P.x > o[0] - 0.2 && P.x < o[1] + 0.2 && P.z > o[2] - 0.2 && P.z < o[3] + 0.2;
     for (const r of h.roofs) r.visible = !inside;
+    if (h.id === 'cow' && typeof SEA !== 'undefined' && SEA.icicleBarn) SEA.icicleBarn.visible = !inside;
     if (h.coopDoor) {
       const D = h.coopDoor.userData.coopDoor, tgt = night || workShut(h) ? D.shut : D.open; // 夕方の戸じまり（work.js）
       h.coopDoor.position.x += (tgt - h.coopDoor.position.x) * Math.min(1, dt * 1.5);
     }
   }
+  // 屋根の雪のまだら（snow.js）も、隠した屋根と一緒に
+  if (typeof SN !== 'undefined' && SN.roofOv) for (const m of SN.roofOv.children) if (m.userData.src) m.visible = m.userData.src.visible;
 }
 /* ===== 雪：ほんとうに積もって、とけていく（0.9.42） =====
    Daiさん：地面に丸い雪の白が点々とあるのではなく、もっとまとめて白く。本当に雪が積もって、溶けていく時の法則で。
@@ -10736,7 +10870,7 @@ function snowRoofPatches() {
   for (const r of ROOFS) {
     if (!r.parent) continue;
     r.updateWorldMatrix(true, false); r.matrixWorld.decompose(v, q, sc);
-    const m = new THREE.Mesh(r.geometry, SNOW_ROOF_MAT); m.position.copy(v).add(new THREE.Vector3(0, 0.03, 0)); m.quaternion.copy(q); m.scale.copy(sc).multiplyScalar(1.01); m.renderOrder = 2; g.add(m);
+    const m = new THREE.Mesh(r.geometry, SNOW_ROOF_MAT); m.position.copy(v).add(new THREE.Vector3(0, 0.03, 0)); m.quaternion.copy(q); m.scale.copy(sc).multiplyScalar(1.01); m.renderOrder = 2; m.userData.src = r; g.add(m);
   }
   W.layers.base.add(g); SN.roofOv = g;
 }
@@ -10753,7 +10887,7 @@ function snowPrintsInit() {
 }
 function snowPrint(x, z, rot, sx, sz) {
   if (!SN.prints || snowAt(x, z) < 0.9) return;
-  const o = new THREE.Object3D(); o.position.set(x, heightAt(x, z) + 0.05 + Math.min(0.12, snowAt(x, z) * 0.006), z); o.rotation.set(-Math.PI / 2, 0, rot); o.scale.set(sx, sz, 1); o.updateMatrix();
+  const o = new THREE.Object3D(); o.position.set(x, walkH(x, z) + 0.05 + Math.min(0.12, snowAt(x, z) * 0.006), z); o.rotation.set(-Math.PI / 2, 0, rot); o.scale.set(sx, sz, 1); o.updateMatrix();
   const i = SN.pi; SN.prints.setMatrixAt(i, o.matrix); SN.prints.instanceMatrix.needsUpdate = true; SN.pd[i] = [x, z]; SN.pi = (i + 1) % SN_PRINTS;
 }
 function snowPrintsMelt() {
@@ -10847,7 +10981,7 @@ function foxGone() { const e = SN.fox.ent; if (!e) return; ACT.layer.remove(e.m.
 function foxStep(e, dt) {
   const P = ACT.player;
   if (!e.flee && P && Math.hypot(P.x - e.x, P.z - e.z) < 13) { e.flee = true; e.pause = 0; e.jump = 0; }
-  let moving = false, y = heightAt(e.x, e.z);
+  let moving = false, y = walkH(e.x, e.z);
   if (e.jump > 0) { // ネズミの音のする所へ、弧を描いて跳びこむ
     e.jump -= dt; const k = 1 - Math.max(0, e.jump) / 1.1, h = Math.sin(k * Math.PI) * 0.9;
     e.x += Math.sin(e.heading) * 1.1 * dt; e.z += Math.cos(e.heading) * 1.1 * dt; y += h;
@@ -10889,7 +11023,7 @@ function rebuildPlayer(av) {
   ACT.layer.remove(p.m.root);
   p.m = modelPerson(avatarColors(av)); p.m.root.visible = vis; ACT.layer.add(p.m.root); // 傘は、次に雨が降った時に作りなおす
   p.inst = null; if (p.playing) setPlaying(p.playing);
-  p.m.root.position.set(p.x, heightAt(p.x, p.z), p.z); p.m.root.rotation.y = p.heading;
+  p.m.root.position.set(p.x, walkH(p.x, p.z), p.z); p.m.root.rotation.y = p.heading;
 }
 function setPlaying(id) {
   const p = ACT.player;
@@ -11058,7 +11192,7 @@ function updatePlayer(dt) {
   p.moving = moving;
   p.stillT = moving || p.target ? 0 : (p.stillT || 0) + dt;
   crouchTick(p, dt, moving || !!kv || !!p.target);
-  const y = heightAt(p.x, p.z);
+  const y = walkH(p.x, p.z);
   p.m.root.position.set(p.x, y, p.z); p.m.root.rotation.y = p.heading;
   animPerson(p.m, moving ? 1 : 0, p.phase, dt);
   crouchPose(p);
@@ -11144,7 +11278,7 @@ function petPose(p, dt) {
   }
   if (brush && !m.brush) { m.brush = modelBrush(); m.brush.position.set(0, -0.6, 0.08); m.arms[0].add(m.brush); }
   if (m.brush) m.brush.visible = brush;
-  m.root.position.set(p.x, heightAt(p.x, p.z), p.z); m.root.rotation.y = p.heading;
+  m.root.position.set(p.x, walkH(p.x, p.z), p.z); m.root.rotation.y = p.heading;
   pe.hT -= dt; if (pe.hT < 0 && (pe.react === 'love' || pe.t < 1.2)) { pe.hT = pe.react === 'love' ? 1.4 : 9; UI.floatHeart(e); }
   if (pe.t > pe.dur) UI.petEnd(false);
 }
@@ -11219,7 +11353,7 @@ function poseSit(p, dt) {
     m.rig.position.y = Math.sin(p.breathT * 1.1) * 0.006; m.rig.rotation.z = Math.sin(p.breathT * 1.7) * 0.025;
     m.arms[1].rotation.set(-1.15, 0, 0.55);
     m.arms[0].rotation.set(-0.75 - Math.sin(p.strumT * 25) * 0.35 * (p.strumT > 0 ? 1 : 0), 0, -0.35);
-    m.root.position.set(p.x, heightAt(p.x, p.z), p.z); m.root.rotation.y = p.heading;
+    m.root.position.set(p.x, walkH(p.x, p.z), p.z); m.root.rotation.y = p.heading;
     return;
   }
   m.rig.rotation.z = 0;
@@ -11238,7 +11372,7 @@ function poseSit(p, dt) {
     m.arms[0].rotation.set(-0.55, 0, 0.12); m.arms[1].rotation.set(-0.55, 0, -0.12);
   }
   if (m.head) m.head.rotation.x = 0;
-  const y = p.seatY !== undefined ? p.seatY : heightAt(p.x, p.z);
+  const y = p.seatY !== undefined ? p.seatY : walkH(p.x, p.z);
   m.root.position.set(p.x, y, p.z); m.root.rotation.y = p.heading;
 }
 /* あぐら（0.9.53）：ギターや休む時は、お尻を地面に下ろして、脚を組む。なでる・ブラッシングは、ひざをついたまま。
@@ -11339,7 +11473,7 @@ function updatePeople(dt) {
         if (!n.comePath || performance.now() > (n.comeRe || 0)) { const d = dP || 1; n.comePath = navFind(n.x, n.z, P.x + (n.x - P.x) / d * 1.8, P.z + (n.z - P.z) / d * 1.8) || []; n.comeRe = performance.now() + 2500; }
         const w = n.comePath; while (w.length > 1 && Math.hypot(w[0][0] - n.x, w[0][1] - n.z) < 0.4) w.shift();
         n.target = w.length ? [w[0][0], w[0][1]] : [P.x, P.z]; n.stall = 0;
-        stepWalker(n, dt, 1.6); n.m.root.position.set(n.x, heightAt(n.x, n.z), n.z); n.m.root.rotation.y = n.heading; rainGear(n, dt);
+        stepWalker(n, dt, 1.6); n.m.root.position.set(n.x, walkH(n.x, n.z), n.z); n.m.root.rotation.y = n.heading; rainGear(n, dt);
         continue;
       }
     }
@@ -11347,7 +11481,7 @@ function updatePeople(dt) {
     if (dP < 4.5) { n.target = null; const h = Math.atan2(P.x - n.x, P.z - n.z); let dh = h - n.heading; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); n.heading += dh * Math.min(1, dt * 5); }
     else if (!n.target && n.timer < 0) { n.target = walkTarget(n.home, 4, 3); n.timer = rand(3, 7); }
     stepWalker(n, dt, 2.2);
-    n.m.root.position.set(n.x, heightAt(n.x, n.z), n.z); n.m.root.rotation.y = n.heading; rainGear(n, dt);
+    n.m.root.position.set(n.x, walkH(n.x, n.z), n.z); n.m.root.rotation.y = n.heading; rainGear(n, dt);
   }
   const crowd = peopleCrowd();
   for (const e of ACT.extras) {
@@ -11362,7 +11496,7 @@ function updatePeople(dt) {
       e.target = e.home ? walkTarget(e.home, 3, 3) || e.home.slice() : [e.lat || 0, rand(36, 45)]; e.timer = e.home ? rand(2, 5) : rand(0, 4);
     }
     if (e.away) continue;
-    if (e.leaving) { stepWalker(e, dt, e.spd ? e.spd + 0.3 : 2.2); if (!e.target) e.target = (e.route && e.route.shift()) || [rand(-1.2, 1.2), 53.5]; e.m.root.position.set(e.x, heightAt(e.x, e.z), e.z); e.m.root.rotation.y = e.heading; rainGear(e, dt); continue; }
+    if (e.leaving) { stepWalker(e, dt, e.spd ? e.spd + 0.3 : 2.2); if (!e.target) e.target = (e.route && e.route.shift()) || [rand(-1.2, 1.2), 53.5]; e.m.root.position.set(e.x, walkH(e.x, e.z), e.z); e.m.root.rotation.y = e.heading; rainGear(e, dt); continue; }
     if (e.kind === 'visitor') {
       // 見学路をたどって、気になった所まで歩き、しばらく立ち止まって眺める
       if (!e.target && e.route && e.route.length) e.target = e.route.shift();
@@ -11377,7 +11511,7 @@ function updatePeople(dt) {
       }
     } else if (!e.target && e.timer < 0) { e.target = walkTarget(e.home, 5, 4); e.timer = rand(2, 6); }
     stepWalker(e, dt, e.kind === 'visitor' ? e.spd || 1.4 : 2.4);
-    e.m.root.position.set(e.x, heightAt(e.x, e.z), e.z); e.m.root.rotation.y = e.heading; rainGear(e, dt);
+    e.m.root.position.set(e.x, walkH(e.x, e.z), e.z); e.m.root.rotation.y = e.heading; rainGear(e, dt);
   }
 }
 /* ---------- 見学の人の行き先：見学路（まん中の道と、そこから分かれる道）の上のどこか ---------- */
@@ -12267,7 +12401,7 @@ function updateAnimals(dt, time) {
     e.lane = AR.lane >= 0 && (areaOf(AR, e.x, e.z) === AR.lane || !!(e.wp && e.wp.length > 1));
     if (!sliding) unstickCheck(e, dt, AR);
     // 高さ（アヒルは池で泳ぐ）
-    let y = heightAt(e.x, e.z), swim = false;
+    let y = walkH(e.x, e.z), swim = false;
     if (a.sp === 'duck' && inPond(e.x, e.z, 0.4)) { y = WATER_Y - 0.12; swim = true; }
     // 止まり木や棚の上へ、ぴょんと上がる（降りる時も）
     { const lt = e.atSlot ? e.atSlot.y : petOf(a) && inRect(e.x, e.z, ENGAWA.rect) ? ENGAWA.y : 0; e.lift = (e.lift || 0) + (lt - (e.lift || 0)) * Math.min(1, dt * 7); if (Math.abs(e.lift - lt) < 0.005) e.lift = lt; y += e.lift; }
@@ -12509,7 +12643,7 @@ function updateWild(dt, time) {
       if (d < 0.3) w.target = null;
       else { const spd = w.wild === 'heron' ? 0.5 : w.wild === 'tanuki' ? 1.6 : 1.2; w.x += dx / d * spd * dt; w.z += dz / d * spd * dt; w.heading = Math.atan2(dx, dz); w.phase += dt * spd * 3; moving = true; }
     }
-    let y = heightAt(w.x, w.z);
+    let y = walkH(w.x, w.z);
     if (w.wild === 'heron') y = Math.max(y, WATER_Y - 0.3);
     w.m.root.position.set(w.x, y, w.z); w.m.root.rotation.y = w.heading;
     if (w.m.legs) { const s = moving ? Math.sin(w.phase) * 0.5 : 0; w.m.legs.forEach((l, i) => { l.rotation.x = (i === 0 || i === 3 ? s : -s); }); }
@@ -12792,7 +12926,7 @@ function workTick(n, dt, dP) {
   workPlace(n, dt); return true;
 }
 function workEnd(n, j) { n.job = null; if (j && j.task) j.task.done = true; workProps(n, []); }
-function workPlace(n, dt) { n.m.root.position.set(n.x, heightAt(n.x, n.z), n.z); n.m.root.rotation.y = n.heading; rainGear(n, dt); }
+function workPlace(n, dt) { n.m.root.position.set(n.x, walkH(n.x, n.z), n.z); n.m.root.rotation.y = n.heading; rainGear(n, dt); }
 function workTurn(n, h, dt) { let dh = h - n.heading; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); n.heading += dh * Math.min(1, dt * 5); }
 function workFacePlayer(n, dt) { const P = ACT.player; workTurn(n, Math.atan2(P.x - n.x, P.z - n.z), dt); }
 // 道を探して歩く。着いたら true、進めない時は 'stuck'
@@ -15236,7 +15370,7 @@ function dailyRealities(first) {
   const here = (sp) => G.animals.filter((a) => a.sp === sp && !(a.quarantine && G.turn < a.quarantine));
   // 卵：その場で割って、鶏たちに返す
   const n = rollEggs();
-  if (n) { const e0 = G.eggs.list[0]; G.overnight.push({ cat: 'daily', text: `鶏小屋の前に、今朝の卵が${n}つありました。割って、鶏たちに返せます`, focus: [e0.x, e0.z, 3] }); }
+  if (n) { const e0 = G.eggs.list[0]; G.overnight.push({ cat: 'daily', text: `鶏小屋の前に、今朝の卵が${nTsu(n)}ありました。割って、鶏たちに返せます`, focus: [e0.x, e0.z, 3] }); }
   if (first) return;
   // 豚の体重（4週に一度）
   const pigs = here('pig');
@@ -15843,6 +15977,8 @@ function sightFrame(dt) {
    画面：HUD、パネル、日記、動物カード、飾る、撮影、ラベル
    ========================================================= */
 const $ = (s) => document.querySelector(s);
+// 数の数え方（0.9.78）：「〜つ」は9まで。10からは「個」や「件」に（「17つ」とは言わないので）
+function nTsu(n, alt) { return n >= 1 && n <= 9 ? `${n}つ` : `${n}${alt || '個'}`; }
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const ico = (id) => `<svg aria-hidden="true"><use href="#${id}"/></svg>`;
 const CAT_COLOR = { friends: '#D6735A', added: '#D4A52F', health: '#2F8A87', daily: '#6BA646', season: '#4F86A8', news: '#6E62B0', people: '#7B8A82', event: '#B0579A', gauge: '#D4A52F', photo: '#22342C' };
@@ -16107,7 +16243,7 @@ const UI = {
   handsInfo() {
     if (G.mode === 'hakoniwa') { UI.toast('箱庭モードでは、いくらでも動けます', 'daily'); return; }
     if (G.hands <= 0) { G.flags.endTipX = null; G.flags.endTipAsk = G.turn; UI.refresh(); }
-    UI.toast(`今日できることは、日曜日ごとに${G.handsMax}つ。「今日はここまで」で日記をつけて来週の日曜日へ進むと、また${G.handsMax}つに戻ります（日付が変わっても戻りません）。使いきっても、歩く、眺める、なでる、楽器を弾くは、いつでもできます`, 'daily');
+    UI.toast(`今日できることは、日曜日ごとに${nTsu(G.handsMax)}。「今日はここまで」で日記をつけて来週の日曜日へ進むと、また${nTsu(G.handsMax)}に戻ります（日付が変わっても戻りません）。使いきっても、歩く、眺める、なでる、楽器を弾くは、いつでもできます`, 'daily');
   },
   railClick(name) {
     if (name === 'overview') { setOverview(!CAM.overview); UI.refresh(); if (CAM.overview) UI.hint(IS_TOUCH ? '行きたい場所をタップすると、そこへ移動します' : '行きたい場所をクリックすると、そこへ移動します'); return; }
@@ -16415,8 +16551,7 @@ const UI = {
       case 'biz': GAME.startBiz(id); UI.render(); break;
       case 'rest': UI.startRest('slow'); break;
       case 'drone': UI.droneShow(); break;
-      case 'drone-len': UI.droneShort = !UI.droneShort; UI.droneShow(); break; // 20秒の短い版（0.9.62）
-      case 'show': { DRONE.short = !!UI.droneShort; UI.closeModal(); UI.closeSheet(); const ks = Object.keys(DRONE_SHOWS); UI.startRest('sky', null, { show: v === 'random' ? pick(ks) : v }); break; }
+      case 'show': { UI.closeModal(); UI.closeSheet(); const ks = Object.keys(DRONE_SHOWS); UI.startRest('sky', null, { show: v === 'random' ? pick(ks) : v }); break; }
       case 'deco': UI.startPlace(id); break;
       case 'remove': UI.startRemove(); break;
       case 'blocked': { const it = ITEMS[id]; GAME.unlockCard(it.card, true); UI.showCard(it.card, { alt: it.alt, altLabel: it.altLabel }); break; }
@@ -16560,7 +16695,7 @@ const UI = {
 
   // 置いてある数（アイコンの角に）と、置いてある場所
   placedOf(id) { return Object.keys(G.placed).filter((sid) => G.placed[sid] === id); },
-  placedBadge(id) { const n = UI.placedOf(id).length; return n ? `<span class="cnt" aria-label="${n}つ置いてあります">${n}</span>` : ''; },
+  placedBadge(id) { const n = UI.placedOf(id).length; return n ? `<span class="cnt" aria-label="${nTsu(n)}置いてあります">${n}</span>` : ''; },
   placedWhere(id) {
     const sids = UI.placedOf(id); if (!sids.length) return '';
     const names = [...new Set(sids.map((sid) => { const sl = SLOTS.find((q) => q.id === sid); return sl && sl.zone && ZONES[sl.zone] ? ZONES[sl.zone].label : '観覧エリア'; }))];
@@ -16609,7 +16744,7 @@ Object.assign(UI, {
         if (prev != null && prev > G.hands) UI._hrJust = { a: G.hands, b: prev, until: now + 1200 };
         UI._hrPrev = G.hands;
         const jj = UI._hrJust && now < UI._hrJust.until && UI._hrJust.a === G.hands ? UI._hrJust : null, just = jj ? [jj.a, jj.b] : null;
-        return `<div class="hands-row" aria-label="今日できることは、あと${G.hands}つ"><span class="hr-l">今日できること</span><span class="hr-dots">${Array.from({ length: G.handsMax }, (_, i) => `<i class="${i < G.hands ? 'on' : just && i >= just[0] && i < just[1] ? 'just' : ''}"></i>`).join('')}</span><b>${G.hands > 0 ? `あと${G.hands}つ` : '今日はおしまい'}</b></div>`;
+        return `<div class="hands-row" aria-label="今日できることは、あと${nTsu(G.hands)}"><span class="hr-l">今日できること</span><span class="hr-dots">${Array.from({ length: G.handsMax }, (_, i) => `<i class="${i < G.hands ? 'on' : just && i >= just[0] && i < just[1] ? 'just' : ''}"></i>`).join('')}</span><b>${G.hands > 0 ? `あと${nTsu(G.hands)}` : '今日はおしまい'}</b></div>`;
       };
       if (tab === 'life') {
         h += hk ? `<p class="lead-s">箱庭モードでは、いくらでも動けます。疲れることもありません。</p>` : handsRow();
@@ -16622,9 +16757,9 @@ Object.assign(UI, {
             <span class="cost">${sp ? `${sp.name} ${SIZE_LABEL[a.size]}` : ''}<br>${cost}</span></button>`;
         };
         const all = ACTIONS.map((a) => [a, GAME.actionAvailable(a)]), okA = all.filter((x) => x[1].ok), noA = all.filter((x) => !x[1].ok);
-        if (!hk) h += G.hands > 0 ? `<p class="hr-note">使いきったら、右下の「今日はここまで」で来週の日曜日へ。また${G.handsMax}つに戻ります。</p>`
+        if (!hk) h += G.hands > 0 ? `<p class="hr-note">使いきったら、右下の「今日はここまで」で来週の日曜日へ。また${nTsu(G.handsMax)}に戻ります。</p>`
           : G.dayOver ? '<p class="hr-note">今日の日記はつけました。続きは来週に。</p>'
-          : `<div class="hr-end"><p>今日できることは、おしまい。「今日はここまで」で日記をつけると、来週の日曜日へ。また${G.handsMax}つに戻ります。</p><p class="muted">急がなくて大丈夫。歩く、眺める、なでる、ベンチに座る、楽器を弾く、写真を撮るは、いつでもできます。</p><button class="btn small primary" data-act="end-day-now">今日はここまで（来週の日曜日へ）</button></div>`;
+          : `<div class="hr-end"><p>今日できることは、おしまい。「今日はここまで」で日記をつけると、来週の日曜日へ。また${nTsu(G.handsMax)}に戻ります。</p><p class="muted">急がなくて大丈夫。歩く、眺める、なでる、ベンチに座る、楽器を弾く、写真を撮るは、いつでもできます。</p><button class="btn small primary" data-act="end-day-now">今日はここまで（来週の日曜日へ）</button></div>`;
         h += okA.map((x) => actBtn(x[0], x[1])).join('');
         if (noA.length) h += `<details class="more-acts"${okA.length ? '' : ' open'}><summary>${okA.length ? `まだできないこと（${noA.length}）` : `行動の一覧（${noA.length}）`}</summary>${noA.map((x) => actBtn(x[0], x[1])).join('')}</details>`;
       } else if (tab === 'build') {
@@ -16669,7 +16804,7 @@ Object.assign(UI, {
         for (const r of REST_ACTIONS.filter((x) => !x.hidden)) h += restBtn('rest', r.id, 'i-rest', 'var(--leaf)', r.name, r.desc, '');
         h += restBtn('music', 'music', 'i-music', 'var(--lupine)', 'ウクレレやギターを弾く', 'すぐ近くにベンチがあれば座って、なければ立ったまま弾きます。好きな子はそばで横になり、苦手な子は離れていきます。', '');
         const sea = { spring: '春は夜桜と、舞う花びら。', summer: '夏は蛍も一緒に。', autumn: '秋はもみじと、お月さま。', winter: '冬は雪の夜に。' }[G.season] || '';
-        h += restBtn('drone', 'sky', 'i-spark', 'var(--lupine)', '夜空のドローンショーを見る', `動物たちと並んで、夜空を見上げます。花火のかわりの、音のない光。演目は${Object.keys(DRONE_SHOWS).length}つ。${sea}`, '');
+        h += restBtn('drone', 'sky', 'i-spark', 'var(--lupine)', '夜空のドローンショーを見る', `動物たちと並んで、夜空を見上げます。花火のかわりの、音のない光。演目は${nTsu(Object.keys(DRONE_SHOWS).length)}。${sea}`, '');
         const a18 = ACTIONS.find((x) => x.id === 'L18');
         h += `<button class="act" data-act="run" data-id="L18"><span class="ic tone-ink3">${ico('i-camera')}</span><span class="tx"><strong>写真を撮る</strong><span>${esc(a18.desc)}</span></span></button>`;
       }
@@ -16691,7 +16826,7 @@ Object.assign(UI, {
         if (!hk) { const a9 = ACTIONS.find((x) => x.id === 'L09'), av9 = GAME.actionAvailable(a9), none = G.tokens <= 0;
           h += `<div class="token-card${none ? ' empty' : ''}"><span class="tk-ic">${ico('i-paw')}</span><div class="tk-tx"><span>手元の遊び道具</span><b class="num">${G.tokens}<small>個</small></b><small>${none ? '今はありません。作ると、2つ増えます' : '置くと1つ減り、片付けると戻ります'}</small></div><button class="btn small${none ? ' primary' : ''}" data-act="run" data-id="L09" ${av9.ok ? '' : 'disabled'}>作る（1回分）</button></div>`; }
         const placedN = Object.values(G.placed).filter((v) => ITEMS[v] && ITEMS[v].kind === 'enrich').length;
-        h += `<p class="lead-s">動物の区画（黄色の印）に置きます。気に入った子は遊びに来て、苦手な子はそっと離れていきます。${placedN ? `今、${placedN}つ置いてあります。` : ''}</p>`;
+        h += `<p class="lead-s">動物の区画（黄色の印）に置きます。気に入った子は遊びに来て、苦手な子はそっと離れていきます。${placedN ? `今、${nTsu(placedN)}置いてあります。` : ''}</p>`;
         for (const id of ENRICH_ORDER) {
           const it = ITEMS[id]; const who = it.likes.filter((s) => SPECIES[s].stage <= G.stage).map((s) => SPECIES[s].name).join('・');
           const dis = !hk && G.tokens <= 0;
@@ -16846,7 +16981,7 @@ Object.assign(UI, {
       h += fold('story', 'i-book', '物語', `${Math.min(a.known, a.stories.length)} / ${a.stories.length}`, st);
       // その子の「はじめて」と、来る前の暮らし（0.9.53）
       { const F = a.firsts || [];
-        h += fold('first', 'i-spark', 'この子の「はじめて」', F.length ? `${F.length}つ` : 'これから', F.length ? `<ul class="firsts">${F.map((f) => `<li><span class="fd">${fmtDate(f.d)}</span>${esc(f.t)}${f.k === 'pasture' ? ' <button class="btn small ghost" data-act="cmp" data-id="grazing">放牧のカード</button>' : ''}</li>`).join('')}</ul>${a.fSeen ? '<p class="muted">前からいる子は、あなたがそばで見た日を残しています。</p>' : ''}` : '<p class="muted">ここで、はじめてのことがあると、日付と一行で残ります。</p>');
+        h += fold('first', 'i-spark', 'この子の「はじめて」', F.length ? `${nTsu(F.length)}` : 'これから', F.length ? `<ul class="firsts">${F.map((f) => `<li><span class="fd">${fmtDate(f.d)}</span>${esc(f.t)}${f.k === 'pasture' ? ' <button class="btn small ghost" data-act="cmp" data-id="grazing">放牧のカード</button>' : ''}</li>`).join('')}</ul>${a.fSeen ? '<p class="muted">前からいる子は、あなたがそばで見た日を残しています。</p>' : ''}` : '<p class="muted">ここで、はじめてのことがあると、日付と一行で残ります。</p>');
         if (a.past && a.past.length) h += fold('past', 'i-book', '来る前の暮らし', `${a.past.length}枚`, a.past.map((k) => { const p = PAST_NOTES[k]; if (!p) return ''; const f = F.find((x) => x.k === p.from); return `<div class="past-note"><h4>${esc(p.title)}</h4>${f ? `<p>${fmtDate(f.d)}、${esc(a.name)}が${esc(p.lead)}。</p>` : ''}${p.kid ? `<p>${esc(p.kid)}</p>` : ''}<details class="kcard-more"><summary>詳しく（大人の方へ）</summary><ul>${p.lines.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>${UI.srcLinks(p.src)}</details></div>`; }).join('')); }
       // 応援する：今日できることを1回分つかう
       const help = [];
@@ -17059,7 +17194,7 @@ Object.assign(UI, {
         <details class="more"><summary>くわしく</summary><p class="lead-s">寄付をしたり、掃除を手伝ったりするたびに、サンクチュアリは少しずつ育ちます。動物たちが過ごしやすくなった時（好きな物、季節の備え、ゆったりした広さなど）も育ちます。どんな支え方が多かったかで、増えていくものが変わります。「動物」の画面の「この丘の、これから」で、先の景色を見られます。</p><p class="lead-s">人見知りの子も、通ううちに自分から近づいてきます。受け入れの相談が来たら、土地と人手、設備、毎月のお金を確かめて決めます。</p></details></div>`;
       if (first && G.mode === 'hakoniwa') h += `<div class="sec"><p class="lead-s">世界がすっかり良くなった姿です。ここでは、いくらでも動けて、心の余裕も尽きません。失敗もありません。季節と行事は、日付の札から自由に変えられます。</p><p class="lead-s">動物への配慮は、ここでも変わりません。花火は置けず、イチイやヤドリギも飾れません。</p></div>`;
       if (p.changes && p.changes.length) {
-        if (!first) h += `<p class="calm-line">前回から、${p.changes.length}つの変化がありました。</p>`;
+        if (!first) h += `<p class="calm-line">前回から、${nTsu(p.changes.length)}の変化がありました。</p>`;
         h += `<div class="sec"><h3>${first ? '今週の知らせ' : '前回来た時からの変化'}</h3><div class="changes">${p.changes.map((c) => {
           const f = c.focus;
           return `<button class="chg" ${f ? `data-act="chg" data-v="${f[0]},${f[1]}"` : c.req ? `data-act="req" data-id="${c.req}"` : c.money === 'build' ? 'data-act="prep"' : c.money ? 'data-act="open" data-v="money"' : ''}><i style="background:${CAT_COLOR[c.cat]}"></i><span>${spx(esc(c.text))}</span>${f ? '<span class="go">場所を見る</span>' : c.req ? '<span class="go">相談を見る</span>' : c.money === 'build' ? '<span class="go">整備を見る</span>' : c.money ? '<span class="go">収支を見る</span>' : ''}</button>`;
@@ -17128,7 +17263,7 @@ Object.assign(UI, {
     const li = (c) => `<li class="${c.warn ? 'warn' : c.ok ? 'ok' : 'no'}">${ico(c.warn ? 'i-coin' : c.ok ? 'i-check' : 'i-x')}<b>${esc(c.label)}</b><span>${esc(c.detail)}${c.card ? `　<button data-act="card" data-id="${c.card}">理由</button>` : ''}</span></li>`;
     const need = chk.checks.filter((c) => c.warn || !c.ok), fine = chk.checks.filter((c) => !c.warn && c.ok);
     if (need.length) h += `<ul class="checks">${need.map(li).join('')}</ul>`;
-    if (fine.length) h += `<details class="checks-ok"><summary>${ico('i-check')}${need.length ? `ほかの${fine.length}つは大丈夫です` : `確かめる${fine.length}つは、すべて大丈夫です`}</summary><ul class="checks">${fine.map(li).join('')}</ul></details>`;
+    if (fine.length) h += `<details class="checks-ok"><summary>${ico('i-check')}${need.length ? `ほかの${nTsu(fine.length)}は大丈夫です` : `確かめる${nTsu(fine.length)}は、すべて大丈夫です`}</summary><ul class="checks">${fine.map(li).join('')}</ul></details>`;
     h += `<div class="btn-row"><button class="btn small primary" data-act="accept" data-id="${r.id}" ${chk.ok ? '' : 'disabled'}>受け入れる</button><button class="btn small" data-act="rehome" data-id="${r.id}">安全な家につなぐ</button><button class="btn small ghost" data-act="decline" data-id="${r.id}">今回は見送る</button></div>`;
     if (!chk.ok) h += `<p class="muted req-note">${chk.checks.some((c) => c.label === '人手' && !c.ok) ? '人手が足りません。行動の「仲間」から、ボランティアを募集したり、アルバイトさんや職員を迎えたりできます。' : ''}${chk.checks.some((c) => c.label === '土地' && !c.ok) ? '土地は、サンクチュアリが育つか、隣の農家さんと連携すると広がります。' : ''}</p>`;
     if (!chk.ok && chk.checks.some((c) => c.label === '人手' && !c.ok)) h += `<div class="btn-row u-mt6"><button class="btn small" data-act="people">${ico('i-people')}人を増やす</button></div>`;
@@ -17201,7 +17336,7 @@ Object.assign(UI, {
       // ひとつずつ短く（0.9.62）：はじめの一文だけ。同じ種類が5つより多い時は、4つまで見せて、ほかは畳む
       const show = list.length > 5 ? list.slice(0, 4) : list, more = list.length > 5 ? list.slice(4) : [];
       for (const e of show) h += UI.enHtml(e.text);
-      if (more.length) h += `<details class="en-fold"><summary>ほか${more.length}つ</summary>${more.map((e) => UI.enHtml(e.text)).join('')}</details>`;
+      if (more.length) h += `<details class="en-fold"><summary>ほか${nTsu(more.length, '件')}</summary>${more.map((e) => UI.enHtml(e.text)).join('')}</details>`;
     }
     if (!any) h += `<p class="en">${filter ? 'この種類の記録はありません。' : '今日はまだ、何も書いていません。'}</p>`;
     return h + '</div>';
@@ -17264,7 +17399,7 @@ Object.assign(UI, {
     h += sec('prep', '受け入れの準備', 'その種の子を初めて迎える前に、土地や小屋を整えます。大きなお金と、数週間の工事が必要です。準備を始めていれば、相談の子を先に迎える約束ができ、終わるまではネットワークのサンクチュアリが預かってくれます。');
     h += sec('land', '土地の整備', '急ぎではありませんが、動物と自然のために、少しずつ。');
     const next = PROJECTS.filter((p) => p.kind === 'prep' && p.stage > G.stage && p.stage <= G.stage + 1 && !speciesPresent(p.sp));
-    if (next.length) h += `<details class="pitems next"><summary>「${STAGES[G.stage + 1].name}」になると必要な準備（${next.length}つ）</summary><ul>${next.map((p) => `<li><span>${esc(p.name)}<small>（${esc(SPECIES[p.sp].name)}）</small></span><b class="num">${yen(p.cost)}</b></li>`).join('')}</ul><p class="muted">今のうちから、預金の1年分を超えた分をためておくと、すぐに始められます。</p></details>`;
+    if (next.length) h += `<details class="pitems next"><summary>「${STAGES[G.stage + 1].name}」になると必要な準備（${nTsu(next.length)}）</summary><ul>${next.map((p) => `<li><span>${esc(p.name)}<small>（${esc(SPECIES[p.sp].name)}）</small></span><b class="num">${yen(p.cost)}</b></li>`).join('')}</ul><p class="muted">今のうちから、預金の1年分を超えた分をためておくと、すぐに始められます。</p></details>`;
     if (!list.length) h += '<p class="muted">今、整備が必要な所はありません。</p>';
     h += '<p class="muted">金額はゲームのための目安です（民間の資材価格や、自治体の放牧マニュアルの例を参考にしています）。</p>';
     return h;
@@ -17273,7 +17408,7 @@ Object.assign(UI, {
     const hk = G.mode === 'hakoniwa', left = Math.max(0, p.cost - (st.funded || 0)), pct = Math.min(100, (st.funded || 0) / p.cost * 100), c = st.camp;
     const stateLine = st.state === 'done' ? '<span class="pill ok">終わりました</span>' : st.state === 'work' ? `<span class="pill q">工事中・あと${Math.max(0, st.workDone - G.turn)}週</span>` : st.campaign ? `<span class="pill q">寄付を募っています・あと${Math.max(0, st.campaign.done - G.turn)}週（${st.campaign.people}人ほど）</span>` : st.state === 'need' ? '<span class="pill warn">直す必要があります</span>' : '';
     let h = `<div class="proj ${st.state}"><div class="ph"><strong>${esc(p.name)}</strong><b class="num">${yen(p.cost)}</b></div><p class="pdesc">${esc(p.desc)}</p>`;
-    h += `<details class="pitems"><summary>何にかかるか（${p.items.length}つ）・工事 ${p.weeks}週間${p.effect ? `・${esc(p.effect)}` : ''}</summary><ul>${p.items.map(([n, v]) => `<li><span>${esc(n)}</span><b class="num">${yen(v)}</b></li>`).join('')}</ul></details>`;
+    h += `<details class="pitems"><summary>何にかかるか（${nTsu(p.items.length)}）・工事 ${p.weeks}週間${p.effect ? `・${esc(p.effect)}` : ''}</summary><ul>${p.items.map(([n, v]) => `<li><span>${esc(n)}</span><b class="num">${yen(v)}</b></li>`).join('')}</ul></details>`;
     if (st.state !== 'done' && st.state !== 'work') {
       h += `<div class="pfund"><i class="rbar"><i style="width:${pct}%"></i></i><small>集まったお金 ${yen(st.funded || 0)} ／ あと ${yen(left)}</small></div>`;
       const busy = !hk && G.hands < 1, ways = [];
@@ -17481,7 +17616,7 @@ Object.assign(UI, {
     const b = $('#end-day');
     if (G.hands > 0 && !UI._endConfirm) {
       UI._endConfirm = true; b.textContent = 'もう一度押すと、今日はここまで'; b.classList.add('confirming');
-      UI.hint(`今日できることが、まだ${G.hands}つ残っています`);
+      UI.hint(`今日できることが、まだ${nTsu(G.hands)}残っています`);
       clearTimeout(UI._ecT); UI._ecT = setTimeout(() => { UI._endConfirm = false; b.classList.remove('confirming'); UI.refresh(); }, 4000); return;
     }
     clearTimeout(UI._ecT); UI._endConfirm = false; b.classList.remove('confirming'); UI.closeSheet(); GAME.endDay();
@@ -17856,7 +17991,7 @@ Object.assign(UI, {
     if (Math.abs(UI.vo.x) < 0.5 && Math.abs(UI.vo.y) < 0.5) { if (R.camera.view && R.camera.view.enabled) R.camera.clearViewOffset(); }
     else R.camera.setViewOffset(W, H, UI.vo.x, UI.vo.y, W, H);
   },
-  setMoveMarker(x, z) { UI.marker.position.set(x, heightAt(x, z) + 0.1, z); UI.markerT = 0; },
+  setMoveMarker(x, z) { UI.marker.position.set(x, walkH(x, z) + 0.1, z); UI.markerT = 0; },
 
   /* ---------- 毎フレーム：名前の札と近くの案内 ---------- */
   // しばらく（40秒）操作がなく、柵の中か、座れる所のそばに立っている時は、そこに座る
@@ -18025,7 +18160,7 @@ Object.assign(UI, {
         const g = got.filter((b) => (FEELS[b.feel] || {}).k === k); if (!g.length) continue;
         body += `<p class="beh-kind">${esc(FEEL_KINDS[k])}</p><ul class="beh-ul">${g.map((b) => { const f = FEELS[b.feel]; return `<li><em style="--feel:${f.c}">${esc(f.t)}</em><span><b>${esc(b.name)}</b>${esc(UI.behLine(b, e))}。${esc(b.more)}</span></li>`; }).join('')}</ul>`;
       }
-      if (got.length < list.length) body += `<p class="muted">まだ見ていないしぐさが、${list.length - got.length}つあります。${UI.behShyNote(a)}</p>`;
+      if (got.length < list.length) body += `<p class="muted">まだ見ていないしぐさが、${nTsu(list.length - got.length)}あります。${UI.behShyNote(a)}</p>`;
     } else body += `<p class="muted">そばで眺めていると、しぐさの意味が少しずつわかってきます。${UI.behShyNote(a)}</p>`;
     return { now: nowH, body, got: got.length, total: list.length };
   },
@@ -18042,7 +18177,7 @@ Object.assign(UI, {
         const g = got.filter((b) => (FEELS[b.feel] || {}).k === k); if (!g.length) continue;
         h += `<p class="beh-kind">${esc(FEEL_KINDS[k])}</p><ul>${g.map((b) => { const f = FEELS[b.feel]; return `<li><em style="--feel:${f.c}">${esc(f.t)}</em><span><b>${esc(b.name)}</b>${esc(UI.behLine(b, e))}。${esc(b.more)}</span></li>`; }).join('')}</ul>`;
       }
-      if (got.length < list.length) h += `<p class="muted">まだ見ていないしぐさが、${list.length - got.length}つあります。</p>`;
+      if (got.length < list.length) h += `<p class="muted">まだ見ていないしぐさが、${nTsu(list.length - got.length)}あります。</p>`;
     } else h += `<p class="muted">そばで眺めていると、しぐさの意味が少しずつわかってきます。</p>`;
     return h + '</details>';
   },
@@ -18421,12 +18556,17 @@ Object.assign(UI, {
     UI.drawPhotoPreview();
   },
   photoFocus(cx, cy) {
-    const ray = screenRay(cx, cy), hit = pickEntity(ray);
-    let pt = null;
-    if (hit && hit.ent && hit.ent.m) { const p = hit.ent.m.root.position; pt = new THREE.Vector3(p.x, p.y + 0.8, p.z); }
-    else { const gi = ray.intersectObject(TER.mesh, false)[0]; if (gi) pt = gi.point; }
-    if (!pt) return;
-    const v = pt.clone().applyMatrix4(R.camera.matrixWorldInverse); DOF.focus = Math.max(1, -v.z); DOF.auto = false;
+    // 0.9.78：タップした所に写っている物（小さな虫や、壁、木の上のリスも）の奥行きに合わせる。画面の奥行きが読めない時だけ、前のやり方で
+    let dist = dofProbe(cx, cy);
+    if (dist == null) {
+      const ray = screenRay(cx, cy), hit = pickEntity(ray);
+      let pt = null;
+      if (hit && hit.ent && hit.ent.m) { const p = hit.ent.m.root.position; pt = new THREE.Vector3(p.x, p.y + 0.8, p.z); }
+      else { const gi = ray.intersectObject(TER.mesh, false)[0]; if (gi) pt = gi.point; }
+      if (!pt) return;
+      dist = -pt.clone().applyMatrix4(R.camera.matrixWorldInverse).z;
+    }
+    DOF.focus = Math.max(0.3, dist); DOF.auto = false;
     const ring = $('#focus-ring'); ring.hidden = true; void ring.offsetWidth; ring.style.left = cx + 'px'; ring.style.top = cy + 'px'; ring.hidden = false;
     clearTimeout(UI._fr); UI._fr = setTimeout(() => { ring.hidden = true; }, 950);
   },
@@ -18612,7 +18752,6 @@ Object.assign(UI, {
     GAME.unlockCard('drone', true); GAME.unlockCard('fireworks', true);
     UI.modal(`<h3>夜空のドローンショー</h3><p class="lead-s">どの演目を見ますか。動物たちの暮らす区画や巣の上は飛ばず、高い空で、音を立てずに光ります。</p>
       <div class="show-list">${Object.entries(DRONE_SHOWS).map(([k, sh]) => `<button class="act" data-act="show" data-v="${k}"><span class="ic tone-lupine">${ico('i-spark')}</span><span class="tx"><strong>${esc(sh.name)}</strong><span>${esc(sh.desc)}</span></span><span class="cost">約${Math.round(droneTotal(k) / 10) * 10}秒</span></button>`).join('')}</div>
-      <div class="btn-row"><button class="btn small ${UI.droneShort ? 'primary' : 'ghost'}" data-act="drone-len">${UI.droneShort ? '短い版（20秒）で見る' : 'ふつうの長さで見る'}</button></div>
       <div class="btn-row"><button class="btn small primary" data-act="show" data-v="random">おまかせ</button><button class="btn small ghost" data-act="close-modal">やめる</button></div>`);
   },
 });
