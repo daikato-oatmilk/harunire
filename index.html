@@ -3041,7 +3041,7 @@ const TITLES = []; // 称号の入れ物（0.9.58。中身は src/content/titles
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.80', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.81', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -3049,6 +3049,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.81', '2026年10月21日', '木や建物があなたの前に入っても、カメラは寄ったり持ち上がったりしなくなりました。かわりに、さえぎる物の、あなたに重なる所だけが、紙の窓のように透けて見えます。動物たちと人は透けません。休んでいる時も、看板や建物を消すかわりに、同じように透かします'],
     ['0.9.80', '2026年10月21日', 'おだやかなカメラにしました。景色は、あなたが動かした時だけ動きます。歩くとカメラがうしろへまわるのは、はじめは切って、設定で選べるように。なでる時や「見る」の時は、カメラを回さずに、紙芝居をめくるように切りかえます。知らせで、カメラが勝手に動くこともなくなりました'],
     ['0.9.79', '2026年10月21日', '木を増やしました。ベンチや切り株のそばと、歩く道ぞいに、ハルニレ・カエデ・サクラの木陰。物を置く場所のまわりも、木を残すようにしました。'],
     ['0.9.78', '2026年10月21日', '小川の橋を作り直しました（岸から岸へ、ゆるい弧の板橋。歩いても水にぬれません）。ドローンショーに、20秒ほどの短い演目「ひとときの空」を足しました。写真は、タップした所に写っている物（小さな虫や壁、木の上のリスも）にピントが合います。牛舎に入った時、屋根のパネルだけが浮かんで見えないように。カフェは、はるにれの木と重ならないよう、駐車場の北へ。これから建つ物や置く物の場所は、木を生やさずに空けておきます。10からの数は「17件」「17個」のように数えます。'],
@@ -4480,7 +4481,7 @@ function overviewDist() { const a = R.camera.aspect; return 165 * Math.max(1, 1.
 // あなたが選んだ見え方を覚えておき、写真や休憩、全体を見たあとは、その見え方に戻す
 function camFree() { return !CAM.overview && !CAM.focus && !CAM.lock && !CAM.spin; }
 function camRemember() { if (camFree()) { CAM.user.yaw = CAM.tYaw; CAM.user.pitch = CAM.tPitch; CAM.user.dist = CAM.tDist; } }
-function camRestore() { CAM.focus = null; CAM.focusBack = false; CAM.focusView = false; CAM.overview = false; CAM.tYaw = CAM.user.yaw; CAM.tPitch = CAM.user.pitch; CAM.tDist = CAM.user.dist; camCutIfBig(); }
+function camRestore() { CAM.focus = null; CAM.focusBack = false; CAM.focusView = false; CAM.overview = false; CAM.winR = undefined; CAM.tYaw = CAM.user.yaw; CAM.tPitch = CAM.user.pitch; CAM.tDist = CAM.user.dist; camCutIfBig(); }
 function camHome(yaw) { CAM.user.pitch = CAM_HOME.pitch; CAM.user.dist = CAM_HOME.dist; if (yaw !== undefined) CAM.user.yaw = yaw; camRestore(); }
 // 寄る・離れる（ピンチとホイール）。0.9.37：メニューの「全体」をなくし、かわりにピンチ（ホイール）で丘ぜんたいまで引ける。
 // 遠くまで引くほど、見下ろす角度に、見る中心も丘のまんなかへ。遠くから見ている時は、タップした所へ移動できる（farView）
@@ -4530,7 +4531,7 @@ function framePair(ax, az, bx, bz, size, ms, blockers) {
     const top = bestS >= 10;
     CAM.overview = false; CAM.focus = new THREE.Vector3(mx, heightAt(mx, mz) + (top ? 0.3 : 0.55), mz);
     CAM.focusUntil = performance.now() + (ms || 5000); CAM.focusBack = true;
-    CAM.tYaw = top ? back : yawS; CAM.tDist = top ? distS * 0.95 : distS; CAM.tPitch = top ? 1.05 : 0.2;
+    CAM.tYaw = top ? back : yawS; CAM.tDist = top ? distS * 0.95 : distS; CAM.tPitch = top ? 1.05 : 0.2; CAM.winR = clamp(d / 2 + size + 0.9, 1.6, 3);
     camCutIfBig(); // 0.9.80：回りこまずに、めくる
     return;
   }
@@ -4539,15 +4540,16 @@ function framePair(ax, az, bx, bz, size, ms, blockers) {
   CAM.overview = false; CAM.focus = new THREE.Vector3((ax + bx) / 2, heightAt((ax + bx) / 2, (az + bz) / 2) + 0.5 + size * 0.35, (az + bz) / 2);
   CAM.focusUntil = performance.now() + (ms || 5000); CAM.focusBack = true;
   CAM.tYaw = yaw; CAM.tDist = dist; CAM.tPitch = narrow ? 0.4 : 0.34;
+  CAM.winR = clamp(d / 2 + size + 0.9, 1.6, 3); // 紙の窓は、ふたりが入る太さに（0.9.81）
   camCutIfBig(); // 0.9.80：回りこまずに、めくる
 }
 // 追加されたものの場所を見る（0.9.62）：遠く、斜め上から眺める（近すぎて、どこの何かわからないことのないように）
 // 0.9.80：自動では戻らない。歩きだすか、左下の「もどる」で（focusView）
-function focusPlace(x, z, ms) { focusAt(x, z, 34, ms || 60000); CAM.tPitch = 1.0; CAM.focusView = true; }
+function focusPlace(x, z, ms) { focusAt(x, z, 34, ms || 60000); CAM.tPitch = 1.0; CAM.focusView = true; CAM.winR = 0; } // 建てた物の前を透かさない
 function focusAt(x, z, dist, ms) {
   camRemember();
   CAM.overview = false; CAM.focus = new THREE.Vector3(x, heightAt(x, z) + 1, z); CAM.focusUntil = performance.now() + (ms || 5000);
-  CAM.tDist = dist || 20; CAM.tPitch = 0.72; CAM.focusBack = true; CAM.focusView = false;
+  CAM.tDist = dist || 20; CAM.tPitch = 0.72; CAM.focusBack = true; CAM.focusView = false; CAM.winR = undefined;
   camCutIfBig();
 }
 // 写したいものを画面の上の方に寄せる（下にパネルが出ている時）。px だけ上へ
@@ -4564,7 +4566,7 @@ function camShift(px) {
    大きく見え方が変わる時は、動かさずに紙芝居をめくる（camCut）：淡い紙の色（夜は夜の色）で0.2秒とじて、切りかえ、0.3秒でひらく。
    Apple の HIG：仮想の世界を回さない。向きを変えるなら、短いフェードの間に。物の移動はフェードで */
 const CALM = { yawV: 0.35, yawA: 0.52, pitchV: 0.26, pitchA: 0.44, kp: 1.6, cutOut: 0.2, cutIn: 0.3,
-  cdInV: 4, cdInA: 10, cdOutV: 4, cdOutA: 6, cdHold: 0.2 }; // さえぎる物で寄る速さ・戻る速さ（m/秒）と、戻るまで待つ秒
+  cdInV: 1.2, cdInA: 2.4, cdOutV: 0.8, cdOutA: 1.2, cdHold: 1.0 }; // カメラが建物の中に入る時だけ寄る速さ・戻る速さ（m/秒）と、戻るまで待つ秒（0.9.81）
 // 速さ v を、残り err に向けて、速さ vmax・加速 amax までで近づける（ゆっくり動きだし、ゆっくり止まる）
 function calmStep(v, err, vmax, amax, dt) { const want = clamp(err * CALM.kp, -vmax, vmax); return v + clamp(want - v, -amax * dt, amax * dt); }
 // 指で見回したり寄ったりしている時（スティックで歩く指は入らない）
@@ -4649,34 +4651,28 @@ function updateCamera(dt, followPos) {
   // 低い所まで下げたら、それ以上はカメラを下げずに、空のほうを見上げる
   const ck = CAM.ck || 0, pitch = CAM.pitch + (0.13 - CAM.pitch) * ck * 0.8;
   const low = 0.1, pe0 = Math.max(pitch, low), tilt = Math.max(0, low - pitch) * 1.15;
-  let dist = CAM.dist + (Math.min(CAM.dist, 4.4) - CAM.dist) * ck, lift = 0;
+  let dist = CAM.dist + (Math.min(CAM.dist, 4.4) - CAM.dist) * ck;
   const nearCam = !CAM.overview && dist < 30;
-  if (nearCam) camTrees(CAM.target, dist);
-  // 建物の中や木の葉の中にカメラが入らないように。すぐ後ろに壁がある時は、寄りすぎずに、少し上から見る
-  const clr = (pp) => camClear(CAM.target, Math.sin(CAM.yaw) * Math.cos(pp), Math.sin(pp), Math.cos(CAM.yaw) * Math.cos(pp), dist);
-  if (nearCam) {
-    const want = Math.min(dist, 3.4); let best = clr(pe0);
-    if (best < want - 0.05) for (let k = 1; k <= 6; k++) { const d1 = clr(pe0 + k * 0.14); if (d1 > best + 0.2) { best = d1; lift = k * 0.14; } if (d1 >= want) break; }
-  }
-  // 上から見るのは、上げる時はすぐ決め、下げるのは、さえぎる物がなくなって少したってから。上げ下げは、ゆっくり（0.9.80）
-  if (lift >= (CAM.liftWant || 0)) { CAM.liftWant = lift; CAM.liftHold = 0; } else if ((CAM.liftHold = (CAM.liftHold || 0) + dt) > CALM.cdHold) CAM.liftWant = lift;
-  if (snap) { CAM.lift = CAM.liftWant; CAM.vl = 0; } else { CAM.vl = calmStep(CAM.vl || 0, CAM.liftWant - (CAM.lift || 0), CALM.pitchV, CALM.pitchA, dt); CAM.lift = (CAM.lift || 0) + CAM.vl * dt; }
-  const pe = pe0 + CAM.lift, cp = Math.cos(pe), sp = Math.sin(pe);
+  // 0.9.81：木や建物がカメラとあなたの間に入っても、寄らない・持ち上げない。さえぎる物は「紙の窓」で透かす（下の PWIN）。
+  // カメラが建物の中に入ってしまう時だけ、ゆっくり寄る（毎秒1.2m）。戻るのは、外に十分に出て1秒たってから、ゆっくり（毎秒0.8m）。
+  // 寄る時と戻る時で、壁からの間（0.35m と 0.9m）を変えて、行ったり来たりしない
+  const pe = pe0, cp = Math.cos(pe), sp = Math.sin(pe);
   const p = R.camera.position;
-  // さえぎる物があれば寄る。寄るのも戻るのも、なめらかに。戻るのは、なくなって少し（CALM.cdHold）たってから
-  // （前は、すぐ寄って、ゆっくり戻った。木のそばを歩くと、寄ったり離れたりをくり返した。0.9.80）
   if (nearCam) {
-    const dd = Math.min(dist, clr(pe));
-    if (CAM.cd === undefined || snap) { CAM.cd = dd; CAM.vc = 0; CAM.cdHold = 0; }
+    const ux = Math.sin(CAM.yaw) * cp, uz = Math.cos(CAM.yaw) * cp;
+    const inW = camWall(CAM.target, ux, sp, uz, dist, 0.35);
+    if (CAM.cd === undefined || snap) { CAM.cd = inW; CAM.vc = 0; CAM.cdHold = 0; }
+    else if (CAM.cd >= dist - 0.02 && inW >= dist) { CAM.cd = dist; CAM.vc = 0; CAM.cdHold = 0; } // 壁はない（あなたが寄ったり離れたりした分は、そのまま）
     else {
-      let want = null;
-      if (dd < CAM.cd - 0.05) { want = dd; CAM.cdHold = 0; } // さえぎられた：寄る
-      else if (CAM.cd >= dist - 0.05) { CAM.cd = dd; CAM.vc = 0; } // さえぎる物はない（あなたが寄ったり離れたりした分は、そのまま）
-      else if ((CAM.cdHold = (CAM.cdHold || 0) + dt) > CALM.cdHold) want = dd; else want = CAM.cd;
-      if (want !== null) {
-        if (byHand && want < CAM.cd) { CAM.cd += (want - CAM.cd) * Math.min(1, dt * 8); CAM.vc = 0; } // 指で見回して壁に向けた時は、指についていく
-        else { const inn = want < CAM.cd; CAM.vc = calmStep(CAM.vc || 0, want - CAM.cd, inn ? CALM.cdInV : CALM.cdOutV, inn ? CALM.cdInA : CALM.cdOutA, dt); CAM.cd += CAM.vc * dt; }
+      let want = CAM.cd;
+      if (inW < CAM.cd - 0.02) { want = inW; CAM.cdHold = 0; } // 建物の中に入りそう：ゆっくり寄る
+      else {
+        const outW = camWall(CAM.target, ux, sp, uz, dist, 0.9);
+        if (outW > CAM.cd + 0.02) { if ((CAM.cdHold = (CAM.cdHold || 0) + dt) > CALM.cdHold) want = outW; } else CAM.cdHold = 0;
       }
+      const inn = want < CAM.cd;
+      CAM.vc = calmStep(CAM.vc || 0, want - CAM.cd, inn ? CALM.cdInV : CALM.cdOutV, inn ? CALM.cdInA : CALM.cdOutA, dt); CAM.cd += CAM.vc * dt;
+      if (CAM.cd > dist) { CAM.cd = dist; CAM.vc = 0; }
     }
     dist = Math.min(dist, CAM.cd);
   } else CAM.cd = undefined;
@@ -4701,30 +4697,110 @@ function updateCamera(dt, followPos) {
   }
 }
 const _look = new THREE.Vector3();
-// カメラの近くの木（紙の木の葉の広がりを、円柱として見る）：[x, z, 半径, 葉の下の高さ, 葉の上の高さ]
-const CAM_TREES = [];
-function camTrees(t, dist) {
-  CAM_TREES.length = 0;
-  const f = typeof W !== 'undefined' && W.forest; if (!f || !f.items) return;
-  for (const it of f.items) {
-    const c = PC_CARDS[it.type]; if (!c || !c.trunk) continue;
-    const sc = it.s || 1, r = c.w * 0.5 * sc * 0.9;
-    if (Math.abs(it.x - t.x) > dist + r || Math.abs(it.z - t.z) > dist + r) continue;
-    const g = heightAt(it.x, it.z);
-    CAM_TREES.push([it.x, it.z, r, g + c.trunk * sc * 0.8, g + c.h * sc]);
+// カメラが建物の中（中まで詰まった建物の、壁から m の内側）に入らない距離。薄い壁や柵は、紙の窓とカメラのすぐ前の透かしにまかせる（0.9.81）
+function camWall(t, dx, dy, dz, dist, m) {
+  const cols = (typeof W !== 'undefined' && W.colliders) || []; if (!cols.length) return dist;
+  const inside = (d) => {
+    const x = t.x + dx * d, y = t.y + dy * d, z = t.z + dz * d; if (y > 6.5) return false;
+    for (const c of cols) if (c[1] - c[0] > 1.2 && c[3] - c[2] > 1.2 && x > c[0] - m && x < c[1] + m && z > c[2] - m && z < c[3] + m) return true;
+    return false;
+  };
+  if (!inside(dist)) return dist;
+  for (let d = dist - 0.25; d > 1.6; d -= 0.25) if (!inside(d)) return d;
+  return 1.6;
+}
+
+/* ---------- 紙の窓（0.9.81。プロジェクトの claude/camera-comfort-plan.md の B） ----------
+   木や建物がカメラとあなたの間に入っても、カメラを寄せたり持ち上げたりしない（勝手に動く景色は酔いやすい）。
+   かわりに、その物の、あなた（見ている所）に重なる所だけを、紙の目のような点々で透かす（4つの点のうち3つを抜く）。
+   ・カメラから、あなたの体のまんなか（寄って見ている時は見ている所）へ向かう円すい。切り口は縦長のだ円（先の太さ camWinR：
+     ふだん縦1.6m、なでる時はふたりが入る太さ、休む時2.6m）。それと、カメラのすぐ前（1.4m。ここは全部抜く）
+   ・あなたのすぐそば（横に1m・腰より低い所）は残す：座っているベンチ、寄りかかった柵。見ている所のすぐ手前も残す
+   ・動物と人（ACT.layer）は透かさない。透かすのは景色（W.layers）の素材だけ。同じ素材を使う動物と人には、透かさない写しを渡す
+   ・点は画面の画素1つずつ、2画素おきのならび（スマホでは、うすい紙ごしに見えるくらいの細かさ）。貼り絵の加工（paper.js）は
+     偶数の画素となりの色と比べて紙の縁を描くので、点ごとに縁は出ない。読む時の混ぜ合わせで、点は、うすい紙のようにならされる
+   ・影は前のまま（影の描き方には入れない）。遊んでいる画面を描く時だけ（紙芝居の絵や、ほかの場面には入れない） */
+const PWIN = { u: { pwinA: { value: new THREE.Vector3() }, pwinB: { value: new THREE.Vector3() }, pwinP: { value: new THREE.Vector3() }, pwinK: { value: new THREE.Vector4() }, pwinS: { value: 1 } },
+  ver: 0, scanT: -1e9, actT: 0, actor: new Map(), count: 0, near: 1.4, cut: 0.75, off: false };
+const PWIN_LAYERS = ['base', 'fence', 'trees', 'milestone', 'extra', 'deco', 'event'];
+function pwinCompile(shader) {
+  Object.assign(shader.uniforms, PWIN.u);
+  shader.vertexShader = 'varying vec3 vPwin;\n' + shader.vertexShader.replace('#include <project_vertex>', `#include <project_vertex>
+  vec4 pwW = vec4(transformed, 1.0);
+  #ifdef USE_INSTANCING
+    pwW = instanceMatrix * pwW;
+  #endif
+  vPwin = (modelMatrix * pwW).xyz;`);
+  shader.fragmentShader = 'uniform vec3 pwinA; uniform vec3 pwinB; uniform vec3 pwinP; uniform vec4 pwinK; uniform float pwinS; varying vec3 vPwin;\n' + shader.fragmentShader.replace('#include <clipping_planes_fragment>', `#include <clipping_planes_fragment>
+  if (pwinK.x > 0.5) {
+    vec3 pwD = pwinB - pwinA; float pwL = max(length(pwD), 0.001); pwD /= pwL;
+    vec3 pwV = vPwin - pwinA; float pwT = dot(pwV, pwD), pwK = 0.0;
+    if (pwinK.y > 0.05 && pwT > 0.0 && pwT < pwL) {
+      // 切り口は、縦に長いだ円（人や動物の立ち姿に合わせて、横は 0.65）。ふちの移り変わりは細く（紙を切りぬいた窓のように、ふちが1本）
+      float pwR = 0.3 + (pwinK.y - 0.3) * pwT / pwL;
+      vec3 pwO = pwV - pwD * pwT, pwU = normalize(vec3(0.0, 1.0, 0.0) - pwD * pwD.y + vec3(0.0, 0.0001, 0.0));
+      float pwOu = dot(pwO, pwU), pwE = length(vec2(pwOu, length(pwO - pwU * pwOu) / 0.65));
+      float pwNear = (1.0 - smoothstep(0.9, 1.0, length(vPwin.xz - pwinP.xz))) * (1.0 - smoothstep(pwinP.y + 1.0, pwinP.y + 1.1, vPwin.y));
+      pwK = (1.0 - smoothstep(pwR * 0.9, pwR, pwE)) * (1.0 - smoothstep(pwL - 0.45, pwL - 0.25, pwT)) * (1.0 - pwNear) * pwinK.w;
+    }
+    pwK = max(pwK, 1.0 - smoothstep(pwinK.z * 0.9, pwinK.z, length(pwV)));
+    vec2 pwQ = mod(floor(gl_FragCoord.xy / pwinS), 2.0);
+    if (pwK > (2.0 * pwQ.x + 3.0 * pwQ.y - 4.0 * pwQ.x * pwQ.y + 0.5) / 4.0) discard;
+  }`);
+}
+function pwinMatOk(m) { return !!m && (m.isMeshPhongMaterial || m.isMeshLambertMaterial || m.isMeshBasicMaterial || m.isMeshStandardMaterial || m.isMeshToonMaterial); }
+function pwinPatch(m) {
+  if (!pwinMatOk(m) || m.userData.pwin || m.userData.pwinActor) return false;
+  if (m.onBeforeCompile !== THREE.Material.prototype.onBeforeCompile) return false; // 自分の加工を持つ素材は、そのまま
+  m.onBeforeCompile = pwinCompile; m.userData.pwin = true; m.needsUpdate = true; PWIN.count++;
+  return true;
+}
+// 景色の素材に、紙の窓を入れる（新しく建った物・置いた物・行事の飾りも、1秒ごとに）
+function pwinScan() {
+  if (typeof W === 'undefined' || !W.layers) return;
+  let n = 0;
+  for (const k of PWIN_LAYERS) {
+    const g = W.layers[k]; if (!g) continue;
+    g.traverse((o) => { if (!o.isMesh || !o.material) return; if (Array.isArray(o.material)) { for (const m of o.material) if (pwinPatch(m)) n++; } else if (pwinPatch(o.material)) n++; });
+  }
+  if (n) PWIN.ver++;
+}
+// 動物と人は透かさない：景色と同じ素材を使っている所は、透かさない写しに
+function pwinActorMat(m) {
+  if (!m || !m.userData || !m.userData.pwin) return m;
+  let c = PWIN.actor.get(m);
+  if (!c) { const ud = m.userData; m.userData = {}; c = m.clone(); m.userData = ud; c.onBeforeCompile = THREE.Material.prototype.onBeforeCompile; c.userData = { pwinActor: true }; PWIN.actor.set(m, c); }
+  return c;
+}
+function pwinActors(all) {
+  if (typeof ACT === 'undefined' || !ACT.layer) return;
+  for (const r of ACT.layer.children) {
+    if (!all && r.userData.pwinV === PWIN.ver) continue;
+    r.userData.pwinV = PWIN.ver;
+    r.traverse((o) => {
+      if (!o.isMesh || !o.material) return;
+      if (Array.isArray(o.material)) { if (o.material.some((m) => m && m.userData && m.userData.pwin)) o.material = o.material.map(pwinActorMat); }
+      else if (o.material.userData && o.material.userData.pwin) o.material = pwinActorMat(o.material);
+    });
   }
 }
-function camClear(t, dx, dy, dz, dist) {
-  const cols = (typeof W !== 'undefined' && W.colliders) || [];
-  if (!cols.length && !CAM_TREES.length) return dist;
-  const steps = Math.ceil(dist / 0.3);
-  for (let i = 3; i <= steps; i++) {
-    const d = dist * i / steps, x = t.x + dx * d, y = t.y + dy * d, z = t.z + dz * d;
-    if (y < 6.5) for (const c of cols) if (x > c[0] - 0.3 && x < c[1] + 0.3 && z > c[2] - 0.3 && z < c[3] + 0.3) return Math.max(1.6, d - 0.5);
-    for (const n of CAM_TREES) { const ex = x - n[0], ez = z - n[1]; if (ex * ex + ez * ez < n[2] * n[2] && y > n[3] && y < n[4]) return Math.max(1.6, d - 0.5); }
-    if (y > 11) break;
-  }
-  return dist;
+// 円すいの先の太さ（0 で円すいなし。カメラのすぐ前の透かしだけ）
+function camWinR() {
+  if (CAM.overview || CAM.dist > 60) return 0;
+  if (typeof UI !== 'undefined' && UI.rest) return UI.rest.mode === 'sky' ? 0 : 2.6; // 休む時：あなたと、まわりの子たちが見えるように（前の UI.occlude のかわり）
+  if (CAM.focus) return CAM.winR === undefined ? 1.8 : CAM.winR;
+  return 1.6;
+}
+function pwinOn() {
+  const now = performance.now();
+  if (now - PWIN.scanT > 1000) { PWIN.scanT = now; pwinScan(); }
+  const all = now - PWIN.actT > 2000; if (all) PWIN.actT = now;
+  pwinActors(all);
+  const u = PWIN.u, pl = typeof ACT !== 'undefined' && ACT.player && ACT.player.m ? ACT.player.m.root.position : CAM.target;
+  // 円すいの先：ふだんは、あなたの体のまんなか（肩越しの見る所は少し横にずれているので）。寄って見ている時と休む時は、見ている所
+  u.pwinA.value.copy(R.camera.position); u.pwinP.value.copy(pl);
+  if (CAM.focus || CAM.overview || pl === CAM.target) u.pwinB.value.copy(CAM.target); else u.pwinB.value.set(pl.x, pl.y + 0.85, pl.z);
+  u.pwinK.value.set(PWIN.off ? 0 : 1, camWinR(), PWIN.near, PWIN.cut); u.pwinS.value = 1;
 }
 
 /* ---------------- 入力 ---------------- */
@@ -5019,6 +5095,11 @@ function dofProbe(cx, cy) {
 }
 // 画面を描く：ふだんは貼り絵の加工を1回かける。写真のボケを使う時は、貼り絵のあとにボケをかける
 function renderMain() {
+  const inside = typeof OCHA !== 'undefined' && OCHA.on && OCHA.S;
+  if (!inside) pwinOn(); // 紙の窓（0.9.81）：この画面を描く間だけ
+  try { renderMain0(); } finally { PWIN.u.pwinK.value.x = 0; }
+}
+function renderMain0() {
   const r = R.renderer, dof = DOF.on && DOF.amount > 0.02 && DOF.ok, paper = paperOn();
   const SC = typeof OCHA !== 'undefined' && OCHA.on && OCHA.S ? OCHA.S : R.scene; // ウェルカムセンターの中は、別の場所（0.9.49）
   if (!dof && !paper) { r.render(SC, R.camera); if (SC === R.scene) droneOverlay(null); return; }
@@ -5275,7 +5356,7 @@ function paperSetup() {
         vec3 skyCol = mix(skyBot, skyTop, pow(floor(tb) / 3.0, 0.9));
         // 遠さ（0=近い、1=遠い）。空は少しだけ
         float fz = fadeOn * (sky ? 0.5 : smoothstep(fadeNear, fadeFar, d));
-        vec2 o = 2.0 * px * dpr, o2 = (3.0 + n2.b * 3.0 + fz * 3.0) * px * dpr;
+        vec2 o = 2.0 * floor(dpr + 0.5) * px, o2 = (3.0 + n2.b * 3.0 + fz * 3.0) * px * dpr;
         vec4 s1 = texture2D(tColor, uvw + vec2(o.x, 0.0)), s2 = texture2D(tColor, uvw - vec2(o.x, 0.0)), s3 = texture2D(tColor, uvw + vec2(0.0, o.y)), s4 = texture2D(tColor, uvw - vec2(0.0, o.y));
         vec4 t1 = texture2D(tColor, uvw + vec2(o2.x, 0.0)), t2 = texture2D(tColor, uvw - vec2(o2.x, 0.0)), t3 = texture2D(tColor, uvw + vec2(0.0, o2.y)), t4 = texture2D(tColor, uvw - vec2(0.0, o2.y));
         // 空に重なる半透明のもの（虹、星のふち、雨）は、空の色の上に重ねる
@@ -5288,7 +5369,7 @@ function paperSetup() {
         // 面を平らに：紙は1枚1色。明るさだけを数段にまとめる
         float l = dot(col, vec3(0.299, 0.587, 0.114)), lq = (floor(l * 5.0) + 0.6) / 5.0;
         col = mix(col, col * (lq / max(l, 0.02)), 0.55 * (1.0 - 0.5 * fz));
-        // 縁：色と奥行きの差
+        // 縁：色と奥行きの差（となりを見る幅 o は偶数の画素。紙の窓の2画素おきの点が、縁に見えないように。0.9.81）
         float e = max(max(length(s1.rgb - c.rgb), length(s2.rgb - c.rgb)), max(length(s3.rgb - c.rgb), length(s4.rgb - c.rgb)));
         e = max(e, max(max(abs(s1.a - c.a), abs(s2.a - c.a)), max(abs(s3.a - c.a), abs(s4.a - c.a))));
         float de = 0.0;
@@ -20660,7 +20741,6 @@ Object.assign(UI, {
     audioInit();
     UI.closeSheet(); UI.endPlace(); UI.closeModal();
     const key = mode === 'bench' || (mode === 'slow' && spot.kind === 'bench') ? 'R1' : mode === 'animals' || mode === 'here' || mode === 'slow' ? 'R2' : mode === 'sky' ? 'sky' : 'music';
-    UI.occlude(false);
     const R0 = UI.rest = { mode, key, spot, t: 0, capT: 2.6, recent: [], breath: !!G.settings.breath, bt: 0, off: 0, pOff: 0, dMul: 1, lastYaw: null, lastPitch: null, lastDist: null, gain: 0, fullSaid: GAME.restGot(key) >= GAME.restMax(key), F: null, ending: false };
     UI.blockMove = true;
     UI.veil(true);
@@ -20699,7 +20779,6 @@ Object.assign(UI, {
       P.sitting = null; P.seatY = undefined; P.seatDY = 0;
       if (R0.mode === 'music') { setPlaying(null); $('#music-ui').hidden = true; }
       if (R0.mode === 'sky') UI.skyEnd(R0);
-      UI.occlude(false);
       ACT.animals.forEach((e) => { e.restNear = false; e.musicNear = false; e.musicAway = false; e.timer = Math.min(e.timer, rand(0.5, 2)); });
       $('#rest-ui').hidden = true; $('#rest-ui').classList.remove('music'); $('#rest-cap').classList.remove('on'); $('#rest-breath-ring').hidden = true;
       $('#hud').hidden = false;
@@ -20714,7 +20793,7 @@ Object.assign(UI, {
     }, 620);
   },
   abortRest() {
-    const P = ACT.player, R0 = UI.rest; UI.rest = null; UI.blockMove = false; UI.occlude(false);
+    const P = ACT.player, R0 = UI.rest; UI.rest = null; UI.blockMove = false;
     if (R0 && R0.mode === 'sky') UI.skyEnd(R0);
     P.sitting = null; P.seatY = undefined; P.seatDY = 0; setPlaying(null);
     $('#music-ui').hidden = true; $('#rest-ui').hidden = true; $('#rest-breath-ring').hidden = true; UI.veil(false);
@@ -20725,8 +20804,7 @@ Object.assign(UI, {
     // 休む時間は、画面の速さに関係なく実際の時間で数える
     const now = performance.now(); dt = Math.min(0.5, Math.max(0, (now - (R0.last || now)) / 1000)); R0.last = now;
     R0.t += dt;
-    UI.restCam(dt, false);
-    UI.occlude(true);
+    UI.restCam(dt, false); // さえぎる物は、紙の窓で透かす（0.9.81。前は UI.occlude で隠した）
     const g = GAME.restTick(R0.key, dt);
     if (g) { R0.gain += g; UI.restMeter(); }
     if (!R0.fullSaid && GAME.restGot(R0.key) >= GAME.restMax(R0.key)) { R0.fullSaid = true; R0.capT = Math.min(R0.capT, 1.5); R0.nextLine = pick(['心が、ゆっくりほどけていきました', '肩の力が、すっと抜けていきました', '呼吸が、いつもより深くなっています']); }
@@ -20786,44 +20864,6 @@ Object.assign(UI, {
     CAM.tDist = clamp((music ? 8.2 : ground ? (narrow ? 8.5 : 10) : (narrow ? 9 : 11)) * R0.dMul, 4, 60);
     R0.lastYaw = CAM.tYaw; R0.lastPitch = CAM.tPitch; R0.lastDist = CAM.tDist;
     // 休みはじめも、急に切りかえない（0.9.52）。engine.js の camera が、休んでいる間はゆっくり寄る
-  },
-  // 休んでいる間、カメラとあなたの間に入った看板や建物を、一時的に隠す
-  occlude(on) {
-    const O = UI._occ || (UI._occ = { hidden: new Set(), list: null });
-    if (!on) { O.hidden.forEach((c) => { c.visible = true; }); O.hidden.clear(); O.list = null; return; }
-    if (!O.list) {
-      O.list = [];
-      for (const k of ['base', 'fence', 'milestone', 'extra', 'deco', 'event']) {
-        const g = W.layers[k]; if (!g) continue;
-        for (const c of g.children) {
-          if (c.isInstancedMesh) continue;
-          const b = new THREE.Box3().setFromObject(c); if (b.isEmpty()) continue;
-          const s = b.getBoundingSphere(new THREE.Sphere());
-          if (s.radius < 10) O.list.push({ c, s, top: b.max.y });
-        }
-      }
-    }
-    const P = ACT.player, cam = R.camera.position, T = CAM.target;
-    const d = new THREE.Vector3().subVectors(T, cam), L = d.length(); if (L < 1) return; d.divideScalar(L);
-    const v = new THREE.Vector3(), pp = P.m.root.position, q = new THREE.Vector3();
-    const Lp = (pp.x - cam.x) * d.x + (pp.y - cam.y) * d.y + (pp.z - cam.z) * d.z; // あなたまでの距離
-    const tanH = Math.tan(R.camera.fov * Math.PI / 360);
-    for (const o of O.list) {
-      const s = o.s;
-      let block = false;
-      if (Math.hypot(s.center.x - P.x, s.center.z - P.z) > 2.6) { // 座っているベンチや、すぐそばのものは残す
-        v.subVectors(s.center, cam); const t = v.dot(d);
-        if (t > 0.2 && t < Lp - 1.0) {
-          // 画面の真ん中から下（あなたと動物が映るところ）に重なるか
-          q.copy(s.center).project(R.camera);
-          const rn = s.radius / (t * tanH);
-          const rx = rn / R.camera.aspect;
-          block = q.x + rx > -0.75 && q.x - rx < 0.75 && q.y - rn < 0.35 && q.y + rn > -1.05;
-        } else if (t > -s.radius && t <= 0.2 && v.length() < s.radius + 0.5) block = true; // カメラが中に入りそう
-      }
-      if (block && o.c.visible) { o.c.visible = false; O.hidden.add(o.c); }
-      else if (!block && O.hidden.has(o.c)) { o.c.visible = true; O.hidden.delete(o.c); }
-    }
   },
   /* ---------- 夜空を見上げる（ドローンショー） ---------- */
   // 北の空を、木がどのくらいふさぐか（カメラの位置から）
