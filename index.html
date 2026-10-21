@@ -3038,7 +3038,7 @@ const TITLES = []; // 称号の入れ物（0.9.58。中身は src/content/titles
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.78', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.79', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -3046,6 +3046,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.79', '2026年10月21日', '木を増やしました。ベンチや切り株のそばと、歩く道ぞいに、ハルニレ・カエデ・サクラの木陰。物を置く場所のまわりも、木を残すようにしました。'],
     ['0.9.78', '2026年10月21日', '小川の橋を作り直しました（岸から岸へ、ゆるい弧の板橋。歩いても水にぬれません）。ドローンショーに、20秒ほどの短い演目「ひとときの空」を足しました。写真は、タップした所に写っている物（小さな虫や壁、木の上のリスも）にピントが合います。牛舎に入った時、屋根のパネルだけが浮かんで見えないように。カフェは、はるにれの木と重ならないよう、駐車場の北へ。これから建つ物や置く物の場所は、木を生やさずに空けておきます。10からの数は「17件」「17個」のように数えます。'],
     ['0.9.77', '2026年10月21日', 'iPhone のホーム画面から開いても、ゲームが遊べるようになりました（0.9.76 で直り、確かめのための小さな表示を外しました）。'],
     ['0.9.76', '2026年10月21日', 'iPhone のホーム画面から開いた時の、ゲームの画面の入れ物の作り直し方を、うまくいった時と同じ形に直しました。'],
@@ -8658,8 +8659,8 @@ function layoutReserve() {
   const out = [], put = (q, c) => out.push(q.length === 3 ? [q[0] == null ? c.x : q[0], q[1] == null ? c.z : q[1], q[2]] : [q[0] == null ? c.x : q[0], q[1] == null ? c.z : q[1], q[2], q[3]]);
   for (const id in MS_RESERVE) { const c = catalogEntry(id); if (c && c.stage <= G.stage) MS_RESERVE[id].forEach((q) => put(q, c)); }
   EXTRA_RESERVE.forEach((q) => put(q, {}));
-  for (const q of SLOTS) if (slotAvailable(q)) out.push([q.x, q.z, 1.4]);
-  for (const q of SEATS) if (G.stage >= q[3]) out.push([q[0], q[1], 1.2]);
+  for (const q of SLOTS) if (slotAvailable(q)) out.push([q.x, q.z, 0.8]); // 置く物の上に枝葉がかかるのはよい（木陰）。幹だけよける（0.9.79）
+  for (const q of SEATS) if (G.stage >= q[3]) out.push([q[0], q[1], 0.6]);
   return out;
 }
 function reservedAt(x, z, pad) {
@@ -8694,6 +8695,38 @@ function finishTrees() {
   clearGroup(W.layers.trees); f.meshes = [];
   f.build(W.layers.trees);
 }
+/* 木陰（0.9.79）：木陰で休める、涼しげなサンクチュアリに。座る所のそばと、歩く道ぞいに、ハルニレ・カエデ・サクラ
+   日は南から差すので、木陰は木の北に落ちる → 座る所の南がわから選ぶ。座る所の後ろ（座った時のカメラの側）と、古いベンチの眺めはふさがない
+   柵・道・建物・予約・行事の飾りの場所・ほかの木から離す */
+function shadeTrees(f, s) {
+  const types = ['elm', 'maple', 'sakura'], fences = W.fenceCols || [];
+  const A = eventAnchors(), evs = [A.a, A.b, A.c].concat(A.path || []);
+  const ok = (x, z) => isLandAt(x, z) && !inRect(x, z, BENCH_VIEW) && treeSpot(x, z, 0.8) && treeClear({ type: types[k % 3], x, z, s: 0.85 }, W.colliders)
+    && !fences.some((c) => x > c[0] - 1 && x < c[1] + 1 && z > c[2] - 1 && z < c[3] + 1)
+    && evs.every((p) => Math.hypot(x - p[0], z - p[1]) > 2.6) && f.items.every((t) => Math.hypot(t.x - x, t.z - z) > 3.4);
+  let k = 0;
+  const seats = [[5.2, 22]].concat(SEATS.filter((q) => s >= q[3]).map((q) => [q[0], q[1]]), hasMilestone('bench_flowers') ? [[3.4, 6], [-3.4, 36]] : []);
+  for (const [x, z] of seats) {
+    const ry = benchFacing(x, z), fx = Math.sin(ry), fz = Math.cos(ry);
+    for (const [dx, dz] of [[0, 2.8], [-1.9, 2.3], [1.9, 2.3], [-2.9, 0.9], [2.9, 0.9], [0, 3.8], [-3.2, 2.6], [3.2, 2.6]]) {
+      if (dx * fx + dz * fz < -0.8) continue; // 座る所の後ろ
+      if (ok(x + dx, z + dz)) { f.add(types[k++ % 3], x + dx, z + dz, 0.85); break; }
+    }
+  }
+  // 歩く道ぞい：道から3mほどの所。10m より近くには並べない
+  const cand = [];
+  for (let x = -46; x <= 46; x += 2) for (let z = -46; z <= 46; z += 2) {
+    if (pathInfo(x, z) || !isLandAt(x, z)) continue;
+    if ([[3, 0], [-3, 0], [0, 3], [0, -3]].some(([dx, dz]) => pathInfo(x + dx, z + dz))) cand.push([x + hash2(x, z) - 0.5, z + hash2(z, x) - 0.5, hash2(x * 3 + 1, z * 7 + 2)]);
+  }
+  cand.sort((a, b) => a[2] - b[2]);
+  const placed = [], want = 3 + s * 3;
+  for (const [x, z] of cand) {
+    if (placed.length >= want) break;
+    if (placed.some((p) => Math.hypot(p[0] - x, p[1] - z) < 10) || !ok(x, z)) continue;
+    f.add(types[k++ % 3], x, z, 0.85); placed.push([x, z]);
+  }
+}
 function buildTrees() {
   const f = new Forest(); W.forest = f;
   const s = G.stage;
@@ -8725,6 +8758,7 @@ function buildTrees() {
   // 敷地の中の木陰
   const inner = [[-33, 25, 'elm', 2], [-28, -2, 'elm', 2], [-40, -6, 'birch', 2], [36, 26, 'maple', 2], [18, 10, 'birch', 2], [-6, 30, 'birch', 2], [30, -10, 'birch', 2], [-20, -20, 'elm', 3], [-38, -18, 'birch', 3], [30, -26, 'elm', 4], [6, 26, 'maple', 2], [-14, 10, 'birch', 2]];
   for (const [x, z, t, st] of inner) { const p = s >= st && treeNear(x, z, 1); if (p) f.add(t, p[0], p[1], 0.9); }
+  if (s >= 2) shadeTrees(f, s);
   // 段階4：森と湿地
   if (s >= 4) {
     for (let i = 0; i < 160; i++) {
@@ -8749,7 +8783,7 @@ function buildTrees() {
     }
   }
   // W04：境界に木が育つ／B04：社員が植えた木
-  if (G.flags.borderTrees) for (let i = 0; i < 12; i++) { const x = -46 + i * 8, z = 47; if (treeSpot(x, z, 1)) f.add('young', x, z, 1.1); }
+  if (G.flags.borderTrees) for (let i = 0; i < 12; i++) { const p = treeNear(-46 + i * 8, 47, 1); if (p) f.add('young', p[0], p[1], 1.1); }
   // 0.9.54：(6, 34) は、行事の飾り（感謝祭の干し草の迷路、食事会のテーブル）の場所と重なっていたので、少し北東へ
   { const A = eventAnchors(), evFree = (x, z) => Math.hypot(x - A.c[0], z - A.c[1]) > 4.8;
     if (G.flags.plantedTrees) for (const [x, z] of [[10.6, 36.2], [-6, 36], [5, 16]]) if (treeSpot(x, z, 1) && evFree(x, z)) f.add('young', x, z, 1); }
