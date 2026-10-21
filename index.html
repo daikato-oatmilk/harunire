@@ -113,6 +113,8 @@ svg.spi { width: 1.3em; height: 1.3em; vertical-align: -0.28em; margin: 0 .06em 
 #app { position: fixed; inset: 0; z-index: 1; background: linear-gradient(#9CBFD9, #E8EFEA 78%); overflow: hidden; touch-action: none; } /* z-index：iPhone のホーム画面から開いた時、重なり順がないと #app がまるごと描かれないことがある（0.9.72） */
 #gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 #labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+/* 紙芝居をめくる（0.9.80）：大きく見え方が変わる時だけ、景色の上に。札とボタンの下（動かない枠として残す） */
+#cam-fade { position: absolute; inset: 0; pointer-events: none; opacity: 0; visibility: hidden; background: var(--paper); }
 body.zen #labels { display: none; }
 .lbl3d { position: absolute; left: 0; top: 0; transform: translate(-50%, -100%); padding: 1px 8px 2px; font-size: var(--fs-s); white-space: nowrap; transition: opacity .25s; background-color: var(--paper); background-image: var(--grain); border: 1.5px solid var(--sumi); border-radius: var(--r-s); box-shadow: var(--shadow-s); color: var(--ink); font-weight: 500; }
 .lbl3d.npc { background: rgba(var(--pine-rgb), .92); background-color: var(--pine); color: var(--paper); border-color: var(--pine-d); }
@@ -1596,6 +1598,7 @@ ul.etho li .q { color: var(--ink-3, #999); }
   <canvas id="gl" aria-label="サンクチュアリの箱庭"></canvas>
   <div id="yoyu-veil" aria-hidden="true"></div>
   <div id="labels" aria-hidden="true"></div>
+  <div id="cam-fade" aria-hidden="true"></div>
   <div id="beh" class="beh" hidden aria-live="polite"></div>
 
   <div id="hud" hidden>
@@ -3038,7 +3041,7 @@ const TITLES = []; // 称号の入れ物（0.9.58。中身は src/content/titles
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.79', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.80', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -3046,6 +3049,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.80', '2026年10月21日', 'おだやかなカメラにしました。景色は、あなたが動かした時だけ動きます。歩くとカメラがうしろへまわるのは、はじめは切って、設定で選べるように。なでる時や「見る」の時は、カメラを回さずに、紙芝居をめくるように切りかえます。知らせで、カメラが勝手に動くこともなくなりました'],
     ['0.9.79', '2026年10月21日', '木を増やしました。ベンチや切り株のそばと、歩く道ぞいに、ハルニレ・カエデ・サクラの木陰。物を置く場所のまわりも、木を残すようにしました。'],
     ['0.9.78', '2026年10月21日', '小川の橋を作り直しました（岸から岸へ、ゆるい弧の板橋。歩いても水にぬれません）。ドローンショーに、20秒ほどの短い演目「ひとときの空」を足しました。写真は、タップした所に写っている物（小さな虫や壁、木の上のリスも）にピントが合います。牛舎に入った時、屋根のパネルだけが浮かんで見えないように。カフェは、はるにれの木と重ならないよう、駐車場の北へ。これから建つ物や置く物の場所は、木を生やさずに空けておきます。10からの数は「17件」「17個」のように数えます。'],
     ['0.9.77', '2026年10月21日', 'iPhone のホーム画面から開いても、ゲームが遊べるようになりました（0.9.76 で直り、確かめのための小さな表示を外しました）。'],
@@ -4476,7 +4480,7 @@ function overviewDist() { const a = R.camera.aspect; return 165 * Math.max(1, 1.
 // あなたが選んだ見え方を覚えておき、写真や休憩、全体を見たあとは、その見え方に戻す
 function camFree() { return !CAM.overview && !CAM.focus && !CAM.lock && !CAM.spin; }
 function camRemember() { if (camFree()) { CAM.user.yaw = CAM.tYaw; CAM.user.pitch = CAM.tPitch; CAM.user.dist = CAM.tDist; } }
-function camRestore() { CAM.focus = null; CAM.overview = false; CAM.tYaw = CAM.user.yaw; CAM.tPitch = CAM.user.pitch; CAM.tDist = CAM.user.dist; }
+function camRestore() { CAM.focus = null; CAM.focusBack = false; CAM.focusView = false; CAM.overview = false; CAM.tYaw = CAM.user.yaw; CAM.tPitch = CAM.user.pitch; CAM.tDist = CAM.user.dist; camCutIfBig(); }
 function camHome(yaw) { CAM.user.pitch = CAM_HOME.pitch; CAM.user.dist = CAM_HOME.dist; if (yaw !== undefined) CAM.user.yaw = yaw; camRestore(); }
 // 寄る・離れる（ピンチとホイール）。0.9.37：メニューの「全体」をなくし、かわりにピンチ（ホイール）で丘ぜんたいまで引ける。
 // 遠くまで引くほど、見下ろす角度に、見る中心も丘のまんなかへ。遠くから見ている時は、タップした所へ移動できる（farView）
@@ -4492,7 +4496,7 @@ const FAR_DIST = 70;
 function farView() { return CAM.overview || CAM.dist > FAR_DIST; }
 const _camCenter = new THREE.Vector3(0, 0, 2);
 function setOverview(on) {
-  if (on) { camRemember(); CAM.overview = true; CAM.tPitch = 0.92; CAM.tDist = overviewDist(); }
+  if (on) { camRemember(); CAM.overview = true; CAM.tPitch = 0.92; CAM.tDist = overviewDist(); camCutIfBig(); }
   else camRestore();
 }
 // ふたり（あなたと動物）を、横から少し肩越しに。体の大きさに合わせた近さで（なでている時など）
@@ -4527,6 +4531,7 @@ function framePair(ax, az, bx, bz, size, ms, blockers) {
     CAM.overview = false; CAM.focus = new THREE.Vector3(mx, heightAt(mx, mz) + (top ? 0.3 : 0.55), mz);
     CAM.focusUntil = performance.now() + (ms || 5000); CAM.focusBack = true;
     CAM.tYaw = top ? back : yawS; CAM.tDist = top ? distS * 0.95 : distS; CAM.tPitch = top ? 1.05 : 0.2;
+    camCutIfBig(); // 0.9.80：回りこまずに、めくる
     return;
   }
   let yaw = cands[0], best = 1e9;
@@ -4534,13 +4539,16 @@ function framePair(ax, az, bx, bz, size, ms, blockers) {
   CAM.overview = false; CAM.focus = new THREE.Vector3((ax + bx) / 2, heightAt((ax + bx) / 2, (az + bz) / 2) + 0.5 + size * 0.35, (az + bz) / 2);
   CAM.focusUntil = performance.now() + (ms || 5000); CAM.focusBack = true;
   CAM.tYaw = yaw; CAM.tDist = dist; CAM.tPitch = narrow ? 0.4 : 0.34;
+  camCutIfBig(); // 0.9.80：回りこまずに、めくる
 }
 // 追加されたものの場所を見る（0.9.62）：遠く、斜め上から眺める（近すぎて、どこの何かわからないことのないように）
-function focusPlace(x, z, ms) { focusAt(x, z, 34, ms || 7000); CAM.tPitch = 1.0; }
+// 0.9.80：自動では戻らない。歩きだすか、左下の「もどる」で（focusView）
+function focusPlace(x, z, ms) { focusAt(x, z, 34, ms || 60000); CAM.tPitch = 1.0; CAM.focusView = true; }
 function focusAt(x, z, dist, ms) {
   camRemember();
   CAM.overview = false; CAM.focus = new THREE.Vector3(x, heightAt(x, z) + 1, z); CAM.focusUntil = performance.now() + (ms || 5000);
-  CAM.tDist = dist || 20; CAM.tPitch = 0.72; CAM.focusBack = true;
+  CAM.tDist = dist || 20; CAM.tPitch = 0.72; CAM.focusBack = true; CAM.focusView = false;
+  camCutIfBig();
 }
 // 写したいものを画面の上の方に寄せる（下にパネルが出ている時）。px だけ上へ
 function camShift(px) {
@@ -4549,60 +4557,147 @@ function camShift(px) {
   const w = window.innerWidth, h = window.innerHeight;
   R.camera.setViewOffset(w, h, 0, CAM.shiftPx, w, h);
 }
+/* ---------- おだやかなカメラ（0.9.80。プロジェクトの claude/camera-comfort-plan.md） ----------
+   景色は、あなたが動かした時だけ動く。指で見回す・寄る時は、指のとおり。
+   それ以外の自動の動きは、ゆっくり動きだし、ゆっくり止まる。速さにも上限（向き 毎秒20°・加速 毎秒30°、上下 毎秒15°・加速 毎秒25°）。
+   回転は並進より酔いやすく、不快が出はじめるのは平均で毎秒27°ほど（Terenzi & Zaal、NASA Ames）。
+   大きく見え方が変わる時は、動かさずに紙芝居をめくる（camCut）：淡い紙の色（夜は夜の色）で0.2秒とじて、切りかえ、0.3秒でひらく。
+   Apple の HIG：仮想の世界を回さない。向きを変えるなら、短いフェードの間に。物の移動はフェードで */
+const CALM = { yawV: 0.35, yawA: 0.52, pitchV: 0.26, pitchA: 0.44, kp: 1.6, cutOut: 0.2, cutIn: 0.3,
+  cdInV: 4, cdInA: 10, cdOutV: 4, cdOutA: 6, cdHold: 0.2 }; // さえぎる物で寄る速さ・戻る速さ（m/秒）と、戻るまで待つ秒
+// 速さ v を、残り err に向けて、速さ vmax・加速 amax までで近づける（ゆっくり動きだし、ゆっくり止まる）
+function calmStep(v, err, vmax, amax, dt) { const want = clamp(err * CALM.kp, -vmax, vmax); return v + clamp(want - v, -amax * dt, amax * dt); }
+// 指で見回したり寄ったりしている時（スティックで歩く指は入らない）
+function camByHand() { return performance.now() - INPUT.lastLook < 350; }
+function camFadeOp() { const c = CAM.cut; if (!c) return 0; return c.snapped ? 1 - smooth(clamp((c.t - CALM.cutOut) / CALM.cutIn, 0, 1)) : smooth(clamp(c.t / CALM.cutOut, 0, 1)); }
+function camFadeSet(op) {
+  const el = CAM.fadeEl || (CAM.fadeEl = document.getElementById('cam-fade')); if (!el || CAM.fadeOp === op) return;
+  CAM.fadeOp = op; el.style.opacity = op.toFixed(3); el.style.visibility = op > 0 ? 'visible' : 'hidden';
+}
+// 紙芝居をめくる。instant：とじた所から始める（カメラを直に置く時）
+function camCut(instant) {
+  const c = CAM.cut;
+  if (c && !c.snapped && !instant) return; // とじている途中：切りかえる時に、いちばん新しい見え方を使う
+  const op = instant ? 1 : camFadeOp();
+  CAM.cut = { t: CALM.cutOut * op, snapped: false, fov0: R.camera.fov, fovWant: null };
+  const el = CAM.fadeEl || (CAM.fadeEl = document.getElementById('cam-fade'));
+  if (el) el.style.background = typeof SKY !== 'undefined' && SKY.night > 0.5 ? '#2E3242' : ''; // 夜は、暗い所からいきなり明るくしない
+  if (instant) camFadeSet(1);
+}
+// すでに紙で隠れている時（休む時の #veil）は、そのまま切りかえる
+function camSnap() { CAM.cut = null; CAM.snapReq = true; camFadeSet(0); }
+// 見え方が大きく変わるなら、めくる。小さな変わり方は、ゆっくり動く
+function camCutIfBig() {
+  let dy = CAM.tYaw - CAM.yaw; dy = Math.atan2(Math.sin(dy), Math.cos(dy));
+  const want = CAM.overview ? _camCenter : CAM.focus || (typeof ACT !== 'undefined' && ACT.player ? ACT.player.m.root.position : null);
+  if (Math.abs(dy) > 0.6 || Math.abs(CAM.tPitch - CAM.pitch) > 0.35 || Math.abs(Math.log(Math.max(0.1, CAM.tDist) / Math.max(0.1, CAM.dist))) > 0.45 || (want && want.distanceTo(CAM.target) > 6)) camCut();
+}
+// 寄って見ていた所から、あなたのそばへ戻る（歩きだした時、「もどる」を押した時）
+function camLeaveFocus() { if (!CAM.focus) return; if (CAM.focusBack) camRestore(); else CAM.focus = null; }
 function updateCamera(dt, followPos) {
   const now = performance.now();
+  CAM.cutFrame = false;
+  // 一時的に寄っていた時間（なでる、卵など）が終わったら、元の見え方へ
+  if (CAM.focus && CAM.focusBack && now >= CAM.focusUntil && !CAM.overview) camRestore();
+  // 紙芝居をめくる：とじている間は、カメラを動かさない。とじきったら、新しい見え方へ切りかえる
+  let snap = !!CAM.snapReq; CAM.snapReq = false;
+  if (CAM.cut) {
+    const c = CAM.cut; c.t += dt;
+    if (!c.snapped) {
+      if (Math.abs(R.camera.fov - c.fov0) > 0.01) { c.fovWant = R.camera.fov; R.camera.fov = c.fov0; R.camera.updateProjectionMatrix(); }
+      if (c.t < CALM.cutOut) { camFadeSet(camFadeOp()); return; }
+      c.snapped = true; c.t = CALM.cutOut; snap = true;
+      if (c.fovWant !== null) { R.camera.fov = c.fovWant; R.camera.updateProjectionMatrix(); }
+    }
+    camFadeSet(camFadeOp());
+    if (c.t >= CALM.cutOut + CALM.cutIn) CAM.cut = null;
+  }
   if (CAM.spin) CAM.tYaw += dt * 0.05;
+  if (snap) { CAM.cutFrame = true; CAM.yaw = CAM.tYaw; CAM.pitch = CAM.tPitch; CAM.dist = CAM.tDist; CAM.vy = CAM.vp = CAM.vd = CAM.vt = 0; }
   if (CAM.overview) CAM.tTarget.set(0, 0, 2);
   else if (CAM.focus && now < CAM.focusUntil) CAM.tTarget.copy(CAM.focus);
   else {
-    // 一時的に寄っていた（動物を見る、知らせの「見る」）なら、元の見え方へ
-    if (CAM.focus && CAM.focusBack) { CAM.focusBack = false; CAM.focus = null; camRestore(); }
     CAM.focus = null;
     // 近い時は肩越し：あなたを少し左に、頭の高さを見る
     const near = clamp((14 - CAM.dist) / 8, 0, 1);
-    CAM.shoulder += (near - CAM.shoulder) * Math.min(1, dt * 3);
+    CAM.shoulder = snap ? near : CAM.shoulder + (near - CAM.shoulder) * Math.min(1, dt * 3);
     const off = 0.55 * CAM.shoulder, rx = Math.cos(CAM.yaw), rz = -Math.sin(CAM.yaw);
     CAM.tTarget.set(followPos.x + rx * off, followPos.y + 1.2 + 0.3 * CAM.shoulder, followPos.z + rz * off);
     const far = clamp((CAM.tDist - 60) / 100, 0, 1); if (far > 0) CAM.tTarget.lerp(_camCenter, far); // 遠くまで引いた時は、丘のまんなかを
   }
-  // しゃがんだ時（0.9.45）：見る所とカメラを低く、少し寄って、目線を小さな子に近づける（寄って見ている時だけ）
-  { const want = CAM.overview || CAM.focus ? 0 : (CAM.crouchK || 0) * clamp((20 - CAM.tDist) / 8, 0, 1); CAM.ck = (CAM.ck || 0) + (want - (CAM.ck || 0)) * Math.min(1, dt * 2); }
+  // しゃがんだ時（0.9.45）：見る所とカメラを低く、少し寄って、目線を小さな子に近づける（寄って見ている時だけ）。
+  // 0.9.80：ゆっくり動きだし、ゆっくり止まる
+  {
+    const want = CAM.overview || CAM.focus ? 0 : (CAM.crouchK || 0) * clamp((20 - CAM.tDist) / 8, 0, 1);
+    CAM.ckL = snap ? want : (CAM.ckL || 0) + clamp(want - (CAM.ckL || 0), -dt * 0.7, dt * 0.7);
+    CAM.ck = smooth(CAM.ckL);
+  }
   if (CAM.ck > 0.001 && !CAM.overview && !CAM.focus) CAM.tTarget.y -= 0.78 * CAM.ck;
-  // 休んでいる間（夜空のショーのほかは）は、ゆっくり寄る（0.9.52。前は1秒ほどで切りかわって、急だった）
-  const slow = typeof UI !== 'undefined' && UI.rest && UI.rest.mode !== 'sky';
-  const k = 1 - Math.pow(slow ? 0.25 : 0.001, dt);
-  CAM.target.lerp(CAM.tTarget, CAM.overview ? k * 0.5 : k * 0.9);
+  // 見る所：あなたについていく時は、ぴったり（あなたが歩いた分）。ほかの所を見る時は、ゆっくり（毎秒2mまで）
+  const byHand = camByHand();
+  if (snap) CAM.target.copy(CAM.tTarget);
+  else if (!CAM.focus && !CAM.overview) { CAM.target.lerp(CAM.tTarget, (1 - Math.pow(0.001, dt)) * 0.9); CAM.vt = 0; }
+  else { const d = CAM.target.distanceTo(CAM.tTarget); CAM.vt = calmStep(CAM.vt || 0, d, 2, 2.5, dt); if (d > 1e-4) CAM.target.lerp(CAM.tTarget, clamp(CAM.vt * dt / d, 0, 1)); }
+  // 向き・上下・距離：指で動かしている時は指のとおり。自動の時は、上限つきで
   let dy = CAM.tYaw - CAM.yaw; dy = Math.atan2(Math.sin(dy), Math.cos(dy));
-  CAM.yaw += dy * k; CAM.pitch += (CAM.tPitch - CAM.pitch) * k; CAM.dist += (CAM.tDist - CAM.dist) * k * 0.8;
+  if (byHand) { const k = 1 - Math.pow(0.001, dt); CAM.yaw += dy * k; CAM.pitch += (CAM.tPitch - CAM.pitch) * k; CAM.dist += (CAM.tDist - CAM.dist) * k * 0.8; CAM.vy = CAM.vp = CAM.vd = 0; }
+  else if (!snap) {
+    CAM.vy = calmStep(CAM.vy || 0, dy, CALM.yawV, CALM.yawA, dt); CAM.yaw += CAM.vy * dt;
+    CAM.vp = calmStep(CAM.vp || 0, CAM.tPitch - CAM.pitch, CALM.pitchV, CALM.pitchA, dt); CAM.pitch += CAM.vp * dt;
+    const dv = Math.max(1.5, CAM.dist * 0.25); CAM.vd = calmStep(CAM.vd || 0, CAM.tDist - CAM.dist, dv, dv * 1.5, dt); CAM.dist += CAM.vd * dt;
+  }
   // 低い所まで下げたら、それ以上はカメラを下げずに、空のほうを見上げる
   const ck = CAM.ck || 0, pitch = CAM.pitch + (0.13 - CAM.pitch) * ck * 0.8;
   const low = 0.1, pe0 = Math.max(pitch, low), tilt = Math.max(0, low - pitch) * 1.15;
   let dist = CAM.dist + (Math.min(CAM.dist, 4.4) - CAM.dist) * ck, lift = 0;
-  if (!CAM.overview && dist < 30) camTrees(CAM.target, dist);
+  const nearCam = !CAM.overview && dist < 30;
+  if (nearCam) camTrees(CAM.target, dist);
   // 建物の中や木の葉の中にカメラが入らないように。すぐ後ろに壁がある時は、寄りすぎずに、少し上から見る
   const clr = (pp) => camClear(CAM.target, Math.sin(CAM.yaw) * Math.cos(pp), Math.sin(pp), Math.cos(CAM.yaw) * Math.cos(pp), dist);
-  if (!CAM.overview && dist < 30) {
+  if (nearCam) {
     const want = Math.min(dist, 3.4); let best = clr(pe0);
     if (best < want - 0.05) for (let k = 1; k <= 6; k++) { const d1 = clr(pe0 + k * 0.14); if (d1 > best + 0.2) { best = d1; lift = k * 0.14; } if (d1 >= want) break; }
   }
-  CAM.lift = (CAM.lift || 0) + (lift - (CAM.lift || 0)) * Math.min(1, dt * 2.5);
+  // 上から見るのは、上げる時はすぐ決め、下げるのは、さえぎる物がなくなって少したってから。上げ下げは、ゆっくり（0.9.80）
+  if (lift >= (CAM.liftWant || 0)) { CAM.liftWant = lift; CAM.liftHold = 0; } else if ((CAM.liftHold = (CAM.liftHold || 0) + dt) > CALM.cdHold) CAM.liftWant = lift;
+  if (snap) { CAM.lift = CAM.liftWant; CAM.vl = 0; } else { CAM.vl = calmStep(CAM.vl || 0, CAM.liftWant - (CAM.lift || 0), CALM.pitchV, CALM.pitchA, dt); CAM.lift = (CAM.lift || 0) + CAM.vl * dt; }
   const pe = pe0 + CAM.lift, cp = Math.cos(pe), sp = Math.sin(pe);
   const p = R.camera.position;
-  // さえぎる物があれば、すぐ寄る。なくなったら、ゆっくり戻る（木のそばを歩く時に、カメラが跳ねないように）
-  if (!CAM.overview && dist < 30) { const dd = clr(pe); CAM.cd = (CAM.cd === undefined || dd < CAM.cd) ? dd : CAM.cd + (dd - CAM.cd) * Math.min(1, dt * 2.5); dist = Math.min(dist, CAM.cd); } else CAM.cd = undefined;
+  // さえぎる物があれば寄る。寄るのも戻るのも、なめらかに。戻るのは、なくなって少し（CALM.cdHold）たってから
+  // （前は、すぐ寄って、ゆっくり戻った。木のそばを歩くと、寄ったり離れたりをくり返した。0.9.80）
+  if (nearCam) {
+    const dd = Math.min(dist, clr(pe));
+    if (CAM.cd === undefined || snap) { CAM.cd = dd; CAM.vc = 0; CAM.cdHold = 0; }
+    else {
+      let want = null;
+      if (dd < CAM.cd - 0.05) { want = dd; CAM.cdHold = 0; } // さえぎられた：寄る
+      else if (CAM.cd >= dist - 0.05) { CAM.cd = dd; CAM.vc = 0; } // さえぎる物はない（あなたが寄ったり離れたりした分は、そのまま）
+      else if ((CAM.cdHold = (CAM.cdHold || 0) + dt) > CALM.cdHold) want = dd; else want = CAM.cd;
+      if (want !== null) {
+        if (byHand && want < CAM.cd) { CAM.cd += (want - CAM.cd) * Math.min(1, dt * 8); CAM.vc = 0; } // 指で見回して壁に向けた時は、指についていく
+        else { const inn = want < CAM.cd; CAM.vc = calmStep(CAM.vc || 0, want - CAM.cd, inn ? CALM.cdInV : CALM.cdOutV, inn ? CALM.cdInA : CALM.cdOutA, dt); CAM.cd += CAM.vc * dt; }
+      }
+    }
+    dist = Math.min(dist, CAM.cd);
+  } else CAM.cd = undefined;
   p.set(CAM.target.x + Math.sin(CAM.yaw) * cp * dist, CAM.target.y + sp * dist, CAM.target.z + Math.cos(CAM.yaw) * cp * dist);
-  const gh = (Math.abs(p.x) < 56 && Math.abs(p.z) < 56) ? heightAt(p.x, p.z) + (dist < 12 ? 0.9 : 2) : -99;
-  if (p.y < gh) p.y = gh;
+  // 地面にもぐらないように。持ち上げる高さは、ゆっくり変える（前は、距離12mの所で、いきなり1m変わった）
+  if (Math.abs(p.x) < 56 && Math.abs(p.z) < 56) {
+    const h0 = heightAt(p.x, p.z), gh = h0 + 0.9 + 1.1 * clamp((dist - 10) / 4, 0, 1);
+    if (CAM.gy === undefined || snap) { CAM.gy = gh; CAM.vg = 0; } else { CAM.vg = calmStep(CAM.vg || 0, gh - CAM.gy, 1.5, 4, dt); CAM.gy += CAM.vg * dt; }
+    p.y = Math.max(p.y, CAM.gy, h0 + 0.35);
+  } else CAM.gy = undefined;
   if (tilt > 0) {
     const e = -pe + tilt, ce = Math.cos(e);
     _look.set(p.x - Math.sin(CAM.yaw) * ce * 10, p.y + Math.sin(e) * 10, p.z - Math.cos(CAM.yaw) * ce * 10);
     R.camera.lookAt(_look);
   } else R.camera.lookAt(CAM.target);
   R.scene.fog.near = CAM.dist + 90; R.scene.fog.far = CAM.dist + 460;
-  // 近くで見る時は視野を広げる（縦長の画面では特に）。休む時や見た目を選ぶ時は、それぞれの画角のまま
+  // 近くで見る時は視野を広げる（縦長の画面では特に）。休む時や見た目を選ぶ時は、それぞれの画角のまま。めくった時は、すぐにその画角へ
   if (!CAM.fovHold) {
     const narrow = R.camera.aspect < 0.8, want = 36 + (narrow ? 26 : 12) * CAM.shoulder;
-    if (Math.abs(R.camera.fov - want) > 0.05) { R.camera.fov += (want - R.camera.fov) * Math.min(1, dt * 4); R.camera.updateProjectionMatrix(); }
+    if (snap) { R.camera.fov = want; R.camera.updateProjectionMatrix(); }
+    else if (Math.abs(R.camera.fov - want) > 0.05) { R.camera.fov += (want - R.camera.fov) * Math.min(1, dt * 4); R.camera.updateProjectionMatrix(); }
   }
 }
 const _look = new THREE.Vector3();
@@ -4823,12 +4918,13 @@ function keyVector() {
   let f = 0, s = 0;
   if (k.KeyW || k.ArrowUp) f += 1; if (k.KeyS || k.ArrowDown) f -= 1;
   if (k.KeyD || k.ArrowRight) s += 1; if (k.KeyA || k.ArrowLeft) s -= 1;
-  if (k.KeyQ) { CAM.tYaw += 0.03; camRemember(); } if (k.KeyZ) { CAM.tYaw -= 0.03; camRemember(); }
+  if (k.KeyQ) { CAM.tYaw += 0.03; camRemember(); INPUT.lastLook = performance.now(); } if (k.KeyZ) { CAM.tYaw -= 0.03; camRemember(); INPUT.lastLook = performance.now(); }
   if (!f && !s) {
     // スマホのスティック：倒した向きへ。少し倒すとゆっくり、端まで倒すと歩く速さ（小走りはしない。0.9.37）
     const st = INPUT.stick; if (!st) return null;
     const ex = st.x - st.ox, ey = st.y - st.oy, d = Math.hypot(ex, ey); if (d < 9) return null;
-    const mag = Math.min(1, d / STICK_R), fx0 = -Math.sin(CAM.yaw), fz0 = -Math.cos(CAM.yaw), sf = -ey / d, ss = ex / d;
+    if (st.yaw0 === undefined || camByHand()) st.yaw0 = CAM.yaw; // 0.9.80：カメラが自動で動いても、歩く向きはずれない（回りつづけないように）
+    const mag = Math.min(1, d / STICK_R), fx0 = -Math.sin(st.yaw0), fz0 = -Math.cos(st.yaw0), sf = -ey / d, ss = ex / d;
     const x0 = fx0 * sf + (-fz0) * ss, z0 = fz0 * sf + fx0 * ss, l0 = Math.hypot(x0, z0) || 1;
     return { x: x0 / l0, z: z0 / l0, run: mag > 0.92, mag, stick: true };
   }
@@ -11193,7 +11289,7 @@ function updatePlayer(dt) {
   // 歩く速さ：景色をゆっくり楽しめるように（0.9.32 で 7.5 → 4.8、0.9.37 で 3.6 m/秒）。
   // 小走りになるのは、遠く（22mより先）をタップした時だけ（パソコンは Shift でも）。スティックは、端まで倒しても歩く速さまで
   let vx = 0, vz = 0, spd = WALK_SPEED;
-  if (kv) { vx = kv.x; vz = kv.z; if (kv.run && !kv.stick) spd = TROT_SPEED; else if (kv.stick) spd = 1.2 + (WALK_SPEED - 1.2) * Math.min(1, kv.mag / 0.85); p.target = null; p.pending = null; p.path = null; CAM.focus = null; }
+  if (kv) { vx = kv.x; vz = kv.z; if (kv.run && !kv.stick) spd = TROT_SPEED; else if (kv.stick) spd = 1.2 + (WALK_SPEED - 1.2) * Math.min(1, kv.mag / 0.85); p.target = null; p.pending = null; p.path = null; camLeaveFocus(); }
   else if (p.target) {
     // 相手が動く時は、ときどき道を探し直す
     if (p.pending && p.pending.ent) {
@@ -11253,11 +11349,7 @@ function crouchTick(p, dt, going) {
     const e = crouchTarget(p);
     if (e) {
       p.crouch = { e, t: 0 };
-      // その子が、あなたの肩ごしに見えるように、カメラをゆっくり後ろへ（見回している最中や、遠くから見ている時はそのまま）
-      if (camFree() && CAM.tDist < 20 && performance.now() - INPUT.lastLook > 2500) {
-        const want = Math.atan2(p.x - e.x, p.z - e.z) + 0.3; let d = want - CAM.tYaw; d = Math.atan2(Math.sin(d), Math.cos(d));
-        if (Math.abs(d) > 0.5) CAM.tYaw += d;
-      }
+      // 0.9.80：カメラの向きは変えない（前は、その子が肩ごしに見えるよう、カメラが勝手にまわった）
     }
   }
   if (p.crouch) {
@@ -11277,13 +11369,14 @@ function crouchPose(p) {
   m.arms[0].rotation.set(m.arms[0].rotation.x * (1 - k) - 0.62 * k, 0, 0.1 * k); m.arms[1].rotation.set(m.arms[1].rotation.x * (1 - k) - 0.5 * k, 0, -0.1 * k); // 手は、ひざの上に
 }
 // スマホで歩いている時は、カメラがゆっくり、あなたのうしろへまわる（見回したばかりの時と、こちらへ歩いてくる時はそのまま）。0.9.30
+// 0.9.80：はじめは切る（設定で選んだ人だけ）。まわる速さも、毎秒約60°から毎秒約17°に
 function camFollow(p, dt, kv) {
-  if (!IS_TOUCH || (kv && !kv.stick) || !camFree() || (G && G.settings && G.settings.camFollow === false)) return;
+  if (!IS_TOUCH || (kv && !kv.stick) || !camFree() || !(G && G.settings && G.settings.camFollow === true)) return;
   if (performance.now() - INPUT.lastLook < 1600 || CAM.dist > 30) return;
   for (const q of INPUT.pointers.values()) if (q.zone === 'look') return; // もう1本の指で見回している間は、まわさない（0.9.37）
   let d = p.heading + Math.PI - CAM.tYaw; d = Math.atan2(Math.sin(d), Math.cos(d));
   if (Math.abs(d) > 2.3 || Math.abs(d) < 0.01) return;
-  const rate = 1.05 * Math.min(1, Math.abs(Math.sin(d)) + 0.3);
+  const rate = 0.3 * Math.min(1, Math.abs(Math.sin(d)) + 0.3);
   CAM.tYaw += Math.sign(d) * Math.min(Math.abs(d), rate * dt); camRemember();
 }
 /* ---------- なでる・ブラッシング：小さな子にはしゃがんで、大きな子には手をのばして ---------- */
@@ -11440,6 +11533,7 @@ function animPerson(m, walk, phase, dt) {
   m.rig.position.y = walk ? Math.abs(Math.cos(phase)) * 0.06 : 0;
 }
 function movePlayerTo(x, z, pending) {
+  camLeaveFocus(); // 0.9.80：寄って見ていた所からは、歩きだすと戻る
   const p = ACT.player; p.target = [x, z]; p.pending = pending || null; p.stuckN = 0;
   p.path = navFind(p.x, p.z, x, z);
   // 通れない所をタップした時は、いちばん近くの通れる所を行き先にする
@@ -14048,8 +14142,7 @@ function triggerMilestone() {
   else buildMilestone(item.id, true);
   if (item.id === 'nestbox_insects' || item.id === 'bench_flowers') buildLittleLife();
   note('added', `${item.name}ができました（${SUPPORT[type].name}の支えが一番多かったので）`, [item.x, item.z, 3.5]);
-  UI.milestoneBanner(item, type); uiSound('chime');
-  focusPlace(item.x, item.z, 5500);
+  UI.milestoneBanner(item, type); uiSound('chime'); // 0.9.80：カメラは動かさない。知らせの「見る」から
   if (item.id === 'early_stream' || item.id === 'nestbox_insects') unlockCard('noPesticide', true);
   if (item.id === 'predator_fence') unlockCard('wildlife', true);
   GAME.save();
@@ -14188,8 +14281,7 @@ function acceptRequest(id) {
   note('friends', G.stage >= 2 ? `${names}が来ました。まずは検疫小屋で1週間、様子を見ます` : `${names}が来ました。鶏の庭の仲間になりました`, [z[0], z[1], 3]);
   if (firstOfKind && SPECIES[req.sp].card) unlockCard(SPECIES[req.sp].card);
   if (SPECIES[req.sp].bird && G.animals.some((a) => !SPECIES[a.sp].bird)) unlockCard('birdMammal', true);
-  unlockCard('dailyCare', true);
-  focusPlace(z[0], z[1], 5000);
+  unlockCard('dailyCare', true); // 0.9.80：カメラは動かさない。知らせの「見る」から
   const c = capacity();
   if (c.peopleRatio >= 0.8) setTimeout(() => UI.toast('はるこさん「そろそろ手が足りないね。行動の「仲間」から、仲間を募ってみようか」', 'people'), 1800);
   GAME.save(); UI.refresh();
@@ -15113,7 +15205,7 @@ function anniversary(a) {
   spend(1, 4);
   note('event', `${a.name}が来てから${y}年になりました。特別なおやつでお祝いしました`, null);
   addSupport('help', 'S', 'self', `${a.name}の来た日`);
-  const e = animalById(a.id); if (e) { UI.floatHeart(e); focusAt(e.x, e.z, 12, 3000); }
+  const e = animalById(a.id); if (e) UI.floatHeart(e); // 0.9.80：カメラは動かさない
   { const g0 = G; setTimeout(() => { if (G === g0 && STARTED) UI.autoPhoto(`${a.name}が来てから${y}年`); }, 900); }
   GAME.save(); UI.refresh();
 }
@@ -16163,7 +16255,7 @@ const UI = {
     $('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') { if (performance.now() - (UI._modalAt || 0) > 450) UI.closeModal(); } else UI.onClick(e); });
     $('#end-day').addEventListener('click', () => UI.endDayClick());
     // 視点：近く → ふつう → 遠く（0.9.30）
-    $('#view-btn').addEventListener('click', () => { UI.tutMark('view'); if (CAM.overview) { setOverview(false); UI.refresh(); } const v = camView(camViewIndex() + 1); $('#view-name').textContent = v.n; uiSound('click'); });
+    $('#view-btn').addEventListener('click', () => { UI.tutMark('view'); if (CAM.focusView && CAM.focus) { camLeaveFocus(); $('#view-name').textContent = CAM_VIEWS[camViewIndex()].n; uiSound('click'); return; } if (CAM.overview) { setOverview(false); UI.refresh(); } const v = camView(camViewIndex() + 1); $('#view-name').textContent = v.n; uiSound('click'); });
     $('#end-tip-x').addEventListener('click', (ev) => { ev.stopPropagation(); G.flags.endTipX = G.turn; UI.refresh(); });
     $('#t-res').addEventListener('click', () => UI.handsInfo());
     $('#prompt-btn').addEventListener('click', () => { const n = nearestInteractable(); if (n) UI.interact(n); });
@@ -16590,7 +16682,7 @@ const UI = {
       case 'remove': UI.startRemove(); break;
       case 'blocked': { const it = ITEMS[id]; GAME.unlockCard(it.card, true); UI.showCard(it.card, { alt: it.alt, altLabel: it.altLabel }); break; }
       case 'alt': UI.closeModal(); if (v === 'drone') UI.droneShow(); else if (ITEMS[v]) UI.startPlace(v); else if (v === 'native') { UI.openSheet('choice', 'L08'); } break;
-      case 'animal': UI.openSheet('card', +id, true); { const e2 = animalById(+id); if (e2) focusAt(e2.x, e2.z, 14, 6000); } break;
+      case 'animal': UI.openSheet('card', +id, true); { const e2 = animalById(+id); if (e2) { focusAt(e2.x, e2.z, 14, 60000); CAM.focusView = true; } } break;
       case 'pet': UI.petGo(+id, v || 'pet'); break;
       case 'treat': GAME.treatAnimal(find(id)); UI.render(); break;
       case 'sponsor': GAME.sponsorAnimal(find(id)); UI.render(); break;
@@ -16618,14 +16710,14 @@ const UI = {
       case 'ctl-help': UI.ctlHelp(); break;
       case 'tut-start': UI.closeSheet(); setTimeout(() => UI.tutStart(true), 200); break;
       case 'ctl-mode': G.settings.ctl = v; GAME.save(); UI.render(); break;
-      case 'toggle-follow': G.settings.camFollow = G.settings.camFollow === false; GAME.save(); break;
+      case 'toggle-follow': G.settings.camFollow = G.settings.camFollow !== true; GAME.save(); break;
       case 'talk-ans': { const r = GAME.talkAnswer(id, +v); if (r) UI.talkModal(id, r); else UI.closeModal(); if (UI.cur && !$('#sheet').hidden) UI.render(); break; }
       case 'open-person': { const push = !$('#sheet').hidden && $('#modal').hidden; UI.openSheet('person', id, push); break; }
       case 'open-talkread': { const push = !$('#sheet').hidden && $('#modal').hidden; UI.openSheet('talkread', { id, k: +v }, push); break; }
       case 'talkread-go': if (UI.cur && UI.cur.name === 'talkread') { UI.cur.arg = { id, k: +v }; UI.render(true); } break;
       case 'talk-go': { const e2 = UI.talkNpc(id); if (e2) { UI.closeSheet(); movePlayerTo(e2.x, e2.z, { ent: e2, kind: 'npc', reach: e2.reach || 2.6, silent: true }); } break; }
       case 'cover': { const ph = G.photos.find((x) => x.id === +id); if (ph) { GAME.setCover(ph.turn, ph.id); UI.closeModal(); UI.toast(`第${ph.turn}週の表紙にしました`, 'photo'); if (!$('#sheet').hidden) UI.render(); } break; }
-      case 'chg': { const f = v.split(',').map(Number); UI.closeModal(); if (!$('#sheet').hidden && UI.cur.name === 'morning') { /* 朝のパネルは開いたまま */ } focusPlace(f[0], f[1], 7000); glowRing(f[0], f[1], 3.5); break; }
+      case 'chg': { const f = v.split(',').map(Number); UI.closeModal(); if (!$('#sheet').hidden && UI.cur.name === 'morning') { /* 朝のパネルは開いたまま */ } focusPlace(f[0], f[1]); glowRing(f[0], f[1], 3.5); break; }
       case 'confirm': UI.confirm = v; UI.render(); break;
       case 'cancel': UI.confirm = null; UI.render(); break;
       case 'jump': UI.closeSheet(); GAME.jumpStage(+v); UI.toast(`「${STAGES[+v].name}」の姿にしました`, 'added'); break;
@@ -17116,7 +17208,7 @@ Object.assign(UI, {
         if (UI.importPending) h += `<div class="confirm">${esc(UI.importText)}<div class="btn-row u-mt8"><button class="btn small primary" data-act="import-yes">読み込む</button><button class="btn small" data-act="import-no">やめる</button></div></div>`;
       }
       h += `</div><div class="sec"><h3>操作</h3>${IS_TOUCH ? `<div class="field"><span class="flabel">移動のしかた</span><div class="seg"><button data-act="ctl-mode" data-v="stick" class="${G.settings.ctl !== 'tap' ? 'on' : ''}">なぞって歩く＋タップ</button><button data-act="ctl-mode" data-v="tap" class="${G.settings.ctl === 'tap' ? 'on' : ''}">タップだけ</button></div></div>
-        <div class="switch"><span>歩くと、カメラがうしろへまわる</span><input type="checkbox" data-act="toggle-follow" ${G.settings.camFollow !== false ? 'checked' : ''}></div>
+        <div class="switch"><span>歩くと、カメラがゆっくりうしろへまわる</span><input type="checkbox" data-act="toggle-follow" ${G.settings.camFollow === true ? 'checked' : ''}></div>
         <div class="btn-row"><button class="btn small" data-act="ctl-help">操作のヒントを見る</button><button class="btn small" data-act="tut-start">はじめの案内</button></div>` : ''}<p class="lead-s">${IS_TOUCH ? (G.settings.ctl !== 'tap' ? '画面の下3分の1を指でなぞると、その向きへ歩きます（指を置いた所がスティックに）。それより上をなぞると見回します。' : 'ドラッグで見回します。') + 'タップした場所へ歩き、動物をタップすると、そばへ行ってなでます。左下の「視点」で、近く・ふつう・遠く。ピンチでも寄ったり離れたりできます。動物のカードは、近くで出る「〜のカードを見る」か、下の「動物」から開けます。' : 'WASDか矢印キーで歩きます（Shiftで小走り）。クリックした場所へ歩くこともできます。ドラッグで見回し、ホイールで寄ります。動物をクリックすると、そばへ行ってなでます。近くの動物のカードはEで開き、スタッフにはEで話しかけます。Escで閉じます。'}</p>
         ${IS_TOUCH ? '' : '<div class="btn-row u-mb8"><button class="btn small" data-act="tut-start">はじめの案内</button></div>'}
         <p class="muted">${STORE.ok ? '進み具合は、claude.aiのあなたのアカウントに保存されます。ほかの端末で開いても続きから遊べます。アルバムの写真は、この端末にだけ残ります。' : '進み具合は、このブラウザに保存されます。「続きをファイルに」で、ファイルにも残せます。'}</p></div>`;
@@ -17622,6 +17714,7 @@ Object.assign(UI, {
     CAM.tDist = face ? (narrow ? 2.6 : 2.4) : (narrow ? clamp(2.3 * H / (vis * 2 * tan), 4, 16) : 6.5);
     CAM.tPitch = face ? 0.12 : 0.14; CAM.tYaw = p.heading;
     camShift(narrow ? Math.round((H - vis) / 2) : 0);
+    camCutIfBig();
   },
   /* ---------- 朝と夕方 ---------- */
   morning(page, first, cb) {
@@ -17714,7 +17807,7 @@ Object.assign(UI, {
     const pic = GAME.crackEgg(eg);
     uiSound('crack');
     camRemember(); CAM.overview = false; CAM.focus = new THREE.Vector3(eg.x, heightAt(eg.x, eg.z) + 0.3, eg.z);
-    CAM.focusUntil = performance.now() + (pic ? 3400 : 2400); CAM.focusBack = true; CAM.tDist = 3.6; CAM.tPitch = 0.55;
+    CAM.focusUntil = performance.now() + (pic ? 3400 : 2400); CAM.focusBack = true; CAM.focusView = false; CAM.tDist = 3.6; CAM.tPitch = 0.55; camCutIfBig();
     UI._eggPop = { eg, t: 0 };
     if (pic) setTimeout(() => { if (STARTED) UI.eggPic(pic, true); }, 1500);
   },
@@ -17964,7 +18057,7 @@ Object.assign(UI, {
   },
   endPlace() { UI.placeItemId = null; UI.removeMode = false; hideMarkers(); $('#place-bar').hidden = true; if (UI._placeCam) { UI._placeCam = false; CAM.lock = false; camRestore(); } },
   // 置く場所を選ぶ間は、少し引いて上から見る。終わったら元の見え方へ
-  placeCam() { if (CAM.overview) return; if (!UI._placeCam) { camRemember(); UI._placeCam = true; CAM.lock = true; } CAM.tDist = G.stage >= 3 ? 60 : 34; CAM.tPitch = 1.0; },
+  placeCam() { if (CAM.overview) return; if (!UI._placeCam) { camRemember(); UI._placeCam = true; CAM.lock = true; } CAM.tDist = G.stage >= 3 ? 60 : 34; CAM.tPitch = 1.0; camCutIfBig(); },
   markerTap(ray) {
     const hits = ray.intersectObjects(W.markers, false);
     if (!hits.length) return false;
@@ -18254,7 +18347,7 @@ Object.assign(UI, {
   },
   frame(dt) {
     UI.viewOffset(dt);
-    { const now = performance.now(); if (now - (UI._idleChk || 0) > 500 && !OCHA.on) { UI.knowWatch((now - (UI._idleChk || now)) / 1000); UI._idleChk = now; UI.idleSit(); UI.benchStop(); UI.firstDayTips(); const vn = CAM_VIEWS[camViewIndex()].n, el = $('#view-name'); if (el && el.textContent !== vn) el.textContent = vn; } }
+    { const now = performance.now(); if (now - (UI._idleChk || 0) > 500 && !OCHA.on) { UI.knowWatch((now - (UI._idleChk || now)) / 1000); UI._idleChk = now; UI.idleSit(); UI.benchStop(); UI.firstDayTips(); const vn = CAM.focusView && CAM.focus ? 'もどる' : CAM_VIEWS[camViewIndex()].n, el = $('#view-name'); if (el && el.textContent !== vn) el.textContent = vn; } }
     // 時間帯（朝・昼・夕方・夜）は、変わった時だけ書きかえる
     const tn = todName(SKY.t); if (tn !== UI._tod) { UI._tod = tn; const el = $('#t-tod'); if (el) el.textContent = tn; }
     // 写真のピント：タップするまでは、見ている中心（あなたのあたり）に合わせ続ける
@@ -20585,7 +20678,7 @@ Object.assign(UI, {
       CAM.fovHold = true; R.camera.fov = R.camera.aspect < 0.8 ? 50 : 42; R.camera.updateProjectionMatrix();
       UI.rest.last = performance.now();
       if (mode === 'sky') { UI.restCam(0, true); const sh = UI.rest.show; setTimeout(() => { if (UI.rest && UI.rest.mode === 'sky' && !UI.rest.ending) droneStart(sh, R.camera.position.clone(), R.camera, UI.rest.look, (c) => UI.restCaption(c), () => UI.skyDone()); }, 1600); }
-      UI.restCam(0, true);
+      UI.restCam(0, true); camSnap();
       UI.restMeter(); UI.restBreathBtn();
       setTimeout(() => UI.veil(false), 120);
       // その日はじめて座った時は、何もしなくていいことを、ひとこと（0.9.30）
@@ -20610,7 +20703,7 @@ Object.assign(UI, {
       ACT.animals.forEach((e) => { e.restNear = false; e.musicNear = false; e.musicAway = false; e.timer = Math.min(e.timer, rand(0.5, 2)); });
       $('#rest-ui').hidden = true; $('#rest-ui').classList.remove('music'); $('#rest-cap').classList.remove('on'); $('#rest-breath-ring').hidden = true;
       $('#hud').hidden = false;
-      camRestore();
+      camRestore(); camSnap();
       CAM.fovHold = false;
       UI.rest = null; UI.blockMove = false;
       if (R0.mode === 'music') { if (UI.chordsUsed.length) GAME.finishPlaying(UI.inst, UI.chordsUsed, near.map((a) => a.name), away, R0.gain); else if (R0.gain) UI.toast('ひと息つけました', 'daily'); GAME.save(); }
@@ -21122,7 +21215,7 @@ function backdrop() {
   applyCalendar(); G.weather = G.season === 'winter' ? 'snow' : 'sunny'; WS.weather = G.weather;
   buildWorld(); syncNPCs(); syncAnimals(); syncWild();
   teleportPlayer(0, 46); ACT.player.m.root.visible = false;
-  setOverview(true); CAM.spin = true; CAM.dist = CAM.tDist; CAM.pitch = CAM.tPitch = 0.62; CAM.target.set(0, 0, 2);
+  setOverview(true); CAM.spin = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); CAM.dist = CAM.tDist; CAM.pitch = CAM.tPitch = 0.62; CAM.target.set(0, 0, 2); camSnap(); // 0.9.80：「視差効果を減らす」の時は、回さない
   SKY.t = 0.4; SKY.target = 0.4; SKY.rbT = 0; skySnapWeather();
 }
 /* はじめの画面：育てている続き（保存あり）と、箱庭モード（保存なし。毎回すべてがそろった姿から） */
