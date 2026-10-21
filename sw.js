@@ -3,7 +3,7 @@
 // ・ゲームのページ（index.html）と本当のお知らせ（news.json）は、いつも新しい版を先に読む。
 //   読めない時と、WAIT をすぎても届かない時だけ、しまっておいた写しを出す（届いたら、次のために写しを新しくする）
 // ・three.js・字体・アイコンは、しまっておいた写しを先に使う
-const VER = '0.9.76';
+const VER = '0.9.77';
 const CACHE = 'harunire-' + VER;
 const PAGE = new URL('./', self.location).href;
 const CORE = ['manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'];
