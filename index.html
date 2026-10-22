@@ -1534,6 +1534,17 @@ ul.etho li { display: flex; align-items: center; gap: 6px; padding: 3px 0; borde
 ul.etho li svg { width: 16px; height: 16px; color: var(--pine, #3F7D6D); }
 ul.etho li small { margin-left: auto; color: var(--ink-3, #888); }
 ul.etho li .q { color: var(--ink-3, #999); }
+/* 観察ノートの、くわしい模型（obs3d.js。2026-10-22） */
+.o3-stage { position: relative; width: 100%; aspect-ratio: 6 / 5; max-height: 46vh; margin: 2px 0 10px; border-radius: var(--r-l); overflow: hidden; background: linear-gradient(#D9E4E1, #F6F0E0); box-shadow: inset 0 0 0 1.5px rgba(60, 45, 25, .2); }
+.o3-cv { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; -webkit-user-select: none; user-select: none; }
+.o3-cv:active { cursor: grabbing; }
+.o3-big { position: absolute; right: 8px; top: 8px; z-index: 1; min-height: 34px; padding: 4px 12px; font: inherit; font-size: var(--fs-s); font-weight: 700; color: var(--ink); background: var(--card); border: 1.5px solid var(--sumi); border-radius: var(--r-m); box-shadow: var(--shadow-s); cursor: pointer; }
+.o3-hint { position: absolute; left: 10px; bottom: 8px; font-family: var(--hand); font-size: var(--fs-s); color: var(--ink-3, #7A7266); pointer-events: none; transition: opacity .6s; }
+.o3-stage.o3-used .o3-hint { opacity: 0; }
+#modal.o3-full { padding: 0; place-items: stretch; }
+#modal.o3-full .modal-card { box-sizing: border-box; width: 100%; height: 100%; max-height: 100%; display: flex; flex-direction: column; overflow: hidden; }
+#modal.o3-full .modal-card > :not(.o3-stage):not(h3) { display: none; }
+#modal.o3-full .o3-stage { flex: 1 1 auto; aspect-ratio: auto; max-height: none; min-height: 0; margin: 0; }
 
 /* 前に開いた時、とちゅうで止まった時の画面（0.9.66。main.js の bootSafe） */
 .boot-safe { max-width: 360px; padding: 24px; text-align: center; font-weight: 400; line-height: 1.8; }
@@ -3041,7 +3052,7 @@ const TITLES = []; // 称号の入れ物（0.9.58。中身は src/content/titles
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.81', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.82', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -3049,6 +3060,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.82', '2026年10月22日', '観察ノートのページに、その生き物のくわしい模型が出るようになりました。指でまわし、2本の指で近づき、「大きく見る」でノートいっぱいに。丘の生き物は、それぞれ本来起きている時間に姿を見せます（夜には、タヌキやハクビシン、アカネズミに会えることも）。ノートに「見られる時間」も。新しく、オオカマキリ・アカネズミ・ハクビシンに出会えます。ニホンアマガエルとタヌキの説明を、東京の資料に合わせて直しました。'],
     ['0.9.81', '2026年10月21日', '木や建物があなたの前に入っても、カメラは寄ったり持ち上がったりしなくなりました。かわりに、さえぎる物の、あなたに重なる所だけが、紙の窓のように透けて見えます。動物たちと人は透けません。休んでいる時も、看板や建物を消すかわりに、同じように透かします'],
     ['0.9.80', '2026年10月21日', 'おだやかなカメラにしました。景色は、あなたが動かした時だけ動きます。歩くとカメラがうしろへまわるのは、はじめは切って、設定で選べるように。なでる時や「見る」の時は、カメラを回さずに、紙芝居をめくるように切りかえます。知らせで、カメラが勝手に動くこともなくなりました'],
     ['0.9.79', '2026年10月21日', '木を増やしました。ベンチや切り株のそばと、歩く道ぞいに、ハルニレ・カエデ・サクラの木陰。物を置く場所のまわりも、木を残すようにしました。'],
@@ -3608,68 +3620,114 @@ Object.assign(CARDS, {
 /* いきもの記録：鳥（0.9.58 から、種類ごとのファイルに。docs/recipes/add-ikimono.md）
    丘に出す・写真で見つける仕組みは src/ikimono.js（ikiBuild・ikiInView）。特性は正式な資料から、出典つきで */
 IKIMONO.push(
-  { id: 'suzume', name: 'スズメ', kind: 'bird', hint: '一年中・牛舎や家のまわりの地面',
+  { id: 'suzume', name: 'スズメ', kind: 'bird', hint: '一年中の朝から夕方・牛舎や家のまわりの地面',
     facts: ['全長14.5cm。日本中の、人の暮らす町や集落にいて、一年中見られる鳥（留鳥）です', '短くて太いくちばしで、草の種子を食べます'], src: [IKI_SUN(1459, 'スズメ')] },
-  { id: 'shijukara', name: 'シジュウカラ', kind: 'bird', hint: '一年中・家のまわり',
+  { id: 'shijukara', name: 'シジュウカラ', kind: 'bird', hint: '一年中の朝から夕方・家のまわり',
     facts: ['全長14.5cm、体重は14gくらい。一年中見られる鳥（留鳥）で、林にも住宅地にもいます', '木の穴に巣をつくります。人が作った狭い穴（巣箱）にも、よく巣をつくります', '「ツツピン ツツピン」と鳴きます。白いほっぺたに、黒いネクタイのような模様があります'], src: [IKI_SUN(1430, 'シジュウカラ')] },
-  { id: 'sekirei', name: 'ハクセキレイ', kind: 'bird', hint: '春〜秋・地面を歩いている',
+  { id: 'sekirei', name: 'ハクセキレイ', kind: 'bird', hint: '春〜秋の朝から夕方・地面を歩いている',
     facts: ['全長21cm。水辺の虫や小さな虫をとって食べます。飛んでいるトンボを、空中でとらえることもあります', '「チチン チチン」と鳴きながら、波を打つように飛びます'], src: [IKI_SUN(4610, 'ハクセキレイ')] },
-  { id: 'tsubame', name: 'ツバメ', kind: 'bird', hint: '春〜夏・家の軒下のまわり',
+  { id: 'tsubame', name: 'ツバメ', kind: 'bird', hint: '春〜夏の朝から夕方・家の軒下のまわり',
     facts: ['全長17cm。春に渡ってきて、夏を過ごす鳥（夏鳥）です', '家の軒下に巣をつくり、飛んでいる虫を空中でとらえて食べます'], src: [IKI_SUN(1470, 'ツバメ')] },
-  { id: 'hibari', name: 'ヒバリ', kind: 'bird', hint: '春・空の高いところ',
+  { id: 'hibari', name: 'ヒバリ', kind: 'bird', hint: '春の夜明けから夕方・空の高いところ',
     facts: ['全長17cm。春になると、空の高いところで、長くさえずります', '河川敷や野原など、広い所にすみます。空の上でさえずるほか、牧柵や石など、少し高い所にとまってさえずることも', '全身が茶色で、頭に小さな冠羽があります'], src: [IKI_SUN(1481, 'ヒバリ')] },
-  { id: 'jobitaki', name: 'ジョウビタキ', kind: 'bird', hint: '冬・柵の上',
+  { id: 'jobitaki', name: 'ジョウビタキ', kind: 'bird', hint: '冬の朝から夕方・柵の上',
     facts: ['全長15cm。冬に渡ってくる鳥（冬鳥）で、雪の少ない地方で冬を越します', 'ときどき、ぴょこんとおじぎをして、尾をふるわせます。翼に白い斑点があります'], src: [IKI_SUN(1457, 'ジョウビタキ')] },
-  { id: 'magan', name: 'カワウ', kind: 'bird', hint: '秋〜冬・高い空', // id は前の版の記録のため、そのまま（0.9.60：舞台を東京の郊外に。マガンから）
+  { id: 'magan', name: 'カワウ', kind: 'bird', hint: '秋〜冬の朝から夕方・高い空', // id は前の版の記録のため、そのまま（0.9.60：舞台を東京の郊外に。マガンから）
     facts: ['全長81cm。ガンと同じくらいの大きさの、黒い水鳥です', '川や池、湖、海の入り江で、水にもぐって魚をとります', '東京の空では、ガンのように、列やV字になって飛ぶ姿が見られます', '木の上に枝で巣をつくり、たくさん集まって子育てをします'], src: [IKI_SUN(1406, 'カワウ')] },
-  { id: 'karugamo', name: 'カルガモ', kind: 'bird', hint: '池',
+  { id: 'karugamo', name: 'カルガモ', kind: 'bird', hint: '池（昼も夜も）',
     facts: ['全長60cm。本州より南では、一年中見られます', 'おもに草の葉や茎、実を食べます。ヒナのころは、水の底の小さな生き物も食べます', 'くちばしは黒く、先が黄色です'], src: [IKI_SUN(4537, 'カルガモ')] },
-  { id: 'kogamo', name: 'コガモ', kind: 'bird', hint: '秋〜冬・池',
+  { id: 'kogamo', name: 'コガモ', kind: 'bird', hint: '秋〜冬・池（昼も夜も）',
     facts: ['全長38cm。日本の水辺に来るカモのなかで、いちばん小さいカモです。冬に渡ってきます（冬鳥）', '地上や水面で食べ物をとり、ときには逆立ちして、水の中のものもとります'], src: [IKI_SUN(1423, 'コガモ')] },
-  { id: 'kawasemi', name: 'カワセミ', kind: 'bird', hint: '池の岸の杭',
+  { id: 'kawasemi', name: 'カワセミ', kind: 'bird', hint: '朝から夕方・池の岸の杭',
     facts: ['全長17cm。池や川の水辺にすみ、魚をとるのが得意です', '土の崖に横穴を掘って、巣にします', '体のわりに長いくちばしと、青緑に見える羽'], src: [IKI_SUN(1408, 'カワセミ')] },
-  { id: 'aosagi', name: 'アオサギ', kind: 'bird', hint: '丘の奥の水辺',
+  { id: 'aosagi', name: 'アオサギ', kind: 'bird', hint: '丘の奥の水辺（昼も夜も）',
     facts: ['全長93cm。魚やカエルなど、水辺の生き物を食べます。高い木の上に枝で大きな巣をつくり、集まって子育てをします', '長い首をZの字に曲げ、大きな翼でゆっくり羽ばたいて飛びます'], src: [IKI_SUN(4499, 'アオサギ')] },
-  { id: 'kiji', name: 'キジ', kind: 'bird', hint: '丘の奥の草地',
+  { id: 'kiji', name: 'キジ', kind: 'bird', hint: '朝から夕方・丘の奥の草地',
     facts: ['大きなもので全長80cm。一年中、同じ所で暮らす鳥（留鳥）です。図鑑の分布は、本州・四国・九州です', '農耕地や草地にすみます。春の繁殖期には「ケーンケーン」と鳴きます'], src: [IKI_SUN(1345, 'キジ')] },
 );
 /* いきもの記録：虫（0.9.58 から、種類ごとのファイルに。docs/recipes/add-ikimono.md）
    丘に出す・写真で見つける仕組みは src/ikimono.js（ikiBuild・ikiInView）。特性は正式な資料から、出典つきで */
 IKIMONO.push(
-  { id: 'shiokara', name: 'シオカラトンボ', kind: 'bug', hint: '夏・水辺や柵の先',
+  { id: 'shiokara', name: 'シオカラトンボ', kind: 'bug', hint: '夏の晴れた日中・水辺や柵の先',
     facts: ['池や沼と、そのまわりで見られるトンボです', '神奈川県の自然観察園では、5月上旬から9月下旬まで見られ、いちばん長い間見られるトンボのひとつとされています'], src: [['神奈川県　トンボの仲間の紹介', 'https://www.pref.kanagawa.jp/docs/f4y/01about/ikimono/insect_dragonflies.html']] },
-  { id: 'akiakane', name: 'アキアカネ（赤とんぼ）', kind: 'bug', hint: '秋・柵の先や、夕焼けの空',
+  { id: 'akiakane', name: 'アキアカネ（赤とんぼ）', kind: 'bug', hint: '秋の日中から夕方・柵の先や、夕焼けの空',
     facts: ['暑さが苦手で、夏は山や高原の涼しい所で過ごします。体が赤くなると、生まれた田んぼへ戻ってきます', '卵は田んぼの泥の中で冬を越し、春に水が張られるとヤゴになります。7月ごろに、トンボになります'], src: [['サントリー「天然水の森」の生きもの　アキアカネ', 'https://www.suntory.co.jp/eco/forest/living-things/red-dragonfly/']] },
-  { id: 'monshiro', name: 'モンシロチョウ', kind: 'bug', hint: '春〜夏・家のまわりの草の上',
+  { id: 'monshiro', name: 'モンシロチョウ', kind: 'bug', hint: '春〜夏の晴れた日中・家のまわりの草の上',
     facts: ['幼虫は、キャベツなどアブラナ科の葉を食べて育ちます', '暖かい地方では、5〜10月に年5〜6回、世代を重ねます。春と秋に多く見られます'], src: [['農研機構　アブラナ科野菜の虫についての資料', 'https://www.naro.go.jp/publicity_report/publication/files/aburana-insctH15.pdf']] },
-  { id: 'maruhana', name: 'クロマルハナバチ', kind: 'bug', hint: '春〜夏・花のそば', // id はそのまま（0.9.60：舞台を東京の郊外に。エゾオオマルハナバチから）
+  { id: 'maruhana', name: 'クロマルハナバチ', kind: 'bug', hint: '春〜夏の朝から夕方・花のそば', // id はそのまま（0.9.60：舞台を東京の郊外に。エゾオオマルハナバチから）
     facts: ['本州・四国・九州（南のほうをのぞく）に、もとからいるマルハナバチです', '体長は10〜20mmほど。黒い毛の体で、おしりがオレンジ色です', '冬を越した女王が、春にひとりで巣を作りはじめます。ネズミの古い巣を使うことも', '外から入ってきたセイヨウオオマルハナバチは、おしりが白です'], src: [['環境省 エコジン「外来種はどっち？」（クロマルハナバチ）', 'https://www.env.go.jp/guide/info/ecojin/quiz/20221019.html'], ['環境省 北海道地方環境事務所　北海道のマルハナバチの資料', 'https://hokkaido.env.go.jp/wildlife/maruhanalog.pdf']] },
-  { id: 'ohimegumo', name: 'オオヒメグモ', kind: 'bug', hint: '家の玄関の、ひさしの下',
+  { id: 'ohimegumo', name: 'オオヒメグモ', kind: 'bug', hint: '家の玄関の、ひさしの下（昼も夜も）',
     facts: ['立体的で、こみいった形の網（不規則な網）を張るクモです', '玄関の先や、あまり開け閉めしない窓ガラスの隅などに、よく網を張ります', '日本には約1,700種のクモがいて、そのうち網（巣）を作るのは数百種とされます'], src: [['Honda Woods「千差万別 クモの巣のなぜ？なに？」', 'https://global.honda/jp/philanthropy/hondawoods/forest/library/032/']] },
+  { id: 'kamakiri', name: 'オオカマキリ', kind: 'bug', hint: '夏の終わり〜秋の日中・庭の草や花のそば', // 2026-10-22（Daiさんの依頼）
+    facts: ['日本でいちばん大きなカマキリで、体長は7〜10cmほど。本州・四国・九州の、草地や田畑、林のはしの草むらで暮らしています', '体の色は、緑色と茶色があります。後ろのはねのつけねが、濃いむらさきがかった茶色なのが目印です', '鎌のような前あしで、セミやバッタ、チョウなどを待ちぶせして、つかまえて食べます', '成虫が見られるのは、7月の終わりから10月ごろ。秋に小枝などに卵のかたまり（卵のう）を産み、その中で卵が冬を越します'],
+    src: [['Honda 生きもの図鑑　オオカマキリ', 'https://www.honda.co.jp/outdoor/knowledge/adventure/picture-book/ookamakiri/']] },
 );
 /* いきもの記録：カエルとトカゲ（0.9.58 から、種類ごとのファイルに。docs/recipes/add-ikimono.md）
    丘に出す・写真で見つける仕組みは src/ikimono.js（ikiBuild・ikiInView）。特性は正式な資料から、出典つきで */
 IKIMONO.push(
-  { id: 'amagaeru', name: 'ニホンアマガエル', kind: 'amph', hint: '春〜秋・池の岸',
-    facts: ['北海道に昔から住んでいるカエルは2種。そのひとつです', '体長は2.2〜4.5cmほど。草の上では緑色、土や枯れ葉の多い所では茶色にと、まわりに合わせて体の色が変わります', '指先の吸盤で、木の上やコンクリートの壁も登れます。雨の前後に、のどをふくらませて大きな声で鳴きます', '小さな虫やクモを食べます。見られるのは3〜11月'],
-    src: [['札幌市　アズマヒキガエルの資料（在来のカエル）', 'https://www.city.sapporo.jp/kankyo/biodiversity/documents/frog.pdf'], ['Honda 生きもの図鑑　ニホンアマガエル', 'https://www.honda.co.jp/outdoor/adventure/nihonamagaeru.html']] },
-  { id: 'kanahebi', name: 'ニホンカナヘビ', kind: 'amph', hint: '春〜秋の晴れた日・岸の石の上',
+  { id: 'amagaeru', name: 'ニホンアマガエル', kind: 'amph', hint: '春〜秋の夕方から夜、雨の日・池の岸',
+    facts: ['田んぼや庭先、林など、身近な所で暮らすカエルです。東京でも区部から多摩まで見られますが、数が減っていて、南多摩では絶滅のおそれがある種（絶滅危惧II類）です', '体長は2.2〜4.5cmほど。草の上では緑色、土や枯れ葉の多い所では茶色にと、まわりに合わせて体の色が変わります', '指先の吸盤で、木の上やコンクリートの壁も登れます。雨の前後に、のどをふくらませて大きな声で鳴きます', '小さな虫やクモを食べます。夜には、明かりに集まる虫を食べに来ることもあります。見られるのは3〜11月', '4〜8月、田んぼなどの水に、寒天のようなひもでつながった卵を産みます'],
+    src: [['東京都レッドリスト（本土部）2020　両生類', 'https://www.kankyo.metro.tokyo.lg.jp/documents/d/kankyo/red_data_book-redlist2020-files-11_ryoseirui_rl2020_1'], ['Honda 生きもの図鑑　ニホンアマガエル', 'https://www.honda.co.jp/outdoor/adventure/nihonamagaeru.html']] },
+  { id: 'kanahebi', name: 'ニホンカナヘビ', kind: 'amph', hint: '春〜秋の晴れた日中・岸の石の上',
     facts: ['日本にだけいるトカゲのなかまで、北海道から九州まで見られます', '全長16〜27cm。そのうち3分の2ほどが、しっぽです', '晴れた日には、日なたぼっこをしている姿がよく見られます。虫やクモ、ワラジムシなどを食べます', '11月ごろ、地面の中にもぐって冬を越します。見られるのは4〜11月'],
     src: [['Honda 生きもの図鑑　ニホンカナヘビ', 'https://www.honda.co.jp/outdoor/adventure/nihonkanahebi.html']] },
 );
 /* いきもの記録：野生動物（0.9.58 から、種類ごとのファイルに。docs/recipes/add-ikimono.md）
    丘に出す・写真で見つける仕組みは src/ikimono.js（ikiBuild・ikiInView）。特性は正式な資料から、出典つきで */
 IKIMONO.push(
-  { id: 'kitsune', name: 'キツネ', kind: 'beast', hint: '夕方・柵の外の森のはし／雪の朝', // 0.9.60：舞台を東京の郊外に（キタキツネから。同じアカギツネのなかま）
+  { id: 'kitsune', name: 'キツネ', kind: 'beast', hint: '夕方から明け方・柵の外の森のはし／雪の朝', // 0.9.60：舞台を東京の郊外に（キタキツネから。同じアカギツネのなかま）
     facts: ['東京では、多摩の丘や山で暮らしています。北多摩では、絶滅のおそれが高いとされています', '冬眠をせず、一年を通して動いています。冬のいちばん寒いころに相手を見つけ、春ごろに子どもが生まれます', '大きくなると、体の長さは1mほど。耳と足の先が黒いのが目印です', 'おもにネズミなどの小さな生き物や、ノウサギを食べます', 'えさをあげると、人の近くに出てくるようになり、困りごとにつながります。少し離れて見守ります'],
     src: [['東京都レッドリスト（本土部）2020　哺乳類', 'https://www.kankyo.metro.tokyo.lg.jp/documents/d/kankyo/red_data_book-redlist2020-files-08_honyurui_rl2020_2'], ['いいね！Hokudai（北海道大学 CoSTEP）　都市ギツネについてのイベント', 'https://costep.open-ed.hokudai.ac.jp/like_hokudai/article/28566'], ['観光庁 多言語解説文データベース（大雪山）', 'https://www.mlit.go.jp/tagengo-db/common/001555004.pdf']] },
-  { id: 'tanuki', name: 'タヌキ', kind: 'beast', hint: '夕方・丘の奥の森', // 0.9.60：エゾタヌキから
-    facts: ['夜に動き、昼は木の根もとや岩のすき間の巣穴で休みます。自分では穴を掘りません', 'ネズミやカエル、虫、ミミズ、木の実など、いろいろなものを食べます', '秋に脂肪をたくわえて、冬ごもりに備えます', '何頭かが同じ場所にふんをする「ため糞」は、においで知らせ合う場所と考えられています'],
-    src: [['札幌市円山動物園　エゾタヌキ', 'https://www.city.sapporo.jp/zoo/b_f/b_06/db069.html']] },
-  { id: 'ezorisu', name: 'ニホンリス', kind: 'beast', hint: 'はるにれの木のまわり', // id はそのまま（0.9.60：舞台を東京の郊外に。エゾリスから）
+  { id: 'tanuki', name: 'タヌキ', kind: 'beast', hint: '夜・丘の奥の森', // 0.9.60：エゾタヌキから（2026-10-22：本州のタヌキの資料に）
+    facts: ['平地から里山や低い山の森や草地で暮らし、町の中にもいます', '昼は岩穴や木のうろなどで休み、夜になると動きはじめます', 'ミミズやカエル、ヘビ、虫、木の実など、いろいろなものを食べます', '決まった場所にふんをする「ため糞」の習性があります'],
+    src: [['環境省　エコジン　生きものクイズ（タヌキ）', 'https://www.env.go.jp/guide/info/ecojin/quiz/20210519.html']] },
+  { id: 'ezorisu', name: 'ニホンリス', kind: 'beast', hint: '朝から昼すぎ・はるにれの木のまわり', // id はそのまま（0.9.60：舞台を東京の郊外に。エゾリスから）
     facts: ['日本にだけすむリスです。本州と四国の、平地から山の森で暮らしています', 'ドングリやクルミ、マツの種子をよく食べます。花や芽、果実、キノコ、虫も食べます', '東京では、多摩の丘の森で数が少なくなっています（南多摩で、絶滅のおそれがある種）'],
     src: [['愛知県　レッドデータブック　ニホンリス', 'https://kankyojoho.pref.aichi.jp/rdb/pdf/animals/species/honyu/ニホンリス.pdf'], ['東京都レッドリスト（本土部）2020　哺乳類', 'https://www.kankyo.metro.tokyo.lg.jp/documents/d/kankyo/red_data_book-redlist2020-files-08_honyurui_rl2020_2']] },
+  { id: 'akanezumi', name: 'アカネズミ', kind: 'beast', hint: '夜・はるにれの木の根もと', // 2026-10-22（Daiさんの依頼）
+    facts: ['日本にだけすむ野ネズミです。低い山や丘の明るい林、畑のまわりで暮らしています', '体長は8〜14cm。しっぽも7〜13cmと長めです。背は赤茶色、おなかと手足は白く、目と耳が大きいのが特徴です', '夜に地面の上を動きまわり、ドングリや種、根、ときどき虫を食べます', '集めたドングリやクルミを、木の根もとや土の中にたくわえます。巣は、地面の下のトンネルの奥に作ります'],
+    src: [['コトバンク　アカネズミ（世界大百科事典・日本大百科全書ほか）', 'https://kotobank.jp/word/%E3%82%A2%E3%82%AB%E3%83%8D%E3%82%BA%E3%83%9F-3140571']] },
+  { id: 'hakubishin', name: 'ハクビシン', kind: 'beast', hint: '夜・柵の外の森のはし', // 2026-10-22（Daiさんの依頼）
+    facts: ['額から鼻にかけて、白いすじがあります。体長は40〜60cmで、しっぽも長い動物です', 'もとは東南アジアから中国の南東部にすむ動物で、日本では外から来た生き物（外来種）とされています', '夜に動き、昼は木のうろや屋根裏などで休みます。木登りが得意で、電線の上も伝って歩けます', '植物から小さな動物まで、いろいろなものを食べますが、とくに果実が好きです', '許可なく捕まえることは、法律（鳥獣保護管理法）で禁じられています。生ごみや食べものを外に置かないことが、人と離れて暮らす助けになります'],
+    src: [['東京都環境局　アライグマ・ハクビシンについて', 'https://www.kankyo.metro.tokyo.lg.jp/documents/d/kankyo/raccoon-racc_manual-files-araigumahakubisinnnituite'], ['板橋区　ハクビシン', 'https://www.city.itabashi.tokyo.jp/tetsuduki/pet/gairai/1002229.html'], ['世田谷区　ハクビシンについてのよくある質問', 'https://www.city.setagaya.lg.jp/documents/730/qa.pdf']] },
 );
+/* 観察できる時間（2026-10-22、Daiさんの依頼）
+   その生き物が本来起きて動いている時間に、丘でも姿を見せる（src/ikimono.js の ikiAwake。丘に出す・観察ノート・写真の、どれも同じ時間）
+   ・時刻は、ゲームの時計（dayTime）と同じく、一日を 0〜1 で。0.25＝朝6時、0.5＝正午、0.75＝夕方6時、0.8＝夜7時すぎ
+     （ノートの言葉は todName と同じ区切り：夜明け 0.2〜、朝 0.27〜、昼 0.42〜、午後 0.58〜、夕方 0.7〜、夜 0.8〜）
+   ・win：見られる時間のはば（いくつでも。[0.8, 0.2] のように夜をまたいでもよい）。rain：雨の日は、時間に関係なく出てくる
+   ・word：観察ノートに出す言葉（数字は出さない）
+   ・もとにしたこと：鳥・チョウ・ハチ・トンボ・カナヘビは昼に動く。カルガモやアオサギは夜も水辺で過ごし、えさもとる。
+     タヌキ（環境省）・アカネズミ（世界大百科事典など）・ハクビシン（東京都）は夜行性。キツネは夕方から明け方に多く動く。
+     ニホンアマガエルは、夜に明かりに集まる虫を食べ、雨の前後に鳴く（Honda 生きもの図鑑）。ニホンリスは朝によく動く。
+     それぞれの出典は、IKIMONO の src に */
+const IKI_TIME = {
+  suzume: { win: [[0.22, 0.77]], word: '朝から夕方' },
+  shijukara: { win: [[0.23, 0.75]], word: '朝から夕方' },
+  sekirei: { win: [[0.22, 0.77]], word: '朝から夕方' },
+  tsubame: { win: [[0.21, 0.78]], word: '朝から夕方' },
+  hibari: { win: [[0.19, 0.75]], word: '夜明けから夕方' },
+  jobitaki: { win: [[0.23, 0.75]], word: '朝から夕方' },
+  magan: { win: [[0.23, 0.74]], word: '朝から夕方' },
+  karugamo: { win: [[0, 1]], word: '昼も夜も' },
+  kogamo: { win: [[0, 1]], word: '昼も夜も' },
+  kawasemi: { win: [[0.22, 0.76]], word: '朝から夕方' },
+  aosagi: { win: [[0, 1]], word: '昼も夜も' },
+  kiji: { win: [[0.21, 0.76]], word: '朝から夕方' },
+  shiokara: { win: [[0.3, 0.71]], word: '日中' },
+  akiakane: { win: [[0.29, 0.79]], word: '日中から夕方' },
+  monshiro: { win: [[0.3, 0.68]], word: '日中' },
+  maruhana: { win: [[0.25, 0.75]], word: '朝から夕方' },
+  ohimegumo: { win: [[0, 1]], word: '昼も夜も' },
+  kamakiri: { win: [[0.27, 0.76]], word: '日中' },
+  amagaeru: { win: [[0.7, 0.24]], rain: true, word: '夕方から夜。雨の日は昼も' },
+  kanahebi: { win: [[0.3, 0.7]], word: '晴れた日中' },
+  kitsune: { win: [[0.7, 0.26]], word: '夕方から明け方' },
+  tanuki: { win: [[0.76, 0.22]], word: '夜' },
+  ezorisu: { win: [[0.22, 0.66]], word: '朝から昼すぎ' },
+  akanezumi: { win: [[0.8, 0.2]], word: '夜' },
+  hakubishin: { win: [[0.79, 0.2]], word: '夜' },
+};
 /* 観察ノートのエソグラム（0.9.62）
    エソグラム：その生き物がすること（行動）の一覧。丘で見ているうちに、自動で書きこまれていく（src/obs.js）
    ・左は、丘の上の生き物の動き（st）か、動いている（move）・止まっている（still）。右は、ノートに書く言葉
@@ -3698,7 +3756,1129 @@ const ETHO = {
   kitsune: [['move', '森のはしを、歩いていく'], ['still', '立ち止まって、こちらを見る']],
   tanuki: [['move', 'ゆっくり歩いていく'], ['still', '立ち止まる']],
   ezorisu: [['ground', '地面で、食べものを探す'], ['climb', '近づくと、木に登る'], ['down', '木から降りてくる']],
+  kamakiri: [['wait', '草の上で、じっと待ちぶせる'], ['sway', '風にゆれる葉のように、体をゆらす'], ['turn', '首をまわして、こちらを見る'], ['clean', '前あしの手入れをする']], // 2026-10-22
+  akanezumi: [['run', 'ちょこちょこと走る'], ['sniff', '後ろあしで立って、においをかぐ'], ['eat', '木の実を食べる'], ['hide', '近づくと、草の中に消える']],
+  hakubishin: [['move', '森のはしを、歩いていく'], ['still', '立ち止まって、においをかぐ']],
 };
+/* =========================================================
+   観察ノートの、くわしい模型（2026-10-22、Daiさんの依頼）
+   ---------------------------------------------------------
+   丘の中の小さな模型（ikimono.js、world.js など）は、そのまま。
+   ここにあるのは、観察ノートのページの中だけで、大きく見て、指でまわすための模型（見せ方は src/obs3d.js）。
+   ・O3.models[id] = () => THREE.Group。+z が頭の向き、+y が上。大きさは自由（見る時に、枠に合わせる）
+   ・O3.view[id] = { yaw, pitch, zoom, focus } で、はじめに見る向き・近さ・まわす中心（模型の中の [x, y, z]）を変えられる
+     （なければ、ななめ前から、生き物の全体が入る近さで、生き物のまん中を中心に）
+   ・面ごとに1色（貼り絵の紙のように）。色は paint(p, t, a)：その面のまん中の位置 p、背骨にそった位置 t（0〜1）、
+     背骨のまわりの角度 a（0 が上、π/2 が右（+x）、π が下）から決める
+   ・姿と色は、図鑑や自治体・博物館の資料にある特徴から（くわしくは、それぞれのファイルの頭に）
+   ・野生の生き物なので、捕まえたり、えさをあげたりする姿にはしない。止まり木や葉、石の上で、自分のことをしている姿
+   新しい生き物を観察ノートに足す時は、ここにも模型を1つ（docs/recipes/add-ikimono.md）
+   ========================================================= */
+const O3 = { models: {}, view: {}, mat: null, tex: {}, col: new Map() };
+
+// 色（文字の色を、使い回す THREE.Color に）
+function o3c(c) {
+  if (c && c.isColor) return c;
+  let v = O3.col.get(c); if (!v) { v = new THREE.Color(c); O3.col.set(c, v); }
+  return v;
+}
+// 2つの色を混ぜる（k=0 で a、1 で b）
+function o3mix(a, b, k) { return '#' + o3c(a).clone().lerp(o3c(b), Math.max(0, Math.min(1, k))).getHexString(); }
+// 決まった乱数（同じ場所は、いつも同じ）
+function o3h(a, b, c) { const s = Math.sin((a || 0) * 127.1 + (b || 0) * 311.7 + (c || 0) * 74.7) * 43758.5453; return s - Math.floor(s); }
+// 左右をそろえた、点 p から (x, y, z) までの距離（模様を左右対称に置く）
+function o3d(p, x, y, z) { return Math.hypot(Math.abs(p.x) - x, p.y - y, p.z - z); }
+// すべての面に使う素材（頂点の色。光は平らに）
+function o3mat() {
+  return O3.mat || (O3.mat = new THREE.MeshPhongMaterial({ vertexColors: true, flatShading: true, shininess: 0, specular: 0x000000, side: THREE.DoubleSide }));
+}
+
+/* ---- 形を作る道具 ---- */
+// 三角形をためて、1つのメッシュにする（面ごとに1色）
+function o3buf() {
+  const pos = [], col = [];
+  return {
+    tri(a, b, c, k) { pos.push(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z); const q = o3c(k); for (let i = 0; i < 3; i++) col.push(q.r, q.g, q.b); },
+    mesh(opt) {
+      const g = new THREE.BufferGeometry();
+      g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+      g.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+      g.computeVertexNormals();
+      const m = new THREE.Mesh(g, o3mat());
+      if (opt && opt.noShadow) m.userData.noShadow = true;
+      return m;
+    },
+    get n() { return pos.length / 9; },
+  };
+}
+// なめらかな曲線の上の値（Catmull-Rom）
+function o3cr(p0, p1, p2, p3, s) { const s2 = s * s, s3 = s2 * s; return 0.5 * (2 * p1 + (-p0 + p2) * s + (2 * p0 - 5 * p1 + 4 * p2 - p3) * s2 + (-p0 + 3 * p1 - 3 * p2 + p3) * s3); }
+function o3at(arr, f) {
+  const L = arr.length, i = Math.max(0, Math.min(L - 2, Math.floor(f))), s = f - i, g = (j) => arr[Math.max(0, Math.min(L - 1, j))];
+  return Math.max(0, o3cr(g(i - 1), g(i), g(i + 1), g(i + 2), s));
+}
+/* 背骨にそって、だ円の輪をつないだ形（体、首、しっぽ、足、くちばし、枝など）
+   o.pts：[[x, y, z, 横の半径, 縦の半径], …]（縦の半径を省くと横と同じ）
+   o.seg：輪の角の数、o.per：点と点のあいだを何段に分けるか
+   o.paint(p, t, a)：面の色。o.col：1色の時
+   o.shape(t, a)：半径にかける数（ふくらみ・でこぼこ）
+   o.up：輪の「上」の向き（背骨が上下にのびる時に） */
+function o3loft(o, B) {
+  const P = o.pts, L = P.length, seg = o.seg || 12, per = o.per || 4, N = (L - 1) * per;
+  const curve = new THREE.CatmullRomCurve3(P.map((q) => new THREE.Vector3(q[0], q[1], q[2])), false, 'centripetal');
+  const RX = P.map((q) => q[3]), RY = P.map((q) => (q.length > 4 ? q[4] : q[3]));
+  const up = new THREE.Vector3().fromArray(o.up || [0, 1, 0]), rings = [], cen = [], tmp = new THREE.Vector3();
+  let n = null;
+  for (let i = 0; i <= N; i++) {
+    const u = i / N, f = u * (L - 1), c = curve.getPoint(u), t = curve.getTangent(u).normalize();
+    if (!n) {
+      n = up.clone().sub(tmp.copy(t).multiplyScalar(up.dot(t)));
+      if (n.lengthSq() < 1e-6) n.set(0, 0, 1).sub(tmp.copy(t).multiplyScalar(t.z));
+      n.normalize();
+    } else n.sub(tmp.copy(t).multiplyScalar(n.dot(t))).normalize();
+    const b = new THREE.Vector3().crossVectors(n, t).normalize(), rx = o3at(RX, f), ry = o3at(RY, f), ring = [];
+    for (let j = 0; j < seg; j++) {
+      const a = j / seg * Math.PI * 2, k = o.shape ? o.shape(u, a, i, j) : 1;
+      ring.push(c.clone().addScaledVector(n, Math.cos(a) * ry * k).addScaledVector(b, Math.sin(a) * rx * k));
+    }
+    rings.push(ring); cen.push(c);
+  }
+  const own = !B; B = B || o3buf();
+  const paint = o.paint || (() => o.col || '#888888'), pc = new THREE.Vector3();
+  for (let i = 0; i < N; i++) for (let j = 0; j < seg; j++) {
+    const j2 = (j + 1) % seg, a = rings[i][j], b = rings[i][j2], c = rings[i + 1][j2], d = rings[i + 1][j];
+    pc.copy(a).add(b).add(c).add(d).multiplyScalar(0.25);
+    const k = paint(pc, (i + 0.5) / N, (j + 0.5) / seg * Math.PI * 2);
+    B.tri(a, b, c, k); B.tri(a, c, d, k);
+  }
+  // 両はしのふた
+  for (const [i, t] of [[0, 0], [N, 1]]) {
+    if (Math.max(o3at(RX, t * (L - 1)), o3at(RY, t * (L - 1))) < 1e-4) continue;
+    for (let j = 0; j < seg; j++) {
+      const a = rings[i][j], b = rings[i][(j + 1) % seg];
+      pc.copy(a).add(b).add(cen[i]).multiplyScalar(1 / 3);
+      B.tri(cen[i], a, b, paint(pc, t, (j + 0.5) / seg * Math.PI * 2));
+    }
+  }
+  return own ? B.mesh(o) : B;
+}
+// 細い管（足、指、触角、枝、網の糸）
+function o3tube(pts, r, col, seg, B) {
+  return o3loft({ pts: pts.map((q) => [q[0], q[1], q[2], q.length > 3 ? q[3] : r]), seg: seg || 6, per: pts.length > 2 ? 3 : 1, col }, B);
+}
+// 球（目、玉）。sx・sy・sz で、つぶした形にも
+function o3ball(col, r, x, y, z, sx, sy, sz, seg) {
+  const g = new THREE.SphereGeometry(1, seg || 10, Math.max(5, Math.round((seg || 10) * 0.7))).toNonIndexed();
+  const q = o3c(col), n = g.attributes.position.count, cl = new Float32Array(n * 3);
+  for (let i = 0; i < n; i++) { cl[i * 3] = q.r; cl[i * 3 + 1] = q.g; cl[i * 3 + 2] = q.b; }
+  g.setAttribute('color', new THREE.BufferAttribute(cl, 3));
+  const m = new THREE.Mesh(g, o3mat()); m.scale.set(r * (sx || 1), r * (sy || 1), r * (sz || 1)); m.position.set(x, y, z);
+  return m;
+}
+// 目：黒い玉に、小さな光。o.ring＝目のまわりの輪、o.iris＝虹彩の色（瞳は黒、o.pupil＝瞳の縦、o.pz＝瞳の前後の長さ）
+function o3eye(g, x, y, z, r, o) {
+  o = o || {};
+  for (const s of [-1, 1]) {
+    if (o.ring) g.add(o3ball(o.ring, r * 1.35, s * (x - r * 0.12), y, z, 0.6, 1, 1, 10));
+    if (o.iris) {
+      g.add(o3ball(o.iris, r, s * x, y, z, 1, 1, 1, 10));
+      g.add(o3ball(o.col || '#16120F', r * 0.56, s * (x + r * 0.52), y, z + r * 0.08, 0.55, o.pupil || 1, o.pz || 1, 8));
+    } else g.add(o3ball(o.col || '#16120F', r, s * x, y, z, 1, 1, 1, 10));
+    const hl = o3ball('#FFFDF6', r * 0.24, s * (x + r * 0.7), y + r * 0.4, z + r * 0.3, 1, 1, 1, 6); hl.userData.noShadow = true; g.add(hl);
+  }
+}
+/* 平らな形（羽、尾、葉、はね）：2Dの輪郭 [[u, v], …] を、origin・U・V の向きで3Dに置く
+   o.paint(u, v)：面の色。o.tex：絵（あれば、すけるはね用の素材で） */
+function o3flat(outline, o) {
+  const O = new THREE.Vector3().fromArray(o.origin || [0, 0, 0]), U = new THREE.Vector3().fromArray(o.U || [1, 0, 0]), V = new THREE.Vector3().fromArray(o.V || [0, 1, 0]);
+  const pts = outline.map((q) => new THREE.Vector2(q[0], q[1]));
+  if (THREE.ShapeUtils.isClockWise(pts)) pts.reverse();
+  const tris = THREE.ShapeUtils.triangulateShape(pts, []);
+  const at = (q) => O.clone().addScaledVector(U, q.x).addScaledVector(V, q.y);
+  if (o.tex) {
+    let u0 = Infinity, u1 = -Infinity, v0 = Infinity, v1 = -Infinity;
+    for (const q of pts) { u0 = Math.min(u0, q.x); u1 = Math.max(u1, q.x); v0 = Math.min(v0, q.y); v1 = Math.max(v1, q.y); }
+    const pos = [], uv = [];
+    for (const t of tris) for (const k of t) { const q = pts[k], p = at(q); pos.push(p.x, p.y, p.z); uv.push((q.x - u0) / (u1 - u0 || 1), (q.y - v0) / (v1 - v0 || 1)); }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); g.computeVertexNormals();
+    const m = new THREE.Mesh(g, o3texMat(o.tex, o.opacity)); m.userData.noShadow = !o.shadow; m.renderOrder = 2;
+    return m;
+  }
+  const B = o3buf(), paint = o.paint || (() => o.col || '#888888');
+  for (const t of tris) {
+    const a = pts[t[0]], b = pts[t[1]], c = pts[t[2]];
+    B.tri(at(a), at(b), at(c), paint((a.x + b.x + c.x) / 3, (a.y + b.y + c.y) / 3));
+  }
+  return B.mesh(o);
+}
+// すけるはね用の素材（絵ごとに1つ）
+function o3texMat(key, opacity) {
+  const k = key + ':' + (opacity || 1);
+  if (O3.tex[k]) return O3.tex[k].m;
+  const c = O3.draw[key]();
+  const t = new THREE.CanvasTexture(c); t.anisotropy = 4;
+  const m = new THREE.MeshLambertMaterial({ map: t, emissive: 0xffffff, emissiveMap: t, emissiveIntensity: 0.32, transparent: true, opacity: opacity || 1, alphaTest: 0.04, side: THREE.DoubleSide, depthWrite: false });
+  O3.tex[k] = { t, m };
+  return m;
+}
+O3.draw = {}; // はねの絵：O3.draw[名前] = () => canvas（それぞれのファイルで）
+function o3canvas(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
+// 輪郭の点を、なめらかな線で（Catmull-Rom。閉じた形）
+function o3smooth(pts, per) {
+  const out = [], L = pts.length; per = per || 4;
+  for (let i = 0; i < L; i++) for (let k = 0; k < per; k++) {
+    const s = k / per, g = (j) => pts[(j + L) % L];
+    out.push([o3cr(g(i - 1)[0], g(i)[0], g(i + 1)[0], g(i + 2)[0], s), o3cr(g(i - 1)[1], g(i)[1], g(i + 1)[1], g(i + 2)[1], s)]);
+  }
+  return out;
+}
+// 鳥の、たたんだ羽（肩から羽の先へ。体の横にそう、平たいふくらみ）
+function o3wing(g, o) {
+  for (const s of [-1, 1]) {
+    const pts = o.pts.map((q) => [s * q[0], q[1], q[2], q[3], q[4]]);
+    g.add(o3loft({ pts, seg: o.seg || 10, per: 4, paint: (p, t, a) => o.paint(p, t, s > 0 ? a : Math.PI * 2 - a, s) }));
+  }
+}
+// 鳥の足：すね（ふし）と、前に3本・後ろに1本の指
+function o3feet(g, o) {
+  const col = o.col, r = o.r;
+  for (const s of [-1, 1]) {
+    const x = s * o.x, hip = [x, o.hip[0], o.hip[1]], ank = [x * (o.splay || 1), o.foot[0], o.foot[1]];
+    if (o.thigh) g.add(o3tube([hip, [x, (hip[1] + ank[1]) / 2 + o.thigh[0], (hip[2] + ank[2]) / 2 + o.thigh[1]], ank], r, col, 6));
+    else g.add(o3tube([hip, ank], r, col, 6));
+    const L = o.toe, d = o.down || 0;
+    for (const a of [-0.45, 0, 0.45]) g.add(o3tube([ank, [ank[0] + Math.sin(a) * L * 0.5, ank[1] - d * 0.5, ank[2] + Math.cos(a) * L * 0.5], [ank[0] + Math.sin(a) * L, ank[1] - d, ank[2] + Math.cos(a) * L]], r * 0.7, col, 5));
+    g.add(o3tube([ank, [ank[0], ank[1] - d * 0.6, ank[2] - L * (o.hind || 0.55)]], r * 0.65, col, 5));
+    if (o.web) { // 水かき（指のあいだの膜）
+      const tips = [-0.45, 0, 0.45].map((a) => [ank[0] + Math.sin(a) * L, ank[1] - d, ank[2] + Math.cos(a) * L]);
+      for (let k = 0; k < 2; k++) {
+        const B = o3buf(), v = (q) => new THREE.Vector3(q[0], q[1], q[2]);
+        B.tri(v(ank), v(tips[k]), v(tips[k + 1]), o.web); g.add(B.mesh());
+      }
+    }
+  }
+}
+
+/* ---- 台と小物（見る時の足もと） ---- */
+// 小物の入れ物：この中の物は、見る時の「まん中」と「大きさ」に数えない（生き物が主役。台や枝は、枠からはみ出してもよい）
+function o3props(g) { const P = new THREE.Group(); P.userData.prop = true; g.add(P); return P; }
+// 地面の丸い台：色の違う紙を、ちぎって並べたように
+function o3ground(r, cols, o) {
+  o = o || {};
+  const B = o3buf(), rings = 5, seg = 26, h = o.h || r * 0.1, top = o.y || 0, P = (rr, a) => new THREE.Vector3(Math.sin(a) * rr, top, Math.cos(a) * rr);
+  for (let i = 0; i < rings; i++) for (let j = 0; j < seg; j++) {
+    const r0 = r * i / rings, r1 = r * (i + 1) / rings, a0 = j / seg * 6.2832, a1 = (j + 1) / seg * 6.2832;
+    const k = cols[Math.floor(o3h(i, j, r) * cols.length)];
+    if (i === 0) B.tri(P(0, 0), P(r1, a0), P(r1, a1), k);
+    else { B.tri(P(r0, a0), P(r1, a0), P(r1, a1), k); B.tri(P(r0, a0), P(r1, a1), P(r0, a1), k); }
+  }
+  const side = o.side || '#8A7458';
+  for (let j = 0; j < seg; j++) {
+    const a0 = j / seg * 6.2832, a1 = (j + 1) / seg * 6.2832, p = (a, y) => new THREE.Vector3(Math.sin(a) * r, y, Math.cos(a) * r);
+    B.tri(p(a0, top), p(a0, top - h), p(a1, top - h), side); B.tri(p(a0, top), p(a1, top - h), p(a1, top), side);
+  }
+  const m = B.mesh(); m.userData.base = true; return m;
+}
+// 草のたば（細い三角の葉を、何本か）
+function o3tuft(g, x, z, s, col, y) {
+  for (let i = 0; i < 6; i++) {
+    const a = o3h(x, z, i) * 6.28, lean = 0.2 + o3h(i, x, z) * 0.5, h = s * (0.6 + o3h(z, i, x) * 0.6), w = s * 0.07;
+    const base = [x + Math.cos(a) * s * 0.08, y || 0, z + Math.sin(a) * s * 0.08];
+    g.add(o3flat([[-w, 0], [w, 0], [Math.sin(lean) * h * 0.4, h]], { origin: base, U: [Math.cos(a + 1.57), 0, Math.sin(a + 1.57)], V: [Math.cos(a) * Math.sin(lean), Math.cos(lean), Math.sin(a) * Math.sin(lean)], col: i % 2 ? col : o3mix(col, '#2E4A26', 0.25) }));
+  }
+}
+// 枝：皮の色に、たての筋
+function o3branch(g, pts, r, col, o) {
+  o = o || {};
+  const dark = o3mix(col, '#2A1E14', 0.35), lite = o3mix(col, '#E8DCC4', 0.18);
+  g.add(o3loft({ pts: pts.map((q) => [q[0], q[1], q[2], q.length > 3 ? q[3] : r]), seg: 9, per: 4, paint: (p, t, a) => { const h = o3h(Math.floor(t * 9), Math.floor(a * 1.6)); return h < 0.22 ? dark : h > 0.85 ? lite : col; } }));
+}
+// 葉：先のとがった形に、まん中の筋
+function o3leaf(g, o) {
+  const L = o.len, W = o.wid, out = [];
+  for (let i = 0; i <= 10; i++) { const t = i / 10; out.push([Math.sin(t * Math.PI) * W * (1 - t * 0.35) * 0.5, t * L]); }
+  for (let i = 9; i >= 1; i--) { const t = i / 10; out.push([-Math.sin(t * Math.PI) * W * (1 - t * 0.35) * 0.5, t * L]); }
+  const mid = o3mix(o.col, '#F4F0D8', 0.3), dk = o3mix(o.col, '#1E3A1A', 0.18);
+  g.add(o3flat(out, { origin: o.at, U: o.U || [1, 0, 0], V: o.V || [0, 0, 1], paint: (u, v) => (Math.abs(u) < W * 0.05 ? mid : o3h(Math.floor(u / W * 6), Math.floor(v / L * 7)) > 0.7 ? dk : o.col) }));
+}
+// 石：でこぼこの玉
+function o3stone(g, r, x, y, z, cols, sy) {
+  const geo = new THREE.IcosahedronGeometry(r, 1).toNonIndexed(), p = geo.attributes.position;
+  for (let i = 0; i < p.count; i++) { const k = 0.82 + o3h(Math.round(p.getX(i) * 50), Math.round(p.getY(i) * 50), Math.round(p.getZ(i) * 50)) * 0.3; p.setXYZ(i, p.getX(i) * k, p.getY(i) * k * (sy || 0.62), p.getZ(i) * k); }
+  const cl = new Float32Array(p.count * 3);
+  for (let f = 0; f < p.count / 3; f++) { const q = o3c(cols[Math.floor(o3h(f, r) * cols.length)]); for (let k = 0; k < 3; k++) cl.set([q.r, q.g, q.b], (f * 3 + k) * 3); }
+  geo.setAttribute('color', new THREE.BufferAttribute(cl, 3)); geo.computeVertexNormals();
+  const m = new THREE.Mesh(geo, o3mat()); m.position.set(x, y, z); g.add(m); return m;
+}
+// 水面：青い台に、うすい波の輪
+function o3water(r, o) {
+  o = o || {};
+  const m = o3ground(r, ['#7FA9B8', '#86B0BE', '#79A2B2'], { h: o.h || r * 0.25, side: '#5E8696', y: o.y });
+  const g = new THREE.Group(); g.add(m);
+  const B = o3buf(), y = (o.y || 0) + 0.004 * r;
+  for (const [rr, cx, cz] of o.rings || []) for (let i = 0; i < 28; i++) {
+    const a0 = i / 28 * 6.2832, a1 = (i + 1) / 28 * 6.2832, P3 = (k, a) => new THREE.Vector3(cx + Math.sin(a) * rr * k, y, cz + Math.cos(a) * rr * k);
+    B.tri(P3(1, a0), P3(1, a1), P3(0.9, a1), '#B4D0D8'); B.tri(P3(1, a0), P3(0.9, a1), P3(0.9, a0), '#B4D0D8');
+  }
+  if (B.n) g.add(B.mesh({ noShadow: true }));
+  return g;
+}
+// 片面だけの壁（下見板）：前からは見え、うしろへまわると消えて、生き物がよく見える
+function o3wall(g, x0, x1, y0, y1, z, cols) {
+  const M = O3.matF || (O3.matF = new THREE.MeshPhongMaterial({ vertexColors: true, flatShading: true, shininess: 0, specular: 0x000000, side: THREE.FrontSide }));
+  const n = Math.max(1, Math.round((y1 - y0) / 0.32)), h = (y1 - y0) / n;
+  for (let i = 0; i < n; i++) {
+    const geo = new THREE.PlaneGeometry(x1 - x0, h * 1.08, 3, 1).toNonIndexed(), q = o3c(cols[i % cols.length]), c = new Float32Array(geo.attributes.position.count * 3);
+    for (let k = 0; k < c.length; k += 3) { c[k] = q.r; c[k + 1] = q.g; c[k + 2] = q.b; }
+    geo.setAttribute('color', new THREE.BufferAttribute(c, 3));
+    const m = new THREE.Mesh(geo, M); m.position.set((x0 + x1) / 2, y0 + h * (i + 0.5), z + i * 0.012); m.rotation.x = -0.035; g.add(m);
+  }
+}
+// 木のくい・柱：年輪のある上の面
+function o3post(g, x, y0, y1, z, r, col) {
+  g.add(o3loft({ pts: [[x, y0, z, r * 1.05], [x, (y0 + y1) / 2, z, r], [x, y1, z, r * 0.97]], seg: 10, per: 3, up: [0, 0, 1],
+    paint: (p, t, a) => (o3h(Math.floor(a * 2.2), Math.floor(t * 5)) < 0.25 ? o3mix(col, '#2A1E14', 0.3) : col) }));
+  g.add(o3ball(o3mix(col, '#E8D8B8', 0.35), r * 0.94, x, y1, z, 1, 0.06, 1, 12));
+}
+/* 観察ノートの模型：鳥（2026-10-22）
+   特徴は、サントリー「日本の鳥百科」、日本野鳥の会、環境省・自治体の図鑑などにあるものから（観察ノートの出典と同じ）。
+   体は「尾のつけね → おなか → 胸 → 首 → 頭 → ひたい」の背骨にそった輪で作り、羽・尾・くちばし・足を足す。
+   模様は、図鑑の「見分けるところ」をなるべく入れる（スズメの頬の黒い点、シジュウカラのネクタイ、カワセミの背中の青など） */
+
+// 鳥の形：o.body は [z, y, 横の半径, 縦の半径]（尾から頭へ）
+function o3bird(o) {
+  const g = new THREE.Group();
+  g.add(o3loft({ pts: o.body.map(([z, y, rx, ry]) => [0, y, z, rx, ry]), seg: o.seg || 16, per: 4, paint: o.paint, shape: o.shape }));
+  if (o.beak) o3beak(g, o.beak);
+  if (o.eye) o3eye(g, o.eye[0], o.eye[1], o.eye[2], o.eye[3], o.eyeOpt);
+  if (o.wing) o3wing(g, o.wing);
+  if (o.tail) o3tail(g, o.tail);
+  if (o.feet) o3feet(g, o.feet);
+  return g;
+}
+// くちばし：at＝[y, z] のつけねから、pitch だけ下に向けて
+function o3beak(g, b) {
+  const d = [0, -Math.sin(b.pitch || 0), Math.cos(b.pitch || 0)], L = b.len, P = (k, dy) => [0, b.at[0] + d[1] * L * k - (dy || 0), b.at[1] + d[2] * L * k];
+  const hook = b.hook || 0;
+  const pts = [
+    [...P(-0.12), b.w * 0.5, b.h * 0.5], [...P(0.18), b.w * 0.42, b.h * 0.42], [...P(0.5, hook * 0.1), b.w * 0.27, b.h * 0.27],
+    [...P(0.8, hook * 0.35), b.w * 0.13, b.h * 0.14], [...P(1, hook), b.w * 0.03, b.h * 0.05],
+  ];
+  g.add(o3loft({ pts, seg: 8, per: 3, paint: (p, t, a) => (b.tip && t > (b.tipT || 0.8) ? b.tip : Math.cos(a) < -0.15 && b.low ? b.low : b.col) }));
+  if (b.gape) for (const s of [-1, 1]) g.add(o3ball(b.gape, b.h * 0.18, s * b.w * 0.42, b.at[0] - b.h * 0.12, b.at[1] + 0.02 * L, 1, 0.7, 1.6, 6));
+}
+// 尾：at＝[y, z] のつけねから後ろへ、pitch だけ下に。平たい束（横から見ても、うすい厚みがある）
+//   o.w0・o.w1＝つけねと先の半分の幅、o.round＝先を細く、o.streamer＝外側の長い羽（ツバメ）
+//   o.paint(u, v)：u は、まん中 0 → ふち 1、v はつけねからの長さ
+function o3tail(g, o) {
+  const L = o.len, pc = o.pitch || 0, V = [0, -Math.sin(pc), -Math.cos(pc)], th = o.th || Math.max(0.09, o.w0 * 0.42);
+  const P = (k) => [0, o.at[0] + V[1] * L * k, o.at[1] + V[2] * L * k], W = (k) => o.w0 + (o.w1 - o.w0) * k;
+  const pts = [[...P(-0.08), o.w0 * 0.9, th * 1.2], [...P(0.35), W(0.35), th], [...P(0.72), W(0.72), th * 0.8], [...P(0.95), W(0.95) * (o.round ? 0.78 : 1), th * 0.5], [...P(1), W(1) * (o.round ? 0.3 : 0.9), th * 0.2]];
+  g.add(o3loft({ pts, seg: 10, per: 3, paint: (p, t) => o.paint(Math.min(1, Math.abs(p.x) / Math.max(0.05, W(Math.max(0, t * 1.08 - 0.08)))), t * L) }));
+  if (o.streamer) for (const s of [-1, 1]) {
+    const e = P(0.96), f = P(1 + o.streamer / L);
+    g.add(o3loft({ pts: [[s * W(1) * 0.8, e[1], e[2], 0.14, 0.05], [s * W(1) * 1.0, (e[1] + f[1]) / 2, (e[2] + f[2]) / 2, 0.08, 0.035], [s * W(1) * 1.12, f[1], f[2], 0.015, 0.015]], seg: 6, per: 3, col: o.paint(1, L) }));
+  }
+}
+// 羽のすじ（先にいくほど濃く、ふちは明るく）：たたんだ羽の色を決める小さな道具
+function o3feather(t, a, base, tipCol, edge, bars) {
+  if (bars) for (const [t0, t1, c] of bars) if (t > t0 && t < t1) return c;
+  if (tipCol && t > 0.62) return Math.floor(t * 30) % 3 === 0 && edge ? edge : tipCol;
+  return base;
+}
+
+/* スズメ（Passer montanus）：頭は茶色、白い頬に黒い点、のどの黒、背中は茶色に黒い筋、羽に白い線が2本 */
+O3.models.suzume = function () {
+  const crown = '#8E4A2A', cheek = '#F1ECE2', black = '#231D1A', back = '#8C6A46', streak = '#3E2C20', belly = '#D8D2C5', flank = '#C7B596';
+  const g = o3bird({
+    body: [[-3.0, 2.25, 0.42, 0.4], [-2.1, 2.6, 1.45, 1.4], [-0.7, 3.05, 1.85, 1.85], [0.8, 3.75, 1.7, 1.75], [1.65, 4.55, 1.2, 1.2], [2.2, 5.25, 1.32, 1.3], [2.95, 5.55, 1.05, 1.0], [3.42, 5.5, 0.42, 0.42]],
+    paint: (p, t, a) => {
+      if (o3d(p, 1.05, 5.12, 2.25) < 0.36) return black; // 頬の黒い点
+      if (t > 0.66) { // 頭
+        if (p.z > 2.55 && p.y < 5.25 && Math.abs(p.x) < 0.75) return black; // のど
+        if (p.y > 5.45 || (p.z < 2.0 && p.y > 4.9 && Math.cos(a) > 0.2)) return crown;
+        return cheek;
+      }
+      if (t > 0.56 && Math.cos(a) > -0.2 && Math.cos(a) < 0.55) return cheek; // 白い首輪
+      if (Math.cos(a) > 0.35) return o3h(Math.floor(t * 26), Math.floor(a * 7)) < 0.3 ? streak : back; // 背中
+      return Math.abs(Math.sin(a)) > 0.75 && t < 0.5 ? flank : belly;
+    },
+    beak: { at: [5.45, 3.28], len: 1.15, h: 0.8, w: 0.7, pitch: 0.18, col: '#2C2622' },
+    eye: [1.0, 5.55, 2.85, 0.21],
+    wing: { pts: [[1.32, 4.05, 0.9, 0.22, 0.75], [1.62, 3.55, -0.2, 0.26, 1.15], [1.55, 3.05, -1.4, 0.22, 1.0], [1.15, 2.7, -2.6, 0.14, 0.5], [0.85, 2.55, -3.3, 0.02, 0.06]],
+      paint: (p, t, a) => o3feather(t, a, a > Math.PI ? '#7A5A3E' : '#8E6C48', '#4E3828', '#B89A72', [[0.2, 0.27, '#F4EFE4'], [0.33, 0.39, '#F4EFE4']]) },
+    tail: { at: [2.35, -2.85], len: 4.6, w0: 0.62, w1: 1.25, pitch: 0.36, paint: (u) => (u > 0.8 ? '#7A5E42' : '#5E4834') },
+    feet: { x: 0.55, hip: [2.4, 0.15], foot: [0.82, 0.3], r: 0.14, toe: 0.95, down: 0.25, col: '#B4927E' },
+  });
+  const P = o3props(g);
+  o3branch(P, [[-4.5, 0.25, 0.6], [0, 0.35, 0.3], [4.5, 0.3, -0.4]].map(([x, y, z]) => [x, y, z]), 0.42, '#7A6048');
+  o3branch(P, [[2.0, 0.35, 0.1], [3.2, 1.2, 0.5], [4.0, 2.2, 0.4]], 0.14, '#7A6048');
+  o3leaf(P, { at: [4.0, 2.2, 0.4], len: 2.0, wid: 0.9, col: '#8DAE62', U: [0, 0, 1], V: [0.5, 0.7, 0.3] });
+  return g;
+};
+
+/* シジュウカラ（Parus minor）：黒い頭に白い頬、のどから腹へ黒いネクタイ、背の上は黄緑、羽と背は青みのある灰色に白い線 */
+O3.models.shijukara = function () {
+  const black = '#1C1C21', white = '#F4F3EC', green = '#A2AD5E', gray = '#73828F', belly = '#ECEBE4';
+  const g = o3bird({
+    body: [[-3.0, 2.3, 0.4, 0.38], [-2.1, 2.65, 1.32, 1.32], [-0.7, 3.1, 1.66, 1.72], [0.8, 3.8, 1.56, 1.62], [1.6, 4.55, 1.1, 1.12], [2.15, 5.25, 1.27, 1.25], [2.9, 5.5, 1.0, 0.95], [3.35, 5.45, 0.37, 0.37]],
+    paint: (p, t, a) => {
+      if (t > 0.64) {
+        if (o3d(p, 0.92, 5.08, 2.4) < 0.6) return white; // 白い頬
+        if (t < 0.7 && Math.cos(a) > 0.75) return '#E6E8DE'; // うなじの白
+        return black;
+      }
+      const w = t > 0.5 ? 0.62 : 0.16 + t * 0.7; // ネクタイ（胸は広く、腹は細く）
+      if (Math.cos(a) < -0.1 && Math.abs(p.x) < w) return black;
+      if (Math.cos(a) > 0.3) return t > 0.46 ? green : gray;
+      return Math.abs(Math.sin(a)) > 0.8 ? '#D9DBD6' : belly;
+    },
+    beak: { at: [5.42, 3.24], len: 0.95, h: 0.66, w: 0.6, pitch: 0.12, col: '#1E1E22' },
+    eye: [0.98, 5.55, 2.85, 0.2],
+    wing: { pts: [[1.28, 4.05, 0.9, 0.22, 0.75], [1.56, 3.55, -0.2, 0.26, 1.12], [1.5, 3.05, -1.4, 0.22, 0.98], [1.1, 2.72, -2.6, 0.14, 0.48], [0.82, 2.58, -3.3, 0.02, 0.06]],
+      paint: (p, t, a) => o3feather(t, a, '#6E7C8A', '#3E4650', '#A4B2BE', [[0.28, 0.37, '#F2F2EC']]) },
+    tail: { at: [2.4, -2.85], len: 5.6, w0: 0.6, w1: 1.2, pitch: 0.36, paint: (u) => (u > 0.8 ? '#EDEDE6' : '#4E5866') },
+    feet: { x: 0.55, hip: [2.45, 0.15], foot: [0.82, 0.3], r: 0.14, toe: 0.95, down: 0.25, col: '#69707F' },
+  });
+  const P = o3props(g);
+  o3branch(P, [[-4.5, 0.3, -0.5], [0, 0.35, 0.3], [4.5, 0.25, 0.8]], 0.42, '#6E5E4C');
+  o3branch(P, [[-1.8, 0.4, 0.0], [-3.0, 1.4, -0.6], [-3.6, 2.6, -1.0]], 0.13, '#6E5E4C');
+  o3leaf(P, { at: [-3.6, 2.6, -1.0], len: 1.8, wid: 0.8, col: '#93B068', U: [0, 0, 1], V: [-0.4, 0.8, -0.3] });
+  return g;
+};
+
+/* ハクセキレイ（Motacilla alba lugens）：白い顔に黒い目の線、頭の後ろと胸は黒、羽に大きな白、長い尾を上下にふる */
+O3.models.sekirei = function () {
+  const black = '#1F1F23', white = '#F5F4EF', back = '#36363B';
+  const g = o3bird({
+    body: [[-3.6, 3.2, 0.4, 0.36], [-2.6, 3.4, 1.35, 1.3], [-1.0, 3.65, 1.72, 1.7], [0.8, 4.1, 1.6, 1.6], [1.9, 4.8, 1.1, 1.1], [2.5, 5.4, 1.22, 1.2], [3.25, 5.6, 0.93, 0.88], [3.7, 5.55, 0.34, 0.34]],
+    paint: (p, t, a) => {
+      if (t > 0.64) {
+        if (p.z < 3.35 && p.z > 1.9 && Math.abs(p.x) > 0.55 && Math.abs(p.y - (5.52 - (3.0 - p.z) * 0.12)) < 0.12) return black; // 目の線
+        if (p.y > 5.62 && p.z < 3.3) return black; // 頭の上
+        if (Math.cos(a) > 0.45 && p.z < 2.7) return black; // うなじ
+        return white;
+      }
+      if (t > 0.46 && Math.cos(a) < 0.25) return black; // 胸の黒
+      if (Math.cos(a) > 0.3) return back;
+      return white;
+    },
+    beak: { at: [5.52, 3.55], len: 1.3, h: 0.5, w: 0.45, pitch: 0.08, col: '#1C1C1E' },
+    eye: [0.88, 5.62, 3.05, 0.18],
+    wing: { pts: [[1.25, 4.4, 1.0, 0.22, 0.8], [1.55, 3.95, -0.3, 0.26, 1.15], [1.45, 3.55, -1.6, 0.22, 1.0], [1.05, 3.3, -2.9, 0.14, 0.5], [0.75, 3.25, -3.7, 0.02, 0.06]],
+      paint: (p, t, a) => (t < 0.52 && (a < Math.PI * 0.55 || a > Math.PI * 1.45) ? white : t > 0.6 ? '#1A1A1D' : (t < 0.52 ? '#E8E8E4' : black)) },
+    tail: { at: [3.25, -3.45], len: 7.4, w0: 0.58, w1: 1.05, pitch: 0.04, paint: (u) => (u > 0.74 ? white : black) },
+    feet: { x: 0.6, hip: [3.25, 0.35], foot: [0.12, 0.45], r: 0.14, toe: 1.1, down: 0.05, col: '#1E1E20', hind: 0.8 },
+  });
+  const P = o3props(g);
+  P.add(o3ground(5.2, ['#9DB37A', '#A7BC84', '#93AA70', '#B2C28E'], { h: 0.45, y: 0, side: '#8A7458' }));
+  o3stone(P, 1.2, -2.9, 0.2, 2.0, ['#B4B0A6', '#A8A498', '#C2BEB4']);
+  for (const [x, z] of [[3.4, -2.2], [-3.6, -1.6], [3.0, 2.8]]) o3tuft(P, x, z, 1.5, '#7FA05A');
+  return g;
+};
+
+/* ツバメ（Hirundo rustica）：背は光る青みの黒、ひたいとのどは赤茶、胸に黒い帯、腹は白、長い尾の先に白い点。電線にとまって */
+O3.models.tsubame = function () {
+  const blue = '#1E2946', red = '#A8432E', cream = '#F2ECDF';
+  const g = o3bird({
+    body: [[-2.6, 2.2, 0.36, 0.32], [-1.8, 2.45, 1.12, 1.08], [-0.5, 2.85, 1.42, 1.42], [0.8, 3.45, 1.3, 1.32], [1.5, 4.1, 0.92, 0.92], [1.95, 4.6, 1.02, 0.98], [2.55, 4.75, 0.78, 0.7], [2.9, 4.68, 0.27, 0.25]],
+    paint: (p, t, a) => {
+      if (t > 0.88 && Math.cos(a) > -0.4) return red; // ひたい
+      if (t > 0.72 && Math.cos(a) < -0.15 && p.z > 1.7) return red; // のど
+      if (t > 0.58 && t <= 0.74 && Math.cos(a) < 0.1) return blue; // 胸の帯
+      if (Math.cos(a) > -0.1) return blue;
+      return cream;
+    },
+    beak: { at: [4.66, 2.82], len: 0.42, h: 0.34, w: 0.62, pitch: 0.2, col: '#1A1A1C' },
+    eye: [0.78, 4.82, 2.38, 0.17],
+    wing: { pts: [[1.08, 3.65, 0.8, 0.18, 0.7], [1.35, 3.25, -0.4, 0.2, 0.92], [1.2, 2.8, -2.0, 0.16, 0.7], [0.75, 2.5, -4.0, 0.1, 0.34], [0.42, 2.4, -5.5, 0.02, 0.05]],
+      paint: (p, t) => (t > 0.55 ? '#151B2E' : '#1C2540') },
+    tail: { at: [2.2, -2.45], len: 2.6, w0: 0.38, w1: 0.82, pitch: 0.32, streamer: 4.0, paint: (u, v) => (u > 0.35 && u < 0.72 && v > 1.5 && v < 2.1 ? '#F4F0E8' : '#18203A') },
+    feet: { x: 0.42, hip: [2.15, 0.2], foot: [1.38, 0.3], r: 0.09, toe: 0.55, down: 0.22, col: '#2A2422' },
+  });
+  const P = o3props(g);
+  P.add(o3tube([[-4.2, 1.18, 0.3], [4.2, 1.18, 0.3]], 0.1, '#55524E', 6)); // 電線
+  return g;
+};
+
+/* ヒバリ（Alauda arvensis）：茶色に黒い筋、頭に小さな冠羽、白っぽい眉、胸に細かい筋、尾の外側は白。地面を歩く */
+O3.models.hibari = function () {
+  const up = '#A88A62', streak = '#5A4430', brow = '#E8DCC0', breast = '#D8C29A', belly = '#EFE8D8';
+  const g = o3bird({
+    body: [[-3.1, 2.9, 0.42, 0.38], [-2.2, 3.1, 1.45, 1.4], [-0.7, 3.4, 1.85, 1.8], [0.9, 3.9, 1.75, 1.75], [1.8, 4.6, 1.2, 1.2], [2.35, 5.25, 1.3, 1.28], [3.1, 5.5, 1.0, 0.95], [3.55, 5.42, 0.4, 0.4]],
+    paint: (p, t, a) => {
+      const st = o3h(Math.floor(t * 30), Math.floor(a * 8)) < 0.3;
+      if (t > 0.66) {
+        if (Math.abs(p.x) > 0.5 && p.z > 1.9 && p.z < 3.3 && Math.abs(p.y - 5.72) < 0.14) return brow;
+        if (Math.cos(a) < -0.45) return '#EEE6D2';
+        if (Math.cos(a) > 0.3) return st ? streak : up;
+        return '#9A7E5A';
+      }
+      if (Math.cos(a) > 0.25) return st ? streak : up;
+      if (t > 0.48) return st ? '#7A5E40' : breast;
+      return belly;
+    },
+    beak: { at: [5.42, 3.38], len: 1.15, h: 0.74, w: 0.6, pitch: 0.12, col: '#9A846A', low: '#C2AC8E' },
+    eye: [1.0, 5.55, 2.98, 0.2],
+    wing: { pts: [[1.4, 4.15, 1.0, 0.22, 0.8], [1.7, 3.65, -0.3, 0.26, 1.18], [1.62, 3.15, -1.5, 0.22, 1.0], [1.2, 2.85, -2.7, 0.14, 0.5], [0.9, 2.75, -3.4, 0.02, 0.06]],
+      paint: (p, t, a) => (Math.floor(t * 14) % 3 === 0 ? '#C8B08A' : t > 0.6 ? '#5A4632' : '#8A6E4C') },
+    tail: { at: [2.95, -2.95], len: 4.8, w0: 0.62, w1: 1.3, pitch: 0.12, paint: (u) => (u > 0.8 ? '#EEE6D6' : '#4E3E2C') },
+    feet: { x: 0.65, hip: [3.0, 0.3], foot: [0.12, 0.45], r: 0.15, toe: 1.0, down: 0.05, col: '#C8A88A', hind: 1.05 },
+  });
+  const P = o3props(g);
+  g.add(o3loft({ pts: [[0, 6.35, 2.35, 0.3, 0.2], [0, 6.75, 1.75, 0.2, 0.14], [0, 6.95, 1.35, 0.04, 0.04]], seg: 6, per: 3, col: '#7A6040' })); // 冠羽
+  P.add(o3ground(6.5, ['#A9B98A', '#B8C49A', '#9FB07E', '#C2B898'], { h: 0.5, side: '#8A7458' }));
+  for (const [x, z] of [[4.0, -2.8], [-4.4, -1.6], [3.8, 3.2], [-3.2, 3.6]]) o3tuft(P, x, z, 1.8, '#86A062');
+  return g;
+};
+
+/* ジョウビタキ（Phoenicurus auroreus）：頭は銀色がかった灰色、顔とのどは黒、胸から腹はだいだい色、黒い羽に白い紋、尾はだいだい色。くいの上に */
+O3.models.jobitaki = function () {
+  const silver = '#BDBAB2', black = '#2A2624', back = '#3B332D', orange = '#D9752E';
+  const g = o3bird({
+    body: [[-3.0, 2.3, 0.4, 0.38], [-2.1, 2.6, 1.35, 1.35], [-0.7, 3.05, 1.7, 1.72], [0.8, 3.75, 1.6, 1.62], [1.6, 4.5, 1.12, 1.12], [2.15, 5.2, 1.25, 1.22], [2.9, 5.42, 0.95, 0.9], [3.32, 5.38, 0.36, 0.36]],
+    paint: (p, t, a) => {
+      if (t > 0.62) return p.y > 5.3 || (Math.cos(a) > 0.5) ? silver : black;
+      if (Math.cos(a) > 0.3) return back;
+      return t < 0.2 ? '#E28C48' : orange;
+    },
+    beak: { at: [5.36, 3.22], len: 0.95, h: 0.55, w: 0.5, pitch: 0.12, col: '#1E1C1A' },
+    eye: [0.95, 5.5, 2.85, 0.2],
+    wing: { pts: [[1.28, 4.0, 0.9, 0.22, 0.75], [1.58, 3.5, -0.2, 0.26, 1.12], [1.52, 3.0, -1.4, 0.22, 0.98], [1.12, 2.68, -2.6, 0.14, 0.48], [0.84, 2.55, -3.3, 0.02, 0.06]],
+      paint: (p, t, a) => (t > 0.36 && t < 0.56 && Math.cos(a) < 0.55 ? '#F4F0E8' : '#2B2420') },
+    tail: { at: [2.35, -2.85], len: 5.0, w0: 0.62, w1: 1.25, pitch: 0.4, paint: (u) => (u < 0.26 ? '#3A3029' : '#C8682C') },
+    feet: { x: 0.55, hip: [2.4, 0.15], foot: [0.62, 0.25], r: 0.14, toe: 0.9, down: 0.05, col: '#1E1C1A' },
+  });
+  const P = o3props(g);
+  o3post(P, 0, -3.4, 0.6, 0.2, 1.5, '#8A7458');
+  return g;
+};
+
+/* カワウ（Phalacrocorax carbo。観察ノートの id は magan）：黒い体に、こげ茶のうろこ模様の羽。くちばしのつけねは黄色、その後ろが白い。
+   目はエメラルド色、先の曲がったくちばし。水からあがると、くいの上で羽を広げて乾かす */
+O3.models.magan = function () {
+  const black = '#1F1E1C', bronze = '#4E4230', edge = '#2A251E';
+  const g = o3bird({
+    body: [[-0.7, 1.9, 0.33, 0.3], [-0.3, 2.4, 1.05, 0.98], [0.15, 3.1, 1.3, 1.26], [0.45, 3.9, 1.15, 1.1], [0.5, 4.7, 0.58, 0.6], [0.35, 5.4, 0.48, 0.5], [0.45, 6.1, 0.53, 0.53], [0.85, 6.4, 0.56, 0.53], [1.25, 6.45, 0.32, 0.29]],
+    seg: 14,
+    paint: (p) => {
+      if (o3d(p, 0.32, 6.22, 1.08) < 0.26) return '#E2B43A'; // くちばしのつけねの黄色
+      if (o3d(p, 0.36, 6.12, 0.72) < 0.36 || (p.y > 5.75 && p.y < 6.2 && p.z > 0.55)) return '#EEECE4'; // 頬とのどの白
+      return black;
+    },
+    beak: { at: [6.46, 1.18], len: 1.3, h: 0.3, w: 0.26, pitch: 0.06, hook: 0.13, col: '#3C3A36', low: '#8E8676' },
+    eye: [0.47, 6.55, 0.98, 0.085], eyeOpt: { iris: '#3E8E5E' },
+    tail: { at: [2.0, -0.62], len: 1.9, w0: 0.32, w1: 0.55, pitch: 1.15, paint: () => '#1A1918' },
+    feet: { x: 0.45, hip: [2.0, -0.05], foot: [0.3, 0.3], r: 0.09, toe: 0.7, down: 0.08, col: '#1E1D1B', web: '#2A2826' },
+  });
+  const P = o3props(g);
+  // 広げた羽：手首で折れ、風切羽が下にたれる
+  const out = [[0, 0], [1.2, -0.3], [2.6, -0.2], [3.6, 0.3], [3.95, 0.85], [3.75, 1.6], [3.45, 2.35], [3.05, 2.95], [2.75, 2.45], [2.4, 2.95], [2.05, 2.45], [1.7, 2.8], [1.35, 2.3], [1.0, 2.55], [0.6, 2.05], [0.25, 2.2], [0, 1.4]];
+  for (const s of [-1, 1]) {
+    g.add(o3flat(out, { origin: [s * 0.95, 4.65, -0.35], U: [s * 0.94, 0.12, -0.32], V: [0, -0.96, -0.28],
+      paint: (u, v) => (v < 1.05 && u < 3.4 ? (o3h(Math.floor(u * 3.2), Math.floor(v * 4)) < 0.3 ? edge : bronze) : (Math.floor(u * 2.6) % 2 ? black : '#262420')) }));
+  }
+  o3post(P, 0, -2.6, 0.22, 0.25, 0.95, '#7A6A54');
+  P.add(o3water(3.4, { y: -2.4, h: 0.6, rings: [[1.4, 0.2, 0.3], [2.3, 0.2, 0.3]] }));
+  return g;
+};
+O3.view.magan = { yaw: 0.45, pitch: 0.18 };
+
+/* カルガモ（Anas zonorhyncha）：こげ茶の体に白っぽいうろこ、顔は白っぽく、目の線と頬の線は黒っぽい。黒いくちばしの先が黄色。
+   たたんだ羽に、白い三列風切と、青い翼鏡 */
+O3.models.karugamo = function () {
+  const brown = '#5E4A38', scale = '#8E7658', face = '#D9C9A6', crown = '#4A3A2C';
+  const g = o3bird({
+    body: [[-2.6, 0.55, 0.33, 0.3], [-2.0, 0.75, 1.08, 0.84], [-0.6, 0.8, 1.42, 0.98], [0.9, 0.85, 1.32, 0.94], [1.7, 1.3, 0.78, 0.74], [1.95, 1.95, 0.52, 0.55], [2.0, 2.55, 0.64, 0.64], [2.55, 2.75, 0.52, 0.48], [2.95, 2.7, 0.25, 0.22]],
+    paint: (p, t, a) => {
+      if (t > 0.6) {
+        if (p.y > 2.82 && Math.cos(a) > 0.2) return crown;
+        if (Math.cos(a) > 0.75) return '#5A4836';
+        if (p.z > 1.8 && p.z < 2.75 && Math.abs(p.y - (2.72 + (p.z - 2.3) * 0.12)) < 0.055) return '#3A2E24'; // 目の線
+        if (p.z > 1.85 && p.z < 2.45 && Math.abs(p.y - (2.47 + (p.z - 2.2) * 0.25)) < 0.045) return '#5A4A38'; // 頬の線
+        return face;
+      }
+      return o3h(Math.floor(p.z * 6), Math.floor(p.y * 9), Math.floor(Math.abs(p.x) * 5)) < 0.24 ? scale : brown;
+    },
+    beak: { at: [2.68, 2.85], len: 1.0, h: 0.34, w: 0.44, pitch: 0.16, col: '#26221E', tip: '#E8C838', tipT: 0.74 },
+    eye: [0.42, 2.79, 2.3, 0.065],
+    wing: { pts: [[0.95, 1.35, 1.0, 0.18, 0.55], [1.25, 1.45, 0.0, 0.2, 0.8], [1.15, 1.35, -1.3, 0.18, 0.6], [0.7, 1.12, -2.3, 0.1, 0.3], [0.4, 1.02, -2.75, 0.02, 0.05]],
+      paint: (p, t, a) => {
+        if (t > 0.5 && t < 0.66 && Math.cos(a) > 0.3) return '#F0ECE4';
+        if (t > 0.4 && t < 0.56 && Math.cos(a) < -0.1) return t < 0.43 || t > 0.53 ? '#F0ECE4' : '#2E5A86';
+        return o3h(Math.floor(t * 12), Math.floor(a * 3)) < 0.3 ? '#6E5A44' : '#4E3E2E';
+      } },
+    tail: { at: [0.72, -2.5], len: 0.95, w0: 0.34, w1: 0.12, pitch: -0.3, round: 0.25, paint: () => '#3A2E24' },
+  });
+  const P = o3props(g);
+  P.add(o3water(3.3, { y: 0.15, h: 0.5, rings: [[1.9, 0, 0], [2.7, 0, 0.2]] }));
+  return g;
+};
+
+/* コガモ（Anas crecca）：冬の水辺で見る姿。栗色の頭に、目から後ろへ緑の帯（ふちに細いクリーム色）、灰色の体に白い横線、
+   おしりの横に黄色い三角 */
+O3.models.kogamo = function () {
+  const chest = '#8A3A22', green = '#2E6A4E', gray = '#9EA09A', fine = '#8C8E88';
+  const g = o3bird({
+    body: [[-2.3, 0.55, 0.3, 0.26], [-1.8, 0.72, 0.95, 0.75], [-0.5, 0.78, 1.2, 0.85], [0.8, 0.8, 1.12, 0.82], [1.45, 1.2, 0.68, 0.65], [1.6, 1.75, 0.5, 0.52], [1.7, 2.2, 0.58, 0.58], [2.15, 2.35, 0.45, 0.42], [2.5, 2.32, 0.22, 0.2]],
+    paint: (p, t, a) => {
+      if (t > 0.62) {
+        const gy = 2.25 + (p.z - 1.9) * 0.18;
+        if (Math.abs(p.x) > 0.22 && p.z > 1.0 && p.z < 2.15 && Math.abs(p.y - gy) < 0.13) return green;
+        if (Math.abs(p.x) > 0.22 && p.z > 1.1 && p.z < 2.15 && Math.abs(p.y - gy) < 0.17) return '#E8DCA8';
+        return chest;
+      }
+      if (t > 0.5 && Math.cos(a) < 0.3) return o3h(Math.floor(p.y * 9), Math.floor(Math.abs(p.x) * 9)) < 0.25 ? '#6A5A44' : '#DCCFB0'; // 胸
+      if (p.z < -1.35 && Math.abs(p.x) > 0.35 && p.y > 0.5 && p.y < 0.92) return p.z < -1.95 ? '#2A2826' : '#E2C860'; // 黄色い三角
+      if (Math.abs(p.x) > 0.85 && p.y > 1.04 && p.y < 1.2 && p.z > -1.2 && p.z < 0.85) return '#F4F2EC'; // 白い横線
+      if (Math.abs(p.x) > 0.85 && p.y > 0.96 && p.y <= 1.04 && p.z > -1.2 && p.z < 0.85) return '#2A2A28';
+      return o3h(Math.floor(p.z * 8), Math.floor(p.y * 10), Math.floor(Math.abs(p.x) * 6)) < 0.22 ? fine : gray;
+    },
+    beak: { at: [2.33, 2.4], len: 0.75, h: 0.27, w: 0.32, pitch: 0.12, col: '#2E2A26' },
+    eye: [0.38, 2.31, 1.95, 0.055],
+    wing: { pts: [[0.78, 1.15, 0.85, 0.15, 0.45], [1.02, 1.22, 0.0, 0.17, 0.65], [0.95, 1.12, -1.1, 0.15, 0.5], [0.58, 0.95, -1.95, 0.08, 0.25], [0.32, 0.88, -2.3, 0.02, 0.04]],
+      paint: (p, t, a) => (t > 0.45 && t < 0.58 && Math.cos(a) < -0.1 ? '#2E7A56' : t > 0.6 ? '#6E706C' : '#8E908C') },
+    tail: { at: [0.62, -2.22], len: 0.75, w0: 0.28, w1: 0.1, pitch: -0.25, round: 0.2, paint: () => '#3A3A38' },
+  });
+  const P = o3props(g);
+  P.add(o3water(2.8, { y: 0.15, h: 0.45, rings: [[1.6, 0, 0], [2.3, 0.1, 0.1]] }));
+  return g;
+};
+
+/* カワセミ（Alcedo atthis）：頭と羽は青緑に水色の点、背のまん中は光る水色、頬はだいだい色、首に白い紋、腹はだいだい色。
+   長いくちばしと、短い尾、小さな赤い足。水の上の枝で */
+O3.models.kawasemi = function () {
+  const teal = '#2A7F8E', spot = '#7CCAD8', bright = '#2FB6DA', orange = '#E07A38', white = '#F6F2EA', under = '#D9692E';
+  const g = o3bird({
+    body: [[-2.2, 2.6, 0.35, 0.32], [-1.5, 2.85, 1.32, 1.28], [-0.3, 3.25, 1.62, 1.62], [0.9, 3.9, 1.52, 1.52], [1.55, 4.6, 1.32, 1.32], [2.1, 5.2, 1.48, 1.44], [2.85, 5.45, 1.18, 1.08], [3.4, 5.35, 0.48, 0.44]],
+    paint: (p, t, a) => {
+      if (o3d(p, 1.22, 4.98, 1.55) < 0.42) return white; // 首の白い紋
+      if (t > 0.6) {
+        if (Math.abs(p.x) > 0.7 && p.y > 4.95 && p.y < 5.38 && p.z > 1.9 && p.z < 3.35) return orange; // 頬
+        if (Math.abs(p.x) > 0.6 && p.y > 4.62 && p.y <= 4.95 && p.z > 1.8) return teal; // ひげの線
+        if (Math.cos(a) < -0.45) return white; // のど
+        if (Math.cos(a) > 0.2) return o3h(Math.floor(p.z * 5), Math.floor(p.x * 5), Math.floor(p.y * 5)) < 0.25 ? spot : teal;
+        return t > 0.68 ? orange : under;
+      }
+      if (Math.cos(a) > 0.8) return bright; // 背のまん中
+      if (Math.cos(a) > 0.35) return teal;
+      return under;
+    },
+    beak: { at: [5.32, 3.3], len: 3.6, h: 0.76, w: 0.6, pitch: 0.08, col: '#1E1C1A' },
+    eye: [1.12, 5.5, 2.78, 0.22],
+    wing: { pts: [[1.42, 4.35, 0.8, 0.24, 0.8], [1.68, 3.8, -0.3, 0.27, 1.15], [1.55, 3.3, -1.3, 0.22, 0.92], [1.1, 2.95, -2.2, 0.12, 0.42], [0.8, 2.85, -2.7, 0.02, 0.06]],
+      paint: (p, t) => (t > 0.6 ? '#1E4A5A' : o3h(Math.floor(t * 18), Math.floor(p.y * 6)) < 0.22 ? '#62B4C8' : '#2A6E80') },
+    tail: { at: [2.7, -2.15], len: 2.1, w0: 0.42, w1: 0.6, pitch: 0.55, round: 0.2, paint: () => '#1F6E92' },
+    feet: { x: 0.55, hip: [2.55, 0.25], foot: [1.62, 0.35], r: 0.13, toe: 0.55, down: 0.2, col: '#D84A34' },
+  });
+  const P = o3props(g);
+  o3branch(P, [[-5.0, 0.8, -1.2], [-1.0, 1.15, 0.2], [3.0, 1.35, 0.6], [5.0, 1.9, 0.4]], 0.45, '#6E5A44');
+  P.add(o3water(3.6, { y: -2.2, h: 0.4, rings: [[1.3, 1.0, 1.2], [2.2, 1.0, 1.2]] }));
+  return g;
+};
+O3.view.kawasemi = { yaw: 0.95, pitch: 0.28 };
+
+/* アオサギ（Ardea cinerea）：灰色の体、白い首の前に黒い点の列、白い顔に、目から後ろへ黒い線と冠羽。黄色い長いくちばし、長い足。浅い水の中に立つ */
+O3.models.aosagi = function () {
+  const gray = '#8E989E', pale = '#E4E6E6', white = '#F2F2EE', black = '#1E1E22';
+  const g = o3bird({
+    body: [[-1.9, 4.9, 0.33, 0.28], [-1.2, 5.1, 1.12, 1.18], [0.0, 5.4, 1.36, 1.42], [0.9, 5.85, 1.04, 1.08], [1.15, 6.5, 0.4, 0.43], [0.85, 7.2, 0.31, 0.33], [0.95, 7.9, 0.29, 0.31], [1.3, 8.35, 0.35, 0.35], [1.75, 8.5, 0.31, 0.29], [2.05, 8.45, 0.15, 0.14]],
+    paint: (p, t, a) => {
+      if (t > 0.82) return p.y > 8.42 && p.z < 1.8 && Math.abs(p.x) > 0.12 ? black : white;
+      if (t > 0.42) return Math.cos(a) < -0.75 && Math.floor(p.y * 5) % 2 ? black : pale;
+            return t > 0.36 && Math.cos(a) < -0.3 ? pale : gray;
+    },
+    beak: { at: [8.46, 2.0], len: 1.9, h: 0.3, w: 0.22, pitch: 0.12, col: '#D8A63A' },
+    eye: [0.27, 8.52, 1.82, 0.07], eyeOpt: { iris: '#E8D046' },
+    wing: { pts: [[0.98, 6.0, 0.8, 0.2, 0.9], [1.18, 5.7, -0.3, 0.22, 1.1], [1.05, 5.2, -1.6, 0.16, 0.8], [0.6, 4.85, -2.6, 0.06, 0.25]],
+      paint: (p, t, a) => (t < 0.07 && Math.cos(a) < 0.3 ? black : t > 0.62 ? '#5A6168' : gray) },
+    tail: { at: [4.95, -1.85], len: 0.8, w0: 0.3, w1: 0.38, pitch: 0.5, paint: () => '#7E888E' },
+    feet: { x: 0.28, hip: [5.0, 0.1], foot: [0.18, 0.2], thigh: [0, -0.35], r: 0.1, toe: 1.1, down: 0.02, col: '#A8925A', hind: 0.6 },
+  });
+  const P = o3props(g);
+  g.add(o3loft({ pts: [[0, 8.55, 1.2, 0.06], [0, 8.48, 0.55, 0.05], [0, 8.28, 0.05, 0.02]], seg: 5, per: 3, col: black })); // 冠羽
+  P.add(o3water(3.2, { y: 0.24, h: 0.4, rings: [[0.6, 0.28, 0.2], [1.1, 0.28, 0.2]] }));
+  return g;
+};
+O3.view.aosagi = { yaw: 0.8, pitch: 0.12 };
+
+/* キジ（Phasianus versicolor。丘で見かける姿）：頭と首は紫がかった青に緑の光、顔に赤い肉垂、胸と腹は深い緑、
+   背は茶色の模様、長い尾にしま。地面を歩く */
+O3.models.kiji = function () {
+  const purple = '#3A3E86', sheen = '#2E5A50', green = '#2E4A3E', green2 = '#3E6A52', back = '#7A6A4A', back2 = '#4A3E2C';
+  const g = o3bird({
+    body: [[-1.6, 2.6, 0.33, 0.3], [-1.0, 2.75, 0.98, 0.98], [0.1, 3.0, 1.22, 1.18], [1.0, 3.45, 1.08, 1.08], [1.45, 4.05, 0.6, 0.6], [1.55, 4.6, 0.48, 0.48], [1.65, 5.0, 0.5, 0.48], [2.05, 5.15, 0.4, 0.37], [2.35, 5.1, 0.2, 0.18]],
+    paint: (p, t, a) => {
+      if (o3d(p, 0.36, 5.02, 1.85) < 0.3) return '#C8352E'; // 赤い肉垂
+      if (t > 0.6) return p.y > 4.85 ? (o3h(Math.floor(p.z * 6), Math.floor(p.y * 6)) < 0.4 ? sheen : purple) : purple;
+      if (Math.cos(a) > 0.4) return o3h(Math.floor(t * 18), Math.floor(a * 5)) < 0.35 ? back2 : back;
+      return o3h(Math.floor(t * 20), Math.floor(a * 6)) < 0.3 ? green2 : green;
+    },
+    beak: { at: [5.12, 2.25], len: 0.55, h: 0.3, w: 0.26, pitch: 0.3, hook: 0.04, col: '#D9C08A' },
+    eye: [0.35, 5.16, 1.96, 0.06], eyeOpt: { iris: '#C89A3A' },
+    wing: { pts: [[0.95, 3.55, 0.8, 0.2, 0.6], [1.15, 3.3, -0.2, 0.22, 0.75], [1.05, 3.0, -1.0, 0.18, 0.6], [0.65, 2.8, -1.7, 0.08, 0.25]],
+      paint: (p, t) => (Math.floor(t * 12) % 3 === 0 ? '#B8A88A' : '#8E8064') },
+    tail: { at: [2.72, -1.55], len: 4.8, w0: 0.42, w1: 0.12, pitch: 0.12, round: 0.5, paint: (u, v) => (v % 0.5 < 0.12 ? '#4A3A28' : '#A08A5A') },
+    feet: { x: 0.32, hip: [2.6, 0.2], foot: [0.08, 0.3], r: 0.08, toe: 0.55, down: 0.04, col: '#8A8278' },
+  });
+  const P = o3props(g);
+  for (const s of [-1, 1]) g.add(o3loft({ pts: [[s * 0.25, 5.38, 1.55, 0.06], [s * 0.28, 5.55, 1.3, 0.05], [s * 0.3, 5.62, 1.12, 0.02]], seg: 5, per: 2, col: sheen })); // 耳羽
+  P.add(o3ground(4.6, ['#A9B98A', '#B4C294', '#9DB07C', '#C2B898'], { h: 0.35, side: '#8A7458' }));
+  for (const [x, z] of [[2.4, 2.0], [-2.6, 1.4], [2.0, -3.0], [-1.8, -3.4]]) o3tuft(P, x, z, 1.4, '#86A062');
+  return g;
+};
+/* 観察ノートの模型：虫とクモ（2026-10-22）
+   トンボは、大きな複眼・胸・細長い腹・4枚のはね（はねの先に縁紋）・6本の脚。とまる時は、はねを水平に広げる
+   チョウは、こん棒のような触角、白いはねの先が黒い（モンシロチョウ）。花の上で、はねを少し開いて
+   マルハナバチは、毛におおわれた丸い体。クロマルハナバチは、黒い体で、おしりの先がだいだい色
+   クモ（オオヒメグモ）は、丸くて高いおなかに、まだらの模様、脚に濃い輪。不規則な立体の網の中に、さかさまにぶら下がる
+   カマキリ（オオカマキリ）は、三角の頭に大きな複眼、長い前胸、たたんだ鎌の前あし、背にたたんだ緑のはね。草の茎で待ちぶせる */
+
+// トンボのはねの絵：すけた地に、すじと、先の縁紋
+function o3wingDraw(stig, base) {
+  return () => {
+    const c = o3canvas(256, 64), g = c.getContext('2d');
+    g.fillStyle = 'rgba(226,236,240,0.55)'; g.fillRect(0, 0, 256, 64);
+    if (base) { const gr = g.createLinearGradient(0, 0, 70, 0); gr.addColorStop(0, base); gr.addColorStop(1, 'rgba(236,242,244,0)'); g.fillStyle = gr; g.fillRect(0, 0, 70, 64); }
+    g.strokeStyle = 'rgba(56,50,46,0.9)'; g.lineWidth = 2.6;
+    g.beginPath(); g.moveTo(0, 6); g.lineTo(256, 8); g.stroke(); // 前のふち
+    g.lineWidth = 1.4;
+    for (const y of [16, 28, 40, 52]) { g.beginPath(); g.moveTo(0, y * 0.6 + 6); g.lineTo(256, y); g.stroke(); }
+    for (let x = 10; x < 256; x += 11 + (x % 7)) { g.beginPath(); g.moveTo(x, 6); g.lineTo(x + 4, 64); g.stroke(); }
+    g.fillStyle = stig; g.fillRect(212, 3, 24, 9); // 縁紋
+    return c;
+  };
+}
+O3.draw.wingShio = o3wingDraw('#2A2826', null);
+O3.draw.wingAka = o3wingDraw('#8A3A28', 'rgba(222,170,80,0.45)');
+// トンボ：+z が頭。o.thorax・o.abd(t)・o.eye の色
+function o3dragon(o) {
+  const g = new THREE.Group();
+  const P = o3props(g);
+  // 胸
+  g.add(o3loft({ pts: [[0, 0.02, 0.95, 0.16, 0.18], [0, -0.01, 0.72, 0.26, 0.31], [0, -0.03, 0.38, 0.27, 0.32], [0, -0.01, 0.08, 0.17, 0.2], [0, 0.0, -0.04, 0.12, 0.13]], seg: 10, per: 3, paint: o.thorax }));
+  // 腹：10の節。節の境は濃く
+  g.add(o3loft({ pts: [[0, 0.0, -0.02, 0.13, 0.14], [0, -0.01, -0.32, 0.105, 0.115], [0, -0.03, -1.0, 0.072, 0.082], [0, -0.04, -2.0, 0.07, 0.078], [0, -0.04, -2.75, 0.066, 0.072], [0, -0.03, -3.15, 0.04, 0.045]], seg: 8, per: 6,
+    paint: (p, t, a) => ((t * 10) % 1 < 0.1 ? '#1E1C1A' : o.abd(t, a)) }));
+  for (const s of [-1, 1]) g.add(o3loft({ pts: [[s * 0.03, 0.0, -3.1, 0.02], [s * 0.05, 0.0, -3.35, 0.012]], seg: 4, per: 1, col: '#2A2622' })); // 尾の先
+  // 頭：大きな複眼（てっぺんで、くっつく）と、顔
+  for (const s of [-1, 1]) g.add(o3ball(o.eye, 0.22, s * 0.16, 0.1, 1.1, 1, 1, 1.05, 12));
+  g.add(o3ball(o.face || '#D8C8A0', 0.15, 0, -0.06, 1.24, 1.15, 0.85, 0.8, 8));
+  // はね：前ばねと後ろばね。とまる時は、水平に広げる
+  const fw = [[0, 0], [0.9, 0.06], [2.3, 0.04], [2.7, 0.12], [2.75, 0.3], [2.3, 0.44], [1.0, 0.38], [0.3, 0.3], [0, 0.18]];
+  const hw = [[0, 0], [0.9, 0.04], [2.2, 0.02], [2.6, 0.1], [2.6, 0.32], [2.1, 0.52], [1.0, 0.62], [0.35, 0.58], [0, 0.32]];
+  for (const s of [-1, 1]) {
+    g.add(o3flat(fw, { origin: [s * 0.14, 0.18, 0.66], U: [s * 0.99, -0.06, 0.1], V: [0, 0, -1], tex: o.wing }));
+    g.add(o3flat(hw, { origin: [s * 0.14, 0.17, 0.34], U: [s * 0.98, -0.08, -0.15], V: [0, 0, -1], tex: o.wing }));
+  }
+  // 脚：枝をつかむ
+  for (const s of [-1, 1]) for (const [z, fz] of [[0.72, 0.95], [0.5, 0.45], [0.28, -0.05]]) {
+    g.add(o3tube([[s * 0.1, -0.2, z], [s * 0.3, -0.32, (z + fz) / 2], [s * 0.16, -0.5, fz]], 0.022, '#1E1C1A', 4));
+  }
+  o3branch(P, [[-1.1, -0.58, 0.3], [0.2, -0.57, 0.3], [1.3, -0.62, 0.15]], 0.07, '#7A6A50');
+  o3branch(P, [[0.6, -0.6, 0.3], [0.95, -0.95, 0.42], [1.1, -1.35, 0.5]], 0.055, '#7A6A50');
+  return g;
+}
+/* シオカラトンボ（Orthetrum albistylum speciosum）：よく育つと、胸と腹が白い粉をふいたような青みの灰色になり、腹の先は黒い */
+O3.models.shiokara = function () {
+  return o3dragon({
+    thorax: (p, t, a) => (Math.cos(a) > 0.6 ? '#4A5660' : o3h(Math.floor(t * 6), Math.floor(a * 2)) < 0.3 ? '#2E363E' : '#8EA8BC'),
+    abd: (t) => (t > 0.66 ? '#22242A' : '#A2BCD0'), eye: '#3E7A82', face: '#C8D0C8', wing: 'wingShio',
+  });
+};
+O3.view.shiokara = { yaw: 0.65, pitch: 0.62 };
+/* アキアカネ（Sympetrum frequens）：秋に赤くなる腹。胸は茶色に黒い線、はねのつけねは、うすく黄色 */
+O3.models.akiakane = function () {
+  return o3dragon({
+    thorax: (p, t, a) => (Math.abs(Math.sin(a)) > 0.5 && (t * 5) % 1 < 0.22 ? '#2A1E16' : '#A0603A'),
+    abd: (t, a) => (Math.cos(a) < -0.6 ? '#9A3024' : '#C8382A'), eye: '#8A3A2A', face: '#D8B890', wing: 'wingAka',
+  });
+};
+O3.view.akiakane = { yaw: 0.65, pitch: 0.62 };
+
+// チョウのはねの絵（モンシロチョウ）：白に、前ばねの先の黒と、黒い紋
+O3.draw.monF = () => {
+  const c = o3canvas(160, 128), g = c.getContext('2d');
+  g.fillStyle = '#F7F6EE'; g.fillRect(0, 0, 160, 128);
+  const gr = g.createLinearGradient(0, 0, 50, 30); gr.addColorStop(0, 'rgba(110,112,108,0.7)'); gr.addColorStop(1, 'rgba(110,112,108,0)'); g.fillStyle = gr; g.fillRect(0, 0, 160, 128);
+  g.fillStyle = '#3A3A38'; g.beginPath(); g.ellipse(150, 120, 46, 30, -0.5, 0, 6.29); g.fill(); // 先の黒
+  g.beginPath(); g.arc(98, 64, 9, 0, 6.29); g.fill(); g.beginPath(); g.arc(70, 22, 7, 0, 6.29); g.fill();
+  return c;
+};
+O3.draw.monH = () => {
+  const c = o3canvas(128, 128), g = c.getContext('2d');
+  g.fillStyle = '#F5F3E6'; g.fillRect(0, 0, 128, 128);
+  const gr = g.createLinearGradient(0, 0, 45, 45); gr.addColorStop(0, 'rgba(110,112,108,0.6)'); gr.addColorStop(1, 'rgba(110,112,108,0)'); g.fillStyle = gr; g.fillRect(0, 0, 128, 128);
+  g.fillStyle = '#4A4A46'; g.beginPath(); g.arc(18, 110, 7, 0, 6.29); g.fill();
+  return c;
+};
+// 菜の花の房（小さな4枚の花びらの、黄色い花）
+function o3nanohana(g, x, y, z) {
+  g.add(o3tube([[x, y - 1.7, z], [x + 0.08, y - 0.9, z], [x, y - 0.1, z]], 0.07, '#6E9A48', 6));
+  o3leaf(g, { at: [x, y - 1.3, z], len: 1.0, wid: 0.45, col: '#7AA252', U: [0, 0, 1], V: [0.6, 0.6, 0.2] });
+  for (let i = 0; i < 12; i++) {
+    const a = i * 2.4, r = 0.18 + (i % 4) * 0.12, fx = x + Math.cos(a) * r, fz = z + Math.sin(a) * r, fy = y + 0.12 - r * 0.45;
+    for (let k = 0; k < 4; k++) {
+      const pa = k * 1.5708 + a, U = [Math.cos(pa), 0.25, Math.sin(pa)], V = [-Math.sin(pa), 0, Math.cos(pa)];
+      g.add(o3flat(o3smooth([[0, -0.03], [0.12, -0.06], [0.16, 0], [0.12, 0.06], [0, 0.03]], 2), { origin: [fx, fy, fz], U, V, col: k % 2 ? '#F2D04A' : '#ECC63E' }));
+    }
+    g.add(o3ball('#C8A030', 0.035, fx, fy + 0.02, fz, 1, 1, 1, 5));
+  }
+}
+/* モンシロチョウ（Pieris rapae）：白いはね、前ばねの先が黒く、黒い紋。こん棒のような触角。菜の花の上で、はねを少し開いて */
+O3.models.monshiro = function () {
+  const g = new THREE.Group(), fuzz = (p, t, a) => (o3h(Math.floor(t * 9), Math.floor(a * 3)) < 0.5 ? '#3A3836' : '#7A7872');
+  const P = o3props(g);
+  g.add(o3loft({ pts: [[0, 0.62, 0.42, 0.1], [0, 0.66, 0.2, 0.14], [0, 0.65, -0.05, 0.12], [0, 0.6, -0.6, 0.075], [0, 0.56, -1.0, 0.035]], seg: 8, per: 3, paint: fuzz }));
+  g.add(o3ball('#3A3836', 0.11, 0, 0.66, 0.5, 1, 1, 1, 8));
+  o3eye(g, 0.07, 0.68, 0.55, 0.045, { col: '#4A5A3A' });
+  for (const s of [-1, 1]) {
+    g.add(o3tube([[s * 0.04, 0.72, 0.56], [s * 0.18, 1.1, 0.95], [s * 0.26, 1.35, 1.25]], 0.012, '#2A2826', 4));
+    g.add(o3ball('#E8E4D8', 0.035, s * 0.27, 1.37, 1.28, 1, 1, 1.4, 6)); // 触角の先（こん棒）
+    // はね：V の字に少し開く
+    const open = 0.5, U = [s * Math.sin(open), Math.cos(open), 0];
+    g.add(o3flat(o3smooth([[0, 0.3], [0.5, 1.15], [1.4, 1.45], [1.65, 0.9], [1.25, 0.15], [0.3, -0.05]], 3), { origin: [s * 0.04, 0.72, 0.18], U, V: [0, 0, 1], tex: 'monF' }));
+    g.add(o3flat(o3smooth([[0, 0.0], [0.6, 0.12], [1.15, -0.3], [1.0, -0.95], [0.45, -1.05], [0.05, -0.5]], 3), { origin: [s * 0.04, 0.7, 0.05], U: [s * Math.sin(open + 0.12), Math.cos(open + 0.12), 0], V: [0, 0, 1], tex: 'monH' }));
+    for (const [z, fz] of [[0.3, 0.55], [0.15, 0.1], [0.0, -0.35]]) g.add(o3tube([[s * 0.06, 0.58, z], [s * 0.22, 0.45, (z + fz) / 2], [s * 0.2, 0.3, fz]], 0.014, '#2A2826', 4));
+  }
+  o3nanohana(P, 0, 0.3, 0);
+  return g;
+};
+O3.view.monshiro = { yaw: 0.55, pitch: 0.42 };
+
+// マルハナバチのはねの絵：うすい茶色にすけて、すじ
+O3.draw.beeW = () => {
+  const c = o3canvas(128, 64), g = c.getContext('2d');
+  g.fillStyle = 'rgba(150,130,110,0.42)'; g.fillRect(0, 0, 128, 64);
+  g.strokeStyle = 'rgba(60,46,36,0.8)'; g.lineWidth = 1.4;
+  for (const [a, b] of [[[0, 8], [128, 10]], [[0, 22], [90, 30]], [[30, 10], [70, 40]], [[70, 40], [120, 30]], [[60, 10], [64, 60]]]) { g.beginPath(); g.moveTo(...a); g.lineTo(...b); g.stroke(); }
+  return c;
+};
+// アザミの花：とげのある緑の玉に、むらさきの細い花びらの束
+function o3azami(g, x, y, z) {
+  g.add(o3tube([[x, y - 1.8, z], [x - 0.06, y - 1.0, z], [x, y - 0.35, z]], 0.09, '#6E8E4A', 6));
+  o3leaf(g, { at: [x, y - 1.4, z], len: 1.1, wid: 0.45, col: '#7A9A56', U: [0, 0, 1], V: [-0.7, 0.5, 0.1] });
+  g.add(o3loft({ pts: [[x, y - 0.55, z, 0.12], [x, y - 0.35, z, 0.36], [x, y - 0.05, z, 0.4], [x, y + 0.08, z, 0.34]], seg: 12, per: 3, up: [0, 0, 1], paint: (p, t, a) => (o3h(Math.floor(t * 6), Math.floor(a * 3)) < 0.3 ? '#4E6A38' : '#7A9A56'),
+    shape: (t, a, i, j) => 1 + (o3h(i, j) - 0.5) * 0.25 }));
+  for (let i = 0; i < 44; i++) {
+    const a = i * 2.4, r = Math.sqrt(i / 44) * 0.3, h = 0.32 - r * 0.4;
+    g.add(o3tube([[x + Math.cos(a) * r * 0.7, y + 0.06, z + Math.sin(a) * r * 0.7], [x + Math.cos(a) * r * 1.15, y + 0.06 + h, z + Math.sin(a) * r * 1.15]], 0.025, i % 3 ? '#A0588E' : '#B86AA2', 4));
+  }
+}
+/* クロマルハナバチ（Bombus ignitus）：黒い毛におおわれた丸い体、おしりの先がだいだい色。うすい茶色のはね。アザミの花で */
+O3.models.maruhana = function () {
+  const g = new THREE.Group(), fuzz = (i, j) => 1 + (o3h(i, j, 3) - 0.5) * 0.18;
+  const P = o3props(g);
+  // 腹（後ろ）：先はだいだい色
+  g.add(o3loft({ pts: [[0, 0.88, -0.05, 0.2], [0, 0.86, -0.3, 0.42, 0.4], [0, 0.82, -0.62, 0.44, 0.42], [0, 0.74, -0.9, 0.3, 0.28], [0, 0.68, -1.04, 0.08]], seg: 12, per: 3,
+    paint: (p, t) => (t > 0.6 ? (o3h(p.x * 30, p.y * 30) < 0.3 ? '#C85428' : '#DE6A30') : (o3h(p.x * 30, p.z * 30) < 0.3 ? '#2E2A26' : '#1C1A18')), shape: (t, a, i, j) => fuzz(i, j) }));
+  // 胸
+  g.add(o3loft({ pts: [[0, 0.92, 0.42, 0.14], [0, 0.98, 0.25, 0.36, 0.36], [0, 0.96, 0.0, 0.36, 0.35], [0, 0.9, -0.12, 0.16]], seg: 12, per: 3,
+    paint: (p) => (o3h(p.x * 30, p.y * 30) < 0.3 ? '#34302A' : '#1C1A18'), shape: (t, a, i, j) => fuzz(i + 9, j) }));
+  // 頭と触角
+  g.add(o3ball('#1A1816', 0.2, 0, 0.88, 0.58, 1, 1.05, 0.85, 9));
+  o3eye(g, 0.13, 0.92, 0.62, 0.06, { col: '#24201C' });
+  for (const s of [-1, 1]) g.add(o3tube([[s * 0.06, 1.02, 0.7], [s * 0.12, 1.25, 0.72], [s * 0.2, 1.3, 0.98]], 0.02, '#1A1816', 4));
+  // はね：背中に、後ろへたたむ
+  for (const s of [-1, 1]) {
+    g.add(o3flat(o3smooth([[0, 0], [0.4, 0.08], [0.85, 0.05], [0.95, 0.16], [0.5, 0.26], [0.05, 0.18]], 2), { origin: [s * 0.08, 1.2, 0.12], U: [s * 0.45, 0.12, -0.88], V: [s * 0.86, 0.1, 0.48], tex: 'beeW' }));
+  }
+  // 脚（後ろ脚は、花粉かごの平たい所）
+  for (const s of [-1, 1]) for (const [z, fz, w] of [[0.3, 0.5, 0.03], [0.12, 0.05, 0.03], [-0.05, -0.45, 0.05]]) {
+    g.add(o3tube([[s * 0.15, 0.78, z], [s * 0.4, 0.62, (z + fz) / 2, w * 1.2], [s * 0.3, 0.36, fz, w]], 0.035, '#1C1A18', 5));
+  }
+  o3azami(P, 0, 0.28, 0);
+  return g;
+};
+O3.view.maruhana = { yaw: 1.35, pitch: 0.3 };
+
+/* オオヒメグモ（Parasteatoda tepidariorum）：丸く高いおなかに、茶色・白・黒のまだら。脚は黄色っぽく、関節に濃い輪。
+   家ののきの下の、不規則な立体の網に、さかさまにぶら下がる */
+O3.models.ohimegumo = function () {
+  const g = new THREE.Group(), sp = new THREE.Group();
+  const P = o3props(g);
+  // おなか（さかさまなので、下に大きく）
+  sp.add(o3loft({ pts: [[0, 0.05, -0.05, 0.12], [0, 0.32, -0.32, 0.42, 0.44], [0, 0.42, -0.62, 0.46, 0.5], [0, 0.32, -0.92, 0.32, 0.34], [0, 0.18, -1.05, 0.06]], seg: 12, per: 3,
+    paint: (p, t, a) => { const h = o3h(Math.floor(t * 8), Math.floor(a * 2.5)); return h < 0.18 ? '#2E241C' : h < 0.42 ? '#E2D6BC' : h < 0.7 ? '#8A6A4E' : '#A8885E'; } }));
+  sp.add(o3loft({ pts: [[0, 0.05, 0.35, 0.08], [0, 0.08, 0.2, 0.22, 0.14], [0, 0.07, -0.02, 0.2, 0.13], [0, 0.05, -0.1, 0.06]], seg: 10, per: 2, col: '#A88A5E' }));
+  for (let i = 0; i < 4; i++) sp.add(o3ball('#1A1410', 0.025, (i - 1.5) * 0.05, 0.16, 0.33, 1, 1, 1, 5)); // 目
+  // 脚：前の2対が長い。関節に濃い輪
+  const leg = [1.25, 1.0, 0.85, 1.1];
+  for (const s of [-1, 1]) for (let i = 0; i < 4; i++) {
+    const a = 0.75 - i * 0.52, L = leg[i], b = [s * 0.12, 0.05, 0.16 - i * 0.08], k = [s * (0.12 + Math.cos(a) * L * 0.45), 0.42, b[2] + Math.sin(a) * L * 0.45], f = [s * (0.12 + Math.cos(a) * L), -0.25, b[2] + Math.sin(a) * L];
+    sp.add(o3tube([b, k], 0.04, '#B8965E', 5)); sp.add(o3tube([k, f], 0.03, '#C4A46C', 5));
+    sp.add(o3ball('#3A2A1E', 0.055, ...k, 1, 1, 1, 6)); sp.add(o3ball('#3A2A1E', 0.042, (k[0] + f[0]) / 2, (k[1] + f[1]) / 2, (k[2] + f[2]) / 2, 1, 1, 1, 5));
+  }
+  sp.rotation.x = Math.PI; sp.position.set(0, 1.0, 0); sp.scale.setScalar(1.25); g.add(sp);
+  // うしろの壁（片面だけ。うしろへまわると消える）。上の板は外して、どの向きからも巣とクモが見えるように（2026-10-22、Daiさん）
+  o3wall(P, -1.6, 1.6, -0.6, 2.3, -1.72, ['#D8CDB6', '#CFC3AA', '#DDD3BE']);
+  // 網：不規則な糸の立体
+  const anchors = [], pick = (i) => [(o3h(i, 1) - 0.5) * 2.6, -0.3 + o3h(i, 2) * 2.5, -1.6 + o3h(i, 3) * 2.2];
+  for (let i = 0; i < 22; i++) anchors.push(i < 7 ? [(o3h(i, 4) - 0.5) * 2.9, 2.9, -1.4 + o3h(i, 5) * 1.8] : i < 12 ? [(o3h(i, 6) - 0.5) * 2.9, -0.4 + o3h(i, 7) * 2.6, -1.66] : pick(i)); // 上の糸は、見えない軒へ
+  const B = o3buf();
+  for (let i = 0; i < 46; i++) {
+    const a = anchors[Math.floor(o3h(i, 8) * anchors.length)], b = i < 8 ? [0, 1.0, 0] : anchors[Math.floor(o3h(i, 9) * anchors.length)];
+    if (a === b) continue;
+    o3tube([a, b], 0.012, '#F2F0E8', 3, B);
+  }
+  P.add(B.mesh({ noShadow: true }));
+  return g;
+};
+O3.view.ohimegumo = { yaw: 0.6, pitch: 0.1 };
+
+/* オオカマキリ（Tenodera sinensis）：緑の体、三角の頭と大きな複眼、長い前胸、鎌の前あしをたたんで、草の茎の上で待ちぶせ */
+O3.models.kamakiri = function () {
+  const g = new THREE.Group(), P = o3props(g), green = '#7FA24C', dk = '#5E8236', lt = '#B8D07A';
+  // おなかと、たたんだはね
+  g.add(o3loft({ pts: [[0, 0.5, -4.6, 0.12, 0.1], [0, 0.62, -4.0, 0.55, 0.4], [0, 0.72, -2.8, 0.7, 0.5], [0, 0.78, -1.4, 0.6, 0.45], [0, 0.82, -0.3, 0.42, 0.38], [0, 0.85, 0.2, 0.3, 0.3]], seg: 12, per: 4,
+    paint: (p, t, a) => (Math.cos(a) < -0.3 ? ((t * 9) % 1 < 0.14 ? dk : '#9AB65E') : green) }));
+  g.add(o3loft({ pts: [[0, 1.12, -0.1, 0.42, 0.07], [0, 1.24, -1.5, 0.74, 0.1], [0, 1.16, -3.4, 0.62, 0.08], [0, 0.96, -4.55, 0.14, 0.04]], seg: 10, per: 4,
+    paint: (p, t, a) => (Math.abs(Math.sin(a)) > 0.92 ? lt : t < 0.2 && Math.abs(Math.sin(a)) > 0.8 ? '#6A4A52' : o3h(Math.floor(t * 10), Math.floor(a * 2)) < 0.2 ? dk : green) }));
+  // 長い前胸と、三角の頭
+  g.add(o3loft({ pts: [[0, 0.85, 0.0, 0.3, 0.3], [0, 1.2, 0.5, 0.24, 0.22], [0, 1.75, 1.1, 0.19, 0.19], [0, 2.2, 1.6, 0.23, 0.21], [0, 2.4, 1.85, 0.25, 0.23]], seg: 10, per: 3, col: green }));
+  g.add(o3loft({ pts: [[0, 2.4, 1.8, 0.2, 0.2], [0, 2.62, 2.05, 0.55, 0.32], [0, 2.5, 2.3, 0.38, 0.26], [0, 2.2, 2.42, 0.14, 0.12], [0, 2.05, 2.45, 0.05, 0.05]], seg: 10, per: 3, paint: (p) => (p.y < 2.25 ? '#A8B86A' : green) }));
+  for (const s of [-1, 1]) {
+    g.add(o3ball('#9CB862', 0.2, s * 0.5, 2.72, 2.08, 1, 1.15, 1, 10)); // 大きな複眼
+    g.add(o3ball('#2E3A24', 0.05, s * 0.66, 2.74, 2.18, 1, 1, 1, 6)); // 黒い点（偽瞳孔）
+    g.add(o3tube([[s * 0.12, 2.85, 2.2], [s * 0.3, 3.5, 2.6], [s * 0.55, 4.0, 3.3]], 0.025, '#6E8A40', 4)); // 触角
+    // 鎌の前あし（たたんで、胸の前に）
+    g.add(o3tube([[s * 0.18, 1.85, 1.35, 0.12], [s * 0.3, 1.05, 1.85, 0.1]], 0.1, green, 6));
+    g.add(o3tube([[s * 0.3, 1.05, 1.85, 0.13], [s * 0.3, 1.5, 2.15, 0.12], [s * 0.28, 1.95, 2.4, 0.08]], 0.11, green, 6));
+    g.add(o3tube([[s * 0.28, 1.95, 2.4, 0.06], [s * 0.27, 1.55, 2.38, 0.05], [s * 0.26, 1.2, 2.25, 0.03]], 0.05, lt, 5));
+    for (const k of [0.25, 0.45, 0.65]) g.add(o3tube([[s * 0.32, 1.05 + 0.9 * k, 1.85 + 0.55 * k], [s * 0.36, 1.0 + 0.9 * k, 2.0 + 0.55 * k]], 0.025, '#4E6A30', 3)); // とげ
+    // 歩くあし：草の茎をつかむ
+    g.add(o3tube([[s * 0.3, 0.75, -0.05], [s * 1.35, 1.05, 0.35], [s * 0.22, 0.02, 0.85]], 0.06, dk, 5));
+    g.add(o3tube([[s * 0.32, 0.72, -0.4], [s * 1.55, 1.1, -1.2], [s * 0.22, 0.02, -1.9]], 0.06, dk, 5));
+  }
+  // 草の茎と葉
+  P.add(o3tube([[0, -0.12, -6.5], [0, -0.1, -2.0], [0.05, -0.1, 2.2], [0.1, 0.0, 5.0]], 0.13, '#6E9A48', 6));
+  o3leaf(P, { at: [0.1, -0.1, 1.6], len: 3.2, wid: 0.7, col: '#7FA852', U: [1, 0, 0], V: [0.5, 0.35, 0.8] });
+  o3leaf(P, { at: [0, -0.1, -3.2], len: 2.8, wid: 0.6, col: '#76A04C', U: [0, 0, 1], V: [-0.7, 0.4, -0.5] });
+  return g;
+};
+O3.view.kamakiri = { yaw: 0.9, pitch: 0.3 };
+/* 観察ノートの模型：カエルとトカゲ（2026-10-22）
+   ニホンアマガエル：あざやかな緑、鼻から目を通って耳（鼓膜）へ続く黒っぽい線、白っぽい腹、指先に吸盤、金色の目に横長の瞳。葉の上で
+   ニホンカナヘビ：茶色の背、わきに濃い帯とその下の明るい線、体の倍ほどある長い尾、細長い指。日なたの石の上で */
+
+O3.models.amagaeru = function () {
+  const g = new THREE.Group(), green = '#98C454', light = '#ABD166', belly = '#F0EBD8', line = '#4E4A38';
+  const P = o3props(g);
+  g.add(o3loft({ pts: [[0, 0.45, -1.05, 0.28, 0.22], [0, 0.62, -0.75, 0.72, 0.55], [0, 0.78, -0.25, 0.8, 0.6], [0, 0.85, 0.25, 0.72, 0.5], [0, 0.82, 0.65, 0.55, 0.38], [0, 0.74, 0.95, 0.32, 0.22], [0, 0.68, 1.1, 0.1, 0.08]], seg: 16, per: 4,
+    paint: (p, t, a) => {
+      if (Math.cos(a) < -0.45) return belly;
+      if (Math.abs(p.x) > 0.3 && p.z > -0.3 && p.z < 1.08 && Math.abs(p.y - (0.84 + (p.z - 0.4) * 0.06)) < 0.065) return line; // 鼻から目、耳への線
+      return o3h(Math.floor(t * 12), Math.floor(a * 4)) < 0.2 ? light : green;
+    } }));
+  for (const s of [-1, 1]) g.add(o3ball(green, 0.19, s * 0.36, 0.96, 0.55, 1, 0.75, 1.05, 10)); // 目のふくらみ
+  o3eye(g, 0.42, 1.0, 0.58, 0.14, { iris: '#C8A040', pupil: 0.42 });
+  for (const s of [-1, 1]) g.add(o3ball('#7A6E4E', 0.09, s * 0.62, 0.82, 0.22, 0.4, 1, 1, 8)); // 鼓膜
+  const pad = (x, y, z) => g.add(o3ball('#B4D27E', 0.055, x, y, z, 1, 0.7, 1, 6));
+  for (const s of [-1, 1]) {
+    // 前あし
+    g.add(o3tube([[s * 0.42, 0.55, 0.45, 0.13], [s * 0.6, 0.35, 0.6, 0.09], [s * 0.58, 0.12, 0.78, 0.07]], 0.1, green, 6));
+    for (const a of [-0.6, -0.2, 0.2, 0.6]) { const e = [s * 0.58 + s * Math.sin(a + 0.4) * 0.28, 0.06, 0.78 + Math.cos(a + 0.4) * 0.28]; g.add(o3tube([[s * 0.58, 0.1, 0.78], e], 0.035, green, 4)); pad(...e); }
+    // 後ろあし（たたんで）
+    g.add(o3tube([[s * 0.5, 0.48, -0.72, 0.2], [s * 1.0, 0.38, -0.1, 0.15]], 0.15, green, 7));
+    g.add(o3tube([[s * 1.0, 0.36, -0.1, 0.13], [s * 0.86, 0.16, -0.95, 0.09]], 0.11, green, 7));
+    g.add(o3tube([[s * 0.86, 0.14, -0.95, 0.07], [s * 1.02, 0.07, -0.35, 0.06]], 0.06, green, 5));
+    for (const a of [-0.5, -0.15, 0.2, 0.5, 0.85]) { const e = [s * 1.02 + s * Math.sin(a) * 0.42, 0.04, -0.35 + Math.cos(a) * 0.42]; g.add(o3tube([[s * 1.02, 0.06, -0.35], e], 0.03, green, 4)); pad(...e); }
+  }
+  o3leaf(P, { at: [0.1, -0.02, -1.8], len: 3.6, wid: 2.7, col: '#5A7E46', U: [1, 0, 0], V: [0, 0.04, 1] });
+  o3leaf(P, { at: [-1.3, -0.1, -1.1], len: 2.5, wid: 1.6, col: '#6A8C4E', U: [0.8, 0, 0.6], V: [-0.6, 0.06, 0.8] });
+  return g;
+};
+O3.view.amagaeru = { yaw: 0.6, pitch: 0.35 };
+
+O3.models.kanahebi = function () {
+  const g = new THREE.Group(), back = '#8A6A44', back2 = '#7A5C3A', back3 = '#9A7A52', band = '#4E3A2A', pale = '#D8C8A0', belly = '#E8DCB0';
+  const P = o3props(g);
+  g.add(o3loft({
+    pts: [[0, 0.55, 5.9, 0.12, 0.08], [0, 0.62, 5.5, 0.4, 0.3], [0, 0.66, 4.9, 0.52, 0.38], [0, 0.63, 4.4, 0.45, 0.36], [0, 0.66, 3.6, 0.68, 0.46], [0, 0.66, 2.4, 0.72, 0.48],
+      [0, 0.62, 1.4, 0.58, 0.42], [0.3, 0.58, 0.4, 0.44, 0.35], [0.9, 0.55, -1.6, 0.36, 0.29], [0.6, 0.52, -4.0, 0.26, 0.21], [-0.6, 0.5, -6.5, 0.18, 0.15], [-0.8, 0.48, -9.0, 0.1, 0.09], [0, 0.46, -11, 0.03, 0.03]],
+    seg: 12, per: 4,
+    paint: (p, t, a) => {
+      const c = Math.cos(a);
+      if (c < -0.35) return belly;
+      if (c < -0.12) return pale;
+      if (c < 0.35) return t < 0.06 ? '#6E5438' : band;
+      const h = o3h(Math.floor(t * 70), Math.floor(a * 6)); return h < 0.3 ? back2 : h > 0.8 ? back3 : back; // 背のうろこ
+    } }));
+  o3eye(g, 0.34, 0.8, 5.12, 0.1, { iris: '#B8863A' });
+  // あし：横に出て、ひじ・ひざで曲がり、長い指
+  for (const s of [-1, 1]) for (const [z, L] of [[4.1, 1.0], [1.5, 1.3]]) {
+    const sh = [s * 0.45, 0.55, z], el = [s * (0.45 + L * 0.7), 0.6, z + 0.15], ft = [s * (0.45 + L * 0.95), 0.12, z + 0.35];
+    g.add(o3tube([sh, el, ft], 0.13, back, 6));
+    for (const a of [-0.7, -0.35, 0, 0.35, 0.7]) g.add(o3tube([ft, [ft[0] + s * Math.sin(a + 0.5) * L * 0.45, 0.08, ft[2] + Math.cos(a + 0.5) * L * 0.45]], 0.035, back2, 4));
+  }
+  o3stone(P, 5, 0.2, -1.25, -2.0, ['#9A9488', '#8E887C', '#A8A296', '#848074'], 0.28);
+  return g;
+};
+O3.view.kanahebi = { yaw: 1.1, pitch: 0.62, zoom: 0.62, focus: [0.2, 0.6, 1.6] };
+/* 観察ノートの模型：野生動物（2026-10-22）
+   キツネ：だいだい色の体、白いのどと胸、耳の後ろは黒、脚の先は黒い「くつした」、太い尾の先は白
+   タヌキ：灰色がかった茶色のまだら、目のまわりから頬へ黒い「マスク」、鼻すじは白っぽい、脚と胸は黒っぽい、短く太い尾
+   ニホンリス：夏は赤茶色、冬は灰色がかった茶色で耳の先に毛のふさ。腹は白。大きなふさふさの尾。切り株の上で、オニグルミを持って
+   アカネズミ：赤茶色の背、白いおなかと手足、大きな目と耳、長いしっぽ。夜、落ち葉の上でドングリのにおいをかぐ
+   ハクビシン：灰色がかった茶色の体、黒っぽい顔に、額から鼻への白いすじ、目の下の白、長いしっぽ。木登りが得意で、太い枝の上を歩く */
+
+// 4本あしの体：体（尾から胸へ）と、首から鼻先へ。脚と尾は、それぞれ
+function o3quad(g, o) {
+  g.add(o3loft({ pts: o.body, seg: 16, per: 4, paint: o.paintBody, shape: o.fur ? (t, a, i, j) => 1 + (o3h(i, j, 7) - 0.5) * o.fur : null }));
+  g.add(o3loft({ pts: o.head, seg: 16, per: 4, paint: o.paintHead }));
+  for (const leg of o.legs) for (const s of [-1, 1]) g.add(o3loft({ pts: leg.map((q) => [s * q[0], q[1], q[2], q[3]]), seg: 8, per: 3, paint: o.paintLeg }));
+  if (o.tail) g.add(o3loft({ pts: o.tail, seg: 12, per: 4, paint: o.paintTail, shape: (t, a, i, j) => 1 + (o3h(i, j, 5) - 0.5) * (o.tailFur || 0.22) }));
+  if (o.ear) for (const s of [-1, 1]) g.add(o3loft({ pts: o.ear.map((q) => [s * q[0], q[1], q[2], q[3], q[4]]), seg: 8, per: 3, up: [0, 0, 1], paint: o.paintEar }));
+}
+
+O3.models.kitsune = function () {
+  const g = new THREE.Group(), orange = '#C9772E', dark = '#A85E28', white = '#F2EDE2', black = '#2E2622';
+  const P = o3props(g);
+  o3quad(g, {
+    body: [[0, 4.5, -2.7, 0.5, 0.5], [0, 4.75, -2.0, 1.0, 1.1], [0, 4.75, -0.8, 0.92, 1.0], [0, 4.85, 0.5, 0.98, 1.15], [0, 4.95, 1.4, 0.85, 1.05], [0, 5.15, 1.95, 0.45, 0.55]],
+    head: [[0, 5.0, 1.3, 0.7, 0.85], [0, 5.75, 2.0, 0.55, 0.6], [0, 6.4, 2.5, 0.6, 0.58], [0, 6.5, 2.95, 0.5, 0.44], [0, 6.3, 3.55, 0.28, 0.24], [0, 6.15, 4.05, 0.12, 0.11]],
+    paintBody: (p, t, a) => (Math.cos(a) < -0.55 && p.z > 0.6 ? white : Math.cos(a) > 0.65 ? dark : orange),
+    paintHead: (p, t, a) => (Math.cos(a) < -0.3 || (t < 0.35 && Math.cos(a) < 0) ? white : t > 0.7 && Math.cos(a) > 0.4 ? dark : orange),
+    legs: [[[0.5, 4.4, 1.5, 0.32], [0.48, 2.6, 1.6, 0.2], [0.45, 1.0, 1.55, 0.15], [0.45, 0.22, 1.75, 0.14]], [[0.55, 4.4, -2.0, 0.45], [0.58, 3.0, -1.8, 0.3], [0.52, 1.6, -2.6, 0.18], [0.48, 0.22, -2.3, 0.14]]],
+    paintLeg: (p) => (p.y < 2.5 ? black : orange),
+    tail: [[0, 4.55, -2.75, 0.3], [0, 4.1, -3.5, 0.6], [0, 3.2, -4.15, 0.8], [0, 2.2, -4.45, 0.8], [0, 1.4, -4.45, 0.6], [0, 0.95, -4.3, 0.25]],
+    paintTail: (p, t, a) => (t > 0.8 ? white : Math.cos(a) > 0.4 ? dark : orange),
+    ear: [[0.33, 6.85, 2.45, 0.3, 0.12], [0.42, 7.3, 2.38, 0.2, 0.08], [0.52, 7.78, 2.3, 0.02, 0.02]],
+    paintEar: (p, t, a) => (Math.cos(a) > 0.2 && t < 0.85 ? '#F2E2CC' : '#2A2220'),
+  });
+  for (const s of [-1, 1]) for (const z of [1.85, -2.15]) g.add(o3ball(black, 0.2, s * 0.46, 0.12, z, 1, 0.55, 1.4, 8)); // 足先
+  o3eye(g, 0.36, 6.62, 3.02, 0.09, { iris: '#D8A030', pz: 0.35 });
+  g.add(o3ball('#1E1A18', 0.12, 0, 6.18, 4.1, 1.1, 0.9, 1, 8)); // 鼻
+  P.add(o3ground(6.0, ['#A3B886', '#AFC092', '#97AD7A', '#B9C69C'], { h: 0.4, side: '#8A7458' }));
+  for (const [x, z] of [[3.6, 3.0], [-3.8, 2.2], [3.2, -4.0], [-3.0, -3.6]]) o3tuft(P, x, z, 1.6, '#86A062');
+  return g;
+};
+O3.view.kitsune = { yaw: 0.85, pitch: 0.22 };
+
+O3.models.tanuki = function () {
+  const g = new THREE.Group(), base = '#9C8A70', dk = '#76644E', lt = '#C4B498', back = '#6E5C48', mask = '#2A2420', pale = '#E2D6C0', black = '#2E2824';
+  const P = o3props(g);
+  const griz = (p, t, a) => { const h = o3h(Math.floor(t * 64), Math.floor(a * 10)); return h < 0.28 ? dk : h < 0.42 ? lt : base; };
+  o3quad(g, {
+    body: [[0, 2.4, -2.1, 0.6, 0.6], [0, 2.55, -1.5, 1.2, 1.2], [0, 2.6, -0.3, 1.3, 1.3], [0, 2.6, 0.8, 1.2, 1.25], [0, 2.65, 1.5, 0.85, 0.95], [0, 2.8, 1.9, 0.4, 0.45]], fur: 0.2,
+    head: [[0, 2.7, 1.2, 0.85, 0.9], [0, 3.15, 1.85, 0.8, 0.82], [0, 3.25, 2.35, 0.75, 0.68], [0, 3.05, 2.9, 0.38, 0.32], [0, 2.9, 3.3, 0.14, 0.13]],
+    paintBody: (p, t, a) => (Math.cos(a) < -0.6 && p.z > 0.4 ? black : Math.cos(a) > 0.75 ? back : griz(p, t, a)),
+    paintHead: (p, t, a) => {
+      if (o3d(p, 0.4, 3.22, 2.42) < 0.36 || (Math.abs(p.x) > 0.38 && p.y < 3.18 && p.y > 2.62 && p.z > 1.9 && p.z < 2.6)) return mask;
+      if (Math.cos(a) > 0.25 && p.z > 2.15) return pale;
+      if (t < 0.5 && Math.abs(Math.sin(a)) > 0.55) return '#CCBEA4'; // ふくらんだ頬
+      return Math.cos(a) < -0.4 ? black : griz(p, t, a);
+    },
+    legs: [[[0.55, 2.1, 1.2, 0.36], [0.52, 1.05, 1.25, 0.27], [0.5, 0.22, 1.35, 0.21]], [[0.6, 2.2, -1.6, 0.48], [0.62, 1.15, -1.45, 0.32], [0.55, 0.22, -1.6, 0.21]]],
+    paintLeg: () => black,
+    tail: [[0, 2.5, -2.2, 0.32], [0, 2.0, -2.75, 0.5], [0, 1.3, -3.0, 0.48], [0, 0.75, -2.95, 0.3], [0, 0.55, -2.9, 0.1]], tailFur: 0.3,
+    paintTail: (p, t, a) => (Math.cos(a) > 0.4 ? '#3A322A' : griz(p, t, a)),
+    ear: [[0.42, 3.75, 1.85, 0.25, 0.1], [0.46, 4.02, 1.8, 0.2, 0.08], [0.5, 4.25, 1.75, 0.05, 0.04]],
+    paintEar: (p, t, a) => (t > 0.6 ? mask : Math.cos(a) > 0.3 ? pale : base),
+  });
+  for (const s of [-1, 1]) for (const z of [1.45, -1.5]) g.add(o3ball(black, 0.22, s * 0.52, 0.12, z, 1, 0.55, 1.3, 8));
+  o3eye(g, 0.36, 3.28, 2.6, 0.085);
+  g.add(o3ball('#1A1614', 0.13, 0, 2.92, 3.36, 1.1, 0.9, 1, 8));
+  P.add(o3ground(4.8, ['#8E9E70', '#9AA87C', '#A6A884', '#8A946A'], { h: 0.35, side: '#7A6A50' }));
+  for (const [x, z] of [[3.0, 2.2], [-3.0, 1.6], [2.6, -3.0], [-2.2, -3.2]]) o3tuft(P, x, z, 1.4, '#7E9A5A');
+  o3leaf(P, { at: [-1.6, 0.02, 2.4], len: 1.2, wid: 0.7, col: '#C08A4A', U: [1, 0, 0], V: [0.3, 0, 1] }); // 落ち葉
+  o3leaf(P, { at: [1.9, 0.02, -1.2], len: 1.1, wid: 0.65, col: '#B86A3A', U: [0.6, 0, 0.8], V: [-0.8, 0, 0.6] });
+  return g;
+};
+O3.view.tanuki = { yaw: 0.8, pitch: 0.25 };
+
+// ニホンリスは、丘と同じく、冬は冬毛（灰色がかった茶色、耳の先にふさ）
+O3.models.ezorisu = function () {
+  const winter = typeof G !== 'undefined' && G && G.season === 'winter';
+  const g = new THREE.Group(), fur = winter ? '#7E7064' : '#9A5634', fur2 = winter ? '#6E6258' : '#8A4A2C', white = '#EEE8DC';
+  const P = o3props(g);
+  const fp = (p, t, a) => (o3h(Math.floor(t * 20), Math.floor(a * 4)) < 0.25 ? fur2 : fur);
+  g.add(o3loft({ pts: [[0, 0.3, -0.35, 0.3, 0.28], [0, 0.65, -0.25, 0.68, 0.66], [0, 1.1, -0.08, 0.62, 0.6], [0, 1.5, 0.1, 0.45, 0.45], [0, 1.72, 0.18, 0.34, 0.34]], seg: 14, per: 4, up: [0, 0, -1],
+    paint: (p, t, a) => (Math.cos(a) < -0.3 ? white : fp(p, t, a)) }));
+  g.add(o3loft({ pts: [[0, 1.62, 0.05, 0.36, 0.36], [0, 1.95, 0.28, 0.44, 0.44], [0, 2.02, 0.6, 0.38, 0.35], [0, 1.94, 0.88, 0.2, 0.18], [0, 1.9, 0.98, 0.07, 0.07]], seg: 14, per: 4,
+    paint: (p, t, a) => (Math.cos(a) < -0.45 ? white : fp(p, t, a)) }));
+  o3eye(g, 0.3, 2.08, 0.62, 0.085, { ring: '#E8DCC8' });
+  g.add(o3ball('#2A1E18', 0.05, 0, 1.94, 1.0, 1.2, 0.8, 1, 6)); // 鼻
+  for (const s of [-1, 1]) {
+    g.add(o3loft({ pts: [[s * 0.22, 2.3, 0.3, 0.13, 0.06], [s * 0.26, 2.55, 0.27, 0.11, 0.05], [s * 0.3, 2.75, 0.24, 0.02, 0.02]], seg: 6, per: 2, up: [0, 0, 1], col: fur }));
+    if (winter) g.add(o3loft({ pts: [[s * 0.29, 2.68, 0.24, 0.06], [s * 0.31, 2.92, 0.2, 0.04], [s * 0.3, 3.05, 0.16, 0.01]], seg: 5, per: 2, col: '#5E5248' })); // 耳のふさ
+    // 前あしでクルミを持つ
+    g.add(o3tube([[s * 0.32, 1.45, 0.22, 0.11], [s * 0.36, 1.2, 0.45, 0.08], [s * 0.14, 1.3, 0.64, 0.06]], 0.08, fur, 6));
+    // 後ろあし：大きなもも、前に出した足
+    g.add(o3ball(fur, 0.42, s * 0.46, 0.5, -0.05, 0.8, 0.9, 1.1, 10));
+    g.add(o3tube([[s * 0.48, 0.22, 0.12, 0.13], [s * 0.42, 0.06, 0.55, 0.1], [s * 0.4, 0.05, 0.78, 0.07]], 0.1, fur2, 6));
+  }
+  const nut = o3ball('#8A6A44', 0.21, 0, 1.36, 0.72, 1, 0.92, 1, 9); g.add(nut); // オニグルミ
+  g.add(o3loft({ pts: [[0, 0.35, -0.5, 0.26], [0, 0.55, -1.0, 0.45], [0, 1.15, -1.25, 0.58], [0, 1.85, -1.1, 0.58], [0, 2.4, -0.8, 0.48], [0, 2.6, -0.45, 0.32], [0, 2.55, -0.25, 0.12]], seg: 12, per: 4, up: [0, 0, -1],
+    paint: fp, shape: (t, a, i, j) => 1 + (o3h(i, j, 2) - 0.5) * 0.3 }));
+  o3post(P, 0, -1.4, 0.0, 0.05, 1.45, '#7A6048');
+  P.add(o3ground(2.6, ['#8E9E70', '#9AA87C', '#A6A884'], { y: -1.4, h: 0.25, side: '#7A6A50' }));
+  return g;
+};
+O3.view.ezorisu = { yaw: 0.75, pitch: 0.22 };
+
+/* アカネズミ（Apodemus speciosus）：夜、落ち葉の上で、ドングリのにおいをかぐ */
+O3.models.akanezumi = function () {
+  const g = new THREE.Group(), back = '#A8683E', back2 = '#8E5634', white = '#F2ECE2';
+  g.add(o3loft({ pts: [[0, 1.2, -3.6, 0.3, 0.3], [0, 1.9, -3.0, 1.5, 1.4], [0, 2.3, -1.4, 1.8, 1.7], [0, 2.2, 0.3, 1.5, 1.45], [0, 2.3, 1.5, 1.05, 1.0], [0, 2.45, 2.4, 0.95, 0.9], [0, 2.3, 3.3, 0.6, 0.55], [0, 2.05, 4.0, 0.22, 0.2]], seg: 16, per: 4,
+    paint: (p, t, a) => {
+      if (t > 0.95) return '#D89A8E'; // 鼻
+      if (Math.cos(a) < -0.15) return t > 0.6 && t < 0.72 ? '#E8B888' : white; // おなか（胸から首は、だいだいがかる）
+      return o3h(Math.floor(t * 30), Math.floor(a * 5)) < 0.28 ? back2 : back;
+    }, shape: (t, a, i, j) => 1 + (o3h(i, j, 4) - 0.5) * 0.06 }));
+  for (const s of [-1, 1]) {
+    g.add(o3ball('#C89A84', 0.62, s * 0.66, 3.35, 1.85, 0.28, 1, 0.92, 10)); // 大きな耳
+    g.add(o3ball('#E2B4A4', 0.46, s * 0.72, 3.3, 1.9, 0.12, 0.85, 0.75, 8));
+    for (const k of [-1, 0, 1]) g.add(o3tube([[s * 0.15, 2.0, 3.85], [s * 1.0, 2.05 + k * 0.18, 4.4 + k * 0.1]], 0.012, '#E8E0D4', 3)); // ひげ
+    // あし（後ろは大きく、白い）
+    g.add(o3tube([[s * 0.95, 1.2, -1.6, 0.45], [s * 0.85, 0.4, -0.9, 0.22], [s * 0.7, 0.1, -0.2, 0.16]], 0.2, back, 6));
+    g.add(o3tube([[s * 0.7, 0.1, -0.6, 0.14], [s * 0.72, 0.06, 0.4, 0.12]], 0.12, white, 5));
+    g.add(o3tube([[s * 0.6, 1.3, 2.2, 0.2], [s * 0.55, 0.5, 2.7, 0.12], [s * 0.5, 0.08, 3.0, 0.1]], 0.12, white, 5));
+  }
+  o3eye(g, 0.62, 2.75, 2.78, 0.26);
+  // 長いしっぽ
+  g.add(o3loft({ pts: [[0, 1.4, -3.4, 0.3], [0.4, 0.7, -4.6, 0.24], [1.2, 0.25, -6.4, 0.18], [2.0, 0.16, -8.4, 0.12], [2.4, 0.14, -9.8, 0.05]], seg: 8, per: 5,
+    paint: (p, t, a) => ((t * 30) % 1 < 0.15 ? '#9A8070' : Math.cos(a) > 0.3 ? '#8A6A54' : '#C8AE98') }));
+  const P = o3props(g);
+  P.add(o3ground(6.6, ['#8A7458', '#9A8262', '#7E6A50', '#A68C68'], { h: 0.5, side: '#6E5A44' }));
+  for (let i = 0; i < 14; i++) { const a = o3h(i, 2) * 6.28, r = 2.2 + o3h(i, 3) * 3.8; o3leaf(P, { at: [Math.cos(a) * r, 0.03 + i * 0.002, Math.sin(a) * r], len: 1.4 + o3h(i, 4), wid: 0.8, col: ['#B8783A', '#A8643A', '#C89A4A', '#8E6A3A'][i % 4], U: [Math.cos(a * 3), 0, Math.sin(a * 3)], V: [-Math.sin(a * 3), 0.02, Math.cos(a * 3)] }); } // 落ち葉
+  for (const [x, z, k] of [[0.8, 5.4, 0], [-1.4, 5.0, 1.2]]) { P.add(o3ball('#9A6A3A', 0.5, x, 0.5, z, 0.85, 1, 1.15, 9)); P.add(o3ball('#6E5236', 0.45, x, 0.82, z - 0.15, 1, 0.5, 1, 8)); } // ドングリ
+  return g;
+};
+O3.view.akanezumi = { yaw: 0.85, pitch: 0.3 };
+
+/* ハクビシン（Paguma larvata）：太い枝の上を歩く。長いしっぽで、つりあいをとる */
+O3.models.hakubishin = function () {
+  const g = new THREE.Group(), fur = '#7A7064', fur2 = '#6A6054', dark = '#3A342E', white = '#F2EEE6';
+  const fp = (p, t, a) => (o3h(Math.floor(t * 40), Math.floor(a * 6)) < 0.25 ? fur2 : fur);
+  o3quad(g, {
+    body: [[0, 4.0, -2.8, 0.45, 0.45], [0, 4.15, -2.2, 0.95, 1.0], [0, 4.2, -0.8, 1.0, 1.05], [0, 4.25, 0.6, 0.95, 1.0], [0, 4.3, 1.4, 0.75, 0.85], [0, 4.45, 1.9, 0.42, 0.5]], fur: 0.08,
+    head: [[0, 4.35, 1.4, 0.6, 0.7], [0, 4.85, 2.1, 0.6, 0.62], [0, 4.95, 2.6, 0.6, 0.55], [0, 4.75, 3.2, 0.35, 0.3], [0, 4.6, 3.65, 0.13, 0.12]],
+    paintBody: (p, t, a) => (Math.cos(a) < -0.5 ? '#5E564C' : fp(p, t, a)),
+    paintHead: (p, t, a) => {
+      if (Math.abs(p.x) < 0.11 && Math.cos(a) > 0.55 && p.z > 1.85) return white; // 額から鼻への白いすじ
+      if (o3d(p, 0.36, 4.72, 2.62) < 0.24 || o3d(p, 0.3, 5.18, 2.38) < 0.16) return '#E8E2D6'; // 目の下と上の白
+      if (t > 0.92) return '#2A2220';
+      return t > 0.3 ? dark : fp(p, t, a);
+    },
+    legs: [[[0.55, 3.7, 1.3, 0.3], [0.55, 3.0, 1.45, 0.22], [0.45, 2.6, 1.7, 0.16]], [[0.6, 3.75, -2.2, 0.4], [0.62, 3.0, -2.0, 0.26], [0.5, 2.6, -2.35, 0.16]]],
+    paintLeg: (p) => (p.y < 3.3 ? '#2E2824' : fur),
+    tail: [[0, 4.1, -2.9, 0.35], [0.2, 3.6, -3.6, 0.42], [0.45, 2.6, -4.0, 0.4], [0.5, 1.6, -3.9, 0.32], [0.4, 0.9, -3.7, 0.2], [0.3, 0.6, -3.5, 0.08]], tailFur: 0.14,
+    paintTail: (p, t) => (t > 0.45 ? '#2E2824' : t > 0.3 ? '#4A4038' : fur),
+    ear: [[0.4, 5.25, 2.05, 0.24, 0.08], [0.45, 5.48, 2.0, 0.2, 0.07], [0.48, 5.62, 1.96, 0.05, 0.03]],
+    paintEar: (p, t, a) => (t > 0.7 ? '#C8C0B4' : dark),
+  });
+  for (const s of [-1, 1]) for (const z of [1.8, -2.25]) g.add(o3ball('#2A2420', 0.18, s * 0.44, 2.6, z, 1, 0.5, 1.4, 8)); // 足先
+  o3eye(g, 0.42, 5.0, 2.72, 0.09, { iris: '#4A3424', pupil: 0.9 });
+  g.add(o3ball('#2A1E1C', 0.12, 0, 4.62, 3.7, 1.1, 0.9, 1, 8)); // 鼻
+  const P = o3props(g);
+  o3branch(P, [[0, 2.0, -7.0, 0.55], [0, 2.2, -2.0, 0.45], [0, 2.25, 2.0, 0.42], [0.2, 2.5, 6.5, 0.32]], 0.45, '#6E5A44');
+  o3branch(P, [[0, 2.2, 1.2], [1.4, 3.4, 2.4], [2.4, 4.6, 2.8]], 0.16, '#6E5A44');
+  o3leaf(P, { at: [2.4, 4.6, 2.8], len: 1.8, wid: 0.9, col: '#6E9048', U: [0, 0, 1], V: [0.6, 0.6, 0.3] });
+  return g;
+};
+O3.view.hakubishin = { yaw: 0.95, pitch: 0.22 };
 /* 称号（0.9.58 から、ここに。新しい称号は、新しいファイルに足してもよい。docs/recipes/add-title.md）
    数える仕組みは src/titles.js（titleCount）。数は画面に出さない */
 TITLES.push(
@@ -9568,7 +10748,8 @@ function buildPondLife() {
       part('sph', '#2A2420', 0.06, 0.06, 0.06, -0.06, 0.17, 0.09, f); part('sph', '#2A2420', 0.06, 0.06, 0.06, 0.06, 0.17, 0.09, f);
       const ang = i ? 2.2 + rand(-0.3, 0.3) : -0.9 + rand(-0.3, 0.3), [x, z] = pondEdge(ang, 0.45);
       f.scale.setScalar(1.3); f.position.set(x, heightAt(x, z), z); f.rotation.y = Math.atan2(POND.x - x, POND.z - z); g.add(f);
-      POND_LIFE.frogs.push({ m: f, home: [x, z], ang, st: 'sit', t: rand(6, 30), k: 0 });
+      const up = ikiAwake('amagaeru'); f.visible = up; // 起きている時間（夕方から夜、雨の日）だけ、岸に
+      POND_LIFE.frogs.push({ m: f, home: [x, z], ang, st: up ? 'sit' : 'water', t: rand(6, 30), k: 0 });
     }
   }
   pondWildSync();
@@ -9604,16 +10785,17 @@ function updatePondLife(dt, t) {
   POND_LIFE.rings = POND_LIFE.rings.filter((r) => { if (r.t < r.life) return true; POND_LIFE.g.remove(r.m); r.m.geometry.dispose(); r.m.material.dispose(); return false; });
   if (rain && Math.random() < dt * 4) { const q = pondRand(0.4); pondRing(q[0], q[1], false); } // 雨の輪
   updatePondBirds(dt, t, P);
+  const frogUp = ikiAwake('amagaeru'); // 夕方から夜と、雨の日（2026-10-22）
   for (const fr of POND_LIFE.frogs) {
     fr.t -= dt;
     // 人や大きな動物が近づいたら、ぽちゃん
     const near = (P && Math.hypot(P.x - fr.home[0], P.z - fr.home[1]) < 2.6) || ACT.animals.some((e) => e.a.sp !== 'duck' && Math.abs(e.x - fr.home[0]) < 2.2 && Math.abs(e.z - fr.home[1]) < 2.2);
-    if (fr.st === 'sit' && (near || fr.t < 0)) { fr.st = 'hop'; fr.k = 0; fr.t = rand(12, 30); }
+    if (fr.st === 'sit' && (near || fr.t < 0 || !frogUp)) { fr.st = 'hop'; fr.k = 0; fr.t = rand(12, 30); }
     if (fr.st === 'hop') {
       fr.k += dt * 1.6; const k = Math.min(1, fr.k), p0 = fr.in0 || (fr.in0 = pondEdge(fr.ang, 0.45)), p1 = fr.in1 || (fr.in1 = pondEdge(fr.ang, -0.9)), x = lerp(p0[0], p1[0], k), z = lerp(p0[1], p1[1], k);
       fr.m.position.set(x, lerp(heightAt(fr.home[0], fr.home[1]), WATER_Y, k) + Math.sin(k * Math.PI) * 0.45, z);
       if (k >= 1) { fr.st = 'water'; fr.m.visible = false; pondRing(x, z, true); if (P && Math.hypot(P.x - x, P.z - z) < 12) ambCue({ k: 'splash' }); }
-    } else if (fr.st === 'water' && fr.t < 0 && !near) {
+    } else if (fr.st === 'water' && fr.t < 0 && !near && frogUp) {
       // また岸へ（場所は少し変わる）
       fr.ang += rand(-0.35, 0.35); fr.in0 = fr.in1 = null; const [x, z] = pondEdge(fr.ang, 0.45);
       fr.home = [x, z]; fr.m.position.set(x, heightAt(x, z), z); fr.m.rotation.y = Math.atan2(POND.x - x, POND.z - z); fr.m.visible = true; fr.st = 'sit'; fr.t = rand(15, 45);
@@ -9700,15 +10882,15 @@ function updatePondBirds(dt, t, P) {
     b.w.x = b.x; b.w.z = b.z; b.w.heading = b.h;
   }
   const K = POND_LIFE.kawa; if (!K) return;
-  const k = K.m, wet = G.weather === 'rain' || G.weather === 'snow';
+  const k = K.m, wet = G.weather === 'rain' || G.weather === 'snow', kOff = !ikiAwake('kawasemi'); // 朝から夕方だけ（2026-10-22）
   K.t -= dt;
-  if (K.st === 'away') { k.root.visible = false; if (K.t < 0 && !night && !wet) { K.st = 'in'; K.t = 1.6; K.x = K.sx + 9; K.y = K.sy + 2.5; K.z = K.sz - 6; k.root.visible = true; K.dives = 0; } }
+  if (K.st === 'away') { k.root.visible = false; if (K.t < 0 && !kOff && !wet) { K.st = 'in'; K.t = 1.6; K.x = K.sx + 9; K.y = K.sy + 2.5; K.z = K.sz - 6; k.root.visible = true; K.dives = 0; } }
   else if (K.st === 'in' || K.st === 'back') { // まっすぐ、杭へ
     const k1 = Math.min(1, dt * 3); K.x += (K.sx - K.x) * k1; K.y += (K.sy - K.y) * k1; K.z += (K.sz - K.z) * k1;
     if (Math.hypot(K.x - K.sx, K.z - K.sz) < 0.05) { K.st = 'perch'; K.t = rand(14, 30); }
   } else if (K.st === 'perch') {
-    if (K.t < 0 || night || wet || (P && Math.hypot(P.x - K.sx, P.z - K.sz) < 2.6)) {
-      if (K.dives < 2 && !night && !wet && Math.random() < 0.6 && !(P && Math.hypot(P.x - K.sx, P.z - K.sz) < 2.6)) { K.st = 'dive'; K.t = 0; const sp = pondSpot(POND.r - 2.2); K.dx = sp[0]; K.dz = sp[1]; K.dives++; }
+    if (K.t < 0 || kOff || wet || (P && Math.hypot(P.x - K.sx, P.z - K.sz) < 2.6)) {
+      if (K.dives < 2 && !kOff && !wet && Math.random() < 0.6 && !(P && Math.hypot(P.x - K.sx, P.z - K.sz) < 2.6)) { K.st = 'dive'; K.t = 0; const sp = pondSpot(POND.r - 2.2); K.dx = sp[0]; K.dz = sp[1]; K.dives++; }
       else { K.st = 'leave'; K.t = 1.6; }
     }
   } else if (K.st === 'dive') { // 水へ、まっすぐ飛びこむ
@@ -9917,7 +11099,7 @@ function seaSwallowWp(b) {
   b.tx = x; b.tz = z; b.ty = heightAt(x, z) + (G.weather === 'cloudy' ? rand(0.35, 0.9) : rand(0.8, 4.2));
 }
 function seaSwallows(dt, t, P) {
-  const on = seaDay() && !seaWet(), n = SEA.nest;
+  const on = ikiAwake('tsubame') && !seaWet(), n = SEA.nest;
   SEA.pop = Math.max(0, SEA.pop - dt * 0.6);
   for (const c of SEA.chicks) { const p = Math.min(1, SEA.pop); c.g.position.y = 0.06 + p * 0.06 + Math.sin(t * 2.6 + c.ph) * 0.004; c.bk.scale.y = 0.025 * (1 + p * 2.4 * (0.6 + 0.4 * Math.sin(t * 18 + c.ph))); }
   for (const b of SEA.swallows) {
@@ -9964,7 +11146,7 @@ function buildLark(g) {
   SEA.lark = { m, st: 'ground', t: rand(15, 40), x: 0, y: 0, z: 0, gy: 0, sing: 0 };
 }
 function seaLark(dt, t, P) {
-  const L = SEA.lark, on = seaDay() && !seaWet();
+  const L = SEA.lark, on = ikiAwake('hibari') && !seaWet();
   L.t -= dt;
   if (L.st === 'ground') {
     L.m.root.visible = false;
@@ -10085,10 +11267,11 @@ function seaFlyPick(f) {
   f.m.root.rotation.y = Math.atan2(f.tx - f.x, f.tz - f.z);
 }
 function seaFlies(dt, t, P) {
-  const on = seaDay() && !seaWet();
+  const wetF = seaWet(), onA = ikiAwake('akiakane') && !wetF, onS = ikiAwake('shiokara') && !wetF;
   const dusk = G.weather === 'sunny' && SKY.t > 0.6 && SKY.t < 0.79;
   const perches = W.perches || [];
   for (const f of SEA.flies) {
+    const on = f.kind === 'aka' ? onA : onS; // それぞれの起きている時間（2026-10-22）
     f.m.root.visible = on; if (!on) continue;
     const fl = f.kind === 'aka' && dusk;
     if (fl && f.st !== 'swarm') f.st = 'swarm';
@@ -10144,7 +11327,7 @@ function buildGeese(g) {
 function seaGeese(dt, t) {
   const Gs = SEA.geese;
   if (!Gs.on) {
-    if (seaDay() && !seaWet() && STARTED) SEA.geeseT -= dt;
+    if (ikiAwake('magan') && !seaWet() && STARTED) SEA.geeseT -= dt;
     if (SEA.geeseT < 0) {
       const x0 = rand(-50, 50), x1 = x0 + rand(-70, 70);
       Gs.x = x0; Gs.z = -280; const len = Math.hypot(x1 - x0, 560); Gs.vx = (x1 - x0) / len * 13; Gs.vz = 560 / len * 13;
@@ -10297,7 +11480,7 @@ function seaHitakiNext(H, P) {
   return ps[Math.floor(Math.pow(Math.random(), 2) * Math.min(ps.length, 8))];
 }
 function seaHitaki(dt, t, P) {
-  const H = SEA.hitaki, on = seaDay() && !seaWet() && STARTED;
+  const H = SEA.hitaki, on = ikiAwake('jobitaki') && !seaWet() && STARTED;
   H.t -= dt;
   if (!on) { H.m.root.visible = false; H.st = 'away'; H.p = null; return; }
   if (H.st === 'away') {
@@ -12826,6 +14009,8 @@ function syncWild() {
   if (G.stage >= 4 && WS.season !== 'winter') { const m = modelWild('heron'); ACT.layer.add(m.root); ACT.wild.push({ m, x: 31, z: -40, heading: 1, kind: 'wild', wild: 'heron', name: 'アオサギ', reach: 5, timer: 5, target: null, phase: 0, rect: [26, 36, -45, -38] }); }
   // キタキツネ（0.9.54）：夕方と明け方、柵の外の森のはしを通る（えさはあげない。鶏とウサギの庭は、夜は閉めてある）
   if (G.stage >= 2) { const m = modelWild('fox'); ACT.layer.add(m.root); ACT.wild.push({ m, x: 30, z: -51, heading: -1.5, kind: 'wild', wild: 'fox', name: 'キツネ', reach: 6, timer: 3, target: null, phase: 0, rect: [-20, 47, -55, -47], fox: true }); }
+  // ハクビシン（2026-10-22）：夜、柵の外の森のはしを歩く（えさはあげない。捕まえない）
+  if (G.stage >= 3) { const m = modelHakubishin(); ACT.layer.add(m.root); ACT.wild.push({ m, x: 12, z: -52, heading: 1.2, kind: 'wild', wild: 'civet', name: 'ハクビシン', reach: 6, timer: 4, target: null, phase: 0, rect: [-20, 47, -55, -47], fox: true }); }
   if (G.stage >= 4) { const m = modelWild('tanuki'); ACT.layer.add(m.root); ACT.wild.push({ m, x: -40, z: -50, heading: 1.5, kind: 'wild', wild: 'tanuki', name: 'タヌキ', reach: 6, timer: 2, target: null, phase: 0, rect: [-47, 47, -55, -46], fox: true }); }
   if (G.stage >= 5 || G.flags.deer) {
     for (let i = 0; i < 2; i++) { const m = modelWild('tanuki'); m.root.scale.setScalar(0.7); ACT.layer.add(m.root); ACT.wild.push({ m, x: -44 + i * 2, z: -52, heading: 0, kind: 'wild', wild: 'tanuki', name: 'タヌキの子', reach: 6, timer: rand(1, 4), target: null, phase: 0, rect: [-47, -20, -55, -46], fox: true }); }
@@ -12839,12 +14024,13 @@ function wildRect(r) {
   const north = Math.min(...P.map((p) => p[1]));
   return G.stage < 5 ? [r[0], r[1], r[2], Math.min(r[3], north - 0.6)] : [r[0], r[1], Math.max(r[2], north + PERIM_GAP + 0.6), r[3]];
 }
+const WILD_IKI = { heron: 'aosagi', pheasant: 'kiji', fox: 'kitsune', tanuki: 'tanuki', civet: 'hakubishin' };
 function updateWild(dt, time) {
   for (const w of ACT.wild) {
     if (w.snowFox || w.pond) continue; // 雪の日のキツネは snow.js、池の鳥は world.js で動かす
     w.timer -= dt;
-    // キツネは夕方だけ、森のはしを通る
-    if (w.fox) w.m.root.visible = SKY.t > 0.64 || SKY.t < 0.25;
+    // その生き物が起きている時間だけ、姿を見せる（キツネは夕方から明け方、タヌキとハクビシンは夜、キジは昼。アオサギは昼も夜も。ikimono.js の ikiAwake）
+    const wid = WILD_IKI[w.wild]; if (wid) w.m.root.visible = ikiAwake(wid);
     if (!w.target && w.timer < 0) { w.target = randIn(w.rect[2] < -44 ? wildRect(w.rect) : w.rect, 0.5); w.timer = rand(4, 9); }
     let moving = false;
     if (w.target) {
@@ -19542,6 +20728,14 @@ function drawEventArt(g, w, h, u, id, acc) {
 const IKI_KINDS = [['bird', '鳥'], ['bug', '虫'], ['amph', 'カエルとトカゲ'], ['beast', '野生動物']]; // 0.9.56：クモも「虫」に、けものは「野生動物」に
 const IKI = { list: [], tex: null, webTex: null };
 function ikiDef(id) { return IKIMONO.find((x) => x.id === id); }
+// 観察できる時間（2026-10-22）：その生き物が本来起きている時間か（content/ikimono/80-time.js の IKI_TIME）
+function ikiAwake(id, v) {
+  const T = typeof IKI_TIME !== 'undefined' && IKI_TIME[id]; if (!T) return true;
+  if (T.rain && G && G.weather === 'rain') return true;
+  if (v === undefined) v = dayTime();
+  return T.win.some(([a, b]) => (a <= b ? v >= a && v < b : v >= a || v < b));
+}
+function ikiTimeWord(id) { const T = typeof IKI_TIME !== 'undefined' && IKI_TIME[id]; return T ? T.word : ''; }
 
 /* ---- 模型 ---- */
 function ikiWingTex() {
@@ -19619,6 +20813,52 @@ function modelWeb() {
   return { root, sp };
 }
 
+// オオカマキリ（2026-10-22）：草の茎の上で、前あしをたたんで待ちぶせる。三角の頭は、こちらを向く
+function modelKamakiri() {
+  const root = new THREE.Group(), body = new THREE.Group(), g = '#7FA24C', d = '#5E8236';
+  root.add(body);
+  part('sph', g, 0.05, 0.042, 0.15, 0, 0.05, -0.09, body, SEA_NS); // おなか
+  part('box', d, 0.062, 0.012, 0.16, 0, 0.085, -0.08, body, SEA_NS); // たたんだはね
+  const neck = part('box', g, 0.026, 0.026, 0.14, 0, 0.09, 0.05, body, SEA_NS); neck.rotation.x = -0.7; // 長い前胸
+  const head = new THREE.Group(); head.position.set(0, 0.14, 0.1); body.add(head);
+  const hd = part('cone4', g, 0.06, 0.05, 0.03, 0, 0, 0.01, head, SEA_NS); hd.rotation.x = Math.PI;
+  for (const s of [-1, 1]) part('sph', '#A8C46A', 0.016, 0.018, 0.016, s * 0.026, 0.006, 0.01, head, SEA_NS);
+  const arms = [];
+  for (const s of [-1, 1]) {
+    const a = new THREE.Group(); a.position.set(s * 0.02, 0.11, 0.08); body.add(a);
+    part('box', g, 0.012, 0.06, 0.012, 0, -0.03, 0.01, a, SEA_NS).rotation.x = 0.5;
+    part('box', g, 0.01, 0.05, 0.01, 0, -0.035, 0.045, a, SEA_NS).rotation.x = -0.9; // かま
+    arms.push(a);
+    for (const z of [0.0, -0.06]) { const l = part('box', d, 0.008, 0.008, 0.11, s * 0.05, 0.03, z, body, SEA_NS); l.rotation.y = s * 1.2; l.rotation.x = 0.4; }
+  }
+  root.scale.setScalar(1.15);
+  return { root, body, head, arms };
+}
+// アカネズミ（2026-10-22）：赤茶色の背、白いおなか、大きな目と耳、長いしっぽ
+function modelNezumi() {
+  const root = new THREE.Group(), body = new THREE.Group(), fur = '#9A6A44';
+  root.add(body);
+  part('sph', fur, 0.13, 0.11, 0.2, 0, 0.065, 0, body, SEA_NS);
+  part('sph', '#EEE6D8', 0.1, 0.07, 0.15, 0, 0.045, 0.01, body, SEA_NS);
+  const head = new THREE.Group(); head.position.set(0, 0.085, 0.1); body.add(head);
+  part('sph', fur, 0.09, 0.08, 0.11, 0, 0, 0.02, head, SEA_NS);
+  part('cone4', fur, 0.05, 0.06, 0.05, 0, -0.008, 0.09, head, SEA_NS).rotation.x = Math.PI / 2;
+  for (const s of [-1, 1]) { part('sph', '#C89A84', 0.05, 0.055, 0.015, s * 0.032, 0.045, -0.005, head, SEA_NS); part('sph', '#100C0A', 0.018, 0.018, 0.018, s * 0.033, 0.015, 0.05, head, SEA_NS); }
+  const tail = part('box', '#B8987E', 0.012, 0.012, 0.2, 0, 0.03, -0.19, body, SEA_NS); tail.rotation.x = 0.12;
+  root.scale.setScalar(1.2);
+  return { root, body, head };
+}
+// ハクビシン（2026-10-22）：灰色がかった茶色の体、額から鼻への白いすじ、長いしっぽ（柵の外の森のはし。actors.js の syncWild から）
+function modelHakubishin() {
+  const a = quadBase({ L: 0.78, W: 0.3, H: 0.3, legH: 0.22, legW: 0.08, body: '#6E655A', leg: '#2E2824', neckUp: 0.18 });
+  part('box', '#5A5248', 0.26, 0.22, 0.28, 0, 0.06, 0.12, a.head);
+  part('cone4', '#4A433C', 0.12, 0.2, 0.16, 0, 0.02, 0.32, a.head).rotation.x = Math.PI / 2;
+  part('box', '#F2EEE6', 0.05, 0.03, 0.36, 0, 0.17, 0.2, a.head); // 白いすじ
+  for (const s of [-1, 1]) { part('sph', '#E2DCD0', 0.08, 0.07, 0.06, s * 0.1, 0.0, 0.18, a.head); part('sph', '#3A342E', 0.07, 0.07, 0.03, s * 0.09, 0.18, 0.04, a.head); }
+  const t = part('box', '#3A342E', 0.08, 0.08, 0.72, 0, -0.04, -0.36, a.tail); t.rotation.x = 0.28;
+  a.kind = 'quad'; return a;
+}
+
 /* ---- 丘に置く（季節が変わるたびに、季節のものと一緒に作り直す） ---- */
 function ikiBuild(g) {
   IKI.list = [];
@@ -19659,17 +20899,33 @@ function ikiBuild(g) {
     { const stn = part('dod', '#A29F96', 0.62, 0.2, 0.5, home[0], gy + 0.04, home[1], g); stn.rotation.y = rand(0, 3); }
     IKI.list.push({ id: 'kanahebi', m, type: 'liz', home, x: home[0], z: home[1], y: gy + 0.2, gy, h: rand(0, 6.28), st: 'bask', t: rand(4, 9) });
   }
+  // オオカマキリ（夏の終わり〜秋）：庭の草の茎の上で待ちぶせ（花壇があれば、そのそば）。捕まえない
+  if (s === 'summer' || s === 'autumn') {
+    const fl = [];
+    for (const [k, v] of Object.entries(G.placed || {})) { const pm = W.placedModels && W.placedModels[k]; if ((v === 'flowerbed' || v === 'sunflower') && pm && pm.position) fl.push([pm.position.x, pm.position.z]); }
+    const f = fl.length ? spot(fl[0][0], fl[0][1], 1.2, 2.2) : spot(hx + 3, hz + 4, 1, 3), gy = heightAt(f[0], f[1]);
+    for (let i = 0; i < 4; i++) { const st = part('box', i ? '#86A852' : '#6E9A48', 0.025, 0.55 - i * 0.08, 0.025, f[0] + (i % 2 ? 0.05 : -0.04) * i, gy + 0.27 - i * 0.04, f[1] + (i > 1 ? 0.05 : -0.03), g, SEA_NS); st.rotation.z = (i - 1.5) * 0.12; }
+    const m = modelKamakiri(); g.add(m.root);
+    IKI.list.push({ id: 'kamakiri', m, type: 'mantis', x: f[0], z: f[1], y: gy + 0.47, h: rand(0, 6.28), st: 'wait', t: rand(3, 7), look: 0 });
+  }
+  // アカネズミ（一年中・夜）：はるにれの木の根もとの近く。地面をちょこちょこ走り、近づくと草の中へ
+  { const tr = (W.forest && W.forest.items.find((it) => it.type === 'elm' && Math.abs(it.x - 11) < 1 && Math.abs(it.z - 42.5) < 1)) || { x: 11, z: 42.5 };
+    const m = modelNezumi(); g.add(m.root); const [x, z] = spot(tr.x, tr.z, 1.4, 3);
+    IKI.list.push({ id: 'akanezumi', m, type: 'mouse', home: [tr.x, tr.z], x, z, y: heightAt(x, z), h: rand(0, 6.28), st: 'sniff', t: rand(1, 3), tx: x, tz: z }); }
   // オオヒメグモ（一年中）：家の玄関の、ひさしの下の角に、こみいった網
   { const m = modelWeb(); g.add(m.root); const x = hx - 1.45, z = hz + 2.95, y = 2.2;
     m.root.position.set(x, y, z); IKI.list.push({ id: 'ohimegumo', m, type: 'web', x, y, z }); }
 }
 function ikiUpdate(dt, t, P) {
-  const night = SKY.night > 0.55, wet = seaWet();
+  const wet = seaWet();
   for (const c of IKI.list) {
     if (c.type === 'web') { c.m.root.visible = true; c.m.sp.rotation.y = Math.sin(t * 0.3) * 0.2; continue; }
-    const show = !night && !(wet && c.type !== 'ground') && !(c.type === 'liz' && (c.st === 'hide' || G.weather === 'cloudy'));
-    c.m.root.visible = show; if (!show && c.type !== 'liz') continue;
-    if (c.type === 'ground') ikiGround(c, dt, t, P); else if (c.type === 'fly') ikiButterfly(c, dt, t); else if (c.type === 'risu') ikiRisu(c, dt, t, P); else if (c.type === 'liz') ikiLiz(c, dt, t, P); else ikiBee(c, dt, t);
+    // その生き物が起きている時間だけ、姿を見せる（ikiAwake。2026-10-22）
+    const awake = ikiAwake(c.id), hid = (c.type === 'liz' || c.type === 'mouse') && c.st === 'hide';
+    const show = awake && !hid && !(wet && c.type !== 'ground' && c.type !== 'mouse') && !(c.type === 'liz' && G.weather === 'cloudy');
+    c.m.root.visible = show; if (!awake || (!show && !hid)) continue;
+    if (c.type === 'ground') ikiGround(c, dt, t, P); else if (c.type === 'fly') ikiButterfly(c, dt, t); else if (c.type === 'risu') ikiRisu(c, dt, t, P); else if (c.type === 'liz') ikiLiz(c, dt, t, P);
+    else if (c.type === 'mantis') ikiMantis(c, dt, t, P); else if (c.type === 'mouse') ikiMouse(c, dt, t, P); else ikiBee(c, dt, t);
   }
 }
 // 地面の小鳥：歩いて、ついばむ。近づきすぎると、少し離れた所へ飛んでいく（追いかけても、捕まえられない）
@@ -19747,6 +21003,41 @@ function ikiLiz(c, dt, t, P) {
   c.y = c.gy + 0.2; // 石の上から、おりない
   m.root.position.set(c.x, c.y, c.z); m.root.rotation.y = c.h;
 }
+// オオカマキリ：草の上で、じっと待ちぶせ。ときどき体をゆらし、前あしの手入れをする。人が近づくと、首をまわしてこちらを見る（逃げない。さわらない）
+function ikiMantis(c, dt, t, P) {
+  const m = c.m, dP = Math.hypot(P.x - c.x, P.z - c.z);
+  c.t -= dt;
+  if (dP < 3.2 && c.st !== 'turn') { c.st = 'turn'; c.t = rand(3, 6); }
+  if (c.t < 0) { c.st = dP < 3.2 ? 'turn' : pick(['wait', 'wait', 'sway', 'clean']); c.t = rand(3, 8); }
+  let want = Math.sin(t * 0.4 + c.x) * 0.15;
+  if (c.st === 'turn') { let a = Math.atan2(P.x - c.x, P.z - c.z) - c.h; a = Math.atan2(Math.sin(a), Math.cos(a)); want = clamp(a, -1.1, 1.1); }
+  c.look += (want - c.look) * Math.min(1, dt * 3); m.head.rotation.y = c.look;
+  m.root.rotation.z = c.st === 'sway' ? Math.sin(t * 2.4) * 0.14 : Math.sin(t * 0.8 + c.z) * 0.02;
+  m.arms.forEach((a, i) => { a.rotation.x = c.st === 'clean' ? -0.6 + Math.sin(t * 6 + i) * 0.4 : 0; });
+  m.root.position.set(c.x, c.y, c.z); m.root.rotation.y = c.h;
+}
+// アカネズミ：夜、地面をちょこちょこ走っては止まり、後ろあしで立ってにおいをかぎ、木の実を食べる。近づくと、草の中へ（しばらくすると、また出てくる）
+function ikiMouse(c, dt, t, P) {
+  const m = c.m, dP = Math.hypot(P.x - c.x, P.z - c.z);
+  c.t -= dt;
+  if (c.st !== 'hide' && dP < 3.0) { c.st = 'hide'; c.t = rand(12, 22); m.root.visible = false; return; }
+  if (c.st === 'hide') {
+    if (c.t < 0 && dP > 5) { c.st = 'sniff'; c.t = rand(1.5, 3); c.x = c.home[0] + rand(-2, 2); c.z = c.home[1] + rand(-2, 2); if (seaInCol(c.x, c.z, 0.3)) { c.x = c.home[0] + 1.6; c.z = c.home[1]; } c.tx = c.x; c.tz = c.z; }
+    else { m.root.visible = false; return; }
+  }
+  if (c.st === 'run') {
+    const dx = c.tx - c.x, dz = c.tz - c.z, d = Math.hypot(dx, dz);
+    if (d > 0.05) { c.x += dx / d * Math.min(d, 2.6 * dt); c.z += dz / d * Math.min(d, 2.6 * dt); c.h = Math.atan2(dx, dz); }
+    else { c.st = Math.random() < 0.5 ? 'sniff' : 'eat'; c.t = rand(1.5, 4); }
+  } else if (c.t < 0) {
+    for (let i = 0; i < 8; i++) { const a = rand(0, 6.28), r = rand(0.5, 1.8), x = c.x + Math.cos(a) * r, z = c.z + Math.sin(a) * r; if (!seaInCol(x, z, 0.3) && Math.hypot(x - c.home[0], z - c.home[1]) < 4.5) { c.tx = x; c.tz = z; break; } }
+    c.st = 'run';
+  }
+  m.body.rotation.x = c.st === 'sniff' ? -0.9 : c.st === 'eat' ? -0.35 : 0;
+  m.head.rotation.x = c.st === 'eat' ? 0.45 + Math.sin(t * 9) * 0.08 : c.st === 'sniff' ? Math.sin(t * 7) * 0.12 : 0;
+  c.y = heightAt(c.x, c.z) + (c.st === 'run' ? Math.abs(Math.sin(t * 16)) * 0.025 : 0);
+  m.root.position.set(c.x, c.y, c.z); m.root.rotation.y = c.h;
+}
 function ikiButterfly(c, dt, t) {
   c.ph += dt;
   const x = c.cx + Math.sin(c.ph * 0.37) * 2.6 + Math.sin(c.ph * 1.3) * 0.5, z = c.cz + Math.cos(c.ph * 0.29) * 2.2;
@@ -19772,7 +21063,7 @@ function ikiInView(seen) {
     if (out.has(id) || Math.hypot(cam.x - x, cam.y - y, cam.z - z) > r || !seen(x, y, z, mg)) return;
     pv.set(x, y, z).project(R.camera); out.set(id, { id, sx: pv.x, sy: pv.y });
   };
-  for (const c of IKI.list) if (c.m.root.visible) chk(c.id, c.x, c.y, c.z, c.type === 'bee' ? 6 : c.type === 'fly' ? 9 : c.type === 'web' ? 5.5 : c.type === 'liz' ? 6.5 : 13);
+  for (const c of IKI.list) if (c.m.root.visible) chk(c.id, c.x, c.y, c.z, c.type === 'bee' ? 6 : c.type === 'fly' ? 9 : c.type === 'web' ? 5.5 : c.type === 'liz' ? 6.5 : c.type === 'mantis' ? 7 : c.type === 'mouse' ? 7 : 13);
   if (typeof SEA !== 'undefined') {
     for (const b of SEA.swallows) if (b.m.root.visible) chk('tsubame', b.x, b.y, b.z, 22);
     if (SEA.nest && SEA.swallows.some((b) => b.st === 'feed' && b.m.root.visible)) chk('tsubame', SEA.nest.x, SEA.nest.y, SEA.nest.z, 14);
@@ -19792,6 +21083,7 @@ function ikiInView(seen) {
     if (w.wild === 'pheasant') chk('kiji', w.x, heightAt(w.x, w.z) + 0.4, w.z, 26);
     if (w.wild === 'fox') chk('kitsune', w.x, (w.m.root.position.y || heightAt(w.x, w.z)) + 0.35, w.z, 32);
     if (w.wild === 'tanuki') chk('tanuki', w.x, heightAt(w.x, w.z) + 0.3, w.z, 26);
+    if (w.wild === 'civet') chk('hakubishin', w.x, heightAt(w.x, w.z) + 0.3, w.z, 26);
   }
   return [...out.values()];
 }
@@ -19887,9 +21179,9 @@ function obsScan() {
   };
   for (const c of IKI.list) {
     if (c.type === 'web') { see(c.id, c.x, c.y, c.z, 5.5, 'web'); continue; }
-    if (c.type === 'liz' && c.st === 'hide') { const P = ACT.player; if (P && Math.hypot(P.x - c.x, P.z - c.z) < 6.5) see(c.id, c.x, c.y + 0.3, c.z, 9, 'hide'); continue; }
+    if ((c.type === 'liz' || c.type === 'mouse') && c.st === 'hide') { const P = ACT.player; if (P && Math.hypot(P.x - c.x, P.z - c.z) < 6.5) see(c.id, c.x, c.y + 0.3, c.z, 9, 'hide'); continue; }
     if (!c.m.root.visible) continue;
-    const r = c.type === 'bee' ? 6 : c.type === 'fly' ? 9 : c.type === 'liz' ? 6.5 : 13;
+    const r = c.type === 'bee' ? 6 : c.type === 'fly' ? 9 : c.type === 'liz' ? 6.5 : c.type === 'mantis' ? 7 : c.type === 'mouse' ? 7 : 13;
     const st = c.type === 'fly' || c.type === 'bee' ? 'move' : c.st;
     see(c.id, c.x, c.y, c.z, r, st);
   }
@@ -19907,7 +21199,7 @@ function obsScan() {
   }
   for (const w of (ACT.wild || [])) {
     if (!w.m || !w.m.root.visible) continue;
-    const id = { heron: 'aosagi', pheasant: 'kiji', fox: 'kitsune', tanuki: 'tanuki' }[w.wild]; if (!id) continue;
+    const id = WILD_IKI[w.wild]; if (!id) continue;
     see(id, w.x, heightAt(w.x, w.z) + 0.4, w.z, id === 'aosagi' ? 30 : id === 'kitsune' ? 32 : 26, obsMotion(w, w.x, w.z));
   }
   return out;
@@ -19965,17 +21257,278 @@ Object.assign(UI, {
   ikiCard(id) {
     const d = ikiDef(id), r = (G.obs || {})[id], ph = (G.iki || {})[id]; if (!d || (!r && !ph)) return;
     const rows = (ETHO[id] || []).map((x) => { const when = r && r.b[x[0]]; return `<li class="${when ? 'on' : ''}">${when ? `${ico('i-check')}<span>${esc(x[1])}</span><small>${fmtDate(when).replace(/（.）/, '')}</small>` : '<span class="q">まだ見ていない行動</span>'}</li>`; }).join('');
-    UI.modal(`<div class="kcard-band">${ico('i-leaf')}観察ノート</div><h3>${esc(d.name)}</h3>${ph && ph.th ? `<img class="iki-big" src="${ph.th}" alt="${esc(d.name)}の写真">` : ''}
-      <p class="muted">はじめて見た日：${fmtDate((r && r.d) || ph.d, true)}${ph ? `　写真：${ph.n}枚` : ''}</p>
+    UI.modal(`<div class="kcard-band">${ico('i-leaf')}観察ノート</div><h3>${esc(d.name)}</h3>${o3StageHtml(id)}${ph && ph.th ? `<img class="iki-big" src="${ph.th}" alt="${esc(d.name)}の写真">` : ''}
+      <p class="muted">はじめて見た日：${fmtDate((r && r.d) || ph.d, true)}${ph ? `　写真：${ph.n}枚` : ''}${ikiTimeWord(id) ? `<br>見られる時間：${esc(ikiTimeWord(id))}` : ''}</p>
       <h4 class="etho-h">エソグラム（することの一覧）</h4><ul class="etho">${rows}</ul>
       <ul class="iki-facts">${d.facts.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>
       <ul class="srcs">${d.src.map((x) => `<li>出典：<a href="${esc(x[1])}" target="_blank" rel="noopener">${esc(x[0])}</a></li>`).join('')}</ul>
       <div class="btn-row"><button class="btn small" data-act="close-modal">閉じる</button></div>`);
+    o3Mount(id, document.querySelector('#modal-card .o3-stage')); // くわしい模型を、指でまわして見る（obs3d.js）
   },
 });
 
 // 右のメニューの「観察」で開く
 UI.views.obs = function () { return { title: '観察ノート', html: UI.obsHtml() }; };
+/* =========================================================
+   観察ノートの模型を、ノートの中で大きく見る（2026-10-22、Daiさんの依頼）
+   ---------------------------------------------------------
+   ・観察ノートのページ（UI.ikiCard）を開くと、その生き物のくわしい模型（content/obs3d/ の O3.models）が大きく出る
+     指（マウス）で横にまわし、たてに少しかたむける。2本の指（ホイール）で、近づく・離れる。「大きく見る」でノートいっぱいに
+   ・丘の中の模型と、丘の景色は、そのまま（ここだけの、小さな描き手を持つ）
+   ・描くのは、さわっている時と、手を離してから止まるまでだけ。いつもは止まった絵（カメラの考え方「動かした時だけ動く」と同じ）
+   ・ページを閉じたら、形はすぐに片づける。描き手は、続けて別の生き物を開く時のために少しだけ残し、40秒たったら片づける
+   ・貼り絵の加工（paper.js と同じ紙）をかける。設定で切っている時と「かるい表示」の時は、かけない
+   ・動きを減らす設定の時は、手を離したら、すぐ止まる（すべらない）
+   ========================================================= */
+const O3V = { S: null, host: null, raf: 0, ptr: new Map(), vy: 0, last: 0, pinch: 0, ro: null, chk: 0, moveT: 0 };
+const O3R = { r: null, pm: null, pq: null, pc: null, t: 0, keep: 40000 }; // ノートの描き手（続けて開く時に使い回す）
+const O3_SKY = ['#D9E4E1', '#F6F0E0'];
+const O3_PITCH = [-0.2, 1.25], O3_ZOOM = [0.45, 1.6];
+
+function o3Calm() { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
+function o3PaperOK() { return typeof paperOn === 'function' && paperOn() && window.HARU_LITE !== 1 && !!(window.WebGL2RenderingContext || document.createElement('canvas').getContext('webgl')); }
+
+// 描き手と場面を作る（w・h は画面の大きさ）
+function o3Make(id, w, h, opt) {
+  opt = opt || {};
+  const make = O3.models[id]; if (!make) return null;
+  const shared = !opt.keep, dpr = opt.dpr || Math.min(window.devicePixelRatio || 1, window.HARU_LITE === 1 ? 1 : 2);
+  let r = shared ? O3R.r : null;
+  if (shared) clearTimeout(O3R.t);
+  if (!r) {
+    r = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: !!opt.keep });
+    r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap; r.setClearColor(0x000000, 0);
+    if (shared) O3R.r = r;
+  }
+  r.setPixelRatio(dpr); r.setSize(w, h, false);
+  const scene = new THREE.Scene(), model = make();
+  model.updateMatrixWorld(true);
+  // 大きさをそろえる：生き物（小物の入れ物の外）が、半径1の球に入るように。まわす中心も、生き物のまん中
+  const props = new Set(), box = new THREE.Box3(), v = new THREE.Vector3();
+  model.traverse((o) => { if (o.userData.prop) o.traverse((q) => props.add(q)); });
+  model.traverse((o) => { if (o.isMesh) { o.castShadow = !o.userData.noShadow; o.receiveShadow = true; if (!props.has(o)) box.expandByObject(o); } });
+  if (box.isEmpty()) box.setFromObject(model);
+  const c = box.getCenter(new THREE.Vector3());
+  let rad = 0;
+  model.traverse((o) => {
+    if (!o.isMesh || props.has(o)) return;
+    const p = o.geometry.attributes.position;
+    for (let i = 0; i < p.count; i += 2) { v.fromBufferAttribute(p, i).applyMatrix4(o.matrixWorld); rad = Math.max(rad, v.distanceTo(c)); }
+  });
+  const k = 1 / Math.max(1e-4, rad), root = new THREE.Group(), view = O3.view[id] || {};
+  if (view.focus) c.fromArray(view.focus); // まわす中心を、体のまん中などに（長い尾の生き物）
+  model.position.sub(c); root.add(model); root.scale.setScalar(k); scene.add(root);
+  // 光：上からの日の光（影を落とす）と、空と地面の光、見る向きからのやわらかい光
+  scene.add(new THREE.HemisphereLight(0xE4EEF2, 0x8A8466, 0.66));
+  const sun = new THREE.DirectionalLight(0xffffff, 0.78); sun.position.set(1.1, 3.2, 1.6); sun.castShadow = true;
+  sun.shadow.mapSize.set(1024, 1024); const sc = sun.shadow.camera; sc.left = sc.bottom = -2.2; sc.right = sc.top = 2.2; sc.near = 0.5; sc.far = 9;
+  sun.shadow.bias = -0.0008; sun.shadow.normalBias = 0.015; scene.add(sun); scene.add(sun.target);
+  const cam = new THREE.PerspectiveCamera(30, w / h, 0.05, 20), fill = new THREE.DirectionalLight(0xFFF8EC, 0.26);
+  fill.position.set(-1.2, 0.6, 1); cam.add(fill); scene.add(cam);
+  const S = { id, r, shared, scene, cam, root, w, h, dpr, yaw: view.yaw != null ? view.yaw : 0.72, pitch: view.pitch != null ? view.pitch : 0.3, zoom: view.zoom || 1, an: null, pm: null, rt: null };
+  if (!opt.noPaper && o3PaperOK()) {
+    const pp = shared && O3R.pm ? O3R : o3PaperPass();
+    if (shared) Object.assign(O3R, { pm: pp.pm, pq: pp.pq, pc: pp.pc });
+    S.pm = pp.pm; S.pq = pp.pq; S.pc = pp.pc;
+    o3Target(S);
+  }
+  o3Aspect(S);
+  return S;
+}
+// 貼り絵の加工（paper.js と同じ紙。この描き手のための写し）
+function o3PaperPass() {
+  paperSetup();
+  const P = PAPER.mat, u = THREE.UniformsUtils.clone(P.uniforms);
+  if (!O3.paperTex) O3.paperTex = [PAPER.tPaper.clone(), PAPER.tNoise.clone()];
+  O3.paperTex.forEach((t) => { t.needsUpdate = true; });
+  u.tPaper.value = O3.paperTex[0]; u.tNoise.value = O3.paperTex[1];
+  const pm = new THREE.ShaderMaterial({ uniforms: u, vertexShader: P.vertexShader, fragmentShader: P.fragmentShader, depthTest: false, depthWrite: false, blending: THREE.NoBlending });
+  const pq = new THREE.Scene(), pc = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1), q = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), pm);
+  q.frustumCulled = false; pq.add(q);
+  return { pm, pq, pc };
+}
+// 貼り絵の加工のための、色と奥行きの置き場
+function o3Target(S) {
+  if (S.rt) { S.rt.depthTexture.dispose(); S.rt.dispose(); }
+  const W = Math.max(2, Math.round(S.w * S.dpr)), H = Math.max(2, Math.round(S.h * S.dpr));
+  S.rt = new THREE.WebGLRenderTarget(W, H, { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat });
+  S.rt.depthTexture = new THREE.DepthTexture(W, H); S.rt.depthTexture.type = THREE.UnsignedIntType;
+}
+// 枠の形に合わせて、模型がちょうど入る距離
+function o3Aspect(S) {
+  S.cam.aspect = S.w / S.h; S.cam.updateProjectionMatrix();
+  const vf = S.cam.fov * Math.PI / 180, hf = 2 * Math.atan(Math.tan(vf / 2) * S.cam.aspect);
+  S.dist0 = 1.16 / Math.sin(Math.min(vf, hf) / 2);
+}
+function o3Resize(S, w, h) {
+  if (Math.abs(w - S.w) < 1 && Math.abs(h - S.h) < 1) return false;
+  S.w = w; S.h = h; S.r.setSize(w, h, false); o3Aspect(S); if (S.pm) o3Target(S);
+  return true;
+}
+// 紙の模様を、模型についていかせる（paper.js の paperAnchor と同じ考え方）
+function o3Anchor(S, u) {
+  const cam = S.cam, d = new THREE.Vector3(); cam.getWorldDirection(d);
+  u.fadeOn.value = 0; u.fadeNear.value = 50; u.fadeFar.value = 60;
+  const now = performance.now() / 1000, dt = Math.min(0.25, Math.max(0, now - (S.lastT || now))); S.lastT = now;
+  const pv = new THREE.Matrix4().multiplyMatrices(cam.projectionMatrix, cam.matrixWorldInverse);
+  let an = S.an;
+  if (!an) an = S.an = { m0: pv.clone(), m1: pv.clone(), mix: 1, t: now, pos: cam.position.clone(), dir: d.clone() };
+  if (an.mix < 1) an.mix = Math.min(1, an.mix + dt / 0.8);
+  const moved = cam.position.distanceTo(an.pos) > 0.35 || d.angleTo(an.dir) > 0.06;
+  if (an.mix >= 1 && now - an.t > 0.6 && moved) { an.m0.copy(an.m1); an.m1.copy(pv); an.mix = 0; an.t = now; an.pos.copy(cam.position); an.dir.copy(d); }
+  u.invPV.value.copy(pv).invert(); u.aPV0.value.copy(an.m0); u.aPV1.value.copy(an.m1); u.aMix.value = an.mix;
+}
+function o3Render(S) {
+  const c = Math.cos(S.pitch), d = S.dist0 * S.zoom;
+  S.cam.position.set(Math.sin(S.yaw) * c * d, Math.sin(S.pitch) * d, Math.cos(S.yaw) * c * d);
+  S.cam.near = Math.max(0.05, d * 0.12); S.cam.far = d + 5; S.cam.updateProjectionMatrix();
+  S.cam.lookAt(0, 0, 0); S.cam.updateMatrixWorld();
+  const r = S.r;
+  if (S.pm) {
+    r.setRenderTarget(S.rt); r.clear(); r.render(S.scene, S.cam);
+    const u = S.pm.uniforms;
+    u.tColor.value = S.rt.texture; u.tDepth.value = S.rt.depthTexture; u.near.value = S.cam.near; u.far.value = S.cam.far;
+    u.res.value.set(S.rt.width, S.rt.height); u.dpr.value = S.dpr; u.skyTop.value.set(O3_SKY[0]); u.skyBot.value.set(O3_SKY[1]);
+    o3Anchor(S, u);
+    r.setRenderTarget(null); r.clear(); r.render(S.pq, S.pc);
+  } else { r.setRenderTarget(null); r.clear(); r.render(S.scene, S.cam); }
+}
+// 片づける：形と、色と奥行きの置き場は、すぐに。ノートの描き手は、少しあとで（o3Drop）
+function o3Free(S) {
+  if (!S) return;
+  S.scene.traverse((o) => { if (o.geometry) o.geometry.dispose(); });
+  if (S.rt) { S.rt.depthTexture.dispose(); S.rt.dispose(); }
+  const cv = S.r.domElement; if (cv.parentNode) cv.parentNode.removeChild(cv);
+  if (S.shared) { clearTimeout(O3R.t); O3R.t = setTimeout(o3Drop, O3R.keep); return; }
+  if (S.pm) { S.pm.dispose(); S.pq.children[0].geometry.dispose(); }
+  S.r.dispose(); try { S.r.forceContextLoss(); } catch (e) { /* なし */ }
+}
+// ノートの描き手を、すっかり片づける（素材・絵・紙の写しも。丘の紙の模様は、丘のものなので消さない）
+function o3Drop() {
+  clearTimeout(O3R.t); O3R.t = 0;
+  if (O3V.S || !O3R.r) return;
+  if (O3.mat) O3.mat.dispose();
+  if (O3.matF) O3.matF.dispose();
+  for (const k in O3.tex) { O3.tex[k].m.dispose(); O3.tex[k].t.dispose(); }
+  if (O3.paperTex) O3.paperTex.forEach((t) => t.dispose());
+  if (O3R.pm) { O3R.pm.dispose(); O3R.pq.children[0].geometry.dispose(); }
+  O3R.r.dispose(); try { O3R.r.forceContextLoss(); } catch (e) { /* なし */ }
+  Object.assign(O3R, { r: null, pm: null, pq: null, pc: null });
+}
+// 試験と見本の写真用：1枚だけ描いて、絵にして返す
+function o3Snap(id, w, h, yaw, pitch, opt) {
+  const S = o3Make(id, w, h, Object.assign({ keep: true, dpr: 1 }, opt || {})); if (!S) return null;
+  if (yaw != null) S.yaw = yaw; if (pitch != null) S.pitch = pitch;
+  o3Render(S); o3Render(S);
+  const url = S.r.domElement.toDataURL('image/jpeg', 0.86), info = { tris: 0 };
+  S.scene.traverse((o) => { if (o.isMesh) info.tris += o.geometry.attributes.position.count / 3; });
+  o3Free(S);
+  return opt && opt.info ? { url, tris: info.tris } : url;
+}
+
+/* ---- ページの中の、さわれる模型 ---- */
+function o3Mount(id, host) {
+  o3Stop();
+  if (!host) return;
+  if (!O3.models[id]) { host.remove(); return; }
+  const w = Math.max(160, host.clientWidth), h = Math.max(160, host.clientHeight);
+  let S = null;
+  try { S = o3Make(id, w, h); } catch (e) { if (typeof logErr === 'function') logErr(e, 'o3Mount'); S = null; }
+  if (!S) { host.remove(); return; }
+  const cv = S.r.domElement, d = ikiDef(id);
+  cv.className = 'o3-cv'; cv.setAttribute('role', 'img'); cv.setAttribute('aria-label', `${d ? d.name : ''}の模型。指でまわして見られます`);
+  host.prepend(cv);
+  O3V.S = S; O3V.host = host; O3V.vy = 0; O3V.ptr.clear(); O3V.last = 0;
+  cv.addEventListener('pointerdown', o3Down);
+  cv.addEventListener('pointermove', o3Move);
+  cv.addEventListener('pointerup', o3Up); cv.addEventListener('pointercancel', o3Up); cv.addEventListener('lostpointercapture', o3Up);
+  cv.addEventListener('wheel', o3Wheel, { passive: false });
+  cv.addEventListener('contextmenu', (e) => e.preventDefault());
+  const big = host.querySelector('.o3-big');
+  if (big) big.addEventListener('click', (e) => { e.stopPropagation(); o3Big(); });
+  if (window.ResizeObserver) { O3V.ro = new ResizeObserver(() => o3Fit()); O3V.ro.observe(host); }
+  // ページが見えなくなったら、片づける（ほかの所から閉じられた時のため）
+  O3V.chk = setInterval(() => { if (!O3V.host || !O3V.host.isConnected || O3V.host.offsetParent === null) o3Stop(); }, 1500);
+  o3Kick();
+}
+function o3Stop() {
+  if (O3V.raf) cancelAnimationFrame(O3V.raf);
+  if (O3V.ro) O3V.ro.disconnect();
+  if (O3V.chk) clearInterval(O3V.chk);
+  const S = O3V.S;
+  O3V.S = null; O3V.host = null; O3V.raf = 0; O3V.ro = null; O3V.chk = 0; O3V.ptr.clear(); O3V.vy = 0;
+  const m = document.getElementById('modal'); if (m) m.classList.remove('o3-full');
+  if (S) o3Free(S);
+}
+function o3Fit() {
+  const S = O3V.S, host = O3V.host; if (!S || !host) return;
+  if (o3Resize(S, Math.max(160, host.clientWidth), Math.max(160, host.clientHeight))) o3Kick();
+}
+// ノートいっぱいに／もとの大きさに
+function o3Big() {
+  const m = document.getElementById('modal'), on = !m.classList.contains('o3-full'), b = O3V.host && O3V.host.querySelector('.o3-big');
+  m.classList.toggle('o3-full', on);
+  if (b) b.textContent = on ? 'もとの大きさに' : '大きく見る';
+  if (on) { const card = document.getElementById('modal-card'); if (card) card.scrollTop = 0; }
+  setTimeout(o3Fit, 30);
+}
+function o3Kick() { if (!O3V.raf && O3V.S) O3V.raf = requestAnimationFrame(o3Tick); }
+function o3Tick(now) {
+  O3V.raf = 0; const S = O3V.S; if (!S) return;
+  const dt = Math.min(0.25, Math.max(0, (now - (O3V.last || now)) / 1000)); O3V.last = now; // 遅い端末でも、本当の時間で止まる
+  let more = false;
+  if (!O3V.ptr.size && Math.abs(O3V.vy) > 0.05) { S.yaw += O3V.vy * dt; O3V.vy *= Math.pow(0.015, dt); more = true; }
+  o3Render(S);
+  if (more || (S.an && S.an.mix < 1)) o3Kick(); else O3V.last = 0;
+}
+function o3Down(e) {
+  e.preventDefault();
+  try { e.target.setPointerCapture(e.pointerId); } catch (x) { /* なし */ }
+  O3V.ptr.set(e.pointerId, { x: e.clientX, y: e.clientY }); O3V.vy = 0; O3V.pinch = 0;
+  if (O3V.host) O3V.host.classList.add('o3-used');
+}
+function o3Move(e) {
+  const S = O3V.S, p = O3V.ptr.get(e.pointerId); if (!S || !p) return;
+  e.preventDefault();
+  const dx = e.clientX - p.x, dy = e.clientY - p.y; p.x = e.clientX; p.y = e.clientY;
+  if (O3V.ptr.size >= 2) {
+    const [a, b] = [...O3V.ptr.values()], dd = Math.hypot(a.x - b.x, a.y - b.y);
+    if (O3V.pinch) S.zoom = Math.max(O3_ZOOM[0], Math.min(O3_ZOOM[1], S.zoom * O3V.pinch / Math.max(1, dd)));
+    O3V.pinch = dd; o3Kick(); return;
+  }
+  const k = 5.2 / Math.max(240, Math.min(S.w, S.h) * 1.6), now = performance.now(), dts = Math.max(0.008, (now - (O3V.moveT || now)) / 1000);
+  O3V.moveT = now;
+  S.yaw -= dx * k; S.pitch = Math.max(O3_PITCH[0], Math.min(O3_PITCH[1], S.pitch + dy * k));
+  O3V.vy = O3V.vy * 0.6 + (-dx * k / dts) * 0.4;
+  o3Kick();
+}
+function o3Up(e) {
+  if (!O3V.ptr.has(e.pointerId)) return;
+  O3V.ptr.delete(e.pointerId); O3V.pinch = 0;
+  if (O3V.ptr.size) { O3V.vy = 0; return; }
+  if (o3Calm() || performance.now() - O3V.moveT > 90) O3V.vy = 0;
+  O3V.vy = Math.max(-4, Math.min(4, O3V.vy));
+  o3Kick();
+}
+function o3Wheel(e) {
+  const S = O3V.S; if (!S) return;
+  e.preventDefault();
+  S.zoom = Math.max(O3_ZOOM[0], Math.min(O3_ZOOM[1], S.zoom * Math.exp(e.deltaY * 0.0012)));
+  o3Kick();
+}
+// ページの中の、模型の置き場（obs.js の ikiCard から）
+function o3StageHtml(id) {
+  if (!O3.models[id]) return '';
+  return `<div class="o3-stage" data-o3="${esc(id)}"><button class="o3-big" type="button">大きく見る</button><span class="o3-hint" aria-hidden="true">指でまわせます</span></div>`;
+}
+
+// ページを閉じた時・ほかのページに替わった時に、片づける。丘を離れた（ほかのアプリに切りかえた）時は、描き手も
+document.addEventListener('visibilitychange', () => { if (document.hidden && !O3V.S && O3R.r) o3Drop(); });
+(function () {
+  const m0 = UI.modal, c0 = UI.closeModal;
+  UI.modal = function () { o3Stop(); return m0.apply(this, arguments); };
+  UI.closeModal = function () { o3Stop(); return c0.apply(this, arguments); };
+})();
 /* =========================================================
    称号（0.9.54）
    丘で過ごすうちに、していることに合わせて、称号が少しずつ増えていく。設定の「あなた」（プロフィール）で見られる。
