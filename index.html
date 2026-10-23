@@ -500,6 +500,9 @@ details.db .muted a { color: var(--lupine); }
 .photo-opts .seg button.on { background: #fff; color: var(--ink); }
 .photo-opts .check { font-size: var(--fs-s); font-weight: 700; display: flex; gap: 5px; align-items: center; }
 .photo-opts .dof-ctl input { width: 96px; accent-color: #fff; }
+.photo-zoom { width: min(360px, 100%); display: flex; align-items: center; gap: 10px; background: rgba(20, 30, 26, .5); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); border-radius: var(--r-l); padding: 6px 14px; color: #fff; font-size: var(--fs-s); font-weight: 700; }
+.photo-zoom span { flex: none; }
+.photo-zoom input { flex: 1; min-width: 0; accent-color: #fff; height: 28px; touch-action: none; }
 .photo-bar { width: min(420px, 100%); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; }
 .photo-done { justify-self: start; border: 0; border-radius: var(--r-l); padding: 0 20px; min-height: 46px; font: inherit; font-weight: 700; font-size: var(--fs-body); background: rgba(255, 255, 255, .94); color: var(--ink); box-shadow: 0 2px 8px rgba(0, 0, 0, .25); }
 .photo-last { justify-self: end; width: 54px; height: 54px; border-radius: var(--r-l); border: 2px solid #fff; padding: 0; overflow: hidden; background: rgba(255, 255, 255, .2); box-shadow: 0 2px 8px rgba(0, 0, 0, .3); }
@@ -1554,6 +1557,12 @@ ul.etho li .q { color: var(--ink-3, #999); }
 #modal.o3-full .modal-card { box-sizing: border-box; width: 100%; height: 100%; max-height: 100%; display: flex; flex-direction: column; overflow: hidden; }
 #modal.o3-full .modal-card > :not(.o3-stage):not(h3) { display: none; }
 #modal.o3-full .o3-stage { flex: 1 1 auto; aspect-ratio: auto; max-height: none; min-height: 0; margin: 0; }
+/* 動物のカードの絵：押すと、その子の模型（ani3d.js、2026-10-23） */
+.ac-hero .av3d { position: relative; padding: 0; border: 0; font: inherit; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: transform .15s; }
+.ac-hero .av3d:active { transform: rotate(-2.5deg) scale(.96); }
+.ac-hero .av3d:focus-visible { outline: 2px solid var(--sumi); outline-offset: 3px; }
+.av3d-tag { position: absolute; left: 50%; bottom: -8px; transform: translateX(-50%) rotate(2deg); padding: 1px 8px 2px; white-space: nowrap; font-family: var(--hand); font-size: var(--fs-s); line-height: 1.35; color: var(--ink); background: var(--card); border: 1.2px solid var(--line); border-radius: var(--r-m); box-shadow: var(--shadow-s); pointer-events: none; }
+.ani3d-h small { margin-left: 8px; font-size: var(--fs-s); font-weight: 400; color: var(--ink-3, #7A7266); }
 
 /* 前に開いた時、とちゅうで止まった時の画面（0.9.66。main.js の bootSafe） */
 .boot-safe { max-width: 360px; padding: 24px; text-align: center; font-weight: 400; line-height: 1.8; }
@@ -1695,6 +1704,7 @@ ul.etho li .q { color: var(--ink-3, #999); }
         <label class="check dof-ctl" id="dof-ctl" hidden>ボケ<input type="range" id="dof" min="0" max="1" step="0.05" value="0.45" aria-label="ボケの強さ"></label>
         <label class="check"><input type="checkbox" id="photo-name"> 名前を入れる</label>
       </div>
+      <label class="photo-zoom"><span>ふつう</span><input type="range" id="tele" min="0" max="1" step="0.005" value="0" aria-label="望遠"><span>望遠</span></label>
       <div class="photo-bar">
         <button type="button" class="photo-done" id="photo-close">おわる</button>
         <button type="button" id="photo-shoot" class="shutter" aria-label="撮る"></button>
@@ -3061,7 +3071,7 @@ const TITLES = []; // 称号の入れ物（0.9.58。中身は src/content/titles
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.83', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.84', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -3069,6 +3079,7 @@ const APP = {
   try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.84', '2026年10月23日', '写真に望遠レンズがつきました。ピンチか下のつまみで、いちばん16倍まで寄れます。寄っている時は、なぞるとカメラの向きだけが変わるので、虫や鳥をまんなかに入れて大きく撮れます。望遠で見ている間は、近づかなくても、いきもの記録と観察ノートに届きます。観察ノートの写真は、写っている大きさに合わせて切りぬき、前より大きく撮れた時に貼りかわります。動物のカードの絵を押すと、その子の模型が画面いっぱいに。指でまわしたり、近づいたりして、ゆっくり見られます。'],
     ['0.9.83', '2026年10月23日', '「称号」を「呼び名」にしました。「写真を撮る人」「池のそばの人」のように、丘でしてきたことを、そのまま呼び名に。虫やトカゲ、クモの網、カエルなどの小さな生き物は、はじめは見えません。立ち止まって静かにしていると、近くの子が1つずつ、そっと姿を見せます。夏の夜、林のはしのクヌギの樹液に、カブトムシやコクワガタが来ることがあります（なかなか会えません）。雨の日の池のカエルが、観察ノートと写真に入るように（名前も出ます）。働く人が牛舎の中に立ちつづけていたのを直しました。スマホで遊んでいるあいだは、画面が消えないように。スマホを横にした時は、ゲームを止めて、縦にもどすと続きから遊べるようにしました'],
     ['0.9.82', '2026年10月22日', '観察ノートのページに、その生き物のくわしい模型が出るようになりました。指でまわし、2本の指で近づき、「大きく見る」でノートいっぱいに。丘の生き物は、それぞれ本来起きている時間に姿を見せます（夜には、タヌキやハクビシン、アカネズミに会えることも）。ノートに「見られる時間」も。新しく、オオカマキリ・アカネズミ・ハクビシンに出会えます。ニホンアマガエルとタヌキの説明を、東京の資料に合わせて直しました。'],
     ['0.9.81', '2026年10月21日', '木や建物があなたの前に入っても、カメラは寄ったり持ち上がったりしなくなりました。かわりに、さえぎる物の、あなたに重なる所だけが、紙の窓のように透けて見えます。動物たちと人は透けません。休んでいる時も、看板や建物を消すかわりに、同じように透かします'],
@@ -5728,7 +5739,8 @@ const CAM_VIEWS = IS_TOUCH ? [{ n: '近く', dist: 5, pitch: 0.3 }, { n: 'ふつ
 function camViewIndex() { let bi = 0, bd = 1e9; CAM_VIEWS.forEach((v, i) => { const d = Math.abs(Math.log(CAM.user.dist / v.dist)); if (d < bd) { bd = d; bi = i; } }); return bi; }
 function camView(i) { const v = CAM_VIEWS[(i + CAM_VIEWS.length) % CAM_VIEWS.length]; CAM.user.dist = v.dist; CAM.user.pitch = v.pitch; camRestore(); return v; }
 const CAM = { yaw: 0.25, pitch: 0.78, dist: 32, tYaw: 0.25, tPitch: 0.78, tDist: 32, target: new THREE.Vector3(18, 0, 40), tTarget: new THREE.Vector3(), overview: false, focus: null, focusUntil: 0, spin: false,
-  user: { yaw: 0, pitch: CAM_HOME.pitch, dist: CAM_HOME.dist }, lock: false, shoulder: 0 };
+  user: { yaw: 0, pitch: CAM_HOME.pitch, dist: CAM_HOME.dist }, lock: false, shoulder: 0,
+  photo: false, lens: 1, panY: 0, panP: 0, photoDist: 0, baseEl: 0 }; // 写真の時の望遠（lens）と、カメラの向けかた（panY・panP）
 const CAM_MIN_PITCH = -0.34; // ここより下へドラッグすると、空を見上げる
 function overviewDist() { const a = R.camera.aspect; return 165 * Math.max(1, 1.05 / a); }
 // あなたが選んだ見え方を覚えておき、写真や休憩、全体を見たあとは、その見え方に戻す
@@ -5739,6 +5751,7 @@ function camHome(yaw) { CAM.user.pitch = CAM_HOME.pitch; CAM.user.dist = CAM_HOM
 // 寄る・離れる（ピンチとホイール）。0.9.37：メニューの「全体」をなくし、かわりにピンチ（ホイール）で丘ぜんたいまで引ける。
 // 遠くまで引くほど、見下ろす角度に、見る中心も丘のまんなかへ。遠くから見ている時は、タップした所へ移動できる（farView）
 function camZoom(f) {
+  if (CAM.photo && photoZoom(f)) return;
   CAM.tDist = clamp(CAM.tDist * f, 2.5, Math.max(220, overviewDist()));
   if (CAM.overview && CAM.tDist < 90) CAM.overview = false;
   const far = clamp((CAM.tDist - 60) / 100, 0, 1);
@@ -5746,6 +5759,43 @@ function camZoom(f) {
   camRemember(); INPUT.lastLook = performance.now();
   if (CAM.tDist > FAR_DIST && !INPUT.farHint && typeof UI !== 'undefined' && UI.hint) { INPUT.farHint = true; UI.hint(IS_TOUCH ? '遠くから見ている時は、行きたい所をタップすると、そこへ移動します' : '遠くから見ている時は、行きたい所をクリックすると、そこへ移動します'); }
 }
+/* ---------- 望遠（写真を撮る時。2026-10-23、Daiさんの依頼） ----------
+   虫や鳥を大きく撮れるように、写真の時だけ、レンズで寄れる（画角をせまくする。いちばん望遠で16倍）。
+   カメラの場所は動かさない。寄っている時に指でなぞると、カメラの向きだけが変わる（三脚の上でカメラを向けるように）。
+   なぞる速さは、見えている広さに合わせる（どの望遠でも、指と景色の動きが同じくらいに）。
+   ピンチ（ホイール）は、寄る時は先にカメラの距離を写真をはじめた時まで戻してから、レンズ。引く時は、レンズを戻してから、カメラの距離
+   野外の観察では、近づかずに双眼鏡や望遠で見る。ここでも、望遠で見ている間は、写真といきもの記録と観察ノートの届く距離が、そのぶん延びる（camReach） */
+const LENS_MAX = 16;
+function lensSet(v) { CAM.lens = clamp(v, 1, LENS_MAX); if (CAM.lens < 1.02) CAM.lens = 1; if (typeof UI !== 'undefined' && UI.teleSync) UI.teleSync(); }
+function camReach() { return CAM.photo ? CAM.lens : 1; }
+function photoZoom(f) {
+  INPUT.lastLook = performance.now();
+  if (f < 1) {
+    if (CAM.tDist > CAM.photoDist * 1.001) { CAM.tDist = Math.max(CAM.photoDist, CAM.tDist * f); return true; }
+    lensSet(CAM.lens / Math.pow(f, 1.6)); return true;
+  }
+  if (CAM.lens > 1) { lensSet(CAM.lens / Math.pow(f, 1.6)); return true; }
+  return false; // レンズがいちばん広い時は、これまでどおりカメラが離れる
+}
+function photoPan(dx, dy) {
+  const k = R.camera.fov * Math.PI / 180 / Math.max(320, window.innerHeight) * 1.8;
+  CAM.panY -= dx * k; CAM.panP = clamp(CAM.panP - dy * k, -1.45 - CAM.baseEl, 1.45 - CAM.baseEl);
+  INPUT.lastLook = performance.now();
+}
+// 望遠のレンズは、近くの物にはピントが合わない（本物の望遠レンズにも、いちばん近く写せる距離がある）。
+// 寄っているほど、カメラのすぐ前の柵や枝を、紙の窓と同じように抜く（ぼけた大きな影にならないように）。
+// ただし、あなた（カメラとの距離の6割まで）と、画面のまんなかの地面（の半分まで）より手前だけ
+function photoNear() {
+  if (!CAM.photo || CAM.lens <= 1) return 0;
+  const now = performance.now();
+  if (!(now - (CAM.gaT || 0) < 200)) { // 画面のまんなかの向きで、地面までの距離（0.2秒ごと）
+    CAM.gaT = now; R.camera.getWorldDirection(_camDir); const p = R.camera.position; let g = 120;
+    for (let t = 0.5; t < 120; t += 0.5) { const x = p.x + _camDir.x * t, z = p.z + _camDir.z * t; if (p.y + _camDir.y * t < heightAt(x, z)) { g = t; break; } }
+    CAM.groundAhead = g;
+  }
+  return Math.min(0.25 * CAM.lens, 0.6 * CAM.dist, 0.5 * (CAM.groundAhead || 120));
+}
+const _upY = new THREE.Vector3(0, 1, 0), _camDir = new THREE.Vector3();
 const FAR_DIST = 70;
 function farView() { return CAM.overview || CAM.dist > FAR_DIST; }
 const _camCenter = new THREE.Vector3(0, 0, 2);
@@ -5941,12 +5991,20 @@ function updateCamera(dt, followPos) {
     _look.set(p.x - Math.sin(CAM.yaw) * ce * 10, p.y + Math.sin(e) * 10, p.z - Math.cos(CAM.yaw) * ce * 10);
     R.camera.lookAt(_look);
   } else R.camera.lookAt(CAM.target);
+  if (CAM.photo) {
+    R.camera.getWorldDirection(_camDir); CAM.baseEl = Math.asin(clamp(_camDir.y, -1, 1));
+    if (CAM.panY || CAM.panP) { R.camera.rotateOnWorldAxis(_upY, CAM.panY); R.camera.rotateX(clamp(CAM.panP, -1.45 - CAM.baseEl, 1.45 - CAM.baseEl)); }
+  }
   R.scene.fog.near = CAM.dist + 90; R.scene.fog.far = CAM.dist + 460;
   // 近くで見る時は視野を広げる（縦長の画面では特に）。休む時や見た目を選ぶ時は、それぞれの画角のまま。めくった時は、すぐにその画角へ
   if (!CAM.fovHold) {
-    const narrow = R.camera.aspect < 0.8, want = 36 + (narrow ? 26 : 12) * CAM.shoulder;
+    const narrow = R.camera.aspect < 0.8, want0 = 36 + (narrow ? 26 : 12) * CAM.shoulder, want = CAM.photo && CAM.lens > 1 ? Math.max(2, want0 / CAM.lens) : want0;
     if (snap) { R.camera.fov = want; R.camera.updateProjectionMatrix(); }
-    else if (Math.abs(R.camera.fov - want) > 0.05) { R.camera.fov += (want - R.camera.fov) * Math.min(1, dt * 4); R.camera.updateProjectionMatrix(); }
+    else if (Math.abs(R.camera.fov - want) > 0.05 * Math.min(1, want / 20)) {
+      if (CAM.photo) R.camera.fov = Math.exp(Math.log(R.camera.fov) + (Math.log(want) - Math.log(R.camera.fov)) * Math.min(1, dt * 6)); // 望遠：寄る・引く速さが、どの画角でも同じに見えるように
+      else R.camera.fov += (want - R.camera.fov) * Math.min(1, dt * 4);
+      R.camera.updateProjectionMatrix();
+    }
   }
 }
 const _look = new THREE.Vector3();
@@ -6053,7 +6111,7 @@ function pwinOn() {
   // 円すいの先：ふだんは、あなたの体のまんなか（肩越しの見る所は少し横にずれているので）。寄って見ている時と休む時は、見ている所
   u.pwinA.value.copy(R.camera.position); u.pwinP.value.copy(pl);
   if (CAM.focus || CAM.overview || pl === CAM.target) u.pwinB.value.copy(CAM.target); else u.pwinB.value.set(pl.x, pl.y + 0.85, pl.z);
-  u.pwinK.value.set(PWIN.off ? 0 : 1, camWinR(), PWIN.near, PWIN.cut); u.pwinS.value = 1;
+  u.pwinK.value.set(PWIN.off ? 0 : 1, camWinR(), Math.max(PWIN.near, photoNear()), PWIN.cut); u.pwinS.value = 1;
 }
 
 /* ---------------- 入力 ---------------- */
@@ -6221,7 +6279,8 @@ function initInput(canvas, onTap) {
       const d = Math.hypot(L[0].x - L[1].x, L[0].y - L[1].y);
       if (INPUT.pinch > 0) camZoom(INPUT.pinch / d);
       INPUT.pinch = d;
-    } else if (p.drag) { CAM.tYaw -= dx * 0.0065; CAM.tPitch = clamp(CAM.tPitch + dy * 0.0045, CAM_MIN_PITCH, 1.38); camRemember(); INPUT.lastLook = performance.now(); }
+    } else if (p.drag && CAM.photo && CAM.lens > 1) photoPan(dx, dy);
+    else if (p.drag) { CAM.tYaw -= dx * 0.0065; CAM.tPitch = clamp(CAM.tPitch + dy * 0.0045, CAM_MIN_PITCH, 1.38); camRemember(); INPUT.lastLook = performance.now(); }
   });
   const up = (e) => {
     const p = INPUT.pointers.get(e.pointerId);
@@ -6284,13 +6343,13 @@ function dofSetup() {
     DOF.rt = new THREE.WebGLRenderTarget(size.x, size.y, { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat });
     DOF.rt.depthTexture = new THREE.DepthTexture(size.x, size.y); DOF.rt.depthTexture.type = THREE.UnsignedIntType;
     DOF.mat = new THREE.ShaderMaterial({
-      uniforms: { tColor: { value: null }, tDepth: { value: null }, near: { value: 0.5 }, far: { value: 900 }, focus: { value: 30 }, amount: { value: 0.5 }, texel: { value: new THREE.Vector2() }, maxR: { value: 16 } },
+      uniforms: { tColor: { value: null }, tDepth: { value: null }, near: { value: 0.5 }, far: { value: 900 }, focus: { value: 30 }, amount: { value: 0.5 }, texel: { value: new THREE.Vector2() }, maxR: { value: 16 }, tele: { value: 1 } },
       vertexShader: 'varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }',
       fragmentShader: `#include <packing>
-        uniform sampler2D tColor; uniform sampler2D tDepth; uniform float near; uniform float far; uniform float focus; uniform float amount; uniform vec2 texel; uniform float maxR;
+        uniform sampler2D tColor; uniform sampler2D tDepth; uniform float near; uniform float far; uniform float focus; uniform float amount; uniform vec2 texel; uniform float maxR; uniform float tele;
         varying vec2 vUv;
         float distAt(vec2 uv) { return -perspectiveDepthToViewZ(texture2D(tDepth, uv).x, near, far); }
-        float cocOf(float z) { return clamp(abs(z - focus) / max(z, 0.01) * amount * maxR * 1.6, 0.0, amount * maxR); }
+        float cocOf(float z) { return clamp(abs(z - focus) / max(z, 0.01) * amount * maxR * 1.6 * tele, 0.0, amount * maxR); }
         void main() {
           float z0 = distAt(vUv), c0 = cocOf(z0);
           vec4 sum = texture2D(tColor, vUv); float wsum = 1.0;
@@ -6368,7 +6427,7 @@ function renderMain0() {
     }
     const u = DOF.mat.uniforms;
     u.tColor.value = color; u.tDepth.value = DOF.rt.depthTexture; u.near.value = R.camera.near; u.far.value = R.camera.far;
-    u.focus.value = DOF.focus; u.amount.value = DOF.amount; u.texel.value.set(1 / DOF.rt.width, 1 / DOF.rt.height); u.maxR.value = 16 * Math.max(1, R.renderer.getPixelRatio() * 0.8);
+    u.focus.value = DOF.focus; u.amount.value = DOF.amount; u.texel.value.set(1 / DOF.rt.width, 1 / DOF.rt.height); u.maxR.value = 16 * Math.max(1, R.renderer.getPixelRatio() * 0.8); u.tele.value = CAM.photo ? Math.min(3, Math.sqrt(CAM.lens)) : 1;
     r.setRenderTarget(null); r.clear(); r.render(DOF.scene, DOF.cam);
     droneOverlay(DOF.rt.depthTexture);
   } catch (e) {
@@ -9371,6 +9430,7 @@ function pcWrapUV(geo, cy, h) {
   return g2;
 }
 function pcChickenTex(color) {
+  color = color || 'brown'; // 色の決まっていない鶏（点検・見本）は、赤茶に
   if (PC.chick[color]) return PC.chick[color];
   const P = CHICKEN_PAL[color] || CHICKEN_PAL.brown, rnd = pcRng(color.length * 31);
   const base = pcPastel(P.base, 0.08), light = pcPastel(P.light, 0.05), mid = pcPastel(P.mid, 0.05), dark = P.dark;
@@ -13358,8 +13418,7 @@ function syncAnimals() {
   const have = new Set(ACT.animals.map((e) => e.a.id));
   for (const a of G.animals) {
     if (have.has(a.id) || careAway(a)) continue; // 動物病院にいる子（care.js）
-    const m = modelAnimal(a.sp, a.color);
-    if (a.elderly) pcAge(m); // 年老いた子は、しわの寄った紙で
+    const m = aniModel(a); // 年老いた子は、しわの寄った紙で（ani3d.js。カードの模型と同じ作り）
     const sc = a.age <= 2 && a.sp !== 'chicken' && !petOf(a) ? 0.85 : 1;
     m.root.scale.setScalar(sc * (a.sp === 'chicken' ? 1.05 : 1));
     ACT.layer.add(m.root);
@@ -18042,6 +18101,7 @@ const UI = {
       case 'remove': UI.startRemove(); break;
       case 'blocked': { const it = ITEMS[id]; GAME.unlockCard(it.card, true); UI.showCard(it.card, { alt: it.alt, altLabel: it.altLabel }); break; }
       case 'alt': UI.closeModal(); if (v === 'drone') UI.droneShow(); else if (ITEMS[v]) UI.startPlace(v); else if (v === 'native') { UI.openSheet('choice', 'L08'); } break;
+      case 'ani-3d': UI.ani3d(+id); break; // カードの絵から、その子の模型（ani3d.js）
       case 'animal': UI.openSheet('card', +id, true); { const e2 = animalById(+id); if (e2) { focusAt(e2.x, e2.z, 14, 60000); CAM.focusView = true; } } break;
       case 'pet': UI.petGo(+id, v || 'pet'); break;
       case 'treat': GAME.treatAnimal(find(id)); UI.render(); break;
@@ -18421,7 +18481,7 @@ Object.assign(UI, {
       if (a.sponsor) pills.push('<span class="pill ok">里親になっています</span>');
       if (y) pills.push(`<span class="pill warn">今週で${y}年</span>`);
       if (diet) pills.push('<span class="pill">おやつはお休み中</span>');
-      let h = `<div class="ac-hero"><span class="av" style="${avStyle(a)}"></span><div class="ac-id"><h3>${esc(a.name)}</h3><div class="ac-meta"><span class="ac-sp"><svg class="spi"><use href="#sp-${a.sp}"/></svg>${sp.name}</span><span>${a.ageText ? esc(a.ageText) : a.age + '歳'}</span></div><div class="ac-trust"><span>なかよし度</span>${heartsHtml(a.trust)}</div></div></div>${pills.length ? `<div class="ac-pills">${pills.join('')}</div>` : ''}`;
+      let h = `<div class="ac-hero"><button class="av av3d" type="button" data-act="ani-3d" data-id="${a.id}" style="${avStyle(a)}" aria-label="${esc(a.name)}の模型を、大きく見る"><span class="av3d-tag" aria-hidden="true">模型を見る</span></button><div class="ac-id"><h3>${esc(a.name)}</h3><div class="ac-meta"><span class="ac-sp"><svg class="spi"><use href="#sp-${a.sp}"/></svg>${sp.name}</span><span>${a.ageText ? esc(a.ageText) : a.age + '歳'}</span></div><div class="ac-trust"><span>なかよし度</span>${heartsHtml(a.trust)}</div></div></div>${pills.length ? `<div class="ac-pills">${pills.join('')}</div>` : ''}`;
       { const B = UI.behParts(a); if (B && B.now) h += B.now; }
       // この子のこと（0.9.38）：いつも見える所に。はじめは性格と好きなことのひとつ。一緒に過ごすほど、好きなこと・苦手・仲良しが書き足される
       { const K = GAME.knowOf(a), unk = (t) => `<span class="unk">${t}</span>`;
@@ -19712,7 +19772,12 @@ Object.assign(UI, {
     // 時間帯（朝・昼・夕方・夜）は、変わった時だけ書きかえる
     const tn = todName(SKY.t); if (tn !== UI._tod) { UI._tod = tn; const el = $('#t-tod'); if (el) el.textContent = tn; }
     // 写真のピント：タップするまでは、見ている中心（あなたのあたり）に合わせ続ける
-    if (DOF.on && DOF.auto) { const v = CAM.target.clone().applyMatrix4(R.camera.matrixWorldInverse); DOF.focus = Math.max(1, -v.z); }
+    if (DOF.on && DOF.auto) {
+      if (CAM.photo && (CAM.lens > 1 || CAM.panY || CAM.panP)) { // 望遠で向けている時は、画面のまんなかに写っている物に（0.25秒ごとに見て、なめらかに）
+        const now = performance.now(); if (now - (UI._dofT || 0) > 250) { UI._dofT = now; const d = dofProbe(window.innerWidth / 2, window.innerHeight / 2); if (d != null) UI._dofW = Math.max(1, d); }
+        if (UI._dofW) DOF.focus += (UI._dofW - DOF.focus) * Math.min(1, dt * 5);
+      } else { const v = CAM.target.clone().applyMatrix4(R.camera.matrixWorldInverse); DOF.focus = Math.max(1, -v.z); }
+    }
     if (UI.rest) UI.restFrame(dt);
     UI.markerT += dt; UI.marker.material.opacity = Math.max(0, 0.9 - UI.markerT * 1.2); UI.marker.scale.setScalar(1.2 + UI.markerT * 1.2);
     UI.behFrame(); UI.tutFrame(); UI.eggPopFrame(dt);
@@ -20025,6 +20090,8 @@ Object.assign(UI, {
     if (OCHA.on) { UI.toast('写真は、外に出てから撮れます', 'daily'); return; } // ウェルカムセンターの中は、カメラを動かせないので（0.9.49）
     UI.closeSheet(); UI.endPlace();
     if (!CAM.lock) { camRemember(); CAM.lock = true; }
+    CAM.photo = true; CAM.lens = 1; CAM.panY = CAM.panP = 0; CAM.photoDist = CAM.tDist; UI._dofW = 0;
+    if (!UI._teleInit) { UI._teleInit = true; $('#tele').addEventListener('input', (e) => lensSet(Math.pow(LENS_MAX, +e.target.value))); }
     $('#hud').hidden = true; $('#photo-ui').hidden = false;
     // 行事のない週は、季節の飾りのフレームに（ボタンはいつでも使える）
     const frames = [['none', 'なし'], ['event', photoEvent().season ? '季節' : '行事'], ['polaroid', 'ポラロイド']];
@@ -20041,9 +20108,19 @@ Object.assign(UI, {
     $('#photo-frames').querySelectorAll('button').forEach((x) => x.classList.toggle('on', x.dataset.f === f));
     DOF.on = f === 'none'; DOF.auto = true; $('#dof-ctl').hidden = f !== 'none';
     $('#photo-ui').classList.toggle('instant', f === 'polaroid');
-    const pe = photoEvent();
-    $('#photo-tip').textContent = f === 'none' ? 'タップした所にピントが合います' : f === 'polaroid' ? 'インスタント写真のように。白いところに日付を手書きで' : pe.season ? (pe.day ? `今週は${pe.day}。${SEASON_NAME[G.season]}の飾りのフレームです` : `今週は行事がないので、${SEASON_NAME[G.season]}の飾りのフレームです`) : `${pe.name}の飾りのフレーム`;
+    UI.teleSync();
     UI.drawPhotoPreview();
+  },
+  // 上の小さな案内：望遠で寄っている時は、向けかた。ふだんは、フレームのこと
+  photoTip() {
+    const f = UI.photoFrame, pe = photoEvent();
+    if (CAM.photo && CAM.lens > 1) return 'なぞると、カメラの向きだけが変わります';
+    return f === 'none' ? 'タップした所にピントが合います' : f === 'polaroid' ? 'インスタント写真のように。白いところに日付を手書きで' : pe.season ? (pe.day ? `今週は${pe.day}。${SEASON_NAME[G.season]}の飾りのフレームです` : `今週は行事がないので、${SEASON_NAME[G.season]}の飾りのフレームです`) : `${pe.name}の飾りのフレーム`;
+  },
+  // 望遠のつまみと案内を、いまのレンズに合わせる
+  teleSync() {
+    const el = $('#tele'); if (el && document.activeElement !== el) el.value = String(Math.log(CAM.lens) / Math.log(LENS_MAX));
+    const tip = $('#photo-tip'), t = UI.photoTip(); if (tip && tip.textContent !== t) tip.textContent = t;
   },
   photoFocus(cx, cy) {
     // 0.9.78：タップした所に写っている物（小さな虫や、壁、木の上のリスも）の奥行きに合わせる。画面の奥行きが読めない時だけ、前のやり方で
@@ -20060,7 +20137,11 @@ Object.assign(UI, {
     const ring = $('#focus-ring'); ring.hidden = true; void ring.offsetWidth; ring.style.left = cx + 'px'; ring.style.top = cy + 'px'; ring.hidden = false;
     clearTimeout(UI._fr); UI._fr = setTimeout(() => { ring.hidden = true; }, 950);
   },
-  closePhoto() { $('#photo-ui').hidden = true; $('#hud').hidden = false; DOF.on = false; $('#photo-ui').classList.remove('instant'); CAM.lock = false; camRestore(); $('#photo-frame-preview').innerHTML = ''; UI.refresh(); },
+  closePhoto() {
+    // 望遠や向けかたを戻す時は、カメラを動かさずに紙芝居をめくる（おだやかなカメラ）
+    if (CAM.photo && (CAM.lens > 1 || CAM.panY || CAM.panP)) camCut();
+    CAM.photo = false; CAM.lens = 1; CAM.panY = CAM.panP = 0;
+    $('#photo-ui').hidden = true; $('#hud').hidden = false; DOF.on = false; $('#photo-ui').classList.remove('instant'); CAM.lock = false; camRestore(); $('#photo-frame-preview').innerHTML = ''; UI.refresh(); },
   drawPhotoPreview() {
     const box = $('#photo-frame-preview'); box.innerHTML = '';
     const c = document.createElement('canvas'); const w = box.clientWidth || window.innerWidth, h = box.clientHeight || window.innerHeight;
@@ -20076,12 +20157,12 @@ Object.assign(UI, {
   },
   // 写真に写っているもの：動物の名前、季節のもの、虹・夕方の光・夜空。日記の言葉と、その週の表紙選びに使う
   photoScene() {
-    const cam = R.camera, v = new THREE.Vector3(); cam.updateMatrixWorld();
+    const cam = R.camera, v = new THREE.Vector3(), reach = camReach(); cam.updateMatrixWorld();
     const seen = (x, y, z, m) => { v.set(x, y, z).project(cam); return v.z < 1 && Math.abs(v.x) < (m || 0.92) && Math.abs(v.y) < (m || 0.92); };
     const who = [];
     for (const e of ACT.animals) {
       if (!e.m || !e.m.root.visible) continue;
-      const y = heightAt(e.x, e.z) + 0.7, d = Math.hypot(cam.position.x - e.x, cam.position.y - y, cam.position.z - e.z);
+      const y = heightAt(e.x, e.z) + 0.7, d = Math.hypot(cam.position.x - e.x, cam.position.y - y, cam.position.z - e.z) / reach; // 望遠では、そのぶん近くに見える
       if (d > 28 || !seen(e.x, y, e.z)) continue;
       who.push({ name: e.a.name, d, c: Math.abs(v.x) + Math.abs(v.y) });
     }
@@ -21274,33 +21355,53 @@ function ikiBee(c, dt, t) {
 }
 
 /* ---- 写真に写っている虫と鳥（ui-photo の photoScene から）。sx・sy は画面の上の位置（-1〜1） ---- */
+// it.w・it.h は、写っている大きさ（画面の幅・高さを 2 とした時）。it.q は、写っている大きさを画面の高さで比べたもの（0〜0.5）
 function ikiInView(seen) {
-  const cam = R.camera.position, out = new Map(), pv = new THREE.Vector3();
-  const chk = (id, x, y, z, r, mg) => {
-    if (out.has(id) || Math.hypot(cam.x - x, cam.y - y, cam.z - z) > r || !seen(x, y, z, mg)) return;
-    pv.set(x, y, z).project(R.camera); out.set(id, { id, sx: pv.x, sy: pv.y });
+  const cam = R.camera.position, out = new Map(), pv = new THREE.Vector3(), reach = camReach(), bx = new THREE.Box3(), asp = R.camera.aspect, tanH = Math.tan(R.camera.fov * Math.PI / 360);
+  const chk = (id, x, y, z, r, mg, obj) => {
+    const d = Math.hypot(cam.x - x, cam.y - y, cam.z - z);
+    if (out.has(id) || d > r * reach || !seen(x, y, z, mg)) return; // 望遠で見ている時は、そのぶん遠くまで
+    pv.set(x, y, z).project(R.camera);
+    const it = { id, sx: pv.x, sy: pv.y, w: 0, h: 0, q: 0 };
+    let x0 = 1, x1 = -1, y0 = 1, y1 = -1, ok = false;
+    if (obj) {
+      bx.setFromObject(obj);
+      if (!bx.isEmpty()) {
+        ok = true;
+        for (let i = 0; i < 8; i++) {
+          pv.set(i & 1 ? bx.max.x : bx.min.x, i & 2 ? bx.max.y : bx.min.y, i & 4 ? bx.max.z : bx.min.z).project(R.camera);
+          if (pv.z > 1) { ok = false; break; }
+          x0 = Math.min(x0, pv.x); x1 = Math.max(x1, pv.x); y0 = Math.min(y0, pv.y); y1 = Math.max(y1, pv.y);
+        }
+      }
+    }
+    if (ok) { x0 = Math.max(-1, x0); x1 = Math.min(1, x1); y0 = Math.max(-1, y0); y1 = Math.min(1, y1); ok = x1 > x0 && y1 > y0; }
+    if (ok) { it.sx = (x0 + x1) / 2; it.sy = (y0 + y1) / 2; it.w = x1 - x0; it.h = y1 - y0; }
+    else { const ry = 0.25 / (Math.max(0.5, d) * tanH); it.w = ry * 2 / asp; it.h = ry * 2; }
+    it.q = Math.min(0.5, Math.max(it.w * asp, it.h) / 2);
+    out.set(id, it);
   };
-  for (const c of IKI.list) if (c.m.root.visible) chk(c.id, c.x, c.y, c.z, c.type === 'beetle' ? 10 : c.type === 'bee' ? 6 : c.type === 'fly' ? 9 : c.type === 'web' ? 5.5 : c.type === 'liz' ? 6.5 : c.type === 'mantis' ? 7 : c.type === 'mouse' ? 7 : 13);
+  for (const c of IKI.list) if (c.m.root.visible) chk(c.id, c.x, c.y, c.z, c.type === 'beetle' ? 10 : c.type === 'bee' ? 6 : c.type === 'fly' ? 9 : c.type === 'web' ? 5.5 : c.type === 'liz' ? 6.5 : c.type === 'mantis' ? 7 : c.type === 'mouse' ? 7 : 13, undefined, c.m.root);
   if (typeof SEA !== 'undefined') {
-    for (const b of SEA.swallows) if (b.m.root.visible) chk('tsubame', b.x, b.y, b.z, 22);
+    for (const b of SEA.swallows) if (b.m.root.visible) chk('tsubame', b.x, b.y, b.z, 22, undefined, b.m.root);
     if (SEA.nest && SEA.swallows.some((b) => b.st === 'feed' && b.m.root.visible)) chk('tsubame', SEA.nest.x, SEA.nest.y, SEA.nest.z, 14);
-    if (SEA.lark && SEA.lark.st === 'hover') chk('hibari', SEA.lark.x, SEA.lark.y, SEA.lark.z, 90);
-    if (SEA.hitaki && SEA.hitaki.m.root.visible) { const p = SEA.hitaki.m.root.position; chk('jobitaki', p.x, p.y, p.z, 14); }
+    if (SEA.lark && SEA.lark.st === 'hover') chk('hibari', SEA.lark.x, SEA.lark.y, SEA.lark.z, 90, undefined, SEA.lark.m && SEA.lark.m.root);
+    if (SEA.hitaki && SEA.hitaki.m.root.visible) { const p = SEA.hitaki.m.root.position; chk('jobitaki', p.x, p.y, p.z, 14, undefined, SEA.hitaki.m.root); }
     if (SEA.geese && SEA.geese.on) chk('magan', SEA.geese.x, SEA.geese.y, SEA.geese.z, 600, 1);
-    for (const f of SEA.flies) if (f.m.root.visible) chk(f.kind === 'aka' ? 'akiakane' : 'shiokara', f.x, f.y, f.z, f.st === 'swarm' ? 40 : 14);
+    for (const f of SEA.flies) if (f.m.root.visible) chk(f.kind === 'aka' ? 'akiakane' : 'shiokara', f.x, f.y, f.z, f.st === 'swarm' ? 40 : 14, undefined, f.m.root);
   }
   if (typeof POND_LIFE !== 'undefined') {
-    for (const b of POND_LIFE.birds) if (b.m.root.visible) { const p = b.m.root.position; chk(b.w && b.w.wild === 'kogamo' ? 'kogamo' : 'karugamo', p.x, p.y, p.z, 26); }
-    const k = POND_LIFE.kawa; if (k && k.m.root.visible) { const p = k.m.root.position; chk('kawasemi', p.x, p.y, p.z, 20); }
-    for (const f of POND_LIFE.frogs) if (f.m.visible) { const p = f.m.position; chk('amagaeru', p.x, p.y + 0.1, p.z, 18); } // 0.9.83：8 では、カメラが離れたスマホで写らなかった
+    for (const b of POND_LIFE.birds) if (b.m.root.visible) { const p = b.m.root.position; chk(b.w && b.w.wild === 'kogamo' ? 'kogamo' : 'karugamo', p.x, p.y, p.z, 26, undefined, b.m.root); }
+    const k = POND_LIFE.kawa; if (k && k.m.root.visible) { const p = k.m.root.position; chk('kawasemi', p.x, p.y, p.z, 20, undefined, k.m.root); }
+    for (const f of POND_LIFE.frogs) if (f.m.visible) { const p = f.m.position; chk('amagaeru', p.x, p.y + 0.1, p.z, 18, undefined, f.m); } // 0.9.83：8 では、カメラが離れたスマホで写らなかった
   }
   for (const w of (ACT.wild || [])) {
     if (!w.m || !w.m.root.visible) continue;
-    if (w.wild === 'heron') chk('aosagi', w.x, heightAt(w.x, w.z) + 0.8, w.z, 30);
-    if (w.wild === 'pheasant') chk('kiji', w.x, heightAt(w.x, w.z) + 0.4, w.z, 26);
-    if (w.wild === 'fox') chk('kitsune', w.x, (w.m.root.position.y || heightAt(w.x, w.z)) + 0.35, w.z, 32);
-    if (w.wild === 'tanuki') chk('tanuki', w.x, heightAt(w.x, w.z) + 0.3, w.z, 26);
-    if (w.wild === 'civet') chk('hakubishin', w.x, heightAt(w.x, w.z) + 0.3, w.z, 26);
+    if (w.wild === 'heron') chk('aosagi', w.x, heightAt(w.x, w.z) + 0.8, w.z, 30, undefined, w.m.root);
+    if (w.wild === 'pheasant') chk('kiji', w.x, heightAt(w.x, w.z) + 0.4, w.z, 26, undefined, w.m.root);
+    if (w.wild === 'fox') chk('kitsune', w.x, (w.m.root.position.y || heightAt(w.x, w.z)) + 0.35, w.z, 32, undefined, w.m.root);
+    if (w.wild === 'tanuki') chk('tanuki', w.x, heightAt(w.x, w.z) + 0.3, w.z, 26, undefined, w.m.root);
+    if (w.wild === 'civet') chk('hakubishin', w.x, heightAt(w.x, w.z) + 0.3, w.z, 26, undefined, w.m.root);
   }
   return [...out.values()];
 }
@@ -21316,7 +21417,7 @@ function ikiRecord(items, url) {
       rec[it.id] = { d: G.date, n: 1 }; fresh.push(d.name); ikiThumb(it, url);
       // 写真は、観察ノートのページに貼る（日記には書かない。0.9.62）
     } else {
-      r.n++; if (!r.th) ikiThumb(it, url);
+      r.n++; if (!r.th || (it.q || 0) > (r.thQ || 0.04) * 1.25) ikiThumb(it, url); // 前より大きく写った時は、ページの写真を貼りかえる（前の版の写真は、小さく写っていたものとして）
     }
     if (!wk.k.includes(it.id)) wk.k.push(it.id);
   }
@@ -21329,11 +21430,14 @@ function ikiThumb(it, url) {
     const img = new Image();
     img.onload = () => {
       try {
-        const W0 = img.width, H0 = img.height, cw = W0 * 0.34, ch = cw * 0.75;
+        // 写っている大きさに合わせて切りぬく（まわりに少しゆとり）。わからない時は、前と同じ幅の3分の1ほど
+        const W0 = img.width, H0 = img.height, sw = (it.w || 0) / 2 * W0, sh = (it.h || 0) / 2 * H0;
+        let cw = sw || sh ? clamp(Math.max(sw, sh * 4 / 3) * 1.9, W0 * 0.12, W0) : W0 * 0.34, ch = cw * 0.75;
+        if (ch > H0) { ch = H0; cw = ch * 4 / 3; }
         const cx = clamp((it.sx + 1) / 2 * W0 - cw / 2, 0, W0 - cw), cy = clamp((1 - it.sy) / 2 * H0 - ch / 2, 0, H0 - ch);
-        const c = document.createElement('canvas'); c.width = 160; c.height = 120;
-        c.getContext('2d').drawImage(img, cx, cy, cw, ch, 0, 0, 160, 120);
-        const r = G.iki && G.iki[it.id]; if (r) { r.th = c.toDataURL('image/jpeg', 0.72); GAME.save(); }
+        const c = document.createElement('canvas'); c.width = 320; c.height = 240; // 観察ノートの大きな写真（幅320）でも、ぼやけないように
+        const g = c.getContext('2d'); g.imageSmoothingQuality = 'high'; g.drawImage(img, cx, cy, cw, ch, 0, 0, 320, 240);
+        const r = G.iki && G.iki[it.id]; if (r) { r.th = c.toDataURL('image/jpeg', 0.74); r.thQ = it.q || 0.04; GAME.save(); }
       } catch (e) { /* 小さな写真がなくても */ }
     };
     img.src = url;
@@ -21388,9 +21492,9 @@ function obsMotion(key, x, z) {
 }
 // いま画面に見えている生き物と、その行動
 function obsScan() {
-  const cam = R.camera.position, out = [], pv = new THREE.Vector3();
+  const cam = R.camera.position, out = [], pv = new THREE.Vector3(), reach = camReach(); // 写真の望遠で見ている時は、そのぶん遠くから
   const see = (id, x, y, z, r, st) => {
-    if (!st || !ETHO[id] || Math.hypot(cam.x - x, cam.y - y, cam.z - z) > r) return;
+    if (!st || !ETHO[id] || Math.hypot(cam.x - x, cam.y - y, cam.z - z) > r * reach) return;
     pv.set(x, y, z).project(R.camera);
     if (pv.z > 1 || Math.abs(pv.x) > 0.95 || Math.abs(pv.y) > 0.95) return;
     out.push([id, st]);
@@ -21459,7 +21563,7 @@ function obsToastNext() {
 Object.assign(UI, {
   obsHtml() {
     const R0 = G.obs || {}, P = G.iki || {};
-    let h = `<p class="lead-s">丘で出会った野生の生き物の、観察ノートです。小さな生き物は、立ち止まって静かにしていると、1つずつ姿を見せます。エソグラム（その生き物がすることの一覧）は、近くでしばらく見ているうちに、自然に書きこまれていきます。写真を撮ると、ページに貼られます。捕まえたり、えさをあげたりはしません。</p>`;
+    let h = `<p class="lead-s">丘で出会った野生の生き物の、観察ノートです。小さな生き物は、立ち止まって静かにしていると、1つずつ姿を見せます。エソグラム（その生き物がすることの一覧）は、近くで、または写真の望遠で、しばらく見ているうちに、自然に書きこまれていきます。写真を撮ると、ページに貼られます。捕まえたり、えさをあげたりはしません。</p>`;
     for (const [k, t] of IKI_KINDS) {
       h += `<div class="sec"><h3>${t}</h3><div class="iki-list">`;
       for (const d of IKIMONO.filter((x) => x.kind === k)) {
@@ -21497,6 +21601,7 @@ UI.views.obs = function () { return { title: '観察ノート', html: UI.obsHtml
    ・ページを閉じたら、形はすぐに片づける。描き手は、続けて別の生き物を開く時のために少しだけ残し、40秒たったら片づける
    ・貼り絵の加工（paper.js と同じ紙）をかける。設定で切っている時と「かるい表示」の時は、かけない
    ・動きを減らす設定の時は、手を離したら、すぐ止まる（すべらない）
+   ・動物のカードからも使う（ani3d.js）。opt で、模型を作る関数（make）・見る向き（view）・片づけ方（free）・影をそのまま（keepShadow）を渡す
    ========================================================= */
 const O3V = { S: null, host: null, raf: 0, ptr: new Map(), vy: 0, last: 0, pinch: 0, ro: null, chk: 0, moveT: 0 };
 const O3R = { r: null, pm: null, pq: null, pc: null, t: 0, keep: 40000 }; // ノートの描き手（続けて開く時に使い回す）
@@ -21509,7 +21614,7 @@ function o3PaperOK() { return typeof paperOn === 'function' && paperOn() && wind
 // 描き手と場面を作る（w・h は画面の大きさ）
 function o3Make(id, w, h, opt) {
   opt = opt || {};
-  const make = O3.models[id]; if (!make) return null;
+  const make = opt.make || O3.models[id]; if (!make) return null;
   const shared = !opt.keep, dpr = opt.dpr || Math.min(window.devicePixelRatio || 1, window.HARU_LITE === 1 ? 1 : 2);
   let r = shared ? O3R.r : null;
   if (shared) clearTimeout(O3R.t);
@@ -21524,7 +21629,7 @@ function o3Make(id, w, h, opt) {
   // 大きさをそろえる：生き物（小物の入れ物の外）が、半径1の球に入るように。まわす中心も、生き物のまん中
   const props = new Set(), box = new THREE.Box3(), v = new THREE.Vector3();
   model.traverse((o) => { if (o.userData.prop) o.traverse((q) => props.add(q)); });
-  model.traverse((o) => { if (o.isMesh) { o.castShadow = !o.userData.noShadow; o.receiveShadow = true; if (!props.has(o)) box.expandByObject(o); } });
+  model.traverse((o) => { if (o.isMesh) { if (!opt.keepShadow) o.castShadow = !o.userData.noShadow; o.receiveShadow = true; if (!props.has(o)) box.expandByObject(o); } });
   if (box.isEmpty()) box.setFromObject(model);
   const c = box.getCenter(new THREE.Vector3());
   let rad = 0;
@@ -21533,7 +21638,7 @@ function o3Make(id, w, h, opt) {
     const p = o.geometry.attributes.position;
     for (let i = 0; i < p.count; i += 2) { v.fromBufferAttribute(p, i).applyMatrix4(o.matrixWorld); rad = Math.max(rad, v.distanceTo(c)); }
   });
-  const k = 1 / Math.max(1e-4, rad), root = new THREE.Group(), view = O3.view[id] || {};
+  const k = 1 / Math.max(1e-4, rad), root = new THREE.Group(), view = opt.view || O3.view[id] || {};
   if (view.focus) c.fromArray(view.focus); // まわす中心を、体のまん中などに（長い尾の生き物）
   model.position.sub(c); root.add(model); root.scale.setScalar(k); scene.add(root);
   // 光：上からの日の光（影を落とす）と、空と地面の光、見る向きからのやわらかい光
@@ -21543,7 +21648,7 @@ function o3Make(id, w, h, opt) {
   sun.shadow.bias = -0.0008; sun.shadow.normalBias = 0.015; scene.add(sun); scene.add(sun.target);
   const cam = new THREE.PerspectiveCamera(30, w / h, 0.05, 20), fill = new THREE.DirectionalLight(0xFFF8EC, 0.26);
   fill.position.set(-1.2, 0.6, 1); cam.add(fill); scene.add(cam);
-  const S = { id, r, shared, scene, cam, root, w, h, dpr, yaw: view.yaw != null ? view.yaw : 0.72, pitch: view.pitch != null ? view.pitch : 0.3, zoom: view.zoom || 1, an: null, pm: null, rt: null };
+  const S = { id, r, shared, scene, cam, root, w, h, dpr, yaw: view.yaw != null ? view.yaw : 0.72, pitch: view.pitch != null ? view.pitch : 0.3, zoom: view.zoom || 1, an: null, pm: null, rt: null, free: opt.free || null };
   if (!opt.noPaper && o3PaperOK()) {
     const pp = shared && O3R.pm ? O3R : o3PaperPass();
     if (shared) Object.assign(O3R, { pm: pp.pm, pq: pp.pq, pc: pp.pc });
@@ -21614,7 +21719,8 @@ function o3Render(S) {
 // 片づける：形と、色と奥行きの置き場は、すぐに。ノートの描き手は、少しあとで（o3Drop）
 function o3Free(S) {
   if (!S) return;
-  S.scene.traverse((o) => { if (o.geometry) o.geometry.dispose(); });
+  // 丘と共有の形を使う模型（動物）は、渡された片づけ方で。丘の形は消さない
+  if (S.free) S.free(S); else S.scene.traverse((o) => { if (o.geometry) o.geometry.dispose(); });
   if (S.rt) { S.rt.depthTexture.dispose(); S.rt.dispose(); }
   const cv = S.r.domElement; if (cv.parentNode) cv.parentNode.removeChild(cv);
   if (S.shared) { clearTimeout(O3R.t); O3R.t = setTimeout(o3Drop, O3R.keep); return; }
@@ -21645,16 +21751,19 @@ function o3Snap(id, w, h, yaw, pitch, opt) {
 }
 
 /* ---- ページの中の、さわれる模型 ---- */
-function o3Mount(id, host) {
+// opt（動物のカードから）：make・view・free・keepShadow は o3Make へ。full で、はじめから画面いっぱいに。back で、右上のボタンが「もどる」に。label は読み上げの名前
+function o3Mount(id, host, opt) {
+  opt = opt || {};
   o3Stop();
   if (!host) return;
-  if (!O3.models[id]) { host.remove(); return; }
+  if (!(opt.make || O3.models[id])) { host.remove(); return; }
+  if (opt.full) { const md = document.getElementById('modal'); if (md) md.classList.add('o3-full'); }
   const w = Math.max(160, host.clientWidth), h = Math.max(160, host.clientHeight);
   let S = null;
-  try { S = o3Make(id, w, h); } catch (e) { if (typeof logErr === 'function') logErr(e, 'o3Mount'); S = null; }
+  try { S = o3Make(id, w, h, opt.make ? { make: opt.make, view: opt.view, free: opt.free, keepShadow: opt.keepShadow } : undefined); } catch (e) { if (typeof logErr === 'function') logErr(e, 'o3Mount'); S = null; }
   if (!S) { host.remove(); return; }
   const cv = S.r.domElement, d = ikiDef(id);
-  cv.className = 'o3-cv'; cv.setAttribute('role', 'img'); cv.setAttribute('aria-label', `${d ? d.name : ''}の模型。指でまわして見られます`);
+  cv.className = 'o3-cv'; cv.setAttribute('role', 'img'); cv.setAttribute('aria-label', opt.label || `${d ? d.name : ''}の模型。指でまわして見られます`);
   host.prepend(cv);
   O3V.S = S; O3V.host = host; O3V.vy = 0; O3V.ptr.clear(); O3V.last = 0;
   cv.addEventListener('pointerdown', o3Down);
@@ -21663,7 +21772,7 @@ function o3Mount(id, host) {
   cv.addEventListener('wheel', o3Wheel, { passive: false });
   cv.addEventListener('contextmenu', (e) => e.preventDefault());
   const big = host.querySelector('.o3-big');
-  if (big) big.addEventListener('click', (e) => { e.stopPropagation(); o3Big(); });
+  if (big) big.addEventListener('click', (e) => { e.stopPropagation(); if (opt.back) opt.back(); else o3Big(); });
   if (window.ResizeObserver) { O3V.ro = new ResizeObserver(() => o3Fit()); O3V.ro.observe(host); }
   // ページが見えなくなったら、片づける（ほかの所から閉じられた時のため）
   O3V.chk = setInterval(() => { if (!O3V.host || !O3V.host.isConnected || O3V.host.offsetParent === null) o3Stop(); }, 1500);
@@ -21747,6 +21856,53 @@ document.addEventListener('visibilitychange', () => { if (document.hidden && !O3
   UI.modal = function () { o3Stop(); return m0.apply(this, arguments); };
   UI.closeModal = function () { o3Stop(); return c0.apply(this, arguments); };
 })();
+/* =========================================================
+   動物のカードの絵を押すと、その子の模型を、画面いっぱいで見る（2026-10-23、Daiさんの依頼）
+   ---------------------------------------------------------
+   ・見方は、観察ノートの模型と同じ（obs3d.js の o3Mount）：指（マウス）で横にまわし、たてに少しかたむける。
+     2本の指（ホイール）で、近づく・離れる。手を離すと、やがて止まる。動きを減らす設定の時は、すぐ止まる
+   ・模型は、丘を歩いているその子と同じ作り（aniModel：modelAnimal と、年をとった子のしわの紙）。足もとに、紙の草の台
+   ・丘と共有の形と素材は、丘でも使っているので片づけない。この子のためだけに作った素材（しわの紙）だけを片づける
+   ・「カードにもどる」か Esc で、下にひらいたままのカードへ
+   ========================================================= */
+const ANI3D = { geo: null, view: { yaw: 0.72, pitch: 0.26, zoom: 0.9 } }; // ノートの模型より、少し近くから
+// 丘を歩いている子と同じ模型（actors.js の syncAnimals も、これで作る）
+function aniModel(a) {
+  const m = modelAnimal(a.sp, a.color);
+  if (a.elderly) pcAge(m); // 年老いた子は、しわの寄った紙で
+  return m;
+}
+// カードで見る模型：その子と、足もとの草の台（台は大きさをそろえる計算に入れない小物）
+function ani3dMake(a) {
+  return () => {
+    const m = aniModel(a), g = new THREE.Group();
+    g.add(m.root); g.updateMatrixWorld(true);
+    const box = new THREE.Box3().setFromObject(m.root), sz = box.getSize(new THREE.Vector3()), r = Math.max(sz.x, sz.z) * 0.56;
+    if (!ANI3D.geo) ANI3D.geo = new THREE.CircleGeometry(1, 40).rotateX(-Math.PI / 2);
+    const base = new THREE.Group(), top = new THREE.Mesh(ANI3D.geo, mat('#ABC185')), rim = new THREE.Mesh(ANI3D.geo, mat('#8BA368'));
+    base.userData.prop = true;
+    top.scale.setScalar(r); top.position.y = box.min.y - 0.004;
+    rim.scale.set(r * 1.035, 1, r * 1.035); rim.position.y = box.min.y - 0.02; // 紙を切った縁
+    for (const d of [top, rim]) { d.castShadow = false; d.receiveShadow = true; base.add(d); }
+    g.add(base);
+    return g;
+  };
+}
+// 片づける：この子のためだけに作った素材（しわの紙）。形と、ほかの素材は丘と共有なので残す
+function ani3dFree(S) {
+  S.scene.traverse((o) => { if (o.material && o.material.userData && o.material.userData.aged) o.material.dispose(); });
+}
+Object.assign(UI, {
+  ani3d(id) {
+    const a = G.animals.find((x) => x.id === id), sp = a && SPECIES[a.sp]; if (!a || !sp) return;
+    UI.modal(`<h3 class="ani3d-h">${esc(a.name)}<small>${esc(sp.name)}</small></h3><div class="o3-stage ani3d"><button class="o3-big" type="button">カードにもどる</button><span class="o3-hint" aria-hidden="true">指でまわせます</span></div>`);
+    o3Mount('ani:' + a.id, document.querySelector('#modal-card .o3-stage'), {
+      make: ani3dMake(a), view: ANI3D.view, free: ani3dFree, keepShadow: true, full: true,
+      back: () => UI.closeModal(), label: `${a.name}の模型。指でまわして見られます`,
+    });
+    if (!O3V.S) UI.closeModal(); // 描けない端末では、カードのまま
+  },
+});
 /* =========================================================
    呼び名（0.9.54 の「称号」を、0.9.83 で「呼び名」に。その分野で人を評価しているように見えないように。Daiさん）
    丘で過ごすうちに、していることに合わせて、呼び名が少しずつ増えていく。設定の「あなた」（プロフィール）で見られる。
