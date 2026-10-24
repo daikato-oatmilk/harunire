@@ -88,6 +88,8 @@
   /* 角の丸み：紙は少しだけ丸い。まん丸は点と丸い印だけ */
   --r-xs: 2px; --r-s: 4px; --r-m: 6px; --r-l: 8px; --r-round: 50%; --r-pill: 999px;
   --rail-w: 64px;
+  /* 画面の端の、さわれない所（ノッチ・Dynamic Island・ホームバー）。横にすると左右に出る。試験では、ここを書きかえて、横にした iPhone をまねる（2026-10-24） */
+  --safe-l: env(safe-area-inset-left, 0px); --safe-r: env(safe-area-inset-right, 0px); --safe-t: env(safe-area-inset-top, 0px); --safe-b: env(safe-area-inset-bottom, 0px);
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .36 0 0 0 0 .27 0 0 0 0 .17 0 0 0 .085 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 /* 字の大きさ「大きめ」（0.9.46、設定から）：すべての字を 1.15 倍に。比はそのまま */
@@ -135,7 +137,7 @@ body.zen #labels { display: none; }
 #hud { position: absolute; inset: 0; pointer-events: none; }
 #hud > * { pointer-events: auto; }
 body.zen #hud { display: none !important; }
-#hud-top { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); left: 12px; max-width: min(340px, calc(100% - 76px)); pointer-events: none; transition: opacity .3s; }
+#hud-top { position: absolute; top: calc(var(--safe-t) + 12px); left: 12px; max-width: min(340px, calc(100% - 76px)); pointer-events: none; transition: opacity .3s; }
 #hud-top > * { pointer-events: auto; }
 body.hud-calm #hud-top { display: none !important; }
 body.hud-names #hud-top { display: none; }
@@ -193,10 +195,10 @@ body.modal-open #hud-top { opacity: 0; pointer-events: none; }
 @keyframes plusUp { 0% { opacity: 0; transform: translateY(18px); } 15% { opacity: 1; transform: translateY(0); } 80% { opacity: 1; } 100% { opacity: 0; transform: translateY(-16px); } }
 
 /* 景色だけを見る（全画面） */
-.zen-btn { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); right: 12px; width: 40px; height: 40px; display: grid; place-items: center; color: var(--ink-2); padding: 0; transition: opacity .3s; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-l); }
+.zen-btn { position: absolute; top: calc(var(--safe-t) + 12px); right: 12px; width: 40px; height: 40px; display: grid; place-items: center; color: var(--ink-2); padding: 0; transition: opacity .3s; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-l); }
 .zen-btn:hover { color: var(--ink); background: var(--card-hi); }
 body.hud-names .zen-btn { opacity: .78; }
-.zen-exit { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); right: 12px; z-index: 13; display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px 8px 10px; font-weight: 700; font-size: var(--fs-note); transition: opacity .8s; background: var(--paper); background-image: var(--grain); color: var(--ink); border: 2px solid var(--sumi); border-radius: var(--r-l); box-shadow: var(--shadow); }
+.zen-exit { position: absolute; top: calc(var(--safe-t) + 12px); right: 12px; z-index: 13; display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px 8px 10px; font-weight: 700; font-size: var(--fs-note); transition: opacity .8s; background: var(--paper); background-image: var(--grain); color: var(--ink); border: 2px solid var(--sumi); border-radius: var(--r-l); box-shadow: var(--shadow); }
 .zen-exit.dim { opacity: 0; }
 .rest-tl { display: flex; flex-wrap: wrap; gap: 8px; }
 /* 眺める（nagame.js）：文字を出さない。ボタンは、さわった時だけ出て、少しすると消える */
@@ -204,19 +206,19 @@ body.nagame #rest-ui, body.nagame #beh, body.nagame #zen-exit { display: none !i
 #nagame-ui { position: absolute; inset: 0; z-index: 13; pointer-events: none; transition: opacity .8s; }
 #nagame-ui.dim { opacity: 0; }
 #nagame-ui.dim * { pointer-events: none !important; }
-.ng-top { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); left: max(12px, env(safe-area-inset-left, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); display: flex; justify-content: space-between; gap: 8px; }
+.ng-top { position: absolute; top: calc(var(--safe-t) + 12px); left: max(12px, var(--safe-l)); right: max(12px, var(--safe-r)); display: flex; justify-content: space-between; gap: 8px; }
 .ng-btn { pointer-events: auto; display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px 8px 10px; font-weight: 700; font-size: var(--fs-note); background: var(--paper); background-image: var(--grain); color: var(--ink); border: 2px solid var(--sumi); border-radius: var(--r-l); box-shadow: var(--shadow); }
 .ng-btn svg { width: 18px; height: 18px; }
-.ng-views { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 66px); right: max(12px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 8px; }
+.ng-views { position: absolute; top: calc(var(--safe-t) + 66px); right: max(12px, var(--safe-r)); display: flex; flex-direction: column; gap: 8px; }
 .ng-view { pointer-events: auto; display: block; padding: 0; width: 76px; height: 57px; border: 2px solid var(--sumi); border-radius: var(--r-m); overflow: hidden; background: var(--paper-2); box-shadow: var(--shadow); }
 .ng-view img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .ng-view.fresh { animation: ng-fresh 1.1s ease; }
 @keyframes ng-fresh { 0% { transform: scale(.6); opacity: 0; } 60% { transform: scale(1.06); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
-.ng-help { position: absolute; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 28px); transform: translateX(-50%); margin: 0; width: max-content; max-width: calc(100% - 32px); text-align: center; font-size: var(--fs-s); font-weight: 700; line-height: 1.6; padding: 6px 14px; background: var(--paper); background-image: var(--grain); color: var(--ink); border: 2px solid var(--sumi); border-radius: var(--r-m); box-shadow: var(--shadow); }
+.ng-help { position: absolute; left: 50%; bottom: calc(var(--safe-b) + 28px); transform: translateX(-50%); margin: 0; width: max-content; max-width: calc(100% - 32px); text-align: center; font-size: var(--fs-s); font-weight: 700; line-height: 1.6; padding: 6px 14px; background: var(--paper); background-image: var(--grain); color: var(--ink); border: 2px solid var(--sumi); border-radius: var(--r-m); box-shadow: var(--shadow); }
 .ng-help:empty { display: none; }
 .hud-menu .hm-ng { margin-top: 4px; border-top: 1px dashed var(--paper-3); border-radius: 0 0 var(--r-l) var(--r-l); }
 /* 画面の表示の段階 */
-.hud-menu { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 60px); right: 12px; z-index: 14; width: 218px; padding: 8px; display: flex; flex-direction: column; gap: 2px; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-m); }
+.hud-menu { position: absolute; top: calc(var(--safe-t) + 60px); right: 12px; z-index: 14; width: 218px; padding: 8px; display: flex; flex-direction: column; gap: 2px; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-m); }
 .hud-menu[hidden] { display: none; }
 .hud-menu .hm-t { font-size: var(--fs-s); color: var(--ink-3); padding: 2px 8px 4px; }
 .hud-menu button { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; text-align: left; border: 0; background: transparent; border-radius: var(--r-l); padding: 8px 10px; color: var(--ink); font: inherit; }
@@ -233,18 +235,18 @@ body.hud-names #rail { display: none; }
 #rail button:hover { background: var(--paper-2); color: var(--ink); }
 #rail button.on { background: var(--pine-wash); color: var(--pine); }
 body.hud-names #bottom-right { display: none; }
-#bottom-right { position: absolute; right: calc(var(--rail-w) + 30px); bottom: calc(env(safe-area-inset-bottom, 0px) + 24px); display: flex; gap: 8px; transition: opacity .3s; flex-direction: column; align-items: flex-end; }
+#bottom-right { position: absolute; right: calc(var(--rail-w) + 30px); bottom: calc(var(--safe-b) + 24px); display: flex; gap: 8px; transition: opacity .3s; flex-direction: column; align-items: flex-end; }
 body.sheet-open #bottom-right { opacity: 0; pointer-events: none; }
 body.modal-open #bottom-right { opacity: 0; pointer-events: none; }
 body.hud-names #view-btn { display: none; }
 body.sheet-open #view-btn { opacity: 0; pointer-events: none; }
 body.modal-open #view-btn { opacity: 0; pointer-events: none; }
 body.hud-names #hint { display: none; }
-#hint { position: absolute; left: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 24px); max-width: 300px; font-size: var(--fs-note); line-height: 1.55; color: var(--ink); padding: 7px 12px; transition: opacity 1s; touch-action: none; user-select: none; -webkit-user-select: none; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-m); font-family: var(--hand); }
+#hint { position: absolute; left: 12px; bottom: calc(var(--safe-b) + 24px); max-width: 300px; font-size: var(--fs-note); line-height: 1.55; color: var(--ink); padding: 7px 12px; transition: opacity 1s; touch-action: none; user-select: none; -webkit-user-select: none; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-m); font-family: var(--hand); }
 #hint:empty { display: none; }
 body.sheet-open #hint { opacity: 0; pointer-events: none; }
 body.modal-open #hint { opacity: 0; pointer-events: none; }
-#hint { bottom: calc(env(safe-area-inset-bottom, 0px) + 72px); }
+#hint { bottom: calc(var(--safe-b) + 72px); }
 body.hud-names #beh { display: none !important; }
 body.hud-names #coach { display: none !important; }
 
@@ -253,7 +255,7 @@ body.hud-names #coach { display: none !important; }
 .badge.dot { min-width: 9px; width: 9px; height: 9px; padding: 0; top: 8px; right: 14px; }
 
 /* その場でできること（近くの動物など）は、静かなボタン。1日の終わりは、手が空いた時だけ強く */
-#prompt { position: absolute; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 24px); transform: translateX(-50%); transition: opacity .3s; z-index: 2; }
+#prompt { position: absolute; left: 50%; bottom: calc(var(--safe-b) + 24px); transform: translateX(-50%); transition: opacity .3s; z-index: 2; }
 body.sheet-open #prompt { opacity: 0; pointer-events: none; }
 body.modal-open #prompt { opacity: 0; pointer-events: none; }
 #prompt-btn { white-space: nowrap; padding: 9px 20px; font-size: var(--fs-body); display: inline-flex; align-items: center; gap: 8px; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-l); color: var(--pine); font-weight: 500; }
@@ -273,7 +275,7 @@ body.modal-open #prompt { opacity: 0; pointer-events: none; }
 .btn.ghost { background: transparent; box-shadow: none; }
 .btn:disabled { opacity: .45; cursor: not-allowed; }
 /* 知らせは、ひとつずつ。読める長さだけ出して、日記に残る */
-#toasts { position: absolute; left: 50%; transform: translateX(-50%); top: calc(env(safe-area-inset-top, 0px) + 12px); width: min(400px, calc(100% - 24px)); display: flex; flex-direction: column; gap: 6px; pointer-events: none; z-index: 7; }
+#toasts { position: absolute; left: 50%; transform: translateX(-50%); top: calc(var(--safe-t) + 12px); width: min(400px, calc(100% - 24px)); display: flex; flex-direction: column; gap: 6px; pointer-events: none; z-index: 7; }
 .toast { pointer-events: auto; display: flex; gap: 10px; align-items: flex-start; padding: 9px 12px; font-size: var(--fs-ui); color: var(--ink); animation: toastIn .35s ease-out; touch-action: none; user-select: none; -webkit-user-select: none; position: relative; padding-bottom: 12px; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-m); line-height: 1.65; border-left-width: 6px; }
 .toast > span { flex: 1; min-width: 0; }
 .toast.out { animation: toastOut .4s ease-in forwards; }
@@ -287,7 +289,7 @@ body.modal-open #prompt { opacity: 0; pointer-events: none; }
 /* パネルを開いている間は、景色の上の札とボタンを下げる（パネルと競わない） */
 body.sheet-open #zen-btn { opacity: 0; pointer-events: none; }
 body.modal-open #zen-btn { opacity: 0; pointer-events: none; }
-#place-bar { position: absolute; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 150px); transform: translateX(-50%); background: var(--ink); color: var(--paper); border-radius: var(--r-l); padding: 6px 6px 6px 18px; display: flex; gap: 12px; align-items: center; box-shadow: var(--shadow); font-weight: 700; max-width: calc(100% - 32px); }
+#place-bar { position: absolute; left: 50%; top: calc(var(--safe-t) + 150px); transform: translateX(-50%); background: var(--ink); color: var(--paper); border-radius: var(--r-l); padding: 6px 6px 6px 18px; display: flex; gap: 12px; align-items: center; box-shadow: var(--shadow); font-weight: 700; max-width: calc(100% - 32px); }
 #place-bar .btn { box-shadow: none; flex: none; white-space: nowrap; }
 #banner { position: absolute; left: 50%; top: 34%; transform: translate(-50%, -50%); background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); border-radius: var(--r-m); padding: 18px 28px 20px; box-shadow: var(--shadow); text-align: center; min-width: 260px; max-width: calc(100% - 40px); animation: bannerIn .5s ease-out; touch-action: none; user-select: none; -webkit-user-select: none; pointer-events: auto; }
 #banner .eyebrow { display: block; }
@@ -298,7 +300,7 @@ body.modal-open #zen-btn { opacity: 0; pointer-events: none; }
 @keyframes bannerIn { from { opacity: 0; transform: translate(-50%, -40%); } }
 
 /* ---------- パネル ---------- */
-#sheet { position: absolute; left: 16px; top: calc(env(safe-area-inset-top, 0px) + 14px); bottom: calc(env(safe-area-inset-bottom, 0px) + 14px); width: min(420px, calc(100% - var(--rail-w) - 56px)); display: flex; flex-direction: column; overflow: hidden; z-index: 5; animation: sheetIn .25s ease-out; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-l); }
+#sheet { position: absolute; left: max(16px, var(--safe-l)); top: calc(var(--safe-t) + 14px); bottom: calc(var(--safe-b) + 14px); width: min(420px, calc(100% - var(--rail-w) - 56px)); display: flex; flex-direction: column; overflow: hidden; z-index: 5; animation: sheetIn .25s ease-out; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-l); }
 #sheet.short { max-height: none; }
 @keyframes sheetIn { from { opacity: .35; transform: translateX(-8px); } }
 .sheet-head { display: flex; align-items: center; gap: 8px; padding: 12px 12px 10px 18px; border-bottom: 2px solid var(--sumi); }
@@ -472,7 +474,7 @@ details.db .muted a { color: var(--lupine); }
 .kc.locked { border-top-color: var(--paper-3); color: var(--ink-3); background: var(--paper-2); font-weight: 500; }
 
 /* モーダル */
-#modal { position: absolute; inset: 0; display: grid; place-items: center; z-index: 10; padding: 16px; background: rgba(var(--dim-rgb), .42); }
+#modal { position: absolute; inset: 0; display: grid; place-items: center; z-index: 10; padding: 16px max(16px, var(--safe-r)) 16px max(16px, var(--safe-l)); background: rgba(var(--dim-rgb), .42); }
 .modal-card { width: min(460px, 100%); max-height: calc(100% - 32px); overflow-y: auto; padding: 22px 22px 20px; background-color: var(--paper); background-image: var(--grain); border: 11px solid var(--wood); border-image: repeating-linear-gradient(90deg, var(--wood) 0 6px, #95683C 6px 8px, #7F5530 8px 15px, var(--wood) 15px 22px) 11; border-radius: 0; box-shadow: 0 0 0 2px var(--wood-d), 6px 9px 0 2px rgba(40, 25, 10, .38); animation: kamiIn .5s cubic-bezier(.25, .8, .3, 1) both !important; touch-action: pan-x pan-y; }
 .modal-card h3 { margin: 2px 0 8px; font-size: var(--fs-head-l); text-wrap: balance; }
 .modal-card p { margin: 0 0 10px; font-size: var(--fs-body); line-height: 1.75; font-family: var(--hand); }
@@ -507,9 +509,9 @@ details.db .muted a { color: var(--lupine); }
 #photo-ui { position: absolute; inset: 0; pointer-events: none; z-index: 6; }
 #photo-ui > * { pointer-events: auto; }
 #photo-ui.instant #photo-frame-preview { -webkit-backdrop-filter: contrast(.93) saturate(.84) sepia(.1) brightness(1.04); backdrop-filter: contrast(.93) saturate(.84) sepia(.1) brightness(1.04); }
-.photo-top { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 14px); left: 16px; right: 16px; display: flex; justify-content: center; align-items: center; color: #fff; font-weight: 700; text-shadow: 0 1px 4px rgba(0, 0, 0, .45); pointer-events: none; }
+.photo-top { position: absolute; top: calc(var(--safe-t) + 14px); left: 16px; right: 16px; display: flex; justify-content: center; align-items: center; color: #fff; font-weight: 700; text-shadow: 0 1px 4px rgba(0, 0, 0, .45); pointer-events: none; }
 #photo-frame-preview { position: absolute; inset: 0; pointer-events: none; }
-.photo-dock { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 16px calc(env(safe-area-inset-bottom, 0px) + 14px); display: grid; gap: 10px; justify-items: center; background: linear-gradient(to top, rgba(14, 22, 19, .5), rgba(14, 22, 19, 0)); pointer-events: none; }
+.photo-dock { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 16px calc(var(--safe-b) + 14px); display: grid; gap: 10px; justify-items: center; background: linear-gradient(to top, rgba(14, 22, 19, .5), rgba(14, 22, 19, 0)); pointer-events: none; }
 .photo-dock > * { pointer-events: auto; }
 .photo-opts { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 14px; background: rgba(20, 30, 26, .5); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); border-radius: var(--r-l); padding: 6px 12px; color: #fff; max-width: 100%; }
 .photo-opts .seg { background: rgba(255, 255, 255, .15); flex-wrap: nowrap; }
@@ -547,13 +549,13 @@ details.db .muted a { color: var(--lupine); }
 #music-ui:not(.extra) .music-top { opacity: 0; pointer-events: none; transform: translateY(-8px); }
 #music-ui:not(.extra) #music-opts { opacity: 0; pointer-events: none; display: none; }
 #music-ui:not(.extra) .music-hint { opacity: 0; pointer-events: none; display: none; }
-.music-top { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); left: 16px; right: 16px; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.music-top { position: absolute; top: calc(var(--safe-t) + 12px); left: 16px; right: 16px; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
 .music-top .seg { background: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); flex-wrap: nowrap; }
 .music-top .seg button { font-size: var(--fs-note); color: var(--ink); padding: 6px 10px; white-space: nowrap; }
 .music-top .seg button.on { background: var(--pine); color: var(--paper); }
 .music-top .music-acts { display: flex; gap: 6px; }
 .music-top .rest-btn { white-space: nowrap; padding: 7px 12px; }
-.music-panel { position: absolute; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 14px); transform: translateX(-50%); display: grid; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-m); touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; padding: 8px; gap: 6px; width: min(520px, calc(100% - 24px)); }
+.music-panel { position: absolute; left: 50%; bottom: calc(var(--safe-b) + 14px); transform: translateX(-50%); display: grid; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-m); touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; padding: 8px; gap: 6px; width: min(520px, calc(100% - 24px)); }
 .music-panel.folded #string-pad { display: none; }
 .music-panel.folded .music-hint { display: none; }
 .music-panel * { touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
@@ -587,11 +589,11 @@ details.db .muted a { color: var(--lupine); }
 #rest-ui.music:not(.extra) .rest-top { opacity: 0; pointer-events: none !important; }
 #rest-ui.music:not(.extra) .rest-bottom { opacity: 0; pointer-events: none !important; }
 .rest-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 70% at 50% 45%, transparent 55%, rgba(20, 30, 26, .30) 100%); }
-.rest-top { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); left: 16px; right: 16px; display: flex; justify-content: space-between; gap: 8px; }
+.rest-top { position: absolute; top: calc(var(--safe-t) + 12px); left: 16px; right: 16px; display: flex; justify-content: space-between; gap: 8px; }
 .rest-btn { pointer-events: auto; font-size: var(--fs-note); font-weight: 700; padding: 8px 16px; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-l); color: var(--ink); }
 .rest-btn.strong { background: rgba(var(--paper-rgb), .92); }
 .rest-btn[aria-pressed="true"] { background: var(--pine); color: var(--paper); }
-.rest-bottom { position: absolute; left: 16px; right: 16px; bottom: calc(env(safe-area-inset-bottom, 0px) + 28px); display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.rest-bottom { position: absolute; left: 16px; right: 16px; bottom: calc(var(--safe-b) + 28px); display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .rest-cap { margin: 0; min-height: 3.4em; display: flex; align-items: flex-end; justify-content: center; font-size: var(--fs-head-l); font-weight: 600; line-height: 1.7; text-align: center; max-width: 28em; opacity: 0; transition: opacity 1.6s ease; text-wrap: balance; font-family: var(--hand); color: var(--ink); }
 .rest-cap.on { opacity: 1; }
 .rest-cap .in { display: block; background-color: var(--paper); background-image: var(--grain); color: var(--ink); border: 2px solid var(--sumi); border-radius: var(--r-m); box-shadow: var(--shadow); padding: 6px 16px 8px; }
@@ -605,7 +607,7 @@ details.db .muted a { color: var(--lupine); }
 .rest-breath span { position: relative; font-family: var(--hand); font-weight: 600; font-size: var(--fs-body-l); background: rgba(var(--dim-rgb), .4); padding: 2px 12px 4px; background-color: var(--paper); color: var(--ink); border: 2px solid var(--sumi); border-radius: var(--r-m); }
 #veil { position: absolute; inset: 0; background: var(--paper); opacity: 0; transition: opacity .6s ease; z-index: 12; pointer-events: none; }
 #veil.on { opacity: 1; }
-@media (max-width: 720px) { .rest-cap { font-size: var(--fs-head); } }
+@media (max-width: 720px), (orientation: landscape) and (max-height: 540px) { .rest-cap { font-size: var(--fs-head); } }
 
 /* 見た目 */
 .swatches { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -617,12 +619,12 @@ details.db .muted a { color: var(--lupine); }
 .faces button { border: 0; background: var(--paper-2); border-radius: var(--r-l); padding: 4px 4px 3px; width: 62px; display: flex; flex-direction: column; align-items: center; gap: 1px; color: var(--ink-2); font-size: var(--fs-xs); font-weight: 700; box-shadow: inset 0 0 0 1px transparent; }
 .faces button img { width: 44px; height: 44px; display: block; }
 .faces button.on { background: var(--paper); color: var(--ink); box-shadow: inset 0 0 0 2px var(--pine), var(--shadow-s); }
-.sticky-foot { position: sticky; bottom: -22px; margin: 14px -18px -22px; padding: 12px 18px calc(env(safe-area-inset-bottom, 0px) + 14px); background: linear-gradient(rgba(var(--paper-rgb), 0), var(--paper) 30%); display: flex; gap: 8px; }
+.sticky-foot { position: sticky; bottom: -22px; margin: 14px -18px -22px; padding: 12px 18px calc(var(--safe-b) + 14px); background: linear-gradient(rgba(var(--paper-rgb), 0), var(--paper) 30%); display: flex; gap: 8px; }
 .sticky-foot.btn-row { flex-wrap: wrap; }
-@media (max-width: 720px) { #sheet.short { top: auto; max-height: 52%; } }
+@media (max-width: 720px), (orientation: landscape) and (max-height: 540px) { #sheet.short { top: auto; max-height: 52%; } }
 
 /* はじめの画面 */
-#start { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: flex-start; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 16px; padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 22px); z-index: 8; background: linear-gradient(to top, rgba(var(--dim-rgb), .28), transparent 55%); touch-action: pan-x pan-y; }
+#start { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: flex-start; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 16px max(16px, var(--safe-r)) 16px max(16px, var(--safe-l)); padding-bottom: calc(var(--safe-b) + 22px); z-index: 8; background: linear-gradient(to top, rgba(var(--dim-rgb), .28), transparent 55%); touch-action: pan-x pan-y; }
 .start-card { margin-top: auto; flex-shrink: 0; box-sizing: border-box; border: 2px solid var(--sumi); border-radius: var(--r-m); padding: 22px 24px 18px; width: min(508px, 100%); box-shadow: var(--shadow); background-color: var(--paper); background-image: var(--grain); }
 .start-card h1 { margin: 2px 0 6px; font-size: clamp(40px, 9vw, 60px); line-height: 1.05; font-weight: 700; letter-spacing: .04em; color: var(--ink); }
 .start-card .lead { margin: 0 0 14px; color: var(--ink-2); font-size: var(--fs-ui); max-width: 34em; text-wrap: pretty; }
@@ -668,31 +670,21 @@ details.db .muted a { color: var(--lupine); }
 .controls { margin: 12px 0 0; font-size: var(--fs-s); color: var(--ink-3); }
 #loading { position: absolute; inset: 0; display: grid; place-items: center; background: var(--paper-2); z-index: 20; font-weight: 700; color: var(--ink-2); transition: opacity .6s; }
 #loading.gone { opacity: 0; pointer-events: none; }
-/* スマホを横にした時（0.9.83）：ゲームは組み直さずに止めて、紙を1枚かぶせる */
-#turn-veil { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; background: var(--paper-2); color: var(--ink-2); font-family: var(--ui); padding: 16px; }
-#turn-veil[hidden] { display: none; }
-#turn-veil .tv-card { text-align: center; max-width: 360px; }
-#turn-veil svg { width: 52px; height: 52px; color: var(--sumi); transform: rotate(-90deg); animation: tv-turn 2.4s ease-in-out infinite; }
-#turn-veil p { margin: 10px 0 0; font-size: var(--fs-body); line-height: 1.6; }
-#turn-veil .tv-s { font-size: var(--fs-note); color: var(--ink-3); margin-top: 4px; }
-@keyframes tv-turn { 0%, 30% { transform: rotate(-90deg); } 60%, 100% { transform: rotate(0deg); } }
-@media (prefers-reduced-motion: reduce) { #turn-veil svg { animation: none; transform: none; } }
-
 /* スマホ */
-@media (max-width: 720px) {
+@media (max-width: 720px), (orientation: landscape) and (max-height: 540px) {
   :root { --rail-w: 0px; }
-  #hud-top { left: 10px; top: calc(env(safe-area-inset-top, 0px) + 10px); }
+  #hud-top { left: 10px; top: calc(var(--safe-t) + 10px); }
   .status { padding: 7px 11px 8px; }
-  #rail { top: auto; bottom: calc(env(safe-area-inset-bottom, 0px) + 8px); right: 8px; left: 8px; transform: none; flex-direction: row; gap: 0; padding: 4px; }
+  #rail { top: auto; bottom: calc(var(--safe-b) + 8px); right: 8px; left: 8px; transform: none; flex-direction: row; gap: 0; padding: 4px; }
   #rail button { flex: 1; width: auto; border-radius: var(--r-l); height: 56px; font-size: var(--fs-s); }
-  #prompt { bottom: calc(env(safe-area-inset-bottom, 0px) + 128px); }
-  #bottom-right { right: 10px; bottom: calc(env(safe-area-inset-bottom, 0px) + 78px); }
+  #prompt { bottom: calc(var(--safe-b) + 128px); }
+  #bottom-right { right: 10px; bottom: calc(var(--safe-b) + 78px); }
   #end-day { font-size: var(--fs-body); padding: 9px 16px; }
-  #hint { left: 10px; font-size: var(--fs-ui); max-width: 58%; bottom: calc(env(safe-area-inset-bottom, 0px) + 196px) !important; }
-  .zen-btn { top: calc(env(safe-area-inset-top, 0px) + 10px); right: 10px; }
-  #sheet { left: 0; right: 0; width: auto; bottom: 0; animation-name: sheetUp; padding-bottom: env(safe-area-inset-bottom, 0px); top: calc(env(safe-area-inset-top, 0px) + 6%); max-height: none; }
+  #hint { left: 10px; font-size: var(--fs-ui); max-width: 58%; bottom: calc(var(--safe-b) + 196px) !important; }
+  .zen-btn { top: calc(var(--safe-t) + 10px); right: 10px; }
+  #sheet { left: 0; right: 0; width: auto; bottom: 0; animation-name: sheetUp; padding-bottom: var(--safe-b); top: calc(var(--safe-t) + 6%); max-height: none; }
   @keyframes sheetUp { from { opacity: .35; transform: translateY(16px); } }
-  #place-bar { top: auto; bottom: calc(env(safe-area-inset-bottom, 0px) + 80px); }
+  #place-bar { top: auto; bottom: calc(var(--safe-b) + 80px); }
   .stat-row { grid-template-columns: repeat(3, 1fr); }
   .cap-row { grid-template-columns: 1fr; }
   .tabs button { font-size: var(--fs-s); padding: 6px 2px; }
@@ -917,7 +909,7 @@ details.more summary::after { content: '＋'; color: var(--ink-3); }
 details.more[open] summary::after { content: '−'; }
 details.more p { margin: 8px 0 0; }
 .calm-line { font-size: var(--fs-body); line-height: 1.75; color: var(--ink-2); margin: 0 0 12px; }
-@media (max-width: 720px) {
+@media (max-width: 720px), (orientation: landscape) and (max-height: 540px) {
   #sheet-body { padding: 14px 16px 24px; --pt: 14px; --px: 16px; font-size: var(--fs-body-l); line-height: 1.75; }
   .tabs button { font-size: var(--fs-note); padding: 7px 2px; }
 }
@@ -1015,12 +1007,12 @@ body.text-l .tabs.ico-tabs button span { white-space: normal; text-overflow: cli
 .ev-row small { display: block; font-size: var(--fs-note); color: var(--ink-3); }
 
 /* スマホ：字とボタンを少し大きく。パネルは画面の9割ほど、会話や説明は横幅いっぱい（Daiさん：眼鏡なしで読めるように） */
-@media (max-width: 720px) {
+@media (max-width: 720px), (orientation: landscape) and (max-height: 540px) {
   html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   #sheet-title { font-size: var(--fs-head-l); }
   .muted { font-size: var(--fs-ui); }
   #modal { padding: 0; place-items: end stretch; }
-  .modal-card { box-sizing: border-box; width: 100%; max-height: 86%; padding: 22px 20px calc(env(safe-area-inset-bottom, 0px) + 20px); font-size: var(--fs-body-l); line-height: 1.75; animation-name: sheetUp; }
+  .modal-card { box-sizing: border-box; width: 100%; max-height: 86%; padding: 22px 20px calc(var(--safe-b) + 20px); font-size: var(--fs-body-l); line-height: 1.75; animation-name: sheetUp; }
   .modal-card .btn-row .btn { font-size: var(--fs-body); padding: 10px 16px; }
   .said { font-size: var(--fs-head-l); }
   .you { font-size: var(--fs-body-l); }
@@ -1046,7 +1038,7 @@ body.text-l .tabs.ico-tabs button span { white-space: normal; text-overflow: cli
 /* ひらいた中身の下の「とじる」：長い中身を読み終えたところで、そのまま閉じられる */
 .disc-close { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 44px; margin: 8px 0 4px; border: 1px dashed rgba(var(--pine-rgb), .4); border-radius: var(--r-l); background: transparent; color: var(--pine); font-size: var(--fs-ui); font-weight: 700; }
 .disc-close i { font-style: normal; width: 26px; height: 26px; border-radius: var(--r-round); box-shadow: inset 0 0 0 1.5px var(--pine); display: grid; place-items: center; font-size: var(--fs-body); }
-@media (max-width: 720px) {
+@media (max-width: 720px), (orientation: landscape) and (max-height: 540px) {
   #sheet-body details > summary, #modal-card details > summary { min-height: 50px; font-size: var(--fs-body-l); }
   #sheet-body details > summary::after, #modal-card details > summary::after { width: 32px; height: 32px; font-size: var(--fs-head-l); }
   .disc-close { min-height: 48px; font-size: var(--fs-body); }
@@ -1061,7 +1053,7 @@ body.text-l .tabs.ico-tabs button span { white-space: normal; text-overflow: cli
 .hands-row .hr-dots i.just { animation: handUsed 1.1s ease-out forwards; }
 @keyframes handUsed { 0% { background: var(--hay); transform: scale(1); } 35% { transform: scale(1.25); } 100% { background: var(--card); transform: scale(1); } }
 .hands-row b { min-width: 4.4em; text-align: right; font-size: var(--fs-body-l); color: var(--ink); }
-@media (max-width: 720px) {
+@media (max-width: 720px), (orientation: landscape) and (max-height: 540px) {
   .tabs.ico-tabs button { font-size: var(--fs-note); padding: 8px 1px 7px; }
   .tabs.ico-tabs button svg { width: 24px; height: 24px; }
   .hands-row b { font-size: var(--fs-head); }
@@ -1206,7 +1198,7 @@ button.tp-ch:active { background: var(--pine-wash); }
 .vstick i { position: absolute; left: 50%; top: 50%; width: 50px; height: 50px; margin: -25px 0 0 -25px; border-radius: var(--r-round); background: rgba(250, 250, 246, .85); box-shadow: 0 2px 8px rgba(20, 34, 28, .25); }
 .vstick.run i { background: rgba(255, 236, 190, .95); }
 .vstick[hidden] { display: none; }
-.view-btn { position: absolute; left: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 24px); display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px 8px 11px; color: var(--ink); font-size: var(--fs-ui); font-weight: 700; transition: opacity .3s; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-l); }
+.view-btn { position: absolute; left: 12px; bottom: calc(var(--safe-b) + 24px); display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px 8px 11px; color: var(--ink); font-size: var(--fs-ui); font-weight: 700; transition: opacity .3s; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-l); }
 .view-btn svg { width: 18px; height: 18px; color: var(--pine); }
 .view-btn:active { background: var(--pine-wash); }
 .end-tip { position: relative; box-sizing: border-box; width: min(290px, calc(100vw - 24px)); padding: 11px 34px 11px 13px; display: grid; gap: 3px; margin-bottom: 4px; background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-m); background-color: var(--note); }
@@ -1229,10 +1221,10 @@ button.tp-ch:active { background: var(--pine-wash); }
 .ch-list li { display: grid; gap: 1px; }
 .ch-list b { font-size: var(--fs-ui); }
 .ch-list span { font-size: var(--fs-note); line-height: 1.55; color: var(--ink-2); }
-@media (max-width: 720px) {
-  .view-btn { left: 10px; bottom: calc(env(safe-area-inset-bottom, 0px) + 78px); padding: 9px 13px 9px 10px; }
+@media (max-width: 720px), (orientation: landscape) and (max-height: 540px) {
+  .view-btn { left: 10px; bottom: calc(var(--safe-b) + 78px); padding: 9px 13px 9px 10px; }
   body.end-tip-on #hint { opacity: 0; }
-  #hint { bottom: calc(env(safe-area-inset-bottom, 0px) + 122px); }
+  #hint { bottom: calc(var(--safe-b) + 122px); }
 }
 
 /* しぐさの意味（吹き出し）と、カードの「見つけたしぐさ」 */
@@ -1419,7 +1411,7 @@ details.ac-fold > .af-body > .ac-facts:first-child { margin-top: 0; }
 #note-fly .nf.guitar { color: #FFE2B8; }
 #note-fly .nf.kalimba { color: #E6F2F4; }
 @keyframes noteUp { 0% { opacity: 0; transform: translate(-50%, -30%) scale(.7); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), -190%) scale(1.1) rotate(8deg); } }
-@media (max-width: 720px) { #string-pad { height: 98px; } }
+@media (max-width: 720px), (orientation: landscape) and (max-height: 540px) { #string-pad { height: 98px; } }
 @media (prefers-reduced-motion: reduce) {
   #note-fly .nf { animation-duration: .01s; }
   #chord-grid button.next { animation: none; }
@@ -1437,7 +1429,7 @@ details.ac-fold > .af-body > .ac-facts:first-child { margin-top: 0; }
 @keyframes kamiIn { from { clip-path: inset(0 0 0 62%); opacity: .6; } to { clip-path: inset(0 0 0 0); opacity: 1; } }
 /* 日記のページは、もともと紙。少しだけ線を */
 @media (prefers-reduced-motion: reduce) { .modal-card, .vs-card { animation: none !important; } }
-@media (max-width: 720px) { .music-top .seg button { font-size: var(--fs-note); padding: 6px 8px; } }
+@media (max-width: 720px), (orientation: landscape) and (max-height: 540px) { .music-top .seg button { font-size: var(--fs-note); padding: 6px 8px; } }
 /* pan-x pan-y：スクロールはできて、ダブルタップとピンチでの拡大はしない（manipulation だとピンチの拡大が残る） */
 html { -webkit-text-size-adjust: 100%; }
 a { touch-action: pan-x pan-y; }
@@ -1449,7 +1441,7 @@ select { touch-action: pan-x pan-y; }
 #zoom-note { position: fixed; left: 0; top: 0; z-index: 50; transform-origin: 0 0; padding: 10px 12px; pointer-events: none; box-sizing: border-box; }
 #zoom-note span { display: block; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); border-radius: var(--r-m); box-shadow: var(--shadow); padding: 10px 14px; font-family: var(--hand); font-size: var(--fs-body); line-height: 1.6; color: var(--ink); }
 /* 楽器を弾いている間は、すっきり：コードと弦だけ。景色をタップすると、ほかのものが出る */
-@media (max-width: 720px) { #chord-grid button { height: 38px; } }
+@media (max-width: 720px), (orientation: landscape) and (max-height: 540px) { #chord-grid button { height: 38px; } }
 @media (prefers-reduced-motion: reduce) { #music-ui .music-top, #music-ui #music-opts, #rest-ui.music .rest-top, #rest-ui.music .rest-bottom { transition: none; } }
 
 /* ---------- 小さな道具：style="…" のかわり。新しく書く時も、style= ではなく、これか部品のクラスで ---------- */
@@ -1664,6 +1656,85 @@ body.school .real-donate { display: none !important; }
 .zk-kid { line-height: 1.9; }
 .zk-card { margin-top: 8px; }
 .zk-days, .zk-from { font-size: var(--fs-xs); margin: 8px 0 0; }
+
+/* =====================================================================
+   横の画面（2026-10-24。Daiさん：iPhone Duo のように、横で遊ぶ人が増えるので）
+   ・画面の端のさわれない所（ノッチ・Dynamic Island・ホームバー）をよける。縦では左右は 0 なので、何も変わらない
+   ・さわる画面を横にした時は、どの大きさでも：左の親指で歩く（スティックは左側。engine.js の stickZone）、
+     右の親指でボタン（「視点」は右上、「〜と話す」などは右下、今日はここまでのすぐ上）。小さな案内は、左上の札の下（ui.js の hintPlace）
+   ・横で高さの低い画面（スマホや、折りたたみの外の画面を横に。高さ 540 まで）：字と押しやすさは縦のスマホと同じ（上の (max-width: 720px) の
+     まとまりが、ここでも効く）、並べ方は、左にパネル・右にメニュー（2列）。engine.js の isYoko() と同じ決まり
+   ===================================================================== */
+#hud, #photo-ui, #music-ui, #rest-ui { left: var(--safe-l); right: var(--safe-r); }
+.rest-vignette { left: calc(-1 * var(--safe-l)); right: calc(-1 * var(--safe-r)); }
+.photo-dock { left: calc(-1 * var(--safe-l)); right: calc(-1 * var(--safe-r)); padding-left: calc(16px + var(--safe-l)); padding-right: calc(16px + var(--safe-r)); }
+.zen-exit { right: max(12px, var(--safe-r)); }
+.ch-phone.wide { width: 150px; }
+body.coach-top #hud-top { opacity: 0; pointer-events: none; }
+body.coach-on #hint { opacity: 0 !important; pointer-events: none; } /* はじめの案内が出ている間は、小さな案内は出さない（案内は、ひとつずつ。2026-10-24） */
+
+/* さわる画面を横に（大きさは問わない）・横で低い画面 */
+@media (orientation: landscape) and (pointer: coarse), (orientation: landscape) and (max-height: 540px) {
+  .view-btn { left: auto; right: 64px; top: calc(var(--safe-t) + 12px); bottom: auto; }
+  #prompt { left: auto; right: calc(var(--rail-w) + 30px); bottom: calc(var(--safe-b) + 80px); transform: none; }
+  #hint { left: 12px; top: calc(var(--safe-t) + 160px); bottom: auto !important; max-width: min(300px, 38%); }
+}
+
+/* 横で低い画面 */
+@media (orientation: landscape) and (max-height: 540px) {
+  :root { --rail-w: 114px; }
+  /* 左上：今日の札。右上：視点と、画面の表示 */
+  #hud-top { top: calc(var(--safe-t) + 8px); left: 12px; max-width: min(300px, 38%); }
+  .zen-btn { top: calc(var(--safe-t) + 8px); right: 12px; }
+  .view-btn { top: calc(var(--safe-t) + 8px); padding: 8px 13px 8px 10px; }
+  .hud-menu { top: calc(var(--safe-t) + 54px); right: 12px; max-height: calc(100% - var(--safe-t) - var(--safe-b) - 62px); overflow-y: auto; overscroll-behavior: contain; }
+  /* 右：メニューは2列（8つ並べても、低い画面に入るように） */
+  #rail { top: calc(50% + 18px); bottom: auto; left: auto; right: 12px; transform: translateY(-50%); display: grid; grid-template-columns: repeat(2, 50px); gap: 2px; padding: 4px; }
+  #rail button { flex: none; width: 50px; height: 46px; gap: 1px; font-size: var(--fs-xs); }
+  #rail button svg { width: 21px; height: 21px; }
+  /* 右下：今日はここまで。その上に「〜と話す」など */
+  #bottom-right { right: calc(var(--rail-w) + 22px); bottom: calc(var(--safe-b) + 10px); }
+  #end-day { padding: 8px 16px; }
+  #prompt { right: calc(var(--rail-w) + 22px); bottom: calc(var(--safe-b) + 62px); }
+  #prompt-btn { padding: 9px 18px; }
+  #hint { top: calc(var(--safe-t) + 140px); font-size: var(--fs-note); }
+  #place-bar { top: auto; bottom: calc(var(--safe-b) + 12px); }
+  /* パネル：左に、高さいっぱい（下からは出さない）。右に景色が見える */
+  #sheet { left: max(12px, var(--safe-l)); right: auto; top: calc(var(--safe-t) + 8px); bottom: calc(var(--safe-b) + 8px); width: min(440px, 52%); max-height: none; padding-bottom: 0; animation-name: sheetIn; }
+  #sheet.short { top: calc(var(--safe-t) + 8px); max-height: none; }
+  .sheet-head { padding: 6px 8px 6px 16px; }
+  #sheet-body { padding: 12px 16px 20px; --pt: 12px; --px: 16px; }
+  /* カード（真ん中に。横に広げて、縦を短く） */
+  #modal { padding: 6px max(12px, var(--safe-r)) 6px max(12px, var(--safe-l)); place-items: center; }
+  .modal-card { width: min(640px, 100%); max-height: calc(100% - 4px); padding: 16px 20px calc(var(--safe-b) + 14px); }
+  .modal-card img.shot { max-height: 52vh; }
+  .ch-wrap { align-items: center; }
+  /* はじめの画面：左に名前と紹介、右にはじめるボタン */
+  #start { padding-top: calc(var(--safe-t) + 8px); padding-bottom: calc(var(--safe-b) + 10px); align-items: center; }
+  .start-first { width: min(900px, 100%); }
+  .start-card { width: 100%; margin-top: auto; margin-bottom: auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); column-gap: 26px; align-items: start; padding: 14px 22px 10px; }
+  .start-card h1 { font-size: clamp(30px, min(11vh, 5.4vw), 50px); margin: 2px 0 10px; white-space: nowrap; }
+  .start-intro { min-width: 0; padding-top: 4px; }
+  .start-go { min-width: 0; }
+  .start-file { display: inline-block; margin: 2px 16px 0 0; }
+  .start-link { min-height: 40px; padding: 6px 0; }
+  .controls { margin-top: 4px; }
+  .emaki { align-self: center; }
+  /* はじめの案内：少しつめて、低い画面に収める */
+  .coach { padding: 7px 12px 8px; }
+  .coach .co-b { line-height: 1.5; }
+  .coach .co-btns { margin-top: 4px; }
+  /* 楽器：左にコード、右に弦（左の指でコードを押さえて、右の指で弦をなでる。本物のウクレレやギターと同じ向き）。景色が上に残るよう、低く */
+  .music-panel { width: min(780px, calc(100% - 24px)); bottom: calc(var(--safe-b) + 8px); grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 10px; row-gap: 4px; padding: 6px 8px; }
+  .music-panel #music-opts, .music-panel .music-hint { grid-column: 1 / -1; }
+  .music-panel.folded #chord-grid, #music-ui.tine #string-pad { grid-column: 1 / -1; }
+  #chord-grid { align-content: center; }
+  #string-pad { height: auto; min-height: 86px; }
+  #music-ui.tine #string-pad { min-height: 92px; }
+  .music-top { left: 12px; right: 12px; top: calc(var(--safe-t) + 8px); }
+}
+/* 模型を画面いっぱいで見る時（ani3d・観察ノート）：横にした iPhone の、端のさわれない所をよける */
+#modal.o3-full .modal-card { padding-left: max(22px, calc(var(--safe-l) + 10px)); padding-right: max(22px, calc(var(--safe-r) + 10px)); }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1838,10 +1909,14 @@ body.school .real-donate { display: none !important; }
   <div id="start">
     <div class="start-first">
     <div class="start-card">
+      <div class="start-intro">
       <p class="eyebrow" id="start-eyebrow">ベータテスト版</p>
       <h1>はるにれの丘</h1>
       <p class="lead">東京の郊外の、小さなサンクチュアリ。日曜日ごとに通って、裏庭の鶏3羽から、動物と自然と人がゆったり過ごせる場所へ育てます。</p>
       <p class="lead lead-2">急がなくて大丈夫。動物たちを眺めているだけ、ベンチに座っているだけ、ウクレレを弾いているだけの日曜日も、ここでは大切な一日です。</p>
+      </div>
+      <!-- 横の画面では、ここから右の列に（2026-10-24） -->
+      <div class="start-go">
       <div class="start-actions">
         <button type="button" class="start-btn" id="start-continue" hidden><strong>つづきから</strong><span id="continue-sub"></span><i class="go" aria-hidden="true"><svg><use href="#i-right"/></svg></i></button>
         <button type="button" class="start-btn primary" id="start-normal"><strong>はじめから</strong><span>段階1、裏庭の小さな保護の場から育てる</span></button>
@@ -1856,6 +1931,7 @@ body.school .real-donate { display: none !important; }
       <input type="file" id="save-file" accept=".json,application/json,text/plain" hidden>
       <p class="controls" id="controls-text"></p>
       <p class="app-ver" id="app-ver"></p>
+      </div>
     </div>
     </div>
     <!-- はじめの画面の下の絵巻：カードは今のまま画面の下に。絵は、スクロールした人にだけ見える -->
@@ -3179,14 +3255,15 @@ const QUESTS = []; // 今日のクエストの入れ物（2026-10-23。中身は
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.85', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.86', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
   aim: ['遊びやすいか、わかりにくい所はないか', 'スマホやパソコンで重くないか、止まらないか', '動物、お金、牛と酪農の話が、楽しく伝わるか'],
-  try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
+  try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', 'スマホを横にして遊んでみる（左の親指でなぞって歩き、右の親指で見回す）', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.86', '2026年10月24日', 'スマホを横にしても遊べるようになりました（iPhone Duo のように、横の画面で遊ぶ方のために）。横では、左の親指でなぞって歩き、右の親指でボタンやメニューを。メニューは右に2列、パネルは左に開き、景色が右に見えます。楽器は、左でコード・右で弦。はじめの画面も、横では2列に。'],
     ['0.9.85', '2026年10月24日', '「今日のクエスト」ができました。2週めの日曜日から、働く人のひとりが、毎週ひとつクエストを頼んでくれます（左上の札から）。できると「見つけたこと図鑑」（設定の「あなた」から）に、その子の名前と日付といっしょに、ページが加わります。できなくても、何も減りません。休んでいる時・座っている時に「眺める」ができるように。カメラを好きな所へ動かし、向きと近さも選んで、文字の出ない画面で景色を眺められます。気に入った眺めは、小さな絵で3つまで残せます（眺めている時は、スマホを横にしても）。「詳しく（大人の方へ）」を、どの画面でも同じ形にしました。目印は小さなしおりです。押した時だけ開き、自分から開くことはありません。設定に「学校モード」ができました（授業や教室で遊ぶ時に。とくに重い「詳しく」と、寄付のページへの案内をしまいます。ゲームのアドレスの最後に ?school をつけて開いても）。ちくわとがんものカードには、小さな前置きを添えました。はじめの画面の下に、はるにれの丘の日曜日を描いた絵巻を置きました（カードの「どんなところ？」から。絵は、丘の動物たちの模型で撮っています）。ほかに、長いスカートが歩いても座っても長いままに。木の葉が季節で変わるように（春は少し舞い、夏は茂り、秋はたくさん舞い、冬は葉を落とした木が増えます）。鶏たちは、採卵養鶏場から来た子らしい姿に（くちばしの先を切られた子も）。メニューの「動物」をいちばん前に。指やホイールで寄る・離れる時のズームを速く。'],
     ['0.9.84', '2026年10月23日', '写真に望遠レンズがつきました。ピンチか下のつまみで、いちばん16倍まで寄れます。寄っている時は、なぞるとカメラの向きだけが変わるので、虫や鳥をまんなかに入れて大きく撮れます。望遠で見ている間は、近づかなくても、いきもの記録と観察ノートに届きます。観察ノートの写真は、写っている大きさに合わせて切りぬき、前より大きく撮れた時に貼りかわります。動物のカードの絵を押すと、その子の模型が画面いっぱいに。指でまわしたり、近づいたりして、ゆっくり見られます。'],
     ['0.9.83', '2026年10月23日', '「称号」を「呼び名」にしました。「写真を撮る人」「池のそばの人」のように、丘でしてきたことを、そのまま呼び名に。虫やトカゲ、クモの網、カエルなどの小さな生き物は、はじめは見えません。立ち止まって静かにしていると、近くの子が1つずつ、そっと姿を見せます。夏の夜、林のはしのクヌギの樹液に、カブトムシやコクワガタが来ることがあります（なかなか会えません）。雨の日の池のカエルが、観察ノートと写真に入るように（名前も出ます）。働く人が牛舎の中に立ちつづけていたのを直しました。スマホで遊んでいるあいだは、画面が消えないように。スマホを横にした時は、ゲームを止めて、縦にもどすと続きから遊べるようにしました'],
@@ -6940,7 +7017,29 @@ const INPUT = { keys: {}, pointers: new Map(), dragging: false, moved: 0, pinch:
 // 設定の「移動のしかた」を「タップだけ」にすると、どこをなぞっても見回す（前の操作）
 const STICK_R = 58;
 function stickOn() { return IS_TOUCH && !(typeof G !== 'undefined' && G && G.settings && G.settings.ctl === 'tap'); }
-function stickZone(y) { return y > window.innerHeight * 2 / 3; } // 下の3分の1がスティック、それより上は見回す（0.9.33）
+// 縦の画面は、下の3分の1がスティック、それより上は見回す（0.9.33）。
+// 横の画面（さわる画面を横にした時。2026-10-24）は、左の親指で歩き、右の親指で見回す：左側（幅の 42%）がスティック、右側は見回す
+function stickZone(x, y) { return touchWide() ? x < window.innerWidth * 0.42 : y > window.innerHeight * 2 / 3; }
+/* ---------- 画面の形（2026-10-24。Daiさん：iPhone Duo のように、横で遊ぶ人が増えるので） ----------
+   縦のスマホ（幅 720 まで）：パネルは下から、メニューは下に一列（sheetBelow）
+   横の画面（横で、高さ 540 まで。スマホや、折りたたみの外の画面を横に）：字はスマホの大きさのまま、パネルは左、メニューは右に2列（isYoko）。
+     style.css の「横の画面」と同じ決まり（@media (orientation: landscape) and (max-height: 540px)）
+   それ以外（パソコン・タブレット・折りたたみを開いた画面）：パネルは左、メニューは右に1列
+   さわる画面を横にしている時は、どの大きさでも、左の親指で歩き、右の親指でボタン（touchWide。「視点」は右上、話すなどのボタンは右下） */
+const YOKO_H = 540;
+function isYoko() { const w = window.innerWidth, h = window.innerHeight; return w > h && h <= YOKO_H; }
+function sheetBelow() { return window.innerWidth <= 720 && !isYoko(); }
+function touchWide() { return IS_TOUCH && window.innerWidth > window.innerHeight; }
+function thumbWide() { return touchWide() || isYoko(); }
+function smallScreen() { return window.innerWidth <= 720 || isYoko(); } // 字や札を、スマホの大きさで（名札の出る近さなど）
+// 操作の説明の言葉（場所の言い方は、画面の形で変わる）
+const WHERE = {
+  stick: () => (touchWide() ? '画面の左側' : '画面の下3分の1'),
+  look: () => (touchWide() ? '右側' : 'それより上'),
+  view: () => (thumbWide() ? '右上の「視点」' : '左下の「視点」'),
+  prompt: () => (thumbWide() ? '右下の' : '下の'),
+  rail: () => (sheetBelow() ? '下の' : '右の'),
+};
 function stickDraw() {
   const el = document.getElementById('stick'); if (!el) return;
   const st = INPUT.stick; if (!st) { el.hidden = true; return; }
@@ -7061,13 +7160,13 @@ function zoomNote() {
 }
 function initInput(canvas, onTap) {
   INPUT.onTap = onTap;
-  // 指は1本ずつ別に見る（0.9.37）：下3分の1に置いた指はスティック、上に置いた指は見回し。
+  // 指は1本ずつ別に見る（0.9.37）：下3分の1（横の画面では左側）に置いた指はスティック、ほかに置いた指は見回し。
   // 2本の指で、歩きながら見回せる。見回し側に指が2本あれば、ピンチで寄ったり離れたり
   const lookers = () => [...INPUT.pointers.values()].filter((q) => q.zone === 'look');
   canvas.addEventListener('pointerdown', (e) => {
     canvas.setPointerCapture && canvas.setPointerCapture(e.pointerId);
     const stickTaken = [...INPUT.pointers.values()].some((q) => q.zone === 'stick');
-    const zone = stickOn() && e.pointerType !== 'mouse' && stickZone(e.clientY) && !stickTaken ? 'stick' : 'look';
+    const zone = stickOn() && e.pointerType !== 'mouse' && stickZone(e.clientX, e.clientY) && !stickTaken ? 'stick' : 'look';
     // ほかの指がもう置かれていたら、どちらの指もタップにはしない（歩きながらの誤タップを防ぐ）
     const multi = INPUT.pointers.size > 0;
     for (const q of INPUT.pointers.values()) q.multi = true;
@@ -18731,7 +18830,8 @@ const UI = {
     if (!document.body.classList.contains('end-tip-on')) { pr.style.bottom = ''; return; }
     requestAnimationFrame(() => {
       const t = $('#end-tip').getBoundingClientRect(); pr.style.bottom = '';
-      const w = Math.max(pr.getBoundingClientRect().width, 200), cx = window.innerWidth / 2;
+      // ボタンの左右の幅で比べる（縦の画面ではまんなか、横の画面では右下。2026-10-24）
+      const b = pr.getBoundingClientRect(), w = Math.max(b.width, 200), cx = b.width ? (b.left + b.right) / 2 : window.innerWidth / 2;
       if (t.height && cx + w / 2 > t.left && cx - w / 2 < t.right) pr.style.bottom = Math.round(window.innerHeight - t.top + 10) + 'px';
     });
   },
@@ -18765,7 +18865,7 @@ const UI = {
     UI.toast(t, 'daily');
   },
   nightfall() { if (!STARTED || UI.hudQuiet() || UI.rest || $('#hud').hidden) return; UI.hint('日が暮れました。「今日はここまで」で日記をつけて、来週へ。まだ歩いていても大丈夫です'); },
-  hint(t) { const h = $('#hint'); h.style.transform = ''; h.textContent = t; h.style.opacity = 1; clearTimeout(UI._ht); UI._ht = setTimeout(() => { h.style.opacity = 0; setTimeout(() => { if (h.style.opacity === '0') h.textContent = ''; }, 1100); }, 7000); },
+  hint(t) { const h = $('#hint'); h.style.transform = ''; h.textContent = t; h.style.opacity = 1; UI.hintPlace(); if (thumbWide() && $('#toasts').childElementCount) UI.toastPlace(); clearTimeout(UI._ht); UI._ht = setTimeout(() => { h.style.opacity = 0; setTimeout(() => { if (h.style.opacity === '0') h.textContent = ''; }, 1100); }, 7000); },
   // 画面に出る説明（知らせ・案内・お祝いの札）は、上へスワイプすると、すぐに消える（0.9.28）
   // 少し動かすまでは、ふつうのタップ（「見る」「読む」のボタン）として扱う
   swipeAway(el, gone, base) {
@@ -18822,13 +18922,58 @@ const UI = {
     el.addEventListener('pointerenter', () => clearTimeout(timer)); el.addEventListener('pointerleave', () => { clearTimeout(timer); timer = setTimeout(done, 2000); });
   },
   // 知らせは、状態の札の下に（パネルを開いている時は、いちばん上に）
+  // 上の空いている所（左上の札と、右上のボタンのあいだ。パネルを開いている時は、パネルとメニューのあいだ）。
+  // 横の画面や、幅のせまい画面で、知らせや案内を、左上の札に重ねないため（2026-10-24）
+  // 返す L・R は、#hud の中の位置（横にした iPhone では、#hud が端のさわれない所の分だけ内側にあるため）
+  topFree(skipTop) {
+    const open = document.body.classList.contains('sheet-open'), hud = $('#hud'), hb = hud.getBoundingClientRect();
+    const x0 = hb.left || 0, W = hb.width || window.innerWidth, on = !hud.hidden;
+    let L = 12, R = W - 12;
+    const rail = $('#rail').getBoundingClientRect(); // メニューが上のほうまである時（横の画面・パソコン）は、メニューの左まで
+    if (on && rail.width && rail.top < 260 && !sheetBelow()) R = Math.min(R, Math.round(rail.left - x0 - 10));
+    if (open) { const s = $('#sheet').getBoundingClientRect(); if (s.width) L = Math.max(L, Math.round(s.right - x0 + 12)); }
+    else if (on) {
+      if (!skipTop) { const t = $('#hud-top').getBoundingClientRect(); if (t.width && t.height) L = Math.round(t.right - x0 + 12); }
+      for (const id of ['zen-btn', 'view-btn']) { const b = document.getElementById(id); if (!b) continue; const r = b.getBoundingClientRect(); if (r.width && r.top < 90) R = Math.min(R, Math.round(r.left - x0 - 10)); }
+    }
+    return { L, R, w: R - L };
+  },
+  // 小さな案内：さわる画面を横にしている時は、左上の札のすぐ下に（左下は、左の親指で歩く所なので。2026-10-24）
+  hintPlace() {
+    const h = $('#hint'); if (!h) return;
+    if (!thumbWide()) { h.style.top = ''; return; }
+    const y0 = $('#hud').getBoundingClientRect().top || 0, t = $('#hud-top').getBoundingClientRect();
+    h.style.top = t.height ? `${Math.round(t.bottom - y0 + 8)}px` : '';
+    h.style.maxWidth = t.width > 160 ? `${Math.round(t.width - 28)}px` : ''; // 札と同じ幅まで（上の知らせ・案内の場所に、はみ出さない）
+  },
+  // 知らせの位置。札の下などに置く時の top は、#hud の中の位置（上の端のノッチの分は、札の位置に入っているので、足さない）
   toastPlace() {
-    const box = $('#toasts'), st = $('#status');
-    const narrow = window.innerWidth < 720, open = document.body.classList.contains('sheet-open');
-    let top = 12;
-    if (st && !open && narrow) { const r = st.getBoundingClientRect(); if (r.height) top = Math.round(r.bottom + 8); }
-    const co = $('#coach'); if (co && !co.hidden && !co.classList.contains('away')) { const r = co.getBoundingClientRect(); if (r.height) top = Math.max(top, Math.round(r.bottom + 8)); }
-    box.style.top = co && !co.hidden && !co.classList.contains('away') ? `${top}px` : `calc(env(safe-area-inset-top, 0px) + ${top}px)`;
+    const box = $('#toasts'), st = $('#status'), y0 = $('#hud').getBoundingClientRect().top || 0;
+    const narrow = sheetBelow(), open = document.body.classList.contains('sheet-open');
+    let top = null; // null のときは、いつもの所（style.css：画面の上の端から 12px）
+    const under = () => { const r = st.getBoundingClientRect(); if (r.height) top = Math.round(r.bottom - y0 + 8); };
+    // 横の画面・幅のせまい画面：左上の札と右上のボタンのあいだに。入りきらない時は、札の下に（縦のスマホと同じ。2026-10-24）
+    box.style.left = ''; box.style.width = '';
+    if (!narrow) {
+      const f = UI.topFree(document.body.classList.contains('coach-top')), hw = $('#hud').getBoundingClientRect().width || window.innerWidth; // はじめの案内が札の場所にある時は、札は隠れている
+      if (!open && hw / 2 - 200 >= f.L && hw / 2 + 200 <= f.R) { /* 広い画面：まんなかのまま（札にもボタンにも重ならない） */ }
+      else if (f.w >= 240) { box.style.left = `${Math.round((f.L + f.R) / 2)}px`; box.style.width = `${Math.min(400, f.w)}px`; }
+      else if (st && !open && thumbWide()) { // せまい横の画面：左上の札の下に、札の幅で（小さな案内が出ていれば、その下。右下の「話す」に重ならないように）
+        const t = $('#hud-top').getBoundingClientRect(), hn = $('#hint'), x0 = $('#hud').getBoundingClientRect().left || 0;
+        let b = t.bottom; if (hn && hn.textContent && getComputedStyle(hn).opacity !== '0' && getComputedStyle(hn).display !== 'none') b = Math.max(b, hn.getBoundingClientRect().bottom);
+        if (t.width > 200) { box.style.left = `${Math.round((t.left + t.right) / 2 - x0)}px`; box.style.width = `${Math.round(t.width)}px`; top = Math.round(b - y0 + 8); }
+        else under();
+      }
+      else if (st && !open) under();
+    } else if (st && !open) under();
+    const co = $('#coach'), coOn = co && !co.hidden && !co.classList.contains('away');
+    // 横の低い画面で、はじめの案内が上のまんなかにある時：知らせは、左上の札の下へ（案内のあいだ、小さな案内は出ないので空いている。下の「話す」に重ならないように）
+    if (coOn && isYoko() && !open && !document.body.classList.contains('coach-top') && st) {
+      const t = $('#hud-top').getBoundingClientRect(), x0 = $('#hud').getBoundingClientRect().left || 0;
+      if (t.width > 200) { box.style.left = `${Math.round((t.left + t.right) / 2 - x0)}px`; box.style.width = `${Math.round(t.width)}px`; box.style.top = `${Math.round(t.bottom - y0 + 8)}px`; return; }
+    }
+    if (coOn) { const r = co.getBoundingClientRect(); if (r.height) top = Math.max(top || 0, Math.round(r.bottom - y0 + 8)); }
+    box.style.top = top === null ? '' : `${top}px`;
   },
   /* ---------- はじめの案内（0.9.36）：自分で動かしながら、できることと、目指す方向をつかむ。とばせる ----------
      一歩ずつ、やってみたら次へ。全部を教えない。設定の「はじめの案内」から、いつでももう一度 */
@@ -18836,10 +18981,10 @@ const UI = {
   tutSteps() {
     const touch = IS_TOUCH, st = stickOn();
     return [
-      { k: 'walk', t: '歩いてみましょう', b: touch ? (st ? '画面の下3分の1を指でなぞると、その向きへ歩きます。行きたい所をタップしても歩けます。' : '行きたい所をタップすると、そこまで歩きます。') : 'WASD か矢印キーで歩きます。行きたい所をクリックしても歩けます。', btn: touch ? [['操作のヒント', 'help']] : null },
-      { k: 'look', t: 'まわりを見回してみましょう', b: touch ? (st ? 'それより上を指でなぞると、まわりを見回せます。左下の「視点」で、近く・ふつう・遠くも切りかえられます。' : '指でなぞると、まわりを見回せます。左下の「視点」で、近く・ふつう・遠くも切りかえられます。') : 'ドラッグで見回します。ホイールで、寄ったり離れたり。' },
+      { k: 'walk', t: '歩いてみましょう', b: touch ? (st ? `${WHERE.stick()}を指でなぞると、その向きへ歩きます。行きたい所をタップしても歩けます。` : '行きたい所をタップすると、そこまで歩きます。') : 'WASD か矢印キーで歩きます。行きたい所をクリックしても歩けます。', btn: touch ? [['操作のヒント', 'help']] : null },
+      { k: 'look', t: 'まわりを見回してみましょう', b: touch ? (st ? `${WHERE.look()}を指でなぞると、まわりを見回せます。${WHERE.view()}で、近く・ふつう・遠くも切りかえられます。` : `指でなぞると、まわりを見回せます。${WHERE.view()}で、近く・ふつう・遠くも切りかえられます。`) : 'ドラッグで見回します。ホイールで、寄ったり離れたり。' },
       { k: 'pet', t: '鶏をなでてみましょう', b: `鶏を${touch ? 'タップ' : 'クリック'}すると、そばへ行ってなでます。苦手な子は、するりと離れることも。それも、その子の気持ちです。` },
-      { k: 'card', t: 'その子のカードを見てみましょう', b: '下の「〜のカードを見る」を押すと、その子の性格や好きなこと、暮らしの様子、しぐさの意味がわかります。', hl: '#prompt-btn' },
+      { k: 'card', t: 'その子のカードを見てみましょう', b: `${WHERE.prompt()}「〜のカードを見る」を押すと、その子の性格や好きなこと、暮らしの様子、しぐさの意味がわかります。`, hl: '#prompt-btn' },
       /* 0.9.46：はるこさんとの話・行動・この丘のこれからは、案内ではなく、その場面でひとことに */
       { k: 'talk', skip: true, t: 'はるこさんと話してみましょう', b: '緑の名札が、ここで働く人。そばへ行って「はるこさんと話す」を押します。話すのは、今日できることを使いません。', btn: [['そばへ行く', 'goHaruko']] },
       { k: 'act', skip: true, t: '今日できること', b: '下のメニューの「行動」から、寄付や手伝いができます。そのたびに、サンクチュアリは少しずつ育ちます。1日にできることは4つ。', hl: '#rail [data-open="actions"]' },
@@ -18857,7 +19002,7 @@ const UI = {
   tutShow() {
     const T = UI.tut, el = $('#coach'); if (!T || !el) return;
     const S = UI.tutSteps(), st = S[T.i]; if (!st) { UI.tutEnd(false); return; }
-    el.hidden = false; el.classList.remove('done');
+    el.hidden = false; el.classList.remove('done'); document.body.classList.add('coach-on');
     $('#co-step').textContent = `はじめの案内　${T.i + 1} / ${S.length}`;
     $('#co-t').textContent = st.t; $('#co-b').textContent = st.b;
     $('#co-btns').innerHTML = (st.btn || []).map(([t, a]) => `<button type="button" class="btn small ${a === 'finish' || a === 'vision' ? 'primary' : ''}" data-co="${a}">${t}</button>`).join('');
@@ -18868,7 +19013,7 @@ const UI = {
   },
   tutNext() { const T = UI.tut; if (!T) return; T.i++; T.doneAt = 0; UI.tutShow(); GAME.save(); },
   tutEnd(skipped) {
-    UI.tut = null; const el = $('#coach'); if (el) el.hidden = true;
+    UI.tut = null; const el = $('#coach'); if (el) el.hidden = true; document.body.classList.remove('coach-top', 'coach-on');
     document.querySelectorAll('.coach-pulse').forEach((x) => x.classList.remove('coach-pulse'));
     G.flags.tutDone = true; G.flags.tut = null; devSet('tut', 'done');
     if (skipped) UI.toast('はじめの案内は、設定の「はじめの案内」から、いつでも見直せます', 'news');
@@ -18876,12 +19021,23 @@ const UI = {
   },
   coachPlace() {
     const el = $('#coach'); if (!el || el.hidden) return;
-    const narrow = window.innerWidth < 720, open = document.body.classList.contains('sheet-open'), st = $('#status');
-    // パネルを開いている間：スマホでは隠す（パネルの見出しや「閉じる」にかからないように）。パソコンでは、パネルの右へ
-    el.classList.toggle('away', open && narrow);
-    if (open && !narrow) { const r = $('#sheet').getBoundingClientRect(); el.style.left = `${Math.round(r.right + 16 + Math.min(190, (window.innerWidth - r.right - 32) / 2))}px`; } else el.style.left = '';
-    let top = 12; if (narrow && st && !open) { const qc = $('#quest-chip'), r = (qc && !qc.hidden ? qc : st).getBoundingClientRect(); if (r.height) top = Math.round(r.bottom + 8); } // 今日のクエストの札があれば、その下に
-    el.style.top = `calc(env(safe-area-inset-top, 0px) + ${top}px)`;
+    const narrow = sheetBelow(), open = document.body.classList.contains('sheet-open'), st = $('#status');
+    // パネルを開いている間：縦のスマホでは隠す（パネルの見出しや「閉じる」にかからないように）。ほかの画面では、パネルの右へ（入りきらない時は隠す）
+    // 横の画面・幅のせまい画面で、パネルを開いていない時は、左上の札と右上のボタンのあいだに（入りきらない時は、札の下に。2026-10-24）
+    let top = 12, below = narrow, over = false;
+    el.style.left = ''; el.style.width = '';
+    if (!narrow) {
+      const f = UI.topFree(), w = Math.min(380, f.w), hw = $('#hud').getBoundingClientRect().width || window.innerWidth;
+      if (!open && hw / 2 - 190 >= f.L && hw / 2 + 190 <= f.R) { /* 広い画面：まんなかのまま */ }
+      else if (f.w >= 250) { el.style.left = `${Math.round((f.L + f.R) / 2)}px`; el.style.width = `${w}px`; }
+      else if (!open && isYoko()) { over = true; const w2 = Math.min(380, UI.topFree(true).R - 12); el.style.left = `${Math.round(12 + w2 / 2)}px`; el.style.width = `${w2}px`; } // せまい横の画面：札の場所に（札は、案内のあいだ隠す）
+      else if (!open) below = true;
+      el.classList.toggle('away', open && f.w < 250);
+    } else el.classList.toggle('away', open);
+    document.body.classList.toggle('coach-top', over);
+    if (over) { el.style.top = 'calc(var(--safe-t) + 8px)'; UI.hintPlace(); return; }
+    if (below && st && !open) { const qc = $('#quest-chip'), r = (qc && !qc.hidden ? qc : st).getBoundingClientRect(); if (r.height) { el.style.top = `${Math.round(r.bottom - ($('#hud').getBoundingClientRect().top || 0) + 8)}px`; return; } } // 今日のクエストの札があれば、その下に
+    el.style.top = `calc(var(--safe-t) + ${top}px)`;
   },
   tutFrame() {
     const T = UI.tut; if (!T) return;
@@ -18971,7 +19127,7 @@ const UI = {
     if (name === 'vision') UI.visSel = G && G.mode === 'hakoniwa' ? 5 : G ? G.stage : 1; // ひらいた時は、いまの段階から
     if (name === 'avatar') UI.avGroup = 'face'; // いつも 1 の「顔」から
     $('#sheet').classList.toggle('short', name === 'avatar');
-    $('#sheet').hidden = false; document.body.classList.add('sheet-open'); UI.render(true);
+    $('#sheet').hidden = false; document.body.classList.add('sheet-open'); UI.render(true); UI.toastPlace();
     if (name === 'avatar') { $('#hud').hidden = true; UI.avatarCam(); }
     document.querySelectorAll('#rail button').forEach((b) => b.classList.toggle('on', b.dataset.open === name));
     if (name === 'diary') { if (curPage()) G.diarySeen = curPage().turn; if (!push) UI.diaryIdx = null; UI.refresh(); }
@@ -18987,7 +19143,7 @@ const UI = {
       camShift(0); UI.avatarDone(); if (STARTED) $('#hud').hidden = false;
       const then = UI.cur.arg && UI.cur.arg.then;
       if (then && G && !G.avatarChosen) { G.avatarChosen = true; GAME.save(); setTimeout(then, 0); }
-    } $('#sheet').classList.remove('short'); $('#sheet').hidden = true; document.body.classList.remove('sheet-open'); UI.cur = null; UI.stack = []; document.querySelectorAll('#rail button').forEach((b) => b.classList.remove('on')); if (UI.onClose) { const f = UI.onClose; UI.onClose = null; f(); } },
+    } $('#sheet').classList.remove('short'); $('#sheet').hidden = true; document.body.classList.remove('sheet-open'); UI.cur = null; UI.stack = []; document.querySelectorAll('#rail button').forEach((b) => b.classList.remove('on')); if (UI.onClose) { const f = UI.onClose; UI.onClose = null; f(); } UI.toastPlace(); },
   // fresh：新しく開いた画面（開く・戻る・タブやページを変える）は、いつもいちばん上から。
   // 同じ画面でボタンを押した時の描き直しだけ、見ていた位置のまま
   render(fresh) {
@@ -19585,7 +19741,7 @@ Object.assign(UI, {
       }
       h += `</div><div class="sec"><h3>操作</h3>${IS_TOUCH ? `<div class="field"><span class="flabel">移動のしかた</span><div class="seg"><button data-act="ctl-mode" data-v="stick" class="${G.settings.ctl !== 'tap' ? 'on' : ''}">なぞって歩く＋タップ</button><button data-act="ctl-mode" data-v="tap" class="${G.settings.ctl === 'tap' ? 'on' : ''}">タップだけ</button></div></div>
         <div class="switch"><span>歩くと、カメラがゆっくりうしろへまわる</span><input type="checkbox" data-act="toggle-follow" ${G.settings.camFollow === true ? 'checked' : ''}></div>
-        <div class="btn-row"><button class="btn small" data-act="ctl-help">操作のヒントを見る</button><button class="btn small" data-act="tut-start">はじめの案内</button></div>` : ''}<p class="lead-s">${IS_TOUCH ? (G.settings.ctl !== 'tap' ? '画面の下3分の1を指でなぞると、その向きへ歩きます（指を置いた所がスティックに）。それより上をなぞると見回します。' : 'ドラッグで見回します。') + 'タップした場所へ歩き、動物をタップすると、そばへ行ってなでます。左下の「視点」で、近く・ふつう・遠く。ピンチでも寄ったり離れたりできます。動物のカードは、近くで出る「〜のカードを見る」か、下の「動物」から開けます。' : 'WASDか矢印キーで歩きます（Shiftで小走り）。クリックした場所へ歩くこともできます。ドラッグで見回し、ホイールで寄ります。動物をクリックすると、そばへ行ってなでます。近くの動物のカードはEで開き、スタッフにはEで話しかけます。Escで閉じます。'}</p>
+        <div class="btn-row"><button class="btn small" data-act="ctl-help">操作のヒントを見る</button><button class="btn small" data-act="tut-start">はじめの案内</button></div>` : ''}<p class="lead-s">${IS_TOUCH ? (G.settings.ctl !== 'tap' ? `${WHERE.stick()}を指でなぞると、その向きへ歩きます（指を置いた所がスティックに）。${WHERE.look()}をなぞると見回します。` : 'ドラッグで見回します。') + `タップした場所へ歩き、動物をタップすると、そばへ行ってなでます。${WHERE.view()}で、近く・ふつう・遠く。ピンチでも寄ったり離れたりできます。動物のカードは、近くで出る「〜のカードを見る」か、${WHERE.rail()}「動物」から開けます。` : 'WASDか矢印キーで歩きます（Shiftで小走り）。クリックした場所へ歩くこともできます。ドラッグで見回し、ホイールで寄ります。動物をクリックすると、そばへ行ってなでます。近くの動物のカードはEで開き、スタッフにはEで話しかけます。Escで閉じます。'}</p>
         ${IS_TOUCH ? '' : '<div class="btn-row u-mb8"><button class="btn small" data-act="tut-start">はじめの案内</button></div>'}
         <p class="muted">${STORE.ok ? '進み具合は、claude.aiのあなたのアカウントに保存されます。ほかの端末で開いても続きから遊べます。アルバムの写真は、この端末にだけ残ります。' : '進み具合は、このブラウザに保存されます。「続きをファイルに」で、ファイルにも残せます。'}</p></div>`;
       return { title: '設定', html: h };
@@ -20079,7 +20235,7 @@ Object.assign(UI, {
   avatarDone() { const p = ACT.player; if (p && UI._avHead !== undefined) { p.heading = UI._avHead; p.m.root.rotation.y = p.heading; } UI._avHead = undefined; CAM.fovHold = false; camRestore(); },
   avatarCam() {
     const p = ACT.player; if (!p) return;
-    const narrow = window.innerWidth < 720;
+    const narrow = sheetBelow();
     if (UI._avHead === undefined) UI._avHead = p.heading;
     CAM.fovHold = true; R.camera.fov = 36; R.camera.updateProjectionMatrix();
     p.heading = -0.35; p.m.root.rotation.y = p.heading;
@@ -20089,7 +20245,7 @@ Object.assign(UI, {
     // 顔と髪を選ぶ時は顔に寄る。見えている所（パネルの上）の真ん中に来るよう、画面をずらす
     CAM.tDist = face ? (narrow ? 2.6 : 2.4) : (narrow ? clamp(2.3 * H / (vis * 2 * tan), 4, 16) : 6.5);
     CAM.tPitch = face ? 0.12 : 0.14; CAM.tYaw = p.heading;
-    camShift(narrow ? Math.round((H - vis) / 2) : 0);
+    camShift(narrow ? Math.round((H - vis) / 2) : 0); // 横の画面では、パネルの右へ寄せるのは、毎コマの UI.viewOffset
     camCutIfBig();
   },
   /* ---------- 朝と夕方 ---------- */
@@ -20104,7 +20260,7 @@ Object.assign(UI, {
       if (G.mode === 'normal' && !G.flags.tutDone) { let did = false; did = devGet('tut') === 'done'; if (!did && (first || typeof G.flags.tut === 'number')) { const at = typeof G.flags.tut === 'number' ? G.flags.tut : 0; setTimeout(() => { UI.tutStart(); if (at) { UI.tut.i = at; UI.tutShow(); } }, 500); return; } }
       let seen = !!G.flags.ctlHelp; seen = seen || devGet('ctlhelp') === '1';
       if (IS_TOUCH && !seen) { G.flags.ctlHelp = 1; devSet('ctlhelp', '1'); setTimeout(() => UI.ctlHelp(), 400); return; }
-      if (G.turn <= 2 && G.mode !== 'hakoniwa') UI.hint(IS_TOUCH ? (stickOn() ? '下3分の1をなぞって歩く・それより上をなぞって見回す・動物をタップでなでる' : 'タップで歩く・ドラッグで見回す・動物をタップでなでる') : 'WASDで歩く・ドラッグで見回す・動物をクリックでなでる');
+      if (G.turn <= 2 && G.mode !== 'hakoniwa') UI.hint(IS_TOUCH ? (stickOn() ? (touchWide() ? '左側をなぞって歩く・右側をなぞって見回す・動物をタップでなでる' : '下3分の1をなぞって歩く・それより上をなぞって見回す・動物をタップでなでる') : 'タップで歩く・ドラッグで見回す・動物をタップでなでる') : 'WASDで歩く・ドラッグで見回す・動物をクリックでなでる');
     };
   },
   // 続きから開いた時の、おかえりなさい（今日の途中から）
@@ -20127,10 +20283,11 @@ Object.assign(UI, {
 
   // 操作のヒント（スマホ）：はじめての日と、設定から
   ctlHelp() {
-    const st = stickOn();
-    const phone = `<svg class="ch-phone" viewBox="0 0 120 210" aria-hidden="true"><rect x="4" y="4" width="112" height="202" rx="16" fill="#F4F5EF" stroke="#9AA59C" stroke-width="3"/>${st ? '<line x1="10" y1="139" x2="110" y2="139" stroke="#B9C2B9" stroke-width="2" stroke-dasharray="5 5"/><path d="M38 66 h44 M38 66 l8 -6 M38 66 l8 6 M82 66 l-8 -6 M82 66 l-8 6" stroke="#6E62B0" stroke-width="3" fill="none" stroke-linecap="round"/><text x="60" y="94" font-size="12" text-anchor="middle" fill="#6E62B0" font-weight="700">見回す</text><circle cx="60" cy="161" r="15" fill="none" stroke="#2E5A48" stroke-width="3"/><circle cx="65" cy="156" r="7" fill="#2E5A48"/><text x="60" y="196" font-size="12" text-anchor="middle" fill="#2E5A48" font-weight="700">歩く</text>' : '<path d="M38 100 h44 M38 100 l8 -6 M38 100 l8 6 M82 100 l-8 -6 M82 100 l-8 6" stroke="#6E62B0" stroke-width="3" fill="none" stroke-linecap="round"/><text x="60" y="128" font-size="12" text-anchor="middle" fill="#6E62B0" font-weight="700">見回す</text>'}</svg>`;
-    const rows = (st ? [['画面の下3分の1を、指でなぞる', '指を置いた所がスティックに。なぞった向きへ、ゆっくり歩きます'], ['それより上を、指でなぞる', 'まわりを見回します。歩きながら、もう1本の指で見回すこともできます']] : [['どこでも、指でなぞる', 'まわりを見回します']])
-      .concat([['タップ', '行きたい所へ歩きます。遠くをタップした時は、小走りで。動物をタップすると、そばへ行ってなでます'], ['左下の「視点」', '近く・ふつう・遠く、を切りかえます。2本の指で、寄ったり離れたりも。大きく引くと丘ぜんたいが見え、タップした所へ移れます'], ['歩いていると', 'カメラが、ゆっくり、あなたのうしろへまわります']]);
+    // 横の画面では、スマホも横に（左側で歩く・右側で見回す。2026-10-24）
+    const st = stickOn(), wide = touchWide();
+    const phone = wide ? `<svg class="ch-phone wide" viewBox="0 0 210 120" aria-hidden="true"><rect x="4" y="4" width="202" height="112" rx="16" fill="#F4F5EF" stroke="#9AA59C" stroke-width="3"/>${st ? '<line x1="89" y1="10" x2="89" y2="110" stroke="#B9C2B9" stroke-width="2" stroke-dasharray="5 5"/><path d="M126 54 h44 M126 54 l8 -6 M126 54 l8 6 M170 54 l-8 -6 M170 54 l-8 6" stroke="#6E62B0" stroke-width="3" fill="none" stroke-linecap="round"/><text x="148" y="82" font-size="12" text-anchor="middle" fill="#6E62B0" font-weight="700">見回す</text><circle cx="46" cy="58" r="15" fill="none" stroke="#2E5A48" stroke-width="3"/><circle cx="51" cy="53" r="7" fill="#2E5A48"/><text x="46" y="94" font-size="12" text-anchor="middle" fill="#2E5A48" font-weight="700">歩く</text>' : '<path d="M83 56 h44 M83 56 l8 -6 M83 56 l8 6 M127 56 l-8 -6 M127 56 l-8 6" stroke="#6E62B0" stroke-width="3" fill="none" stroke-linecap="round"/><text x="105" y="84" font-size="12" text-anchor="middle" fill="#6E62B0" font-weight="700">見回す</text>'}</svg>` : `<svg class="ch-phone" viewBox="0 0 120 210" aria-hidden="true"><rect x="4" y="4" width="112" height="202" rx="16" fill="#F4F5EF" stroke="#9AA59C" stroke-width="3"/>${st ? '<line x1="10" y1="139" x2="110" y2="139" stroke="#B9C2B9" stroke-width="2" stroke-dasharray="5 5"/><path d="M38 66 h44 M38 66 l8 -6 M38 66 l8 6 M82 66 l-8 -6 M82 66 l-8 6" stroke="#6E62B0" stroke-width="3" fill="none" stroke-linecap="round"/><text x="60" y="94" font-size="12" text-anchor="middle" fill="#6E62B0" font-weight="700">見回す</text><circle cx="60" cy="161" r="15" fill="none" stroke="#2E5A48" stroke-width="3"/><circle cx="65" cy="156" r="7" fill="#2E5A48"/><text x="60" y="196" font-size="12" text-anchor="middle" fill="#2E5A48" font-weight="700">歩く</text>' : '<path d="M38 100 h44 M38 100 l8 -6 M38 100 l8 6 M82 100 l-8 -6 M82 100 l-8 6" stroke="#6E62B0" stroke-width="3" fill="none" stroke-linecap="round"/><text x="60" y="128" font-size="12" text-anchor="middle" fill="#6E62B0" font-weight="700">見回す</text>'}</svg>`;
+    const rows = (st ? [[`${WHERE.stick()}を、指でなぞる`, '指を置いた所がスティックに。なぞった向きへ、ゆっくり歩きます'], [`${WHERE.look()}を、指でなぞる`, `まわりを見回します。歩きながら、もう1本の指で見回すこともできます${wide ? '（左の親指で歩いて、右の親指で見回す）' : ''}`]] : [['どこでも、指でなぞる', 'まわりを見回します']])
+      .concat([['タップ', '行きたい所へ歩きます。遠くをタップした時は、小走りで。動物をタップすると、そばへ行ってなでます'], [WHERE.view(), '近く・ふつう・遠く、を切りかえます。2本の指で、寄ったり離れたりも。大きく引くと丘ぜんたいが見え、タップした所へ移れます'], ['歩いていると', 'カメラが、ゆっくり、あなたのうしろへまわります']]);
     UI.modal(`<h3 class="ch-t">歩く・見回す</h3><div class="ch-wrap">${phone}<ul class="ch-list">${rows.map(([a, b]) => `<li><b>${a}</b><span>${b}</span></li>`).join('')}</ul></div><p class="muted">急いで歩かなくても大丈夫。眺めているだけでも、楽しめます。設定の「操作」で、いつでも見直せます。</p><div class="btn-row"><button class="btn small primary" data-act="close-modal">わかりました</button></div>`);
   },
 });
@@ -20414,7 +20571,7 @@ Object.assign(UI, {
   /* ---------- 飾る：置き場所を選ぶ ---------- */
   startPlace(itemId) {
     UI.placeItemId = itemId; UI.removeMode = false;
-    if (IS_TOUCH || window.innerWidth < 720) UI.closeSheet();
+    if (IS_TOUCH || smallScreen()) UI.closeSheet();
     showMarkers('place', itemId);
     const it = ITEMS[itemId];
     UI.placeText();
@@ -20428,7 +20585,7 @@ Object.assign(UI, {
   },
   startRemove() {
     UI.placeItemId = null; UI.removeMode = true;
-    if (IS_TOUCH || window.innerWidth < 720) UI.closeSheet();
+    if (IS_TOUCH || smallScreen()) UI.closeSheet();
     showMarkers('remove');
     $('#place-text').textContent = '片付けたいものの印を選んでください';
     $('#place-bar').hidden = false;
@@ -20492,7 +20649,8 @@ Object.assign(UI, {
   viewOffset(dt) {
     const W = window.innerWidth, H = window.innerHeight; let tx = 0, ty = 0;
     const sh = $('#sheet'), mu = $('#music-ui');
-    if (!sh.hidden) { const r = sh.getBoundingClientRect(); if (W < 720) ty = Math.max(0, H - r.top) / 2; else tx = -Math.max(0, r.right) / 2; }
+    // パネルが出ている時：縦のスマホ（下から）は上へ、ほかは右へ。右は、パネルとメニューのあいだのまんなかへ（横の画面でメニューが出ている時。2026-10-24）
+    if (!sh.hidden) { const r = sh.getBoundingClientRect(); if (sheetBelow()) ty = Math.max(0, H - r.top) / 2; else { const rl = $('#rail').getBoundingClientRect(), right = rl.width && !$('#hud').hidden && rl.left > r.right ? rl.left : W; tx = -Math.max(0, r.right + right - W) / 2; } }
     else if (!mu.hidden) { const r = mu.querySelector('.music-panel').getBoundingClientRect(); ty = Math.max(0, H - r.top) / 2; }
     const k = Math.min(1, dt * 7); UI.vo.x += (tx - UI.vo.x) * k; UI.vo.y += (ty - UI.vo.y) * k;
     if (Math.abs(UI.vo.x) < 0.5 && Math.abs(UI.vo.y) < 0.5) { if (R.camera.view && R.camera.view.enabled) R.camera.clearViewOffset(); }
@@ -20727,7 +20885,7 @@ Object.assign(UI, {
   },
   frame(dt) {
     UI.viewOffset(dt);
-    { const now = performance.now(); if (now - (UI._idleChk || 0) > 500 && !OCHA.on) { UI.knowWatch((now - (UI._idleChk || now)) / 1000); UI._idleChk = now; UI.idleSit(); UI.benchStop(); UI.firstDayTips(); const vn = CAM.focusView && CAM.focus ? 'もどる' : CAM_VIEWS[camViewIndex()].n, el = $('#view-name'); if (el && el.textContent !== vn) el.textContent = vn; } }
+    { const now = performance.now(); if (now - (UI._idleChk || 0) > 500 && !OCHA.on) { UI.knowWatch((now - (UI._idleChk || now)) / 1000); UI._idleChk = now; if ($('#toasts').childElementCount && !sheetBelow()) UI.toastPlace(); UI.idleSit(); UI.benchStop(); UI.firstDayTips(); const vn = CAM.focusView && CAM.focus ? 'もどる' : CAM_VIEWS[camViewIndex()].n, el = $('#view-name'); if (el && el.textContent !== vn) el.textContent = vn; } }
     // 時間帯（朝・昼・夕方・夜）は、変わった時だけ書きかえる
     const tn = todName(SKY.t); if (tn !== UI._tod) { UI._tod = tn; const el = $('#t-tod'); if (el) el.textContent = tn; }
     // 写真のピント：タップするまでは、見ている中心（あなたのあたり）に合わせ続ける
@@ -20755,7 +20913,7 @@ Object.assign(UI, {
       // 「すぐそばの子だけ」（はじめから。0.9.35）：止まっている時は6m（パソコン8m）以内の3匹（パソコン5匹）まで、歩いている間は3.5m以内の1匹だけ。
       // 「まわりの子も」は、0.9.34 の出し方
       const lm = G.settings.labels || 'near', few = lm === 'near';
-      const P = ACT.player, narrow = window.innerWidth < 720, R = farView() ? 0 : few ? (P.moving ? 3.5 : narrow ? 6 : 8) : P.moving ? 5 : (narrow ? 9 : 13) + Math.max(0, CAM.dist - 8) * 0.3; // 歩いている間は、すぐそばの子だけ
+      const P = ACT.player, narrow = smallScreen(), R = farView() ? 0 : few ? (P.moving ? 3.5 : narrow ? 6 : 8) : P.moving ? 5 : (narrow ? 9 : 13) + Math.max(0, CAM.dist - 8) * 0.3; // 歩いている間は、すぐそばの子だけ
       const F = ACT.focus && performance.now() < ACT.focus.until ? ACT.focus.e : null, pe = UI._promptE;
       if (UI._annT !== G.turn + G.date) { UI._annT = G.turn + G.date; UI._ann = new Set(G.animals.filter((a) => yearsSince(a, G.date)).map((a) => a.id)); }
       const an = [];
@@ -24522,7 +24680,7 @@ Object.assign(UI, {
 /* ---------- 眺める（鑑賞のための見方。2026-10-23、Daiさんの依頼） ----------
    休んでいる時・座っている時に、カメラを好きな所へ動かして、文字を出さずに景色を眺める。「景色だけ」を、もう一歩すすめた形。
    入り方：休む画面の「眺める」、または右上の重なった紙のボタン（画面の表示）の「眺める」（その場に座ってから）
-   ・見る所（まんなか）を動かす：スマホは、画面の下のほうをなぞる（歩く時のスティック）か、2本の指でなぞる。
+   ・見る所（まんなか）を動かす：スマホは、画面の下のほう（横の画面では左側）をなぞる（歩く時のスティック）か、2本の指でなぞる。
      PC は WASD・矢印キー、右ドラッグ（または Shift を押しながらドラッグ）
    ・見回す：1本の指（ドラッグ）。PC は Q・Z でも。下へ引くと、空を見上げる（いつもと同じ）
    ・寄る・離れる：ピンチ、ホイール。PC は R・F でも
@@ -24532,7 +24690,7 @@ Object.assign(UI, {
      ボタンは、タップした時（PC はマウスを動かした時）だけ出て、少しすると消える。はじめの2回だけ、動かし方の短い案内を添える
    ・眺めを残す（3つまで）：残した眺めは、小さな絵で並び、押すと紙芝居をめくってその眺めへ。いっぱいの時は、いちばん前に残したものと入れかえる
    ・紙の窓（さえぎる物を透かす）は、休む時と同じ（見ている所のまわり2.6m）。カメラのすぐ前の透かしは、少し広く（2.5mまで。木の葉の中に入っても、葉でふさがらない）
-   ・スマホを横にしても見られる（眺める時だけ。いつもは縦。やめる時に横のままなら、いつもの「縦にもどすと、続きから」の紙）
+   ・スマホを横にしても見られる（2026-10-24 からは、眺める時だけでなく、いつでも横で遊べる）
    休んでいる時間は、そのまま続く（心の余裕も、休む時と同じように戻る）。
    カメラの側の作り：engine.js の CAM.nagame（見る所にぴったりついていく・寄る離れるの幅・紙の窓なし・2本指となぞる操作） */
 const NAGAME = { piv: new THREE.Vector3(), h: 0.9, vx: 0, vz: 0, fromMenu: false, ownZen: false, shown: false, max: 3, dmin: 1.2, dmax: 120 };
@@ -24618,10 +24776,9 @@ Object.assign(UI, {
       $('#rest-cap').classList.remove('on'); clearTimeout(UI._capA); clearTimeout(UI._capB);
       document.body.classList.add('nagame');
       if (!UI.zenOn) UI.zen(true);
-      try { const o = screen.orientation; if (o && o.unlock) o.unlock(); } catch (e) { /* できない端末 */ } // 眺める時だけ、横にしてもよい（main.js の landCheck も、眺める時は止めない）
       R0.nagame = true;
       const n = G.flags.nagameN = (G.flags.nagameN || 0) + 1;
-      $('#ng-help').textContent = n <= 2 ? (IS_TOUCH ? (stickOn() ? '1本の指で見回す・画面の下か2本の指でなぞると動く・ピンチで寄る・横にしても見られます' : '1本の指で見回す・2本の指でなぞると動く・ピンチで寄る・横にしても見られます') : 'ドラッグで見回す・WASD や矢印、右ドラッグで動く・ホイールで寄る') : '';
+      $('#ng-help').textContent = n <= 2 ? (IS_TOUCH ? (stickOn() ? `1本の指で見回す・${touchWide() ? '画面の左側' : '画面の下'}か2本の指でなぞると動く・ピンチで寄る` : '1本の指で見回す・2本の指でなぞると動く・ピンチで寄る') : 'ドラッグで見回す・WASD や矢印、右ドラッグで動く・ホイールで寄る') : '';
       UI.nagameViews();
       $('#nagame-ui').hidden = false;
       UI.nagamePoke(true, n <= 2 ? 7000 : 3500);
@@ -24648,8 +24805,6 @@ Object.assign(UI, {
     $('#nagame-ui').hidden = true; $('#nagame-ui').classList.remove('dim'); clearTimeout(UI._ngT);
     if (NAGAME.ownZen && UI.zenOn) UI.zen(false);
     NAGAME.ownZen = false; NAGAME.fromMenu = false;
-    if (STARTED) orientLock(); // 縦にもどす（できる端末だけ）。横のままなら、いつもの「縦にもどすと、続きから」の紙を、すぐに
-    landCheck();
   },
   // ボタンを出す（toggle：タップの時は、出ていれば隠す）。少しすると消える
   nagamePoke(show, ms) {
@@ -24770,7 +24925,6 @@ function viewSize() {
   return [Math.max(1, Math.round(w)), Math.max(1, Math.round(h))];
 }
 function resize() {
-  landCheck(); if (DEV.land) return; // スマホを横にしている間は、画面を組み直さない（0.9.83）
   const [w, h] = viewSize(); VIEW.w = w; VIEW.h = h;
   // 画面の大きさが 0 と扱われて、ゲームの画面（#app）の大きさが 0 になっている時は、測った大きさで直に置く（0.9.67）
   { const a = $('#app'); if (a) {
@@ -24783,10 +24937,11 @@ function resize() {
   R.camera.updateProjectionMatrix();
   if (CAM.shiftPx) camShift(CAM.shiftPx);
   if (CAM.overview) CAM.tDist = overviewDist();
+  shapeCheck();
 }
 const VIEW = { w: 0, h: 0, check: 0 };
 // 大きさが変わったのに知らせ（resize）が来ない時のために、ときどき確かめる
-function viewHeal(dt) { VIEW.check += dt; if (VIEW.check < 1) return; VIEW.check = 0; landCheck(); if (DEV.land) return; const [w, h] = viewSize(); if (w !== VIEW.w || h !== VIEW.h) resize(); }
+function viewHeal(dt) { VIEW.check += dt; if (VIEW.check < 1) return; VIEW.check = 0; const [w, h] = viewSize(); if (w !== VIEW.w || h !== VIEW.h) resize(); }
 /* ---------- 起動の足あと（0.9.66。GitHub 版だけ）----------
  * どこまで進んだかを、この端末に残す（harunire-boot）。途中で止まったり落ちたりしても、次に開いた時に、文書の頭（build.js の BOOT_REC）が見つけて
  * window.HARU_HOLD に入れる。その時は、重い準備の前に「とちゅうで止まったようです」の画面を出し、止まった所と画面の大きさを見せる */
@@ -24824,41 +24979,38 @@ function appRescue() {
 /* ---------- スマホで遊ぶ時（0.9.83。Daiさんの依頼） ----------
    ・遊んでいるあいだは、画面を消さない（Screen Wake Lock。Android の Chrome と、iPhone の Safari 16.4 から。ホーム画面から開いた時は iOS 18.4 から）
      画面が隠れると、端末が自動で外す。戻ってきた時と、さわった時に、もう一度たのむ
-   ・画面の向きは縦に（manifest の orientation と、できる端末では screen.orientation.lock。Android でホーム画面から開いた時など）
-     向きを固められない端末（iPhone の Safari など）で、スマホを横にした時は、ゲームの画面を作り直さずに、そのまま止めておき、
-     「縦にもどすと、続きから」と、紙を1枚かぶせる（横の画面に組み直す時に、動きが不安定になっていたため） */
-const DEV = { wake: null, wakeTry: 0, land: false };
+   ・画面の向きは、縦でも横でも（2026-10-24、Daiさん：iPhone Duo のように、横で遊ぶ人が増えるので）。
+     0.9.83 では、横にすると止めて「縦にもどすと、続きから」の紙をかぶせていた。今は、横の並べ方に組み直して、そのまま続ける
+     （画面の形は engine.js の isYoko など、並べ方は style.css の「横の画面」）。
+     向きが変わった時は turned()：置いていた指（スティック・見回し）を離し、何度かに分けて大きさを合わせなおす
+     （iPhone は、回りきるまでのあいだに、大きさが何度か変わるため。前に不安定だったのは、ここ） */
+const DEV = { wake: null, wakeTry: 0, shape: '' };
 async function wakeOn() {
   if (!STARTED || document.hidden || DEV.wake || !('wakeLock' in navigator)) return;
   const now = performance.now(); if (now - DEV.wakeTry < 5000) return; DEV.wakeTry = now;
   try { DEV.wake = await navigator.wakeLock.request('screen'); DEV.wake.addEventListener('release', () => { DEV.wake = null; }); } catch (e) { DEV.wake = null; }
 }
-function orientLock() { try { const o = screen.orientation; if (o && o.lock) o.lock('portrait').catch(() => {}); } catch (e) { /* できない端末 */ } }
-// スマホ（短いほうの辺が小さい、さわる画面）を、横にしているか
-function phoneLandscape() {
-  if (!IS_TOUCH) return false;
-  const w = window.innerWidth || screen.width, h = window.innerHeight || screen.height;
-  return w > h * 1.15 && Math.min(screen.width || w, screen.height || h) < 560;
+function turned() {
+  INPUT.pointers.clear(); INPUT.stick = null; INPUT.pinch = 0; INPUT.pc = null; INPUT.dragging = false; stickDraw();
+  [0, 150, 400, 900].forEach((ms) => setTimeout(resize, ms));
 }
-function landCheck() {
-  const on = phoneLandscape() && !CAM.nagame; // 眺める時だけは、横にしても止めずに、横の画面で（2026-10-23、Daiさん。nagame.js）
-  if (on === DEV.land) return;
-  DEV.land = on;
-  let el = document.getElementById('turn-veil');
-  if (on && !el) {
-    el = document.createElement('div'); el.id = 'turn-veil'; el.setAttribute('role', 'status');
-    el.innerHTML = '<div class="tv-card"><svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true"><rect x="15" y="5" width="18" height="34" rx="3.5" fill="none" stroke="currentColor" stroke-width="2.4"/><line x1="21" y1="34" x2="27" y2="34" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><p>このゲームは、縦の画面で遊びます。</p><p class="tv-s">スマホを縦にもどすと、続きから遊べます。</p></div>';
-    document.body.appendChild(el);
-  }
-  if (el) el.hidden = !on;
-  if (!on) setTimeout(resize, 120); // 縦にもどったら、大きさを合わせなおす
+// 画面の形（縦・横・広い）が変わった時に、形に合わせて置く物を、置きなおす
+function shapeCheck() {
+  const s = isYoko() ? 'yoko' : sheetBelow() ? 'tate' : 'wide';
+  if (s === DEV.shape) return;
+  const was = DEV.shape; DEV.shape = s; document.body.dataset.shape = s;
+  if (!was || typeof UI === 'undefined') return;
+  if (INPUT.stick || INPUT.pointers.size) turned();
+  if (UI.cur && UI.cur.name === 'avatar') UI.avatarCam();
+  if (UI.cur && UI.cur.name === 'settings') UI.render(); // 操作の説明（「左下の」「右上の」など）を、今の形の言葉に
+  UI.coachPlace(); UI.toastPlace(); UI.hintPlace(); UI.promptAboveTip();
 }
 function loadingGone() { const l = $('#loading'); if (!l) return; l.classList.add('gone'); setTimeout(() => { if (l.classList.contains('gone')) l.style.display = 'none'; }, 800); }
 function beginPlay() {
   UI._gN = undefined; UI._gSig = null;
   STARTED = true;
   homeCount(); // 遊んだ日を数える（GitHub 版だけ。ホーム画面の案内のため）
-  wakeOn(); orientLock(); // 遊んでいるあいだは画面を消さない・向きは縦に（0.9.83）
+  wakeOn(); // 遊んでいるあいだは画面を消さない（0.9.83）
   $('#start').hidden = true; $('#hud').hidden = false;
   ACT.player.m.root.visible = true;
   CAM.spin = false; CAM.overview = false; CAM.lock = false;
@@ -24982,7 +25134,8 @@ function bootGame() {
   initInput(canvas, (x, y) => { if (STARTED) UI.tap(x, y); });
   resize(); window.addEventListener('resize', resize);
   // iPhone のホーム画面から開いた時などに、あとから大きさが決まることがある（0.9.66）
-  window.addEventListener('orientationchange', () => setTimeout(resize, 300));
+  window.addEventListener('orientationchange', turned); // 縦⇔横（2026-10-24）
+  try { if (screen.orientation && screen.orientation.addEventListener) screen.orientation.addEventListener('change', turned); } catch (e) { /* できない端末 */ }
   window.addEventListener('pageshow', resize);
   if (window.visualViewport) window.visualViewport.addEventListener('resize', resize);
   [300, 1000, 2500].forEach((ms) => setTimeout(resize, ms));
@@ -24999,7 +25152,6 @@ function bootGame() {
   function frame(now) {
     const dt = Math.min(0.05, Math.max(0, (now - last) / 1000)); last = now; time += dt;
     viewHeal(dt);
-    if (DEV.land) return; // スマホを横にしている間は、止めておく（0.9.83。縦にもどすと、続きから）
     if (G) {
       if (STARTED) { if (OCHA.on) ochaFrame(dt); else updatePlayer(dt); } // ウェルカムセンターの中では、部屋の中を歩く（0.9.49）
       updateAnimals(dt, time); updatePeople(dt); updateDoors(dt); updateShelters(dt); updateWild(dt, time); snowFrame(dt); updateLittleLife(dt, time); updateTrain(dt);
