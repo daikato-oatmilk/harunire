@@ -1735,6 +1735,15 @@ body.coach-on #hint { opacity: 0 !important; pointer-events: none; } /* はじ�
 }
 /* 模型を画面いっぱいで見る時（ani3d・観察ノート）：横にした iPhone の、端のさわれない所をよける */
 #modal.o3-full .modal-card { padding-left: max(22px, calc(var(--safe-l) + 10px)); padding-right: max(22px, calc(var(--safe-r) + 10px)); }
+/* 日曜の朝の、あなたの体調（taicho.js。2026-10-27） */
+.taicho-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 6px; }
+.taicho-row .btn.on { background-color: var(--pine); background-image: var(--grain); color: var(--paper); border-color: var(--pine-d); }
+.taicho-say { margin-top: 6px; }
+/* はじまりの話（hajimari.js。2026-10-27） */
+.kami.michi .lead-s { margin: 4px 0; }
+.michi-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0 10px; }
+.michi-card { margin-top: 8px; }
+@media (orientation: landscape) and (max-height: 540px) { .kami.michi .kami-pic { width: auto; max-width: 100%; max-height: 36vh; margin: 0 auto; } }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -3255,14 +3264,15 @@ const QUESTS = []; // 今日のクエストの入れ物（2026-10-23。中身は
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.86', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.87', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
   aim: ['遊びやすいか、わかりにくい所はないか', 'スマホやパソコンで重くないか、止まらないか', '動物、お金、牛と酪農の話が、楽しく伝わるか'],
-  try: ['「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', 'スマホを横にして遊んでみる（左の親指でなぞって歩き、右の親指で見回す）', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
+  try: ['「はじめから」で、はじまりの話から始めてみる（見つけた鶏に名前をつけ、3週めに庭へ移るまで、会いに行く）', '「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', 'スマホを横にして遊んでみる（左の親指でなぞって歩き、右の親指で見回す）', '日曜の朝の「今朝のあなたは？」に答えて、休むと、まわりがどう見えてくるかを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.87', '2026年10月28日', '「はじめから」で遊ぶと、はじまりの話から始まるようになりました。ある日曜日の朝、道ばたで倒れていた白い鶏を見つけて、はるにれの丘へ相談に来ます（紙芝居はとばせます）。その子には、あなたが名前をつけます。警察に届けて、持ち主が見つかるまで丘で預かることになり、はじめの2週間は、家の西の小さな小屋で、みなみ先生に診てもらいながら過ごします。毎週、日曜の朝に、あなたの体調をたずねるようになりました（答えなくても大丈夫）。疲れている朝は、まわりが少しぼんやり見え、ひと息つくほど、また見えてきます。夜は、みなみ先生も家に入って休みます。窓に、先生の影が少しだけ映ります。'],
     ['0.9.86', '2026年10月24日', 'スマホを横にしても遊べるようになりました（iPhone Duo のように、横の画面で遊ぶ方のために）。横では、左の親指でなぞって歩き、右の親指でボタンやメニューを。メニューは右に2列、パネルは左に開き、景色が右に見えます。楽器は、左でコード・右で弦。はじめの画面も、横では2列に。'],
     ['0.9.85', '2026年10月24日', '「今日のクエスト」ができました。2週めの日曜日から、働く人のひとりが、毎週ひとつクエストを頼んでくれます（左上の札から）。できると「見つけたこと図鑑」（設定の「あなた」から）に、その子の名前と日付といっしょに、ページが加わります。できなくても、何も減りません。休んでいる時・座っている時に「眺める」ができるように。カメラを好きな所へ動かし、向きと近さも選んで、文字の出ない画面で景色を眺められます。気に入った眺めは、小さな絵で3つまで残せます（眺めている時は、スマホを横にしても）。「詳しく（大人の方へ）」を、どの画面でも同じ形にしました。目印は小さなしおりです。押した時だけ開き、自分から開くことはありません。設定に「学校モード」ができました（授業や教室で遊ぶ時に。とくに重い「詳しく」と、寄付のページへの案内をしまいます。ゲームのアドレスの最後に ?school をつけて開いても）。ちくわとがんものカードには、小さな前置きを添えました。はじめの画面の下に、はるにれの丘の日曜日を描いた絵巻を置きました（カードの「どんなところ？」から。絵は、丘の動物たちの模型で撮っています）。ほかに、長いスカートが歩いても座っても長いままに。木の葉が季節で変わるように（春は少し舞い、夏は茂り、秋はたくさん舞い、冬は葉を落とした木が増えます）。鶏たちは、採卵養鶏場から来た子らしい姿に（くちばしの先を切られた子も）。メニューの「動物」をいちばん前に。指やホイールで寄る・離れる時のズームを速く。'],
     ['0.9.84', '2026年10月23日', '写真に望遠レンズがつきました。ピンチか下のつまみで、いちばん16倍まで寄れます。寄っている時は、なぞるとカメラの向きだけが変わるので、虫や鳥をまんなかに入れて大きく撮れます。望遠で見ている間は、近づかなくても、いきもの記録と観察ノートに届きます。観察ノートの写真は、写っている大きさに合わせて切りぬき、前より大きく撮れた時に貼りかわります。動物のカードの絵を押すと、その子の模型が画面いっぱいに。指でまわしたり、近づいたりして、ゆっくり見られます。'],
@@ -10873,6 +10883,7 @@ function buildBase() {
   // ウェルカムセンター（段階2から。段階1は、家の前の「お知らせの板」。0.9.49。ochanoma.js）
   buildOchaOutside();
   buildBranch(); // 大雨の翌朝の桜の枝（0.9.55）
+  if (typeof buildMichiPen === 'function') buildMichiPen(); // はじまりの話の子を預かる、家の西の柵と小屋（段階1。hajimari.js）
   // 鶏の庭を眺める古いベンチ（はじめからある。ここでいつでもひと息つける）
   // 座った時のカメラはベンチの後ろ（西）に来るので、後ろには建物を置かない（木も生やさない：buildTrees）
   { const bx = 5.2, bz = 22, ry = benchFacing(bx, bz), bm = modelItem('bench'); place('base', bm, bx, bz, ry); W.benches.push({ sid: 'base-bench', x: bx, z: bz, ry, model: bm }); W.itemCircles['base-bench'] = itemCircles('bench', bx, bz, ry); }
@@ -13573,6 +13584,9 @@ function foxStep(e, dt) {
    ========================================================= */
 const ACT = { layer: null, player: null, animals: [], npcs: [], wild: [], extras: [] };
 const QUAR_RECT = [-46.5, -39.5, 38, 44.5];
+// 検疫の場所：ふだんは検疫小屋の柵。はじまりの話の子は、段階1なら家の西の柵（hajimari.js の MICHI_PEN）
+function quarRect(a) { const p = typeof michiPenFor === 'function' && michiPenFor(a); return p ? p.rect : QUAR_RECT; }
+function quarShelter(a) { const p = typeof michiPenFor === 'function' && michiPenFor(a); return p ? p.shelter : [-44.5, -41.5, 39.5, 42.5]; }
 const WATER_Y = -0.32;
 
 function initActors() { ACT.layer = new THREE.Group(); R.world.add(ACT.layer); }
@@ -13991,11 +14005,12 @@ function syncNPCs() {
   for (const n of ACT.npcs) ACT.layer.remove(n.m.root);
   ACT.npcs = [];
   for (const d of NPCS) {
-    if (G.stage < d.stage) continue;
-    if (d.id === 'minami' && !(G.stage >= 3 || G.flags.b08)) continue;
+    const vet1 = d.id === 'minami' && !(G.stage >= 3 || G.flags.b08) && typeof michiVetOn === 'function' && michiVetOn(); // はじまりの話の子を預かる2週間は、段階1でも（hajimari.js）
+    if (G.stage < d.stage && !vet1) continue;
+    if (d.id === 'minami' && !(G.stage >= 3 || G.flags.b08 || vet1)) continue;
     const m = modelPerson({ top: d.top, bottom: d.bottom, hair: d.hair, hat: d.hat, scarf: d.scarf });
     ACT.layer.add(m.root);
-    const home = npcHomeOk(d.id === 'haruko' && G.stage >= 2 ? [-2.5, 40] : d.home);
+    const home = npcHomeOk(d.id === 'haruko' && G.stage >= 2 ? [-2.5, 40] : vet1 ? michiVetHome() : d.home);
     ACT.npcs.push({ d, m, x: home[0], z: home[1], home, heading: 0, target: null, timer: rand(1, 4), phase: 0, kind: 'npc', name: d.name, reach: 2.6 });
   }
   // 迎えた職員さんとアルバイトさん
@@ -14031,10 +14046,12 @@ function syncNPCs() {
   const crowd = peopleCrowd();
   for (const e of ACT.extras) if (crowd <= e.stay) { e.away = true; e.m.root.visible = false; }
   WORK.away = []; WORK.turn = -1; // 働く人の当番とお休みは、次のコマで決め直す（work.js）
+  yoruReset(); // 夜に家の中にいた人は、そのまま中に（yoru.js）
 }
 function updatePeople(dt) {
   const P = ACT.player;
   workFrame(dt); // 働く人の毎日（work.js。0.9.59）
+  yoruFrame(dt); // 夜は、みなみ先生も家で休む（yoru.js）
   for (const n of ACT.npcs) {
     n.timer -= dt;
     const dP = Math.hypot(P.x - n.x, P.z - n.z);
@@ -14049,6 +14066,7 @@ function updatePeople(dt) {
         continue;
       }
     }
+    if (yoruTick(n, dt, dP)) continue; // 夜は家へ（yoru.js）
     if (workTick(n, dt, dP)) continue; // 今日の仕事をしている時は、その動き
     if (dP < 4.5) { n.target = null; const h = Math.atan2(P.x - n.x, P.z - n.z); let dh = h - n.heading; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); n.heading += dh * Math.min(1, dt * 5); }
     else if (!n.target && n.timer < 0) { n.target = walkTarget(n.home, 4, 3); n.timer = rand(3, 7); }
@@ -14281,7 +14299,7 @@ function penNear(e) {
 }
 function zoneRectFor(a) {
   if (commCat(a)) return catRange();
-  if (a.quarantine && G.turn < a.quarantine) return QUAR_RECT;
+  if (a.quarantine && G.turn < a.quarantine) return quarRect(a);
   if (roams(a)) return W.perimBox;
   if (a.zoneOverride && ZONE_UNION[a.zoneOverride] && G.stage >= 2) return ZONE_UNION[a.zoneOverride];
   const z = ZONES[a.zone]; if (!z) return [0, 1, 0, 1];
@@ -14297,7 +14315,7 @@ function inset(r, m) { const cx = (r[0] + r[1]) / 2, cz = (r[2] + r[3]) / 2; ret
 function animalAreas(a) {
   const m = bodyOf(a), areas = [], links = [], out = { areas, links, lane: -1 };
   if (commCat(a)) { out.roam = true; out.cat = true; out.open = null; areas.push(catRange()); return out; }
-  if (a.quarantine && G.turn < a.quarantine) { areas.push(inset(QUAR_RECT, 0.6)); return out; }
+  if (a.quarantine && G.turn < a.quarantine) { areas.push(inset(quarRect(a), 0.6)); return out; }
   if (roams(a)) { out.roam = true; out.open = ROAM.has(a.sp) ? null : a.zone; areas.push(W.perimBox); return out; }
   const r = zoneRectFor(a);
   if (a.zoneOverride === 'cowgoat' && G.stage >= 2 && W.passage) {
@@ -14358,7 +14376,7 @@ function animalRoute0(e, target) {
 }
 function shelterFor(a) {
   if (commCat(a)) return [CAT_HOUSE[0] - 1.1, CAT_HOUSE[0] + 1.1, CAT_HOUSE[1] - 0.6, CAT_HOUSE[1] + 1.6];
-  if (a.quarantine && G.turn < a.quarantine) return [-44.5, -41.5, 39.5, 42.5];
+  if (a.quarantine && G.turn < a.quarantine) return quarShelter(a);
   const z = ZONES[a.zone]; return z ? z.shelter : [0, 1, 0, 1];
 }
 /* ---------- 地域猫（0.9.31）：家のまわりで、のんびり。鶏の庭や、ほかの子の区画には入らない ----------
@@ -14699,7 +14717,7 @@ function animalThink(e) {
   if (!quar && T.sun && WS.weather === 'sunny' && SKY.night < 0.3 && roll < 0.2) { e.state = 'bask'; e.target = null; e.timer = rand(10, 20); return; }
   // しゃがんで待っていると、小さな子は寄ってきやすい（人見知りの子も、少しだけ。0.9.45）
   const low = P.crouch && CROUCH_SP.has(sp) && dP < 9;
-  const near0 = pers === 'あまえんぼう' ? 16 : 12, appChance = 0.4 + T.cur * 0.3 + (pers === 'あまえんぼう' ? 0.25 : 0) + (low ? 0.25 : 0) + (day1 && a.key !== 'azuki' ? 0.35 : 0);
+  const near0 = pers === 'あまえんぼう' || a.mine ? 16 : 12, appChance = 0.4 + T.cur * 0.3 + (pers === 'あまえんぼう' ? 0.25 : 0) + (low ? 0.25 : 0) + (day1 && a.key !== 'azuki' ? 0.35 : 0) + (a.mine ? 0.3 : 0); // a.mine：あなたが見つけた子は、寄ってきやすい（hajimari.js）
   if (dP < near0 && a.trust >= need - (low ? 1 : 0) && roll < appChance && (roam ? pointInOutline(W.perimIn, P.x, P.z) : inRect(P.x, P.z, [r[0] - 3, r[1] + 3, r[2] - 3, r[3] + 3]))) {
     e.target = [clamp(P.x, r[0] + 0.6, r[1] - 0.6), clamp(P.z, r[2] + 0.6, r[3] - 0.6)]; e.state = 'toPlayer'; e.timer = rand(6, 10);
     // ゆっくり近づいてくる子は、近づくたびに、少しずつ距離を縮める。人見知りの子は、少し間をあける
@@ -17928,6 +17946,7 @@ function startDay(first) {
     const r = genRequest('chicken'); r.intro = `近所の採卵養鶏場が閉じます。鶏${r.members.length}羽の相談です。`; r.left = 3; G.requests.push(r); G.lastReqTurn = G.turn;
     G.overnight.push({ cat: 'news', text: `受け入れの相談：${r.intro}`, req: r.id });
   }
+  if (typeof michiDay === 'function') michiDay(first); // はじまりの話の子の、預かりと、そのあと（hajimari.js）
   dailyRealities(first);
   if (first || G.turn % 4 === 1) { logMonth(first ? null : G.monthRec); G.monthRec = null; }
   // 行事
@@ -18242,7 +18261,7 @@ const GAME = {
     G = newState(mode);
     if (prev) for (const k of ['sound', 'vol', 'lite', 'paper', 'autoSit', 'breath', 'labels', 'beh', 'ctl', 'camFollow', 'hud', 'textSize']) if (prev[k] !== undefined) G.settings[k] = prev[k];
     if (mode === 'hakoniwa') setupHakoniwa();
-    else { ROSTER.filter((r) => r.group === 'chk1').forEach((r) => { const a = makeAnimal(r, true); a.trust = 1; G.animals.push(a); }); G.doneGroups.chk1 = true; addCats(true); G.cards.suburb = 1; setBaseSupport(); initMoney(true); }
+    else { ROSTER.filter((r) => r.group === 'chk1').forEach((r) => { const a = makeAnimal(r, true); a.trust = 1; G.animals.push(a); }); G.doneGroups.chk1 = true; michiAdd(); addCats(true); G.cards.suburb = 1; setBaseSupport(); initMoney(true); }
     // 見た目（0.9.46）：前の続きの見た目があれば、それを。なければおまかせで始めて、あとで選べる。「見た目を選んでから」の時だけ、はじめに選ぶ
     if (UI.pendingAvatar) { G.avatar = Object.assign({}, AVATAR_DEFAULT, UI.pendingAvatar); G.avatarChosen = true; }
     else if (UI.avChoose && mode === 'normal') G.avatarChosen = false;
@@ -18533,7 +18552,8 @@ const YOYU = { costMul: 1.5, costBase: 2, weekly: 16, full: 60, low: 10, min: 0.
 // 見え方：1 ＝ よく見える。心の余裕が 60 以上で 1、10 以下で 0.15。箱庭モードは、いつも 1
 function yoyuSight() {
   if (!G || (typeof hako === 'function' && hako())) return 1;
-  return clamp((G.yoyu - YOYU.low) / (YOYU.full - YOYU.low), 0, 1) * (1 - YOYU.min) + YOYU.min;
+  const k = clamp((G.yoyu - YOYU.low) / (YOYU.full - YOYU.low), 0, 1) * (1 - YOYU.min) + YOYU.min;
+  return typeof taichoSight === 'function' ? Math.min(k, taichoSight()) : k; // 日曜の朝の、あなたの体調（taicho.js）
 }
 // 行動で減る心の余裕
 function yoyuSpend(base) { return Math.round((base || 0) * YOYU.costMul) + YOYU.costBase; }
@@ -18552,6 +18572,7 @@ function yoyuBeh() { const k = yoyuSight(); return { reach: 0.5 + 0.5 * k, gap: 
 const SIGHT = { v: 0, shown: -1, wasLow: null, el: null };
 function sightFrame(dt) {
   if (!G) return;
+  if (typeof taichoFrame === 'function') taichoFrame(dt); // 体調のかすみは、休むほど晴れる（taicho.js）
   const el = SIGHT.el || (SIGHT.el = document.getElementById('yoyu-veil')); if (!el) return;
   const k = STARTED ? yoyuSight() : 1, tgt = (1 - k) / (1 - YOYU.min) * 0.9;
   SIGHT.v += (tgt - SIGHT.v) * Math.min(1, dt * 1.2);
@@ -19195,6 +19216,7 @@ const UI = {
     const a = b.dataset.act, v = b.dataset.v, id = b.dataset.id;
     const find = (x) => G.animals.find((q) => String(q.id) === String(x));
     if (a.startsWith('q-') && UI.questAct && UI.questAct(a, v, id)) return; // 今日のクエストと図鑑（quest.js）
+    if (UI.extAct && UI.extAct[a]) { UI.extAct[a](v, id, b); return; } // 新しいファイルのボタン（hajimari.js・taicho.js）
     switch (a) {
       case 'tab': UI.tab[UI.cur.name] = v; UI.render(true); break;
       case 'run': {
@@ -19635,6 +19657,7 @@ Object.assign(UI, {
       let st = '<ul class="stories">';
       a.stories.forEach((s2, i) => { st += i < a.known ? `<li>${esc(s2)}</li>` : `<li class="locked">まだ知らない話があります。${i === a.known ? 'もう少し仲良くなったら、話してくれそうです。見学ツアーで聞けることもあります' : ''}</li>`; });
       st += '</ul>';
+      if (a.mine && typeof michiCardHtml === 'function') st += michiCardHtml(a); // はじまりの話・名前を変える（hajimari.js）
       h += fold('story', 'i-book', '物語', `${Math.min(a.known, a.stories.length)} / ${a.stories.length}`, st);
       // その子の「はじめて」と、来る前の暮らし（0.9.53）
       { const F = a.firsts || [];
@@ -19848,6 +19871,7 @@ Object.assign(UI, {
       const wl = !first && UI.welcome;
       if (wl) h += `<div class="sec welcome">${UI.morningResume ? '' : '<h3>おかえりなさい</h3>'}${wl.map((t) => `<p class="lead-s">${spx(esc(t))}</p>`).join('')}</div>`;
       if (UI.morningResume) return { title: `${fmtDate(p.date)}　おかえりなさい`, html: h + '<div class="sticky-foot btn-row"><button class="btn primary" data-act="morning-go">続きから</button></div>', keepScroll: false };
+      if (typeof taichoHtml === 'function') h += taichoHtml(); // 今朝のあなたは？（taicho.js。2026-10-27）
       if (first && G.mode === 'normal') h += `<div class="sec"><ul class="howto"><li>${ico('i-clock')}<span>日曜日ごとに通います。1日にできることは4つ。使いきったら「今日はここまで」で来週の日曜日へ。また4つに戻ります</span></li><li>${ico('i-paw')}<span>動物をタップすると、そばへ行ってなでます。近づくと、名前と物語がわかります</span></li><li>${ico('i-rest')}<span>何もしなくても大丈夫。眺めているだけ、ベンチに座っているだけ、ウクレレを弾いているだけの日曜日も、ここでは大切な一日です</span></li></ul>
         <details class="more"><summary>くわしく</summary><p class="lead-s">寄付をしたり、掃除を手伝ったりするたびに、サンクチュアリは少しずつ育ちます。動物たちが過ごしやすくなった時（好きな物、季節の備え、ゆったりした広さなど）も育ちます。どんな支え方が多かったかで、増えていくものが変わります。「動物」の画面の「この丘の、これから」で、先の景色を見られます。</p><p class="lead-s">人見知りの子も、通ううちに自分から近づいてきます。受け入れの相談が来たら、土地と人手、設備、毎月のお金を確かめて決めます。</p></details></div>`;
       if (first && G.mode === 'hakoniwa') h += `<div class="sec"><p class="lead-s">世界がすっかり良くなった姿です。ここでは、いくらでも動けて、心の余裕も尽きません。失敗もありません。季節と行事は、日付の札から自由に変えられます。</p><p class="lead-s">動物への配慮は、ここでも変わりません。花火は置けず、イチイやヤドリギも飾れません。</p></div>`;
@@ -20251,6 +20275,7 @@ Object.assign(UI, {
   /* ---------- 朝と夕方 ---------- */
   morning(page, first, cb) {
     if (first && !G.avatarChosen) { UI.openSheet('avatar', { then: () => UI.morning(page, first, cb) }); return; }
+    if (first && typeof michiPending === 'function' && michiPending()) { michiStart(() => UI.morning(page, first, cb)); return; } // はじまりの話（hajimari.js）
     UI.morningFirst = first;
     UI.openSheet('morning', page);
     UI.onClose = () => {
@@ -20477,7 +20502,7 @@ Object.assign(UI, {
       if (G.events.includes('christmas')) GAME.unlockCard('yew', true);
       if (G.events.includes('natsumatsuri')) GAME.unlockCard('fireworks', true);
     } else if (id === 'yuto') { GAME.unlockCard('dailyCare', true); if (G.season === 'summer') GAME.unlockCard('pigHeat', true); }
-    else if (id === 'minami') { GAME.unlockCard('elderCare', true); GAME.unlockCard('quarantine', true); }
+    else if (id === 'minami') { GAME.unlockCard('elderCare', true); GAME.unlockCard('quarantine', true); { const t = typeof michiVetLine === 'function' && michiVetLine(); if (t) func = { k: 'michi', t, btn: '' }; } } // 預かりの間のひと言（hajimari.js）
     else if (id === 'akira') { GAME.unlockCard('noPesticide', true); GAME.unlockCard('drone', true); }
     const fs = G.funcSaid || (G.funcSaid = {}), fk = id + ':' + (func && func.k);
     // 言葉の行（said は「名前の絵つきの言葉」を作る関数なので、ここでは別の名前に）
@@ -23940,6 +23965,440 @@ const KAMI_DIO = {
     for (const [x, z, c] of [[-1.6, 0.9, '#D8693A'], [1.6, 0.8, '#E59A3A'], [-0.7, 1.4, '#E5B03A'], [1.1, 1.5, '#D8693A']]) { const l = D.sph(c, 0.34, 0.03, 0.2, x, 0.02, z, true); l.rotation.y = x; }
   } },
 };
+/* =========================================================
+   はじまりの話（2026-10-27、Daiさん）
+   ---------------------------------------------------------
+   ・はじめから遊ぶ時だけ（箱庭モードにはない）。朝の知らせの前に、紙芝居を3枚と、名前を決める1枚
+   ・ある日曜日の朝、道ばたで倒れていた白い鶏を見つけてしまう。どうしようと調べたら、はるにれの丘があった。相談に来た
+   ・どの絵でも「とばす」で、名前を決める所へ（名前は、はじめから入っている。そのまま決めてもよい）。画面を閉じても先へ進む
+   ・その子（a.mine）だけは、はじめから「なかよし度」がハート3つ（trust 6）。名前は、あなたがつける
+     あとからでも、その子のカードの「物語」で、名前を変えたり、この話を読み返したりできる
+   ・その子は、あなたのそばに寄ってきやすい（actors.js の appChance に a.mine）
+   ・その子のこれから（2026-10-27、Daiさん）：警察に届けて、持ち主が見つかるまで、はるにれの丘で預かる。
+     はじめの2週間は、家の西の小さな柵と小屋で、ほかの鶏と離れて過ごす（a.quarantine。段階1の検疫の柵は MICHI_PEN）。
+     そのあいだの日曜日は、みなみ先生が診に来る（段階1でも。夜は家で休む：yoru.js）。3週めに、鶏の庭の仲間に。
+     ひと月たった日曜日（5週め）に、持ち主が見つかり、このまま、ここで暮らしていいことになる（朝の知らせ・物語の4つめ）
+     遺失物法：逃げ出した家畜は「準遺失物」。見つけた人は、すぐ持ち主に返すか、警察署に届ける（第4条）
+   ・絵は、紙芝居と同じく、ゲームの模型を貼り絵の加工で撮る（kamie.js の dioKit・dioShot）。あなたの服と髪は、あなたの見た目
+   ・子どもにも読める言葉で。くちばしの先が短いことは、そのままの現実として書く（約束8。採卵の鶏の多くは、ひなの時に処置を受ける）
+   ========================================================= */
+const MICHI = { quarWeeks: 2, ownerWeeks: 4, def: 'しらたま', names: ['しらたま', 'おもち', 'ゆき', 'こめ'], art: {}, i: 0, mode: 'story', keyOn: false };
+const MICHI_HARUKO = { top: '#8C79A8', bottom: '#4A5560', hair: '#A8A5A0', scarf: '#D6735A' };
+const MICHI_PAGES = [
+  { pic: 'michi-road', t: 'ある日曜日の朝',
+    b: ['道ばたで、白い鶏が倒れていました。', 'そっと近づくと、小さく目をあけました。羽が少なくて、少しふるえています。'] },
+  { pic: 'michi-phone', t: 'どうしよう',
+    b: ['このままには、しておけません。タオルを敷いた箱に、そっと入れました。', '近くに、相談できる所はないかな。調べてみると、「はるにれの丘」という場所が見つかりました。行き場のなかった動物たちが、のんびり暮らしている所（サンクチュアリ）です。'] },
+  { pic: 'michi-gate', t: 'はるにれの丘',
+    b: ['はるにれの丘では、はるこさんが迎えてくれました。'],
+    said: ['よく連れてきてくれたわね。くちばしの先が、少し短いでしょう。卵をとる農場にいた子だと思うの', 'まずは、警察に届けましょうね。逃げてきた子でも、どこかに持ち主がいるから。見つかるまでは、ここで預かれるように話してみるわ'] },
+  { pic: 'michi-vet', t: 'しばらく、ここで預かる',
+    b: ['警察に届けると、持ち主が見つかるまで、はるにれの丘で預かることになりました。', 'はじめの2週間は、ほかの鶏たちと離れた、小さな小屋で過ごします。外から来た子が、病気をうつしたり、もらったりしないように。獣医のみなみ先生が、そっと診てくれました。'],
+    said: ['体は軽いけれど、目はしっかりしています。羽も、ちゃんと食べれば、また生えてきますよ', '日曜日には、私も診に来ますね。あなたも、会いに来てあげてください'] },
+];
+// 物語：預かっている間・庭の仲間になってから・持ち主が見つかってから、で少しずつ変わる
+function michiStories(n, a) {
+  const quar = !!(a && a.quarantine && G && G.turn < a.quarantine), found = !!(G && G.flags.michiOwner);
+  const L = [`${n}は、日曜日の朝、道ばたで倒れていたところを、あなたが見つけました。`,
+    'くちばしの先が短いので、卵をとる農場にいた子だろうと、はるこさんは言います。警察に届けて、持ち主が見つかるまで、ここで預かることになりました。',
+    quar ? 'はじめの2週間は、ほかの鶏たちと離れた小屋で過ごします。みなみ先生が、日曜日に診に来てくれます。' : 'はじめの2週間は、ほかの鶏たちと離れた小屋で過ごしました。みなみ先生が、日曜日ごとに診に来てくれました。'];
+  if (found) L.push(`ひと月ほどたって、持ち主が見つかりました。はるこさんが話して、${n}は、このまま、ここで暮らしていいことになりました。`);
+  return L;
+}
+// あなたが見つけた子
+function michiHen() { return (G && G.animals.find((a) => a.mine)) || null; }
+// はじめから遊ぶ時に、鶏の庭へ（GAME.newGame から）
+function michiAdd() {
+  if (!G || G.mode !== 'normal' || michiHen()) return;
+  const name = MICHI.def;
+  const r = { key: 'michi', sp: 'chicken', beak: 'trim', name, color: 'white', personality: 'おだやか', likes: ['dustbath', 'perch'], dislikes: [], age: 2, ageText: '2歳くらい',
+    arrived: G.date, origin: '道ばたで倒れていたところを、あなたが見つけた（採卵の農場にいたらしい）', health: '羽が少なめ。少しずつ生えてきています', stories: [] };
+  const a = makeAnimal(r, true); a.trust = 6; a.known = 2; a.mine = true; a.michiT = G.turn;
+  a.quarantine = G.turn + MICHI.quarWeeks; // 2週間は、ほかの鶏と離れて（3週めの朝に、庭の仲間に）
+  a.stories = michiStories(name, a);
+  G.animals.push(a); G.flags.michi = 'story';
+}
+function michiPending() { return !!G && G.mode === 'normal' && G.flags.michi === 'story' && !!michiHen(); }
+// 名前（8文字まで。空なら、そのまま）
+function michiClean(v) { return String(v || '').replace(/[\u0000-\u001f<>]/g, '').replace(/\s+/g, ' ').trim().slice(0, 8); }
+function michiName(v) {
+  const a = michiHen(), n = michiClean(v); if (!a || !n) return false;
+  a.name = n; a.stories = michiStories(n, a); GAME.save(); return true;
+}
+// 朝の知らせの前に（ui-views.js の morning から）
+function michiStart(then) {
+  MICHI.mode = 'story'; MICHI.i = 0;
+  UI.openSheet('michi');
+  UI.onClose = () => { if (G && G.flags.michi === 'story') { G.flags.michi = 'done'; GAME.save(); } if (then) then(); };
+}
+// その子のカードの「物語」に
+function michiCardHtml(a) {
+  if (!a || !a.mine) return '';
+  return '<div class="btn-row michi-card"><button class="btn small ghost" data-act="michi" data-v="reread">はじまりの話を読む</button><button class="btn small ghost" data-act="michi" data-v="rename">名前を変える</button></div>';
+}
+
+/* ---------- 紙芝居の絵（ゲームの模型で撮る） ---------- */
+// 鶏は、どの子もくちばしの処置を受けた子（はじめの3羽も、この子も）
+function michiHenModel(D, col, x, z, ry, s) { const m = modelAnimal('chicken', col, { beak: 'trim' }); if (s) m.root.scale.setScalar(s); m.root.position.set(x, 0, z); m.root.rotation.y = ry || 0; D.sc.add(m.root); return m; }
+// 腕を前に出した時の手の場所（modelPerson：肩は ±0.34・1.4、手は肩から 0.55）
+function michiHand(x, z, ry, side, rx) { const lx = side * 0.34, ly = 1.4 - 0.55 * Math.cos(rx), lz = -0.55 * Math.sin(rx); return [x + lx * Math.cos(ry) + lz * Math.sin(ry), ly, z - lx * Math.sin(ry) + lz * Math.cos(ry)]; }
+// タオルを敷いた段ボール箱
+function michiBox(D, x, y, z, ry, s) {
+  const g = new THREE.Group(); g.position.set(x, y, z); g.rotation.y = ry || 0; g.scale.setScalar(s || 1); D.sc.add(g);
+  const C = '#C9A06A', CD = '#B38A55';
+  part('box', CD, 0.7, 0.04, 0.5, 0, 0.02, 0, g);
+  part('box', C, 0.7, 0.32, 0.03, 0, 0.16, 0.24, g); part('box', C, 0.7, 0.32, 0.03, 0, 0.16, -0.24, g);
+  part('box', CD, 0.03, 0.32, 0.5, 0.34, 0.16, 0, g); part('box', CD, 0.03, 0.32, 0.5, -0.34, 0.16, 0, g);
+  for (const [px, pz, rx, rz, w, d] of [[0, 0.33, 0.9, 0, 0.7, 0.18], [0, -0.33, -0.9, 0, 0.7, 0.18]]) { const f = part('box', C, w, 0.02, d, px, 0.33, pz, g); f.rotation.set(rx, 0, rz); }
+  part('box', '#F2EEE6', 0.64, 0.05, 0.44, 0, 0.07, 0, g);
+  return g;
+}
+// 道（アスファルト・白線・縁石）と、電柱と生け垣（東京の郊外の道ばた）
+function michiRoad(D, z0) {
+  D.box('#8F8B85', 18, 0.02, 3, 0, 0.01, z0 - 1.5); D.box('#EDEBE4', 18, 0.025, 0.1, 0, 0.02, z0 - 0.3);
+  D.box('#C2BDB2', 18, 0.1, 0.2, 0, 0.05, z0 + 0.1);
+  D.cyl('#A29C94', 0.13, 4.6, 0.13, 3.9, 2.3, z0 - 3.4); D.box('#8A847C', 1.2, 0.08, 0.08, 3.9, 4.3, z0 - 3.4);
+  D.sph('#6E9A50', 2.6, 1.0, 0.9, -4.6, 0.5, z0 - 3.9); D.sph('#7FA65A', 2.0, 0.8, 0.8, -1.8, 0.4, z0 - 4.1);
+}
+const MICHI_DIO = {
+  // 道ばたで、白い鶏が倒れていた
+  'michi-road': { sky: ['#F6E7CC', '#FAF3E4'], cam: [[0.5, 1.45, 6.1], [-0.2, 0.5, 0.4]], build(D, av) {
+    D.ground('#AFC48A'); D.hills(['#C9D69A', '#B5C887', '#A2BA76']); michiRoad(D, 0);
+    const h = michiHenModel(D, 'white', 0.15, 0.75, 0.9, 1.35); D.henSit(h); h.root.rotation.z = 0.16; if (h.head) h.head.rotation.x = 0.35;
+    const m = D.person(av, -1.45, 1.0, Math.PI / 2 - 0.75); D.pose(m, 'crouch');
+    D.tuft(1.4, 1.3); D.tuft(-2.6, 1.7); D.tuft(2.6, 1.1); D.tuft(-0.4, 1.9);
+  } },
+  // どうしよう：箱に入れて、調べる
+  'michi-phone': { sky: ['#F6E7CC', '#FAF3E4'], cam: [[0.4, 1.55, 5.9], [0.1, 0.95, 0]], build(D, av) {
+    D.ground('#AFC48A'); D.hills(['#C9D69A', '#B5C887', '#A2BA76']); michiRoad(D, -1.2);
+    michiBox(D, 0.95, 0, 0.45, -0.3, 1);
+    const h = michiHenModel(D, 'white', 0.95, 0.45, -0.6, 1.0); D.henSit(h); h.root.position.y += 0.08;
+    const x = -0.45, z = 0.35, ry = 0.35, m = D.person(av, x, z, ry);
+    const rx = -1.15; m.arms[0].rotation.set(rx, 0.3, 0.05); m.arms[1].rotation.set(0.05, 0, -0.05); if (m.head) m.head.rotation.x = 0.25;
+    const [hx, hy, hz] = michiHand(x, z, ry, -1, rx); const ph = D.box('#3E4650', 0.09, 0.15, 0.02, hx + 0.08, hy + 0.08, hz); ph.rotation.set(-0.5, ry, 0);
+    D.tuft(2.2, 1.2); D.tuft(-2.4, 1.4);
+  }, over(K, P) { const [x, y] = P(0.15, 2.05, 0.4); K.text(x, y, '?', 34, '#6B7FA6'); } },
+  // はるにれの丘で、はるこさんが迎えてくれた
+  'michi-gate': { cam: [[0.3, 1.8, 7.4], [0.1, 1.0, -0.4]], build(D, av) {
+    D.ground(); D.hills(); D.trees([['elm', -5.6, -5.5, 1.1]]);
+    const hs = gable({ w: 5.4, d: 3.6, h: 2.5, rh: 1.7, wall: '#E6E0D2', roof: '#4A5360', trim: '#8A7A6A' }); hs.position.set(-0.4, 0, -4.2); D.sc.add(hs);
+    windowAt(hs, -1.6, 1.7, 1.82, 1.0, 0.8); windowAt(hs, 1.6, 1.7, 1.82, 1.0, 0.8); doorAt(hs, 0, 1.82, 0.9, 1.7, '#6B4E36');
+    const hr = D.person(MICHI_HARUKO, -1.3, 0.5, Math.PI / 2 - 0.35); D.pose(hr, 'reach');
+    const x = 1.15, z = 0.7, ry = -Math.PI / 2 + 0.3, m = D.person(av, x, z, ry); D.pose(m, 'carry');
+    const fx = Math.sin(ry) * 0.5, fz = Math.cos(ry) * 0.5;
+    michiBox(D, x + fx, 0.72, z + fz, ry, 0.62);
+    const h = michiHenModel(D, 'white', x + fx, z + fz, ry + 0.8, 0.72); D.henSit(h); h.root.position.y += 0.77;
+    michiHenModel(D, 'buff', -3.2, -1.2, 0.5, 1.15); michiHenModel(D, 'red', -2.4, -1.9, -0.3, 1.1); michiHenModel(D, 'speckled', -3.9, -2.0, 0.9, 1.05);
+    [[-4.4, 1.6, '#F49AB0'], [2.9, 1.8, '#F7D04A'], [3.6, 0.9, '#B9A3E3']].forEach(([fx2, fz2, c]) => D.flower(fx2, fz2, c));
+  }, over(K, P) { K.heart(...P(-0.1, 2.2, 0.6), 1, '#F27D8C'); } },
+  // しばらく、ここで預かる：小さな柵と小屋で、みなみ先生が診る
+  'michi-vet': { sky: ['#E6EEF2', '#F7F3E6'], cam: [[0.3, 1.35, 5.2], [0.1, 0.6, 0]], build(D, av) {
+    D.ground(); D.hills(); D.trees([['birch', 4.8, -5.2, 0.9]]);
+    const hut = modelSmallHut('#E9E2D2', '#6A7A80', 1.5, 1.1, 0.95); hut.position.set(1.7, 0, -1.0); hut.rotation.y = -0.35; D.sc.add(hut);
+    for (let k = 0; k <= 6; k++) { const x = -2.4 + k * 0.85; D.box('#9C7A56', 0.06, 0.7, 0.06, x, 0.35, -1.9); }
+    for (const y of [0.22, 0.45, 0.66]) D.box('#9A9A96', 5.1, 0.02, 0.02, 0.15, y, -1.9);
+    D.cyl('#B9C3C8', 0.32, 0.08, 0.32, 0.9, 0.04, 0.6); D.cyl('#8FC1DA', 0.26, 0.02, 0.26, 0.9, 0.08, 0.6);
+    const h = michiHenModel(D, 'white', 0.2, 0.2, -0.5, 1.3);
+    const v = D.person({ top: '#EEF0EA', bottom: '#5A6A78', hair: '#3A2E28' }, -1.25, 0.45, Math.PI / 2 - 0.35); D.pose(v, 'crouch');
+    D.tuft(2.4, 1.2); D.tuft(-2.6, 1.3);
+  }, over(K, P) { K.heart(...P(0.2, 1.25, 0.2), 0.9, '#F27D8C'); } },
+  // この子の名前
+  'michi-name': { cam: [[0.2, 1.15, 4.6], [0, 0.55, 0]], build(D, av) {
+    D.ground('#B9C98E'); D.hills(); D.trees([['elm', 4.5, -5, 1]]);
+    const n = part('cyl12', '#E8C873', 1.3, 0.05, 1.0, 0.55, 0.025, 0.1, D.sc); n.receiveShadow = true;
+    michiHenModel(D, 'white', 0.6, 0.1, -0.75, 1.35);
+    const m = D.person(av, -1.35, 0.2, Math.PI / 2 - 0.55); D.pose(m, 'crouch');
+    michiHenModel(D, 'buff', 2.4, -1.6, -0.6, 1.1); michiHenModel(D, 'speckled', 3.1, -0.9, -1.1, 1.05);
+    D.tuft(1.6, 1.0); D.tuft(-2.4, 1.2);
+  }, over(K, P) { K.heart(...P(-0.35, 1.35, 0.15), 1.1, '#F27D8C'); } },
+};
+function michiPic(id) {
+  const av = G && G.avatar ? JSON.stringify(G.avatar) : '', key = id + '|' + av;
+  let u = MICHI.art[key];
+  if (!u) {
+    const S = MICHI_DIO[id], col = avatarColors(G && G.avatar);
+    try { u = S ? dioShot({ sky: S.sky, cam: S.cam, fov: S.fov, over: S.over, build: (D, cam) => S.build(D, col, cam) }) : null; } catch (e) { logErr(e, 'michi ' + id); u = null; }
+    if (!u) u = kamiArt('near'); // 撮れない時は、紙芝居の「近づくのは、動物たちから」で
+    MICHI.art[key] = u;
+  }
+  return `<div class="kami-stage"><img class="kami-pic" src="${u}" alt="紙芝居の絵"></div>`;
+}
+
+/* ---------- 画面 ---------- */
+function michiKeys() {
+  if (MICHI.keyOn) return; MICHI.keyOn = true;
+  $('#sheet').addEventListener('keydown', (e) => { if (e.target && e.target.id === 'michi-name' && e.key === 'Enter' && !e.isComposing) { e.preventDefault(); const b = document.querySelector('[data-act="michi"][data-v="name"]'); if (b) b.click(); } });
+}
+Object.assign(UI.views, {
+  michi() {
+    const M = MICHI, a = michiHen(), N = MICHI_PAGES.length, story = M.mode === 'story';
+    if (M.mode !== 'reread' && M.i >= N) {
+      michiKeys();
+      const cur = a ? a.name : M.def;
+      let h = `<div class="kami michi">${michiPic('michi-name')}${story ? `<p class="kami-n">${N + 1} / ${N + 1}</p>` : ''}<h3 class="kami-t">この子の名前</h3>`;
+      h += `<p class="said">${story ? 'この子に、名前をつけてあげてください。' : '新しい名前を、決めてください。'}</p>`;
+      h += `<div class="name-row"><input id="michi-name" type="text" maxlength="8" value="${esc(cur)}" aria-label="この子の名前" autocomplete="off"></div>`;
+      h += `<div class="michi-chips">${M.names.map((n) => `<button class="btn small ghost" data-act="michi" data-v="pick" data-id="${esc(n)}">${esc(n)}</button>`).join('')}</div>`;
+      h += `<div class="sticky-foot btn-row">${story ? '' : '<button class="btn small" data-act="michi" data-v="end">もどる</button>'}<button class="btn primary" data-act="michi" data-v="name">この名前にする</button></div>`;
+      if (story) h += '<p class="muted">あとからでも、この子のカードの「物語」で変えられます。</p>';
+      return { title: story ? 'はじまりの話' : 'この子の名前', html: h + '</div>', keepScroll: false };
+    }
+    const i = clamp(M.i, 0, N - 1), p = MICHI_PAGES[i], last = i === N - 1;
+    let h = `<div class="kami michi">${michiPic(p.pic)}<p class="kami-n">${i + 1} / ${N + (story ? 1 : 0)}</p><h3 class="kami-t">${esc(p.t)}</h3>`;
+    h += p.b.map((t) => `<p class="lead-s">${esc(t)}</p>`).join('');
+    if (p.said) h += `<p class="said">${p.said.map((t) => `「${esc(t)}」`).join('<br>')}</p>`;
+    h += '<div class="sticky-foot btn-row">';
+    if (i > 0) h += '<button class="btn small" data-act="michi" data-v="prev">もどる</button>';
+    if (story && !last) h += '<button class="btn small ghost" data-act="michi" data-v="skip">とばす</button>';
+    h += last && !story ? '<button class="btn small primary" data-act="michi" data-v="end">おしまい</button>' : '<button class="btn small primary" data-act="michi" data-v="next">つぎへ</button>';
+    h += '</div></div>';
+    return { title: 'はじまりの話', html: h, keepScroll: false };
+  },
+});
+UI.extAct = Object.assign(UI.extAct || {}, {
+  michi(v, id) {
+    const M = MICHI;
+    if (v === 'next') { M.i++; UI.render(true); }
+    else if (v === 'prev') { M.i = Math.max(0, M.i - 1); UI.render(true); }
+    else if (v === 'skip') { M.i = MICHI_PAGES.length; UI.render(true); }
+    else if (v === 'pick') { const inp = $('#michi-name'); if (inp) inp.value = id || M.def; }
+    else if (v === 'name') {
+      const inp = $('#michi-name'), ok = michiName(inp ? inp.value : ''), a = michiHen();
+      if (M.mode === 'story') { UI.closeSheet(); if (a) UI.toast(`はるこさん「${a.name}。いい名前ね」`, 'daily'); }
+      else { if (ok && a) UI.toast(`「${a.name}」になりました`, 'daily'); UI.back(); }
+    } else if (v === 'end') UI.back();
+    else if (v === 'reread') { M.mode = 'reread'; M.i = 0; UI.openSheet('michi', null, true); }
+    else if (v === 'rename') { M.mode = 'rename'; M.i = MICHI_PAGES.length; UI.openSheet('michi', null, true); }
+  },
+});
+
+/* ---------- 預かっている間と、そのあと ---------- */
+// 段階1の検疫の柵：家の西。鶏の庭（南の柵は z=31）から離れた所。置き場 v1・芝生の予約・ベンチ・木の幹をよける（tools/layout.js）
+const MICHI_PEN = { x: 15.5, z: 41.7, w: 3.8, d: 3.0, rect: [13.6, 17.4, 40.2, 43.2], shelter: [16.2, 17.0, 40.5, 41.1], hut: [1.1, -0.9], vet: [12.6, 43.9] };
+function michiQuar(a) { a = a || michiHen(); return !!(a && a.quarantine && G.turn < a.quarantine); }
+// 段階1で、その子が預かりの柵にいる時だけ
+function michiPenOn() { return !!G && G.mode === 'normal' && G.stage === 1 && michiQuar(); }
+// 検疫の場所（actors.js の quarRect・quarShelter から）。その子で段階1の時だけ、家の西の柵
+function michiPenFor(a) { return a && a.mine && G.stage === 1 ? MICHI_PEN : null; }
+// みなみ先生が、段階1でも来る日（預かりの2週間）
+function michiVetOn() { return michiPenOn(); }
+function michiVetHome() { return MICHI_PEN.vet.slice(); }
+function michiPenModel() {
+  const P = MICHI_PEN, g = new THREE.Group(), hw = P.w / 2, hd = P.d / 2;
+  const posts = []; for (let k = 0; k <= 4; k++) { const x = -hw + k * P.w / 4; posts.push([x, -hd], [x, hd]); } for (let k = 1; k < 3; k++) { const z = -hd + k * P.d / 3; posts.push([-hw, z], [hw, z]); }
+  for (const [x, z] of posts) part('box', WOOD_D, 0.07, 0.75, 0.07, x, 0.375, z, g);
+  for (const y of [0.22, 0.46, 0.7]) { part('box', '#A2A29C', P.w, 0.02, 0.02, 0, y, -hd, g); part('box', '#A2A29C', P.w, 0.02, 0.02, 0, y, hd, g); part('box', '#A2A29C', 0.02, 0.02, P.d, -hw, y, 0, g); part('box', '#A2A29C', 0.02, 0.02, P.d, hw, y, 0, g); }
+  const hut = modelSmallHut('#E9E2D2', '#6A7A80', 1.4, 1.0, 0.85); hut.position.set(P.hut[0], 0, P.hut[1]); g.add(hut);
+  part('cyl12', '#B9C3C8', 0.3, 0.08, 0.3, -0.9, 0.04, 0.7, g); part('cyl12', '#8FC1DA', 0.24, 0.02, 0.24, -0.9, 0.085, 0.7, g, { noShadow: true });
+  part('cyl12', '#E8C873', 0.9, 0.03, 0.6, P.hut[0], 0.015, P.hut[1] + 0.75, g, { noShadow: true });
+  return g;
+}
+// 家のまわりを建てる時に（world.js の buildBase から）
+function buildMichiPen() { if (michiPenOn()) place('base', michiPenModel(), MICHI_PEN.x, MICHI_PEN.z, 0, [MICHI_PEN.w, MICHI_PEN.d]); }
+// 日曜日の朝の知らせ（game.js の startDay から）
+function michiDay(first) {
+  const a = michiHen(); if (!a || G.mode !== 'normal') return;
+  const t0 = a.michiT || 1, n = a.name;
+  if (first && michiQuar(a)) G.overnight.push({ cat: 'friends', text: `${n}は、2週間ほど、家の西の小さな柵と小屋で過ごします。日曜日には、みなみ先生が診に来てくれます`, focus: [MICHI_PEN.x, MICHI_PEN.z] });
+  else if (!first && michiQuar(a)) G.overnight.push({ cat: 'health', text: `${n}は、少しずつ食べる量が増えてきました。今日も、みなみ先生が診に来ています`, focus: [MICHI_PEN.x, MICHI_PEN.z] });
+  if (!first && a.quarantine && a.quarantine === G.turn) a.stories = michiStories(n, a); // 庭の仲間になった朝（知らせは、ふだんの検疫と同じ）
+  // ひと月たった朝：持ち主が見つかり、このまま、ここで暮らしていいことに
+  if (!first && !G.flags.michiOwner && G.turn >= t0 + MICHI.ownerWeeks) {
+    G.flags.michiOwner = G.turn;
+    a.stories = michiStories(n, a); a.known = a.stories.length;
+    G.overnight.push({ cat: 'news', text: `警察から連絡がありました。${n}の持ち主が見つかったそうです。はるこさんが持ち主の方と話して、${n}は、このまま、ここで暮らしていいことになりました` });
+  }
+}
+// みなみ先生の、預かりの間のひと言（ui-world.js の npcDialog から）
+function michiVetLine() {
+  const a = michiHen(); if (!a || !michiQuar(a)) return null;
+  return G.turn <= (a.michiT || 1) ? `${a.name}は、体は軽いけれど、目はしっかりしています。まずは、ゆっくり食べて、ゆっくり眠ること。それが、いちばんの薬です`
+    : `${a.name}、ごはんをよく食べるようになりました。羽も、少しずつ生えてきています。来週には、みんなのいる庭に移れそうです`;
+}
+/* =========================================================
+   日曜の朝の、あなたの体調（2026-10-27、Daiさん）
+   ---------------------------------------------------------
+   ・毎週、朝の知らせのいちばん上で「今朝のあなたは？」とたずねる。答えなくてもよい
+     （箱庭モードと、続きから開いた時の「おかえりなさい」では、たずねない）
+   ・疲れている・体調がよくない朝は、心の余裕と同じ「見え方」が、はじめから少しかすむ（sight.js の yoyuSight）。
+     しぐさの吹き出し・小鳥や虫の音・季節のもの・画面のまわりのかげり。できることや支えは減らさない（約束4）
+   ・座る・休む・眺める・楽器を弾く…ひと息つくほど、かすみが晴れていく。何もしなくても、時間とともにゆっくり晴れる
+   ・休む理由は「よく見えるため」（sight.js と同じ考え）。数字は画面に出さない
+   ・保存するのは、その週の答えと、ひとつ前の答えだけ（先週より楽になった時に、ひと言添えるため）。どこにも送らない
+   ========================================================= */
+const TAICHO = {
+  lv: {
+    genki: { t: '元気', fog: 0 },
+    futsu: { t: 'ふつう', fog: 0 },
+    tsukare: { t: '少し疲れている', fog: 0.45 },
+    warui: { t: '体調がよくない', fog: 0.75 },
+  },
+  order: ['genki', 'futsu', 'tsukare', 'warui'],
+  rest: 0.0075, // 休んでいる時に、1秒で晴れる分（体調がよくない朝でも、2回ほどひと息つけば晴れる）
+  time: 0.0006, // 何もしなくても、1秒で晴れる分（20分ほどで晴れる）
+};
+// たずねるのは、育てている続きの時だけ
+function taichoAsk() { return !!G && G.mode === 'normal'; }
+// 今週の答え（まだなら null）
+function taichoNow() { const b = G && G.taicho; return b && b.turn === G.turn ? b.lv : null; }
+// 体のかすみ（0 ＝ よく見える）
+function taichoFog() { const b = G && G.taicho; return b && b.turn === G.turn ? b.fog || 0 : 0; }
+// 見え方：心の余裕の見え方と同じものさし（1 ＝ よく見える。いちばん少なくても YOYU.min）
+function taichoSight() { return 1 - taichoFog() * (1 - YOYU.min); }
+function taichoSet(lv) {
+  if (!TAICHO.lv[lv] || !taichoAsk()) return;
+  const b = G.taicho || {}, prev = b.turn === G.turn ? b.prev : b.lv;
+  const f = TAICHO.lv[lv].fog;
+  G.taicho = { turn: G.turn, lv, prev: prev || null, fog: f, peak: f, clear: false };
+  GAME.save();
+}
+// 答えたあとの、ひと言
+function taichoSay(lv, prev) {
+  const better = prev && TAICHO.lv[prev] && TAICHO.lv[prev].fog > TAICHO.lv[lv].fog;
+  const head = better ? '先週より、少し楽になったみたいで、よかった。' : '';
+  const say = {
+    genki: 'よかった。今日も、ゆっくりどうぞ。',
+    futsu: 'いつもの日曜日ですね。のんびりどうぞ。',
+    tsukare: 'おつかれさまです。今日は、まわりが少しぼんやり見えるかもしれません。座ってひと息つくと、だんだん見えてきます。',
+    warui: '無理をしないでくださいね。今日は、眺めているだけでも大丈夫です。休むほど、少しずつ見えてきます。つらい時は、画面を閉じて休むのも、いい日曜日です。',
+  }[lv] || '';
+  return head + say;
+}
+// 朝の知らせの中の、ひとまとまり（ui-views.js の morning から）
+function taichoHtml() {
+  if (!taichoAsk()) return '';
+  const now = taichoNow(), b = G.taicho;
+  let h = `<div class="sec taicho"><h3>今朝のあなたは？</h3><div class="taicho-row" role="group" aria-label="今朝のあなたの体調">${TAICHO.order.map((k) => `<button class="btn small${now === k ? ' on' : ''}" data-act="taicho" data-v="${k}" aria-pressed="${now === k}">${esc(TAICHO.lv[k].t)}</button>`).join('')}</div>`;
+  h += now ? `<p class="lead-s taicho-say">${esc(taichoSay(now, b.prev))}</p>` : '<p class="muted">答えなくても、大丈夫です。</p>';
+  return h + '</div>';
+}
+// 毎コマ（sight.js の sightFrame から）：休むほど、時間がたつほど、かすみが晴れる
+function taichoFrame(dt) {
+  const b = G && G.taicho; if (!b || b.turn !== G.turn || !b.fog || !STARTED) return;
+  const P = ACT.player, rest = !!(UI.rest || (P && P.sitting));
+  b.fog = Math.max(0, b.fog - dt * (rest ? TAICHO.rest : TAICHO.time));
+  // すっかり晴れた時：そっと一度（その週に一度だけ）
+  if (b.fog < 0.04 && !b.clear) {
+    b.fog = 0; b.clear = true;
+    if (b.peak >= 0.3) { if (!G.cards.sight) unlockCard('sight'); else UI.toast('まわりが、よく見えるようになってきました', 'daily'); }
+    GAME.saveSoon();
+  }
+}
+UI.extAct = Object.assign(UI.extAct || {}, {
+  taicho(v) { taichoSet(v); UI.render(); },
+});
+/* =========================================================
+   夜は、みなみ先生も家に入って休む（2026-10-27、Daiさん）
+   ---------------------------------------------------------
+   ・夜になったら（時計で 0.8 から。働く人の夜の見回りと同じころ）、はるこさんの家の玄関まで歩いて、中へ
+   ・そばにいる時は、ひと言だけ（「おやすみなさい」）。近くで話しかけられそうな時は、少し立ち止まる
+   ・中にいるあいだは、外にいない（ACT.npcs から外す。働く人のお休み WORK.away と同じ形。話しかけられない）
+   ・家の南の窓（縁側に近いほう）に、先生の影が少しだけ映る。切り紙の影が、灯りの前でときどき動く
+     （本をめくるように少しかしげたり、部屋の奥へ行って、しばらく見えなくなったり）
+   ・朝は、いつもの所から（startDay の syncNPCs）。時間を昼に戻した時は、玄関から出て、いつもの所へ歩いて戻る
+   ・夜空のドローンショーの空（UI.skyOverride）では入らない。時計（G.clock か、決めた時間）で決める
+   ========================================================= */
+const YORU = { who: 'minami', n: null, inT: 0, sil: null, silOn: null, k: 0, x: 0, tx: 0, moveT: 3, awayT: 0, tilt: 0, t: 0 };
+// modelHouse の南の窓（東がわ。ちくわとがんもの縁側に近いほう）。ガラスは 1.1×0.9 の 0.94 倍
+const YORU_WIN = { x: 2.2, y: 2, z: 2.75, w: 1.03, h: 0.85, sw: 0.42, sh: 0.525 };
+function yoruNight() {
+  if (!G) return false;
+  const t = clockAuto() ? G.clock : G.settings.tod;
+  return typeof t === 'number' && t > 0.8;
+}
+// 玄関の前（家の当たりの外。ポーチの段の手前）
+function yoruDoor() {
+  const h = W.house; if (!h) return null;
+  const v = h.localToWorld(new THREE.Vector3(0, 0, 4.3));
+  return [v.x, v.z];
+}
+// 人ごとに、毎コマ（actors.js の updatePeople から）。動かした時は true
+function yoruTick(n, dt, dP) {
+  if (!n.d || n.d.id !== YORU.who) return false;
+  if (yoruNight()) {
+    const door = yoruDoor(); if (!door) return false;
+    const y = n.yoru || (n.yoru = { walkT: 0, pauseT: 0 });
+    n.yoruOut = false;
+    // 話しかけられそうな時は、少しだけ立ち止まる
+    if (dP < 2.4 && (y.pauseT += dt) < 3) { workFacePlayer(n, dt); animPerson(n.m, 0, 0, dt); workPlace(n, dt); return true; }
+    if (dP > 3.5) y.pauseT = 0;
+    const r = workWalk(n, dt, door[0], door[1], 1.7);
+    y.walkT += dt;
+    if (r === true || r === 'stuck' || y.walkT > 70) { yoruIn(n, dP); return true; }
+    workPlace(n, dt); return true;
+  }
+  n.yoru = null;
+  // 出てきたあとは、いつもの所まで歩いて戻る
+  if (n.yoruOut) {
+    const hm = n.home; if (!hm || Math.hypot(hm[0] - n.x, hm[1] - n.z) < 5) { n.yoruOut = false; return false; }
+    if (dP < 2.4) { workFacePlayer(n, dt); animPerson(n.m, 0, 0, dt); workPlace(n, dt); return true; }
+    if (workWalk(n, dt, hm[0], hm[1], 1.9) === 'stuck') n.yoruOut = false;
+    workPlace(n, dt); return true;
+  }
+  return false;
+}
+// 家に入る
+function yoruIn(n, dP) {
+  const i = ACT.npcs.indexOf(n); if (i >= 0) ACT.npcs.splice(i, 1);
+  ACT.layer.remove(n.m.root);
+  n.target = null; n.wPath = null; n.yoru = null; n.job = null;
+  YORU.n = n; YORU.inT = 0;
+  if (dP !== undefined && dP < 9 && STARTED) UI.toast('みなみ先生「おやすみなさい。何かあったら、起こしてね」', 'daily');
+}
+// 玄関から出てくる（時間を昼に戻した時）
+function yoruOut() {
+  const n = YORU.n; YORU.n = null; if (!n) return;
+  const door = yoruDoor() || n.home;
+  n.x = door[0]; n.z = door[1]; n.heading = 0; n.target = null; n.wPath = null; n.yoruOut = true;
+  if (!ACT.npcs.includes(n)) ACT.npcs.push(n);
+  ACT.layer.add(n.m.root); n.m.root.visible = true; workPlace(n, 0);
+}
+// 人を作りなおした時（syncNPCs）。中にいた夜は、そのまま中に
+function yoruReset() {
+  const was = !!YORU.n; YORU.n = null;
+  if (!was || !yoruNight()) return;
+  const n = ACT.npcs.find((x) => x.d && x.d.id === YORU.who); if (!n) return;
+  yoruIn(n); YORU.inT = 9;
+}
+// 窓の影：切り紙の、頭と肩
+function yoruSilMake() {
+  const c = pcCanvas(128, 160), g = c.getContext('2d');
+  g.fillStyle = '#2E241E';
+  g.beginPath(); g.moveTo(4, 160); g.bezierCurveTo(6, 118, 30, 106, 64, 104); g.bezierCurveTo(98, 106, 122, 118, 124, 160); g.closePath(); g.fill(); // 肩
+  g.fillRect(53, 80, 22, 30); // 首
+  g.beginPath(); g.ellipse(64, 58, 26, 30, 0, 0, Math.PI * 2); g.fill(); // 頭
+  // 髪：耳の下までの、まるいかたち。うしろで小さく結んでいる
+  g.beginPath(); g.moveTo(34, 70); g.bezierCurveTo(28, 30, 50, 22, 66, 23); g.bezierCurveTo(88, 24, 102, 38, 96, 72); g.lineTo(90, 80); g.lineTo(38, 80); g.closePath(); g.fill();
+  g.beginPath(); g.ellipse(93, 40, 10, 9, 0.4, 0, Math.PI * 2); g.fill();
+  const tex = new THREE.CanvasTexture(c);
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(YORU_WIN.sw, YORU_WIN.sh), new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, depthWrite: false }));
+  m.renderOrder = 2; m.visible = false; m.name = 'yoru-sil';
+  return m;
+}
+// 毎コマ（actors.js の updatePeople から）：出入りと、窓の影
+function yoruFrame(dt) {
+  if (!G || !ACT.npcs) return;
+  if (YORU.n && !yoruNight()) yoruOut();
+  const h = W.house; if (!h) return;
+  if (!YORU.sil) YORU.sil = yoruSilMake();
+  if (YORU.silOn !== h) { if (YORU.sil.parent) YORU.sil.parent.remove(YORU.sil); h.add(YORU.sil); YORU.silOn = h; }
+  YORU.inT += dt; YORU.t += dt;
+  // 窓の前を、ときどき行き来する。しばらく部屋の奥へ行って、見えなくなることも
+  if ((YORU.moveT -= dt) <= 0) {
+    YORU.moveT = rand(9, 22);
+    if (Math.random() < 0.22) YORU.awayT = rand(8, 18); else YORU.tx = rand(-0.18, 0.18);
+  }
+  if (YORU.awayT > 0) YORU.awayT -= dt;
+  const want = YORU.n && YORU.inT > 2.5 && SKY.night > 0.3 && YORU.awayT <= 0 ? 1 : 0;
+  YORU.k += (want - YORU.k) * Math.min(1, dt * 0.8);
+  YORU.x += (YORU.tx - YORU.x) * Math.min(1, dt * 0.25);
+  const s = YORU.sil, W0 = YORU_WIN;
+  s.visible = YORU.k > 0.01;
+  if (!s.visible) return;
+  s.material.opacity = 0.66 * YORU.k;
+  s.position.set(W0.x + YORU.x, W0.y - W0.h / 2 + W0.sh / 2, W0.z + 0.11);
+  s.rotation.z = Math.sin(YORU.t * 0.23) * 0.03 + (Math.sin(YORU.t * 0.07) > 0.6 ? 0.06 : 0); // 本を読むように、ときどき少しかしげる
+}
 /* =========================================================
    はじめの画面の下の絵巻「はるにれの丘の、ある日曜日」（2026-10-24）
    ・霞と言葉と空の色は src/emaki.svg（tools/emaki.js が描く）。場面の絵は、ここでゲームの模型を
