@@ -3264,7 +3264,7 @@ const QUESTS = []; // 今日のクエストの入れ物（2026-10-23。中身は
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.87', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.88', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -3272,6 +3272,7 @@ const APP = {
   try: ['「はじめから」で、はじまりの話から始めてみる（見つけた鶏に名前をつけ、3週めに庭へ移るまで、会いに行く）', '「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', 'スマホを横にして遊んでみる（左の親指でなぞって歩き、右の親指で見回す）', '日曜の朝の「今朝のあなたは？」に答えて、休むと、まわりがどう見えてくるかを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.88', '2026年10月29日', '門の外のバス停から、山梨県富士川町の Second Life Sanctuary（SLS）へ出かけられるようになりました（「行動」からも）。羊のルル・ミミ・バート・テオと、鶏のココロ・ポンズ・スイート・ビジー・ポピー・メッシー、そしてロッティさん。みんな、本当にそこで暮らしている子たちです（カードの紹介は、団体の紹介から）。丘と同じように、なでたり、ブラッシングしたり、ベンチや輪の椅子でひと休みしたりできます。ここの子たちは、はじめて会う人には、まだ慣れていません。晴れた日は、遠くに富士山が見えます。見学の人が、門の外の線路のそばを歩かないようにもしました'],
     ['0.9.87', '2026年10月28日', '「はじめから」で遊ぶと、はじまりの話から始まるようになりました。ある日曜日の朝、道ばたで倒れていた白い鶏を見つけて、はるにれの丘へ相談に来ます（紙芝居はとばせます）。その子には、あなたが名前をつけます。警察に届けて、持ち主が見つかるまで丘で預かることになり、はじめの2週間は、家の西の小さな小屋で、みなみ先生に診てもらいながら過ごします。毎週、日曜の朝に、あなたの体調をたずねるようになりました（答えなくても大丈夫）。疲れている朝は、まわりが少しぼんやり見え、ひと息つくほど、また見えてきます。夜は、みなみ先生も家に入って休みます。窓に、先生の影が少しだけ映ります。'],
     ['0.9.86', '2026年10月24日', 'スマホを横にしても遊べるようになりました（iPhone Duo のように、横の画面で遊ぶ方のために）。横では、左の親指でなぞって歩き、右の親指でボタンやメニューを。メニューは右に2列、パネルは左に開き、景色が右に見えます。楽器は、左でコード・右で弦。はじめの画面も、横では2列に。'],
     ['0.9.85', '2026年10月24日', '「今日のクエスト」ができました。2週めの日曜日から、働く人のひとりが、毎週ひとつクエストを頼んでくれます（左上の札から）。できると「見つけたこと図鑑」（設定の「あなた」から）に、その子の名前と日付といっしょに、ページが加わります。できなくても、何も減りません。休んでいる時・座っている時に「眺める」ができるように。カメラを好きな所へ動かし、向きと近さも選んで、文字の出ない画面で景色を眺められます。気に入った眺めは、小さな絵で3つまで残せます（眺めている時は、スマホを横にしても）。「詳しく（大人の方へ）」を、どの画面でも同じ形にしました。目印は小さなしおりです。押した時だけ開き、自分から開くことはありません。設定に「学校モード」ができました（授業や教室で遊ぶ時に。とくに重い「詳しく」と、寄付のページへの案内をしまいます。ゲームのアドレスの最後に ?school をつけて開いても）。ちくわとがんものカードには、小さな前置きを添えました。はじめの画面の下に、はるにれの丘の日曜日を描いた絵巻を置きました（カードの「どんなところ？」から。絵は、丘の動物たちの模型で撮っています）。ほかに、長いスカートが歩いても座っても長いままに。木の葉が季節で変わるように（春は少し舞い、夏は茂り、秋はたくさん舞い、冬は葉を落とした木が増えます）。鶏たちは、採卵養鶏場から来た子らしい姿に（くちばしの先を切られた子も）。メニューの「動物」をいちばん前に。指やホイールで寄る・離れる時のズームを速く。'],
@@ -7348,13 +7349,13 @@ function dofProbe(cx, cy) {
 }
 // 画面を描く：ふだんは貼り絵の加工を1回かける。写真のボケを使う時は、貼り絵のあとにボケをかける
 function renderMain() {
-  const inside = typeof OCHA !== 'undefined' && OCHA.on && OCHA.S;
+  const inside = (typeof OCHA !== 'undefined' && OCHA.on && OCHA.S) || (typeof SLSV !== 'undefined' && SLSV.on && SLSV.S);
   if (!inside) pwinOn(); // 紙の窓（0.9.81）：この画面を描く間だけ
   try { renderMain0(); } finally { PWIN.u.pwinK.value.x = 0; }
 }
 function renderMain0() {
   const r = R.renderer, dof = DOF.on && DOF.amount > 0.02 && DOF.ok, paper = paperOn();
-  const SC = typeof OCHA !== 'undefined' && OCHA.on && OCHA.S ? OCHA.S : R.scene; // ウェルカムセンターの中は、別の場所（0.9.49）
+  const SC = typeof OCHA !== 'undefined' && OCHA.on && OCHA.S ? OCHA.S : typeof SLSV !== 'undefined' && SLSV.on && SLSV.S ? SLSV.S : R.scene; // ウェルカムセンターの中・SLS は、別の場所（0.9.49、0.9.88）
   if (!dof && !paper) { r.render(SC, R.camera); if (SC === R.scene) droneOverlay(null); return; }
   try {
     dofSetup(); // 画面1枚分の色と奥行き（DOF.rt）
@@ -10896,6 +10897,7 @@ function buildBase() {
   place('base', modelApartment(), 52, 5.5, -Math.PI / 2, [10, 5.6]);
   place('base', modelSuburbHouse(4), 52, -6.5, -Math.PI / 2, [5.4, 5.6]);
   place('base', modelBusStop(), 9, 50.1);
+  place('base', slsHillStop(), 7.3, 50.05); // Second Life Sanctuary 行きの札（団体のロゴ。sls.js）
   place('base', modelVending(), 14.2, 50.2, 0, [1, 0.8]);
   buildRails();
   if (s >= 2) {
@@ -13633,7 +13635,7 @@ function resolveCollision(x, z, r, player) {
   for (const k in W.itemCircles) for (const c of W.itemCircles[k]) circ(c);
   if (WS.pond && pondSD(x, z) < r + 0.2) { const q = pondPush(x, z, r + 0.2); x = q[0]; z = q[1]; }
   if (WS.stream && z < -26 && z > -46 && Math.abs(x) > 1.3) { const zc = streamZ(x), dz = z - zc, m = 1.5 + r; if (Math.abs(dz) < m) z = zc + (dz >= 0 ? m : -m); }
-  return [clamp(x, -55, 55), clamp(z, -55, player ? 52.4 : 55)];
+  return [clamp(x, -55, 55), clamp(z, -55, player ? 52.4 : 50.5)]; // 人（あなた以外）は、歩道まで。車道と線路には入らない（2026-10-29、Daiさん：見学の人が線路の近くをうろうろ）
 }
 
 /* ---------- 道探し：柵の門や建物を回り込む（0.5きざみの格子で） ---------- */
@@ -14079,14 +14081,14 @@ function updatePeople(dt) {
     // 時間帯と日によって、人は帰っていく（夜はほとんどいない。誰もいない日もある）
     const want = crowd > e.stay;
     if (!want && !e.away) {
-      if (!e.leaving) { e.leaving = true; e.route = e.kind === 'visitor' ? visitorRoute(e, { x: e.lat || 0, z: 46, chain: [], jz: 46 }).concat([[rand(-1.2, 1.2), 53.5]]) : []; e.target = e.route.shift() || [rand(-1.2, 1.2), 53.5]; e.chain = []; e.timer = 40; }
-      if (!e.m.root.visible || Math.hypot(e.x - e.target[0], e.z - e.target[1]) < 1.2 || (e.target && !onScreenNear(e.x, e.z) && e.timer < 26)) { e.away = true; e.leaving = false; e.m.root.visible = false; e.target = null; }
+      if (!e.leaving) { e.leaving = true; e.route = (e.kind === 'visitor' ? visitorRoute(e, { x: e.lat || 0, z: 46, chain: [], jz: 46 }) : []).concat([[rand(-0.8, 0.8), 50]], [visitorExit()]); e.target = e.route.shift(); e.chain = []; e.timer = 40; }
+      if (!e.m.root.visible || (Math.hypot(e.x - e.target[0], e.z - e.target[1]) < 1.2 && !(e.route && e.route.length)) || (e.target && !onScreenNear(e.x, e.z) && e.timer < 26)) { e.away = true; e.leaving = false; e.m.root.visible = false; e.target = null; }
     } else if (want && e.away) {
-      e.away = false; e.leaving = false; e.m.root.visible = true; e.x = rand(-1.2, 1.2); e.z = 53; e.chain = []; e.jz = 45; e.route = [];
-      e.target = e.home ? walkTarget(e.home, 3, 3) || e.home.slice() : [e.lat || 0, rand(36, 45)]; e.timer = e.home ? rand(2, 5) : rand(0, 4);
+      e.away = false; e.leaving = false; e.m.root.visible = true; e.x = rand(7.8, 10.4); e.z = 50.2; e.chain = []; e.jz = 45; // バスで来て、門の前の歩道から入る
+      e.route = [e.home ? walkTarget(e.home, 3, 3) || e.home.slice() : [e.lat || 0, rand(36, 45)]]; e.target = [rand(-0.8, 0.8), 50]; e.timer = e.home ? rand(2, 5) : rand(0, 4);
     }
     if (e.away) continue;
-    if (e.leaving) { stepWalker(e, dt, e.spd ? e.spd + 0.3 : 2.2); if (!e.target) e.target = (e.route && e.route.shift()) || [rand(-1.2, 1.2), 53.5]; e.m.root.position.set(e.x, walkH(e.x, e.z), e.z); e.m.root.rotation.y = e.heading; rainGear(e, dt); continue; }
+    if (e.leaving) { stepWalker(e, dt, e.spd ? e.spd + 0.3 : 2.2); if (!e.target) e.target = (e.route && e.route.shift()) || visitorExit(); e.m.root.position.set(e.x, walkH(e.x, e.z), e.z); e.m.root.rotation.y = e.heading; rainGear(e, dt); continue; }
     if (e.kind === 'visitor') {
       // 見学路をたどって、気になった所まで歩き、しばらく立ち止まって眺める
       if (!e.target && e.route && e.route.length) e.target = e.route.shift();
@@ -14099,11 +14101,14 @@ function updatePeople(dt) {
         if (!e.lookT || (e.lookT -= dt) < 0) { e.lookT = rand(2, 6); const near = ACT.animals.reduce((b, a) => { const d = Math.hypot(a.x - e.x, a.z - e.z); return d < 14 && (!b || d < b.d) ? { a, d } : b; }, null); e.lookH = near ? Math.atan2(near.a.x - e.x, near.a.z - e.z) : e.heading + rand(-1.2, 1.2); }
         let dh = e.lookH - e.heading; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); e.heading += dh * Math.min(1, dt * 2.5);
       }
-    } else if (!e.target && e.timer < 0) { e.target = walkTarget(e.home, 5, 4); e.timer = rand(2, 6); }
+    } else if (!e.target && e.route && e.route.length) e.target = e.route.shift();
+    else if (!e.target && e.timer < 0) { e.target = walkTarget(e.home, 5, 4); e.timer = rand(2, 6); }
     stepWalker(e, dt, e.kind === 'visitor' ? e.spd || 1.4 : 2.4);
     e.m.root.position.set(e.x, walkH(e.x, e.z), e.z); e.m.root.rotation.y = e.heading; rainGear(e, dt);
   }
 }
+// 帰る人の行き先：門の外のバス停か、歩道を東か西へ（線路には入らない）
+function visitorExit() { return Math.random() < 0.6 ? [rand(7.8, 10.4), 50.2] : [(Math.random() < 0.5 ? -1 : 1) * rand(30, 48), 50.1]; }
 /* ---------- 見学の人の行き先：見学路（まん中の道と、そこから分かれる道）の上のどこか ---------- */
 const VIS = { sig: '', main: null, branches: [] };
 function visitorPaths() {
@@ -15301,6 +15306,7 @@ function evItemEnt(it) { return { x: it.x, z: it.z, name: it.name, ev: it.id, de
 function benchEnt(bn) { return { x: bn.x, z: bn.z, name: bn.seatName || 'ベンチ', seatName: bn.seatName, bench: bn, m: { root: bn.model } }; }
 function nearestInteractable() {
   if (OCHA.on) return ochaNearest(); // ウェルカムセンターの中（0.9.49）
+  if (SLSV.on) return slsvNearest(); // SLS（0.9.88）
   const P = ACT.player; let best = null, bd = 1e9;
   const test = (e, kind, reach) => { if (e.m.root.visible === false) return; const d = Math.hypot(e.x - P.x, e.z - P.z); if (d < reach && d < bd) { bd = d; best = { ent: e, kind }; } };
   { const F = ACT.focus; if (F && performance.now() < F.until && ACT.animals.includes(F.e) && F.e.m.root.visible !== false && Math.hypot(F.e.x - P.x, F.e.z - P.z) < SPECIES[F.e.a.sp].reach + 2.4) return { ent: F.e, kind: 'animal' }; }
@@ -15313,6 +15319,7 @@ function nearestInteractable() {
   for (const it of (W.pickups || [])) { const d = Math.hypot(it.x - P.x, it.z - P.z) - 0.6; if (d < 1.9 && d < bd) { bd = d; best = { ent: { x: it.x, z: it.z, name: it.name, pick: it.id, m: { root: it.model } }, kind: 'pickup' }; } }
   for (const it of (EGG.items || [])) { if (it.eg.st !== 'egg') continue; const d = Math.hypot(it.eg.x - P.x, it.eg.z - P.z) - 0.3; if (d < 1.6 && d < bd) { bd = d; best = { ent: eggEnt(it), kind: 'egg' }; } }
   { const od = ochaNear(); if (od !== null && od - 0.4 < bd) { bd = od; best = { ent: W.ocha.ent, kind: 'ocha' }; } } // ウェルカムセンター・お知らせの板
+  { const bs = slsBusNear(); if (bs && bs.d - 0.4 < bd) { bd = bs.d; best = bs.p; } } // バス停から SLS へ（0.9.88）
   return best;
 }
 
@@ -16487,7 +16494,7 @@ const FIRSTS = [
   { k: 'snow', sp: null, st: null, t: '雪の日を過ごしました' },
 ];
 function firstsTick() {
-  if (!G || !STARTED || G.mode === 'hakoniwa' || (typeof OCHA !== 'undefined' && OCHA.on)) return;
+  if (!G || !STARTED || G.mode === 'hakoniwa' || (typeof OCHA !== 'undefined' && OCHA.on) || SLSV.on) return;
   const P = ACT.player, snow = !!(WS.snow || G.weather === 'snow');
   for (const e of ACT.animals) {
     const a = e.a; if (!a || !e.m || !e.m.root.visible || (a.quarantine && G.turn < a.quarantine)) continue;
@@ -17033,6 +17040,7 @@ function restFinish(id, gain, near, secs, show) {
   if (secs > 6) {
     let t = id === 'R1' ? 'ベンチに座って、しばらく動物たちを眺めました' : id === 'sky' ? `夜空のドローンショー${show ? `「${show}」` : ''}を、動物たちと見上げました` : 'しばらく動物たちのそばで過ごしました';
     if (near.length) t += `。${near.slice(0, 3).map((a) => a.name).join('と')}が、そばに来てくれました`;
+    if (SLSV.on) { const sn = slsvRestNear(); t = 'Second Life Sanctuary で、しばらく羊と鶏たちを眺めました' + (sn.length ? `。${sn.slice(0, 3).join('と')}が、そばに来てくれました` : ''); } // SLS（sls.js）
     note('daily', t, null, { quiet: true });
   }
   UI.toast(gain > 0 ? 'ひと息つけました。心に、少し余裕ができました' : 'ひと息つけました', 'daily');
@@ -19439,6 +19447,7 @@ Object.assign(UI, {
           : G.dayOver ? '<p class="hr-note">今日の日記はつけました。続きは来週に。</p>'
           : `<div class="hr-end"><p>今日できることは、おしまい。「今日はここまで」で日記をつけると、来週の日曜日へ。また${nTsu(G.handsMax)}に戻ります。</p><p class="muted">急がなくて大丈夫。歩く、眺める、なでる、ベンチに座る、楽器を弾く、写真を撮るは、いつでもできます。</p><button class="btn small primary" data-act="end-day-now">今日はここまで（来週の日曜日へ）</button></div>`;
         h += okA.map((x) => actBtn(x[0], x[1])).join('');
+        h += slsActHtml(); // Second Life Sanctuary へ（sls.js）
         if (noA.length) h += `<details class="more-acts"${okA.length ? '' : ' open'}><summary>${okA.length ? `まだできないこと（${noA.length}）` : `行動の一覧（${noA.length}）`}</summary>${noA.map((x) => actBtn(x[0], x[1])).join('')}</details>`;
       } else if (tab === 'build') {
         if (!hk) h += handsRow();
@@ -20326,6 +20335,8 @@ Object.assign(UI, {
     if (p.kind === 'animal') { UI.openSheet('card', p.ent.a.id); return; }
     if (p.kind === 'ocha') { if (W.ocha && W.ocha.kind === 'hut') ochaEnter(); else ochaBoardOpen(); return; } // ウェルカムセンター・お知らせの板（0.9.49）
     if (p.kind === 'inspot') { ochaOpen(p.ent.id); return; }
+    if (p.kind === 'slsgo') { slsAsk(); return; } // バス停から SLS へ（0.9.88）
+    if (p.kind === 'slsspot') { slsvOpen(p.ent.id); return; }
     if (p.kind === 'pet') { UI.petStart(p.ent); return; }
     if (p.kind === 'evitem') { UI.evItemInfo(p.ent); return; }
     if (p.kind === 'pickup') { if (p.ent.pick === 'branch') GAME.pickBranch(); return; }
@@ -20640,6 +20651,7 @@ Object.assign(UI, {
     if (!$('#music-ui').hidden) { UI.musicExtra(!$('#music-ui').classList.contains('extra')); return; }
     if (UI.rest) return;
     if (OCHA.on) { ochaTap(cx, cy); return; } // ウェルカムセンターの中（0.9.49）
+    if (SLSV.on) { slsvTap(cx, cy); return; } // SLS（0.9.88）
     const ray = screenRay(cx, cy);
     if (UI.placeItemId || UI.removeMode) { if (UI.markerTap(ray)) return; }
     const hit = pickEntity(ray);
@@ -20910,7 +20922,7 @@ Object.assign(UI, {
   },
   frame(dt) {
     UI.viewOffset(dt);
-    { const now = performance.now(); if (now - (UI._idleChk || 0) > 500 && !OCHA.on) { UI.knowWatch((now - (UI._idleChk || now)) / 1000); UI._idleChk = now; if ($('#toasts').childElementCount && !sheetBelow()) UI.toastPlace(); UI.idleSit(); UI.benchStop(); UI.firstDayTips(); const vn = CAM.focusView && CAM.focus ? 'もどる' : CAM_VIEWS[camViewIndex()].n, el = $('#view-name'); if (el && el.textContent !== vn) el.textContent = vn; } }
+    { const now = performance.now(); if (now - (UI._idleChk || 0) > 500 && !OCHA.on && !SLSV.on) { UI.knowWatch((now - (UI._idleChk || now)) / 1000); UI._idleChk = now; if ($('#toasts').childElementCount && !sheetBelow()) UI.toastPlace(); UI.idleSit(); UI.benchStop(); UI.firstDayTips(); const vn = CAM.focusView && CAM.focus ? 'もどる' : CAM_VIEWS[camViewIndex()].n, el = $('#view-name'); if (el && el.textContent !== vn) el.textContent = vn; } }
     // 時間帯（朝・昼・夕方・夜）は、変わった時だけ書きかえる
     const tn = todName(SKY.t); if (tn !== UI._tod) { UI._tod = tn; const el = $('#t-tod'); if (el) el.textContent = tn; }
     // 写真のピント：タップするまでは、見ている中心（あなたのあたり）に合わせ続ける
@@ -20927,7 +20939,7 @@ Object.assign(UI, {
     const E = UI.el || (UI.el = { labels: $('#labels'), photo: $('#photo-ui'), hud: $('#hud'), prompt: $('#prompt'), promptBtn: $('#prompt-btn') });
     const lab = E.labels;
     UI.showLabels = (G.settings.labels || 'near') !== 'off';
-    const show = UI.showLabels && E.photo.hidden && !E.hud.hidden && !OCHA.on; // ウェルカムセンターの中では、外の名前の札は出さない（0.9.49）
+    const show = UI.showLabels && E.photo.hidden && !E.hud.hidden && !OCHA.on && !SLSV.on; // ウェルカムセンターの中では、外の名前の札は出さない（0.9.49）
     // 名前の札に出す子と、近くの案内は、1秒に10回ほど選び直す。札の位置は、毎コマ合わせる（0.9.43）
     const nowT = performance.now(), fresh = nowT - (UI._labT || 0) > 90 || UI._labShow !== show;
     let list = UI._labList || [];
@@ -20954,6 +20966,7 @@ Object.assign(UI, {
       { const seen = new Set(); // 池の鳥は、近くで、同じ名前は1つだけ
         for (const w of ACT.wild) { if (!w.m.root.visible) continue; const d = Math.hypot(w.x - P.x, w.z - P.z); if (d >= (w.pond ? 9 : 16) || w.pond && seen.has(w.name)) continue; if (w.pond) seen.add(w.name); list.push({ e: w, d, cls: 'wild', text: w.name, h: w.h || 2 }); } }
       // じっとしていて見えてきた小さな生き物：いちばん新しい1つだけ、しばらく名前を（0.9.83。ikimono.js の NOTICE）
+      { const sl = slsLabel(P); if (sl) list.push(sl); } // 丘のバス停：Second Life Sanctuary 行き（sls.js）
       { const L = typeof NOTICE !== 'undefined' && NOTICE.last, c = L && L.e; if (c && nowT < L.until && c.m.root.visible) { const d = Math.hypot(c.x - P.x, c.z - P.z), df = d < 10 && ikiDef(c.id); if (df) list.push({ e: c, d, cls: 'wild', text: df.name, h: c.lh || 0.4 }); } }
     }
     // 置いた物の札：ふだんは出さない（0.9.37）。タップすると、名前と説明が開く。「名前の札」を「まわりの子も」にした時だけ、近くの物の名前を小さく
@@ -20996,7 +21009,7 @@ Object.assign(UI, {
       if (key !== UI.lastPrompt) {
         UI.lastPrompt = key;
         const name = n.kind === 'animal' ? n.ent.a.name : n.kind === 'bench' ? (n.ent.seatName || '') : n.kind === 'inspot' ? n.ent.label : n.ent.name;
-        const verb = n.kind === 'inspot' ? '' : n.kind === 'ocha' ? (W.ocha && W.ocha.kind === 'hut' ? 'に入る' : 'を見る') : n.kind === 'animal' ? 'のカードを見る' : n.kind === 'npc' ? 'と話す' : n.kind === 'pickup' ? 'を拾う' : n.kind === 'bench' ? (n.ent.seatName ? 'に座る' : 'ベンチに座る') : n.kind === 'item' || n.kind === 'evitem' || n.kind === 'egg' ? 'を見る' : 'をそっと見る';
+        const verb = n.kind === 'inspot' ? '' : n.kind === 'slsgo' ? 'から、SLS へ出かける' : n.kind === 'slsspot' ? (n.ent.verb || '') : n.kind === 'ocha' ? (W.ocha && W.ocha.kind === 'hut' ? 'に入る' : 'を見る') : n.kind === 'animal' ? 'のカードを見る' : n.kind === 'npc' ? 'と話す' : n.kind === 'pickup' ? 'を拾う' : n.kind === 'bench' ? (n.ent.seatName ? 'に座る' : 'ベンチに座る') : n.kind === 'item' || n.kind === 'evitem' || n.kind === 'egg' ? 'を見る' : 'をそっと見る';
         E.promptBtn.innerHTML = `${esc(name)}${verb}${IS_TOUCH ? '' : ' <kbd>E</kbd>'}`;
       }
       pr.hidden = false;
@@ -21292,7 +21305,8 @@ Object.assign(UI, {
 Object.assign(UI, {
   /* ---------- 撮影 ---------- */
   openPhoto() {
-    if (OCHA.on) { UI.toast('写真は、外に出てから撮れます', 'daily'); return; } // ウェルカムセンターの中は、カメラを動かせないので（0.9.49）
+    if (OCHA.on) { UI.toast('写真は、外に出てから撮れます', 'daily'); return; }
+    if (SLSV.on) { UI.toast('写真は、丘に帰ってから撮れます', 'daily'); return; } // SLS（0.9.88） // ウェルカムセンターの中は、カメラを動かせないので（0.9.49）
     UI.closeSheet(); UI.endPlace();
     if (!CAM.lock) { camRemember(); CAM.lock = true; }
     CAM.photo = true; CAM.lens = 1; CAM.panY = CAM.panP = 0; CAM.photoDist = CAM.tDist; UI._dofW = 0;
@@ -22150,7 +22164,7 @@ function noticeCands(P) {
 }
 function noticeTick(dt, P) {
   const still = !P.moving || P.sitting || !!UI.rest;
-  if (!still || !STARTED || (typeof OCHA !== 'undefined' && OCHA.on)) { NOTICE.still = 0; NOTICE.n = 0; return; }
+  if (!still || !STARTED || (typeof OCHA !== 'undefined' && OCHA.on) || SLSV.on) { NOTICE.still = 0; NOTICE.n = 0; return; }
   NOTICE.still += dt * Math.max(0.3, typeof yoyuSight === 'function' ? yoyuSight() : 1) * (P.sitting || UI.rest ? 1.5 : 1); // 座って休んでいると、少し早く
   NOTICE.chk -= dt; if (NOTICE.chk > 0) return; NOTICE.chk = 0.25;
   const need = NOTICE.n ? NOTICE_NEXT : NOTICE_FIRST; if (NOTICE.still < need) return;
@@ -22735,7 +22749,7 @@ function obsScan() {
 }
 // 毎フレーム（main.js）。0.5秒ごとに見て、同じ行動を見つづけた時間をためる
 function obsFrame(dt) {
-  if (!G || !STARTED || !R.camera || (typeof OCHA !== 'undefined' && OCHA.on)) return;
+  if (!G || !STARTED || !R.camera || (typeof OCHA !== 'undefined' && OCHA.on) || SLSV.on) return;
   OBS.t -= dt; if (OBS.t > 0) return; OBS.t = 0.5;
   const need = OBS_NEED / Math.max(0.3, typeof yoyuSight === 'function' ? yoyuSight() : 1), now = {};
   for (const [id, st] of obsScan()) {
@@ -23355,7 +23369,7 @@ function questFrame(dt) {
     Q.told = 1; UI.questChip(true);
     UI.toast(`${qName(Q.g)}から、今日のクエストが届きました。左上の札から`, 'daily');
   }
-  if (Q.done || G.dayOver || OCHA.on) return;
+  if (Q.done || G.dayOver || OCHA.on || SLSV.on) return;
   const q = questDef(Q.id); if (!q || !q.watch) return;
   try { const res = q.watch(Q.t, 0.4); if (res) questDone(q, typeof res === 'string' ? { v: res } : res); } catch (e) { logErr(e, 'questFrame'); }
 }
@@ -24399,6 +24413,1100 @@ function yoruFrame(dt) {
   s.position.set(W0.x + YORU.x, W0.y - W0.h / 2 + W0.sh / 2, W0.z + 0.11);
   s.rotation.z = Math.sin(YORU.t * 0.23) * 0.03 + (Math.sin(YORU.t * 0.07) > 0.6 ? 0.06 : 0); // 本を読むように、ときどき少しかしげる
 }
+/* Second Life Sanctuary のロゴ（団体のホームページの logo_2x.png。看板とバス停に使う。使ってよいことは Daiさんが団体に確かめた。2026-10-29） */
+const SLS_LOGO = { src: 'data:image/jpeg;base64,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', w: 596, h: 220 };
+/* =========================================================
+   Second Life Sanctuary（SLS）の住人の模型（0.9.88）：羊4頭・鶏6羽・ロッティさん
+   団体の動物のページ（2025年10月・4月の紹介と写真）をもとに。羊はゲームの羊（quadBase＋毛の玉）、鶏はゲームの紙の鶏（pcChicken）、
+   人は modelPerson と同じ作り。試作は claude/sls-residents.md。性格の札はつけない（Daiさん 2026-10-28）
+   ========================================================= */
+
+const SLS_SHEEP = {
+  // ルル：つやつやの黒い顔、頭に房なし、茶色の毛。耳は横に
+  lulu: { wool: '#7C5C47', wool2: '#8E6C54', face: '#211D1B', ear: '#211D1B', leg: '#211D1B', cap: null, eye: '#6A5040', scale: 0.95, thick: 1, seed: 3 },
+  // ミミ：黒い顔、頭の上と頬のまわりに茶色の房、こげ茶の長い毛
+  mimi: { wool: '#5E4535', wool2: '#6F5241', face: '#211D1B', ear: '#211D1B', leg: '#211D1B', cap: 'tuft', capCol: '#6E5140', cheek: '#6A4E3C', eye: '#B68A4E', locks: '#5A4232', scale: 1, thick: 1.02, seed: 7 },
+  // バート：白い顔（鼻はピンク）、頬のしわ、頭に前髪のような房、厚い白い毛
+  bart: { wool: '#E6DBC5', wool2: '#D9CDB4', face: '#EFE5D4', ear: '#EADBC9', earIn: '#E6ABA3', nose: '#D99A94', leg: '#E2D7C4', hoof: '#5A4E44', cap: 'fore', capCol: '#E3D7BF', wrinkle: '#CDBDA4', eye: '#2B2420', scale: 1.06, thick: 1.12, seed: 11 },
+  // テオ：白い顔、頭をおおう大きな房、まだ刈っていない、とても厚い毛
+  teo: { wool: '#EAE1CB', wool2: '#DDD2BA', face: '#F2EADA', ear: '#ECDECB', earIn: '#E8B0A8', nose: '#DCA19A', leg: '#E4DAC8', hoof: '#5A4E44', cap: 'mop', capCol: '#E5DBC4', eye: '#2B2420', locks: '#E2D8C1', scale: 0.92, thick: 1.2, seed: 5 },
+};
+function slsSheep(k) {
+  const o = SLS_SHEEP[k];
+  const a = quadBase({ L: 1.15, W: 0.85, H: 0.72, legH: 0.48, legW: 0.13, body: o.wool, leg: o.leg, hoof: o.hoof, noBody: true, neckUp: 0.2 });
+  const wA = mat(o.wool), wB = mat(o.wool2);
+  for (let i = 0; i < 8; i++) {
+    const m = new THREE.Mesh(G3.ico, (i + o.seed) % 3 === 1 ? wB : wA);
+    m.scale.setScalar((0.62 + hash2(i + o.seed, 2) * 0.12) * o.thick);
+    m.position.set((i % 2 ? 0.2 : -0.2) * (0.9 + 0.1 * o.thick), a.bodyY + (i % 3 - 1) * 0.12 + 0.05 * o.thick, -0.42 + Math.floor(i / 2) * 0.28);
+    m.castShadow = true; a.rig.add(m);
+  }
+  // 長い毛の房：すその下に、少し垂れた玉を並べる
+  if (o.locks) {
+    const lm = mat(o.locks);
+    for (let i = 0; i < 12; i++) {
+      const t = i / 12 * Math.PI * 2, r = hash2(i, o.seed);
+      const m = new THREE.Mesh(G3.ico, i % 2 ? lm : wA);
+      m.scale.set(0.2 + r * 0.06, 0.26 + r * 0.08, 0.2); m.position.set(Math.sin(t) * 0.44 * o.thick, a.bodyY - 0.3 - r * 0.05, Math.cos(t) * 0.62);
+      m.castShadow = true; a.rig.add(m);
+    }
+  }
+  // 頭
+  part('box', o.face, 0.32, 0.36, 0.44, 0, 0, 0.22, a.head);
+  part('box', o.face, 0.26, 0.24, 0.12, 0, -0.06, 0.45, a.head); // 鼻先
+  if (o.nose) part('box', o.nose, 0.12, 0.07, 0.03, 0, -0.08, 0.515, a.head, { noShadow: true });
+  for (const s of [-1, 1]) {
+    // 目：横から少し前に
+    part('box', o.eye, 0.02, 0.05, 0.06, s * 0.162, 0.07, 0.33, a.head, { noShadow: true });
+    if (o.face === '#211D1B') part('box', '#F2E6D2', 0.021, 0.018, 0.02, s * 0.163, 0.085, 0.34, a.head, { noShadow: true }); // 黒い顔は、目の光だけ
+    const e = part('box', o.ear, 0.26, 0.07, 0.11, s * 0.24, 0.07, 0.12, a.head); e.rotation.z = -s * 0.12;
+    if (o.earIn) part('box', o.earIn, 0.18, 0.02, 0.06, s * 0.26, 0.105, 0.125, a.head, { noShadow: true }).rotation.z = -s * 0.12;
+    if (o.wrinkle) for (let j = 0; j < 3; j++) part('box', o.wrinkle, 0.012, 0.022, 0.13 - j * 0.02, s * 0.162, -0.05 - j * 0.055, 0.3, a.head, { noShadow: true }); // 頬のしわ
+    if (o.cheek) { part('ico', o.cheek, 0.16, 0.2, 0.2, s * 0.17, -0.02, 0.06, a.head); part('ico', o.cheek, 0.12, 0.12, 0.12, s * 0.15, 0.13, 0.2, a.head); }
+  }
+  if (o.cap === 'tuft') { part('ico', o.capCol, 0.26, 0.17, 0.22, 0.02, 0.2, 0.12, a.head); part('ico', o.capCol, 0.15, 0.13, 0.14, -0.06, 0.25, 0.22, a.head); part('ico', o.cheek, 0.12, 0.1, 0.12, 0.08, 0.24, 0.03, a.head); }
+  if (o.cap === 'fore') { part('ico', o.capCol, 0.34, 0.24, 0.3, 0, 0.2, 0.1, a.head); part('ico', o.capCol, 0.22, 0.14, 0.16, 0, 0.16, 0.26, a.head); }
+  if (o.cap === 'mop') { part('ico', o.capCol, 0.44, 0.3, 0.38, 0, 0.21, 0.12, a.head); part('ico', o.capCol, 0.34, 0.18, 0.2, 0, 0.17, 0.3, a.head); for (const s of [-1, 1]) part('ico', o.capCol, 0.14, 0.16, 0.14, s * 0.17, 0.12, 0.27, a.head); }
+  part('ico', o.wool, 0.22 * o.thick, 0.22 * o.thick, 0.22 * o.thick, 0, 0, -0.05, a.tail);
+  // 首まわりの毛（頭と体をつなぐ）
+  part('ico', o.wool, 0.44 * o.thick, 0.42 * o.thick, 0.34, 0, a.bodyY + 0.12, 0.5, a.rig);
+  a.root.scale.setScalar(o.scale); a.sp = 'sheep'; a.sls = k;
+  return a;
+}
+
+/* 鶏：6羽とも、赤茶色の採卵の鶏。首の羽は金色がかって明るく、尾のつけねは白くふわふわ。
+   ココロとポンズは濃い色。足環の色は写真から（ココロは赤、ビジーは緑、ポピーは青） */
+const SLS_HENS = {
+  kokoro: { base: '#8E4124', light: '#AE5A31', mid: '#7A3520', dark: '#3A190D', hackle: '#B8703A', comb: 1.12, combTilt: 0, beak: 0.72, band: '#D8423A', scale: 1, seed: 21 },
+  ponzu: { base: '#94472A', light: '#B8653B', mid: '#7F3B22', dark: '#3C1C10', hackle: '#C0793F', comb: 1.18, combTilt: 0.08, beak: 1, band: null, scale: 1, seed: 22, fleck: true },
+  sweet: { base: '#AE5F2F', light: '#CF8A4C', mid: '#97502A', dark: '#45230F', hackle: '#D9A05C', comb: 1.0, combTilt: 0.42, beak: 1, band: null, scale: 0.98, seed: 23 },
+  busy: { base: '#B86835', light: '#D99257', mid: '#A0582C', dark: '#48250F', hackle: '#DCA462', comb: 0.95, combTilt: 0.12, beak: 1, band: '#3F9A58', scale: 0.96, seed: 24 },
+  poppy: { base: '#B4642F', light: '#D48C4E', mid: '#9C552A', dark: '#46240F', hackle: '#D9A15F', comb: 0.88, combTilt: 0.05, beak: 1, band: '#5B66B8', scale: 0.95, seed: 25 },
+  messy: { base: '#A65A2D', light: '#C98349', mid: '#904C27', dark: '#40210E', hackle: '#CF9152', comb: 1.25, combTilt: 0, beak: 1, band: null, scale: 1.2, seed: 26 },
+};
+const SLS_TEX = {};
+function slsHenTex(k) {
+  if (SLS_TEX[k]) return SLS_TEX[k];
+  const P = SLS_HENS[k], rnd = pcRng(P.seed * 97);
+  const base = pcPastel(P.base, 0.06), light = pcPastel(P.light, 0.05), mid = pcPastel(P.mid, 0.04), dark = P.dark, hk = pcPastel(P.hackle, 0.05);
+  // 体
+  const BW = 512, BH = 256, bc = pcCanvas(BW, BH), g = bc.getContext('2d');
+  g.fillStyle = base; g.fillRect(0, 0, BW, BH);
+  const gr = g.createLinearGradient(0, 0, 0, BH); gr.addColorStop(0, 'rgba(255,240,210,0.22)'); gr.addColorStop(0.55, 'rgba(255,255,240,0)'); gr.addColorStop(1, 'rgba(60,35,20,0.22)'); g.fillStyle = gr; g.fillRect(0, 0, BW, BH);
+  // 胸のうろこ羽
+  for (let row = 0; row < 5; row++) for (let kx = -5; kx <= 5; kx++) {
+    const x = BW * 0.5 + kx * 15 + (row % 2) * 7.5, y = BH * 0.32 + row * 18, rr = 11 + rnd() * 3;
+    if (Math.abs(kx) > 5 - row * 0.4) continue;
+    g.fillStyle = rnd() > 0.45 ? mid : light; g.beginPath(); g.arc(x, y, rr, 0.1, Math.PI - 0.1); g.fill();
+    pcLine(g, rnd, Array.from({ length: 7 }, (_, i) => { const t = 0.15 + i / 6 * (Math.PI - 0.3); return [x + Math.cos(t) * rr, y + Math.sin(t) * rr]; }), pcCol(P.dark, 0.25), 1.2, 0.35, 0.6);
+  }
+  // 首の羽（上の前と横）：金色がかった細長い羽が、下へ流れる
+  pcStrokes(g, rnd, BW * 0.18, 0, BW * 0.64, BH * 0.26, hk, 150, 18, 3.2, 0.7, 1.57, 0.25);
+  pcStrokes(g, rnd, BW * 0.2, 0, BW * 0.6, BH * 0.16, pcCol(P.hackle, 0.12), 80, 14, 2.4, 0.6, 1.57, 0.2);
+  // 翼
+  for (const [ux, dir] of [[0.25, -1], [0.75, 1]]) {
+    const cx = BW * ux, cy = BH * 0.52, wx = 70, wy = 44;
+    g.fillStyle = mid; g.beginPath(); g.ellipse(cx, cy, wx, wy, 0, 0, 6.283); g.fill();
+    g.fillStyle = base; g.beginPath(); g.ellipse(cx - dir * 14, cy - 12, wx * 0.62, wy * 0.55, 0, 0, 6.283); g.fill();
+    for (let i = 0; i < 5; i++) {
+      const fx = cx + dir * (18 + i * 12), fy = cy + 8 + i * 5;
+      g.fillStyle = i % 2 ? light : base; g.beginPath(); g.ellipse(fx, fy, 30, 9, dir * 0.25, 0, 6.283); g.fill();
+      g.fillStyle = dark; g.globalAlpha = 0.55; g.beginPath(); g.ellipse(fx + dir * 14, fy + 4, 14, 3.5, dir * 0.25, 0, 6.283); g.fill(); g.globalAlpha = 1;
+    }
+    if (P.fleck) for (let i = 0; i < 7; i++) { g.fillStyle = '#F4EBDD'; g.globalAlpha = 0.8; g.beginPath(); g.ellipse(cx + dir * (10 + rnd() * 40), cy + 4 + rnd() * 22, 4, 2, dir * 0.3, 0, 6.283); g.fill(); g.globalAlpha = 1; }
+    pcLine(g, rnd, Array.from({ length: 24 }, (_, i) => { const t = i / 23 * 6.283; return [cx + Math.cos(t) * wx, cy + Math.sin(t) * wy]; }), pcCol(P.dark, 0.15), 1.6, 0.45, 1.2);
+  }
+  // 背中は少し濃く、おなかは明るく。尾のつけね（後ろの下）は白くふわふわ
+  g.fillStyle = mid; g.globalAlpha = 0.45; g.fillRect(0, 0, BW * 0.1, BH * 0.6); g.fillRect(BW * 0.9, 0, BW * 0.1, BH * 0.6); g.globalAlpha = 1;
+  pcStrokes(g, rnd, 0, BH * 0.78, BW, BH * 0.22, light, 120, 14, 3, 0.45, 1.57, 0.6);
+  for (const x0 of [0, BW * 0.9]) pcStrokes(g, rnd, x0, BH * 0.62, BW * 0.1, BH * 0.38, '#F6F0E6', 70, 12, 3, 0.85, 1.57, 0.9);
+  pcStrokes(g, rnd, 0, 0, BW, BH, pcCol(P.base, 0.15), 220, 14, 2.4, 0.3, 0.9, 0.8);
+  pcStrokes(g, rnd, 0, 0, BW, BH, pcCol(P.base, -0.12), 150, 12, 2, 0.2, 0.9, 0.8);
+  pcGrain(g, rnd, 0, 0, BW, BH, 700, '#FFFFFF', 0.4, 2);
+  // 頭：首の羽の色。横に赤い顔と目、前の下に肉垂れ
+  const HW = 256, HH = 128, hc = pcCanvas(HW, HH), h = hc.getContext('2d');
+  h.fillStyle = hk; h.fillRect(0, 0, HW, HH);
+  pcStrokes(h, rnd, 0, 0, HW, HH, pcCol(P.hackle, 0.14), 90, 10, 2.4, 0.4, 1.57, 0.4);
+  pcStrokes(h, rnd, 0, 0, HW, HH, pcCol(P.hackle, -0.1), 50, 10, 2, 0.3, 1.57, 0.4);
+  for (const ux of [0.31, 0.69]) {
+    const cx = HW * ux, cy = HH * 0.5, sd = ux < 0.5 ? 1 : -1;
+    h.fillStyle = '#E0574A'; h.beginPath(); h.ellipse(cx + sd * 4, cy, 22, 17, 0, 0, 6.283); h.fill();
+    h.fillStyle = '#E8913A'; h.beginPath(); h.arc(cx + sd * 3, cy - 3, 8, 0, 6.283); h.fill();
+    h.fillStyle = '#2A2420'; h.beginPath(); h.arc(cx + sd * 3, cy - 3, 5, 0, 6.283); h.fill();
+    h.fillStyle = '#FFFFFF'; h.beginPath(); h.arc(cx + sd * 1, cy - 6, 1.8, 0, 6.283); h.fill();
+  }
+  h.fillStyle = '#D9443A'; for (const dx of [-7, 7]) { h.beginPath(); h.ellipse(HW * 0.5 + dx, HH * 0.86, 7, 13, 0, 0, 6.283); h.fill(); }
+  pcGrain(h, rnd, 0, 0, HW, HH, 200, '#FFFFFF', 0.35, 2);
+  // とさか・尾羽・足先
+  const CW = 256, CH = 256, cc = pcCanvas(CW, CH), c = cc.getContext('2d');
+  c.clearRect(0, 0, CW, CH);
+  c.fillStyle = '#DD3F33'; c.beginPath(); c.moveTo(14, 122);
+  [[22, 66, 15], [42, 52, 17], [64, 46, 18], [86, 54, 16], [104, 70, 13]].forEach(([x, y, r]) => { c.arc(x, y, r, Math.PI * 0.95, Math.PI * 2.05); });
+  c.lineTo(118, 122); c.closePath(); c.fill();
+  c.fillStyle = '#B83228'; c.globalAlpha = 0.45; c.fillRect(10, 98, 110, 24); c.globalAlpha = 1;
+  pcStrokes(c, rnd, 14, 40, 104, 60, '#F48A70', 34, 12, 2.4, 0.55, -1.4, 0.4);
+  pcLine(c, rnd, [[14, 122], [10, 70], [22, 48], [42, 34], [64, 27], [86, 36], [104, 56], [118, 122]], '#9A2A22', 2, 0.5, 1.2);
+  // 尾羽：上へ開く束。先は濃く、根もとに白い綿毛
+  for (let i = 0; i < 7; i++) {
+    const a = -1.57 + (i - 3) * 0.16 + 0.2, len = 88 - Math.abs(i - 3) * 8, x0 = 190, y0 = 122;
+    c.save(); c.translate(x0, y0); c.rotate(a + 1.57);
+    c.fillStyle = i % 2 ? light : base; c.beginPath(); c.ellipse(0, -len / 2, 10, len / 2, 0, 0, 6.283); c.fill();
+    c.fillStyle = dark; c.globalAlpha = 0.6; c.beginPath(); c.ellipse(3, -len / 2 - 6, 3, len / 2 - 12, 0, 0, 6.283); c.fill(); c.globalAlpha = 1;
+    c.fillStyle = '#F7F1E7'; c.beginPath(); c.ellipse(0, -10, 11, 13, 0, 0, 6.283); c.fill();
+    c.restore();
+  }
+  for (const a of [-0.55, 0, 0.55]) { c.save(); c.translate(128, 236); c.rotate(a); c.fillStyle = '#E2B74E'; c.fillRect(-7, -96, 14, 96); c.fillStyle = '#F0E4CC'; c.beginPath(); c.moveTo(-7, -96); c.lineTo(7, -96); c.lineTo(0, -112); c.fill(); c.restore(); }
+  return (SLS_TEX[k] = { body: pcTexture(bc, true), head: pcTexture(hc, true), cut: pcTexture(cc) });
+}
+function slsHen(k) {
+  const P = SLS_HENS[k], T = slsHenTex(k);
+  const M = (map, o) => new THREE.MeshPhongMaterial(Object.assign({ map, flatShading: true, shininess: 0, specular: 0x000000 }, o || {}));
+  const root = new THREE.Group(), rig = new THREE.Group(); root.add(rig);
+  const bodyGeo = pcWrapUV(new THREE.SphereGeometry(0.5, 8, 6).scale(0.6, 0.56, 0.74).translate(0, 0.47, -0.03), 0.47, 0.56);
+  const body = new THREE.Mesh(bodyGeo, M(T.body)); body.castShadow = true; rig.add(body);
+  // 尾のつけねの白い綿毛
+  part('ico', '#F5EFE4', 0.24, 0.2, 0.18, 0, 0.42, -0.36, rig);
+  const cutMat = M(T.cut, { alphaTest: 0.5, side: THREE.DoubleSide });
+  const tail = new THREE.Group(); tail.position.set(0, 0.6, -0.3); rig.add(tail);
+  for (const s of [-1, 1]) {
+    const pg = new THREE.PlaneGeometry(0.42, 0.42); const uv = pg.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, 0.5 + uv.getX(i) * 0.5, 0.5 + uv.getY(i) * 0.5);
+    const p = new THREE.Mesh(pg, cutMat); p.rotation.y = Math.PI / 2 + s * 0.28; p.position.set(s * 0.02, 0.12, -0.08); p.castShadow = true; tail.add(p);
+  }
+  const head = new THREE.Group(); head.position.set(0, 0.65, 0.18); rig.add(head);
+  const hg = pcWrapUV(new THREE.SphereGeometry(0.5, 7, 5).scale(0.24, 0.26, 0.26).translate(0, 0.12, 0.05), 0.12, 0.26);
+  const hm = new THREE.Mesh(hg, M(T.head)); hm.castShadow = true; head.add(hm);
+  // くちばし（ココロは先が少し短い）
+  const beak = new THREE.Mesh(G3.cone4, mat('#E6B95A')); beak.scale.set(0.08, 0.13 * P.beak, 0.07); beak.position.set(0, 0.1, 0.2 + 0.02 * P.beak); beak.rotation.set(Math.PI / 2 + 0.3, Math.PI / 4, 0); head.add(beak);
+  // 肉垂れ（あごの下の赤）
+  part('sph', '#D8463A', 0.08, 0.11, 0.04, 0, -0.005, 0.19, head, { noShadow: true });
+  const cg = new THREE.PlaneGeometry(0.26, 0.26); { const uv = cg.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * 0.5, 0.5 + uv.getY(i) * 0.5); }
+  const comb = new THREE.Mesh(cg, cutMat); comb.rotation.order = 'YXZ'; comb.rotation.y = Math.PI / 2; comb.rotation.x = P.combTilt; comb.scale.setScalar(P.comb); comb.position.set(P.combTilt * 0.08, 0.26 + (P.comb - 1) * 0.1, 0.05); head.add(comb);
+  const legs = [], legMat = mat('#E2B74E'), toeG = new THREE.PlaneGeometry(0.2, 0.1); { const uv = toeG.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i), 0.5 - uv.getY(i) * 0.5); }
+  for (const s of [-1, 1]) {
+    const Lg = new THREE.Group(); Lg.position.set(s * 0.1, 0.3, 0.02); rig.add(Lg);
+    const leg = new THREE.Mesh(PC.legGeo || (PC.legGeo = new THREE.CylinderGeometry(0.5, 0.5, 1, 3)), legMat); leg.scale.set(0.06, 0.28, 0.06); leg.position.y = -0.14; Lg.add(leg);
+    const toe = new THREE.Mesh(toeG, cutMat); toe.rotation.x = -Math.PI / 2; toe.position.set(0, -0.28, 0.06); Lg.add(toe);
+    if (P.band && s > 0) part('cyl12', P.band, 0.085, 0.045, 0.085, 0, -0.2, 0, Lg, { noShadow: true }); // 足環
+    legs.push(Lg);
+  }
+  root.scale.setScalar(P.scale);
+  return { root, rig, legs, head, tail, wings: null, legLen: 0.3, kind: 'bird', sp: 'chicken', sls: k };
+}
+
+/* ロッティさん：写真から。赤みのある金色の髪を後ろでゆるくまとめ、べっこう色の丸めがね、紺と生成りのチェックのネルシャツ、明るいデニム */
+const SLS_LOTTIE = { skin: '#F4DCC8', hairColor: '#CC9063', top: '#7F93B5', bottom: '#A9BDD2', boots: '#6B5141', eyes: 'dot', brows: 'soft', cheek: 'none', mouth: 'smile', hair: 'bald', glasses: 'big', style: 'pants', outer: 'none', hat: 'none', bag: 'none' };
+function slsPlaidTex() {
+  if (SLS_TEX.plaid) return SLS_TEX.plaid;
+  const N = 128, cv = pcCanvas(N, N), g = cv.getContext('2d'), rnd = pcRng(77);
+  g.fillStyle = '#E6E1D6'; g.fillRect(0, 0, N, N);
+  // 紺の太い帯（縦と横）が重なる所はいちばん濃く、生成りに重なる所は灰青
+  g.fillStyle = 'rgba(40,58,98,0.78)'; g.fillRect(0, 0, N, 52); g.fillRect(0, 0, 52, N);
+  g.fillStyle = 'rgba(28,40,72,0.6)'; g.fillRect(0, 0, 52, 52);
+  g.fillStyle = 'rgba(120,138,170,0.55)'; g.fillRect(0, 74, N, 14); g.fillRect(74, 0, 14, N);
+  g.fillStyle = 'rgba(236,232,224,0.7)'; g.fillRect(0, 24, N, 3); g.fillRect(24, 0, 3, N);
+  pcGrain(g, rnd, 0, 0, N, N, 260, '#FFFFFF', 0.25, 1.5);
+  const t = pcTexture(cv, true); t.repeat.set(2, 2);
+  return (SLS_TEX.plaid = t);
+}
+function slsLottie() {
+  const c = Object.assign(avatarColors(SLS_LOTTIE), {});
+  const m = modelPerson(c), ctx = avCtx(c);
+  // 髪：後ろで低くまとめたおだんごと、顔のわきにこぼれた毛
+  avParts([
+    { s: 'sph', c: 'hair', z: [0.47, 0.32, 0.46], p: [0, 1.87, -0.075] }, // 前髪を上げて、後ろへ
+    { s: 'sph', c: 'hair', z: [0.44, 0.3, 0.3], p: [0, 1.78, -0.12] },
+    { s: 'sph', c: 'hair', z: [0.22, 0.19, 0.19], p: [0.02, 1.7, -0.27] }, // 低い位置のおだんご
+    { s: 'sph', c: 'hair', z: [0.14, 0.12, 0.12], p: [-0.06, 1.78, -0.28] },
+    { s: 'ico', c: 'hair', z: [0.09, 0.08, 0.08], p: [0.1, 1.98, -0.02] }, // ゆるくまとめた毛のふくらみ
+  ], m.rig, ctx, {});
+  // チェックのシャツ：体と腕の服の色の所を、チェックの紙に
+  const plaid = new THREE.MeshPhongMaterial({ map: slsPlaidTex(), flatShading: true, shininess: 0, specular: 0x000000 });
+  const topHex = new THREE.Color(c.top).getHex();
+  m.rig.traverse((o) => { if (o.isMesh && o.material && o.material.color && !o.material.map && o.material.color.getHex() === topHex) o.material = plaid; });
+  // えり（チェック）と、えりもとの灰色のシャツ
+  for (const s of [-1, 1]) { const cl = part('box', plaid, 0.15, 0.1, 0.03, s * 0.09, 1.42, 0.165); cl.rotation.z = s * 0.5; m.rig.add(cl); }
+  part('box', '#C9CCD0', 0.11, 0.1, 0.02, 0, 1.38, 0.162, m.rig, { noShadow: true });
+  // 胸ポケット2つ
+  for (const s of [-1, 1]) part('box', '#2E4068', 0.13, 0.012, 0.012, s * 0.13, 1.27, 0.165, m.rig, { noShadow: true });
+  m.sls = 'lottie';
+  return m;
+}
+
+/* =========================================================
+   Second Life Sanctuary（SLS）へ出かける（0.9.88）
+   山梨県富士川町のサンクチュアリを、丘とは別の画面（シーン）に。丘のバス停から出かけて、SLS のバス停から帰る
+   - ウェルカムセンター（welcome.js）と同じく、別のシーンを作って描きかえる。空・光・雨と雪・雲・星は、行っている間だけ持っていく
+   - 並び（2026-10-28、Daiさん）：入口を入って正面の奥いっぱいが羊の庭、北が鶏の庭、左（南）がロッジと前の広場。動物の所は柵で囲む
+   - 柵は丘と同じまとめ描き（InstancedMesh）。晴れた日は、遠くに富士山。入口の門には、団体のロゴ（sls-logo.js。Daiさんが団体に許可をもらった）
+   - 2026-10-29、Daiさん：羊の庭に小さな丘・水飲みの池・干し草の小屋。鶏の庭に止まり木の枝・水飲み場・砂浴び場・見学の人が輪になって座れる椅子。
+     庭の門をわかりやすく。なでる・ブラッシング・ひと休みは丘と同じように。ただし、ここの子は知らない人にはまだ慣れていない（ブラッシングは、なかなかさせてくれない）
+   - 性格の札はつけない。ロッティさんは、せりふなし（ご本人の確認まで）。ふるまいは、団体の紹介にあることと、種の習性だけ
+   - 地図の試作と考え方：claude/sls-site-map.md、住人：claude/sls-residents.md、実在の子の扱い：claude/real-animals-plan.md
+   ========================================================= */
+// 並び（このシーンの座標。x は東、z は南。試作の地図の座標から x+94、z-10.5 ずらして、まん中を原点に）
+const SLS_SITE = {
+  land: [-28, 28, -36.5, 36.5],
+  gate: [28, 1.5, 1.6],                       // 入口（外まわりの柵の東。[x, z, 半分の幅]）
+  bus: [33.6, 4.8], arrive: [32.2, 4.4],      // バス停（はるにれの丘行き）と、着いた所（門のロゴの板が、富士山をかくさない所）
+  sign: [24.2, -2.6],                         // 入口の「ごあんない」
+  lane: [27.4, 43, -0.6, 6.4],                // 入口の外の道（歩ける所）
+  fields: [[28.8, 44, -36.5, -1.2], [28.8, 44, 7.2, 36.5]], // 入口の外の、地元の農家の野菜畑
+  sheep: { rect: [-26, 6, -12.5, 34.5], gate: ['e', 1.5, 1.3], name: '羊の庭' },
+  hen: { rect: [-26, 26, -34.5, -14.5], gate: ['s', 16, 0.9], name: '鶏の庭' },
+  sheepHouse: [-25, -15, 25.5, 33.5],         // 羊の庭の奥（南西のすみ）。前は北
+  coop: [-25, -18, -33.5, -27],               // 鶏の庭の奥（北西のすみ）。前は南
+  lodge: [8, 22, 22.5, 32.5],                 // ロッジ（薪ストーブのある建物）。前（北）が広場
+  plaza: [7, 27, 4.5, 21.5], apron: [9, 21, 18, 22.5],
+  paths: [[[28, 1.5], [6, 1.5]], [[16, 1.5], [16, -14.5]], [[15, 1.5], [15, 18]]],
+  trees: [[-16, -2.5, 'elm', 1.05], [-8, 31, 'young', 0.95], [-21, 13.5, 'maple', 0.9], [-16, -19.5, 'young', 0.9], [8, -29.5, 'elm', 0.95], [24.5, 16.5, 'birch', 0.9], [24, 34, 'young', 0.85], [9, -6.5, 'maple', 0.85]],
+  sakuraX: [-24, -16, -8, 0, 8, 16, 24],
+  table: [19.5, 11.5], bench: [9.5, -4],      // 広場のベンチは、羊の庭のほう（西）を向く
+  // 羊の庭：小さな丘 [x, z, 半径, 高さ]・水飲みの池 [x, z, 半径]・干し草の小屋 [x, z]
+  mound: [-11, 6, 5.5, 1.5], pond: [0, 27, 2.3], hay: [-20, -8.5],
+  // 鶏の庭：止まり木の枝 [x, z, 長さ]・水飲み場 [x, z]・砂浴び場 [x, z, 半径]・輪になって座れる椅子 [x, z, 半径, 数]
+  perch: [-8, -28, 2.8], henWater: [3, -17.6], dust: [-4, -21, 1.7], circle: [12, -24.5, 2.7, 8],
+  fuji: [-900, 30],
+};
+function slsStreamZ(x) { return -46.5 + 2.4 * Math.sin((x - 94) / 8 + 1); }
+// 地面の高さ：羊の庭の小さな丘だけ
+function slsH(x, z) { const [mx, mz, r, h] = SLS_SITE.mound, d = Math.hypot(x - mx, z - mz) / r; return d < 1 ? h * (1 - d * d) * (1 - d * d) : 0; }
+// 住人のカード（団体の紹介と写真から。ゲームの言葉に書き直したもの）。性格の札はつけない
+const SLS_RES = {
+  lulu: { g: 'sheep', name: 'ルル', en: 'Lulu', sex: 'メス', age: '年はわかりません',
+    say: ['はずかしがりやの羊です。手から食べるのは、まだ少しどきどき。小さなお皿に入れて差し出すと、ちゃんと食べてくれます。', 'それでも、いつもそばにいてくれます。あなたが静かで、落ち着いている時は、とくに安心しているようです。'],
+    likes: ['静かで、落ち着いた時間', '小さなお皿のおやつ'], look: 'つやつやの黒い顔。頭にも体にも房はなく、毛は茶色。' },
+  mimi: { g: 'sheep', name: 'ミミ', en: 'Mimi', sex: 'メス', age: '年はわかりません',
+    say: ['テオのお母さんです。自信たっぷりで、おやつが大好き。やさしくなでると、うれしそうな顔を見せてくれます。', 'ニンジンがある時は「こっちを見て」と言うように、あなたをひとりじめしようとします。このグループの中では、しっかり者のリーダーです。'],
+    likes: ['おやつ（とくにニンジン）', 'やさしくなでてもらうこと'], look: '黒い顔に、頭の上のふわふわの房。やわらかな茶色の毛。' },
+  bart: { g: 'sheep', name: 'バート', en: 'Bart', sex: 'オス', age: '5〜6歳くらい（2025年10月の紹介で）',
+    say: ['とてもやさしい羊です。顔をそっとなでてもらうのが大好き。', '人にすぐ心をひらいて、そばにいるだけで、こちらまでうれしくなります。'],
+    likes: ['顔をそっとなでてもらうこと', '人のそば'], look: 'ふかふかの白い毛。頬のしわが、とてもいい表情をつくっています。' },
+  teo: { g: 'sheep', name: 'テオ', en: 'Teo', sex: 'オス', born: [2024, 12],
+    say: ['まだ若い羊です。とてもかわいい顔をしていて、おやつを食べている時は、あごの下をそっとなでさせてくれることもあります。', 'たいてい、お母さんのミミのそばにいますが、ほかの羊たちと過ごす姿も見られます。'],
+    likes: ['おやつ', 'お母さんのミミのそば'], look: 'まだ毛を刈っていないので、白い毛がとても厚い。頭も、ふわふわの毛におおわれています。',
+    more: ['羊は2歳くらいまで大きくなり、5歳ごろに歯が生えそろいます。テオには、まだ大きくなる時間があります（団体の紹介より）。'] },
+  kokoro: { g: 'hen', name: 'ココロ', en: 'Kokoro', sex: 'メス', age: '年はわかりません',
+    say: ['とても堂々とした鶏です。人が大好きで、ひざの上で眠ってしまうほど。', '音楽が好きで、ときどき木琴で遊びます。光るものにも目がなくて、ブレスレットは取られないように気をつけて。抱っこしてもらうのも大好きな、やわらかくて、やさしい子です。', 'まだ若いころ、ほかの5羽と一緒にサンクチュアリへ来ました。ひなのころ、痛みをやわらげることなく、くちばしの先を切り落とされています。その経験をこえて、今は、まわりに愛情を向ける子です。'],
+    likes: ['音楽（木琴）', 'ひざの上', '抱っこ', 'ブレスレット'], look: '6羽の中で、羽の色が濃いめ。くちばしの先が、少し短い。' },
+  ponzu: { g: 'hen', name: 'ポンズ', en: 'Ponzu', sex: 'メス', born: [2024, 7],
+    say: ['2024年7月に生まれた採卵の鶏で、2024年10月にサンクチュアリへ来ました。', '自信家で、花とスイートコーンを食べるのが大好き。いつも、人の上に座りたがります。'],
+    likes: ['花', 'スイートコーン', '人の上に座ること'], look: 'ココロと同じように、羽の色が濃いめ。' },
+  sweet: { g: 'hen', name: 'スイート', en: 'The Sweet One', sex: 'メス', age: '年はわかりません',
+    say: ['やさしくなでてもらうのが大好き。', 'おやつよりも、あなたがこちらを見てくれることのほうが、うれしいみたいです。'],
+    likes: ['やさしくなでてもらうこと', 'あなたと過ごす時間'], look: '明るい赤茶色。首のまわりは金色がかっています。' },
+  busy: { g: 'hen', name: 'ビジー', en: 'The Busy One（日本語のページでは、バタ子ちゃん）', sex: 'メス', age: '年はわかりません',
+    say: ['いつもバタバタ走り回っていて、ふざけるのが大好き。', 'ヘアバンドをくわえて、逃げていったこともあります。サンクチュアリの笑いの担当です。'],
+    likes: ['走り回ること', 'ヘアバンド'], look: '明るい赤茶色で、尾のつけねは白くふわふわ。' },
+  poppy: { g: 'hen', name: 'ポピー', en: 'Poppy（日本語のページでは、しずかちゃん）', sex: 'メス', age: '年はわかりません',
+    say: ['たいてい、ひとりで何かをしています。人がひとりでいると、仲間を見つけたように、そばへやってきます。', '自分から気を引こうとはしませんが、かまってもらうと、とてもうれしそうに甘えます。'],
+    likes: ['ひとりの時間', 'ひとりでいる人のそば'], look: '明るい赤茶色。尾のつけねは白くふわふわ。' },
+  messy: { g: 'hen', name: 'メッシー', en: 'The Messy One', sex: 'メス', age: '年はわかりません',
+    say: ['とても体が大きくて、ごはんを散らかしながら食べます。', '泥の中を走り回ったあと、ひざの上に飛び乗ってきます。ちょっとした騒ぎになりますが、それも楽しいのです。'],
+    likes: ['泥の中を走ること', 'ひざの上'], look: 'ほかの鶏より、ひとまわり大きな体。' },
+};
+const SLS_SRC = { animals: ['Second Life Sanctuary「動物たち」', 'https://secondlifesanctuary.org/ja/animals/'], about: ['Second Life Sanctuary「私たちについて」', 'https://secondlifesanctuary.org/ja/about-us/'] };
+const SLSV = { on: false, busy: false, built: false, S: null, g: null, px: 0, pz: 0, heading: -Math.PI / 2, target: null, path: null, go: null, stuck: 0, phase: 0,
+  res: [], lottie: null, pick: [], ground: null, groundMat: null, fuji: null, gates: [], grid: null, cols: [], circles: [], seats: [], shared: [], back: null, root: null, inst: 0,
+  toldT: 0, call: 0, petting: null, sit: null, sitP: null, petSeen: {}, busPos: null, logoTex: null };
+
+// 出かけられるか：はじめからいつでも（2026-10-29、Daiさん：バス停から行けることに気づきにくい）
+function slsOpen() { return !!G; }
+const SLS_HILL_BUS = [9, 50.1]; // 丘のバス停（world.js の buildBase）
+// 丘：バス停のそばに来たら「SLSへ出かける」（nearestInteractable から）
+function slsBusNear() {
+  if (!slsOpen() || UI.rest) return null;
+  const P = ACT.player, d = Math.hypot(SLS_HILL_BUS[0] - P.x, SLS_HILL_BUS[1] - P.z);
+  return d < 2.3 ? { d, p: { kind: 'slsgo', ent: { x: SLS_HILL_BUS[0], z: SLS_HILL_BUS[1], name: 'バス停', m: { root: { visible: true } } } } } : null;
+}
+function slsAsk() {
+  UI.modal(`<div class="dialog-who"><strong>Second Life Sanctuary へ</strong><span class="pill">山梨県富士川町</span></div>
+    <p class="said">バスに乗って、山梨県富士川町の Second Life Sanctuary（SLS）へ出かけますか？　羊と鶏たちが暮らしている、サンクチュアリです。</p>
+    <p class="muted">丘の時間は、そのまま流れます。帰りは、SLS のバス停から。</p>
+    <div class="btn-row"><button class="btn" data-act="sls-go">出かける</button><button class="btn small" data-act="close-modal">やめる</button></div>`);
+}
+// 「行動」の「あなた」の一覧に：SLS へ出かける（門の外のバス停まで歩いて、着いたら、たずねる）
+function slsActHtml() {
+  if (!slsOpen() || SLSV.on) return '';
+  return `<button class="act" data-act="sls-call"><span class="ic" style="background:#3F6B52">${ico('i-map')}</span><span class="tx"><strong>Second Life Sanctuary へ出かける</strong><span>門の外のバス停から、バスで山梨県富士川町のサンクチュアリへ。羊と鶏たちに会いに</span></span><span class="cost"><br><em>回数は使いません</em></span></button>`;
+}
+// 丘のバス停の上の札（SLS 行きと、遠くからもわかるように。行ったことがあれば、近くでだけ）
+function slsLabel(P) {
+  if (SLSV.on || !slsOpen() || UI.rest) return null;
+  const d = Math.hypot(SLS_HILL_BUS[0] - P.x, SLS_HILL_BUS[1] - P.z);
+  if (d > ((G.flags && G.flags.slsVisit) ? 9 : 24)) return null;
+  if (!SLSV.busPos) SLSV.busPos = new THREE.Vector3(SLS_HILL_BUS[0], 0, SLS_HILL_BUS[1]);
+  return { e: { x: SLS_HILL_BUS[0], z: SLS_HILL_BUS[1], m: { root: { position: SLSV.busPos, visible: true } } }, d: Math.max(0, d - 3), cls: 'npc', text: 'バス停：Second Life Sanctuary 行き', h: 3.1 };
+}
+// はるこさんから：はじめて1分ほど遊んだあと（はじまりの案内のあいだは待つ）。まだ行っていなければ、2週あとに、もう一度だけ
+function slsvTick(dt) {
+  if (!G || !STARTED || SLSV.on || OCHA.on || !slsOpen()) return;
+  if (SLSV.call) { if (performance.now() - SLSV.call > 60000) SLSV.call = 0; else if (slsBusNear() && $('#modal').hidden) { SLSV.call = 0; slsAsk(); } } // 「行動」から：バス停に着いたら、たずねる
+  const F = G.flags; if (F.slsVisit) return;
+  const again = F.slsTold && !F.slsTold2 && G.turn >= F.slsTold + 2;
+  if (F.slsTold && !again) return;
+  const now = performance.now(); if (!SLSV.toldT) SLSV.toldT = now; // 描く速さに左右されないよう、時計で
+  if (UI.rest || UI.tut || !$('#modal').hidden || !$('#sheet').hidden || SLSV.busy) { SLSV.quietT = now; return; } // はじまりの案内や、はるこさんとの話のあいだは待つ
+  if (now - SLSV.toldT < 60000 || now - (SLSV.quietT || 0) < 15000) return;
+  if (!F.slsTold) F.slsTold = G.turn || 1; else F.slsTold2 = 1;
+  UI.toast('はるこさんより：門の外のバス停から、山梨県富士川町の Second Life Sanctuary（SLS）へ出かけられます。羊と鶏たちが暮らしているサンクチュアリです（「行動」からも）', 'daily');
+}
+// ロゴの絵（入口の門と、丘のバス停の札）
+function slsLogoTex() {
+  if (SLSV.logoTex) return SLSV.logoTex;
+  const img = new Image(), t = new THREE.Texture(img); img.onload = () => { t.needsUpdate = true; }; img.src = SLS_LOGO.src;
+  t.minFilter = THREE.LinearFilter; t.generateMipmaps = false; return (SLSV.logoTex = t);
+}
+function slsLogoPlane(w) { const m = new THREE.Mesh(G3.plane, new THREE.MeshLambertMaterial({ map: slsLogoTex() })); m.scale.set(w, w * SLS_LOGO.h / SLS_LOGO.w, 1); return m; }
+// 丘のバス停のとなりに、SLS 行きの札（ロゴ。両面）。world.js の buildBase から
+function slsHillStop() {
+  const g = new THREE.Group();
+  part('cyl', '#8A8A84', 0.08, 1.9, 0.08, 0, 0.95, 0, g);
+  part('box', '#F3EFE4', 1.42, 0.86, 0.05, 0, 1.62, 0, g);
+  for (const s of [1, -1]) {
+    const lg = slsLogoPlane(1.3); lg.position.set(0, 1.74, s * 0.03); if (s < 0) lg.rotation.y = Math.PI; g.add(lg);
+    const t = textPanel('Second Life Sanctuary 行き', 1.3, 0.2, { size: 60, bg: '#3F6B52', fg: '#FFFFFF', border: false }); t.position.set(0, 1.31, s * 0.03); if (s < 0) t.rotation.y = Math.PI; g.add(t);
+  }
+  return g;
+}
+
+/* ---------- 作る ---------- */
+// 長方形の4辺を、すき間（[辺, 位置, 半分の幅]）をあけて、線分に
+function slsvSegs(q, gaps) {
+  const [x0, x1, z0, z1] = q, out = [];
+  const side = (k, a, b, fix, horiz) => {
+    const gs = (gaps || []).filter((g) => g[0] === k).map((g) => [g[1] - g[2], g[1] + g[2]]).sort((u, v) => u[0] - v[0]);
+    let s = a; for (const [g0, g1] of gs) { if (g0 > s) out.push(horiz ? [s, fix, g0, fix] : [fix, s, fix, g0]); s = Math.max(s, g1); }
+    if (b > s) out.push(horiz ? [s, fix, b, fix] : [fix, s, fix, b]);
+  };
+  side('n', x0, x1, z0, true); side('s', x0, x1, z1, true); side('w', z0, z1, x0, false); side('e', z0, z1, x1, false);
+  return out;
+}
+// まとめ描き：同じ形と色の部品を、1つの InstancedMesh に
+function slsvInst() {
+  const L = new Map();
+  return {
+    add(geo, color, sx, sy, sz, x, y, z, ry) { const k = geo + '|' + color; if (!L.has(k)) L.set(k, { geo, color, it: [] }); L.get(k).it.push([sx, sy, sz, x, y, z, ry || 0]); },
+    build(parent, opt) {
+      const d = new THREE.Object3D();
+      for (const { geo, color, it } of L.values()) {
+        const im = new THREE.InstancedMesh(G3[geo], mat(color), it.length);
+        it.forEach(([sx, sy, sz, x, y, z, ry], i) => { d.position.set(x, y, z); d.rotation.set(0, ry, 0); d.scale.set(sx, sy, sz); d.updateMatrix(); im.setMatrixAt(i, d.matrix); });
+        im.castShadow = !(opt && opt.noShadow); im.receiveShadow = true; parent.add(im); SLSV.inst++;
+      }
+    },
+  };
+}
+let _slsGrid = null;
+function slsvGridTex() {
+  if (_slsGrid) return _slsGrid;
+  const N = 64, cv = document.createElement('canvas'); cv.width = cv.height = N; const g = cv.getContext('2d');
+  g.fillStyle = 'rgba(170,170,160,0.22)'; g.fillRect(0, 0, N, N); g.strokeStyle = 'rgba(120,120,112,0.9)'; g.lineWidth = 3;
+  for (let i = 0; i <= N; i += 16) { g.beginPath(); g.moveTo(i, 0); g.lineTo(i, N); g.stroke(); g.beginPath(); g.moveTo(0, i); g.lineTo(N, i); g.stroke(); }
+  const t = new THREE.CanvasTexture(cv); t.wrapS = t.wrapT = THREE.RepeatWrapping; return (_slsGrid = t);
+}
+function slsvWireMat(rx, ry) { const m = new THREE.MeshPhongMaterial({ map: slsvGridTex().clone(), transparent: true, depthWrite: false, side: THREE.DoubleSide, flatShading: true, shininess: 0 }); m.map.needsUpdate = true; m.map.repeat.set(rx, ry); return m; }
+// 柵：wood（外まわり。横木2本）、board（羊。板3枚）、wire（鶏。背の高い金網）
+function slsvFence(I, g, segs, kind) {
+  for (const [ax, az, bx, bz] of segs) {
+    const L = Math.hypot(bx - ax, bz - az), ry = -Math.atan2(bz - az, bx - ax), n = Math.max(1, Math.round(L / (kind === 'wire' ? 3 : 2.4))), mx = (ax + bx) / 2, mz = (az + bz) / 2;
+    for (let i = 0; i <= n; i++) { const t = i / n, x = ax + (bx - ax) * t, z = az + (bz - az) * t; if (kind === 'wire') I.add('cyl', '#77736C', 0.09, 2.3, 0.09, x, 1.15, z); else I.add('box', '#7A5E46', 0.14, 1.25, 0.14, x, 0.62, z); }
+    if (kind === 'wire') {
+      const p = new THREE.Mesh(new THREE.PlaneGeometry(L, 2.1), slsvWireMat(L / 0.6, 2.1 / 0.6)); p.position.set(mx, 1.08, mz); p.rotation.y = ry; g.add(p);
+      I.add('box', '#8E8A82', L, 0.05, 0.05, mx, 2.2, mz, ry);
+    } else if (kind === 'board') { for (const y of [0.3, 0.62, 0.94]) I.add('box', y > 0.6 ? '#8C6A4C' : '#7E5F45', L, 0.26, 0.06, mx, y, mz, ry); }
+    else { for (const y of [0.45, 0.95]) I.add('box', '#9A7656', L, 0.1, 0.07, mx, y, mz, ry); }
+  }
+}
+// 庭の門：白い門柱と横木、名前の札（両面）。扉は、人が近づくと開く（slsvGates）
+function slsvGateFrame(g, x, z, hw, along, name) {
+  const fr = new THREE.Group(); fr.position.set(x, 0, z); if (along === 'z') fr.rotation.y = Math.PI / 2; g.add(fr);
+  for (const s of [-1, 1]) { part('box', '#EDE6D6', 0.2, 2.5, 0.2, s * (hw + 0.12), 1.25, 0, fr); part('box', '#6E5642', 0.26, 0.12, 0.26, s * (hw + 0.12), 2.54, 0, fr); }
+  part('box', '#6E5642', hw * 2 + 0.7, 0.16, 0.16, 0, 2.4, 0, fr);
+  for (const s of [1, -1]) { const t = textPanel(name, 1.5, 0.48, { size: 96, bg: '#FBF7EC' }); t.position.set(0, 2.02, s * 0.09); if (s < 0) t.rotation.y = Math.PI; fr.add(t); }
+  part('box', '#6E5642', 1.6, 0.56, 0.12, 0, 2.02, 0, fr);
+}
+function slsvMound(g, col, sx, sy, sz, x, y, z) {
+  const m = new THREE.Mesh(SLSV.moundGeo || (SLSV.moundGeo = new THREE.SphereGeometry(0.5, 48, 24)), mat(col)); m.scale.set(sx, sy, sz); m.position.set(x, y, z); m.receiveShadow = true; g.add(m); return m;
+}
+function slsvBuild() {
+  const S = new THREE.Scene(); S.fog = R.scene.fog; // 霧は丘と同じ（色は空に合わせて変わる）
+  const g = new THREE.Group(); S.add(g); const T = SLS_SITE, I = slsvInst(), F = slsvInst();
+  SLSV.inst = 0; SLSV.cols = []; SLSV.circles = []; SLSV.seats = [];
+  // 地面（色は季節で：slsvSeason）
+  SLSV.groundMat = new THREE.MeshPhongMaterial({ color: '#93A65F', flatShading: true, shininess: 0, specular: 0x000000 });
+  const gm = new THREE.Mesh(new THREE.PlaneGeometry(240, 240), SLSV.groundMat); gm.rotation.x = -Math.PI / 2; gm.position.y = -0.01; gm.receiveShadow = true; g.add(gm); SLSV.ground = gm;
+  // まわりの山（富士川町は、山にかこまれた町）
+  for (const [c, sx, sy, sz, x, y, z] of [['#7E985A', 70, 30, 220, -76, -9, -10.5], ['#728D52', 90, 70, 160, -136, -22, -40.5], ['#6E8A50', 120, 90, 180, -206, -30, 69.5], ['#7C965A', 260, 46, 60, 0, -14, -112], ['#80995E', 260, 40, 60, 10, -14, 112], ['#86A062', 70, 34, 220, 122, -12, 0]]) slsvMound(g, c, sx, sy, sz, x, y, z);
+  // 富士山（晴れた日だけ。slsvSky）
+  { const fm = new THREE.MeshBasicMaterial({ color: '#97ADCC', fog: false, transparent: true, opacity: 0 }), cm = new THREE.MeshBasicMaterial({ color: '#FFFFFF', fog: false, transparent: true, opacity: 0 });
+    const H0 = 172, R0 = 262, top = H0 - 26, ch = 34, f = new THREE.Group();
+    const a = new THREE.Mesh(new THREE.ConeGeometry(1, 1, 48, 1, true), fm); a.scale.set(R0, H0, R0); a.position.set(0, top - H0 / 2, 0); f.add(a);
+    const b = new THREE.Mesh(new THREE.ConeGeometry(1, 1, 48, 1, true), cm); b.scale.set(R0 * ch / H0 + 0.4, ch, R0 * ch / H0 + 0.4); b.position.set(1, top - ch / 2 + 0.3, 0); f.add(b);
+    f.position.set(T.fuji[0], 0, T.fuji[1]); f.renderOrder = -1; g.add(f); SLSV.fuji = { g: f, fm, cm, k: 0 }; }
+  // 小川と、岸の桜
+  for (let x = -120; x < 120; x += 2) { const z0 = slsStreamZ(x), z1 = slsStreamZ(x + 2); F.add('box', '#7FB1C6', Math.hypot(2, z1 - z0) + 0.2, 0.05, 2.6, x + 1, 0.04, (z0 + z1) / 2, -Math.atan2(z1 - z0, 2)); }
+  // 入口の外：道と、地元の農家の野菜畑（団体の紹介に、地元の農家の野菜や果物が、動物たちのごはんになるとある）。うねに、キャベツとネギ
+  F.add('box', '#D8C9A4', 16, 0.04, 2.2, 36, 0.035, T.gate[1]);
+  for (const q of T.fields) {
+    F.add('box', '#9C7E58', q[1] - q[0], 0.04, q[3] - q[2], (q[0] + q[1]) / 2, 0.025, (q[2] + q[3]) / 2);
+    let row = 0;
+    for (let z = q[2] + 1.5; z < q[3] - 0.5; z += 2.2, row++) {
+      F.add('box', '#B59A6E', q[1] - q[0] - 1.6, 0.14, 0.9, (q[0] + q[1]) / 2, 0.07, z);
+      const cab = row % 3 !== 2;
+      for (let x = q[0] + 1.4; x < q[1] - 1; x += cab ? 1.0 : 0.45) { if (cab) I.add('ico', row % 2 ? '#8DB45A' : '#9CC26A', 0.62, 0.42, 0.62, x, 0.32, z); else I.add('box', '#7FA84E', 0.07, 0.62, 0.07, x, 0.45, z); }
+    }
+  }
+  // 外まわりの柵（入口だけあける）・羊の庭（板）・鶏の庭（金網）
+  slsvFence(I, g, slsvSegs(T.land, [['e', T.gate[1], T.gate[2]]]), 'wood');
+  slsvFence(I, g, slsvSegs(T.sheep.rect, [T.sheep.gate]), 'board');
+  slsvFence(I, g, slsvSegs(T.hen.rect, [T.hen.gate]), 'wire');
+  // 道・羊の庭の土とわら・ロッジの前の砂利・庭の門の前の砂利
+  for (const p of T.paths) for (let i = 1; i < p.length; i++) { const [ax, az] = p[i - 1], [bx, bz] = p[i]; F.add('box', '#D8C9A4', Math.hypot(bx - ax, bz - az) + 1.8, 0.04, 1.8, (ax + bx) / 2, 0.035, (az + bz) / 2, -Math.atan2(bz - az, bx - ax)); }
+  { const q = T.sheep.rect; F.add('box', '#B79F72', q[1] - q[0], 0.04, q[3] - q[2], (q[0] + q[1]) / 2, 0.03, (q[2] + q[3]) / 2);
+    for (let i = 0; i < 46; i++) { const x = q[0] + 2 + hash2(i, 3) * (q[1] - q[0] - 4), z = q[2] + 2 + hash2(i, 5) * (q[3] - q[2] - 4); if (slsH(x, z) > 0.03 || Math.hypot(x - T.pond[0], z - T.pond[1]) < T.pond[2] + 0.6) continue; F.add('box', '#D9C48A', 0.9, 0.03, 0.12, x, 0.06, z, hash2(i, 7) * 3); } }
+  { const q = T.apron; F.add('box', '#D9CDA8', q[1] - q[0], 0.04, q[3] - q[2], (q[0] + q[1]) / 2, 0.028, (q[2] + q[3]) / 2); }
+  F.add('box', '#D9CDA8', 3.4, 0.045, 3.8, T.sheep.rect[1] + 1.7, 0.04, T.sheep.gate[1]);
+  F.add('box', '#D9CDA8', 3.6, 0.045, 3.2, T.hen.gate[1], 0.04, T.hen.rect[3] + 1.6);
+  // 羊の庭：小さな丘（草）
+  { const [mx, mz, r] = T.mound, pts = []; for (let i = 0; i <= 12; i++) { const t = 1 - i / 12; pts.push(new THREE.Vector2(Math.max(0.001, r * t), slsH(mx + r * t, mz) + 0.056)); }
+    const m = new THREE.Mesh(new THREE.LatheGeometry(pts, 36), new THREE.MeshPhongMaterial({ color: '#9BB565', flatShading: true, shininess: 0, specular: 0x000000 })); m.position.set(mx, 0, mz); m.receiveShadow = true; m.castShadow = true; g.add(m); SLSV.moundMesh = m; }
+  // 羊の庭：水飲みの池（浅い。まわりに石）
+  { const [px, pz, pr] = T.pond, geo = new THREE.CircleGeometry(pr, 36); geo.rotateX(-Math.PI / 2); const w = new THREE.Mesh(geo, mat('#6E9DB0')); w.position.set(px, 0.055, pz); w.receiveShadow = true; g.add(w);
+    for (let i = 0; i < 18; i++) { const a = i / 18 * Math.PI * 2, s = 0.34 + hash2(i, 13) * 0.22; I.add('ico', i % 3 ? '#9A968C' : '#B0AA9C', s, s * 0.6, s, px + Math.cos(a) * (pr + 0.15), 0.08, pz + Math.sin(a) * (pr + 0.15)); }
+    SLSV.circles.push([px, pz, pr + 0.45]); }
+  // 羊の庭：干し草を貯めておく小屋（丘の干し草小屋と同じ形。いつも、たっぷり）
+  { const [hx, hz] = T.hay, n0 = ROOFS.length, sh = modelHayShed(); ROOFS.length = n0; setHay(sh, 8); sh.position.set(hx, 0, hz); g.add(sh); SLSV.hayRect = [hx - 2.5, hx + 2.5, hz - 1.9, hz + 1.9]; SLSV.cols.push(SLSV.hayRect); }
+  // 鶏の庭：止まり木の枝（3段。のぼって遊ぶ）・水飲み場・砂浴び場
+  { const [x, z, L] = T.perch, bars = [[0.38, -0.32], [0.66, 0], [0.92, 0.16]];
+    for (const s of [-1, 1]) for (const t of [-1, 1]) { const leg = part('cyl', '#7A5E46', 0.1, 1.15, 0.1, x + s * L / 2, 0.55, z + t * 0.3, g); leg.rotation.x = -t * 0.28; }
+    for (const [y, dz] of bars) { const b = part('cyl', '#8C6A4C', 0.08, L + 0.3, 0.08, x, y, z + dz, g); b.rotation.z = Math.PI / 2; }
+    part('cyl', '#6E5642', 0.06, 0.9, 0.06, x + 0.6, 1.08, z + 0.16, g).rotation.z = 1.1;
+    SLSV.perch = { x, z, L, bars }; SLSV.cols.push([x - L / 2 - 0.2, x + L / 2 + 0.2, z - 0.55, z + 0.4]);
+    // そばに、遊べる丸太と枝（つついたり、のったり）
+    { const lx = x + L / 2 + 2.2, lz = z + 0.6, lg = part('cyl', '#7A5E46', 0.36, 2.6, 0.36, lx, 0.18, lz, g); lg.rotation.z = Math.PI / 2; lg.rotation.y = 0.35;
+      for (const [dx, a, b] of [[-0.7, 0.7, 0.2], [0.2, -0.6, -0.3], [0.8, 0.55, 0.5]]) { const br = part('cyl', '#6E5642', 0.07, 1.5, 0.07, lx + dx, 0.5, lz + 0.35, g); br.rotation.z = a; br.rotation.x = b; }
+      SLSV.circles.push([lx, lz, 1.2]); SLSV.logSpot = [lx, lz]; } }
+  { const [x, z] = T.henWater; part('cyl12', '#9AA0A4', 1.3, 0.14, 1.3, x, 0.07, z, g); part('cyl12', '#86B8CC', 1.12, 0.03, 1.12, x, 0.135, z, g, { noShadow: true }); part('cyl12', '#8A9094', 0.5, 0.5, 0.5, x + 0.95, 0.25, z - 0.3, g); SLSV.circles.push([x, z, 0.85]); }
+  { const [x, z, r] = T.dust, geo = new THREE.CircleGeometry(r, 28); geo.rotateX(-Math.PI / 2); const d = new THREE.Mesh(geo, mat('#D8C089')); d.position.set(x, 0.05, z); d.receiveShadow = true; g.add(d);
+    for (let i = 0; i < 14; i++) { const a = i / 14 * Math.PI * 2; I.add('box', '#9C7E58', 0.5, 0.16, 0.18, x + Math.cos(a) * (r + 0.1), 0.08, z + Math.sin(a) * (r + 0.1), -a + Math.PI / 2); } }
+  // 鶏の庭：見学の人が、輪になって座れる椅子（切り株の形）
+  { const [cx, cz, r, n] = T.circle;
+    for (let i = 0; i < n; i++) { const a = (i + 0.5) / n * Math.PI * 2, x = cx + Math.cos(a) * r, z = cz + Math.sin(a) * r; I.add('cyl12', '#9C7652', 0.5, 0.42, 0.5, x, 0.21, z); I.add('cyl12', '#C9A574', 0.52, 0.04, 0.52, x, 0.43, z);
+      SLSV.seats.push({ x, z, h: Math.atan2(cx - x, cz - z), kind: 'bench', dy: -0.14, circle: true, name: '輪の椅子' }); SLSV.circles.push([x, z, 0.34]); } }
+  I.build(g); F.build(g, { noShadow: true });
+  // 入口の門：団体のロゴ（両面）
+  { const [x, z, hw] = T.gate, fr = new THREE.Group(); fr.position.set(x, 0, z); g.add(fr);
+    for (const s of [-1, 1]) { part('box', '#6E5642', 0.26, 3.6, 0.26, 0, 1.8, s * (hw + 0.16), fr); part('box', '#5A4636', 0.32, 0.14, 0.32, 0, 3.66, s * (hw + 0.16), fr); }
+    part('box', '#6E5642', 0.22, 0.22, hw * 2 + 1.0, 0, 3.4, 0, fr);
+    part('box', '#F3EFE4', 0.08, 1.3, 3.36, 0, 2.66, 0, fr);
+    for (const s of [1, -1]) { const lg = slsLogoPlane(3.2); lg.position.set(s * 0.05, 2.66, 0); lg.rotation.y = s * Math.PI / 2; fr.add(lg); } }
+  // 庭の門（名前の札つき）と、扉。扉は、人が近づくと開く
+  slsvGateFrame(g, T.sheep.rect[1], T.sheep.gate[1], T.sheep.gate[2], 'z', T.sheep.name);
+  slsvGateFrame(g, T.hen.gate[1], T.hen.rect[3], T.hen.gate[2], 'x', T.hen.name);
+  SLSV.gates = [];
+  { const q = T.sheep.rect, [, gz, hw] = T.sheep.gate, pv = new THREE.Group(); pv.position.set(q[1], 0, gz - hw);
+    for (const y of [0.3, 0.62, 0.94]) part('box', '#C9B48E', 0.06, 0.24, hw * 2 - 0.1, 0, y, hw, pv);
+    part('box', '#C9B48E', 0.07, 1.0, 0.1, 0, 0.6, hw * 2 - 0.08, pv);
+    { const d = part('box', '#B49E78', 0.06, 0.12, hw * 2.05, 0, 0.62, hw, pv); d.rotation.x = 0.42; } // 筋かい
+    g.add(pv); SLSV.gates.push({ pv, x: q[1], z: gz, open: -Math.PI / 2, k: 0 }); }
+  { const q = T.hen.rect, [, gx, hw] = T.hen.gate, pv = new THREE.Group(); pv.position.set(gx - hw, 0, q[3]);
+    const p = new THREE.Mesh(new THREE.PlaneGeometry(hw * 2 - 0.1, 2), slsvWireMat(hw * 2 / 0.6, 2 / 0.6)); p.position.set(hw, 1.05, 0); pv.add(p);
+    for (const y of [0.08, 2.05]) part('box', '#EDE6D6', hw * 2 - 0.1, 0.06, 0.06, hw, y, 0, pv);
+    part('box', '#EDE6D6', 0.06, 2.0, 0.06, hw * 2 - 0.1, 1.05, 0, pv);
+    g.add(pv); SLSV.gates.push({ pv, x: gx, z: q[3], open: Math.PI / 2, k: 0 }); }
+  // 建物：羊の小屋・鶏小屋・ロッジ（薪ストーブの煙突）
+  const box2 = (q) => [(q[0] + q[1]) / 2, (q[2] + q[3]) / 2, q[1] - q[0], q[3] - q[2]];
+  const house = (q, o, ry, deco) => { const [x, z, w, d] = box2(q), b = gable(Object.assign({ w: w - 0.6, d: d - 0.6 }, o)); if (deco) deco(b, w - 0.6, d - 0.6); b.position.set(x, 0, z); b.rotation.y = ry; g.add(b); SLSV.cols.push(q.slice()); return b; };
+  house(T.sheepHouse, { h: 2.5, rh: 1.3, wall: '#8E6A4E', roof: '#6E7176', trim: '#6A4E3A' }, Math.PI, (b, w, d) => doorAt(b, 0, d / 2 + 0.02, 2.2, 1.6, '#5A4636'));
+  house(T.coop, { h: 2.1, rh: 1.1, wall: '#9A6C48', roof: '#5E5A55', trim: '#6A4A34' }, 0, (b, w, d) => doorAt(b, 1.2, d / 2 + 0.02, 0.9, 1.2, '#5A4636'));
+  house(T.lodge, { h: 3.1, rh: 2.0, wall: '#E2D8C4', roof: '#4C525A', trim: '#8A7A66' }, Math.PI, (b, w, d) => { for (const x of [-4, 1.5, 4]) windowAt(b, x, 1.7, d / 2 + 0.02, 1.2, 1.0); doorAt(b, -1.4, d / 2 + 0.02, 1.1, 2.0, '#6B5A4A'); });
+  { const [x, z, w, d] = box2(T.lodge); part('cyl12', '#2E2E30', 0.34, 4.2, 0.34, x - w / 2 + 3.5, 4.3, z + d / 2 - 2.2, g); }
+  // 「ごあんない」（入口の内がわ）と、バス停（はるにれの丘行き）
+  { const [x, z] = T.sign; for (const dz of [-0.8, 0.8]) part('box', '#6E5642', 0.1, 1.3, 0.1, x, 0.65, z + dz, g); part('box', '#F3EEE2', 0.08, 0.9, 2.1, x + 0.06, 1.25, z, g); part('box', '#3F6B52', 0.09, 0.12, 2.1, x + 0.06, 1.62, z, g);
+    const t = textPanel('ごあんない', 1.6, 0.42, { size: 84, bg: '#F3EEE2' }); t.position.set(x + 0.12, 1.26, z); t.rotation.y = Math.PI / 2; g.add(t); }
+  { const [x, z] = T.bus, b = new THREE.Group(); part('cyl', '#8A8A84', 0.1, 2.4, 0.1, 0, 1.2, 0, b); const s = textPanel('はるにれの丘 行き', 1.3, 0.46, { size: 80, bg: '#F2F2EA' }); s.position.set(0, 2.3, 0.06); b.add(s); b.position.set(x, 0, z); b.rotation.y = -Math.PI / 2; g.add(b); }
+  // 広場：木のテーブルと、羊の庭を眺めるベンチ
+  { const t = modelPicnicTable(); t.position.set(T.table[0], 0, T.table[1]); t.rotation.y = 0.2; g.add(t);
+    const b = modelItem('bench'), h = -Math.PI / 2; b.position.set(T.bench[0], 0, T.bench[1]); b.rotation.y = h; g.add(b);
+    SLSV.seats.push({ x: T.bench[0] - Math.sin(h) * 0.14, z: T.bench[1] - Math.cos(h) * 0.14, h, kind: 'bench', dy: 0, name: '広場のベンチ' }); }
+  // 木：庭の木・岸の桜・まわりの林（季節の色は、丘と同じ素材）
+  { const f = new Forest();
+    for (const [x, z, t, s] of T.trees) f.add(t, x, z, s);
+    for (const x of T.sakuraX) f.add('sakura', x, slsStreamZ(x) + 4.6, 1.05);
+    for (let i = 0; i < 46; i++) f.add(i % 3 ? 'conifer' : 'birch', -44 + hash2(i, 81) * 90, -62 + hash2(i, 83) * 9, 0.8 + hash2(i, 85) * 0.4);
+    for (let i = 0; i < 34; i++) f.add(i % 4 ? 'conifer' : (i % 8 ? 'birch' : 'maple'), -33 - hash2(i, 91) * 12, -44 + hash2(i, 93) * 86, 0.85 + hash2(i, 95) * 0.45);
+    for (let i = 0; i < 24; i++) f.add(i % 3 ? 'young' : 'maple', -40 + hash2(i, 97) * 74, 41 + hash2(i, 99) * 8, 0.8 + hash2(i, 101) * 0.4);
+    const tg = new THREE.Group(); f.build(tg); g.add(tg); SLSV.forest = f; }
+  // 住人
+  slsvResBuild(g);
+  S.traverse((o) => { if (o.isMesh && o.castShadow === undefined) o.castShadow = true; });
+  SLSV.S = S; SLSV.g3 = g; SLSV.built = true;
+  slsvGridBuild();
+}
+
+/* ---------- 歩ける所（0.5m の升） ---------- */
+const SLS_NAV = { x0: -30, z0: -38, cs: 0.5, nx: 150, nz: 153 };
+function slsvFreeRaw(x, z) {
+  const T = SLS_SITE, Ln = T.land;
+  const inLand = x > Ln[0] + 0.45 && x < Ln[1] - 0.45 && z > Ln[2] + 0.45 && z < Ln[3] - 0.45, lane = x > T.lane[0] && x < T.lane[1] && z > T.lane[2] && z < T.lane[3];
+  const gateGap = Math.abs(x - T.gate[0]) < 0.6 && Math.abs(z - T.gate[1]) < T.gate[2] - 0.2;
+  if (!inLand && !lane && !gateGap) return false;
+  if (lane && !inLand && !gateGap && Math.abs(x - T.gate[0]) < 0.45) return false; // 外まわりの柵
+  const near = (segs, r) => segs.some(([ax, az, bx, bz]) => { const dx = bx - ax, dz = bz - az, l2 = dx * dx + dz * dz || 1, t = clamp(((x - ax) * dx + (z - az) * dz) / l2, 0, 1); return Math.hypot(x - (ax + dx * t), z - (az + dz * t)) < r; });
+  if (near(SLSV.fenceSegs, 0.42)) return false;
+  for (const q of SLSV.cols) if (x > q[0] - 0.35 && x < q[1] + 0.35 && z > q[2] - 0.35 && z < q[3] + 0.35) return false;
+  for (const [cx, cz, r] of SLSV.circles) if (Math.hypot(x - cx, z - cz) < r) return false;
+  return true;
+}
+function slsvGridBuild() {
+  const T = SLS_SITE, N = SLS_NAV;
+  SLSV.fenceSegs = slsvSegs(T.sheep.rect, [T.sheep.gate]).concat(slsvSegs(T.hen.rect, [T.hen.gate]));
+  SLSV.circles = SLSV.circles.concat(T.trees.map(([x, z]) => [x, z, 0.75]), [[T.sign[0], T.sign[1], 1.1], [T.bus[0], T.bus[1], 0.4], [T.table[0], T.table[1], 1.3], [T.bench[0], T.bench[1], 0.9]]);
+  const gr = new Uint8Array(N.nx * N.nz);
+  for (let j = 0; j < N.nz; j++) for (let i = 0; i < N.nx; i++) gr[j * N.nx + i] = slsvFreeRaw(N.x0 + i * N.cs, N.z0 + j * N.cs) ? 1 : 0;
+  SLSV.grid = gr;
+}
+function slsvFree(x, z) {
+  const N = SLS_NAV, i = Math.round((x - N.x0) / N.cs), j = Math.round((z - N.z0) / N.cs);
+  if (i < 0 || j < 0 || i >= N.nx || j >= N.nz) return false;
+  return !!SLSV.grid[j * N.nx + i] && slsvFreeRaw(x, z);
+}
+function slsvPath(x0, z0, x1, z1) {
+  const N = SLS_NAV, nx = N.nx, nz = N.nz, gr = SLSV.grid;
+  const line = (ax, az, bx, bz) => { const n = Math.ceil(Math.hypot(bx - ax, bz - az) / 0.2); for (let k = 1; k <= n; k++) { const t = k / n; if (!slsvFree(ax + (bx - ax) * t, az + (bz - az) * t)) return false; } return true; };
+  if (line(x0, z0, x1, z1)) return [[x1, z1]];
+  const ci = (x, z) => [clamp(Math.round((x - N.x0) / N.cs), 0, nx - 1), clamp(Math.round((z - N.z0) / N.cs), 0, nz - 1)];
+  const cx = (i) => N.x0 + i * N.cs, cz = (j) => N.z0 + j * N.cs, key = (i, j) => j * nx + i;
+  let b = ci(x1, z1);
+  if (!gr[key(b[0], b[1])]) { // 行けない所を押した時は、いちばん近い歩ける所へ
+    let best = null, bd = 1e9; for (let r = 1; r < 14 && !best; r++) for (let dj = -r; dj <= r; dj++) for (let di = -r; di <= r; di++) { const i = b[0] + di, j = b[1] + dj; if (i < 0 || j < 0 || i >= nx || j >= nz || !gr[key(i, j)]) continue; const d = di * di + dj * dj; if (d < bd) { bd = d; best = [i, j]; } }
+    if (!best) return []; b = best; x1 = cx(b[0]); z1 = cz(b[1]);
+  }
+  const a = ci(x0, z0), prev = new Int32Array(nx * nz).fill(-1), q = new Int32Array(nx * nz); let qh = 0, qt = 0;
+  prev[key(a[0], a[1])] = key(a[0], a[1]); q[qt++] = key(a[0], a[1]); let found = false;
+  const tgt = key(b[0], b[1]);
+  while (qh < qt) {
+    const k = q[qh++]; if (k === tgt) { found = true; break; }
+    const i = k % nx, j = (k - i) / nx;
+    for (const [di, dj] of [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]]) {
+      const ni = i + di, nj = j + dj; if (ni < 0 || nj < 0 || ni >= nx || nj >= nz) continue;
+      const nk = key(ni, nj); if (prev[nk] >= 0 || !gr[nk]) continue;
+      if (di && dj && (!gr[key(i + di, j)] || !gr[key(i, j + dj)])) continue; // 角をかすめない
+      prev[nk] = k; q[qt++] = nk;
+    }
+  }
+  if (!found) return [[x1, z1]];
+  const pts = []; for (let k = tgt; ; k = prev[k]) { const i = k % nx, j = (k - i) / nx; pts.unshift([cx(i), cz(j)]); if (prev[k] === k) break; }
+  pts[pts.length - 1] = [x1, z1];
+  const out = []; let sx = x0, sz = z0, i = 0;
+  while (i < pts.length) { let j = pts.length - 1; while (j > i && !line(sx, sz, pts[j][0], pts[j][1])) j--; out.push(pts[j]); sx = pts[j][0]; sz = pts[j][1]; i = j + 1; }
+  return out;
+}
+function slsvGoTo(x, z, go) { SLSV.path = slsvPath(SLSV.px, SLSV.pz, x, z); SLSV.target = SLSV.path.shift() || null; SLSV.go = go || null; SLSV.stuck = 0; if (!SLSV.target && go) slsvOpen(go); }
+
+/* ---------- 住人：ふるまいは、団体の紹介にあることと、種の習性だけ ---------- */
+function slsvResBuild(g) {
+  SLSV.res = []; SLSV.pick = [];
+  const T = SLS_SITE, start = { lulu: [-18, 22], mimi: [-10, 12.5], teo: [-8.4, 14], bart: [-1, 3], kokoro: [12.5, -20], ponzu: [14.4, -21.5], sweet: [2, -25], busy: [-5, -18], poppy: [-12, -26], messy: [-1.5, -30] };
+  for (const k of Object.keys(SLS_RES)) {
+    const R0 = SLS_RES[k], sheep = R0.g === 'sheep', m = sheep ? slsSheep(k) : slsHen(k), [x, z] = start[k];
+    const e = { k, m, a: { sp: sheep ? 'sheep' : 'chicken', id: 'sls-' + k, name: R0.name }, sheep, zone: sheep ? T.sheep.rect : T.hen.rect, house: sheep ? T.sheepHouse : T.coop,
+      x, z, y: 0, h: hash2(x, z) * 6.28, state: 'graze', timer: 2 + hash2(z, x) * 6, anim: { lie: 0, head: 0 }, phase: hash2(x, 3) * 6, tx: null, tz: null, ty: null, then: null, spd: 0, inHouse: false, tm: { side: hash2(z, 9) > 0.5 ? 1 : -1 } };
+    m.root.position.set(x, sheep ? slsH(x, z) : 0, z); m.root.rotation.y = e.h; m.root.userData.slsRes = k; g.add(m.root);
+    SLSV.res.push(e); SLSV.pick.push(m.root);
+  }
+  const L = slsLottie(); L.root.userData.slsRes = 'lottie'; g.add(L.root);
+  SLSV.lottie = { m: L, x: 15, z: 8, h: 0, tx: null, tz: null, wait: 4, phase: 0, way: 0 }; SLSV.pick.push(L.root);
+}
+function slsvResOf(k) { return SLSV.res.find((e) => e.k === k); }
+function slsvInZone(e, x, z) { const q = e.zone, m = 0.9; return [clamp(x, q[0] + m, q[1] - m), clamp(z, q[2] + m, q[3] - m)]; }
+// 小屋・干し草の小屋・池・水飲み場を、よけて歩く
+function slsvAvoid(e, x, z) {
+  for (const q of e.sheep ? [e.house, SLSV.hayRect] : [e.house]) {
+    if (!q) continue; const m = 0.7;
+    if (x > q[0] - m && x < q[1] + m && z > q[2] - m && z < q[3] + m) {
+      const dz0 = z - (q[2] - m), dz1 = (q[3] + m) - z, dx0 = x - (q[0] - m), dx1 = (q[1] + m) - x, mn = Math.min(dz0, dz1, dx0, dx1);
+      if (mn === dz0) z = q[2] - m; else if (mn === dz1) z = q[3] + m; else if (mn === dx0) x = q[0] - m; else x = q[1] + m;
+    }
+  }
+  const T = SLS_SITE, c = e.sheep ? [T.pond[0], T.pond[1], T.pond[2] + 0.35] : [T.henWater[0], T.henWater[1], 0.72];
+  const dx = x - c[0], dz = z - c[1], d = Math.hypot(dx, dz); if (d < c[2]) { if (d < 1e-3) x = c[0] + c[2]; else { x = c[0] + dx / d * c[2]; z = c[1] + dz / d * c[2]; } }
+  return [x, z];
+}
+function slsvPlayerIn(q) { return SLSV.px > q[0] && SLSV.px < q[1] && SLSV.pz > q[2] && SLSV.pz < q[3]; }
+function slsvSitting(e) { const s = SLSV.sit; return !!(UI.rest && UI.rest.sls && s && slsvPlayerIn(e.zone)); }
+function slsvPickSpot(e) {
+  const P = SLSV, inZ = slsvPlayerIn(e.zone), sit = slsvSitting(e);
+  let x = e.zone[0] + 1.5 + Math.random() * (e.zone[1] - e.zone[0] - 3), z = e.zone[2] + 1.5 + Math.random() * (e.zone[3] - e.zone[2] - 3);
+  const flock = SLSV.res.filter((o) => o !== e && o.sheep === e.sheep && !o.inHouse);
+  const cx = flock.reduce((s, o) => s + o.x, 0) / (flock.length || 1), cz = flock.reduce((s, o) => s + o.z, 0) / (flock.length || 1);
+  if (e.sheep) {
+    if (e.k === 'teo') { const mm = slsvResOf('mimi'); x = mm.x + rand(-2, 2); z = mm.z + rand(-2, 2); } // テオは、たいていお母さんのそば（団体の紹介）
+    else if (e.k === 'lulu') { if (sit && Math.random() < 0.4) { x = P.px + rand(-2.6, 2.6); z = P.pz + rand(-2.6, 2.6); } else { const a = Math.random() * 6.28; x = cx + Math.cos(a) * rand(5, 8); z = cz + Math.sin(a) * rand(5, 8); } } // ルルは、少しはなれて。静かに座っている人のそばには来てくれる
+    else if (e.k === 'bart' && inZ && Math.random() < 0.6) { x = P.px + rand(-1.4, 1.4); z = P.pz + rand(-1.4, 1.4); } // バートは、人のそばへ
+    else if (Math.random() < 0.6) { x = cx + rand(-5, 5); z = cz + rand(-5, 5); } // 羊は群れで
+  } else {
+    if (e.k === 'poppy') { if (inZ && Math.random() < 0.55) { x = P.px + rand(-1.2, 1.2); z = P.pz + rand(-1.2, 1.2); } else { const a = Math.random() * 6.28; x = cx + Math.cos(a) * rand(6, 10); z = cz + Math.sin(a) * rand(6, 10); } } // ポピーは、たいていひとりで。ひとりの人のそばへ
+    else if (['kokoro', 'ponzu', 'messy', 'sweet'].includes(e.k) && inZ && Math.random() < (sit ? 0.8 : 0.4)) { x = P.px + rand(-1, 1); z = P.pz + rand(-1, 1); } // 人が大好き・ひざの上・人の上に座りたい
+    else if (Math.random() < 0.55) { x = cx + rand(-4, 4); z = cz + rand(-4, 4); }
+  }
+  if (G.weather === 'rain' || G.weather === 'snow') { const hq = e.house; x = (hq[0] + hq[1]) / 2 + rand(-3, 3); z = (e.sheep ? hq[2] - 1.6 : hq[3] + 1.4) + rand(-1, 1); } // 雨や雪の日は、小屋のそば
+  [x, z] = slsvInZone(e, x, z); return slsvAvoid(e, x, z);
+}
+function slsvWalkTo(e, x, z, spd, then) { [x, z] = slsvAvoid(e, ...slsvInZone(e, x, z)); e.state = 'walk'; e.tx = x; e.tz = z; e.spd = spd; e.timer = 30; e.then = then || null; e.ty = null; }
+function slsvThink(e) {
+  const night = SKY.night > 0.55, r = Math.random(), T = SLS_SITE;
+  e.ty = null;
+  if (night) {
+    const hq = e.house, door = e.sheep ? [(hq[0] + hq[1]) / 2 + rand(-3.5, 3.5), hq[2] - 1.4 + rand(-0.6, 0.4)] : [(hq[0] + hq[1]) / 2 + 1.2, hq[3] + 0.8];
+    if (Math.hypot(e.x - door[0], e.z - door[1]) > 1.2 && !e.inHouse) { slsvWalkTo(e, door[0], door[1], e.sheep ? 0.7 : 0.9); e.timer = 40; return; }
+    if (e.sheep) { e.state = 'sleep'; e.timer = rand(20, 40); } else { e.inHouse = true; e.m.root.visible = false; e.state = 'sleep'; e.timer = rand(20, 40); } // 鶏は、夜は小屋の中
+    return;
+  }
+  if (e.inHouse) { e.inHouse = false; e.m.root.visible = true; }
+  // 着いた所ですること（水を飲む・止まり木・砂浴び・丘の上で見わたす）
+  if (e.then) {
+    const t = e.then; e.then = null;
+    if (t === 'drink') { e.state = 'drink'; e.timer = rand(3, 6); return; }
+    if (t === 'dust') { e.state = 'dust'; e.timer = rand(6, 11) * (e.k === 'messy' ? 1.5 : 1); return; }
+    if (t === 'hill') { e.state = 'look'; e.timer = rand(4, 9); return; }
+    if (t === 'perch') { e.state = 'perch'; e.timer = rand(6, 14); return; }
+  }
+  const busy = e.k === 'busy', midday = SKY.t > 0.45 && SKY.t < 0.62, wet = G.weather === 'rain' || G.weather === 'snow';
+  // 座っている人の足もとで、ひと休み（人が大好きな子たち。団体の紹介）
+  if (!e.sheep && slsvSitting(e) && Math.hypot(e.x - SLSV.px, e.z - SLSV.pz) < 2.2 && ['kokoro', 'ponzu', 'messy', 'sweet', 'poppy'].includes(e.k)) { e.state = 'rest'; e.timer = rand(8, 16); return; }
+  if (e.sheep) {
+    if (r < 0.08 && !wet) { const [px, pz, pr] = T.pond, a = Math.random() * 6.28; slsvWalkTo(e, px + Math.cos(a) * (pr + 0.6), pz + Math.sin(a) * (pr + 0.6), 0.65, 'drink'); return; } // 池で水を飲む
+    if (r < 0.16 && !wet) { const [mx, mz] = T.mound; slsvWalkTo(e, mx + rand(-1.2, 1.2), mz + rand(-1.2, 1.2), 0.6, 'hill'); return; } // 小さな丘にのぼって、見わたす
+    if (r < 0.5) { e.state = 'graze'; e.timer = rand(5, 14); }
+    else if (r < 0.74) { const [x, z] = slsvPickSpot(e); slsvWalkTo(e, x, z, 0.65); e.timer = 25; }
+    else if (r < 0.88 - (midday ? 0.12 : 0)) { e.state = 'look'; e.timer = rand(2, 6); }
+    else { e.state = 'rest'; e.timer = rand(10, 24); } // 反芻しながら、ふせて休む
+  } else {
+    if (r < 0.08) { const [x, z] = T.henWater; slsvWalkTo(e, x + rand(-0.8, 0.8), z - 0.95 - Math.random() * 0.25, busy ? 2 : 1, 'drink'); return; } // 水飲み場
+    if (r < 0.18 && !wet) { const P0 = SLSV.perch; slsvWalkTo(e, P0.x + rand(-P0.L / 2 + 0.3, P0.L / 2 - 0.3), P0.z + 0.8, busy ? 2 : 1, 'perch'); return; } // 止まり木の枝にのぼる
+    if (r < 0.28 && !wet) { const [x, z, rr] = T.dust, a = Math.random() * 6.28, q = Math.random() * (rr - 0.4); slsvWalkTo(e, x + Math.cos(a) * q, z + Math.sin(a) * q, busy ? 2 : 1, 'dust'); return; } // 砂浴び（メッシーは、泥も好き）
+    if (r < 0.55) { e.state = 'graze'; e.timer = rand(3, 9); } // 地面をつつく
+    else if (r < 0.82 || (busy && r < 0.94)) { const [x, z] = slsvPickSpot(e); slsvWalkTo(e, x, z, busy ? 2.1 : 1.0); e.timer = 20; } // ビジーは、いつもバタバタ
+    else if (r < 0.92) { e.state = 'preen'; e.timer = rand(3, 7); }
+    else { e.state = 'look'; e.timer = rand(2, 5); }
+  }
+}
+function slsvResFrame(dt, time) {
+  for (const e of SLSV.res) {
+    if (SLSV.petting && SLSV.petting.e === e) { e.y += (0 - e.y) * Math.min(1, dt * 6); e.m.root.position.set(e.x, e.sheep ? slsH(e.x, e.z) : e.y, e.z); animAnimal(e, false, false, dt, time); continue; }
+    e.timer -= dt;
+    let moving = false;
+    if (e.state === 'walk' && e.tx !== null) {
+      const dx = e.tx - e.x, dz = e.tz - e.z, d = Math.hypot(dx, dz);
+      if (d < 0.25 || e.timer < 0) { e.tx = null; e.timer = 0; if (d >= 0.6) e.then = null; }
+      else {
+        const sp = Math.min(e.spd, d / Math.max(dt, 1e-3)) * dt; let nx = e.x + dx / d * sp, nz = e.z + dz / d * sp;
+        [nx, nz] = slsvInZone(e, nx, nz); [nx, nz] = slsvAvoid(e, nx, nz);
+        moving = Math.hypot(nx - e.x, nz - e.z) > 1e-4; e.x = nx; e.z = nz;
+        let dh = Math.atan2(dx, dz) - e.h; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); e.h += dh * Math.min(1, dt * 5);
+        e.phase += dt * e.spd * (e.sheep ? 4.2 : 9);
+      }
+    }
+    if (e.timer <= 0) slsvThink(e);
+    if (e.inHouse) continue;
+    // 高さ：羊は小さな丘の上。鶏は止まり木の枝の上
+    let y = e.sheep ? slsH(e.x, e.z) : 0;
+    if (!e.sheep && e.state === 'perch' && SLSV.perch) {
+      const P0 = SLSV.perch; if (e.ty === null) { const bar = P0.bars[Math.floor(Math.random() * P0.bars.length)]; e.ty = bar[0] + 0.03; e.pz0 = P0.z + bar[1]; e.h = Math.random() < 0.5 ? 0 : Math.PI; }
+      y = e.ty; e.z += (e.pz0 - e.z) * Math.min(1, dt * 6);
+    }
+    e.y += (y - e.y) * Math.min(1, dt * (e.state === 'perch' ? 7 : 12));
+    const st = e.state; if (st === 'drink') e.state = 'graze'; // 首を下げる（水を飲む）
+    e.m.root.position.set(e.x, e.y, e.z); e.m.root.rotation.y = e.h;
+    animAnimal(e, moving, false, dt, time);
+    e.state = st;
+  }
+  // ロッティさん：昼は、広場と庭の入口のあいだを、ゆっくり。夜と雨の日は、ロッジの中に
+  const L = SLSV.lottie; if (!L) return;
+  const inside = SKY.night > 0.5 || G.weather === 'rain' || G.weather === 'snow';
+  L.m.root.visible = !inside; if (inside) return;
+  const WAY = [[15, 8], [16.4, -12.6], [8.2, 3.2], [15.5, 16.5], [21, 6]];
+  let moving = false;
+  if (L.tx === null) { L.wait -= dt; if (L.wait < 0) { L.way = (L.way + 1 + Math.floor(Math.random() * 3)) % WAY.length; [L.tx, L.tz] = WAY[L.way]; } }
+  else {
+    const dx = L.tx - L.x, dz = L.tz - L.z, d = Math.hypot(dx, dz);
+    if (d < 0.2) { L.tx = null; L.wait = rand(8, 20); }
+    else { const sp = Math.min(1.1 * dt, d); L.x += dx / d * sp; L.z += dz / d * sp; moving = true; let dh = Math.atan2(dx, dz) - L.h; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); L.h += dh * Math.min(1, dt * 5); L.phase += dt * 1.1 * 1.4; }
+  }
+  if (!moving) { const pd = Math.hypot(SLSV.px - L.x, SLSV.pz - L.z); if (pd < 6) { let dh = Math.atan2(SLSV.px - L.x, SLSV.pz - L.z) - L.h; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); L.h += dh * Math.min(1, dt * 2); } } // 近くに来た人のほうを向く
+  L.m.root.position.set(L.x, 0, L.z); L.m.root.rotation.y = L.h;
+  animPerson(L.m, moving ? 1 : 0, L.phase, dt);
+}
+
+/* ---------- なでる・ブラッシング：丘と同じように。ただし、ここの子は、知らない人にはまだ慣れていない ---------- */
+// 団体の紹介から：バートは人にすぐ心をひらく、ミミはやさしくなでられるとうれしそう、テオはおやつの時にあごを少し、ルルははずかしがりや。
+// ココロは人が大好き、スイートはなでられるのが大好き、ポピーはかまわれると甘える、ポンズとメッシーは人の上に、ビジーはいつも走り回っている
+const SLS_PET = { bart: 2.6, mimi: 1.6, teo: 0.9, lulu: -1.2, kokoro: 2.6, sweet: 2.1, poppy: 1.4, ponzu: 1.2, messy: 1.0, busy: -0.8 };
+function slsFam(k) { return (G.flags.slsFam && G.flags.slsFam[k]) || 0; } // 会いに来て、なでさせてもらうたびに、少しずつ慣れていく（1回の訪問で1度だけ）
+function slsvReact(k, mode) {
+  let sc = 1.4 + slsFam(k) + (SLS_PET[k] || 0) + rand(-1, 1);
+  if (mode === 'brush') sc -= SLS_RES[k].g === 'hen' ? 2.2 : 1.6; // ブラッシングは、知らない人には、まだこわい（はじめは、人の大好きな子が、ときどき少しだけ）
+  if (hako()) sc += 1;
+  return sc >= 6 ? 'love' : sc >= 3 ? 'ok' : sc >= 1 ? 'shy' : 'no';
+}
+function slsvPetGo(k, mode) {
+  const e = slsvResOf(k); UI.closeModal(); if (!e || e.inHouse || SLSV.busy || UI.rest) return;
+  if (SLSV.petting) slsvPetEnd(true);
+  if (e.state === 'walk') { e.tx = null; } e.state = 'look'; e.timer = 9; e.then = null; e.ty = null; // 近づく間、少し待ってもらう
+  const reach = (BODY[e.a.sp] || 0.6) + 0.62, d = Math.hypot(e.x - SLSV.px, e.z - SLSV.pz);
+  if (d < reach + 0.3) { slsvPetStart(e, mode); return; }
+  SLSV.petRetry = 0;
+  slsvGoTo(e.x + (SLSV.px - e.x) / (d || 1) * reach, e.z + (SLSV.pz - e.z) / (d || 1) * reach, `pet:${k}:${mode}`);
+}
+function slsvPetStart(e, mode) {
+  const nm = SLS_RES[e.k].name, reach = (BODY[e.a.sp] || 0.6) + 0.62;
+  if (Math.hypot(e.x - SLSV.px, e.z - SLSV.pz) > reach + 1.2) { UI.toast(`${nm}は、少しはなれた所へ行ってしまいました`, 'friends'); return; }
+  const fam0 = slsFam(e.k), react = slsvReact(e.k, mode), first = !SLSV.petSeen[e.k];
+  if (first && react !== 'no') { SLSV.petSeen[e.k] = 1; G.flags.slsFam = G.flags.slsFam || {}; G.flags.slsFam[e.k] = Math.min(4.5, fam0 + ({ love: 0.7, ok: 0.6, shy: 0.25 }[react] || 0)); }
+  const stranger = fam0 < 1.5;
+  if (react === 'shy' || react === 'no') {
+    const dx = e.x - SLSV.px, dz = e.z - SLSV.pz, d = Math.hypot(dx, dz) || 1, far = react === 'no' ? 5 : 3;
+    slsvWalkTo(e, e.x + dx / d * far, e.z + dz / d * far, e.sheep ? 0.9 : 1.4);
+    UI.toast(mode === 'brush' ? (stranger ? `${nm}は、ブラッシングは、まだいやなようです。ここの子たちは、はじめて会う人には、まだ慣れていません。今日は、そっと見守りましょう` : `${nm}は、ブラッシングは、今日は気が進まないようです`)
+      : react === 'shy' ? `${nm}は、そっと身を引きました。${stranger ? 'はじめて会う人には、まだ少し緊張するようです。' : ''}そばまで行けただけでも、一歩です`
+      : `${nm}は、するりと離れていきました。今日は、少し離れて見守りましょう`, 'friends');
+    return;
+  }
+  const love = react === 'love', brush = mode === 'brush', dur = love ? rand(5.5, 7) : rand(2.6, 3.4);
+  SLSV.petting = { e, mode, react, t: 0, dur, hT: 0.5 }; SLSV.target = null; SLSV.path = null; SLSV.go = null;
+  e.state = 'pet'; e.tx = null; e.then = null; e.petLove = love; e.timer = dur + 2;
+  if (first || Math.random() < 0.5) animalVoice(e.a.sp, 0.5, 0, e.k.length);
+  const t = !love ? `${nm}が、少しだけ${brush ? 'ブラッシング' : 'なで'}させてくれました`
+    : e.sheep ? (brush ? `${nm}が、体をあずけてきます` : e.k === 'bart' ? `${nm}が、顔をそっと寄せてきます` : `${nm}が、気持ちよさそうに目を細めています`)
+    : ['kokoro', 'messy', 'ponzu'].includes(e.k) ? `${nm}が、すっとしゃがんで、ひざに乗りたそうにしています` : `${nm}が、すっとしゃがんで、なでさせてくれました`;
+  UI.toast(t, 'friends');
+}
+function slsvPetEnd(cancel) {
+  const pe = SLSV.petting; if (!pe) return; SLSV.petting = null;
+  const e = pe.e, P = ACT.player; if (P.m.brush) P.m.brush.visible = false;
+  if (e.state === 'pet') { e.state = pe.react === 'love' && !cancel ? 'look' : 'idle'; e.timer = pe.react === 'love' && !cancel ? rand(4, 8) : 0.3; }
+  e.petLove = false;
+}
+// なでている間の姿（丘の petPose と同じ。場所は SLS の座標）
+function slsvPetPose(dt) {
+  const P = ACT.player, pe = SLSV.petting, e = pe.e, m = P.m, small = (BODY[e.a.sp] || 0.6) < 0.9, brush = pe.mode === 'brush';
+  pe.t += dt;
+  let dh = Math.atan2(e.x - SLSV.px, e.z - SLSV.pz) - SLSV.heading; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); SLSV.heading += dh * Math.min(1, dt * 6);
+  animPerson(m, 0, 0, dt);
+  const k = smooth(Math.min(1, pe.t * 2.5)), st = Math.sin(pe.t * (brush ? 6.5 : 4.2));
+  if (small) {
+    m.rig.position.y = -0.42 * k;
+    m.legs.forEach((l, i) => { l.rotation.x = -1.25 * k * (i ? 1 : 0.55); });
+    (m.knees || []).forEach((kn, i) => { kn.rotation.x = (i ? 2.0 : 1.5) * k; });
+    m.arms[0].rotation.set(-0.75 * k + st * 0.16 * k, 0, 0.12 * k); m.arms[1].rotation.set(-0.35 * k, 0, -0.1 * k);
+  } else { m.arms[0].rotation.set(-1.15 * k + st * 0.2 * k, 0, 0.18 * k); m.arms[1].rotation.set(-0.25 * k, 0, -0.06 * k); }
+  if (brush && !m.brush) { m.brush = modelBrush(); m.brush.position.set(0, -0.6, 0.08); m.arms[0].add(m.brush); }
+  if (m.brush) m.brush.visible = brush;
+  m.root.position.set(SLSV.px, slsH(SLSV.px, SLSV.pz), SLSV.pz); m.root.rotation.y = SLSV.heading;
+  pe.hT -= dt; if (pe.hT < 0 && (pe.react === 'love' || pe.t < 1.2)) { pe.hT = pe.react === 'love' ? 1.4 : 9; UI.floatHeart(e); }
+  if (pe.t > pe.dur) slsvPetEnd(false);
+}
+
+/* ---------- ひと休み：広場のベンチ・鶏の庭の輪の椅子・草の上。丘と同じ休む画面で（心の余裕も、同じように戻る） ---------- */
+function slsvRest(mode) {
+  if (UI.rest || !G || SLSV.busy) return false;
+  if (SLSV.petting) slsvPetEnd(true);
+  let seat = null, bd = mode === 'bench' ? 30 : 6;
+  for (const s of SLSV.seats) { const d = Math.hypot(s.x - SLSV.px, s.z - SLSV.pz); if (d < bd && (mode !== 'bench' || !s.circle || d < 6)) { bd = d; seat = s; } }
+  if (!seat) { // 草の上：その場で、動物たちのいるほうを向いて
+    const near = SLSV.res.filter((e) => !e.inHouse && Math.hypot(e.x - SLSV.px, e.z - SLSV.pz) < 16);
+    const h = near.length ? Math.atan2(near.reduce((s, e) => s + e.x, 0) / near.length - SLSV.px, near.reduce((s, e) => s + e.z, 0) / near.length - SLSV.pz) : SLSV.heading;
+    seat = { x: SLSV.px, z: SLSV.pz, h, kind: 'ground', dy: 0, name: '草の上' };
+  }
+  audioInit(); UI.closeSheet(); UI.closeModal();
+  const key = seat.kind === 'bench' ? 'R1' : 'R2';
+  const R0 = UI.rest = { mode: 'slow', key, sls: true, seat, spot: { x: seat.x, z: seat.z, heading: seat.h, kind: seat.kind }, t: 0, capT: 2.6, recent: [], breath: !!G.settings.breath, bt: 0, off: 0, pOff: 0, dMul: 1, lastYaw: null, lastPitch: null, lastDist: null, gain: 0, fullSaid: GAME.restGot(key) >= GAME.restMax(key), F: null, ending: false };
+  UI.blockMove = true; UI.veil(true);
+  setTimeout(() => {
+    if (UI.rest !== R0 || R0.ending) return;
+    SLSV.target = null; SLSV.path = null; SLSV.go = null;
+    SLSV.px = seat.x; SLSV.pz = seat.z; SLSV.heading = seat.h; SLSV.sit = seat;
+    SLSV.res.forEach((e) => { if (e.state !== 'pet') e.timer = Math.min(e.timer, rand(0.4, 2.5)); });
+    $('#hud').hidden = true; $('#rest-ui').hidden = false; $('#rest-ui').classList.remove('music'); $('#rest-nagame').hidden = true;
+    $('#rest-cap').classList.remove('on'); $('#rest-cap').textContent = '';
+    CAM.fovHold = true; R.camera.fov = R.camera.aspect < 0.8 ? 50 : 42; R.camera.updateProjectionMatrix();
+    R0.last = performance.now();
+    UI.restCam(0, true); camSnap();
+    UI.restMeter(); UI.restBreathBtn();
+    setTimeout(() => UI.veil(false), 120);
+  }, 620);
+  return true;
+}
+// 休む時のカメラ（丘の restCam と同じ考え方）：座った所の少しうしろから、動物たちのほうを
+function slsvRestCam(dt, snap) {
+  const R0 = UI.rest, s = R0.seat;
+  if (!R0.F || snap) {
+    let cx = 0, cz = 0, n = 0; for (const e of SLSV.res) { if (e.inHouse) continue; if (Math.hypot(e.x - s.x, e.z - s.z) < 16) { cx += e.x; cz += e.z; n++; } }
+    R0.F = n && s.kind === 'ground' ? [cx / n, cz / n] : [s.x + Math.sin(s.h) * 8, s.z + Math.cos(s.h) * 8];
+  }
+  const ground = s.kind === 'ground', fx = R0.F[0] - s.x, fz = R0.F[1] - s.z, fl = Math.hypot(fx, fz) || 1, ahead = Math.min(2.4, fl * 0.4);
+  const tx = s.x + fx / fl * ahead, tz = s.z + fz / fl * ahead;
+  if (!CAM.focus) CAM.focus = new THREE.Vector3();
+  CAM.focus.set(tx, slsH(tx, tz) + (ground ? 0.5 : 0.8), tz); CAM.focusUntil = performance.now() + 1e9; CAM.overview = false;
+  if (!snap) {
+    if (R0.lastYaw !== null) R0.off += CAM.tYaw - R0.lastYaw;
+    if (R0.lastPitch !== null) R0.pOff += CAM.tPitch - R0.lastPitch;
+    if (R0.lastDist !== null && R0.lastDist > 0) R0.dMul = clamp(R0.dMul * CAM.tDist / R0.lastDist, 0.4, 3);
+  }
+  const narrow = R.camera.aspect < 0.8;
+  CAM.tYaw = s.h + Math.PI - (narrow ? 0.18 : 0.5) + R0.off;
+  CAM.tPitch = clamp((ground ? 0.34 : 0.3) + R0.pOff, 0.08, 1.25);
+  CAM.tDist = clamp((ground ? (narrow ? 8.5 : 10) : (narrow ? 9 : 11)) * R0.dMul, 4, 60);
+  R0.lastYaw = CAM.tYaw; R0.lastPitch = CAM.tPitch; R0.lastDist = CAM.tDist;
+}
+// 座っている姿（丘の poseSit をそのまま。場所は SLS の座標）
+function slsvSitPose(dt) {
+  const s = SLSV.sit, P = ACT.player;
+  const q = SLSV.sitP && SLSV.sitP.s === s ? SLSV.sitP : (SLSV.sitP = { s, strumT: 0, breathT: 0, playing: null });
+  Object.assign(q, { m: P.m, sitting: s.kind, x: s.x, z: s.z, heading: s.h, seatY: slsH(s.x, s.z), seatDY: s.dy || 0 });
+  poseSit(q, dt);
+}
+function slsvRestIntro() {
+  const s = SLSV.sit || (UI.rest && UI.rest.seat) || {};
+  return s.circle ? '輪の椅子に腰を下ろしました。鶏たちが、少しずつ近づいてきます'
+    : s.kind === 'bench' ? '広場のベンチに腰を下ろしました。羊の庭が見えます。しばらく、何もしなくて大丈夫です'
+    : '草の上に座りました。しばらく、何もしなくて大丈夫です';
+}
+// 休んでいる間の言葉（そばの子の、いまのしぐさ。団体の紹介と、種の習性から）
+function slsvRestLine() {
+  const s = SLSV.sit || { x: SLSV.px, z: SLSV.pz }, T = SLS_SITE, out = [];
+  for (const e of SLSV.res) {
+    if (e.inHouse || e === (SLSV.petting && SLSV.petting.e)) continue;
+    const d = Math.hypot(e.x - s.x, e.z - s.z); if (d > 16) continue;
+    const nm = SLS_RES[e.k].name, st = e.state;
+    let t = null;
+    if (e.sheep) {
+      t = st === 'rest' ? (d < 4 ? `${nm}が、そばで、足を折りたたんで休んでいます` : `${nm}が、ふせて、口をもぐもぐ動かしています。反芻です`)
+        : st === 'sleep' ? `${nm}が、目を閉じています`
+        : st === 'drink' ? `${nm}が、池の水を飲んでいます`
+        : st === 'graze' ? `${nm}が、草を食べています`
+        : st === 'look' && slsH(e.x, e.z) > 0.6 ? `${nm}が、小さな丘の上から、まわりを見わたしています`
+        : st === 'look' ? `${nm}が、耳を動かして、こちらを見ています`
+        : st === 'walk' && e.k === 'teo' ? `${nm}が、お母さんのミミのそばへ歩いていきます`
+        : st === 'walk' ? `${nm}が、ゆっくり歩いていきます` : null;
+    } else {
+      t = st === 'dust' ? `${nm}が、砂の上で羽をふるわせて、砂浴びをしています`
+        : st === 'perch' ? `${nm}が、止まり木の枝にのって、まわりを見ています`
+        : st === 'drink' ? `${nm}が、水をすくって、くちばしを上げて飲んでいます`
+        : st === 'graze' ? `${nm}が、地面をつついて、何か探しています`
+        : st === 'preen' ? `${nm}が、羽づくろいをしています`
+        : st === 'rest' && d < 3 ? `${nm}が、足もとで、羽をふくらませて休んでいます`
+        : st === 'rest' ? `${nm}が、羽をふくらませて、目を閉じています`
+        : st === 'walk' && e.k === 'busy' ? `${nm}が、バタバタと走っていきます`
+        : st === 'walk' && d < 5 ? `${nm}が、こちらへ歩いてきます`
+        : st === 'look' ? `${nm}が、首をかしげて、こちらを見ています` : null;
+    }
+    if (t) out.push(t);
+  }
+  const amb = ['まわりの山から、風がおりてきます', '遠くで、鳥の声がします'];
+  if (G.weather === 'rain') amb.push('屋根を打つ雨の音が、静かに聞こえます');
+  if (SLSV.fuji && SLSV.fuji.k > 0.6 && (SKY.night || 0) < 0.3) amb.push('遠くに、富士山が見えます');
+  const R0 = UI.rest, fresh = out.filter((t) => !(R0 && R0.recent.includes(t)));
+  const line = fresh.length && Math.random() < 0.75 ? pick(fresh) : pick(amb.filter((t) => !(R0 && R0.recent.includes(t))).concat(fresh).concat(amb.slice(0, 1)));
+  if (R0) { R0.recent.push(line); if (R0.recent.length > 4) R0.recent.shift(); }
+  return line;
+}
+// 休み終わりの記録に：そばに来てくれた子
+function slsvRestNear() { const s = SLSV.sit; if (!s) return []; return SLSV.res.filter((e) => !e.inHouse && Math.hypot(e.x - s.x, e.z - s.z) < 3.5).map((e) => SLS_RES[e.k].name); }
+
+/* ---------- 空：晴れた日の富士山・季節の地面 ---------- */
+function slsvSky(dt) {
+  const F = SLSV.fuji; if (!F) return;
+  const want = G.weather === 'sunny' ? 1 : 0; F.k += (want - F.k) * Math.min(1, dt * 0.8); // 雲が出ると、ゆっくり見えなくなる
+  const n = clamp(SKY.night || 0, 0, 1);
+  F.fm.opacity = F.k; F.cm.opacity = F.k; F.g.visible = F.k > 0.01;
+  F.fm.color.set('#97ADCC').lerp(_slsCol.set('#2C3452'), n); F.cm.color.set('#FFFFFF').lerp(_slsCol.set('#5A6380'), n);
+  SLSV.seasonT = (SLSV.seasonT || 0) - dt; if (SLSV.seasonT < 0) { SLSV.seasonT = 2; slsvSeason(); }
+}
+const _slsCol = new THREE.Color();
+function slsvSeason() {
+  if (!SLSV.groundMat) return;
+  const p = GROUND_PAL[WS.season] || GROUND_PAL.autumn, cov = typeof SN !== 'undefined' ? clamp(SN.cover || 0, 0, 1) : 0;
+  SLSV.groundMat.color.set(p.pasture).lerp(_slsCol.set('#ECEFEF'), cov * 0.85);
+}
+
+/* ---------- 出入り ---------- */
+function slsvEnter() {
+  if (SLSV.on || SLSV.busy || OCHA.on || OCHA.busy) return;
+  if (UI.rest) UI.abortRest();
+  SLSV.busy = true; UI.closeSheet(); UI.closeModal();
+  ochaFade(true, () => { try { slsvInside(true); } finally { ochaFade(false, () => { SLSV.busy = false; }); } });
+}
+function slsvLeave() {
+  if (!SLSV.on || SLSV.busy) return;
+  if (UI.rest) UI.abortRest();
+  SLSV.busy = true; UI.closeModal();
+  ochaFade(true, () => { try { slsvInside(false); } finally { ochaFade(false, () => { SLSV.busy = false; }); } });
+}
+function slsvInside(on, stay) {
+  const P = ACT.player;
+  if (on) {
+    if (!SLSV.built) slsvBuild();
+    if (P.petting) UI.petEnd(true);
+    if (CAM.overview && typeof setOverview === 'function') setOverview(false);
+    P.target = null; P.path = null; P.pending = null; P.crouch = null; P.crouchK = 0; CAM.crouchK = 0;
+    SLSV.back = { parent: P.m.root.parent || ACT.layer, yaw: CAM.yaw, tYaw: CAM.tYaw, pitch: CAM.pitch, tPitch: CAM.tPitch, dist: CAM.dist, tDist: CAM.tDist };
+    SLSV.root = P.m.root; SLSV.S.add(P.m.root);
+    // 空・光・雨と雪・雲・星を、行っている間だけ持っていく（時間と天気は丘と同じ）。
+    // 舞う葉と花びらは、丘の木から舞うもの。ここは木が少ないので、持っていかない（2026-10-29、Daiさん：木がないのに葉が舞っている）
+    SLSV.shared = [R.hemi, R.sun, R.sun.target, R.lamp, SKY.stars, SKY.starsBright, SKY.moon, SKY.rainbow, PT.snow, PT.rain, typeof CLOUDS !== 'undefined' ? CLOUDS.g : null].filter((o) => o && o.parent);
+    SLSV.shared.forEach((o) => SLSV.S.add(o));
+    [SLSV.px, SLSV.pz] = SLS_SITE.arrive; SLSV.heading = -Math.PI / 2; SLSV.target = null; SLSV.path = null; SLSV.go = null;
+    SLSV.petting = null; SLSV.sit = null; SLSV.petSeen = {}; SLSV.call = 0;
+    SLSV.on = true; SLSV.g = G;
+    CAM.yaw = CAM.tYaw = Math.PI / 2; CAM.pitch = CAM.tPitch = 0.1; CAM.dist = CAM.tDist = 10; CAM.snapReq = true; // 入口から、西（羊の庭の奥）を、遠くの山まで見わたす（晴れた日は富士山）
+    SLSV.res.forEach((e) => { e.timer = Math.min(e.timer, rand(0, 1.5)); });
+    slsvSeason(); if (SLSV.fuji) SLSV.fuji.k = G.weather === 'sunny' ? 1 : 0;
+    G.flags.slsVisit = (G.flags.slsVisit || 0) + 1; G.flags.slsTold = G.flags.slsTold || G.turn || 1;
+    if (G.flags.slsVisit === 1) setTimeout(() => { if (SLSV.on) UI.toast('Second Life Sanctuary（山梨県富士川町）に着きました。入口の「ごあんない」から、どんな所かを見られます。帰りは、このバス停から', 'daily'); }, 900);
+    UI.refresh();
+  } else {
+    const B = SLSV.back || {};
+    if (SLSV.petting) slsvPetEnd(true);
+    SLSV.sit = null; if (P.m.brush) P.m.brush.visible = false;
+    SLSV.shared.forEach((o) => R.scene.add(o)); SLSV.shared = [];
+    if (SLSV.root && SLSV.root !== P.m.root && SLSV.root.parent === SLSV.S) SLSV.S.remove(SLSV.root); // 見た目を変えた時の前の模型
+    (B.parent || ACT.layer).add(P.m.root);
+    SLSV.on = false; P.crouchK = 0;
+    if (B.yaw !== undefined) { CAM.yaw = B.yaw; CAM.tYaw = B.tYaw; CAM.pitch = B.pitch; CAM.tPitch = B.tPitch; CAM.dist = B.dist; CAM.tDist = B.tDist; }
+    if (!stay) teleportPlayer(SLS_HILL_BUS[0] + 1.2, SLS_HILL_BUS[1] - 0.6, Math.PI);
+    CAM.snapReq = true; P.stillT = 0; UI.refresh();
+  }
+}
+
+/* ---------- 毎フレーム ---------- */
+function slsvFrame(dt, time) {
+  const P = ACT.player, m = P.m;
+  if (SLSV.g !== G || !STARTED) { slsvInside(false, true); return; } // 別の続きを読んだ時などは、丘にもどる
+  if (m.root.parent !== SLSV.S) { SLSV.S.add(m.root); SLSV.root = m.root; } // 見た目を変えた時
+  if (UI.rest && UI.rest.sls && SLSV.sit) { slsvSitPose(dt); umbrellaPose(P, dt); slsvGates(dt); slsvResFrame(dt, time); slsvSky(dt); return; } // 座っている間
+  if (SLSV.sit && !UI.rest) { // 立ち上がる：ベンチや椅子からは、前へ一歩
+    const s = SLSV.sit; SLSV.sit = null;
+    if (s.kind === 'bench') for (const f of [0.9, 1.3, 0.6]) { const nx = s.x + Math.sin(s.h) * f, nz = s.z + Math.cos(s.h) * f; if (slsvFree(nx, nz)) { SLSV.px = nx; SLSV.pz = nz; break; } }
+  }
+  const kv = UI.blockMove ? null : keyVector();
+  if (kv && SLSV.petting) slsvPetEnd(true); // 歩きだしたら、そこでおしまい
+  if (SLSV.petting) { slsvPetPose(dt); umbrellaPose(P, dt); slsvGates(dt); slsvResFrame(dt, time); slsvSky(dt); return; }
+  let vx = 0, vz = 0, run = false;
+  if (kv) { vx = kv.x; vz = kv.z; run = !!kv.run; SLSV.target = null; SLSV.path = null; SLSV.go = null; if (kv.stick) { vx *= kv.mag; vz *= kv.mag; } }
+  else if (SLSV.target) {
+    const dx = SLSV.target[0] - SLSV.px, dz = SLSV.target[1] - SLSV.pz, d = Math.hypot(dx, dz);
+    if ((d < 0.15 || SLSV.stuck > 0.8) && SLSV.path && SLSV.path.length && SLSV.stuck <= 0.8) SLSV.target = SLSV.path.shift();
+    else if (d < 0.15 || SLSV.stuck > 0.8) { SLSV.target = null; SLSV.path = null; SLSV.stuck = 0; const go = SLSV.go; SLSV.go = null; if (go) slsvOpen(go); }
+    else { vx = dx / d; vz = dz / d; }
+  }
+  const mag = Math.hypot(vx, vz), moving = mag > 0.01;
+  if (moving) {
+    const sp = (run ? TROT_SPEED : WALK_SPEED) * Math.min(1, mag), ox = SLSV.px, oz = SLSV.pz;
+    const nx = SLSV.px + vx / mag * sp * dt * Math.min(1, mag), nz = SLSV.pz + vz / mag * sp * dt * Math.min(1, mag);
+    if (slsvFree(nx, nz)) { SLSV.px = nx; SLSV.pz = nz; } else if (slsvFree(nx, SLSV.pz)) SLSV.px = nx; else if (slsvFree(SLSV.px, nz)) SLSV.pz = nz;
+    SLSV.stuck = Math.hypot(SLSV.px - ox, SLSV.pz - oz) < sp * dt * 0.2 ? SLSV.stuck + dt : 0;
+    let dh = Math.atan2(vx, vz) - SLSV.heading; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); SLSV.heading += dh * Math.min(1, dt * 12);
+    SLSV.phase += dt * sp * 1.4;
+  }
+  m.root.position.set(SLSV.px, slsH(SLSV.px, SLSV.pz), SLSV.pz); m.root.rotation.y = SLSV.heading;
+  animPerson(m, moving ? 1 : 0, SLSV.phase, dt);
+  P.crouchK = clamp((P.crouchK || 0) - dt * 3, 0, 1);
+  umbrellaPose(P, dt);
+  slsvGates(dt);
+  slsvResFrame(dt, time);
+  slsvSky(dt);
+}
+function slsvGates(dt) { for (const gt of SLSV.gates) { const near = Math.hypot(SLSV.px - gt.x, SLSV.pz - gt.z) < 3.2 ? 1 : 0; gt.k += (near - gt.k) * Math.min(1, dt * 4); gt.pv.rotation.y = gt.open * gt.k; } } // 人が近づくと開き、通ると閉まる
+function slsvCamera(dt) {
+  // カメラは丘と同じ動き。建物にめりこまない判定だけ、SLS の建物で
+  const keep = W.colliders; W.colliders = SLSV.cols;
+  try { updateCamera(dt, ACT.player.m.root.position); } finally { W.colliders = keep; }
+}
+
+/* ---------- 近くの案内・タップ・札 ---------- */
+function slsvNearest() {
+  if (SLSV.petting || (UI.rest && UI.rest.sls)) return null;
+  let best = null, bd = 1e9;
+  const P = SLSV, test = (d, ent) => { if (d < bd) { bd = d; best = { kind: 'slsspot', ent }; } };
+  for (const e of SLSV.res) { if (e.inHouse) continue; const d = Math.hypot(e.x - P.px, e.z - P.pz), reach = e.sheep ? 2.3 : 1.6; if (d < reach) test(d, { id: 'res:' + e.k, name: SLS_RES[e.k].name, verb: 'のカードを見る', x: e.x, z: e.z, m: { root: e.m.root } }); }
+  { const L = SLSV.lottie; if (L && L.m.root.visible) { const d = Math.hypot(L.x - P.px, L.z - P.pz); if (d < 2.3) test(d, { id: 'res:lottie', name: 'ロッティさん', verb: 'のカードを見る', x: L.x, z: L.z, m: { root: L.m.root } }); } }
+  { const [x, z] = SLS_SITE.sign, d = Math.hypot(x - P.px, z - P.pz) - 0.8; if (d < 1.6) test(d, { id: 'sign', name: 'ごあんない', verb: 'を見る', x, z, m: { root: { visible: true } } }); }
+  { const [x, z] = SLS_SITE.bus, d = Math.hypot(x - P.px, z - P.pz) - 0.4; if (d < 1.9) test(d, { id: 'bus', name: 'バス停', verb: 'から、丘へ帰る', x, z, m: { root: { visible: true } } }); }
+  { const q = SLS_SITE.lodge, dx = Math.max(q[0] - P.px, 0, P.px - q[1]), dz = Math.max(q[2] - P.pz, 0, P.pz - q[3]), d = Math.hypot(dx, dz); if (d < 1.4) test(d + 0.5, { id: 'lodge', name: 'ロッジ', verb: 'を見る', x: P.px, z: P.pz, m: { root: { visible: true } } }); }
+  return best;
+}
+function slsvTap(cx, cy) {
+  if (SLSV.busy || (UI.rest && UI.rest.sls)) return;
+  if (SLSV.petting) slsvPetEnd(true);
+  const ray = screenRay(cx, cy);
+  const hit = ray.intersectObjects(SLSV.pick.filter((o) => o.visible), true)[0];
+  if (hit) { let o = hit.object; while (o && !o.userData.slsRes) o = o.parent; if (o) { slsvOpen('res:' + o.userData.slsRes); return; } }
+  const f = ray.intersectObjects([SLSV.ground, SLSV.moundMesh].filter(Boolean), false)[0];
+  if (!f) return;
+  const p = f.point, T = SLS_SITE;
+  if (Math.hypot(p.x - T.sign[0], p.z - T.sign[1]) < 1.5) { slsvGoTo(T.sign[0] + 1.3, T.sign[1], 'sign'); return; }
+  if (Math.hypot(p.x - T.bus[0], p.z - T.bus[1]) < 1.3) { slsvGoTo(T.bus[0] - 0.4, T.bus[1] - 1.6, 'bus'); return; }
+  { const q = T.lodge; if (p.x > q[0] && p.x < q[1] && p.z > q[2] && p.z < q[3]) { slsvGoTo((q[0] + q[1]) / 2, q[2] - 1.2, 'lodge'); return; } }
+  slsvGoTo(p.x, p.z, null);
+  if (typeof UI.tapMark === 'function') UI.tapMark(p.x, p.z);
+}
+function slsvAge(r) {
+  if (!r.born) return r.age;
+  const now = new Date(), [y, mo] = r.born, n = (now.getFullYear() - y) * 12 + (now.getMonth() + 1 - mo), yy = Math.floor(n / 12), mm = n % 12;
+  return `${y}年${mo}月生まれ（いま${yy ? yy + '歳' : ''}${mm ? mm + 'か月' : ''}）`;
+}
+function slsvOpen(id) {
+  if (id.startsWith('pet:')) { // なでる・ブラッシング：そばに着いたら
+    const [, k, mode] = id.split(':'), e = slsvResOf(k); if (!e) return;
+    const reach = (BODY[e.a.sp] || 0.6) + 0.62;
+    if (Math.hypot(e.x - SLSV.px, e.z - SLSV.pz) > reach + 1.2 && !SLSV.petRetry) { SLSV.petRetry = 1; e.state = 'look'; e.timer = 9; slsvGoTo(e.x + (SLSV.px - e.x) * 0.3, e.z + (SLSV.pz - e.z) * 0.3, id); return; }
+    SLSV.petRetry = 0; slsvPetStart(e, mode); return;
+  }
+  if (id === 'bus') { UI.modal(`<div class="dialog-who"><strong>バス停</strong><span class="pill">はるにれの丘 行き</span></div><p class="said">はるにれの丘へ帰りますか？</p><div class="btn-row"><button class="btn" data-act="sls-back">帰る</button><button class="btn small" data-act="close-modal">もう少しいる</button></div>`); return; }
+  if (id === 'sign') { UI.modal(slsvSignHtml()); return; }
+  if (id === 'lodge') { UI.modal(`<div class="dialog-who"><strong>ロッジ</strong><span class="pill">Second Life Sanctuary</span></div><p class="said">薪ストーブのある建物です。寒い日は、ストーブで、あたたまります。</p><p class="muted">今は中に入れません。</p><div class="btn-row"><button class="btn small" data-act="close-modal">閉じる</button></div>`); return; }
+  if (id.startsWith('res:')) { const k = id.slice(4); UI.modal(k === 'lottie' ? slsvLottieHtml() : slsvCardHtml(k)); }
+}
+function slsvCardHtml(k) {
+  const r = SLS_RES[k], sheep = r.g === 'sheep', seen = sheep ? '2025年10月' : '2025年4月', e = slsvResOf(k), home = e && e.inHouse;
+  const more = [`<p>英語のページでの名前：${esc(r.en)}</p>`, `<p>年：${esc(slsvAge(r))}。体の性：${esc(r.sex)}</p>`, `<p>見た目：${esc(r.look)}</p>`].concat((r.more || []).map((t) => `<p>${esc(t)}</p>`), [`<p>紹介と写真は、団体の動物たちのページ（${seen}）から。ここでの動きは、団体の紹介にあることと、${sheep ? '羊' : '鶏'}の習性をもとにした、ゲームの表現です。</p>`]).join('');
+  return `<div class="dialog-who"><strong>${esc(r.name)}</strong><span class="pill">${sheep ? '羊' : '鶏'}・${esc(r.sex)}</span></div>
+    <p class="real-pre">この子は、山梨県富士川町の Second Life Sanctuary で、本当に暮らしています（${seen}の様子）</p>
+    ${r.say.map((t) => `<p class="said">${esc(t)}</p>`).join('')}
+    <p class="muted">好きなこと：${r.likes.map(esc).join('、')}</p>
+    ${UI.more(more, { src: [SLS_SRC.animals] })}
+    <div class="btn-row">${home || SLSV.busy || (UI.rest && UI.rest.sls) ? '' : `<button class="btn" data-act="sls-pet" data-v="pet" data-id="${k}">なでる</button><button class="btn" data-act="sls-pet" data-v="brush" data-id="${k}">ブラッシング</button>`}<button class="btn small" data-act="close-modal">閉じる</button></div>`;
+}
+function slsvLottieHtml() {
+  return `<div class="dialog-who"><strong>ロッティさん</strong><span class="pill">Second Life Sanctuary</span></div>
+    <p class="real-pre">本当にいる人です</p>
+    <p class="said">Second Life Sanctuary を始めた人です。</p>
+    ${UI.more('<p>サンクチュアリは、2022年1月に始まりました。家族そろってのプロジェクトとして、立ち上げたそうです（団体の紹介より）。</p>', { src: [SLS_SRC.about] })}
+    <div class="btn-row"><button class="btn small" data-act="close-modal">閉じる</button></div>`;
+}
+function slsvSignHtml() {
+  const sheep = Object.values(SLS_RES).filter((r) => r.g === 'sheep').map((r) => r.name).join('、'), hens = Object.values(SLS_RES).filter((r) => r.g === 'hen').map((r) => r.name).join('、');
+  return `<div class="dialog-who"><strong>Second Life Sanctuary</strong><span class="pill">山梨県富士川町</span></div>
+    <p class="said">山梨県富士川町にある、動物たちのサンクチュアリです。ここでは、羊の${esc(sheep)}と、鶏の${esc(hens)}が暮らしています。</p>
+    <p class="muted">ここの子たちは、はじめて会う人には、まだ慣れていません。ゆっくり近づいて、なでさせてくれるのを待ちましょう。ブラッシングは、何度か会いに来てから。広場のベンチや、鶏の庭の輪の椅子で、ひと休みもできます。</p>
+    <p class="muted">この庭は、Second Life Sanctuary の協力で紹介しています。本当のサンクチュアリは、山梨県富士川町にあります。庭の並びや広さは、ゲームの表現です。晴れた日は、遠くに富士山が見えます。</p>
+    ${UI.more('<p>2015年から東京で暮らしていた家族が、2022年1月に、富士川町でサンクチュアリを始めました。訪れた人に、動物たちのことを伝える活動もしています。地元の農家の方々が、環境にやさしく、動物を傷つけない方法で育てた野菜や果物が、動物たちのごはんになっています（団体の紹介より）。入口の外の畑は、そうした地元の畑をあらわしています。</p>', { src: [SLS_SRC.about, SLS_SRC.animals] })}
+    <div class="btn-row"><a class="btn small" href="https://secondlifesanctuary.org/ja/" target="_blank" rel="noopener noreferrer">団体のページを見る（ゲームの外がひらきます）</a><button class="btn small" data-act="close-modal">閉じる</button></div>`;
+}
+UI.extAct = Object.assign(UI.extAct || {}, {
+  'sls-go': () => { UI.closeModal(); slsvEnter(); },
+  'sls-back': () => { UI.closeModal(); slsvLeave(); },
+  'sls-pet': (v, id) => { slsvPetGo(id, v === 'brush' ? 'brush' : 'pet'); },
+  // 「行動」から：門の外のバス停まで歩いて、着いたら、たずねる
+  'sls-call': () => {
+    UI.closeSheet(); UI.closeModal(); if (SLSV.on) return;
+    if (slsBusNear()) { slsAsk(); return; }
+    SLSV.call = performance.now(); movePlayerTo(SLS_HILL_BUS[0] + 0.5, SLS_HILL_BUS[1] - 0.3);
+    UI.toast('門の外のバス停へ向かいます', 'daily');
+  },
+});
 /* =========================================================
    はじめの画面の下の絵巻「はるにれの丘の、ある日曜日」（2026-10-24）
    ・霞と言葉と空の色は src/emaki.svg（tools/emaki.js が描く）。場面の絵は、ここでゲームの模型を
@@ -24751,6 +25859,10 @@ Object.assign(UI, {
   },
   startRest(mode, bench, opt) {
     if (OCHA.on) { UI.closeSheet(); UI.toast('ウェルカムセンターの中では、座布団に座って、ひと息つけます', 'daily'); return; } // 0.9.49
+    if (SLSV.on) { // SLS（0.9.88）：ベンチ・鶏の庭の輪の椅子・草の上で（sls.js）。楽器とドローンショーは、丘で
+      if (mode === 'music' || mode === 'sky') { UI.closeSheet(); UI.toast('楽器と夜空のドローンショーは、丘に帰ってから。ここでは、広場のベンチや鶏の庭の輪の椅子、草の上で、ひと休みできます', 'daily'); return false; }
+      return slsvRest(mode);
+    }
     if (UI.rest || !G) return false;
     UI.petEnd(true);
     const spot = mode === 'sky' ? UI.skySpot() : UI.restSpot(mode, bench);
@@ -24788,8 +25900,8 @@ Object.assign(UI, {
     UI.nagameClear();
     R0.ending = true;
     const P = ACT.player;
-    const near = ACT.animals.filter((e) => (e.restNear || e.musicNear) && Math.hypot(e.x - P.x, e.z - P.z) < 7).map((e) => e.a);
-    const away = ACT.animals.filter((e) => e.musicAway).map((e) => e.a.name);
+    const near = R0.sls ? [] : ACT.animals.filter((e) => (e.restNear || e.musicNear) && Math.hypot(e.x - P.x, e.z - P.z) < 7).map((e) => e.a);
+    const away = R0.sls ? [] : ACT.animals.filter((e) => e.musicAway).map((e) => e.a.name);
     UI.veil(true);
     setTimeout(() => {
       if (P.sitting === 'bench') { const f = [Math.sin(P.heading), Math.cos(P.heading)]; const rc = resolveCollision(P.x + f[0] * 1.2, P.z + f[1] * 1.2, 0.5); P.x = rc[0]; P.z = rc[1]; P.benchLeft = R0.spot && R0.spot.bench ? R0.spot.bench.sid : null; }
@@ -24852,6 +25964,7 @@ Object.assign(UI, {
   },
   restCam(dt, snap) {
     if (UI.rest && UI.rest.mode === 'sky') { UI.skyCam(dt, snap); return; }
+    if (UI.rest && UI.rest.sls) { slsvRestCam(dt, snap); return; } // SLS（sls.js）
     const R0 = UI.rest, P = ACT.player;
     let cx = 0, cz = 0, n = 0;
     for (const e of ACT.animals) { const d = Math.hypot(e.x - P.x, e.z - P.z); if (d < 16) { cx += e.x; cz += e.z; n++; } }
@@ -24993,6 +26106,7 @@ Object.assign(UI, {
     if (el.classList.contains('on')) { el.classList.remove('on'); UI._capA = setTimeout(show, 1500); } else show();
   },
   restIntro(mode) {
+    if (UI.rest && UI.rest.sls) return slsvRestIntro(); // SLS（sls.js）
     const sb = UI.rest && UI.rest.spot && UI.rest.spot.bench;
     if (mode === 'slow') mode = sb ? 'bench' : 'animals'; // ゆっくりする（0.9.38）
     if (mode === 'bench') return `${(sb && sb.seatName) || 'ベンチ'}に腰を下ろしました。しばらく、何もしなくて大丈夫です`;
@@ -25041,6 +26155,7 @@ Object.assign(UI, {
     return null;
   },
   restLine() {
+    if (UI.rest && UI.rest.sls) return slsvRestLine(); // SLS（sls.js）
     const R0 = UI.rest, P = ACT.player, out = [];
     for (const e of ACT.animals) {
       const d = Math.hypot(e.x - P.x, e.z - P.z); if (d > 14) continue;
@@ -25612,14 +26727,15 @@ function bootGame() {
     const dt = Math.min(0.05, Math.max(0, (now - last) / 1000)); last = now; time += dt;
     viewHeal(dt);
     if (G) {
-      if (STARTED) { if (OCHA.on) ochaFrame(dt); else updatePlayer(dt); } // ウェルカムセンターの中では、部屋の中を歩く（0.9.49）
+      if (STARTED) { if (OCHA.on) ochaFrame(dt); else if (SLSV.on) slsvFrame(dt, time); else updatePlayer(dt); } // ウェルカムセンターの中では、部屋の中を歩く（0.9.49）
       updateAnimals(dt, time); updatePeople(dt); updateDoors(dt); updateShelters(dt); updateWild(dt, time); snowFrame(dt); updateLittleLife(dt, time); updateTrain(dt);
       if (STARTED) audioUpdate(dt);
       sightFrame(dt); // 心の余裕と、見え方（sight.js）
       obsFrame(dt); // 観察ノート（obs.js。0.9.62）
       questFrame(dt); // 今日のクエスト（quest.js）
+      slsvTick(dt); // SLS へ出かけられることを、1回だけ（sls.js。0.9.88）
       clockTick(dt); // 時間と天気が、ゆっくり流れる
-      if (OCHA.on) ochaCamera(dt); else updateCamera(dt, ACT.player.m.root.position);
+      if (OCHA.on) ochaCamera(dt); else if (SLSV.on) slsvCamera(dt); else updateCamera(dt, ACT.player.m.root.position); // SLS（0.9.88）
       applySky(dt, APP_EL);
       updateParticles(dt, CAM.target, time);
       updateFX(dt);
