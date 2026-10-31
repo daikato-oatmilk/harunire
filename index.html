@@ -3264,15 +3264,16 @@ const QUESTS = []; // 今日のクエストの入れ物（2026-10-23。中身は
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.88', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.89', label: 'ベータテスト版', date: '2026年10月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
   aim: ['遊びやすいか、わかりにくい所はないか', 'スマホやパソコンで重くないか、止まらないか', '動物、お金、牛と酪農の話が、楽しく伝わるか'],
-  try: ['「はじめから」で、はじまりの話から始めてみる（見つけた鶏に名前をつけ、3週めに庭へ移るまで、会いに行く）', '「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', 'スマホを横にして遊んでみる（左の親指でなぞって歩き、右の親指で見回す）', '日曜の朝の「今朝のあなたは？」に答えて、休むと、まわりがどう見えてくるかを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
+  try: ['「はじめから」で、はじまりの話から始めてみる（見つけた鶏に名前をつけ、3週めに庭へ移るまで、会いに行く）', '「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', 'スマホを横にして遊んでみる（左の親指でなぞって歩き、右の親指で見回す）', '日曜の朝の「今朝のあなたは？」に答えて、休むと、まわりがどう見えてくるかを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'Second Life Sanctuary へ出かけて、ロッティさんと話してみる（門の外のバス停から）', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
-    ['0.9.88', '2026年10月29日', '門の外のバス停から、山梨県富士川町の Second Life Sanctuary（SLS）へ出かけられるようになりました（「行動」からも）。羊のルル・ミミ・バート・テオと、鶏のココロ・ポンズ・スイート・ビジー・ポピー・メッシー、そしてロッティさん。みんな、本当にそこで暮らしている子たちです（カードの紹介は、団体の紹介から）。丘と同じように、なでたり、ブラッシングしたり、ベンチや輪の椅子でひと休みしたりできます。ここの子たちは、はじめて会う人には、まだ慣れていません。晴れた日は、遠くに富士山が見えます。見学の人が、門の外の線路のそばを歩かないようにもしました'],
+    ['0.9.89', '2026年10月31日', 'Second Life Sanctuary で、ロッティさんと話せるようになりました。ここで暮らす動物たちのことや、最近の出来事を、話してくれます。雨や雪の日は、ロッジの窓から声をかけてくれます。羊のミミは、ときどき自分からあなたのそばへ来るように。鶏の2羽の名前を、団体の日本語のページと同じ「バタ子」と「しずか」にしました。はじまりの話の白い鶏の、はじめの名前は「おもち」になりました'],
+    ['0.9.88', '2026年10月29日', '門の外のバス停から、山梨県富士川町の Second Life Sanctuary（SLS）へ出かけられるようになりました（「行動」からも）。羊のルル・ミミ・バート・テオと、鶏のココロ・ポンズ・スイート・バタ子・しずか・メッシー、そしてロッティさん。みんな、本当にそこで暮らしている子たちです（カードの紹介は、団体の紹介から）。丘と同じように、なでたり、ブラッシングしたり、ベンチや輪の椅子でひと休みしたりできます。ここの子たちは、はじめて会う人には、まだ慣れていません。晴れた日は、遠くに富士山が見えます。見学の人が、門の外の線路のそばを歩かないようにもしました'],
     ['0.9.87', '2026年10月28日', '「はじめから」で遊ぶと、はじまりの話から始まるようになりました。ある日曜日の朝、道ばたで倒れていた白い鶏を見つけて、はるにれの丘へ相談に来ます（紙芝居はとばせます）。その子には、あなたが名前をつけます。警察に届けて、持ち主が見つかるまで丘で預かることになり、はじめの2週間は、家の西の小さな小屋で、みなみ先生に診てもらいながら過ごします。毎週、日曜の朝に、あなたの体調をたずねるようになりました（答えなくても大丈夫）。疲れている朝は、まわりが少しぼんやり見え、ひと息つくほど、また見えてきます。夜は、みなみ先生も家に入って休みます。窓に、先生の影が少しだけ映ります。'],
     ['0.9.86', '2026年10月24日', 'スマホを横にしても遊べるようになりました（iPhone Duo のように、横の画面で遊ぶ方のために）。横では、左の親指でなぞって歩き、右の親指でボタンやメニューを。メニューは右に2列、パネルは左に開き、景色が右に見えます。楽器は、左でコード・右で弦。はじめの画面も、横では2列に。'],
     ['0.9.85', '2026年10月24日', '「今日のクエスト」ができました。2週めの日曜日から、働く人のひとりが、毎週ひとつクエストを頼んでくれます（左上の札から）。できると「見つけたこと図鑑」（設定の「あなた」から）に、その子の名前と日付といっしょに、ページが加わります。できなくても、何も減りません。休んでいる時・座っている時に「眺める」ができるように。カメラを好きな所へ動かし、向きと近さも選んで、文字の出ない画面で景色を眺められます。気に入った眺めは、小さな絵で3つまで残せます（眺めている時は、スマホを横にしても）。「詳しく（大人の方へ）」を、どの画面でも同じ形にしました。目印は小さなしおりです。押した時だけ開き、自分から開くことはありません。設定に「学校モード」ができました（授業や教室で遊ぶ時に。とくに重い「詳しく」と、寄付のページへの案内をしまいます。ゲームのアドレスの最後に ?school をつけて開いても）。ちくわとがんものカードには、小さな前置きを添えました。はじめの画面の下に、はるにれの丘の日曜日を描いた絵巻を置きました（カードの「どんなところ？」から。絵は、丘の動物たちの模型で撮っています）。ほかに、長いスカートが歩いても座っても長いままに。木の葉が季節で変わるように（春は少し舞い、夏は茂り、秋はたくさん舞い、冬は葉を落とした木が増えます）。鶏たちは、採卵養鶏場から来た子らしい姿に（くちばしの先を切られた子も）。メニューの「動物」をいちばん前に。指やホイールで寄る・離れる時のズームを速く。'],
@@ -23996,7 +23997,7 @@ const KAMI_DIO = {
    ・絵は、紙芝居と同じく、ゲームの模型を貼り絵の加工で撮る（kamie.js の dioKit・dioShot）。あなたの服と髪は、あなたの見た目
    ・子どもにも読める言葉で。くちばしの先が短いことは、そのままの現実として書く（約束8。採卵の鶏の多くは、ひなの時に処置を受ける）
    ========================================================= */
-const MICHI = { quarWeeks: 2, ownerWeeks: 4, def: 'しらたま', names: ['しらたま', 'おもち', 'ゆき', 'こめ'], art: {}, i: 0, mode: 'story', keyOn: false };
+const MICHI = { quarWeeks: 2, ownerWeeks: 4, def: 'おもち', names: ['おもち', 'しらたま', 'ゆき', 'こめ'], art: {}, i: 0, mode: 'story', keyOn: false };
 const MICHI_HARUKO = { top: '#8C79A8', bottom: '#4A5560', hair: '#A8A5A0', scarf: '#D6735A' };
 const MICHI_PAGES = [
   { pic: 'michi-road', t: 'ある日曜日の朝',
@@ -24475,7 +24476,7 @@ function slsSheep(k) {
 }
 
 /* 鶏：6羽とも、赤茶色の採卵の鶏。首の羽は金色がかって明るく、尾のつけねは白くふわふわ。
-   ココロとポンズは濃い色。足環の色は写真から（ココロは赤、ビジーは緑、ポピーは青） */
+   ココロとポンズは濃い色。足環の色は写真から（ココロは赤、バタ子は緑、しずかは青） */
 const SLS_HENS = {
   kokoro: { base: '#8E4124', light: '#AE5A31', mid: '#7A3520', dark: '#3A190D', hackle: '#B8703A', comb: 1.12, combTilt: 0, beak: 0.72, band: '#D8423A', scale: 1, seed: 21 },
   ponzu: { base: '#94472A', light: '#B8653B', mid: '#7F3B22', dark: '#3C1C10', hackle: '#C0793F', comb: 1.18, combTilt: 0.08, beak: 1, band: null, scale: 1, seed: 22, fleck: true },
@@ -24640,7 +24641,8 @@ function slsLottie() {
    - 柵は丘と同じまとめ描き（InstancedMesh）。晴れた日は、遠くに富士山。入口の門には、団体のロゴ（sls-logo.js。Daiさんが団体に許可をもらった）
    - 2026-10-29、Daiさん：羊の庭に小さな丘・水飲みの池・干し草の小屋。鶏の庭に止まり木の枝・水飲み場・砂浴び場・見学の人が輪になって座れる椅子。
      庭の門をわかりやすく。なでる・ブラッシング・ひと休みは丘と同じように。ただし、ここの子は知らない人にはまだ慣れていない（ブラッシングは、なかなかさせてくれない）
-   - 性格の札はつけない。ロッティさんは、せりふなし（ご本人の確認まで）。ふるまいは、団体の紹介にあることと、種の習性だけ
+   - 性格の札はつけない。ふるまいは、団体の紹介にあることと、種の習性だけ。
+     ロッティさんは「話す」で、せりふ（SLS_LOTTIE_SAY。2026-10-31、Daiさんの確認ずみ）。雨と雪の日はロッジの窓から、知らない子に断られた時は、そっと声をかける
    - 地図の試作と考え方：claude/sls-site-map.md、住人：claude/sls-residents.md、実在の子の扱い：claude/real-animals-plan.md
    ========================================================= */
 // 並び（このシーンの座標。x は東、z は南。試作の地図の座標から x+94、z-10.5 ずらして、まん中を原点に）
@@ -24686,7 +24688,7 @@ const SLS_RES = {
     likes: ['おやつ', 'お母さんのミミのそば'], look: 'まだ毛を刈っていないので、白い毛がとても厚い。頭も、ふわふわの毛におおわれています。',
     more: ['羊は2歳くらいまで大きくなり、5歳ごろに歯が生えそろいます。テオには、まだ大きくなる時間があります（団体の紹介より）。'] },
   kokoro: { g: 'hen', name: 'ココロ', en: 'Kokoro', sex: 'メス', age: '年はわかりません',
-    say: ['とても堂々とした鶏です。人が大好きで、ひざの上で眠ってしまうほど。', '音楽が好きで、ときどき木琴で遊びます。光るものにも目がなくて、ブレスレットは取られないように気をつけて。抱っこしてもらうのも大好きな、やわらかくて、やさしい子です。', 'まだ若いころ、ほかの5羽と一緒にサンクチュアリへ来ました。ひなのころ、痛みをやわらげることなく、くちばしの先を切り落とされています。その経験をこえて、今は、まわりに愛情を向ける子です。'],
+    say: ['ここの鶏の中で、いちばん堂々とした子です。人が大好きで、ひざの上で眠ってしまうほど。', '音楽が好きで、ときどき木琴で遊びます。光るものにも目がなくて、ブレスレットは取られないように気をつけて。抱っこしてもらうのも大好きな、やわらかくて、やさしい子です。', 'まだ若いころ、ほかの5羽と一緒にサンクチュアリへ来ました。ひなのころ、痛みをやわらげることなく、くちばしの先を切り落とされています。その経験をこえて、今は、まわりに愛情を向ける子です。'],
     likes: ['音楽（木琴）', 'ひざの上', '抱っこ', 'ブレスレット'], look: '6羽の中で、羽の色が濃いめ。くちばしの先が、少し短い。' },
   ponzu: { g: 'hen', name: 'ポンズ', en: 'Ponzu', sex: 'メス', born: [2024, 7],
     say: ['2024年7月に生まれた採卵の鶏で、2024年10月にサンクチュアリへ来ました。', '自信家で、花とスイートコーンを食べるのが大好き。いつも、人の上に座りたがります。'],
@@ -24694,10 +24696,10 @@ const SLS_RES = {
   sweet: { g: 'hen', name: 'スイート', en: 'The Sweet One', sex: 'メス', age: '年はわかりません',
     say: ['やさしくなでてもらうのが大好き。', 'おやつよりも、あなたがこちらを見てくれることのほうが、うれしいみたいです。'],
     likes: ['やさしくなでてもらうこと', 'あなたと過ごす時間'], look: '明るい赤茶色。首のまわりは金色がかっています。' },
-  busy: { g: 'hen', name: 'ビジー', en: 'The Busy One（日本語のページでは、バタ子ちゃん）', sex: 'メス', age: '年はわかりません',
+  busy: { g: 'hen', name: 'バタ子', en: 'The Busy One', sex: 'メス', age: '年はわかりません',
     say: ['いつもバタバタ走り回っていて、ふざけるのが大好き。', 'ヘアバンドをくわえて、逃げていったこともあります。サンクチュアリの笑いの担当です。'],
     likes: ['走り回ること', 'ヘアバンド'], look: '明るい赤茶色で、尾のつけねは白くふわふわ。' },
-  poppy: { g: 'hen', name: 'ポピー', en: 'Poppy（日本語のページでは、しずかちゃん）', sex: 'メス', age: '年はわかりません',
+  poppy: { g: 'hen', name: 'しずか', en: 'Poppy', sex: 'メス', age: '年はわかりません',
     say: ['たいてい、ひとりで何かをしています。人がひとりでいると、仲間を見つけたように、そばへやってきます。', '自分から気を引こうとはしませんが、かまってもらうと、とてもうれしそうに甘えます。'],
     likes: ['ひとりの時間', 'ひとりでいる人のそば'], look: '明るい赤茶色。尾のつけねは白くふわふわ。' },
   messy: { g: 'hen', name: 'メッシー', en: 'The Messy One', sex: 'メス', age: '年はわかりません',
@@ -24705,9 +24707,30 @@ const SLS_RES = {
     likes: ['泥の中を走ること', 'ひざの上'], look: 'ほかの鶏より、ひとまわり大きな体。' },
 };
 const SLS_SRC = { animals: ['Second Life Sanctuary「動物たち」', 'https://secondlifesanctuary.org/ja/animals/'], about: ['Second Life Sanctuary「私たちについて」', 'https://secondlifesanctuary.org/ja/about-us/'] };
+/* ---------- ロッティさんのせりふ（2026-10-31、Daiさんの確認ずみ） ----------
+   人柄（Daiさんから）：やさしく、いつも前向きで、どんな時も良いところを見つける。弱い者をしっかり守るが、攻撃的にはならない。
+   少し恥ずかしがりで、自分に自信がない時もある。まわりのことに、いつも感謝している。
+   話の中身は、団体の投稿（ロッティさんが書いたもの）から。実在の人や団体の名前は出さない。
+   豚の家は「今の話」なので、豚たちが来たら言い方を変える。雪の一行は、ゲームの羊が雪の日に小屋のそばにいるのに合わせた */
+const SLS_LOTTIE_SAY = {
+  hello: ['あ、こんにちは！ ようこそ、Second Life Sanctuary へ。遠いところを、来てくれてありがとうございます。', 'わたしは、ロッティです。ここで、動物たちと一緒に暮らしています。……うまく案内できるか、少しどきどきしていますけど、どうぞ、ゆっくりしていってくださいね。'],
+  again: ['あ、また来てくれたんですね！ うれしいです。今日は、だれに会いに来ましたか？', 'おかえりなさい……って言っても、いいかな。なんだか、そんな気がして。'],
+  sunny: '今日は富士山が、きれいに見えますね。これを見るたびに、ありがとうって気持ちになるんです。',
+  rain: '雨ですね。でも、草がよく育つから、羊たちにはうれしい雨です。',
+  snow: '雪の日は、みんな小屋のそばで、ぬくぬくしています。羊の毛って、本当にあったかいんですよ。',
+  about: ['ここは、羊と鶏たちが、のんびり暮らす場所です。草を食べて、日なたで眠って、その子らしく過ごしてくれたら、それでいちばん。', '2022年に、家族で始めました。わからないことばかりで、今も毎日、動物たちに教えてもらっています。'],
+  res: ['ルルは、くっつくのが苦手な子でした。でも、バートが気持ちよさそうになでられているのを見て、安心したのかな。最近は、少しずつ甘えてくれるんです。', 'テオは、いつもお母さんのミミのそば。テオの話をすると、どこへ行っても、みんな笑ってくれるんですよ。', '鶏たちは、6羽そろって、卵をとる農場から来ました。今は、砂浴びをしたり、ひざに乗ってきたり、毎日にぎやかです。'],
+  recent: ['新しい草地ができたんです。はじめて放した日、羊たちはもう大よろこびで。見ているこっちまで、うれしくなりました。', 'これからは、草地を順番に休ませながら使って、いつでも、やわらかい草を食べられるようにしたいと思っています。', 'この前は、手伝いに来てくれたみなさんが、次の草地をつくってくれました。わたしたちだけでは、とてもできないことです。'],
+  recent2: ['近所の方に、畑のことを教わっています。動物たちと、わたしたちの食べるものを、少しでも自分たちで育てられたらと思って。', '見学の日には、たくさんの人が来てくれました。動物たちのことを知ろうとしてくれる人がいる。それが、何よりの力になります。'],
+  next: ['じつは今、豚たちの家を作っているところなんです。豚は、仲間思いで、きれい好きで、とても愛情深い動物です。迎えられる日が、待ちきれません。'],
+  guard: ['今は、そっとしておいてあげてくださいね。この子にとって、知らない人は、まだ少しこわいんです。', 'その子が『いや』って言っている時は、その気持ちを大事にしたいんです。待っていれば、きっと、向こうから来てくれますから。'],
+  bye: ['来てくれて、本当にありがとうございました。また、いつでも会いに来てくださいね。', '気をつけて帰ってくださいね。はるにれの丘のみなさんにも、よろしくお伝えください。'],
+};
+// 話す時に、あなたがたずねること（ボタン）
+const SLS_TALK = [['about', 'ここは、どんな所ですか？'], ['res', 'みんな、元気ですか？'], ['recent', '最近は、どうですか？'], ['next', 'これからのことは？'], ['bye', 'そろそろ帰ります']];
 const SLSV = { on: false, busy: false, built: false, S: null, g: null, px: 0, pz: 0, heading: -Math.PI / 2, target: null, path: null, go: null, stuck: 0, phase: 0,
   res: [], lottie: null, pick: [], ground: null, groundMat: null, fuji: null, gates: [], grid: null, cols: [], circles: [], seats: [], shared: [], back: null, root: null, inst: 0,
-  toldT: 0, call: 0, petting: null, sit: null, sitP: null, petSeen: {}, busPos: null, logoTex: null };
+  toldT: 0, call: 0, petting: null, sit: null, sitP: null, petSeen: {}, talked: 0, guard: 0, busPos: null, logoTex: null };
 
 // 出かけられるか：はじめからいつでも（2026-10-29、Daiさん：バス停から行けることに気づきにくい）
 function slsOpen() { return !!G; }
@@ -25044,9 +25067,10 @@ function slsvPickSpot(e) {
     if (e.k === 'teo') { const mm = slsvResOf('mimi'); x = mm.x + rand(-2, 2); z = mm.z + rand(-2, 2); } // テオは、たいていお母さんのそば（団体の紹介）
     else if (e.k === 'lulu') { if (sit && Math.random() < 0.4) { x = P.px + rand(-2.6, 2.6); z = P.pz + rand(-2.6, 2.6); } else { const a = Math.random() * 6.28; x = cx + Math.cos(a) * rand(5, 8); z = cz + Math.sin(a) * rand(5, 8); } } // ルルは、少しはなれて。静かに座っている人のそばには来てくれる
     else if (e.k === 'bart' && inZ && Math.random() < 0.6) { x = P.px + rand(-1.4, 1.4); z = P.pz + rand(-1.4, 1.4); } // バートは、人のそばへ
+    else if (e.k === 'mimi' && inZ && Math.random() < 0.4) { x = P.px + rand(-1.6, 1.6); z = P.pz + rand(-1.6, 1.6); } // ミミは、気を引きに来る（自信たっぷりで、ひとりじめしたがる。団体の紹介。2026-10-31）。テオもついてくる
     else if (Math.random() < 0.6) { x = cx + rand(-5, 5); z = cz + rand(-5, 5); } // 羊は群れで
   } else {
-    if (e.k === 'poppy') { if (inZ && Math.random() < 0.55) { x = P.px + rand(-1.2, 1.2); z = P.pz + rand(-1.2, 1.2); } else { const a = Math.random() * 6.28; x = cx + Math.cos(a) * rand(6, 10); z = cz + Math.sin(a) * rand(6, 10); } } // ポピーは、たいていひとりで。ひとりの人のそばへ
+    if (e.k === 'poppy') { if (inZ && Math.random() < 0.55) { x = P.px + rand(-1.2, 1.2); z = P.pz + rand(-1.2, 1.2); } else { const a = Math.random() * 6.28; x = cx + Math.cos(a) * rand(6, 10); z = cz + Math.sin(a) * rand(6, 10); } } // しずかは、たいていひとりで。ひとりの人のそばへ
     else if (['kokoro', 'ponzu', 'messy', 'sweet'].includes(e.k) && inZ && Math.random() < (sit ? 0.8 : 0.4)) { x = P.px + rand(-1, 1); z = P.pz + rand(-1, 1); } // 人が大好き・ひざの上・人の上に座りたい
     else if (Math.random() < 0.55) { x = cx + rand(-4, 4); z = cz + rand(-4, 4); }
   }
@@ -25087,7 +25111,7 @@ function slsvThink(e) {
     if (r < 0.18 && !wet) { const P0 = SLSV.perch; slsvWalkTo(e, P0.x + rand(-P0.L / 2 + 0.3, P0.L / 2 - 0.3), P0.z + 0.8, busy ? 2 : 1, 'perch'); return; } // 止まり木の枝にのぼる
     if (r < 0.28 && !wet) { const [x, z, rr] = T.dust, a = Math.random() * 6.28, q = Math.random() * (rr - 0.4); slsvWalkTo(e, x + Math.cos(a) * q, z + Math.sin(a) * q, busy ? 2 : 1, 'dust'); return; } // 砂浴び（メッシーは、泥も好き）
     if (r < 0.55) { e.state = 'graze'; e.timer = rand(3, 9); } // 地面をつつく
-    else if (r < 0.82 || (busy && r < 0.94)) { const [x, z] = slsvPickSpot(e); slsvWalkTo(e, x, z, busy ? 2.1 : 1.0); e.timer = 20; } // ビジーは、いつもバタバタ
+    else if (r < 0.82 || (busy && r < 0.94)) { const [x, z] = slsvPickSpot(e); slsvWalkTo(e, x, z, busy ? 2.1 : 1.0); e.timer = 20; } // バタ子は、いつもバタバタ
     else if (r < 0.92) { e.state = 'preen'; e.timer = rand(3, 7); }
     else { e.state = 'look'; e.timer = rand(2, 5); }
   }
@@ -25141,8 +25165,9 @@ function slsvResFrame(dt, time) {
 
 /* ---------- なでる・ブラッシング：丘と同じように。ただし、ここの子は、知らない人にはまだ慣れていない ---------- */
 // 団体の紹介から：バートは人にすぐ心をひらく、ミミはやさしくなでられるとうれしそう、テオはおやつの時にあごを少し、ルルははずかしがりや。
-// ココロは人が大好き、スイートはなでられるのが大好き、ポピーはかまわれると甘える、ポンズとメッシーは人の上に、ビジーはいつも走り回っている
-const SLS_PET = { bart: 2.6, mimi: 1.6, teo: 0.9, lulu: -1.2, kokoro: 2.6, sweet: 2.1, poppy: 1.4, ponzu: 1.2, messy: 1.0, busy: -0.8 };
+// ココロは人が大好き、スイートはなでられるのが大好き、しずかはかまわれると甘える、ポンズとメッシーは人の上に、バタ子はいつも走り回っている
+// 2026-10-31：団体のページと照らして、自分から人の上やひざに乗るポンズとメッシーを、自分から気を引かないしずかより上に
+const SLS_PET = { bart: 2.6, mimi: 1.6, teo: 0.9, lulu: -1.2, kokoro: 2.6, sweet: 2.1, poppy: 1.4, ponzu: 1.8, messy: 1.6, busy: -0.8 };
 function slsFam(k) { return (G.flags.slsFam && G.flags.slsFam[k]) || 0; } // 会いに来て、なでさせてもらうたびに、少しずつ慣れていく（1回の訪問で1度だけ）
 function slsvReact(k, mode) {
   let sc = 1.4 + slsFam(k) + (SLS_PET[k] || 0) + rand(-1, 1);
@@ -25171,6 +25196,8 @@ function slsvPetStart(e, mode) {
     UI.toast(mode === 'brush' ? (stranger ? `${nm}は、ブラッシングは、まだいやなようです。ここの子たちは、はじめて会う人には、まだ慣れていません。今日は、そっと見守りましょう` : `${nm}は、ブラッシングは、今日は気が進まないようです`)
       : react === 'shy' ? `${nm}は、そっと身を引きました。${stranger ? 'はじめて会う人には、まだ少し緊張するようです。' : ''}そばまで行けただけでも、一歩です`
       : `${nm}は、するりと離れていきました。今日は、少し離れて見守りましょう`, 'friends');
+    const L = SLSV.lottie; // 近くにいるロッティさんが、そっと声をかける（はじめて会う子の時。1回の訪問で2回まで）
+    if (stranger && L && L.m.root.visible && SLSV.guard < SLS_LOTTIE_SAY.guard.length && Math.hypot(L.x - SLSV.px, L.z - SLSV.pz) < 20) UI.toast(`ロッティさん「${SLS_LOTTIE_SAY.guard[SLSV.guard++]}」`, 'friends');
     return;
   }
   const love = react === 'love', brush = mode === 'brush', dur = love ? rand(5.5, 7) : rand(2.6, 3.4);
@@ -25358,7 +25385,7 @@ function slsvInside(on, stay) {
     SLSV.shared = [R.hemi, R.sun, R.sun.target, R.lamp, SKY.stars, SKY.starsBright, SKY.moon, SKY.rainbow, PT.snow, PT.rain, typeof CLOUDS !== 'undefined' ? CLOUDS.g : null].filter((o) => o && o.parent);
     SLSV.shared.forEach((o) => SLSV.S.add(o));
     [SLSV.px, SLSV.pz] = SLS_SITE.arrive; SLSV.heading = -Math.PI / 2; SLSV.target = null; SLSV.path = null; SLSV.go = null;
-    SLSV.petting = null; SLSV.sit = null; SLSV.petSeen = {}; SLSV.call = 0;
+    SLSV.petting = null; SLSV.sit = null; SLSV.petSeen = {}; SLSV.call = 0; SLSV.talked = 0; SLSV.guard = 0;
     SLSV.on = true; SLSV.g = G;
     CAM.yaw = CAM.tYaw = Math.PI / 2; CAM.pitch = CAM.tPitch = 0.1; CAM.dist = CAM.tDist = 10; CAM.snapReq = true; // 入口から、西（羊の庭の奥）を、遠くの山まで見わたす（晴れた日は富士山）
     SLSV.res.forEach((e) => { e.timer = Math.min(e.timer, rand(0, 1.5)); });
@@ -25431,7 +25458,7 @@ function slsvNearest() {
   let best = null, bd = 1e9;
   const P = SLSV, test = (d, ent) => { if (d < bd) { bd = d; best = { kind: 'slsspot', ent }; } };
   for (const e of SLSV.res) { if (e.inHouse) continue; const d = Math.hypot(e.x - P.px, e.z - P.pz), reach = e.sheep ? 2.3 : 1.6; if (d < reach) test(d, { id: 'res:' + e.k, name: SLS_RES[e.k].name, verb: 'のカードを見る', x: e.x, z: e.z, m: { root: e.m.root } }); }
-  { const L = SLSV.lottie; if (L && L.m.root.visible) { const d = Math.hypot(L.x - P.px, L.z - P.pz); if (d < 2.3) test(d, { id: 'res:lottie', name: 'ロッティさん', verb: 'のカードを見る', x: L.x, z: L.z, m: { root: L.m.root } }); } }
+  { const L = SLSV.lottie; if (L && L.m.root.visible) { const d = Math.hypot(L.x - P.px, L.z - P.pz); if (d < 2.3) test(d, { id: 'res:lottie', name: 'ロッティさん', verb: 'と話す', x: L.x, z: L.z, m: { root: L.m.root } }); } }
   { const [x, z] = SLS_SITE.sign, d = Math.hypot(x - P.px, z - P.pz) - 0.8; if (d < 1.6) test(d, { id: 'sign', name: 'ごあんない', verb: 'を見る', x, z, m: { root: { visible: true } } }); }
   { const [x, z] = SLS_SITE.bus, d = Math.hypot(x - P.px, z - P.pz) - 0.4; if (d < 1.9) test(d, { id: 'bus', name: 'バス停', verb: 'から、丘へ帰る', x, z, m: { root: { visible: true } } }); }
   { const q = SLS_SITE.lodge, dx = Math.max(q[0] - P.px, 0, P.px - q[1]), dz = Math.max(q[2] - P.pz, 0, P.pz - q[3]), d = Math.hypot(dx, dz); if (d < 1.4) test(d + 0.5, { id: 'lodge', name: 'ロッジ', verb: 'を見る', x: P.px, z: P.pz, m: { root: { visible: true } } }); }
@@ -25464,10 +25491,11 @@ function slsvOpen(id) {
     if (Math.hypot(e.x - SLSV.px, e.z - SLSV.pz) > reach + 1.2 && !SLSV.petRetry) { SLSV.petRetry = 1; e.state = 'look'; e.timer = 9; slsvGoTo(e.x + (SLSV.px - e.x) * 0.3, e.z + (SLSV.pz - e.z) * 0.3, id); return; }
     SLSV.petRetry = 0; slsvPetStart(e, mode); return;
   }
-  if (id === 'bus') { UI.modal(`<div class="dialog-who"><strong>バス停</strong><span class="pill">はるにれの丘 行き</span></div><p class="said">はるにれの丘へ帰りますか？</p><div class="btn-row"><button class="btn" data-act="sls-back">帰る</button><button class="btn small" data-act="close-modal">もう少しいる</button></div>`); return; }
+  if (id === 'bus') { UI.modal(`<div class="dialog-who"><strong>バス停</strong><span class="pill">はるにれの丘 行き</span></div><p class="said">はるにれの丘へ帰りますか？</p>${SLSV.talked && SLSV.lottie && SLSV.lottie.m.root.visible ? '<p class="muted">遠くで、ロッティさんが手をふっています。</p>' : ''}<div class="btn-row"><button class="btn" data-act="sls-back">帰る</button><button class="btn small" data-act="close-modal">もう少しいる</button></div>`); return; }
   if (id === 'sign') { UI.modal(slsvSignHtml()); return; }
-  if (id === 'lodge') { UI.modal(`<div class="dialog-who"><strong>ロッジ</strong><span class="pill">Second Life Sanctuary</span></div><p class="said">薪ストーブのある建物です。寒い日は、ストーブで、あたたまります。</p><p class="muted">今は中に入れません。</p><div class="btn-row"><button class="btn small" data-act="close-modal">閉じる</button></div>`); return; }
-  if (id.startsWith('res:')) { const k = id.slice(4); UI.modal(k === 'lottie' ? slsvLottieHtml() : slsvCardHtml(k)); }
+  if (id === 'lodge') { const wet = G.weather === 'rain' || G.weather === 'snow' ? G.weather : null, win = wet && (SKY.night || 0) <= 0.5 ? `<p class="muted">窓が少しあいて、ロッティさんが声をかけてくれました。</p><p class="said">${esc(SLS_LOTTIE_SAY[wet])}</p>` : '';
+    UI.modal(`<div class="dialog-who"><strong>ロッジ</strong><span class="pill">Second Life Sanctuary</span></div><p class="said">薪ストーブのある建物です。寒い日は、ストーブで、あたたまります。</p>${win}<p class="muted">今は中に入れません。</p><div class="btn-row"><button class="btn small" data-act="close-modal">閉じる</button></div>`); return; }
+  if (id.startsWith('res:')) { const k = id.slice(4); UI.modal(k === 'lottie' ? slsvLottieTalk(null) : slsvCardHtml(k)); }
 }
 function slsvCardHtml(k) {
   const r = SLS_RES[k], sheep = r.g === 'sheep', seen = sheep ? '2025年10月' : '2025年4月', e = slsvResOf(k), home = e && e.inHouse;
@@ -25484,7 +25512,27 @@ function slsvLottieHtml() {
     <p class="real-pre">本当にいる人です</p>
     <p class="said">Second Life Sanctuary を始めた人です。</p>
     ${UI.more('<p>サンクチュアリは、2022年1月に始まりました。家族そろってのプロジェクトとして、立ち上げたそうです（団体の紹介より）。</p>', { src: [SLS_SRC.about] })}
-    <div class="btn-row"><button class="btn small" data-act="close-modal">閉じる</button></div>`;
+    <div class="btn-row"><button class="btn" data-act="sls-talk" data-v="">話す</button><button class="btn small" data-act="close-modal">閉じる</button></div>`;
+}
+// ロッティさんと話す：はじめての日はあいさつと名前、2回めからは「また来てくれたんですね」。晴れて富士山が見える日は、ひとこと足す
+function slsvLottieTalk(v) {
+  const S = SLS_LOTTIE_SAY; let lines = [];
+  if (!v) {
+    if (!SLSV.talked) {
+      const n = G.flags.slsTalk || 0; lines = n ? [S.again[(n - 1) % S.again.length]] : S.hello.slice();
+      G.flags.slsTalk = n + 1; SLSV.talked = 1;
+      if (SLSV.fuji && SLSV.fuji.k > 0.5 && (SKY.night || 0) < 0.5) lines.push(S.sunny);
+    }
+  } else lines = S[v] || [];
+  const ask = (id, t) => `<button class="btn small ghost" data-act="sls-talk" data-v="${id}">${esc(t)}</button>`;
+  let btns;
+  if (v === 'bye') btns = '<button class="btn" data-act="sls-talk" data-v="go-bus">バス停へ</button><button class="btn small" data-act="close-modal">もう少しいる</button>';
+  else btns = (v === 'recent' ? ask('recent2', 'ほかには？') : '') + SLS_TALK.filter(([id]) => id !== v && !(v === 'recent2' && id === 'recent')).map(([id, t]) => ask(id, t)).join('')
+    + '<button class="btn small ghost" data-act="sls-talk" data-v="card">カードを見る</button><button class="btn small" data-act="close-modal">閉じる</button>';
+  return `<div class="dialog-who"><strong>ロッティさん</strong><span class="pill">Second Life Sanctuary</span></div>
+    <p class="real-pre">本当にいる人です</p>
+    ${lines.length ? lines.map((t) => `<p class="said">${esc(t)}</p>`).join('') : '<p class="muted">何を聞きますか？</p>'}
+    <div class="btn-row">${btns}</div>`;
 }
 function slsvSignHtml() {
   const sheep = Object.values(SLS_RES).filter((r) => r.g === 'sheep').map((r) => r.name).join('、'), hens = Object.values(SLS_RES).filter((r) => r.g === 'hen').map((r) => r.name).join('、');
@@ -25499,6 +25547,11 @@ UI.extAct = Object.assign(UI.extAct || {}, {
   'sls-go': () => { UI.closeModal(); slsvEnter(); },
   'sls-back': () => { UI.closeModal(); slsvLeave(); },
   'sls-pet': (v, id) => { slsvPetGo(id, v === 'brush' ? 'brush' : 'pet'); },
+  'sls-talk': (v) => {
+    if (v === 'card') { UI.modal(slsvLottieHtml()); return; }
+    if (v === 'go-bus') { UI.closeModal(); const T = SLS_SITE; slsvGoTo(T.bus[0] - 0.4, T.bus[1] - 1.6, 'bus'); return; }
+    UI.modal(slsvLottieTalk(v || null));
+  },
   // 「行動」から：門の外のバス停まで歩いて、着いたら、たずねる
   'sls-call': () => {
     UI.closeSheet(); UI.closeModal(); if (SLSV.on) return;
