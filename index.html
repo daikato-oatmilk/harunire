@@ -230,10 +230,20 @@ body.nagame #rest-ui, body.nagame #beh, body.nagame #zen-exit { display: none !i
 .hud-menu button.on span::after { content: '　✓'; }
 body.hud-names #rail { display: none; }
 #rail { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 2px; padding: 5px; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-l); }
-#rail button { position: relative; width: 58px; height: 52px; border: 0; border-radius: var(--r-l); background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: var(--fs-xs); font-weight: 700; color: var(--ink-2); padding: 0; }
+#rail button { position: relative; width: 58px; height: 52px; border: 0; border-radius: var(--r-l); background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: var(--fs-xs); font-weight: 500; color: var(--ink-2); padding: 0; -webkit-tap-highlight-color: transparent; transition: background-color .2s, color .2s, transform .14s ease-out; }
 #rail button svg { width: 22px; height: 22px; }
 #rail button:hover { background: var(--paper-2); color: var(--ink); }
-#rail button.on { background: var(--pine-wash); color: var(--pine); }
+/* メニューの手ざわり（2026-11-01、Daiさん）：選んだボタンは、字を太く、絵を塗って少し大きく。
+   押した時は少し沈み、押した所から小さな波が広がる（UI.railRipple。波は .rip-box の中だけ。バッジは外に出られるように） */
+#rail button svg, #rail button > span { position: relative; }
+#rail button svg { fill: currentColor; fill-opacity: 0; transition: transform .32s cubic-bezier(.34, 1.56, .64, 1), fill-opacity .2s; }
+#rail button.on { background: var(--pine-wash); color: var(--pine); font-weight: 700; }
+#rail button.on svg { fill-opacity: .26; stroke-width: 2.3; transform: translateY(-1px) scale(1.18); }
+#rail button:active { transform: scale(.94); }
+#rail button > .badge:not(.dot) { right: calc(50% - 23px); } /* 数のバッジは、絵の右上の角に少しかかるだけに（選んで大きくなった絵が隠れないように） */
+#rail .rip-box { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; }
+#rail .rip-box i { position: absolute; border-radius: var(--r-round); background: rgba(var(--pine-rgb), .2); transform: scale(.12); opacity: 1; animation: railRip .55s ease-out forwards; }
+@keyframes railRip { to { transform: scale(1); opacity: 0; } }
 body.hud-names #bottom-right { display: none; }
 #bottom-right { position: absolute; right: calc(var(--rail-w) + 30px); bottom: calc(var(--safe-b) + 24px); display: flex; gap: 8px; transition: opacity .3s; flex-direction: column; align-items: flex-end; }
 body.sheet-open #bottom-right { opacity: 0; pointer-events: none; }
@@ -366,6 +376,31 @@ body.modal-open #zen-btn { opacity: 0; pointer-events: none; }
 .hearts svg { width: 12px; height: 12px; stroke: var(--coral); }
 .hearts svg.f { fill: var(--coral); }
 
+/* 受け入れの相談：動物の画面のいちばん上に（2026-11-01、Daiさん）。はじめは開いて、「あとで」で1行に */
+.req-top { margin: 0 0 14px; padding: 12px 14px; background-color: var(--card); background-image: var(--grain); border: 2px solid var(--sumi); border-left-width: 6px; border-left-color: var(--hay); border-radius: var(--r-l); box-shadow: var(--shadow); }
+.req-top.new { animation: reqIn .5s cubic-bezier(.2, .9, .3, 1.2) both; }
+@keyframes reqIn { from { opacity: 0; transform: translateY(-8px) scale(.98); } }
+@media (prefers-reduced-motion: reduce) { .req-top.new { animation: none; } }
+.req-top .rt-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.req-top .rt-ey { font-size: var(--fs-s); font-weight: 700; color: var(--coral); letter-spacing: .04em; }
+.req-top .rt-later { border: 0; background: none; color: var(--ink-3); text-decoration: underline; text-underline-offset: 2px; font-size: var(--fs-s); min-height: 36px; padding: 0 2px 0 10px; }
+.req-top .avs { display: flex; flex: none; }
+.req-top .av { width: 48px; height: 48px; border-radius: var(--r-round); border: 2px solid var(--paper); box-shadow: 0 0 0 1.5px var(--sumi); flex: none; }
+.req-top .av + .av { margin-left: -12px; }
+.req-top .rt-who { display: flex; align-items: center; gap: 10px; margin: 6px 0 4px; }
+.req-top .rt-who b { display: block; font-size: var(--fs-body-l); }
+.req-top .rt-intro { margin: 2px 0 8px; font-family: var(--hand); font-size: var(--fs-ui); }
+.req-top .rt-how { background: var(--paper-2); border-radius: var(--r-m); padding: 8px 10px 4px; margin: 0 0 10px; }
+.req-top .rt-h { font-size: var(--fs-s); color: var(--ink-3); }
+.req-top .rt-sum { margin: 2px 0 2px; font-weight: 700; font-size: var(--fs-body); }
+.req-top .rt-sum.ok { color: var(--leaf); display: flex; align-items: center; gap: 4px; }
+.req-top .rt-sum.ok svg { width: 18px; height: 18px; }
+.req-top.fold { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; padding: 8px 12px; cursor: pointer; font: inherit; color: inherit; }
+.req-top.fold .av { width: 34px; height: 34px; }
+.req-top.fold .av + .av { margin-left: -14px; }
+.req-top.fold .rt-tx { flex: 1; display: flex; flex-direction: column; line-height: 1.35; min-width: 0; }
+.req-top.fold .rt-tx b { font-size: var(--fs-s); color: var(--coral); }
+.req-top.fold .rt-go { color: var(--pine); font-weight: 700; font-size: var(--fs-s); flex: none; }
 .req { border: 1px solid var(--warn-line); background: var(--warn-paper); border-radius: var(--r-l); padding: 12px; margin-bottom: 10px; }
 .req p { margin: 0 0 8px; font-size: var(--fs-ui); font-family: var(--hand); }
 .req .req-note { margin: 6px 0 0; }
@@ -1321,6 +1356,55 @@ details.beh-list > summary::-webkit-details-marker { display: none; }
 .coach .co-btns:empty { display: none; }
 .coach.done { border-color: var(--leaf); background: var(--ok-wash); }
 .coach.done .co-t::before { content: '✓ '; color: var(--leaf); }
+/* はじめの案内の吹き出し（2026-11-01、Daiさん）：まんなか（あなたの頭の上）に、ふわっと。読んだら、いつもの場所へすっと戻る（UI.coachPop・coachSettle） */
+.coach.co-mid { transform: translate(calc(-50% + var(--co-dx, 0px)), var(--co-dy, 0px)); transform-origin: 50% 100%; animation: coPop .45s cubic-bezier(.2, .9, .3, 1.2) both; }
+.coach.co-mid .co-t { font-size: var(--fs-body-l); }
+.coach.co-mid.co-below { transform-origin: 50% 0; }
+@keyframes coPopB { from { opacity: 0; transform: translate(calc(-50% + var(--co-dx, 0px)), calc(var(--co-dy, 0px) - 12px)) scale(.9); } to { opacity: 1; transform: translate(calc(-50% + var(--co-dx, 0px)), var(--co-dy, 0px)) scale(1); } }
+.coach.co-mid.co-below:not(.co-popped) { animation-name: coPopB; }
+.coach.co-mid.co-side { width: var(--co-w, auto) !important; transform-origin: 50% 50%; }
+.coach.co-was { animation: none; transition: border-color .3s, background .3s, transform .55s cubic-bezier(.25, .8, .25, 1), border-radius .4s, box-shadow .4s; }
+.coach.co-mid.co-popped { animation: none; }
+.coach.co-snap { transition: none !important; }
+@keyframes coPop { from { opacity: 0; transform: translate(calc(-50% + var(--co-dx, 0px)), calc(var(--co-dy, 0px) + 12px)) scale(.9); } to { opacity: 1; transform: translate(calc(-50% + var(--co-dx, 0px)), var(--co-dy, 0px)) scale(1); } }
+@media (prefers-reduced-motion: reduce) { .coach.co-mid { animation: none; } }
+/* もこもこの吹き出し（2026-11-01、Daiさん：四角い箱ではなく、もうちょっとオーガニックで優しい、動物を連想するような形に）
+   羊の毛のようなふちを、紙を切り抜いたように（ui.js の fleeceSvg が、その大きさの1枚の絵を背景に描く。.fl）。影は紙の重なりのように（drop-shadow）。
+   はじめの案内（.coach）と、はじめて会う日の小窓（#modal-card.fluffy）。案内の吹き出しのしっぽは、あなたへ向かう小さな足あと */
+:root { --paws: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='38' height='54' viewBox='0 0 38 54'%3E%3Cg fill='%23F6EFDF' stroke='%234A3B2E' stroke-width='1.5'%3E%3Cellipse cx='12.5' cy='10.8' rx='4.6' ry='3.9'/%3E%3Ccircle cx='7.9' cy='15.4' r='1.9'/%3E%3Ccircle cx='10.8' cy='17.6' r='1.9'/%3E%3Ccircle cx='14.2' cy='17.6' r='1.9'/%3E%3Ccircle cx='17.1' cy='15.4' r='1.9'/%3E%3Cellipse cx='25' cy='35.6' rx='5.5' ry='4.7'/%3E%3Ccircle cx='19.5' cy='41.1' r='2.3'/%3E%3Ccircle cx='23.0' cy='43.7' r='2.3'/%3E%3Ccircle cx='27.0' cy='43.7' r='2.3'/%3E%3Ccircle cx='30.5' cy='41.1' r='2.3'/%3E%3C/g%3E%3C/svg%3E"); }
+.coach.fl { border: 0; border-radius: 0; background: transparent no-repeat 0 0 / 100% 100%; box-shadow: none; padding: 15px 19px 14px; filter: drop-shadow(2px 3px 0 rgba(var(--sumi-rgb), .26)); }
+.coach.fl.done { background-color: transparent; }
+.coach.co-mid { filter: drop-shadow(3px 5px 0 rgba(var(--sumi-rgb), .24)); }
+.coach.co-mid::after { content: ''; position: absolute; width: 38px; height: 54px; left: 50%; bottom: -58px; margin-left: -19px; background: var(--paws) no-repeat center / contain; }
+.coach.co-mid.co-below::after { bottom: auto; top: -58px; transform: rotate(180deg); }
+.coach.co-mid.co-side-l::after { left: auto; right: -50px; bottom: auto; top: calc(var(--co-tail, 50%) - 27px); margin-left: 0; transform: rotate(-90deg); }
+.coach.co-mid.co-side-r::after { left: -50px; bottom: auto; top: calc(var(--co-tail, 50%) - 27px); margin-left: 0; transform: rotate(90deg); }
+#modal-card.fluffy.fl { border: 0; border-image: none; background: transparent no-repeat 0 0 / 100% 100%; box-shadow: none; padding: 24px 26px 22px; filter: drop-shadow(5px 8px 0 rgba(40, 25, 10, .3)); }
+#modal-card.fluffy .said { background: rgba(var(--sumi-rgb), .05); border: 0; border-radius: 22px 22px 22px 6px; background-image: none; padding: 10px 16px; }
+#modal-card.fluffy .you { font-family: var(--hand); }
+/* 人が話す小窓：吹き出しを1つずつ、タップで次へ（2026-11-01、Daiさん） */
+#modal-card .sp-box { margin: 2px 0 10px; }
+#modal-card .sp-box .sp-u { min-height: var(--sp-h, auto); margin: 0; box-sizing: border-box; animation: spIn .28s ease-out; display: flex; flex-direction: column; justify-content: center; }
+#modal-card .sp-box .sp-t { display: block; }
+#modal-card .sp-box .you.sp-u { min-height: 0; }
+#modal-card .sp-box .sp-off { display: none; }
+@keyframes spIn { from { opacity: 0; transform: translateY(5px); } }
+#modal-card .sp-box .said.sp-u { border-radius: 6px 22px 22px 22px; font-size: calc(var(--fs-head-l) + 2px); line-height: 1.72; padding: 12px 18px; } /* 吹き出しの中いっぱいに、少し大きな字で */
+@media (max-width: 720px), (orientation: landscape) and (max-height: 540px) { #modal-card .sp-box .said.sp-u { font-size: calc(var(--fs-head-l) + 1px); padding: 12px 16px; } }
+#modal-card .sp-box .you.sp-u { background: var(--pine-wash); border-radius: 22px 6px 22px 22px; padding: 12px 16px; font-size: var(--fs-head); margin-left: 14%; text-align: left; font-family: var(--hand); color: var(--ink); }
+#modal-card .sp-foot { display: flex; align-items: center; gap: 6px; margin-top: 6px; min-height: 40px; }
+#modal-card .sp-dots { display: flex; gap: 5px; flex: 1; align-items: center; }
+#modal-card .sp-dots i { width: 7px; height: 7px; border-radius: var(--r-round); background: rgba(var(--sumi-rgb), .2); }
+#modal-card .sp-dots i.on { background: var(--pine); }
+#modal-card .sp-back { border: 0; background: none; font-size: 24px; line-height: 1; color: var(--ink-3); min-width: 40px; min-height: 40px; padding: 0; }
+#modal-card .sp-next { margin-left: auto; border: 0; background: var(--pine); color: var(--on-color); border-radius: var(--r-pill); padding: 6px 14px 6px 16px; font: inherit; font-size: var(--fs-ui); font-weight: 700; display: flex; gap: 6px; align-items: center; min-height: 40px; }
+#modal-card .sp-next span { display: inline-block; font-size: .8em; animation: spBob 1.2s ease-in-out infinite; }
+@keyframes spBob { 50% { transform: translateY(3px); } }
+#modal-card.sp-end .sp-next { display: none; }
+#modal-card .sp-wait { display: none !important; }
+#modal-card .sp-in { animation: spIn .35s ease-out; }
+#modal-card.sp-on:not(.sp-end) { cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { #modal-card .sp-u, #modal-card .sp-in, #modal-card .sp-next span { animation: none; } }
 .coach-pulse { animation: coachPulse 1.6s ease-in-out infinite; }
 @keyframes coachPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(var(--pine-rgb), .45); } 50% { box-shadow: 0 0 0 7px rgba(var(--pine-rgb), 0); } }
 
@@ -1671,6 +1755,7 @@ body.school .real-donate { display: none !important; }
 .zen-exit { right: max(12px, var(--safe-r)); }
 .ch-phone.wide { width: 150px; }
 body.coach-top #hud-top { opacity: 0; pointer-events: none; }
+body.co-hide-top #hud-top { opacity: 0; pointer-events: none; transition: opacity .3s; } /* はじめの案内の吹き出しが、まんなかに出ている間だけ */
 body.coach-on #hint { opacity: 0 !important; pointer-events: none; } /* はじめの案内が出ている間は、小さな案内は出さない（案内は、ひとつずつ。2026-10-24） */
 
 /* さわる画面を横に（大きさは問わない）・横で低い画面 */
@@ -1833,13 +1918,12 @@ body.coach-on #hint { opacity: 0 !important; pointer-events: none; } /* はじ�
       <button type="button" role="menuitemradio" data-lvl="all"><span>すべて</span><small>状態の札、メニュー、名前</small></button>
       <button type="button" role="menuitemradio" data-lvl="calm"><span>少なめ</span><small>状態の札をしまう</small></button>
       <button type="button" role="menuitemradio" data-lvl="names"><span>名前だけ</span><small>動物と人の名前だけ</small></button>
-      <button type="button" role="menuitemradio" data-lvl="none"><span>景色だけ</span><small>全画面で、何も出さない</small></button>
-      <button type="button" role="menuitem" data-nagame="1" class="hm-ng"><span>眺める</span><small>その場に座って、好きな所から</small></button>
+      <button type="button" role="menuitem" data-nagame="1" class="hm-ng"><span>眺める（全画面表示）</span><small>文字をしまって、好きな所から</small></button>
     </div>
 
     <nav id="rail" aria-label="メニュー">
-      <button type="button" data-open="animals"><svg><use href="#i-paw"/></svg><span>動物</span><b class="badge" id="b-req" hidden></b></button>
       <button type="button" data-open="actions"><svg><use href="#i-list"/></svg><span>行動</span></button>
+      <button type="button" data-open="animals"><svg><use href="#i-paw"/></svg><span>動物</span><b class="badge" id="b-req" hidden></b></button>
       <button type="button" data-open="deco"><svg><use href="#i-flower"/></svg><span>飾る</span></button>
       <button type="button" data-open="diary"><svg><use href="#i-book"/></svg><span>日記</span><b class="badge dot" id="b-diary" hidden></b></button>
       <button type="button" data-open="obs"><svg><use href="#i-leaf"/></svg><span>観察</span></button>
@@ -3264,7 +3348,7 @@ const QUESTS = []; // 今日のクエストの入れ物（2026-10-23。中身は
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.89', label: 'ベータテスト版', date: '2026年10月',
+  version: '0.9.90', label: 'ベータテスト版', date: '2026年11月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -3272,6 +3356,7 @@ const APP = {
   try: ['「はじめから」で、はじまりの話から始めてみる（見つけた鶏に名前をつけ、3週めに庭へ移るまで、会いに行く）', '「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', 'スマホを横にして遊んでみる（左の親指でなぞって歩き、右の親指で見回す）', '日曜の朝の「今朝のあなたは？」に答えて、休むと、まわりがどう見えてくるかを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（ひとり週に1話。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った週の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'Second Life Sanctuary へ出かけて、ロッティさんと話してみる（門の外のバス停から）', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.90', '2026年11月2日', 'はじめての日曜日、預かりの柵で、あなたが見つけた子と会えるようになりました。みなみ先生が、その子のことを教えてくれます。はじめの案内は、画面のまんなかに、もこもこの吹き出しで出ます。人と話す時は、言葉が4〜5行ずつの吹き出しになり、押すと次へ進みます。カメラは、上から見下ろす形になりにくく、頭の後ろから、ゆるい角度で遠くまで見わたせるように。受け入れの相談は、動物の画面のいちばん上に出て、迎えるために何をすればいいか、ひと目でわかります。メニューは「行動」から始まる並びに。選んだボタンは少し大きく、押すと小さな波が広がります。右上の「画面の表示」で全画面にするのは、「眺める（全画面表示）」ひとつにまとめました。秋の感謝祭の干し草が鶏の庭の入口をふさがないように、木に登ったリスが幹につかまって見えるように、夜の窓に映るみなみ先生の影が、ゆっくりあらわれて長く見えるようにしました。'],
     ['0.9.89', '2026年10月31日', 'Second Life Sanctuary で、ロッティさんと話せるようになりました。ここで暮らす動物たちのことや、最近の出来事を、話してくれます。雨や雪の日は、ロッジの窓から声をかけてくれます。羊のミミは、ときどき自分からあなたのそばへ来るように。鶏の2羽の名前を、団体の日本語のページと同じ「バタ子」と「しずか」にしました。はじまりの話の白い鶏の、はじめの名前は「おもち」になりました'],
     ['0.9.88', '2026年10月29日', '門の外のバス停から、山梨県富士川町の Second Life Sanctuary（SLS）へ出かけられるようになりました（「行動」からも）。羊のルル・ミミ・バート・テオと、鶏のココロ・ポンズ・スイート・バタ子・しずか・メッシー、そしてロッティさん。みんな、本当にそこで暮らしている子たちです（カードの紹介は、団体の紹介から）。丘と同じように、なでたり、ブラッシングしたり、ベンチや輪の椅子でひと休みしたりできます。ここの子たちは、はじめて会う人には、まだ慣れていません。晴れた日は、遠くに富士山が見えます。見学の人が、門の外の線路のそばを歩かないようにもしました'],
     ['0.9.87', '2026年10月28日', '「はじめから」で遊ぶと、はじまりの話から始まるようになりました。ある日曜日の朝、道ばたで倒れていた白い鶏を見つけて、はるにれの丘へ相談に来ます（紙芝居はとばせます）。その子には、あなたが名前をつけます。警察に届けて、持ち主が見つかるまで丘で預かることになり、はじめの2週間は、家の西の小さな小屋で、みなみ先生に診てもらいながら過ごします。毎週、日曜の朝に、あなたの体調をたずねるようになりました（答えなくても大丈夫）。疲れている朝は、まわりが少しぼんやり見え、ひと息つくほど、また見えてきます。夜は、みなみ先生も家に入って休みます。窓に、先生の影が少しだけ映ります。'],
@@ -6628,10 +6713,13 @@ function applySky(dt, appEl) {
 /* ---------------- カメラ ---------------- */
 // はじめの見え方：あなたの肩越しに、5mほど後ろから。少し見下ろす
 // はじめの見え方。スマホは少し高く、少し遠くから（足もとの地面が広く見えて、タップで歩く先を選びやすい）
-const CAM_HOME = IS_TOUCH ? { pitch: 0.44, dist: 7.5 } : { pitch: 0.3, dist: 5.5 };
+// 2026-11-01、Daiさん：見下ろしにならないように。頭の後ろ数メートルから、ゆるい角度で遠くまで見わたせる形を、できるだけ保つ
+const CAM_HOME = IS_TOUCH ? { pitch: 0.3, dist: 7 } : { pitch: 0.26, dist: 5.5 };
 // 視点ボタン：近く・ふつう・遠く（片手の親指で、ピンチしなくても切りかえられるように。0.9.30）
-const CAM_VIEWS = IS_TOUCH ? [{ n: '近く', dist: 5, pitch: 0.3 }, { n: 'ふつう', dist: 7.5, pitch: 0.44 }, { n: '遠く', dist: 15, pitch: 0.7 }]
-  : [{ n: '近く', dist: 4.5, pitch: 0.26 }, { n: 'ふつう', dist: 8, pitch: 0.4 }, { n: '遠く', dist: 16, pitch: 0.7 }];
+const CAM_VIEWS = IS_TOUCH ? [{ n: '近く', dist: 5, pitch: 0.24 }, { n: 'ふつう', dist: 7, pitch: 0.3 }, { n: '遠く', dist: 15, pitch: 0.5 }]
+  : [{ n: '近く', dist: 4.5, pitch: 0.22 }, { n: 'ふつう', dist: 7, pitch: 0.28 }, { n: '遠く', dist: 16, pitch: 0.5 }];
+// その近さで、ゆるく遠くまで見わたせる角度（近い時は低く、丘ぜんたいまで引いた時だけ見下ろす）
+function camPitchFor(d) { return d <= 8 ? 0.3 : d <= 16 ? 0.3 + (d - 8) / 8 * 0.2 : d <= 60 ? 0.5 + (d - 16) / 44 * 0.1 : 0.6 + clamp((d - 60) / 100, 0, 1) * 0.32; }
 function camViewIndex() { let bi = 0, bd = 1e9; CAM_VIEWS.forEach((v, i) => { const d = Math.abs(Math.log(CAM.user.dist / v.dist)); if (d < bd) { bd = d; bi = i; } }); return bi; }
 function camView(i) { const v = CAM_VIEWS[(i + CAM_VIEWS.length) % CAM_VIEWS.length]; CAM.user.dist = v.dist; CAM.user.pitch = v.pitch; camRestore(); return v; }
 const CAM = { yaw: 0.25, pitch: 0.78, dist: 32, tYaw: 0.25, tPitch: 0.78, tDist: 32, target: new THREE.Vector3(18, 0, 40), tTarget: new THREE.Vector3(), overview: false, focus: null, focusUntil: 0, spin: false,
@@ -6651,8 +6739,9 @@ function camZoom(f) {
   if (CAM.nagame) { CAM.tDist = clamp(CAM.tDist * f, 1.2, 120); INPUT.lastLook = performance.now(); return; } // 眺める時（nagame.js）：見る所はそのまま、寄る・離れるだけ。見下ろす角度も変えない
   CAM.tDist = clamp(CAM.tDist * f, 2.5, Math.max(220, overviewDist()));
   if (CAM.overview && CAM.tDist < 90) CAM.overview = false;
-  const far = clamp((CAM.tDist - 60) / 100, 0, 1);
-  if (far > 0) CAM.tPitch = Math.max(CAM.tPitch, 0.5 + 0.42 * far);
+  // 引く時は、その近さの角度まで見下ろし、寄る時は、ゆるい角度へ戻す（前は、引いて見下ろしたまま寄ると、上からのまま歩いていた）
+  if (f > 1) CAM.tPitch = Math.max(CAM.tPitch, camPitchFor(CAM.tDist) - 0.05);
+  else CAM.tPitch = Math.min(CAM.tPitch, camPitchFor(CAM.tDist) + 0.12);
   camRemember(); INPUT.lastLook = performance.now();
   if (CAM.tDist > FAR_DIST && !INPUT.farHint && typeof UI !== 'undefined' && UI.hint) { INPUT.farHint = true; UI.hint(IS_TOUCH ? '遠くから見ている時は、行きたい所をタップすると、そこへ移動します' : '遠くから見ている時は、行きたい所をクリックすると、そこへ移動します'); }
 }
@@ -6727,7 +6816,7 @@ function framePair(ax, az, bx, bz, size, ms, blockers) {
     return sc;
   };
   // 小さな子（猫・鶏・アヒル・ウサギ・七面鳥）は、肩越しではなく、横の低い所から、しゃがんだあなたとその子が並んで見えるように。
-  // 両側ともほかの子にさえぎられる時は、上から見下ろす（0.9.32）
+  // 両側ともほかの子にさえぎられる時も、少し高くするだけで、真上からは見ない（2026-11-01。前は 0.9.32 から真上）
   if (size < 0.7) {
     CAM.shoulder = Math.max(CAM.shoulder || 0, 0.85); // 寄って見る時の画角（縦長の画面は広め）にそろえる
     const vf = (36 + (narrow ? 26 : 12) * CAM.shoulder) * Math.PI / 180, hf = Math.atan(Math.tan(vf / 2) * R.camera.aspect);
@@ -6740,7 +6829,8 @@ function framePair(ax, az, bx, bz, size, ms, blockers) {
     const top = bestS >= 10;
     CAM.overview = false; CAM.focus = new THREE.Vector3(mx, heightAt(mx, mz) + (top ? 0.3 : 0.55), mz);
     CAM.focusUntil = performance.now() + (ms || 5000); CAM.focusBack = true;
-    CAM.tYaw = top ? back : yawS; CAM.tDist = top ? distS * 0.95 : distS; CAM.tPitch = top ? 1.05 : 0.2; CAM.winR = clamp(d / 2 + size + 0.9, 1.6, 3);
+    // 両側ともほかの子がいる時も、真上からは見ない（2026-11-01）。少しだけ高くして、さえぎる子は紙の窓で透かす
+    CAM.tYaw = yawS; CAM.tDist = distS; CAM.tPitch = top ? 0.42 : 0.2; CAM.winR = clamp(d / 2 + size + 0.9, 1.6, 3);
     camCutIfBig(); // 0.9.80：回りこまずに、めくる
     return;
   }
@@ -6754,11 +6844,11 @@ function framePair(ax, az, bx, bz, size, ms, blockers) {
 }
 // 追加されたものの場所を見る（0.9.62）：遠く、斜め上から眺める（近すぎて、どこの何かわからないことのないように）
 // 0.9.80：自動では戻らない。歩きだすか、左下の「もどる」で（focusView）
-function focusPlace(x, z, ms) { focusAt(x, z, 34, ms || 60000); CAM.tPitch = 1.0; CAM.focusView = true; CAM.winR = 0; } // 建てた物の前を透かさない
+function focusPlace(x, z, ms) { focusAt(x, z, 28, ms || 60000); CAM.tPitch = 0.62; CAM.focusView = true; CAM.winR = 0; } // 建てた物の前を透かさない
 function focusAt(x, z, dist, ms) {
   camRemember();
   CAM.overview = false; CAM.focus = new THREE.Vector3(x, heightAt(x, z) + 1, z); CAM.focusUntil = performance.now() + (ms || 5000);
-  CAM.tDist = dist || 20; CAM.tPitch = 0.72; CAM.focusBack = true; CAM.focusView = false; CAM.winR = undefined;
+  CAM.tDist = dist || 20; CAM.tPitch = camPitchFor(CAM.tDist) + 0.06; CAM.focusBack = true; CAM.focusView = false; CAM.winR = undefined;
   camCutIfBig();
 }
 // 写したいものを画面の上の方に寄せる（下にパネルが出ている時）。px だけ上へ
@@ -11654,12 +11744,31 @@ function setEvOff(id, off) { G.evOff = G.evOff || {}; if (off) G.evOff[evOffKey(
 // 行事の飾りのうち、さわって片付けられるもの
 function evItem(id, name, model, desc) { W.eventItems.push({ id, name, model, desc, x: model.position.x, z: model.position.z }); }
 // 感謝祭の干し草の迷路を置く所（0.9.62）：鶏の柵の前ではなく、広くて、道や柵や小屋にかからない所
-function kanshaSpot() {
-  if (W.kanshaAt) return W.kanshaAt; // 飾りを置くたびに1回だけ決める（置いたあとのベールで、場所が変わらないように）
-  const A = eventAnchors(), C = G.stage === 1 ? [[21.5, 35], [13, 40], [A.c[0], A.c[1]]] : [[-8, 29], [-9, 24], [11, 38.5], [-27, 37], [A.c[0] + 0.8, A.c[1]]];
-  const ok = (cx, cz) => { for (let i = -3.5; i <= 3.5; i += 1) for (let j = -3; j <= 3; j += 1) { const x = cx + i, z = cz + j; if (!freeSpot(x, z, 0.5) || pathInfo(x, z) || W.fenceCols.some((c) => x > c[0] - 0.6 && x < c[1] + 0.6 && z > c[2] - 0.6 && z < c[3] + 0.6) || W.circles.some((c) => Math.hypot(x - c[0], z - c[1]) < c[2] + 0.7) || Object.values(W.itemCircles || {}).some((l) => l.some((c) => Math.hypot(x - c[0], z - c[1]) < c[2] + 0.7))) return false; } return true; };
-  return (W.kanshaAt = C.find((c) => ok(c[0], c[1])) || C[C.length - 1]);
+// 区画の門の前と、区画の中には置かない（2026-11-01、Daiさん：鶏の庭の南の門の前に置かれて、入口がふさがっていた。
+// 0.9.87 の預かりの柵で2つめの候補が使えなくなり、最後の候補 A.c が、そのまま門の前になっていた）
+function kanshaFits(cx, cz, hx, hz) {
+  const pens = Object.values(ZONES).filter((Z) => (Z.stage || 99) <= G.stage).map((Z) => [Z.rect[0] - 0.8, Z.rect[1] + 0.8, Z.rect[2] - 0.8, Z.rect[3] + 0.8]);
+  for (let i = -hx; i <= hx; i += 1) for (let j = -hz; j <= hz; j += 1) {
+    const x = cx + i, z = cz + j;
+    if (!isLandAt(x, z) || (W.doors || []).some((d) => Math.hypot(x - d.x, z - d.z) < 3.6) || pens.some((r) => inRect(x, z, r)) || (W.vegAt && Math.abs(x - W.vegAt[0]) < 2.6 && Math.abs(z - W.vegAt[1]) < 2.6)) return false;
+    if (!freeSpot(x, z, 0.5) || pathInfo(x, z) || W.fenceCols.some((c) => x > c[0] - 0.6 && x < c[1] + 0.6 && z > c[2] - 0.6 && z < c[3] + 0.6) || W.circles.some((c) => Math.hypot(x - c[0], z - c[1]) < c[2] + 0.7) || Object.values(W.itemCircles || {}).some((l) => l.some((c) => Math.hypot(x - c[0], z - c[1]) < c[2] + 0.7))) return false;
+  }
+  return true;
 }
+// 決めた候補が、どれもふさがっている時：はじめの候補の近くを、近い順に探す
+function kanshaNear(c0, hx, hz) {
+  const cand = []; for (let dx = -16; dx <= 16; dx += 1) for (let dz = -16; dz <= 16; dz += 1) cand.push([c0[0] + dx, c0[1] + dz]);
+  cand.sort((a, b) => Math.hypot(a[0] - c0[0], a[1] - c0[1]) - Math.hypot(b[0] - c0[0], b[1] - c0[1]));
+  return cand.find((c) => kanshaFits(c[0], c[1], hx, hz)) || false;
+}
+function kanshaCands() { const A = eventAnchors(); return G.stage === 1 ? [[21.5, 35], [13, 40], [A.c[0], A.c[1]]] : [[-8, 29], [-9, 24], [11, 38.5], [-27, 37], [A.c[0] + 0.8, A.c[1]]]; }
+function kanshaSpot() {
+  if (W.kanshaAt !== null && W.kanshaAt !== undefined) return W.kanshaAt; // 飾りを置くたびに1回だけ決める（置いたあとのベールで、場所が変わらないように）
+  const C = kanshaCands();
+  return (W.kanshaAt = C.find((c) => kanshaFits(c[0], c[1], 3.5, 3)) || kanshaNear(C[0], 3.5, 3)); // どこにも入らない時は false（下の小さなベール）
+}
+// 迷路の入る広さがない時（段階1で、預かりの柵がある間など）：ベールを3つだけ積む（門の前・道・区画の中には置かない）
+function kanshaSmallSpot() { const C = kanshaCands(); return C.find((c) => kanshaFits(c[0], c[1], 1.5, 1)) || kanshaNear(C[0], 1.5, 1); }
 function applyEvents() {
   const evs = (G.decoEvents || []).filter((id) => !evOff(id)), info = (G.events || []).filter((id) => { const e = EVENTS.find((x) => x.id === id); return e && e.info; });
   const sig = evs.join(',') + '|' + info.join(',') + '|' + G.stage + '|' + WS.season + '|' + WS.snow + '|' + snowOK() + '|' + G.turn + '|' + (G.events || []).join(',');
@@ -11669,7 +11778,7 @@ function applyEvents() {
   // 行事の飾りの当たり（通れない物）は、毎回作り直す（0.9.62）
   for (const c of (W.eventCols || [])) { const i = W.colliders.indexOf(c); if (i >= 0) W.colliders.splice(i, 1); }
   if ((W.eventCols || []).length) { NAV.dirty = true; if (typeof ANAV !== 'undefined') ANAV.grids = {}; }
-  W.eventCols = []; W.kanshaAt = null;
+  W.eventCols = []; W.kanshaAt = null; W.vegAt = null;
   W.foods = W.foods.filter((f) => !f.event);
   SKY.moonBig = false; PT.petalsOn = Object.values(G.placed).includes('sakura'); // 散るのは、4月の花のあいだだけ（engine.js の updateParticles）
   const A = eventAnchors(), L = 'event';
@@ -11701,20 +11810,28 @@ function applyEvents() {
         break; }
       case 'veganday': { // 感謝祭の干し草の迷路と同じ週になる時は、迷路の横の、道や柵にかからない所に（0.9.54。重ならないように）
         let at = null;
-        if (evs.includes('kanshasai')) {
+        if (evs.includes('kanshasai') && kanshaSpot()) {
           const ks = kanshaSpot(), mx = ks[0], clear = (x, z) => freeSpot(x, z, 0.6) && !W.fenceCols.some((c) => x > c[0] - 0.8 && x < c[1] + 0.8 && z > c[2] - 0.8 && z < c[3] + 0.8);
           for (const [dx, dz] of [[6, 0.4], [-6, 0.4], [0, 4.6], [0, -4.6], [6, 4.4], [-6, 4.4]]) if ([-2, 0, 2].every((d) => clear(mx + dx + d, ks[1] + dz))) { at = [mx + dx, ks[1] + dz]; break; }
         }
-        if (at) place(L, modelTable(4), at[0], at[1], 0); else place(L, modelTable(4), A.c[0], A.c[1], Math.PI / 2);
+        if (at) place(L, modelTable(4), at[0], at[1], 0);
+        else { const sp = kanshaFits(A.c[0], A.c[1], 2, 1.5) ? A.c : kanshaNear(A.c, 2, 1.5) || A.c; at = sp; place(L, modelTable(4), sp[0], sp[1], Math.PI / 2); } // 門の前・道には置かない（2026-11-01）
+        W.vegAt = at; // 感謝祭のベールが、食卓に重ならないように
         break; }
       case 'kanshasai': {
         const mz = new THREE.Group(); const cells = ['111111', '100001', '101101', '100101', '110111'];
         cells.forEach((row, j) => [...row].forEach((ch, i) => { if (ch === '1') { const b = part('box', '#D9BC6A', 1, 0.8, 1, i * 1 - 2.5, 0.4, j * 1 - 2, mz); } }));
-        const ks = kanshaSpot(); place(L, mz, ks[0], ks[1]);
+        const ks = kanshaSpot();
+        if (ks) { place(L, mz, ks[0], ks[1]);
         // 干し草のベールは通れない（0.9.62）。入口は南のすき間
         cells.forEach((row, j) => [...row].forEach((ch, i) => { if (ch === '1') { const x = ks[0] + i - 2.5, z = ks[1] + j - 2, c = [x - 0.5, x + 0.5, z - 0.5, z + 0.5]; W.colliders.push(c); W.eventCols.push(c); } }));
         NAV.dirty = true; if (typeof ANAV !== 'undefined') ANAV.grids = {};
         evItem('kanshasai', '干し草の迷路（秋の感謝祭）', mz, '秋の感謝祭の飾りです。干し草のベールを積んで、小さな迷路にしました。南のすき間から入って、中を歩けます。ベールは通り抜けられません。感謝祭が終わったら、ベールは寝床や餌に使います。');
+        } else { const sp = kanshaSmallSpot(); if (sp) {
+          const g = new THREE.Group(); for (const [x, y] of [[-0.55, 0.4], [0.55, 0.4], [0, 1.2]]) part('box', '#D9BC6A', 1, 0.8, 1, x, y, 0, g);
+          place(L, g, sp[0], sp[1]); const c = [sp[0] - 1.1, sp[0] + 1.1, sp[1] - 0.5, sp[1] + 0.5]; W.colliders.push(c); W.eventCols.push(c); NAV.dirty = true; if (typeof ANAV !== 'undefined') ANAV.grids = {};
+          evItem('kanshasai', '干し草のベール（秋の感謝祭）', g, '秋の感謝祭の飾りです。干し草のベールを積みました。広い場所が空いたら、迷路にします。感謝祭が終わったら、ベールは寝床や餌に使います。');
+        } }
         if (G.stage >= 2) { const t = modelTable(3); place(L, t, 36, 25); evItem('kanshasai', '感謝祭の食卓（七面鳥たちの庭）', t, '七面鳥たちが主賓の、感謝祭の食卓です。かぼちゃとクランベリーが並んでいます。七面鳥を食べるお祭りではなく、七面鳥と一緒に過ごすお祭りにしています。'); for (let i = 0; i < 3; i++) part('sph', '#E08A2E', 0.5, 0.4, 0.5, 36 - 1 + i, heightAt(36, 25) + 1.05, 25, W.layers.event); for (let i = 0; i < 8; i++) part('sph', '#B8283A', 0.1, 0.1, 0.1, 36 - 1.2 + i * 0.3, heightAt(36, 25) + 0.95, 25.4, W.layers.event); }
         break; }
       case 'christmas': {
@@ -13771,7 +13888,7 @@ function updatePlayer(dt) {
     const h = Math.atan2(vx, vz);
     let dh = h - p.heading; dh = Math.atan2(Math.sin(dh), Math.cos(dh)); p.heading += dh * Math.min(1, dt * 12);
     p.phase += dt * spd * 1.4;
-    camFollow(p, dt, kv);
+    camFollow(p, dt, kv); camLevel(p, dt);
   }
   p.moving = moving;
   p.stillT = moving || p.target ? 0 : (p.stillT || 0) + dt;
@@ -13824,6 +13941,14 @@ function crouchPose(p) {
 }
 // スマホで歩いている時は、カメラがゆっくり、あなたのうしろへまわる（見回したばかりの時と、こちらへ歩いてくる時はそのまま）。0.9.30
 // 0.9.80：はじめは切る（設定で選んだ人だけ）。まわる速さも、毎秒約60°から毎秒約17°に
+// 歩いている間は、見下ろしすぎた角度を、ゆっくり、ゆるい角度へ戻す（2026-11-01、Daiさん：頭の後ろから、遠くまで見わたせる形を保つ）。
+// 下げるだけ（見上げている時は、そのまま）。向き（yaw）は変えない（向きをまわすのは、設定の「歩くと、カメラがゆっくりうしろへまわる」だけ）。
+// 毎秒 0.2rad まで。自分の指で見回したすぐあとは、待つ
+function camLevel(p, dt) {
+  if (!p.moving || !camFree() || CAM.photo || CAM.nagame || performance.now() - INPUT.lastLook < 1200 || CAM.tDist > 40) return;
+  const want = camPitchFor(CAM.tDist) + 0.04, ex = CAM.tPitch - want; if (ex <= 0.01) return;
+  CAM.tPitch -= Math.min(ex, 0.2 * dt); camRemember();
+}
 function camFollow(p, dt, kv) {
   if (!IS_TOUCH || (kv && !kv.stick) || !camFree() || !(G && G.settings && G.settings.camFollow === true)) return;
   if (performance.now() - INPUT.lastLook < 1600 || CAM.dist > 30) return;
@@ -17975,7 +18100,9 @@ function startDay(first) {
   SKY.t = clockAuto() ? 0.22 : G.settings.tod; SKY.target = dayTime(); skySnapWeather();
   // 前回からの変化（第11-2章：新しい仲間と体調を先に）
   const prio = { friends: 0, health: 1, added: 2, daily: 3, people: 4, news: 5, event: 6 };
-  page.changes = G.overnight.slice().sort((a, b) => (prio[a.cat] || 9) - (prio[b.cat] || 9)).slice(0, 6);
+  // 物語の大事な知らせ（top。預かった子の持ち主のこと）は、いちばん先に。行事の多い週でも、6つの外へ落ちないように（2026-11-02。12月の週に、持ち主の知らせが出なかった）
+  const rank = (c) => (c.top ? -1 : (prio[c.cat] || 9));
+  page.changes = G.overnight.slice().sort((a, b) => rank(a) - rank(b)).slice(0, 6);
   if (G.snapshot && !first) {
     const d = { animals: G.animals.length - G.snapshot.animals, nature: ax.nature - G.snapshot.ax.nature, calm: ax.calm - G.snapshot.ax.calm };
     page.delta = d;
@@ -18726,17 +18853,55 @@ const MORITA_LOOK = { top: '#6E7B5C', hair: '#8A847C', hat: '#4F6274' };
 function chatHtml(lines) {
   return lines.map((x) => x[0] === '>' ? `<p class="you">あなた「${said(x.slice(1))}」</p>` : `<p class="said">「${said(x)}」</p>`).join('');
 }
+// もこもこのふち（2026-11-01、Daiさん：四角い箱ではなく、オーガニックで優しい、動物を連想するような形に）
+// 羊の毛のようなふちを、その大きさに合わせて1枚の SVG で描く（つなぎ目が出ないように）。紙のざらつきも中に。
+// el の大きさが変わるたびに描き直す（ResizeObserver）。色は el の data-fl（'ok' なら若葉の色）
+function fleeceSvg(w, h, ok) {
+  const m = 6, R = 16, bump = 17, bh = 4.2, x0 = m, y0 = m, x1 = w - m, y1 = h - m;
+  // 角の丸い四角のまわりを、同じ間隔で歩く
+  const seg = [[x0 + R, y0, x1 - R, y0], [x1, y0 + R, x1, y1 - R], [x1 - R, y1, x0 + R, y1], [x0, y1 - R, x0, y0 + R]];
+  const arcs = [[x1 - R, y0 + R, -Math.PI / 2], [x1 - R, y1 - R, 0], [x0 + R, y1 - R, Math.PI / 2], [x0 + R, y0 + R, Math.PI]];
+  const parts = []; let L = 0;
+  for (let i = 0; i < 4; i++) { const [a, b, c, d] = seg[i], l = Math.hypot(c - a, d - b); parts.push({ t: 's', a, b, c, d, l }); L += l; parts.push({ t: 'a', cx: arcs[i][0], cy: arcs[i][1], s: arcs[i][2], l: R * Math.PI / 2 }); L += R * Math.PI / 2; }
+  const at = (u) => { u = ((u % L) + L) % L; for (const p of parts) { if (u <= p.l) { if (p.t === 's') { const k = u / p.l, nx = (p.d - p.b) / p.l, ny = -(p.c - p.a) / p.l; return [p.a + (p.c - p.a) * k, p.b + (p.d - p.b) * k, nx, ny]; } const ang = p.s + u / R; return [p.cx + Math.cos(ang) * R, p.cy + Math.sin(ang) * R, Math.cos(ang), Math.sin(ang)]; } u -= p.l; } return [x0, y0, 0, -1]; };
+  const n = Math.max(8, Math.round(L / bump)), st = L / n, f = (v) => v.toFixed(1);
+  let p0 = at(0), d = `M${f(p0[0])} ${f(p0[1])}`;
+  for (let i = 0; i < n; i++) { const a = at(i * st), mid = at(i * st + st / 2), b = at((i + 1) * st), j = 1 + 0.18 * Math.sin(i * 2.3); d += `Q${f(mid[0] + mid[2] * bh * 2 * j)} ${f(mid[1] + mid[3] * bh * 2 * j)} ${f(b[0])} ${f(b[1])}`; void a; }
+  const fill = ok ? '#EEF3E2' : '#F6EFDF', line = ok ? '#6E9A3A' : '#4A3B2E';
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}' viewBox='0 0 ${w} ${h}'><defs><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .36 0 0 0 0 .29 0 0 0 0 .2 0 0 0 .07 0'/></filter><clipPath id='c'><path d='${d}Z'/></clipPath></defs><path d='${d}Z' fill='${fill}'/><rect width='${w}' height='${h}' filter='url(%23n)' clip-path='url(%23c)'/><path d='${d}Z' fill='none' stroke='${line}' stroke-width='2' stroke-linejoin='round'/></svg>`;
+  return `url("data:image/svg+xml,${svg.replace(/#/g, '%23').replace(/</g, '%3C').replace(/>/g, '%3E').replace(/"/g, "'")}")`;
+}
+const FLEECE = { ro: null, seen: new WeakMap() };
+function fleeceDraw(el) {
+  if (!el || !el.classList.contains('fl')) return;
+  const w = Math.round(el.offsetWidth), h = Math.round(el.offsetHeight), ok = el.classList.contains('done') ? 1 : 0, key = `${w}x${h}:${ok}`;
+  if (!w || !h || FLEECE.seen.get(el) === key) return; FLEECE.seen.set(el, key);
+  el.style.backgroundImage = fleeceSvg(w, h, ok);
+}
+function fleeceOn(el, on) {
+  if (!el) return;
+  el.classList.toggle('fl', !!on);
+  if (!on) { el.style.backgroundImage = ''; FLEECE.seen.delete(el); return; }
+  if (!FLEECE.ro && typeof ResizeObserver !== 'undefined') FLEECE.ro = new ResizeObserver((es) => es.forEach((e) => fleeceDraw(e.target)));
+  if (FLEECE.ro) FLEECE.ro.observe(el);
+  fleeceDraw(el);
+}
 const UI = {
   blockMove: false, skyOverride: null, stack: [], cur: null, tab: {}, diaryIdx: null, diaryFilter: null, placeItemId: null, removeMode: false,
   photoFrame: 'none', confirm: null, labels: [], labelPool: [], marker: null, lastPrompt: null, showLabels: true,
 
   init() {
-    document.querySelectorAll('#rail button').forEach((b) => b.addEventListener('click', () => UI.railClick(b.dataset.open)));
+    document.querySelectorAll('#rail button').forEach((b) => {
+      b.addEventListener('pointerdown', (e) => UI.railRipple(b, e));
+      b.addEventListener('click', (e) => { if (!e.detail) UI.railRipple(b); UI.railClick(b.dataset.open); }); // キーボードで押した時は、真ん中から
+    });
     $('#sheet-close').addEventListener('click', () => UI.closeSheet());
     $('#sheet-back').addEventListener('click', () => UI.back());
     $('#sheet-body').addEventListener('click', (e) => UI.onClick(e));
     // はじめの案内のボタン
     $('#co-skip').addEventListener('click', () => UI.tutEnd(true));
+    fleeceOn($('#coach'), true); // はじめの案内は、もこもこのふち
+    $('#coach').addEventListener('animationend', (e) => { if (e.animationName === 'coPop' || e.animationName === 'coPopB') $('#coach').classList.add('co-popped'); }); // 出たあとは、動きを止めて、戻る時はすっと（co-was の transition）
     $('#co-btns').addEventListener('click', (e) => {
       const b = e.target.closest('[data-co]'); if (!b) return; const a = b.dataset.co;
       if (a === 'help') UI.ctlHelp();
@@ -18763,7 +18928,7 @@ const UI = {
     UI.swipeAway($('#banner'), () => { clearTimeout(UI._bt); $('#banner').hidden = true; }, 'translate(-50%, -50%)');
     $('#g-toggle').addEventListener('click', () => { G.settings.gauge = !G.settings.gauge; GAME.save(); UI.refresh(); });
     $('#t-when').addEventListener('click', () => { const st = $('#status'), open = !st.classList.contains('open'); st.classList.toggle('open', open); $('#t-when').setAttribute('aria-expanded', open ? 'true' : 'false'); UI.statusWake(open ? 0 : 6000); });
-    // 画面の表示（0.9.37）：すべて・少なめ・名前だけ・景色だけ の4段階
+    // 画面の表示（0.9.37）：すべて・少なめ・名前だけ の3段階と、眺める（全画面表示。nagame.js。前の「景色だけ」も、ここに。2026-11-01）
     $('#zen-btn').addEventListener('click', (e) => { e.stopPropagation(); UI.hudMenu(); });
     // この丘の、これから：カードを左右にスワイプしても、段階を入れ替えられる（0.9.39）
     { let sx = null, sy = 0; const sb = $('#sheet-body');
@@ -18779,6 +18944,7 @@ const UI = {
     window.addEventListener('pointerdown', () => UI.zenPoke(), { passive: true });
     // さわった時刻（しばらく操作がない時に、座るため）
     UI.lastInput = performance.now();
+    for (const ev of ['pointerdown', 'keydown', 'wheel']) window.addEventListener(ev, (e) => UI.coachPoke(e), { passive: true, capture: true }); // はじめの案内の吹き出し
     for (const ev of ['pointerdown', 'keydown', 'wheel', 'touchstart']) window.addEventListener(ev, () => { UI.lastInput = performance.now(); }, { passive: true });
     $('#place-cancel').addEventListener('click', () => UI.endPlace());
     $('#photo-close').addEventListener('click', () => UI.closePhoto());
@@ -18871,6 +19037,15 @@ const UI = {
     if (G.hands <= 0) { G.flags.endTipX = null; G.flags.endTipAsk = G.turn; UI.refresh(); }
     UI.toast(`今日できることは、日曜日ごとに${nTsu(G.handsMax)}。「今日はここまで」で日記をつけて来週の日曜日へ進むと、また${nTsu(G.handsMax)}に戻ります（日付が変わっても戻りません）。使いきっても、歩く、眺める、なでる、楽器を弾くは、いつでもできます`, 'daily');
   },
+  // メニューを押した所から、小さな波が広がる（触っている感じ。2026-11-01、Daiさん）
+  railRipple(b, e) {
+    let box = b.querySelector('.rip-box'); if (!box) { box = document.createElement('span'); box.className = 'rip-box'; box.setAttribute('aria-hidden', 'true'); b.prepend(box); }
+    const r = b.getBoundingClientRect(); if (!r.width) return;
+    const x = e && e.clientX ? e.clientX - r.left : r.width / 2, y = e && e.clientY ? e.clientY - r.top : r.height / 2;
+    const d = Math.round(Math.hypot(Math.max(x, r.width - x), Math.max(y, r.height - y)) * 2), i = document.createElement('i');
+    i.style.cssText = `left:${Math.round(x - d / 2)}px;top:${Math.round(y - d / 2)}px;width:${d}px;height:${d}px`;
+    box.appendChild(i); setTimeout(() => i.remove(), 700);
+  },
   railClick(name) {
     if (name === 'overview') { setOverview(!CAM.overview); UI.refresh(); if (CAM.overview) UI.hint(IS_TOUCH ? '行きたい場所をタップすると、そこへ移動します' : '行きたい場所をクリックすると、そこへ移動します'); return; }
     uiSound('click');
@@ -18928,7 +19103,7 @@ const UI = {
   cardToast(id) { const c = CARDS[id]; if (!c) return; UI.toastQ.push({ text: `知識カード「${c.title}」が手に入りました`, cat: 'card', card: id }); UI.toastNext(); },
   toastQ: [],
   toastNext() {
-    if (UI.toastBusy || UI.zenOn || !UI.toastQ.length) return;
+    if (UI.toastBusy || UI.zenOn || !UI.toastQ.length || UI.coMid) return; // はじめの案内の吹き出しが、まんなかにある間は、次の知らせを待たせる（戻ったら出す）
     const box = $('#toasts');
     let t;
     if (UI.hudLevel() === 'names') { const i = UI.toastQ.findIndex((x) => x.direct); if (i < 0) return; t = UI.toastQ.splice(i, 1)[0]; } // 名前だけの時は、返事だけ。ほかの知らせはためておく
@@ -19002,7 +19177,7 @@ const UI = {
       const t = $('#hud-top').getBoundingClientRect(), x0 = $('#hud').getBoundingClientRect().left || 0;
       if (t.width > 200) { box.style.left = `${Math.round((t.left + t.right) / 2 - x0)}px`; box.style.width = `${Math.round(t.width)}px`; box.style.top = `${Math.round(t.bottom - y0 + 8)}px`; return; }
     }
-    if (coOn) { const r = co.getBoundingClientRect(); if (r.height) top = Math.max(top || 0, Math.round(r.bottom - y0 + 8)); }
+    if (coOn) { const r = UI.coachRest(); if (r && r.height) top = Math.max(top || 0, Math.round(r.bottom - y0 + 8)); } // 吹き出しの時も、いつもの場所の下に
     box.style.top = top === null ? '' : `${top}px`;
   },
   /* ---------- はじめの案内（0.9.36）：自分で動かしながら、できることと、目指す方向をつかむ。とばせる ----------
@@ -19017,7 +19192,7 @@ const UI = {
       { k: 'card', t: 'その子のカードを見てみましょう', b: `${WHERE.prompt()}「〜のカードを見る」を押すと、その子の性格や好きなこと、暮らしの様子、しぐさの意味がわかります。`, hl: '#prompt-btn' },
       /* 0.9.46：はるこさんとの話・行動・この丘のこれからは、案内ではなく、その場面でひとことに */
       { k: 'talk', skip: true, t: 'はるこさんと話してみましょう', b: '緑の名札が、ここで働く人。そばへ行って「はるこさんと話す」を押します。話すのは、今日できることを使いません。', btn: [['そばへ行く', 'goHaruko']] },
-      { k: 'act', skip: true, t: '今日できること', b: '下のメニューの「行動」から、寄付や手伝いができます。そのたびに、サンクチュアリは少しずつ育ちます。1日にできることは4つ。', hl: '#rail [data-open="actions"]' },
+      { k: 'act', skip: true, t: '今日できること', b: `${WHERE.rail()}メニューの「行動」から、寄付や手伝いができます。そのたびに、サンクチュアリは少しずつ育ちます。1日にできることは4つ。`, hl: '#rail [data-open="actions"]' },
       { k: 'vision', skip: true, t: 'この丘の、これから', b: 'どんな景色に育っていくか、目安を見られます。「動物」の画面からも開けます。どこまで育てるかは、自由です。', btn: [['見てみる', 'vision']] },
       { k: 'end', t: 'あとは、自由に', b: 'もうすぐ、はるこさんが話しかけに来てくれます。急がなくて大丈夫。眺めているだけの日曜日も、大切な一日です。', btn: [['はじめる', 'finish']] },
     ].filter((x) => !x.skip);
@@ -19032,18 +19207,18 @@ const UI = {
   tutShow() {
     const T = UI.tut, el = $('#coach'); if (!T || !el) return;
     const S = UI.tutSteps(), st = S[T.i]; if (!st) { UI.tutEnd(false); return; }
-    el.hidden = false; el.classList.remove('done'); document.body.classList.add('coach-on');
+    el.hidden = false; el.classList.remove('done'); fleeceDraw(el); document.body.classList.add('coach-on');
     $('#co-step').textContent = `はじめの案内　${T.i + 1} / ${S.length}`;
     $('#co-t').textContent = st.t; $('#co-b').textContent = st.b;
     $('#co-btns').innerHTML = (st.btn || []).map(([t, a]) => `<button type="button" class="btn small ${a === 'finish' || a === 'vision' ? 'primary' : ''}" data-co="${a}">${t}</button>`).join('');
     document.querySelectorAll('.coach-pulse').forEach((x) => x.classList.remove('coach-pulse'));
     if (st.hl) document.querySelectorAll(st.hl).forEach((x) => x.classList.add('coach-pulse'));
     if (st.k === 'walk' || st.k === 'look') { T.px = ACT.player.x; T.pz = ACT.player.z; T.yaw = CAM.tYaw; T.walk = 0; T.look = 0; }
-    G.flags.tut = T.i; UI.coachPlace(); UI.toastPlace();
+    G.flags.tut = T.i; UI.coachSettle(true); UI.coWant = T.i; UI.coWantT = performance.now(); UI.coachPlace(); UI.toastPlace(); // 吹き出しは、まわりが空いた時に（tutFrame）
   },
   tutNext() { const T = UI.tut; if (!T) return; T.i++; T.doneAt = 0; UI.tutShow(); GAME.save(); },
   tutEnd(skipped) {
-    UI.tut = null; const el = $('#coach'); if (el) el.hidden = true; document.body.classList.remove('coach-top', 'coach-on');
+    UI.coachSettle(true); UI.tut = null; const el = $('#coach'); if (el) el.hidden = true; document.body.classList.remove('coach-top', 'coach-on');
     document.querySelectorAll('.coach-pulse').forEach((x) => x.classList.remove('coach-pulse'));
     G.flags.tutDone = true; G.flags.tut = null; devSet('tut', 'done');
     if (skipped) UI.toast('はじめの案内は、設定の「はじめの案内」から、いつでも見直せます', 'news');
@@ -19069,15 +19244,105 @@ const UI = {
     if (below && st && !open) { const qc = $('#quest-chip'), r = (qc && !qc.hidden ? qc : st).getBoundingClientRect(); if (r.height) { el.style.top = `${Math.round(r.bottom - ($('#hud').getBoundingClientRect().top || 0) + 8)}px`; return; } } // 今日のクエストの札があれば、その下に
     el.style.top = `calc(var(--safe-t) + ${top}px)`;
   },
+  // はじめの案内の吹き出し（2026-11-01、Daiさん：見逃さないように）：
+  // 新しい案内は、画面のまんなか（あなたの頭の上）に、吹き出しでふわっと出る。読んで動きだすと（または少したつと）、いつもの場所（上）へ、すっと戻る。
+  // 「案内をとばす」は、どちらの時も押せる。パネルや小窓が開いている間は出さずに待つ。いつもの場所は coachPlace のまま（tools/tyoko.js が測る所）
+  coachPop() {
+    const el = $('#coach'), T = UI.tut; if (!el || el.hidden || !T) return;
+    const st = UI.tutSteps()[T.i] || {}, n = String(st.t || '').length + String(st.b || '').length, now = performance.now();
+    UI.coMid = { t0: now, until: now + clamp(2600 + n * 60, 4000, 8000) };
+    el.classList.remove('co-was', 'co-popped'); el.classList.add('co-mid');
+    UI.coachMidPos(true);
+  },
+  // まんなかの場所：横は、右のメニューの左までのまんなか。縦は、あなたの頭の上。入らない時は足もとの下、それも入らない低い画面は、あなたの横に。
+  // 置き方は出る時に決め、場所は、あなたの頭に合わせて、なめらかについていく（カメラが少し動いても、重ならないように）
+  coachMidPos(first) {
+    const el = $('#coach'), M = UI.coMid; if (!el || !M) return;
+    const par = el.offsetParent; if (!par) return;
+    const W = window.innerWidth, H = window.innerHeight;
+    const vis = (q) => { const e = $(q); if (!e || e.hidden) return null; const r = e.getBoundingClientRect(); return r.width && r.height && getComputedStyle(e).display !== 'none' ? r : null; };
+    const rl = $('#rail').getBoundingClientRect(), side = rl.width && !sheetBelow() && rl.left > W / 2;
+    const R = side ? rl.left - 10 : W - 10, L0 = 10, cx = (L0 + R) / 2;
+    const P = ACT.player, gy = heightAt(P.x, P.z), hd = toScreen(P.x, gy + 2.05, P.z), ft = toScreen(P.x, gy, P.z);
+    const hy = hd.vis ? hd.y : H * 0.45, fy = ft.vis ? ft.y : H * 0.6, px = hd.vis ? hd.x : cx;
+    if (first) {
+      el.classList.remove('co-side', 'co-side-l', 'co-side-r', 'co-below'); el.style.removeProperty('--co-w'); document.body.classList.remove('co-hide-top');
+      M.restH = el.offsetHeight;
+      const w = el.offsetWidth, h = el.offsetHeight;
+      // 上の端：吹き出しと横に重なる札・知らせの下。下の端：下のメニュー・「今日はここまで」・「〜と話す」・視点のボタンの上
+      const bx0 = clamp(cx - w / 2, L0, R - w), bx1 = bx0 + w, safeT = ($('#hud').getBoundingClientRect().top || 0) + 12;
+      const topOf = (withStatus) => { let t = safeT + 44; const over = (r) => r && r.width && r.left < bx1 && r.right > bx0;
+        if (withStatus) { const r = vis('#hud-top'); if (over(r)) t = Math.max(t, r.bottom + 12); }
+        for (const e of document.querySelectorAll('#toasts .toast:not(.out)')) { const r = e.getBoundingClientRect(); if (over(r)) t = Math.max(t, r.bottom + 10); }
+        return t; };
+      let top0 = topOf(true);
+      // 頭の上に入らない時は、吹き出しが出ている間だけ、左上の札を、そっと隠す（縦のスマホなど）
+      if (hy - 62 - h < top0 && hy - 62 - h >= topOf(false)) { top0 = topOf(false); document.body.classList.add('co-hide-top'); }
+      let bot = H - 12; for (const q of ['#end-day', '#prompt', '#view-btn']) { const r = vis(q); if (r && r.left < cx + w / 2 && r.right > cx - w / 2) bot = Math.min(bot, r.top - 12); }
+      if (sheetBelow()) { const r = vis('#rail'); if (r) bot = Math.min(bot, r.top - 12); }
+      M.top0 = top0; M.bot = bot;
+      if (hy - 62 - h >= top0) M.mode = 'up'; // あなたの頭の上（足あとのしっぽの分、少しあける）
+      else if (fy + 64 + h <= bot) { M.mode = 'down'; el.classList.add('co-below'); } // 足もとの下（しっぽは上へ）
+      else if (sheetBelow()) M.mode = 'up';
+      else { // 横に：広いほうへ。せまければ、吹き出しを細く
+        const gap = 70, roomL = px - gap - L0, roomR = R - (px + gap), toL = roomL >= roomR, w2 = Math.round(Math.min(w, Math.max(roomL, roomR)));
+        if (w2 < w) el.style.setProperty('--co-w', `${w2}px`);
+        M.mode = toL ? 'l' : 'r'; el.classList.add('co-side', toL ? 'co-side-l' : 'co-side-r');
+      }
+    }
+    const w = el.offsetWidth, h = el.offsetHeight;
+    let tx, ty;
+    if (M.mode === 'up') { tx = clamp(cx - w / 2, L0, R - w); ty = clamp(hy - 62 - h, M.top0, Math.max(M.top0, M.bot - h)); }
+    else if (M.mode === 'down') { tx = clamp(cx - w / 2, L0, R - w); ty = clamp(fy + 64, M.top0, Math.max(M.top0, M.bot - h)); }
+    else {
+      const my = (hy + fy) / 2; tx = M.mode === 'l' ? clamp(px - 70 - w, L0, R - w) : clamp(px + 70, L0, R - w); ty = clamp(my - h / 2, M.top0, Math.max(M.top0, M.bot - h));
+      el.style.setProperty('--co-tail', `${Math.round(clamp(my - ty, 18, h - 18))}px`);
+    }
+    if (first || M.tx === undefined) { M.tx = tx; M.ty = ty; } else { M.tx += (tx - M.tx) * 0.2; M.ty += (ty - M.ty) * 0.2; }
+    const pr = par.getBoundingClientRect(), restL = pr.left + el.offsetLeft - w / 2, restT = pr.top + el.offsetTop; // いつもの場所（translateX(-50%) のぶん）
+    el.style.setProperty('--co-dx', `${Math.round(M.tx - restL)}px`); el.style.setProperty('--co-dy', `${Math.round(M.ty - restT)}px`);
+  },
+  // いつもの場所の箱（知らせは、吹き出しの時も、いつもの場所の下に並べる）
+  coachRest() {
+    const el = $('#coach'); if (!el) return null;
+    if (!UI.coMid || !el.offsetParent) return el.getBoundingClientRect();
+    const pr = el.offsetParent.getBoundingClientRect(), top = pr.top + el.offsetTop, h = UI.coMid.restH || el.offsetHeight;
+    return { top, bottom: top + h, height: h };
+  },
+  // いつもの場所へ戻す。instant：動かさずに（パネルが開いた時・次の案内の前・試験）
+  coachSettle(instant) {
+    if (instant) UI.coWant = null;
+    const el = $('#coach'); if (!UI.coMid || !el) { UI.coMid = null; return; }
+    UI.coMid = null; document.body.classList.remove('co-hide-top'); el.classList.add('co-was'); el.classList.remove('co-side', 'co-side-l', 'co-side-r', 'co-below'); el.style.removeProperty('--co-w');
+    if (instant) { el.classList.add('co-snap'); el.classList.remove('co-mid'); void el.offsetWidth; el.classList.remove('co-snap'); }
+    else el.classList.remove('co-mid');
+    setTimeout(() => UI.toastNext(), instant ? 0 : 450); // 待たせていた知らせを
+  },
+  coachMidFrame() {
+    const T = UI.tut, el = $('#coach'); if (!T || !el) return;
+    const busy = document.body.classList.contains('sheet-open') || !$('#modal').hidden || el.hidden || el.classList.contains('away') || UI.zenOn || !!UI.rest || !$('#photo-ui').hidden;
+    const yw = Math.atan2(Math.sin(CAM.tYaw - CAM.yaw), Math.cos(CAM.tYaw - CAM.yaw)), fade = $('#cam-fade');
+    const camBusy = Math.abs(yw) > 0.03 || Math.abs(CAM.tDist - CAM.dist) > 0.4 || Math.abs(CAM.tPitch - CAM.pitch) > 0.03 || (fade && +getComputedStyle(fade).opacity > 0.05); // カメラが落ち着いてから出す
+    if (UI.coMid) { if (busy) UI.coachSettle(true); else if (performance.now() > UI.coMid.until) UI.coachSettle(false); else UI.coachMidPos(false); return; }
+    const toastWait = UI.toastBusy && performance.now() - (UI.coWantT || 0) < 4500; // 出ている知らせが消えるのを、少しだけ待つ（案内は、ひとつずつ）
+    if (UI.coWant === T.i && !busy && !camBusy && !toastWait && STARTED) { UI.coWant = null; UI.coachPop(); }
+  },
+  // 動きだした時（3Dの画面に触れた・歩くキー）：読む時間を少しとってから、いつもの場所へ
+  coachPoke(e) {
+    const M = UI.coMid; if (!M) return;
+    const inCo = e && e.target && e.target.closest && e.target.closest('#coach');
+    if (inCo && e.target.closest('button')) return; // とばす・ボタンは、そのまま
+    if (inCo || performance.now() - M.t0 > 2200) UI.coachSettle(false); // 読む間は、少し待つ
+  },
   tutFrame() {
     const T = UI.tut; if (!T) return;
     const S = UI.tutSteps(), st = S[T.i]; if (!st) return;
-    UI.coachPlace();
+    UI.coachPlace(); UI.coachMidFrame();
     const P = ACT.player;
     if (st.k === 'walk') { T.walk += Math.hypot(P.x - T.px, P.z - T.pz); T.px = P.x; T.pz = P.z; }
     if (st.k === 'look') { let d = CAM.tYaw - T.yaw; d = Math.atan2(Math.sin(d), Math.cos(d)); T.look += Math.abs(d); T.yaw = CAM.tYaw; }
     const ok = st.k === 'walk' ? T.walk > 4 : st.k === 'look' ? (T.look > 0.8 || T.ev.view) : st.k === 'pet' ? !!T.ev.pet : st.k === 'card' ? !!T.ev.card : st.k === 'talk' ? !!T.ev.talk : st.k === 'act' ? !!T.ev.act : st.k === 'vision' ? !!T.ev.vision : false;
-    if (ok && !T.doneAt) { T.doneAt = performance.now(); $('#coach').classList.add('done'); uiSound && uiSound('plus'); }
+    if (ok && !T.doneAt) { T.doneAt = performance.now(); $('#coach').classList.add('done'); fleeceDraw($('#coach')); uiSound && uiSound('plus'); }
     if (T.doneAt && performance.now() - T.doneAt > 1100) UI.tutNext();
   },
   statusWake(ms) {
@@ -19086,8 +19351,8 @@ const UI = {
     if (st.classList.contains('open') || ms === 0) return;
     UI._stT = setTimeout(() => { if (!st.classList.contains('open')) st.classList.add('quiet'); }, ms || 9000);
   },
-  /* ---------- 景色だけを見る（全画面）：ボタン、札、名前、知らせを隠す ---------- */
-  // 画面の表示の段階：all すべて／calm 少なめ（状態の札をしまう）／names 名前だけ（名前の札のほかは出さない）／none 景色だけ（全画面。これまでの「景色だけ」）
+  /* ---------- 全画面で、ボタン、札、名前、知らせを隠す（眺める時。座れない所では、これだけ） ---------- */
+  // 画面の表示の段階：all すべて／calm 少なめ（状態の札をしまう）／names 名前だけ（名前の札のほかは出さない）／none 全画面で何も出さない（眺める時。メニューでは「眺める（全画面表示）」にまとめた。2026-11-01）
   hudLevel() { return UI.zenOn ? 'none' : (G && G.settings && G.settings.hud) || 'all'; },
   hudQuiet() { const l = UI.hudLevel(); return l === 'none' || l === 'names'; },
   applyHud() { const l = (G && G.settings && G.settings.hud) || 'all'; document.body.classList.toggle('hud-calm', l === 'calm'); document.body.classList.toggle('hud-names', l === 'names'); },
@@ -19584,11 +19849,6 @@ Object.assign(UI, {
         <div class="cap">${ico('i-people')}<span>人手<br><strong class="num">${c.peopleLoad} / ${c.peopleCap}</strong></span><span class="bar"><i class="${c.peopleRatio > 0.8 ? 'hi' : ''}" style="width:${Math.min(100, c.peopleRatio * 100)}%"></i></span></div></div>
         ${(() => { const f = GAME.finance(); return `<div class="money-line ${f.bal < 0 ? 'tight' : ''}">${ico('i-coin')}<span>毎月の収支</span><b class="num">${f.bal >= 0 ? '＋' : '−'}${yen(Math.abs(f.bal))}</b><small class="muted">預金 ${yenShort(G.savings || 0)}</small></div>`; })()}
         <div class="btn-row u-mt8"><button class="btn small" data-act="people">${ico('i-people')}人を増やす</button><button class="btn small" data-act="open" data-v="money">${ico('i-coin')}運営のお金</button></div>`}</div>`;
-      if (G.requests.length) {
-        h += `<div class="sec"><h3>受け入れの相談</h3>`;
-        for (const r of G.requests) h += UI.reqHtml(r, true);
-        h += '</div>';
-      }
       h += `<div class="sec"><h3>ここで暮らす仲間（${G.animals.length}）</h3><div class="alist">`;
       for (const sp of ANIMAL_ORDER) {
         for (const a of G.animals.filter((x) => x.sp === sp)) {
@@ -19597,6 +19857,7 @@ Object.assign(UI, {
         }
       }
       h += '</div></div>';
+      if (G.requests.length) { h = G.requests.map((r) => UI.reqTopHtml(r)).join('') + h; for (const r of G.requests) if (!r.seen) setTimeout(() => { r.seen = true; }, 0); } // 受け入れの相談は、いちばん上に（2026-11-01）
       return { title: '動物', html: h };
     },
     request(id) {
@@ -19947,6 +20208,30 @@ Object.assign(UI, {
       return { title: '今日の日記', html: h, keepScroll: false };
     },
   },
+  // 受け入れの相談は、動物の画面のいちばん上に（2026-11-01、Daiさん：開いた時に、ぱっと目に入るように。迎えるために何をすればいいかが、わかる形に）。
+  // はじめは開いた形。「あとで」で1行にたためる（決めるまで、いちばん上に。返事の期限が今週になったら、また開く）。
+  // 次にすることは、ひとつだけ大きなボタンに（そろっていれば「受け入れる」、人手が足りなければ「人を増やす」、準備がいれば「受け入れの準備を見る」）
+  reqTopHtml(r) {
+    const chk = GAME.requestChecks(r), sp = SPECIES[r.sp], names = r.members.map((m) => esc(m.name)).join('・');
+    const need = chk.checks.filter((c) => !c.ok), warn = chk.checks.filter((c) => c.ok && c.warn), fine = chk.checks.filter((c) => c.ok && !c.warn);
+    const due = r.left <= 1 ? '返事は今週まで' : `返事は${r.left}週以内に`, avs = r.members.map((m) => `<span class="av" style="${avStyle(m)}"></span>`).join('');
+    if (r.fold && r.left > 1) return `<button type="button" class="req-top fold" data-act="req-open" data-id="${r.id}"><span class="avs">${avs}</span><span class="rt-tx"><b>受け入れの相談</b><span>${esc(sp.name)}　${names}</span></span><span class="pill">${due}</span><span class="rt-go">ひらく</span></button>`;
+    let next = '';
+    if (chk.ok) next = `<button class="btn primary" data-act="accept" data-id="${r.id}">受け入れる</button>`;
+    else if (need.some((c) => c.label === '人手')) next = `<button class="btn primary" data-act="people">${ico('i-people')}人を増やす</button>`;
+    else if (need.some((c) => c.prep)) next = `<button class="btn primary" data-act="prep">受け入れの準備を見る</button>`;
+    const li = (c) => `<li class="${c.warn ? 'warn' : c.ok ? 'ok' : 'no'}">${ico(c.warn ? 'i-coin' : c.ok ? 'i-check' : 'i-x')}<b>${esc(c.label)}</b><span>${esc(c.detail)}${c.card ? `　<button data-act="card" data-id="${c.card}">理由</button>` : ''}</span></li>`;
+    let h = `<section class="req-top${r.seen ? '' : ' new'}"><div class="rt-head"><span class="rt-ey">受け入れの相談が来ています</span><button type="button" class="rt-later" data-act="req-fold" data-id="${r.id}">あとで</button></div>`;
+    h += `<div class="rt-who"><span class="avs">${avs}</span><div><b>${esc(sp.name)}　${names}</b><span class="pill">${due}</span></div></div><p class="rt-intro">${esc(r.intro)}</p>`;
+    h += `<div class="rt-how"><b class="rt-h">迎えるには</b>`;
+    h += need.length ? `<p class="rt-sum">あと${nTsu(need.length)}：${need.map((c) => esc(c.label)).join('・')}</p>` : `<p class="rt-sum ok">${ico('i-check')}準備は、そろっています</p>`;
+    if (need.length || warn.length) h += `<ul class="checks">${need.concat(warn).map(li).join('')}</ul>`;
+    if (fine.length) h += `<details class="checks-ok"><summary>${ico('i-check')}${need.length ? `ほかの${nTsu(fine.length)}は大丈夫です` : `確かめた${nTsu(fine.length)}は、大丈夫です`}</summary><ul class="checks">${fine.map(li).join('')}</ul></details>`;
+    if (!chk.ok && need.some((c) => c.label === '土地')) h += '<p class="muted req-note">土地が足りません。「行動」の寄付や、サンクチュアリが育つと、土地が広がります。それまでは、ほかのサンクチュアリや安全な家につなぐこともできます。</p>';
+    if (!chk.ok && need.some((c) => c.label === '育ち具合' || c.label === '設備')) h += '<p class="muted req-note">今のサンクチュアリでは、まだ迎えられません。ほかのサンクチュアリや安全な家につなぐことができます。</p>';
+    h += `</div><div class="btn-row">${next}<button class="btn small" data-act="req" data-id="${r.id}">この子たちのこと</button><button class="btn small" data-act="rehome" data-id="${r.id}">安全な家につなぐ</button><button class="btn small ghost" data-act="decline" data-id="${r.id}">今回は見送る</button></div>`;
+    return h + '</section>';
+  },
   reqHtml(r, compact) {
     const chk = GAME.requestChecks(r);
     const names = r.members.map((m) => m.name).join('・');
@@ -20065,7 +20350,7 @@ Object.assign(UI, {
     const replay = res ? !!res.replay : idx !== undefined && idx !== null;
     const m = GAME.moritaState(), q = res ? { i: res.i, review: res.review } : replay ? { i: idx, review: true } : GAME.moritaQuestion(), c = MORITA[q.i];
     let h = `<div class="dialog-who"><span class="av bust">${npcBust(MORITA_LOOK)}</span><div><strong>酪農家の森田さん</strong><br><span class="muted">${replay || !q.review ? `お話 ${q.i + 1} / ${MORITA.length}` : 'おさらい'}</span></div></div>`;
-    if (!q.review || replay) h += `<p class="said">${c.say.map((x) => `「${esc(x)}」`).join('<br>')}</p>${UI.more(c.sayMore ? `<p class="said">${c.sayMore.map((x) => `「${esc(x)}」`).join('<br>')}</p>` : '', { heavy: kmoreHeavy(c.card, c.card2) })}`;
+    if (!res && (!q.review || replay)) h += `<p class="said">${c.say.map((x) => `「${esc(x)}」`).join('<br>')}</p>${UI.more(c.sayMore ? `<p class="said">${c.sayMore.map((x) => `「${esc(x)}」`).join('<br>')}</p>` : '', { heavy: kmoreHeavy(c.card, c.card2) })}`;
     h += `<div class="quiz"><p class="q">${esc(c.q)}</p><div class="opts">${c.a.map((x, i) => `<button class="opt ${res ? (i === c.ok ? 'right' : i === res.pick ? 'wrong' : '') : ''}" ${res ? 'disabled' : `data-act="morita-ans" data-v="${i}"${replay ? ` data-id="${q.i}"` : ''}`}>${esc(x)}</button>`).join('')}</div>`;
     if (res) {
       h += `<p class="result ${res.right ? 'ok' : ''}"><b>${res.right ? 'そのとおり。' : 'じつは……'}</b>${esc(c.ex)}</p>${UI.more(c.exMore ? `<p>${esc(c.exMore)}</p>` : '', { heavy: kmoreHeavy(c.card, c.card2) })}`;
@@ -20326,6 +20611,11 @@ Object.assign(UI, {
     UI.modal(`<h3 class="ch-t">歩く・見回す</h3><div class="ch-wrap">${phone}<ul class="ch-list">${rows.map(([a, b]) => `<li><b>${a}</b><span>${b}</span></li>`).join('')}</ul></div><p class="muted">急いで歩かなくても大丈夫。眺めているだけでも、楽しめます。設定の「操作」で、いつでも見直せます。</p><div class="btn-row"><button class="btn small primary" data-act="close-modal">わかりました</button></div>`);
   },
 });
+// 受け入れの相談を、たたむ・ひらく（動物の画面のいちばん上。2026-11-01）
+UI.extAct = Object.assign(UI.extAct || {}, {
+  'req-fold'(v, id) { const r = G.requests.find((x) => x.id === id); if (r) { r.fold = true; GAME.save(); UI.render(); } },
+  'req-open'(v, id) { const r = G.requests.find((x) => x.id === id); if (r) { r.fold = false; r.seen = true; GAME.save(); UI.render(); } },
+});
 /* =========================================================
    景色の中のやりとり：話す・ふれあう・なでる・飾る・タップ・しぐさ・毎フレームの札（0.9.44 で ui.js から分けた）
    ========================================================= */
@@ -20339,6 +20629,7 @@ Object.assign(UI, {
     if (p.kind === 'slsgo') { slsAsk(); return; } // バス停から SLS へ（0.9.88）
     if (p.kind === 'slsspot') { slsvOpen(p.ent.id); return; }
     if (p.kind === 'pet') { UI.petStart(p.ent); return; }
+    if (p.kind === 'michimeet') { michiMeet(); return; } // はじめて会う日（hajimari.js）
     if (p.kind === 'evitem') { UI.evItemInfo(p.ent); return; }
     if (p.kind === 'pickup') { if (p.ent.pick === 'branch') GAME.pickBranch(); return; }
     if (p.kind === 'egg') { UI.eggInfo(p.ent); return; }
@@ -20490,16 +20781,17 @@ Object.assign(UI, {
       const n = ready && ACT.npcs.find((x) => x.d.id === 'haruko');
       if (n) { n.come = now + 45000; F.harukoCame = true; }
     }
-    if (met && !F.actTip && !UI.rest) {
+    if (met && !F.actTip && !UI.rest && !(typeof michiMeetOn === 'function' && michiMeetOn())) {
       F.actTip = true;
       const b = $('#rail [data-open="actions"]'); if (b) { b.classList.add('coach-pulse'); setTimeout(() => b.classList.remove('coach-pulse'), 9000); }
-      UI.hint('手伝いや寄付は、下の「行動」から。1日にできることは4つです');
+      UI.hint(`手伝いや寄付は、${WHERE.rail()}「行動」から。1日にできることは4つです`);
     }
   },
   npcDialog(n) {
     titleCountOnce('chat', n && n.d ? n.d.name : '');
     if (n && n.d && careScenePending(n.d.id)) { UI.careScene(n); return; } // 世話の出来事（care.js）
     if (n && n.d && GAME.feedScenePending(n.d.id)) { UI.feedScene(n); return; }
+    if (n && n.d && n.d.id === 'minami' && typeof michiMeetPending === 'function' && michiMeetPending() && michiMeet()) return; // はじめて会う日は、先生が紹介してくれる
     if (n.d.id === 'haruko') UI.tutMark('talk');
     const id = n.d.id, c = capacity(), hk = G.mode === 'hakoniwa';
     const cid = CHAT[id] ? id : n.d.hire ? CHAT_HIRE[n.d.name] : null;
@@ -20523,6 +20815,10 @@ Object.assign(UI, {
     else lines = chatLine(cid) || [n.d.hire === 'staff' ? '平日は私たちが見ていますから、日曜日はゆっくりしていってください。' : '週末だけですが、ここに来るとほっとします。'];
     if (n.off && !(func && lines[0] === func.t)) lines = [pick(WORK_OFF_LINES)]; // お休みの日（work.js）
     let btn = func ? func.btn : '';
+    if (id === 'haruko' && typeof michiMeetPending === 'function' && michiMeetPending()) { // あなたが見つけた子に、まだ会っていない時（hajimari.js）
+      const mn = michiHen().name; lines = lines.concat([`${mn}にも、会ってきてあげて。家の西の小さな柵で、みなみ先生が診てくれているから`]);
+      btn = `<button class="btn small primary" data-act="michi" data-v="meet-go">${esc(mn)}に会いに行く</button>${btn.replace('btn small primary', 'btn small')}`;
+    }
     // 続きのある話：今週聞ける話があれば、そっと誘う
     let story = '';
     const tid = UI.talkIdOf(n.d);
@@ -20552,7 +20848,7 @@ Object.assign(UI, {
     let i, c;
     if (res) { i = res.i; c = res.c; } else { const nx = GAME.talkNext(id); if (!nx || !nx.c) return; i = nx.i; c = nx.c; }
     let h = `<div class="dialog-who">${talkFace(id)}<div><strong>${esc(T.name)}</strong><br><span class="muted">${esc(T.title)}　お話 ${i + 1} / ${T.chapters.length}</span></div></div>`;
-    h += `<h3 class="talk-t">${said(c.t)}</h3><p class="said">${c.say.map((x) => `「${said(x)}」`).join('<br>')}</p>`;
+    h += `<h3 class="talk-t">${said(c.t)}</h3>${res ? '' : `<p class="said">${c.say.map((x) => `「${said(x)}」`).join('<br>')}</p>`}`; // 返事のあとは、読んだ話をくり返さない（吹き出しで1つずつ。2026-11-01）
     if (!res) h += `<div class="quiz"><p class="q">あなたの返事</p><div class="opts">${c.re.map((r, k) => `<button class="opt" data-act="talk-ans" data-id="${id}" data-v="${k}">${said(r[0])}</button>`).join('')}</div></div>`;
     else {
       const r = c.re[res.pick] || c.re[0];
@@ -20561,7 +20857,7 @@ Object.assign(UI, {
       h += `<div class="btn-row"><button class="btn small primary" data-act="close-modal">ありがとう</button>${res.got ? `<button class="btn small" data-act="card" data-id="${res.got}">カードを見る</button>` : ''}</div>`;
     }
     UI.modal(h);
-    const mc = $('#modal-card'); if (mc) mc.scrollTop = res ? mc.scrollHeight : 0;
+    const mc = $('#modal-card'); if (mc) mc.scrollTop = 0;
   },
   // 話の持ち主（はるこさんなど、または迎えた職員さん・アルバイトさん）
   talkIdOf(d) { if (!d) return null; if (TALKS[d.id]) return d.id; const c = d.hire ? CHAT_HIRE[d.name] : null; return c && TALKS[c] ? c : null; },
@@ -20594,8 +20890,58 @@ Object.assign(UI, {
     d.open = false; btn.remove();
     if (sc && st != null) sc.scrollTop = st;
   },
-  modal(html) { UI._modalAt = performance.now(); $('#modal-card').innerHTML = html; $('#modal').hidden = false; document.body.classList.add('modal-open'); UI.blockMove = true; },
-  closeModal() { $('#modal').hidden = true; document.body.classList.remove('modal-open'); UI.blockMove = false; },
+  modal(html) { UI._modalAt = performance.now(); $('#modal-card').classList.remove('fluffy', 'sp-on', 'sp-done', 'sp-end'); fleeceOn($('#modal-card'), false); $('#modal-card').innerHTML = html; $('#modal').hidden = false; document.body.classList.add('modal-open'); UI.blockMove = true; UI.speechPage(); },
+  closeModal() { $('#modal').hidden = true; document.body.classList.remove('modal-open'); UI.blockMove = false; UI.sp = null; },
+  // 人が話す小窓は、4〜5行ずつに区切って、吹き出しで1つずつ（2026-11-01、Daiさん：何段落も一気に出ると、読まない人もいる。タップすると次へ）。
+  // 「」で話す言葉（か、.dialog-who[data-talk] の人の言葉）がある小窓だけ。続いている言葉（p.said・p.you）を区切り、最後まで読むと、そのあとの返事やボタンが出る。
+  // ふちは、もこもこ（ui.js の fleeceSvg）。試験では UI.spOff で止められる（tools/h.js）。区切り方は speechSplit・speechMerge
+  speechPage() {
+    const card = $('#modal-card'); UI.sp = null;
+    if (UI.spOff) return;
+    const kids = [...card.children], isSaid = (e) => e.matches('p.said'), isSp = (e) => e.matches('p.said, p.you');
+    const talk = !!card.querySelector('.dialog-who[data-talk]') || kids.some((e) => isSaid(e) && /^\s*「/.test(e.textContent));
+    if (!talk) return;
+    card.classList.add('fluffy'); fleeceOn(card, true);
+    const i0 = kids.findIndex(isSaid); let i1 = i0; while (i1 + 1 < kids.length && isSp(kids[i1 + 1])) i1++;
+    // 1行に入る字の数を測って、1つの吹き出しを、およそ4〜5行に（2026-11-01、Daiさん：吹き出しの中いっぱいに。1つに入る言葉を3〜4割ふやしてもよい）
+    const pr = document.createElement('div'); pr.className = 'sp-box'; pr.innerHTML = '<p class="said sp-u">あ</p>'; card.insertBefore(pr, kids[i0]);
+    const pu = pr.firstChild, cs = getComputedStyle(pu), fz = parseFloat(cs.fontSize) || 19;
+    const cpl = Math.max(10, Math.floor((pu.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0)) / fz)); pr.remove();
+    const max = clamp(Math.round(cpl * 4.6), SP_MAX, 84);
+    const units = [];
+    for (const e of kids.slice(i0, i1 + 1)) { if (isSaid(e)) speechSplit(e.innerHTML, max).forEach((h) => units.push(['said', h])); else units.push(['you', e.innerHTML.trim()]); }
+    const pages = speechMerge(units, cpl, max);
+    UI.spLast = { max, cpl, n: pages.length };
+    if (pages.length <= 1) return;
+    const box = document.createElement('div'); box.className = 'sp-box'; box.setAttribute('aria-live', 'polite');
+    box.innerHTML = pages.map(([k, h], i) => `<p class="${k} sp-u${i ? ' sp-off' : ''}"><span class="sp-t">${h}</span></p>`).join('')
+      + `<div class="sp-foot"><button type="button" class="sp-back" aria-label="ひとつ前へ" hidden>‹</button><span class="sp-dots" aria-hidden="true">${pages.map((_, i) => `<i${i ? '' : ' class="on"'}></i>`).join('')}</span><button type="button" class="sp-next">つぎへ<span aria-hidden="true">▼</span></button></div>`;
+    card.insertBefore(box, kids[i0]);
+    kids.slice(i0, i1 + 1).forEach((e) => e.remove());
+    const tail = kids.slice(i1 + 1); tail.forEach((e) => e.classList.add('sp-wait'));
+    card.classList.add('sp-on');
+    UI.sp = { n: pages.length, i: 0, box, tail, max, cpl };
+    // 高さは、2行ぶんを下限に、言葉の長さに合わせる（短い言葉の吹き出しが、がらんとしないように。2026-11-01、Daiさん：吹き出しの中いっぱいに）。
+    // 1行だけの言葉は、吹き出しのまんなかに。あなたの返事（p.you）は、下限なし。スマホは小窓が下に着いているので、つぎへのボタンは動かない
+    const us = [...box.querySelectorAll('.sp-u')]; let mh = 0;
+    us.forEach((u) => { u.classList.remove('sp-off'); mh = Math.max(mh, u.offsetHeight); u.classList.add('sp-off'); }); us[0].classList.remove('sp-off');
+    const st = getComputedStyle(us[0]), two = Math.ceil((parseFloat(st.lineHeight) || fz * 1.72) * 2 + parseFloat(st.paddingTop || 0) + parseFloat(st.paddingBottom || 0));
+    box.style.setProperty('--sp-h', `${Math.min(mh, two)}px`);
+    box.querySelector('.sp-next').addEventListener('click', () => UI.speechGo(1));
+    box.querySelector('.sp-back').addEventListener('click', () => UI.speechGo(-1));
+  },
+  speechGo(d) {
+    const S = UI.sp; if (!S) return;
+    const i = clamp(S.i + d, 0, S.n - 1); if (i === S.i) return;
+    const us = S.box.querySelectorAll('.sp-u'), dots = S.box.querySelectorAll('.sp-dots i');
+    us[S.i].classList.add('sp-off'); us[i].classList.remove('sp-off'); dots.forEach((x, k) => x.classList.toggle('on', k === i));
+    S.i = i; S.box.querySelector('.sp-back').hidden = i === 0; $('#modal-card').classList.toggle('sp-end', i === S.n - 1); // 最後の吹き出しの時だけ「つぎへ」をしまう（前へ戻ったら、また出る）
+    if (i === S.n - 1 && !S.done) { S.done = true; S.tail.forEach((e) => { e.classList.remove('sp-wait'); e.classList.add('sp-in'); }); $('#modal-card').classList.add('sp-done'); }
+    uiSound && uiSound('click');
+  },
+  // 全部を一度に（試験や、読み返す時に）
+  speechAll() { const S = UI.sp; if (!S) return; while (S.i < S.n - 1) UI.speechGo(1); },
+
   showCard(id, opt) {
     const c = CARDS[id]; if (!c) return;
     GAME.unlockCard(id, true);
@@ -20679,6 +21025,7 @@ Object.assign(UI, {
   tapAnimal(e) {
     const P = ACT.player, a = e.a;
     if (P.petting && P.petting.e === e) return; // なでている最中は、そのまま
+    if (typeof michiMeetTap === 'function' && michiMeetTap(a)) return; // あなたが見つけた子に、はじめて会う日（hajimari.js）
     if (a.quarantine && G.turn < a.quarantine) { UI.toast(`${a.name}は検疫中です。柵の外から、そっと見守ります`, 'health'); return; }
     if (farView()) UI.farJump(e.x + 3, e.z + 3);
     UI.petGo(a.id, 'pet');
@@ -20923,7 +21270,7 @@ Object.assign(UI, {
   },
   frame(dt) {
     UI.viewOffset(dt);
-    { const now = performance.now(); if (now - (UI._idleChk || 0) > 500 && !OCHA.on && !SLSV.on) { UI.knowWatch((now - (UI._idleChk || now)) / 1000); UI._idleChk = now; if ($('#toasts').childElementCount && !sheetBelow()) UI.toastPlace(); UI.idleSit(); UI.benchStop(); UI.firstDayTips(); const vn = CAM.focusView && CAM.focus ? 'もどる' : CAM_VIEWS[camViewIndex()].n, el = $('#view-name'); if (el && el.textContent !== vn) el.textContent = vn; } }
+    { const now = performance.now(); if (now - (UI._idleChk || 0) > 500 && !OCHA.on && !SLSV.on) { UI.knowWatch((now - (UI._idleChk || now)) / 1000); UI._idleChk = now; if ($('#toasts').childElementCount && !sheetBelow()) UI.toastPlace(); UI.idleSit(); UI.benchStop(); UI.firstDayTips(); if (typeof michiMeetFrame === 'function') michiMeetFrame(); const vn = CAM.focusView && CAM.focus ? 'もどる' : CAM_VIEWS[camViewIndex()].n, el = $('#view-name'); if (el && el.textContent !== vn) el.textContent = vn; } }
     // 時間帯（朝・昼・夕方・夜）は、変わった時だけ書きかえる
     const tn = todName(SKY.t); if (tn !== UI._tod) { UI._tod = tn; const el = $('#t-tod'); if (el) el.textContent = tn; }
     // 写真のピント：タップするまでは、見ている中心（あなたのあたり）に合わせ続ける
@@ -21034,6 +21381,39 @@ Object.assign(UI, {
   },
 
 });
+// 話す言葉を、4〜5行ずつに（1つの吹き出しに入る字の数 max は、speechPage が画面の幅から決める。60〜84字）。<br> で分かれた言葉ごとに、長い時は文の切れ目（。！？）で分ける。
+// 分ける時は、どの吹き出しも同じくらいの長さになるように（最後だけ短く残らない）。「」は、それぞれにつけ直す
+const SP_MAX = 60;
+function speechPlain(h) { return String(h).replace(/<[^>]*>/g, '').replace(/&[a-z#0-9]+;/gi, 'x'); }
+function speechSplit(html, max = SP_MAX) {
+  const out = [], L = (t) => speechPlain(t).length;
+  for (let u of String(html).split(/<br\s*\/?>/i)) {
+    u = u.trim(); if (!u) continue;
+    const q = /^「/.test(u) && /」$/.test(u), body = q ? u.slice(1, -1) : u, wrap = (t) => (q ? `「${t}」` : t);
+    if (L(body) <= max) { out.push(u); continue; }
+    const sents = body.match(/[^。！？]+[。！？]*/g) || [body], tgt = L(body) / Math.ceil(L(body) / max); let cur = '';
+    for (const t of sents) { if (cur && (L(cur + t) > max || L(cur) + L(t) / 2 > tgt)) { out.push(wrap(cur)); cur = t; } else cur += t; }
+    if (cur) out.push(wrap(cur));
+  }
+  return out;
+}
+// 短い言葉が続く時は、ひとつの吹き出しに（同じ人の言葉だけ。合わせて5行・max 字まで。言葉ごとに行を改めるので、行の数で見る）
+function speechMerge(units, cpl = 18, max = SP_MAX) {
+  const out = [], rows = (h) => h.split(/<br\s*\/?>/i).reduce((a, t) => a + Math.max(1, Math.ceil(speechPlain(t).length / cpl)), 0);
+  for (const [k, h] of units) { const L = out[out.length - 1]; if (L && L[0] === k && k === 'said' && speechPlain(L[1] + h).length <= max && rows(L[1] + '<br>' + h) <= 5) L[1] += '<br>' + h; else out.push([k, h]); }
+  return out;
+}
+// 吹き出しの小窓：小窓のどこを押しても次へ（ボタン・リンク・「詳しく」は、そのまま）。Enter・スペース・→ で次へ、← で前へ
+document.addEventListener('DOMContentLoaded', () => {
+  const card = document.getElementById('modal-card'); if (!card) return;
+  card.addEventListener('click', (e) => { if (!UI.sp || UI.sp.i >= UI.sp.n - 1 || e.target.closest('button, a, summary, details, input, label, select, textarea')) return; UI.speechGo(1); });
+});
+window.addEventListener('keydown', (e) => {
+  if (!UI.sp || document.getElementById('modal').hidden || (e.target && e.target.closest && e.target.closest('input, textarea, select'))) return;
+  if ((e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowRight') && UI.sp.i < UI.sp.n - 1 && !(e.target.closest && e.target.closest('button'))) { e.preventDefault(); UI.speechGo(1); }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); UI.speechGo(-1); }
+});
+
 /* =========================================================
    「詳しく」（大人の方へ）と、学校モード（2026-10-23、Daiさん。手順は docs/recipes/kuwashiku.md）
 
@@ -22394,7 +22774,7 @@ function ikiBuild(g) {
   // ニホンリス（一年中）：はるにれの木のまわり。地面で食べものを探し、近づくと木に登る
   { const tr = (W.forest && W.forest.items.find((it) => it.type === 'elm' && Math.abs(it.x - 11) < 1 && Math.abs(it.z - 42.5) < 1)) || { x: 11, z: 42.5, s: 1.15 };
     const m = modelRisu(s === 'winter'); g.add(m.root); const [x, z] = spot(tr.x, tr.z, 1.6, 4);
-    IKI.list.push({ id: 'ezorisu', m, type: 'risu', tree: [tr.x, tr.z, 0.55 * (tr.s || 1) + 0.08], x, z, y: heightAt(x, z), h: 0, st: 'ground', t: rand(2, 5), tx: x, tz: z, up: 0 }); }
+    IKI.list.push({ id: 'ezorisu', m, type: 'risu', tree: [tr.x, tr.z, 0.05, tr.r || 0, tr.s || 1], x, z, y: heightAt(x, z), h: 0, st: 'ground', t: rand(2, 5), tx: x, tz: z, up: 0 }); } // tree：中心・紙の面からの間・紙の向き（r）・大きさ
   // ニホンカナヘビ（春〜秋）：晴れた日、池の岸の石の上（池のない時は、家の前の庭）で日なたぼっこ
   if (s !== 'winter') {
     const m = modelKanahebi(); g.add(m.root);
@@ -22483,6 +22863,14 @@ function ikiGround(c, dt, t, P) {
   m.root.position.set(c.x, c.y, c.z); m.root.rotation.y = c.h;
 }
 // ニホンリス：地面をぴょんぴょん。ときどき立ち止まって、あたりを見る。近づくと、木の幹をかけ上がる（捕まえられない）
+// 木は、木の絵を切り抜いた紙を3枚、十字に組んだ形（craft.js の pcCardGeometry。i 枚めの紙は、i・60°＋0.2 を木の向き r だけ回した向き）。
+// 幹の絵は、どの紙も、まんなかの線に描いてある。登る時は、近づいてきた向きにいちばん近い紙の面の、まんなかの線に、おなかをつける。
+// （2026-11-01、Daiさん：前は幹のまわりの丸い線（中心から 0.7m）に登っていて、紙と紙のあいだで、宙に浮いて見えた）
+function risuFace(T, a) {
+  let best = a, bd = 9;
+  for (let i = 0; i < 3; i++) for (const sg of [1, -1]) { const n = i * Math.PI / 3 + 0.2 - T[3] + sg * Math.PI / 2, d = Math.abs(Math.atan2(Math.sin(n - a), Math.cos(n - a))); if (d < bd) { bd = d; best = n; } }
+  return best;
+}
 function ikiRisu(c, dt, t, P) {
   const m = c.m, T = c.tree, dP = Math.hypot(P.x - c.x, P.z - c.z);
   c.t -= dt;
@@ -22498,17 +22886,19 @@ function ikiRisu(c, dt, t, P) {
     }
   } else {
     // 幹へ寄って、上へ。しばらく枝のつけ根で休んで、人が離れていたら降りる
-    const a = Math.atan2(c.z - T[1], c.x - T[0]), bx = T[0] + Math.cos(a) * T[2], bz = T[1] + Math.sin(a) * T[2];
+    if (c.face === undefined || (c.up < 0.01 && c.st === 'climb' && Math.hypot(c.x - T[0], c.z - T[1]) > 0.3)) c.face = risuFace(T, Math.atan2(c.z - T[1], c.x - T[0])); // 登りはじめに、面を決める
+    const a = c.face, bx = T[0] + Math.cos(a) * T[2], bz = T[1] + Math.sin(a) * T[2];
     const dx = bx - c.x, dz = bz - c.z, d = Math.hypot(dx, dz);
     if (d > 0.05 && c.up < 0.05) { c.x += dx / d * Math.min(d, 3 * dt); c.z += dz / d * Math.min(d, 3 * dt); c.h = Math.atan2(dx, dz); c.y = heightAt(c.x, c.z); }
     else {
       const goal = c.st === 'climb' ? 2.6 : 0; c.up += Math.sign(goal - c.up) * Math.min(Math.abs(goal - c.up), 1.6 * dt);
       c.x = bx; c.z = bz; c.y = heightAt(bx, bz) + c.up; c.h = Math.atan2(T[0] - bx, T[1] - bz);
       if (c.st === 'climb' && c.t < 0 && dP > 5) c.st = 'down';
-      if (c.st === 'down' && c.up <= 0.01) { c.st = 'ground'; c.t = rand(2, 4); c.tx = c.x + Math.cos(a) * 1.5; c.tz = c.z + Math.sin(a) * 1.5; }
+      if (c.st === 'down' && c.up <= 0.01) { c.st = 'ground'; c.t = rand(2, 4); c.tx = c.x + Math.cos(a) * 1.5; c.tz = c.z + Math.sin(a) * 1.5; c.face = undefined; }
+      if (c.up > 2.5) m.head.rotation.y = Math.sin(t * 0.9 + T[0]) > 0.4 ? 0.5 : Math.sin(t * 0.9 + T[0]) < -0.4 ? -0.5 : 0; else m.head.rotation.y = 0; // 上で、ときどき、まわりを見る
     }
   }
-  m.body.rotation.x = c.up > 0.05 && c.up < 2.55 ? -1.2 : 0; // 幹を登る時は、頭を上に
+  m.body.rotation.x = c.up > 0.05 ? -1.2 : 0; // 幹にいる間は、頭を上に（上で休む時も、幹につかまったまま）
   m.tail.rotation.x = Math.sin(t * 3) * 0.12;
   m.root.position.set(c.x, c.y, c.z); m.root.rotation.y = c.h;
 }
@@ -24017,6 +24407,7 @@ function michiStories(n, a) {
   const L = [`${n}は、日曜日の朝、道ばたで倒れていたところを、あなたが見つけました。`,
     'くちばしの先が短いので、卵をとる農場にいた子だろうと、はるこさんは言います。警察に届けて、持ち主が見つかるまで、ここで預かることになりました。',
     quar ? 'はじめの2週間は、ほかの鶏たちと離れた小屋で過ごします。みなみ先生が、日曜日に診に来てくれます。' : 'はじめの2週間は、ほかの鶏たちと離れた小屋で過ごしました。みなみ先生が、日曜日ごとに診に来てくれました。'];
+  if (G && G.flags.michiMet) L.splice(2, 0, `はじめまして。${n}は、おだやかな子。砂浴びと、高い所にとまるのが好きです。くちばしの先が短いので、えさは深めの器に、たっぷり入れてもらっています（みなみ先生から聞いた話）。`); // はじめて会った日（下の michiMeet）
   if (found) L.push(`ひと月ほどたって、持ち主が見つかりました。はるこさんが話して、${n}は、このまま、ここで暮らしていいことになりました。`);
   return L;
 }
@@ -24184,6 +24575,9 @@ UI.extAct = Object.assign(UI.extAct || {}, {
     } else if (v === 'end') UI.back();
     else if (v === 'reread') { M.mode = 'reread'; M.i = 0; UI.openSheet('michi', null, true); }
     else if (v === 'rename') { M.mode = 'rename'; M.i = MICHI_PAGES.length; UI.openSheet('michi', null, true); }
+    else if (v === 'meet-go') michiMeetGo(); // はるこさんの「会いに行く」から
+    else if (v === 'meet-watch') michiMeetWatch();
+    else if (v === 'meet-card') { const a = michiHen(); UI.closeModal(); if (a) UI.openSheet('card', a.id); }
   },
 });
 
@@ -24221,7 +24615,7 @@ function michiDay(first) {
   if (!first && !G.flags.michiOwner && G.turn >= t0 + MICHI.ownerWeeks) {
     G.flags.michiOwner = G.turn;
     a.stories = michiStories(n, a); a.known = a.stories.length;
-    G.overnight.push({ cat: 'news', text: `警察から連絡がありました。${n}の持ち主が見つかったそうです。はるこさんが持ち主の方と話して、${n}は、このまま、ここで暮らしていいことになりました` });
+    G.overnight.push({ cat: 'news', top: true, text: `警察から連絡がありました。${n}の持ち主が見つかったそうです。はるこさんが持ち主の方と話して、${n}は、このまま、ここで暮らしていいことになりました` });
   }
 }
 // みなみ先生の、預かりの間のひと言（ui-world.js の npcDialog から）
@@ -24230,6 +24624,93 @@ function michiVetLine() {
   return G.turn <= (a.michiT || 1) ? `${a.name}は、体は軽いけれど、目はしっかりしています。まずは、ゆっくり食べて、ゆっくり眠ること。それが、いちばんの薬です`
     : `${a.name}、ごはんをよく食べるようになりました。羽も、少しずつ生えてきています。来週には、みんなのいる庭に移れそうです`;
 }
+
+/* ---------- はじめて会う日（2026-11-01、Daiさん。「5つの大きな変更」の2「最初の10分」） ----------
+   一頭が自己紹介し（動物は話さないので、みなみ先生が紹介する）→ 意外なしぐさを1つ（倒れているように見える砂浴び）
+   → できないことを1つ温かく（くちばしの先が短い。だから、えさは深めの器に）→「来週の日曜日は」で終える。
+   前は、はじまりの話のあと、案内に従うと北の鶏の庭へ歩いていき、すぐそばの預かりの柵は背中のうしろになっていた（tools/first10.js の記録）。
+   始まり：柵のすぐそばまで来た時（はじめの2つの案内の間はまだ）・柵の中のその子をタップした時・みなみ先生と話した時・はるこさんの「会いに行く」から。
+   預かりの間（段階1の2週間）に、いちばんはじめの1回だけ。画面に数は出さない。
+   出典：農林水産省 2023（採卵鶏の指針のチェックリスト：羽つつきを防ぐためのビークトリミング）、Prescott & Bonser 2004（処置を受けたくちばしは、薄く広げた粒をつまみにくい） */
+const MEET = { phase: 0, t: 0, spot: [15.6, 44.7] }; // 柵の南（先生のいつもの所のそば）から、北を向いて
+const MEET_SRC = [
+  ['農林水産省「採卵鶏の飼養管理に関する技術的な指針」チェックリスト（2023年）', 'https://www.maff.go.jp/j/chikusan/sinko/attach/pdf/230726-35.pdf'],
+  ['Prescott, N. B. & Bonser, R. H. C. (2004) Beak trimming reduces feeding efficiency of hens. Journal of Applied Poultry Research 13(3)', 'https://doi.org/10.1093/japr/13.3.468'],
+];
+function michiMeetPending() { const a = michiHen(); return !!(a && G && G.mode === 'normal' && !G.flags.michiMet && michiPenOn() && michiQuar(a)); }
+function michiMeetVet() { return ACT.npcs.find((x) => x.d.id === 'minami') || null; }
+// 柵（四角）までの近さ
+function michiPenGap(x, z) { const r = MICHI_PEN.rect, dx = Math.max(r[0] - x, 0, x - r[1]), dz = Math.max(r[2] - z, 0, z - r[3]); return Math.hypot(dx, dz); }
+function michiMeetBusy() { return !$('#sheet').hidden || !$('#modal').hidden || UI.zenOn || UI.rest || !$('#photo-ui').hidden || (typeof OCHA !== 'undefined' && OCHA.on) || (typeof SLSV !== 'undefined' && SLSV.on) || G.dayOver; }
+// 柵の東へ歩いてから（はるこさんの話から）
+function michiMeetGo() {
+  UI.closeModal(); if (!michiMeetPending()) return;
+  const [x, z] = MEET.spot; movePlayerTo(x, z, { kind: 'michimeet', ent: { x, z }, reach: 0.9 });
+}
+// 1. みなみ先生が紹介する
+function michiMeet() {
+  const a = michiHen(), n = michiMeetVet(); if (!a || !michiMeetPending() || MEET.phase) return false;
+  MEET.phase = 1; MEET.turn = G.turn;
+  if (n && Math.hypot(n.x - MICHI_PEN.vet[0], n.z - MICHI_PEN.vet[1]) > 4) n.come = performance.now() + 20000; // 先生も、そばへ
+  michiMeetCam();
+  const who = n ? `<div class="dialog-who"><span class="av bust">${npcBust(n.d)}</span><div><strong>${esc(n.d.name)}</strong><br><span class="muted">${esc(n.d.role)}</span></div></div>` : '';
+  UI.modal(`${who}${chatHtml([`${a.name}、来てくれましたよ`, `${a.name}は、2歳くらい。おだやかな子です。好きなのは、砂浴びと、高い所にとまること`, 'まだ体が軽いので、今日は柵の外から、そっと見ていてあげてください'])}
+    <div class="btn-row"><button class="btn small primary" data-act="michi" data-v="meet-watch">そっと見る</button></div>`);
+  $('#modal-card').classList.add('fluffy'); fleeceOn($('#modal-card'), true); // もこもこの小窓（ui.js の fleeceSvg）
+  return true;
+}
+// 2. 見ていると、その子が横になる（砂浴び）
+function michiMeetWatch() {
+  if (MEET.phase !== 1) return;
+  if (!$('#modal').hidden) UI.closeModal();
+  MEET.phase = 2; MEET.t = performance.now() + 4500;
+  const a = michiHen(), e = a && ACT.animals.find((x) => x.a === a);
+  if (e) { e.state = 'dust'; e.target = null; e.path = null; e.timer = 14; focusAnimal(e, 15000); }
+  michiMeetCam();
+}
+// カメラ：その子を、柵の南から低めに。家が間に入らない向き。下に出る小窓に隠れないように、その子が画面の上のほうに来る所を見る
+function michiMeetCam() {
+  const a = michiHen(), e = a && ACT.animals.find((x) => x.a === a);
+  if (!e) { focusAt(MICHI_PEN.x, MICHI_PEN.z, 11, 60000); return; }
+  camRemember();
+  const narrow = R.camera.aspect < 0.8;
+  CAM.overview = false; CAM.focus = new THREE.Vector3(e.x, heightAt(e.x, e.z) + 0.1, e.z + (narrow ? 1.05 : 0.55));
+  CAM.focusUntil = performance.now() + 60000; CAM.focusBack = true; CAM.focusView = false; CAM.winR = undefined;
+  CAM.tYaw = 0.1; CAM.tDist = narrow ? 3.3 : 3.0; CAM.tPitch = 0.4;
+  camCutIfBig();
+}
+// 3. みなみ先生のひと言：意外なしぐさのわけ、できないこと、来週の日曜日
+function michiMeetTalk() {
+  const a = michiHen(), n = michiMeetVet(); if (!a || !michiMeetPending() || MEET.turn !== G.turn) { MEET.phase = 0; return; }
+  MEET.phase = 3; G.flags.michiMet = G.turn;
+  a.stories = michiStories(a.name, a); a.known = Math.min(a.stories.length, Math.max(a.known || 0, 3)); // 「はじめまして」を、すぐ読めるように
+  const last = G.turn + 1 >= a.quarantine; // 来週には庭へ
+  const who = n ? `<div class="dialog-who"><span class="av bust">${npcBust(n.d)}</span><div><strong>${esc(n.d.name)}</strong><br><span class="muted">${esc(n.d.role)}</span></div></div>` : '';
+  const more = UI.more('<p>採卵の鶏の多くは、ひなのうちに、くちばしの先を切る処置（ビークトリミング）を受けます。たくさんの鶏が近くで暮らす農場で、羽をつつき合ってけがをしないようにするためです。農林水産省の採卵鶏の指針でも、羽つつきを防ぐ方法のひとつとして、できるだけ若いうちに、必要な所だけを取りのぞく、と書かれています。</p><p>処置を受けたくちばしは、上と下がそろわなくなることがあり、薄く広げた粒を、うまくつまめないことがわかっています。</p>', { src: MEET_SRC });
+  UI.modal(`<p class="you">${esc(a.name)}が、体を横にして、じっとしています。</p>${who}${chatHtml([
+    'びっくりしましたか。倒れているように見えるけれど、これは砂浴びです。砂で、羽の汚れやダニを落とします。鶏の、毎日の大切な習慣なんですよ',
+    `${a.name}は、くちばしの先が短いので、小さな粒をつまむのが、少し苦手です。だから、えさは深めの器に、たっぷり入れています。すくうように食べられるように`,
+    last ? '来週の日曜日には、みんなのいる庭に移れそうです。羽も、少しずつ生えてきましたね' : '来週の日曜日も、診に来ますね。そのころには、羽が少し生えているかもしれません'])}${more}
+    <div class="btn-row"><button class="btn small primary" data-act="close-modal">また来週ね</button><button class="btn small" data-act="michi" data-v="meet-card">カードを見る</button></div>`);
+  $('#modal-card').classList.add('fluffy'); fleeceOn($('#modal-card'), true);
+  GAME.save();
+}
+// 会いに歩いている間と、会っている間（はじめの日の「行動」のひとことは、そのあとに。ui-world.js の firstDayTips から）
+function michiMeetOn() { const p = ACT.player.pending; return MEET.phase === 1 || MEET.phase === 2 || !!(p && p.kind === 'michimeet'); }
+// 柵の中のその子をタップした時（ui-world.js の tapAnimal から）
+function michiMeetTap(a) { return !!(a && a.mine && michiMeetPending() && !michiMeetBusy() && michiMeet()); }
+// 0.5秒ごと（ui-world.js から）：柵のそばまで来たら始める。見ている間の続き
+function michiMeetFrame() {
+  if (!STARTED || !G || G.mode !== 'normal') { MEET.phase = 0; return; }
+  if ((MEET.phase === 1 || MEET.phase === 2) && (MEET.turn !== G.turn || !michiMeetPending())) { MEET.phase = 0; return; } // 途中で日が変わった時などは、そっとやめる（会った印はつけない）
+  if (MEET.phase === 1 && $('#modal').hidden) { michiMeetWatch(); return; } // 小窓の外を押して閉じた時も、見るほうへ
+  if (MEET.phase === 2) { if (performance.now() > MEET.t && $('#modal').hidden && $('#sheet').hidden) michiMeetTalk(); return; }
+  if (MEET.phase || !michiMeetPending() || michiMeetBusy()) return;
+  const T = UI.tut, at = T ? UI.tutSteps()[T.i] : null;
+  if (at && (at.k === 'walk' || at.k === 'look')) return; // はじめの2つの案内の間は、まだ
+  const P = ACT.player; if (michiPenGap(P.x, P.z) < 2.2) michiMeet();
+}
+
 /* =========================================================
    日曜の朝の、あなたの体調（2026-10-27、Daiさん）
    ---------------------------------------------------------
@@ -24399,13 +24880,15 @@ function yoruFrame(dt) {
   if (YORU.silOn !== h) { if (YORU.sil.parent) YORU.sil.parent.remove(YORU.sil); h.add(YORU.sil); YORU.silOn = h; }
   YORU.inT += dt; YORU.t += dt;
   // 窓の前を、ときどき行き来する。しばらく部屋の奥へ行って、見えなくなることも
+  // 2026-11-01、Daiさん：ぱっと出て、ぱっと消えるのは不自然。影が見えている時間を長く、出る・消えるも、ゆっくりに。
+  // 部屋の奥へ行くのは、しばらく窓辺で過ごしたあと（1分半から）、ときどきだけ（前は 22% で、入ってすぐにも消えていた）
   if ((YORU.moveT -= dt) <= 0) {
-    YORU.moveT = rand(9, 22);
-    if (Math.random() < 0.22) YORU.awayT = rand(8, 18); else YORU.tx = rand(-0.18, 0.18);
+    YORU.moveT = rand(12, 26);
+    if (YORU.inT > 90 && Math.random() < 0.1) YORU.awayT = rand(6, 12); else YORU.tx = rand(-0.18, 0.18);
   }
   if (YORU.awayT > 0) YORU.awayT -= dt;
-  const want = YORU.n && YORU.inT > 2.5 && SKY.night > 0.3 && YORU.awayT <= 0 ? 1 : 0;
-  YORU.k += (want - YORU.k) * Math.min(1, dt * 0.8);
+  const want = YORU.n && YORU.inT > 3 && YORU.awayT <= 0 ? 1 : 0; // 中にいるのは夜だけ（yoruNight）。空の暗さ（SKY.night）は見ない（試験の画面で、空の計算が遅れても同じに）
+  YORU.k += (want - YORU.k) * Math.min(1, dt * 0.45); // 4〜6秒かけて、灯りの前にあらわれ、また消える
   YORU.x += (YORU.tx - YORU.x) * Math.min(1, dt * 0.25);
   const s = YORU.sil, W0 = YORU_WIN;
   s.visible = YORU.k > 0.01;
@@ -25529,7 +26012,7 @@ function slsvLottieTalk(v) {
   if (v === 'bye') btns = '<button class="btn" data-act="sls-talk" data-v="go-bus">バス停へ</button><button class="btn small" data-act="close-modal">もう少しいる</button>';
   else btns = (v === 'recent' ? ask('recent2', 'ほかには？') : '') + SLS_TALK.filter(([id]) => id !== v && !(v === 'recent2' && id === 'recent')).map(([id, t]) => ask(id, t)).join('')
     + '<button class="btn small ghost" data-act="sls-talk" data-v="card">カードを見る</button><button class="btn small" data-act="close-modal">閉じる</button>';
-  return `<div class="dialog-who"><strong>ロッティさん</strong><span class="pill">Second Life Sanctuary</span></div>
+  return `<div class="dialog-who" data-talk="1"><strong>ロッティさん</strong><span class="pill">Second Life Sanctuary</span></div>
     <p class="real-pre">本当にいる人です</p>
     ${lines.length ? lines.map((t) => `<p class="said">${esc(t)}</p>`).join('') : '<p class="muted">何を聞きますか？</p>'}
     <div class="btn-row">${btns}</div>`;
@@ -26305,8 +26788,8 @@ Object.assign(UI, {
   },
 });
 /* ---------- 眺める（鑑賞のための見方。2026-10-23、Daiさんの依頼） ----------
-   休んでいる時・座っている時に、カメラを好きな所へ動かして、文字を出さずに景色を眺める。「景色だけ」を、もう一歩すすめた形。
-   入り方：休む画面の「眺める」、または右上の重なった紙のボタン（画面の表示）の「眺める」（その場に座ってから）
+   休んでいる時・座っている時に、カメラを好きな所へ動かして、文字を出さずに景色を眺める。前の「景色だけ」も、ここにまとめた（2026-11-01）。
+   入り方：休む画面の「眺める」、または右上の重なった紙のボタン（画面の表示）の「眺める（全画面表示）」（その場に座ってから）
    ・見る所（まんなか）を動かす：スマホは、画面の下のほう（横の画面では左側）をなぞる（歩く時のスティック）か、2本の指でなぞる。
      PC は WASD・矢印キー、右ドラッグ（または Shift を押しながらドラッグ）
    ・見回す：1本の指（ドラッグ）。PC は Q・Z でも。下へ引くと、空を見上げる（いつもと同じ）
@@ -26381,12 +26864,16 @@ Object.assign(UI, {
     $('#hud-menu').addEventListener('click', (e) => { if (e.target.closest('[data-nagame]')) { e.stopPropagation(); UI.hudMenu(false); UI.nagameStart(); } });
     window.addEventListener('pointermove', (e) => { if (CAM.nagame && e.pointerType === 'mouse') UI.nagamePoke(true); }, { passive: true });
   },
-  // 右上の「画面の表示」から：その場に座ってから眺める。もどる時は、立ち上がる
+  // 右上の「画面の表示」の「眺める（全画面表示）」から：その場に座ってから眺める。もどる時は、立ち上がる。
+  // 前の「景色だけ」（全画面で何も出さない）と、ひとつに（2026-11-01、Daiさん：どちらも全画面で眺めるだけで、違いがわかりにくい。カメラは自分で動かせるように）。
+  // 休んでいる時は、そのまま眺める（もどると、休む画面へ）。座れない所（ウェルカムセンターの中など）では、全画面で何も出さずに（カメラは、いつものように動かせる。もどるは右上）
   nagameStart() {
-    if (UI.rest || CAM.nagame || !G) return;
+    if (CAM.nagame || !G) return;
+    if (UI.rest) { if (nagameOk()) UI.nagame(true); return; }
     const zw = UI.zenOn;
     if (!zw) UI.zen(true); // 全画面にする願いは、押したその時に（あとからでは、ブラウザが聞いてくれない）
-    if (!UI.startRest('here')) { if (!zw) UI.zen(false); return; }
+    if (typeof OCHA !== 'undefined' && OCHA.on) return;
+    if (!UI.startRest('here')) return;
     const R0 = UI.rest;
     setTimeout(() => { if (UI.rest === R0 && nagameOk()) UI.nagame(true, { menu: true, ownZen: !zw }); else if (!zw && !CAM.nagame && UI.zenOn && !UI.rest) UI.zen(false); }, 760);
   },
