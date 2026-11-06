@@ -1524,7 +1524,8 @@ select { touch-action: pan-x pan-y; }
 [data-act] { touch-action: pan-x pan-y; }
 /* 拡大されてしまった時の、戻し方の札（見えている所の上に） */
 #zoom-note { position: fixed; left: 0; top: 0; z-index: 50; transform-origin: 0 0; padding: 10px 12px; pointer-events: none; box-sizing: border-box; }
-#zoom-note span { display: block; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); border-radius: var(--r-m); box-shadow: var(--shadow); padding: 10px 14px; font-family: var(--hand); font-size: var(--fs-body); line-height: 1.6; color: var(--ink); }
+#zoom-note span { pointer-events: auto; cursor: pointer; display: block; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); border-radius: var(--r-m); box-shadow: var(--shadow); padding: 10px 14px; font-family: var(--hand); font-size: var(--fs-body); line-height: 1.6; color: var(--ink); }
+#zoom-note small { display: block; margin-top: 4px; font-size: var(--fs-note); color: var(--ink-2); }
 /* 楽器を弾いている間は、すっきり：コードと弦だけ。景色をタップすると、ほかのものが出る */
 @media (max-width: 720px), (orientation: landscape) and (max-height: 540px) { #chord-grid button { height: 38px; } }
 @media (prefers-reduced-motion: reduce) { #music-ui .music-top, #music-ui #music-opts, #rest-ui.music .rest-top, #rest-ui.music .rest-bottom { transition: none; } }
@@ -2204,7 +2205,8 @@ const PATHS = {
   4: [ { pts: [[0, -31], [0, -46]], w: 2.2, kind: 'gravel' },
        { pts: [[0, -44], [14, -46], [30, -45], [38, -46]], w: 1.5, kind: 'dirt' },
        { pts: [[0, -44], [-16, -46], [-34, -44]], w: 1.5, kind: 'dirt' } ],
-  5: [ { pts: [[-44, 47], [-47.4, 38], [-47.4, -40], [-40, -52], [0, -52], [40, -52], [47.4, -40], [47.4, -14]], w: 1.5, kind: 'dirt' },
+  5: [ { pts: [[-44, 47], [-47.1, 38], [-47.1, 15.6], [-45.9, 13.6], [-45.8, 10.6], [-48.1, -10.4], [-48.1, -12.8], [-47.2, -15], [-47.2, -40], [-40, -52], // 牛の庭の南と北の扉を通る（2026-11-06）
+              [0, -52], [40, -52], [47.4, -40], [47.4, -14]], w: 1.5, kind: 'dirt' },
        { pts: [[0, 46.8], [30.6, 46.8]], w: 1.6, kind: 'gravel' } ], // 南東の角は駐車場（柵の外）
 };
 
@@ -2293,9 +2295,9 @@ const CATALOG = {
        policy: { id: 'learning_hall', name: '見学の広間', x: -31, z: 41 }, // 0.9.49：「学びの館」から。学校や団体の見学の人が集まる広間
        corp:   { id: 'cafe', name: 'カフェ', x: 38.6, z: 34.2 }, // 0.9.78：はるにれの木と重なっていたので、駐車場の北へ
        nature: { id: 'bird_hide', name: '森、湿地、野鳥の観察小屋', x: 40, z: -45.2 } },
-  5: { donate: { id: 'winter_barn', name: '広い冬の過ごし場', x: -50.2, z: -24 },
+  5: { donate: { id: 'winter_barn', name: '広い冬の過ごし場', x: -51.25, z: -24 }, // 2026-11-06：西へ。丘のはじの通路（x -48.2〜-46）をあける
        help:   { id: 'mural', name: 'みんなで作った大きな壁画', x: -20, z: 46.4 },
-       policy: { id: 'disaster_base', name: '地域の防災拠点', x: -50.2, z: 15.7 },
+       policy: { id: 'disaster_base', name: '地域の防災拠点', x: -50.6, z: 15.7 }, // 2026-11-06：少し西へ。丘のはじの通路をあける（西の柵からははみ出さない）
        corp:   { id: 'lodge', name: '滞在できる宿', x: 51, z: -35.5 },
        nature: { id: 'wildlife_path', name: '野生動物の通り道がつながる', x: -40, z: -52 } },
 };
@@ -2958,10 +2960,10 @@ const PROJECTS = [
   { id: 'prep_rabbit', kind: 'prep', sp: 'rabbit', stage: 3, weeks: 3, name: 'ウサギの放し飼いの場', desc: '穴を掘って逃げないように、地面の下に金網を敷きます。カラスやネコよけの屋根も。', items: [['地中の金網と土入れ', 180000], ['屋根と柵', 120000], ['隠れ家', 50000]] },
   { id: 'prep_horse', kind: 'prep', sp: 'horse', stage: 4, weeks: 5, campStep: 900000, name: '広い放牧場と馬房', desc: '走れる広さと、ひとりずつ休める馬房。柵は高く、角のない形にします。', items: [['放牧場の整地と種まき', 800000], ['高い柵', 900000], ['馬房', 1200000], ['水場と排水', 300000]] },
   // 土地の整備（いつでも。預金の1年分を超えた分などで）
-  { id: 'land_hygiene', kind: 'land', stage: 2, weeks: 2, name: '衛生管理の入口を作る', desc: '入口に消毒槽、専用の長靴、手洗い場、立ち入りの記録帳。病気を持ち込まない仕組みです。', items: [['消毒槽と踏み込み槽', 60000], ['手洗い場', 120000], ['専用の長靴と作業着', 50000], ['立ち入りの記録帳と案内板', 20000]], effect: 'ケアの質 ＋6', card: 'biosecurity' },
-  { id: 'land_shade', kind: 'land', stage: 2, weeks: 3, name: '木を間引いて、日陰の林を作る', desc: '混みすぎた木を間引き、夏に涼める林にします。切った木はベンチや柵に使います。', items: [['間伐と枝打ち', 300000], ['切った木の運び出し', 100000], ['下草の手入れ', 50000]], effect: '自然の豊かさ ＋3・夏の穏やかさ' },
-  { id: 'land_biotope', kind: 'land', stage: 3, weeks: 5, name: 'ビオトープの池を作る', desc: 'カエルやトンボが暮らせる浅い池。動物の水場とは分けて作ります。', items: [['掘削と粘土の底', 600000], ['水草と石', 250000], ['周りの植栽', 200000], ['観察デッキ', 150000]], effect: '自然の豊かさ ＋6' },
-  { id: 'land_drain', kind: 'land', stage: 3, weeks: 5, name: '牧道と排水を整える', desc: '雨の後もぬかるまない道。ひづめの病気を防ぎ、世話の時間も短くなります。', items: [['砂利と砕石', 500000], ['排水管と側溝', 500000], ['路盤の整地', 200000]], effect: 'ケアの質 ＋4' },
+  { id: 'land_hygiene', kind: 'land', stage: 2, weeks: 2, name: '衛生管理の入口を作る', desc: '入口に消毒槽、専用の長靴、手洗い場、立ち入りの記録帳。病気を持ち込まない仕組みです。', items: [['消毒槽と踏み込み槽', 60000], ['手洗い場', 120000], ['専用の長靴と作業着', 50000], ['立ち入りの記録帳と案内板', 20000]], effect: 'ケアの質が上がります', card: 'biosecurity' },
+  { id: 'land_shade', kind: 'land', stage: 2, weeks: 3, name: '木を間引いて、日陰の林を作る', desc: '混みすぎた木を間引き、夏に涼める林にします。切った木はベンチや柵に使います。', items: [['間伐と枝打ち', 300000], ['切った木の運び出し', 100000], ['下草の手入れ', 50000]], effect: '自然が豊かになり、夏も涼しく過ごせます' },
+  { id: 'land_biotope', kind: 'land', stage: 3, weeks: 5, name: 'ビオトープの池を作る', desc: 'カエルやトンボが暮らせる浅い池。動物の水場とは分けて作ります。', items: [['掘削と粘土の底', 600000], ['水草と石', 250000], ['周りの植栽', 200000], ['観察デッキ', 150000]], effect: '自然が豊かになります' },
+  { id: 'land_drain', kind: 'land', stage: 3, weeks: 5, name: '牧道と排水を整える', desc: '雨の後もぬかるまない道。ひづめの病気を防ぎ、世話の時間も短くなります。', items: [['砂利と砕石', 500000], ['排水管と側溝', 500000], ['路盤の整地', 200000]], effect: 'ケアの質が上がります' },
   // 修繕（できごとで必要になる）
   { id: 'repair_roof', kind: 'repair', stage: 1, weeks: 1, name: '小屋の屋根を直す', desc: '強い風で、小屋の屋根の一部がはがれました。', items: [['屋根材', 80000], ['大工さんの手間', 100000]] },
   { id: 'repair_fence', kind: 'repair', stage: 1, weeks: 1, name: '倒れた柵を直す', desc: '大雨で地面がゆるみ、柵が何か所か傾きました。', items: [['柱と線の交換', 70000], ['手間', 50000]] },
@@ -3377,7 +3379,7 @@ const QUESTS = []; // 今日のクエストの入れ物（2026-10-23。中身は
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.91', label: 'ベータテスト版', date: '2026年11月',
+  version: '0.9.92', label: 'ベータテスト版', date: '2026年11月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -3385,6 +3387,7 @@ const APP = {
   try: ['毎日少しだけ開いてみる（日付が変わると、今日できることが4つに戻ります。日曜だけでも遊べます）', '「はじめから」で、はじまりの話から始めてみる（見つけた鶏に名前をつけ、庭へ移るまで、会いに行く）', '「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', 'スマホを横にして遊んでみる（左の親指でなぞって歩き、右の親指で見回す）', '週に一度の朝の「今朝のあなたは？」に答えて、休むと、まわりがどう見えてくるかを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（人によって、間があきます。アルバイトさんは週末に。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った日の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'Second Life Sanctuary へ出かけて、ロッティさんと話してみる（門の外のバス停から）', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.92', '2026年11月7日', 'スマホで、拡大していないのに「画面が拡大されています」の札が出たまま消えないことがあったのを直しました（札は、押すと閉じられます）。工事が終わった時の知らせに出ていた数字を、言葉だけにしました。隣の牧草地を借りて牛の庭が広がった時も、丘のはじの通路を行き来できるよう、牛の庭の北と南の柵に扉をつけました。「広い冬の過ごし場」と「地域の防災拠点」も少し西へ寄せて、通路と小道をあけました。豚たちが柵のそばで引っかかって、なかなか外へ出られないことがあったのを直しました。馬・ヤギ・ロバ・ヒツジの顔に、目や鼻を足して、親しみやすい作りにしました（白いヒツジは、クリーム色のやさしい顔に）。'],
     ['0.9.91', '2026年11月6日', 'はるにれの丘が、現実の暦で進むようになりました。日付も季節も外と同じで、「今日はここまで」はなくなり、日付が変わると、今日できることが4つに戻ります。毎日少しずつでも、日曜だけでも遊べます。これまでの続きは、そのまま開けます。ほかの動物を迎える時も、牛と同じように看板から手伝いながら準備します。重機が入り、水が流れ、柵が少しずつ立っていきます。はじめての牛は、小さな場所ができたら迎えに行けます。検疫は1週間に。預かれる数には限りがあり、放っておいた相談は、今回は見送ったことになります。同じ種の子が検疫中は、その種の相談は来ません。日曜の見学の日にも、動物たちが人を避けて静かに過ごせる場所を作りました。動物たちは年を重ね、いつか見送る時が来ます（設定で切れます）。東のはずれに、思い出の墓地ができました。働く人の話は人によって間があくようになり、アルバイトさんは週末に来ます。動物たちが柵の外やほかの区画までよく歩くようになり、豚は水浴びと泥遊びをします。今日のクエストに、種ごとのしぐさを足しました。'],
     ['0.9.90', '2026年11月2日', 'はじめての日曜日、預かりの柵で、あなたが見つけた子と会えるようになりました。みなみ先生が、その子のことを教えてくれます。はじめの案内は、画面のまんなかに、もこもこの吹き出しで出ます。人と話す時は、言葉が4〜5行ずつの吹き出しになり、押すと次へ進みます。カメラは、上から見下ろす形になりにくく、頭の後ろから、ゆるい角度で遠くまで見わたせるように。受け入れの相談は、動物の画面のいちばん上に出て、迎えるために何をすればいいか、ひと目でわかります。メニューは「行動」から始まる並びに。選んだボタンは少し大きく、押すと小さな波が広がります。右上の「画面の表示」で全画面にするのは、「眺める（全画面表示）」ひとつにまとめました。秋の感謝祭の干し草が鶏の庭の入口をふさがないように、木に登ったリスが幹につかまって見えるように、夜の窓に映るみなみ先生の影が、ゆっくりあらわれて長く見えるようにしました。'],
     ['0.9.89', '2026年10月31日', 'Second Life Sanctuary で、ロッティさんと話せるようになりました。ここで暮らす動物たちのことや、最近の出来事を、話してくれます。雨や雪の日は、ロッジの窓から声をかけてくれます。羊のミミは、ときどき自分からあなたのそばへ来るように。鶏の2羽の名前を、団体の日本語のページと同じ「バタ子」と「しずか」にしました。はじまりの話の白い鶏の、はじめの名前は「おもち」になりました'],
@@ -7410,10 +7413,19 @@ function stickDraw() {
 //   ・もし拡大されてしまったら、止めるのをやめて（つまんで縮めたり、ダブルタップで戻したりできるように）、案内の札を出す。
 //     自分の窓で開いている時は、元の大きさに戻すことも試みる
 //   Safari の「ぁあ」の文字の大きさ（ページの拡大）は、そのまま使える
-const ZOOM = { starts: new Map(), multi: false, synth: null, synthT: 0, noteTimer: 0, lastEnd: 0, x: 0, y: 0, downs: 0, timer: 0, resetting: false, note: null };
+const ZOOM = { starts: new Map(), multi: false, synth: null, synthT: 0, noteTimer: 0, shut: 0, lastEnd: 0, x: 0, y: 0, downs: 0, timer: 0, resetting: false, note: null };
 const ZOOM_NATIVE = '#sheet-body, .modal-card, #start, .tabs, .filters, input, textarea, select, [contenteditable], .zoom-native';
 const ZOOM_NOCLICK = '#gl, #string-pad, #chord-grid, #labels';
-const zoomed = () => !!(window.visualViewport && window.visualViewport.scale > 1.01);
+// 拡大の度合い（2026-11-06）：visualViewport.scale だけに頼らない。iPhone の Safari では、拡大していない時も
+// scale が 1 より大きく出ることがある（「ぁあ」のページの大きさなど。WebKit bug 275260 も同じ種類のずれ）。
+// その時、札が出たまま消えず、ゲームの画面でのピンチやダブルタップも止まらなかった（ページが拡大される）。
+// ページの幅と見えている幅の比べ（clientWidth / visualViewport.width）と scale の、小さいほうを使う（ピンチで拡大すると、どちらも大きくなる）
+function zoomK() {
+  const vv = window.visualViewport; if (!vv || !(vv.scale > 0)) return 1;
+  const lw = (document.documentElement && document.documentElement.clientWidth) || window.innerWidth || 0;
+  return vv.width > 0 && lw > 0 ? Math.min(vv.scale, lw / vv.width) : vv.scale;
+}
+const zoomed = () => zoomK() > 1.02;
 function zoomClick(el, x, y) {
   if (!el || (el.closest && el.closest(ZOOM_NOCLICK))) return;
   const b = el.closest && el.closest('button, a[href], label, summary');
@@ -7480,8 +7492,8 @@ function zoomGuard() {
   const count = (e) => { ZOOM.downs = e.touches ? e.touches.length : 0; check(); };
   const check = () => {
     clearTimeout(ZOOM.timer);
-    if (vv.scale <= 1.02 || ZOOM.resetting) return;
-    ZOOM.timer = setTimeout(() => { if (!ZOOM.downs && vv.scale > 1.02) zoomReset(meta, base); }, 450);
+    if (!zoomed() || ZOOM.resetting) return;
+    ZOOM.timer = setTimeout(() => { if (!ZOOM.downs && zoomed()) zoomReset(meta, base); }, 450);
   };
   addEventListener('touchstart', count, { passive: true });
   addEventListener('touchend', count, { passive: true });
@@ -7494,22 +7506,26 @@ function zoomReset(meta, base) {
   window.scrollTo(0, 0);
   setTimeout(() => { meta.setAttribute('content', base); ZOOM.resetting = false; zoomNote(); }, 500);
 }
-// 拡大されている間だけ、見えている所の上に、戻し方の札を出す
+// 拡大されている間だけ、見えている所の上に、戻し方の札を出す。札は押すと閉じる（もっと拡大した時と、一度戻ったあとは、また出す）
 function zoomNote() {
   const vv = window.visualViewport; if (!vv) return;
   let n = ZOOM.note;
-  if (!zoomed()) { if (n) n.hidden = true; return; }
+  const z = zoomK();
+  if (z <= 1.02) { ZOOM.shut = 0; if (n) n.hidden = true; return; }
+  if (ZOOM.shut && z < ZOOM.shut * 1.25) { if (n) n.hidden = true; return; }
+  ZOOM.shut = 0;
   if (!n) {
     n = ZOOM.note = document.createElement('div');
     n.id = 'zoom-note'; n.setAttribute('role', 'status');
-    n.innerHTML = '<span>画面が拡大されています。2本の指でつまむように縮めるか、ダブルタップすると、元の大きさに戻ります</span>';
+    n.innerHTML = '<span>画面が拡大されています。2本の指でつまむように縮めるか、ダブルタップすると、元の大きさに戻ります<small>この札は、押すと閉じます</small></span>';
+    n.addEventListener('click', () => { ZOOM.shut = zoomK(); n.hidden = true; });
     document.body.appendChild(n);
   }
   n.hidden = false;
   if (!ZOOM.noteTimer) ZOOM.noteTimer = setInterval(() => { zoomNote(); if (!zoomed()) { clearInterval(ZOOM.noteTimer); ZOOM.noteTimer = 0; } }, 1000);
-  const k = 1 / vv.scale;
-  n.style.width = Math.round(vv.width * vv.scale) + 'px';
-  n.style.transform = `translate(${vv.offsetLeft}px, ${vv.offsetTop}px) scale(${k})`;
+  // 見えている所の幅にそろえて、文字はふだんの大きさに（ページの幅 = 見えている幅 × 拡大の度合い）
+  n.style.width = Math.round(vv.width * z) + 'px';
+  n.style.transform = `translate(${vv.offsetLeft}px, ${vv.offsetTop}px) scale(${1 / z})`;
 }
 function initInput(canvas, onTap) {
   INPUT.onTap = onTap;
@@ -8960,10 +8976,11 @@ function modelWarmRoom() {
   part('box', '#8A8278', 0.4, 1.2, 0.4, 1.4, 4, -0.8, g);
   return g;
 }
+// 奥行きは 5.8m（2026-11-06：7m だと、丘のはじの通路と大きな戸の前がふさがった）
 function modelWinterBarn() {
-  const g = gable({ w: 10, d: 7, h: 3.6, rh: 3, wall: '#8E5A48', roof: '#3E4A52', trim: '#EDE9DF' });
+  const g = gable({ w: 10, d: 5.8, h: 3.6, rh: 3, wall: '#8E5A48', roof: '#3E4A52', trim: '#EDE9DF' });
   for (const z of [-2, 0, 2]) windowAt(g, 5.02, 2.4, z, 0.8, 0.7, Math.PI / 2);
-  doorAt(g, 0, 3.52, 3, 3, '#6E4436');
+  doorAt(g, 0, 2.92, 3, 3, '#6E4436');
   return g;
 }
 function modelLodge() {
@@ -9556,21 +9573,53 @@ function modelAnimal(sp, color, opt) {
     part('box', c.body, 0.08, 0.75, 0.08, 0, -0.35, -0.02, a.tail); part('box', '#3A3230', 0.14, 0.22, 0.14, 0, -0.78, -0.02, a.tail);
     a.scale = 1;
   } else if (sp === 'goat') {
-    const b = AC.goat[color] || AC.goat.white;
+    // 2026-11-06（Daiさん：もう少し温かみのある作りに）：首と顔を分けて、顔は少し下向きに。横長の瞳の琥珀色の目、鼻と口、たれぎみの耳
+    const b = AC.goat[color] || AC.goat.white, brown = color === 'brown';
     a = quadBase({ L: 1.05, W: 0.48, H: 0.55, legH: 0.6, legW: 0.13, body: b, leg: b, hoof: '#4A3E34', neckUp: 0.5 });
-    part('box', b, 0.3, 0.34, 0.5, 0, 0.12, 0.18, a.head);
-    part('box', '#E9C8B8', 0.24, 0.16, 0.12, 0, 0.02, 0.44, a.head);
-    for (const s of [-1, 1]) { part('box', b, 0.26, 0.07, 0.1, s * 0.25, 0.2, 0.1, a.head); const h = part('cone', '#C9B79A', 0.08, 0.34, 0.08, s * 0.09, 0.42, 0.02, a.head); h.rotation.x = -0.6; }
-    part('cone', '#D9D2C2', 0.1, 0.28, 0.1, 0, -0.14, 0.34, a.head).rotation.x = Math.PI;
+    part('box', b, 0.22, 0.36, 0.24, 0, 0.02, 0.02, a.head).rotation.x = 0.3;
+    const hd = new THREE.Group(); hd.position.set(0, 0.2, 0.12); hd.rotation.x = 0.35; a.head.add(hd);
+    part('box', b, 0.28, 0.28, 0.3, 0, 0, 0.08, hd);
+    part('box', brown ? '#C9A27E' : '#EFE6DA', 0.2, 0.2, 0.22, 0, -0.05, 0.3, hd);
+    part('box', brown ? '#7A5A44' : '#E8CFC6', 0.08, 0.045, 0.012, 0, 0.012, 0.412, hd, { noShadow: true });
+    for (const s of [-1, 1]) part('box', brown ? '#3A2A20' : '#9A6A62', 0.018, 0.026, 0.01, s * 0.032, 0.008, 0.42, hd, { noShadow: true });
+    part('box', brown ? '#5A4232' : '#B09484', 0.08, 0.012, 0.01, 0, -0.105, 0.412, hd, { noShadow: true });
+    a.eyes = [];
+    for (const s of [-1, 1]) {
+      a.eyes.push(part('box', '#D39A36', 0.012, 0.062, 0.072, s * 0.142, 0.05, 0.12, hd, { noShadow: true }));
+      a.eyes.push(part('box', '#2A1E16', 0.016, 0.018, 0.058, s * 0.144, 0.05, 0.12, hd, { noShadow: true }));
+      a.eyes.push(part('box', '#FFFDF6', 0.018, 0.014, 0.014, s * 0.145, 0.066, 0.138, hd, { noShadow: true }));
+      part('box', b, 0.014, 0.018, 0.09, s * 0.143, 0.088, 0.12, hd, { noShadow: true }); // まぶた
+      const e = part('box', b, 0.18, 0.045, 0.09, s * 0.19, 0.05, 0.02, hd); e.rotation.z = -s * 0.65;
+      const h = part('cone', '#C9B79A', 0.07, 0.26, 0.07, s * 0.07, 0.2, -0.02, hd); h.rotation.x = -0.75;
+    }
+    part('cone', brown ? '#4A3626' : '#E2DBCC', 0.08, 0.2, 0.08, 0, -0.2, 0.28, hd).rotation.x = Math.PI;
+    if (brown) part('box', '#6A4630', 0.1, 0.02, 0.95, 0, a.bodyY + 0.28, 0, a.rig, { noShadow: true }); // 背中の濃い線
     part('box', b, 0.08, 0.2, 0.08, 0, 0.1, -0.02, a.tail).rotation.x = -0.5;
   } else if (sp === 'sheep') {
-    const wcol = AC.sheep[color] || AC.sheep.white;
-    a = quadBase({ L: 1.15, W: 0.85, H: 0.72, legH: 0.48, legW: 0.13, body: wcol, leg: '#3B3632', noBody: true, neckUp: 0.2 });
+    // 2026-11-07（Daiさん：馬・ヤギと同じように）：白い子は、顔と脚もクリーム色のやさしい顔（コリデールのような）。
+    // 灰色の子は、黒い顔（サフォークのような）で、横長の瞳の琥珀色の目。どちらも目（光つき）・鼻・口・内側が桃色の耳・首まわりの毛
+    const wcol = AC.sheep[color] || AC.sheep.white, dark = color === 'grey';
+    const F = dark ? { face: '#3E3530', muz: '#4C423C', nose: '#5E524C', nos: '#241E1C', mouth: '#241E1C', earIn: '#8E6E66', leg: '#3B3632' }
+      : { face: '#DDD0BC', muz: '#E6DACA', nose: '#D9A8A0', nos: '#9A6A62', mouth: '#A08474', earIn: '#E2B4AA', leg: '#D6CBB9' };
+    a = quadBase({ L: 1.15, W: 0.85, H: 0.72, legH: 0.48, legW: 0.13, body: wcol, leg: F.leg, hoof: '#4A3E34', noBody: true, neckUp: 0.2 });
     const woolM = mat(wcol);
     for (let i = 0; i < 8; i++) { const m = new THREE.Mesh(G3.ico, woolM); m.scale.setScalar(0.62 + hash2(i, 2) * 0.12); m.position.set((i % 2 ? 0.2 : -0.2), a.bodyY + (i % 3 - 1) * 0.12 + 0.05, -0.42 + Math.floor(i / 2) * 0.28); m.castShadow = true; a.rig.add(m); }
-    part('box', '#3B3632', 0.32, 0.36, 0.44, 0, 0, 0.22, a.head);
-    part('ico', wcol, 0.34, 0.24, 0.3, 0, 0.2, 0.1, a.head);
-    for (const s of [-1, 1]) part('box', '#3B3632', 0.24, 0.07, 0.1, s * 0.22, 0.06, 0.12, a.head);
+    part('ico', wcol, 0.44, 0.42, 0.34, 0, a.bodyY + 0.12, 0.5, a.rig); // 首まわりの毛（頭と体をつなぐ）
+    const hd = new THREE.Group(); hd.position.set(0, 0.02, 0.08); hd.rotation.x = 0.3; a.head.add(hd);
+    part('box', F.face, 0.3, 0.32, 0.34, 0, 0, 0.16, hd);
+    part('box', F.muz, 0.24, 0.22, 0.18, 0, -0.06, 0.38, hd);
+    part('box', F.nose, 0.1, 0.05, 0.012, 0, -0.01, 0.476, hd, { noShadow: true });
+    for (const s of [-1, 1]) part('box', F.nos, 0.02, 0.022, 0.01, s * 0.03, -0.015, 0.483, hd, { noShadow: true });
+    part('box', F.mouth, 0.08, 0.012, 0.01, 0, -0.12, 0.476, hd, { noShadow: true });
+    a.eyes = [];
+    for (const s of [-1, 1]) {
+      if (dark) { a.eyes.push(part('box', '#B8863A', 0.012, 0.062, 0.072, s * 0.152, 0.05, 0.22, hd, { noShadow: true })); a.eyes.push(part('box', '#1E1816', 0.016, 0.018, 0.058, s * 0.154, 0.05, 0.22, hd, { noShadow: true })); }
+      else a.eyes.push(part('box', '#2A1E16', 0.014, 0.07, 0.075, s * 0.152, 0.05, 0.22, hd, { noShadow: true }));
+      a.eyes.push(part('box', '#FFFDF6', 0.018, 0.018, 0.018, s * 0.155, 0.068, 0.24, hd, { noShadow: true }));
+      const eg = new THREE.Group(); eg.position.set(s * 0.2, 0.06, 0.1); eg.rotation.z = -s * 0.35; hd.add(eg);
+      part('box', F.face, 0.22, 0.06, 0.11, 0, 0, 0, eg); part('box', F.earIn, 0.15, 0.012, 0.06, s * 0.01, 0.031, 0, eg, { noShadow: true });
+    }
+    part('ico', wcol, 0.34, 0.22, 0.28, 0, 0.19, 0.1, hd); // 頭の上の毛
     part('ico', wcol, 0.22, 0.22, 0.22, 0, 0, -0.05, a.tail);
   } else if (sp === 'pig') {
     const b = AC.pig[color] || AC.pig.pink;
@@ -9588,22 +9637,59 @@ function modelAnimal(sp, color, opt) {
     mudP(0.24, 0.1, 0.12, 0, -0.14, 0.44, a.head); // 鼻のまわり
     a.legs.forEach((l) => { const q = part('box', mudC, 0.175, 0.14, 0.175, 0, -0.23, 0, l); q.visible = false; a.mudParts.unshift(q); }); // 足もと（いちばん長く残る）
   } else if (sp === 'donkey') {
-    const b = AC.donkey[color] || AC.donkey.grey;
+    // 2026-11-07（Daiさん：馬・ヤギと同じように）：顔を首から分けて、少し下向きに。白っぽい鼻先と目のまわり（ロバらしい）、
+    // 目（光つき）・鼻の穴・口、先の黒い長い耳（内側は白っぽく）、背中の線。灰色の子は、肩の十字の線も
+    const b = AC.donkey[color] || AC.donkey.grey, grey = color !== 'brown', pale = grey ? '#E6DED2' : '#E2D4C2', stripe = grey ? '#5E5852' : '#4E3A2C';
     a = quadBase({ L: 1.35, W: 0.6, H: 0.72, legH: 0.78, legW: 0.15, body: b, leg: b, hoof: '#3A3230', neckUp: 0.45 });
     const nk = part('box', b, 0.3, 0.6, 0.35, 0, 0.1, 0.05, a.head); nk.rotation.x = 0.5;
-    part('box', b, 0.34, 0.38, 0.62, 0, 0.36, 0.34, a.head);
-    part('box', '#E6DED2', 0.32, 0.3, 0.2, 0, 0.3, 0.66, a.head);
-    for (const s of [-1, 1]) { const e = part('box', b, 0.1, 0.55, 0.16, s * 0.12, 0.78, 0.18, a.head); e.rotation.z = s * 0.2; }
     part('box', '#3E3630', 0.08, 0.5, 0.36, 0, 0.3, -0.05, a.head).rotation.x = 0.5;
+    const hd = new THREE.Group(); hd.position.set(0, 0.4, 0.2); hd.rotation.x = 0.5; a.head.add(hd);
+    part('box', b, 0.32, 0.34, 0.4, 0, 0, 0.16, hd);
+    part('box', b, 0.28, 0.18, 0.26, 0, -0.14, 0.12, hd); // ほお
+    part('box', pale, 0.27, 0.26, 0.32, 0, -0.05, 0.48, hd);
+    for (const s of [-1, 1]) part('box', '#4A4440', 0.05, 0.045, 0.012, s * 0.065, 0, 0.645, hd, { noShadow: true });
+    part('box', '#9A928A', 0.12, 0.012, 0.01, 0, -0.13, 0.645, hd, { noShadow: true });
+    a.eyes = [];
+    for (const s of [-1, 1]) {
+      part('box', pale, 0.012, 0.12, 0.13, s * 0.161, 0.05, 0.2, hd, { noShadow: true }); // 目のまわりの白
+      a.eyes.push(part('box', '#2E2018', 0.016, 0.085, 0.095, s * 0.166, 0.05, 0.2, hd, { noShadow: true }));
+      a.eyes.push(part('box', '#FFFDF6', 0.02, 0.024, 0.024, s * 0.169, 0.07, 0.225, hd, { noShadow: true }));
+      const eg = new THREE.Group(); eg.position.set(s * 0.11, 0.16, 0.02); eg.rotation.set(-0.45, 0, -s * 0.2); hd.add(eg);
+      part('box', b, 0.1, 0.5, 0.15, 0, 0.25, 0, eg); part('box', '#3E3630', 0.104, 0.1, 0.154, 0, 0.47, 0, eg);
+      part('box', pale, 0.06, 0.3, 0.012, 0, 0.22, 0.077, eg, { noShadow: true }); // 耳の内側
+    }
+    part('box', '#3E3630', 0.12, 0.06, 0.12, 0, 0.18, 0.06, hd).rotation.x = 0.3; // 前髪
+    part('box', stripe, 0.07, 0.02, 1.3, 0, a.bodyY + 0.36, 0, a.rig, { noShadow: true }); // 背中の線
+    if (grey) part('box', stripe, 0.62, 0.02, 0.07, 0, a.bodyY + 0.362, 0.36, a.rig, { noShadow: true }); // 肩の十字
     part('box', b, 0.08, 0.6, 0.08, 0, -0.3, -0.02, a.tail); part('box', '#3E3630', 0.14, 0.2, 0.14, 0, -0.65, -0.02, a.tail);
   } else if (sp === 'horse') {
-    const b = AC.horse[color] || AC.horse.brown, mane = color === 'grey' ? '#9A948C' : '#3A2A20';
+    // 2026-11-06（Daiさん：もう少し温かみのある作りに）：顔を首から分けて、少し下向きに。目（光つき）、鼻の穴、前髪。
+    // 茶の子は、額の星と鼻すじの白（流星）と、後ろ足の白い靴下。芦毛（grey）の子は、鼻先が濃く、おしりに薄い斑
+    const grey = color === 'grey', b = AC.horse[color] || AC.horse.brown, mane = grey ? '#9A948C' : '#3A2A20';
     a = quadBase({ L: 1.85, W: 0.7, H: 0.86, legH: 1.05, legW: 0.17, body: b, leg: b, hoof: '#2E2824', neckUp: 0.5 });
     const nk = part('box', b, 0.36, 0.95, 0.44, 0, 0.3, 0.1, a.head); nk.rotation.x = 0.55;
-    part('box', b, 0.36, 0.4, 0.8, 0, 0.72, 0.5, a.head);
     part('box', mane, 0.1, 1, 0.3, 0, 0.45, -0.02, a.head).rotation.x = 0.55;
-    for (const s of [-1, 1]) part('cone4', b, 0.12, 0.26, 0.1, s * 0.12, 1.02, 0.25, a.head);
-    part('box', mane, 0.14, 0.9, 0.14, 0, -0.45, -0.1, a.tail).rotation.x = 0.25;
+    const hd = new THREE.Group(); hd.position.set(0, 0.74, 0.34); hd.rotation.x = 0.6; a.head.add(hd);
+    part('box', b, 0.34, 0.36, 0.46, 0, -0.02, 0.18, hd);
+    part('box', b, 0.3, 0.2, 0.28, 0, -0.17, 0.14, hd); // ほお
+    part('box', grey ? '#8E8A84' : '#6A4430', 0.27, 0.27, 0.4, 0, -0.07, 0.56, hd);
+    for (const s of [-1, 1]) part('box', grey ? '#4A4440' : '#2A1E16', 0.055, 0.045, 0.012, s * 0.072, -0.02, 0.765, hd, { noShadow: true });
+    a.eyes = [];
+    for (const s of [-1, 1]) {
+      a.eyes.push(part('box', '#2E2018', 0.016, 0.095, 0.105, s * 0.172, 0.04, 0.24, hd, { noShadow: true }));
+      a.eyes.push(part('box', '#FFFDF6', 0.02, 0.026, 0.026, s * 0.175, 0.064, 0.268, hd, { noShadow: true }));
+      const e = part('cone4', b, 0.1, 0.24, 0.08, s * 0.1, 0.25, 0.02, hd); e.rotation.x = -0.45; e.rotation.z = -s * 0.15;
+    }
+    part('box', mane, 0.14, 0.07, 0.18, 0, 0.18, 0.08, hd).rotation.x = 0.3; // 前髪
+    if (!grey) {
+      part('box', '#F2EEE6', 0.1, 0.012, 0.12, 0, 0.165, 0.26, hd, { noShadow: true }); // 額の星
+      part('box', '#F2EEE6', 0.07, 0.012, 0.36, 0, 0.069, 0.56, hd, { noShadow: true }); // 鼻すじの白
+      for (const l of a.legs.slice(2)) part('box', '#F2EEE6', 0.18, 0.24, 0.18, 0, -1.05 + 0.22, 0, l); // 後ろ足の白い靴下
+    } else {
+      for (const s of [-1, 1]) for (const [y, z, r] of [[0.1, -0.5, 0.14], [-0.12, -0.62, 0.12], [0.16, -0.75, 0.1], [-0.05, -0.32, 0.1]]) part('sph', '#C6C1B7', 0.02, r, r, s * 0.352, a.bodyY + y, z, a.rig, { noShadow: true });
+    }
+    part('box', mane, 0.12, 0.32, 0.12, 0, -0.14, -0.06, a.tail).rotation.x = 0.25;
+    part('box', mane, 0.2, 0.62, 0.16, 0, -0.6, -0.16, a.tail).rotation.x = 0.2;
   } else if (sp === 'rabbit') {
     const b = AC.rabbit[color] || AC.rabbit.white;
     const root = new THREE.Group(), rig = new THREE.Group(); root.add(rig);
@@ -10234,11 +10320,18 @@ function drawPortrait(sp, color, seed, opt) {
     legs([cx - 12, cx - 4, cx + 6, cx + 14], cy + 26, cy + 42);
     for (let i = 0; i < 11; i++) { const a = i / 11 * 6.28, r = 26; cyShape(g, rnd, cyBlob(rnd, cx + Math.cos(a) * r * 0.9, cy + 8 + Math.sin(a) * r * 0.75, 11, 10, 0.2, 10), wool, ink, 2); }
     cyFill(g, rnd, cyBlob(rnd, cx, cy + 8, 26, 20, 0.1, 12), wool);
-    for (const s of [-1, 1]) cyShape(g, rnd, cyBlob(rnd, cx + s * 18, cy - 2, 8, 4, 0.15, 10), '#3B3632', ink, 2);
-    cyShape(g, rnd, cyBlob(rnd, cx, cy + 2, 12, 15, 0.1, 12), '#4A4440', ink);
+    const dark = color === 'grey'; // 白い子はクリーム色の顔、灰色の子は黒い顔（3D の模型と同じ。2026-11-07）
+    for (const s of [-1, 1]) cyShape(g, rnd, cyBlob(rnd, cx + s * 18, cy - 2, 8, 4, 0.15, 10), dark ? '#3B3632' : '#DDD0BC', ink, 2);
+    cyShape(g, rnd, cyBlob(rnd, cx, cy + 2, 12, 15, 0.1, 12), dark ? '#4A4440' : '#DDD0BC', ink);
     for (let i = 0; i < 4; i++) cyShape(g, rnd, cyBlob(rnd, cx - 7 + i * 5, cy - 14, 5, 5, 0.2, 8), wool, ink, 1.6);
-    cyDot(g, rnd, cx - 5, cy + 1, 2.4, '#FBF7EC'); cyDot(g, rnd, cx + 5, cy + 1, 2.4, '#FBF7EC'); cyDot(g, rnd, cx - 5, cy + 1.5, 1.2, ink); cyDot(g, rnd, cx + 5, cy + 1.5, 1.2, ink);
-    cyLine(g, rnd, [[cx - 3, cy + 10], [cx, cy + 12], [cx + 3, cy + 10]], '#FBF7EC', 1.4);
+    if (dark) {
+      cyDot(g, rnd, cx - 5, cy + 1, 2.4, '#D8A23A'); cyDot(g, rnd, cx + 5, cy + 1, 2.4, '#D8A23A'); cyDot(g, rnd, cx - 5, cy + 1.5, 1.2, ink); cyDot(g, rnd, cx + 5, cy + 1.5, 1.2, ink);
+      cyLine(g, rnd, [[cx - 3, cy + 10], [cx, cy + 12], [cx + 3, cy + 10]], '#FBF7EC', 1.4);
+    } else {
+      cyDot(g, rnd, cx - 5, cy + 1, 1.9, ink); cyDot(g, rnd, cx + 5, cy + 1, 1.9, ink); cyDot(g, rnd, cx - 4.4, cy + 0.3, 0.7, '#FBF7EC'); cyDot(g, rnd, cx + 5.6, cy + 0.3, 0.7, '#FBF7EC');
+      cyDot(g, rnd, cx, cy + 8, 2.2, '#D9A8A0');
+      cyLine(g, rnd, [[cx - 3, cy + 11], [cx, cy + 12.5], [cx + 3, cy + 11]], '#A08474', 1.2);
+    }
   } else if (sp === 'pig') {
     const col = AC.pig[color] || AC.pig.pink, cx = 56, cy = 60;
     for (const s of [-1, 1]) cyShape(g, rnd, [[cx + s * 10, cy - 20], [cx + s * 26, cy - 30], [cx + s * 24, cy - 12]], C(col, -0.04), ink);
@@ -11334,7 +11427,7 @@ function buildFences() {
       }
       // 扉は、指定した位置にいちばん近い1区間
       const gateIdx = new Set();
-      for (const g of (pen.gates || [])) if (g[0] === side) { let bi = 0; segs.forEach((sg, i) => { if (Math.abs(sg.along - g[1]) < Math.abs(segs[bi].along - g[1])) bi = i; }); gateIdx.add(bi); }
+      for (const g of penGates(pen)) if (g[0] === side) { let bi = 0; segs.forEach((sg, i) => { if (Math.abs(sg.along - g[1]) < Math.abs(segs[bi].along - g[1])) bi = i; }); gateIdx.add(bi); }
       segs.forEach((sg, i) => {
         if (kPart && kI++ >= kDone) { if (pen.zone === 'cow') W.kojiStakes.push([sg.x0, sg.z0]); else if (jRun) (W.junbiStakes[pen.zone] = W.junbiStakes[pen.zone] || []).push([sg.x0, sg.z0]); return; }
         const open = openings.some((o) => o[0] === side && Math.abs(sg.along - o[1]) < (o[2] || 3.5));
@@ -11474,6 +11567,13 @@ function buildPerimeter(rails, wires) {
   ring(O, 'outer', PERIM_GATES.outer);
   ring(I, 'inner', PERIM_GATES.inner);
 }
+// 区画の扉。牧草地を借りて牛の庭が西へ広がると、北と南の柵が、丘のはじの通路（内側の柵と区画の西の柵のあいだ）を
+// ふさいでいた。そこにも扉を（2026-11-06、Daiさん：丘のはじの通路を行き来できるように）。段階5の外まわりの小道も、ここを通る
+// 南の扉は、地域の防災拠点（段階5）がある時は、その前をよけて1区間東に（建物が扉の口の西側をふさぐので）
+function penGates(pen) {
+  if (pen.zone !== 'cow' || !WS.extraLand) return pen.gates || [];
+  return (pen.gates || []).concat([['n', -47.3], ['s', hasMilestone('disaster_base') ? -46.2 : -47.3]]);
+}
 /* 扉：ちょうつがいを軸に、外側へ開く紙の扉（inward のときは内側へ） */
 function addDoor(pen, sg, r, tall, inward) {
   const kind = pen.style === 'wire' ? 'wire' : 'wood', h = kind === 'wire' ? (tall ? 2.15 : 1.4) : 1.42;
@@ -11556,7 +11656,7 @@ const MS_RESERVE = {
   parking: [[40.6, 45.65, 13.2, 7.3]], nestbox_insects: [[6, 12, 0.8], [-3, -1, 0.8], [4.5, -9, 0.8]], vet_heater: [[12.5, -18, 1.1]],
   bench_flowers: [[3.4, 6, 1.4], [-3.4, 17, 1.4], [3.4, 24, 1.4], [-3.4, 36, 1.4]], story_boards: [[3.5, 19.5, 1.3], [3.5, 28, 1.3], [3.5, 30.5, 1.3]],
   warm_room: [[null, null, 5.2, 4.4]], learning_hall: [[-31, 41.45, 9.2, 7]], cafe: [[38.6, 36.0, 6.6, 8.8]], bird_hide: [[null, null, 4.4, 3.4]],
-  winter_barn: [[null, null, 8, 11]], mural: [[null, null, 14.6, 1.6]], disaster_base: [[-50.75, 16.6, 7.2, 8.8]], lodge: [[49.8, -35.5, 9, 9]],
+  winter_barn: [[null, null, 6.6, 11]], mural: [[null, null, 14.6, 1.6]], disaster_base: [[-51.15, 16.6, 6.8, 8.8]], lodge: [[49.8, -35.5, 9, 9]],
   wildlife_path: [[-44, -50, 1.6]],
 };
 const EXTRA_RESERVE = [[17, 30, 1.2], [-36, -9.5, 5.8, 4.4], [25, 15.5, 4.2, 3.4], [-12, 23.5, 1.5], [27, 30, 1.5], [-30, -4, 0.8], [18, 8, 0.8], [-38, -20, 0.8], [28, -24, 0.8], [-6, 32, 0.8], [-30, 10, 1.6], [22, 24, 1.6]];
@@ -11806,7 +11906,7 @@ function buildMilestone(id, glow) {
     case 'learning_hall': g = place(L, modelLearningHall(), c.x, c.z, 0, [8.2, 5.2]); break;
     case 'cafe': g = place(L, modelCafe(), c.x, c.z, 0, [5.8, 4.4]); break;
     case 'bird_hide': g = place(L, modelBirdHide(), c.x, c.z, Math.PI, [3.8, 2.8]); break;
-    case 'winter_barn': g = place(L, modelWinterBarn(), c.x, c.z, Math.PI / 2, [10.4, 7.4]); break;
+    case 'winter_barn': g = place(L, modelWinterBarn(), c.x, c.z, Math.PI / 2, [10.4, 6.2]); break;
     case 'mural': g = place(L, modelMural(), c.x, c.z, 0, [14, 0.6]); break;
     case 'disaster_base': g = place(L, modelDisasterBase(), c.x, c.z, -Math.PI / 2, [6.2, 5.2]); break;
     case 'lodge': g = place(L, modelLodge(), c.x, c.z, -Math.PI / 2, [8.2, 5.8]); break;
@@ -14081,10 +14181,23 @@ function navBuild() {
 }
 function navCellOf(x, z) { return [clamp(Math.floor((x - NAV.o) / NAV.cs), 0, NAV.n - 1), clamp(Math.floor((z - NAV.o) / NAV.cs), 0, NAV.n - 1)]; }
 function navFree(i, j) { const g = NAV.cur || NAV.grid; return i >= 0 && j >= 0 && i < NAV.n && j < NAV.n && !g[j * NAV.n + i]; }
-function navNearest(i, j) {
+// from（今いる所）を渡すと、柵の向こう側の升は選ばない（2026-11-06、Daiさん：まめときなこが柵に引っかかって出られない）。
+// 柵のすぐそばに立つと、自分の升はふさがっていて、いちばん近い空き升が柵の外になることがあった。そこへ向かって柵を押し続けていた
+function navNearest(i, j, from) {
   if (navFree(i, j)) return [i, j];
-  for (let r = 1; r < 14; r++) for (let di = -r; di <= r; di++) for (const dj of [-r, r]) { if (navFree(i + di, j + dj)) return [i + di, j + dj]; if (navFree(i + dj, j + di)) return [i + dj, j + di]; }
-  return null;
+  const fc = from ? (W.fenceCols || []).filter((c) => c[0] < from[0] + 8 && c[1] > from[0] - 8 && c[2] < from[1] + 8 && c[3] > from[1] - 8) : null;
+  const ok = (ci, cj) => { if (!navFree(ci, cj)) return false; if (!fc || !fc.length) return true; const x = NAV.o + (ci + 0.5) * NAV.cs, z = NAV.o + (cj + 0.5) * NAV.cs; return !fc.some((c) => segCrossRect(from[0], from[1], x, z, c)); };
+  for (let r = 1; r < 14; r++) for (let di = -r; di <= r; di++) for (const dj of [-r, r]) { if (ok(i + di, j + dj)) return [i + di, j + dj]; if (ok(i + dj, j + di)) return [i + dj, j + di]; }
+  return from ? navNearest(i, j) : null;
+}
+// 線分が、長方形（柵の細い長方形など）と交わるか
+function segCrossRect(ax, az, bx, bz, c) {
+  let t0 = 0, t1 = 1; const dx = bx - ax, dz = bz - az;
+  for (const [p, q] of [[-dx, ax - c[0]], [dx, c[1] - ax], [-dz, az - c[2]], [dz, c[3] - az]]) {
+    if (Math.abs(p) < 1e-9) { if (q < 0) return false; continue; }
+    const r = q / p; if (p < 0) { if (r > t1) return false; if (r > t0) t0 = r; } else { if (r < t0) return false; if (r < t1) t1 = r; }
+  }
+  return true;
 }
 function navLine(ax, az, bx, bz) {
   const d = Math.hypot(bx - ax, bz - az);
@@ -14113,7 +14226,7 @@ function navBufs(N) {
 function navFindIn(sx, sz, tx, tz) {
   const n = NAV.n, cs = NAV.cs, o = NAV.o, grid = NAV.cur || NAV.grid;
   const s0 = navCellOf(sx, sz), t0 = navCellOf(tx, tz);
-  const s = navNearest(s0[0], s0[1]), t = navNearest(t0[0], t0[1]);
+  const s = navNearest(s0[0], s0[1], [sx, sz]), t = navNearest(t0[0], t0[1]);
   if (!s || !t) return null;
   const goal = [o + (t[0] + 0.5) * cs, o + (t[1] + 0.5) * cs], tIsFree = t[0] === t0[0] && t[1] === t0[1];
   const end = tIsFree ? [tx, tz] : goal;
@@ -14710,7 +14823,7 @@ function roamClamp(x, z, g) {
   g = g || anavGrid();
   if (roamFree(x, z, g)) return [x, z];
   const prev = NAV.cur; NAV.cur = g;
-  const c = navCellOf(x, z), f = navNearest(c[0], c[1]); NAV.cur = prev;
+  const c = navCellOf(x, z), f = navNearest(c[0], c[1], [x, z]); NAV.cur = prev; // 柵の向こう側へは戻さない
   return f ? [NAV.o + (f[0] + 0.5) * NAV.cs, NAV.o + (f[1] + 0.5) * NAV.cs] : [x, z];
 }
 // 外を歩く先：ほかの子の区画（柵の口は開いている）か、丘のどこか（2026-11-03、Daiさん）
@@ -15524,9 +15637,9 @@ function unstickCheck(e, dt, AR) {
   if (w.t < 0.8) return;
   const net = Math.hypot(e.x - w.x, e.z - w.z), path = w.path, rev = w.rev;
   w.t = 0; w.path = 0; w.rev = 0; w.x = e.x; w.z = e.z;
-  if (e.state === 'pet' || e.state === 'wade' || e.state === 'toWade' || (e.a.sp === 'duck' && inPond(e.x, e.z, -1.6))) return;
+  if (e.state === 'pet' || e.state === 'wade' || (e.state === 'toWade' && inPond(e.x, e.z, -0.6)) || (e.a.sp === 'duck' && inPond(e.x, e.z, -1.6))) return; // 池へ向かう子も、水に入る手前より前で止まったら、ほどく（2026-11-06）
   const shaking = rev >= 3 && path > 0.12 && net < Math.max(0.3, path * 0.35); // 行ったり来たり
-  const blocked = !!e.target && !!e.wp && WALKING.has(e.state) && path < 0.04; // 道は決まっているのに、進めない
+  const blocked = !!e.target && !!e.wp && (WALKING.has(e.state) || e.state === 'toWade' || e.state === 'toMud') && path < 0.04; // 道は決まっているのに、進めない（水浴びや泥浴びへ向かう途中も。2026-11-06）
   if (!shaking && !blocked) return;
   const now = performance.now() / 1000, again = now - w.last < 6; w.last = now;
   let to;
@@ -15659,15 +15772,15 @@ function animAnimal(e, moving, swim, dt, time) {
       m.tail.rotation.y = (1 - up) * wrap * side * 1.45 + Math.sin(time * (st === 'look' ? 2.4 : 1.1) + e.phase) * 0.2 * (1 - wrap);
       if (m.tailTip) { m.tailTip.rotation.x = -0.75 * up + (1 - up) * 0.5 * sit * wrap; m.tailTip.rotation.y = (1 - up) * wrap * side * 1.25 + Math.sin(time * 1.7 + e.phase) * 0.25 * (1 - wrap); }
     }
-    // 目：ときどきまばたき。ゆっくりまばたき、眠る時、なでられている時は目を細める
-    if (m.eyes) {
-      let ey = 1;
-      if ((st === 'sleep' || (st === 'rest' && e.timer < 4)) && still) ey = 0.12;
-      else if (petting || (st === 'bask' && still)) ey = 0.35;
-      if (st === 'blink' && still) { const q = (time * 0.55 + e.phase) % 1; ey = q < 0.3 ? 1 - q / 0.3 * 0.9 : q < 0.5 ? 0.1 : q < 0.85 ? 0.1 + (q - 0.5) / 0.35 * 0.9 : 1; }
-      else { e.bkT = (e.bkT === undefined ? rand(2, 5) : e.bkT) - dt; if (e.bkT < 0.12 && e.bkT > 0) ey = Math.min(ey, 0.12); if (e.bkT < 0) e.bkT = rand(2.5, 6); }
-      const v = ease('eye', ey, st === 'blink' ? 14 : 22); m.eyes.forEach((q) => { if (q.userData.sy === undefined) q.userData.sy = q.scale.y; q.scale.y = q.userData.sy * Math.max(0.08, v); });
-    }
+  }
+  // 目：ときどきまばたき。ゆっくりまばたき、眠る時、なでられている時は目を細める（猫のほか、目のある馬・ヤギも。2026-11-06）
+  if (m.eyes) {
+    let ey = 1;
+    if ((st === 'sleep' || (st === 'rest' && e.timer < 4)) && still) ey = 0.12;
+    else if (petting || (st === 'bask' && still)) ey = 0.35;
+    if (st === 'blink' && still) { const q = (time * 0.55 + e.phase) % 1; ey = q < 0.3 ? 1 - q / 0.3 * 0.9 : q < 0.5 ? 0.1 : q < 0.85 ? 0.1 + (q - 0.5) / 0.35 * 0.9 : 1; }
+    else { e.bkT = (e.bkT === undefined ? rand(2, 5) : e.bkT) - dt; if (e.bkT < 0.12 && e.bkT > 0) ey = Math.min(ey, 0.12); if (e.bkT < 0) e.bkT = rand(2.5, 6); }
+    const v = ease('eye', ey, st === 'blink' ? 14 : 22); m.eyes.forEach((q) => { if (q.userData.sy === undefined) q.userData.sy = q.scale.y; q.scale.y = q.userData.sy * Math.max(0.08, v); });
   }
 }
 /* ちくわ（0.9.47）：猫の動きの上に、犬らしさを足す。くるっと巻いた尾は背中の上で、うれしい時はふる。
@@ -17956,7 +18069,7 @@ function projFinish(id, overnight) {
     G.waiting = (G.waiting || []).filter((w) => w.sp !== p.sp);
     wait.forEach((w) => { w.animals.forEach((a) => { if (G.stage >= 2) a.quarantine = G.turn + QUAR_DAYS; }); G.animals.push(...w.animals); say('friends', `ネットワークのサンクチュアリに預かってもらっていた${w.animals.map((a) => a.name).join('と')}が、やって来ました`); if (SPECIES[p.sp].card) unlockCard(SPECIES[p.sp].card, true); });
   } else if (p.kind === 'repair') { say('added', `「${p.name}」が終わりました。動物たちも落ち着いています`); monthNote(`「${p.name}」の修繕がありました`, 3); }
-  else say('added', `「${p.name}」が終わりました。${p.effect ? `（${p.effect}）` : ''}`);
+  else say('added', `「${p.name}」が終わりました。${p.effect || ''}`); // effect は言葉だけ（数字は画面に出さない。2026-11-06）
   if (p.card) unlockCard(p.card, true);
   G.pendingSupports = G.pendingSupports || [];
   G.pendingSupports.push({ type: p.kind === 'land' ? 'nature' : 'help', size: p.cost >= 1000000 ? 'M' : 'S', src: 'self', label: p.name });
@@ -18859,6 +18972,8 @@ const GAME = {
     G.animals.forEach(rosterFill);
     teamOf(); if (!G.baseSupport) { balanceSupport(G.mode === 'hakoniwa' ? 1.2 : 1); G.flags.harukoPay = true; }
     migrateSave(o.schema || 1);
+    // 前の版の日記と朝の知らせに残った「（ケアの質 ＋6）」などの数字を外す（2026-11-06）
+    { const noNum = (x) => { if (x && typeof x.text === 'string') x.text = x.text.replace(/（(ケアの質|自然の豊かさ) ＋\d[^）]*）/g, ''); }; (G.diary || []).forEach((p) => (p.entries || []).forEach(noNum)); (G.overnight || []).forEach(noNum); }
     G.animals.forEach(rosterFill); // 移しかえで key が変わった子も
     // その子の「はじめて」（0.9.53）：前からいる子は、あなたがそばで見た「はじめて」を残す
     if (o.firstsSince === undefined) { G.firstsSince = G.turn; G.animals.forEach((a) => { if (!a.firsts) a.fSeen = true; }); }
