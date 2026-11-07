@@ -3379,7 +3379,7 @@ const QUESTS = []; // 今日のクエストの入れ物（2026-10-23。中身は
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.93', label: 'ベータテスト版', date: '2026年11月',
+  version: '0.9.94', label: 'ベータテスト版', date: '2026年11月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -3387,6 +3387,7 @@ const APP = {
   try: ['毎日少しだけ開いてみる（日付が変わると、今日できることが4つに戻ります。日曜だけでも遊べます）', '「はじめから」で、はじまりの話から始めてみる（見つけた鶏に名前をつけ、庭へ移るまで、会いに行く）', '「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', 'スマホを横にして遊んでみる（左の親指でなぞって歩き、右の親指で見回す）', '週に一度の朝の「今朝のあなたは？」に答えて、休むと、まわりがどう見えてくるかを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（人によって、間があきます。アルバイトさんは週末に。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った日の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'Second Life Sanctuary へ出かけて、ロッティさんと話してみる（門の外のバス停から）', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.94', '2026年11月8日', '牛・豚・ウサギの顔を、本物の特徴に近づけました（頭の横についた牛の目、前へのびた豚の鼻と鼻の穴、頭の横の大きなウサギの目）。どの子もまばたきをして、動物のカードの似顔絵もそろえました。里親になった子の名札を、丘に立てるのをやめました（同じ所に重なって立っていたため）。里親になったことは、動物のカードと、毎月届く近況に残ります。'],
     ['0.9.93', '2026年11月7日', 'ピンチで寄る・離れる時、景色が指の動きにそのままついてくるようになりました（指を広げた分だけ寄り、狭めた分だけ離れます）。近くからピンチで離れる時に、カメラが止まったようになっていたのも直しました'],
     ['0.9.92', '2026年11月7日', 'スマホで、拡大していないのに「画面が拡大されています」の札が出たまま消えないことがあったのを直しました（札は、押すと閉じられます）。工事が終わった時の知らせに出ていた数字を、言葉だけにしました。隣の牧草地を借りて牛の庭が広がった時も、丘のはじの通路を行き来できるよう、牛の庭の北と南の柵に扉をつけました。「広い冬の過ごし場」と「地域の防災拠点」も少し西へ寄せて、通路と小道をあけました。豚たちが柵のそばで引っかかって、なかなか外へ出られないことがあったのを直しました。馬・ヤギ・ロバ・ヒツジの顔に、目や鼻を足して、親しみやすい作りにしました（白いヒツジは、クリーム色のやさしい顔に）。'],
     ['0.9.91', '2026年11月6日', 'はるにれの丘が、現実の暦で進むようになりました。日付も季節も外と同じで、「今日はここまで」はなくなり、日付が変わると、今日できることが4つに戻ります。毎日少しずつでも、日曜だけでも遊べます。これまでの続きは、そのまま開けます。ほかの動物を迎える時も、牛と同じように看板から手伝いながら準備します。重機が入り、水が流れ、柵が少しずつ立っていきます。はじめての牛は、小さな場所ができたら迎えに行けます。検疫は1週間に。預かれる数には限りがあり、放っておいた相談は、今回は見送ったことになります。同じ種の子が検疫中は、その種の相談は来ません。日曜の見学の日にも、動物たちが人を避けて静かに過ごせる場所を作りました。動物たちは年を重ね、いつか見送る時が来ます（設定で切れます）。東のはずれに、思い出の墓地ができました。働く人の話は人によって間があくようになり、アルバイトさんは週末に来ます。動物たちが柵の外やほかの区画までよく歩くようになり、豚は水浴びと泥遊びをします。今日のクエストに、種ごとのしぐさを足しました。'],
@@ -9564,19 +9565,40 @@ function modelAnimal(sp, color, opt) {
   if (sp === 'cow') {
     const c = AC.cow[color] || AC.cow.holstein;
     a = quadBase({ L: 2.1, W: 0.95, H: 0.98, legH: 0.78, legW: 0.24, body: c.body, leg: c.body, hoof: '#3A3230', neckUp: 0.18 });
-    part('box', c.head, 0.52, 0.56, 0.72, 0, 0.05, 0.3, a.head);
-    part('box', c.muzzle, 0.48, 0.3, 0.24, 0, -0.1, 0.72, a.head);
-    for (const s of [-1, 1]) part('box', c.head, 0.32, 0.1, 0.16, s * 0.38, 0.18, 0.16, a.head);
-    // 両耳の黄色い耳標（個体識別番号。番号は見えない大きさ）
-    for (const s of [-1, 1]) part('box', '#E8C02A', 0.11, 0.13, 0.05, s * 0.45, 0.09, 0.24, a.head, { noShadow: true });
-    part('box', '#2A2420', 0.06, 0.06, 0.02, -0.16, 0.14, 0.66, a.head); part('box', '#2A2420', 0.06, 0.06, 0.02, 0.16, 0.14, 0.66, a.head);
+    // 2026-11-08（Daiさん：可愛くではなく、実物の特徴を残して）：顔を首から分けて、少し下向きに。目は頭の横（牛の目は横を向いていて、広く見わたせる）。
+    // 濃い茶色の目と上まぶた、広い額、角のない頭のてっぺん（乳牛の多くは子牛のうちに角をとられる）、ふくらんだ頬、
+    // 幅の広い鼻先（鼻鏡）と前を向いた鼻の穴、口の線、下あご。ジャージーは、少しくぼんだ顔、目のまわりの濃い肌、黒い鼻と、そのまわりの明るい帯
+    const jer = color === 'jersey', hp = (color === 'holstein' || color === 'brownwhite') && c.patch;
+    const LID = { jersey: '#2E241E', blackwhite: '#1A1A1A', brownwhite: '#4E321E' }[color] || '#2A2A2A';
+    const hd = new THREE.Group(); hd.position.set(0, 0.04, 0.1); hd.rotation.x = 0.3; a.head.add(hd);
+    part('box', c.head, 0.46, 0.46, 0.38, 0, 0.06, 0.12, hd); // 額と頭
+    part('box', hp ? c.patch : c.head, 0.36, 0.08, 0.2, 0, 0.32, 0.06, hd); // 頭のてっぺん（角はない）
+    part('box', c.head, 0.44, 0.2, 0.26, 0, -0.16, 0.16, hd); // 頬
+    part('box', c.head, 0.36, 0.33, 0.36, 0, jer ? -0.05 : -0.02, 0.46, hd); // 顔（鼻すじ。ジャージーは少しくぼむ）
+    part('box', c.head, 0.3, 0.08, 0.2, 0, -0.24, 0.62, hd); // 下あご
+    if (jer) {
+      part('box', '#E3D6BC', 0.45, 0.33, 0.14, 0, -0.08, 0.68, hd); // 鼻のまわりの明るい帯
+      part('box', c.muzzle, 0.33, 0.2, 0.08, 0, -0.06, 0.77, hd); // 黒い鼻
+    } else part('box', c.muzzle, 0.41, 0.28, 0.2, 0, -0.08, 0.71, hd); // 鼻先（鼻鏡）
+    for (const s of [-1, 1]) part('box', jer ? '#141010' : '#3A2826', 0.07, 0.045, 0.012, s * 0.1, -0.03, 0.815, hd, { noShadow: true }).rotation.z = s * 0.5; // 前を向いた鼻の穴
+    part('box', jer ? '#2A2220' : '#5A4440', 0.3, 0.012, 0.012, 0, jer ? -0.2 : -0.19, jer ? 0.752 : 0.815, hd, { noShadow: true }); // 口の線
+    if (hp) part('box', c.patch, 0.47, 0.24, 0.39, 0, 0.18, 0.12, hd, { noShadow: true }); // 頭の上の黒（茶）
+    if (color !== 'jersey') part('box', '#F2F0EA', 0.14, 0.12, 0.012, 0, 0.22, 0.322, hd, { noShadow: true }); // 額の白
+    if (color === 'blackwhite' || color === 'brownwhite') part('box', '#F2F0EA', 0.08, 0.012, 0.3, 0, 0.152, 0.45, hd, { noShadow: true }); // 鼻すじの白
+    a.eyes = [];
+    for (const s of [-1, 1]) {
+      if (jer) part('box', '#2E241E', 0.01, 0.13, 0.16, s * 0.232, 0.08, 0.2, hd, { noShadow: true }); // 目のまわりの濃い肌
+      a.eyes.push(part('box', '#24180F', 0.016, 0.085, 0.11, s * 0.24, 0.08, 0.2, hd, { noShadow: true })); // 濃い茶色の目
+      a.eyes.push(part('box', '#FFFDF6', 0.02, 0.022, 0.022, s * 0.244, 0.1, 0.23, hd, { noShadow: true }));
+      part('box', LID, 0.02, 0.018, 0.13, s * 0.241, 0.13, 0.2, hd, { noShadow: true }); // 上まぶたとまつげ
+      part('box', hp ? c.patch : c.head, 0.3, 0.07, 0.16, s * 0.37, 0.14, 0.02, hd).rotation.z = -s * 0.22; // 横に出た耳
+      part('box', '#E8C02A', 0.1, 0.12, 0.04, s * 0.43, 0.06, 0.1, hd, { noShadow: true }); // 耳標（個体識別番号。番号は見えない大きさ）
+    }
     if (c.patch) {
       const P = [[0.49, 0.1, 0.4, 0.5, 0.6], [-0.49, -0.05, -0.3, 0.45, 0.7], [0.49, 0.2, -0.55, 0.4, 0.4], [-0.49, 0.2, 0.55, 0.35, 0.5]];
       for (const p of P) part('box', c.patch, 0.03, p[3], p[4], p[0], a.bodyY + p[1], p[2], a.rig, { noShadow: true });
       part('box', c.patch, 0.97, 0.03, 0.6, 0, a.bodyY + 0.5, 0.1, a.rig, { noShadow: true });
-      if (color === 'holstein' || color === 'brownwhite') part('box', c.patch, 0.53, 0.3, 0.3, 0, 0.12, 0.25, a.head, { noShadow: true });
     }
-    if (color === 'blackwhite') part('box', '#F2F0EA', 0.2, 0.14, 0.03, 0, 0.2, 0.67, a.head);
     part('box', c.body, 0.08, 0.75, 0.08, 0, -0.35, -0.02, a.tail); part('box', '#3A3230', 0.14, 0.22, 0.14, 0, -0.78, -0.02, a.tail);
     a.scale = 1;
   } else if (sp === 'goat') {
@@ -9631,17 +9653,33 @@ function modelAnimal(sp, color, opt) {
   } else if (sp === 'pig') {
     const b = AC.pig[color] || AC.pig.pink;
     a = quadBase({ L: 1.4, W: 0.78, H: 0.72, legH: 0.3, legW: 0.16, body: b, leg: b, bodyGeo: 'sph', neckUp: 0.02 });
-    part('sph', b, 0.62, 0.56, 0.6, 0, 0, 0.12, a.head);
-    const sn = part('cyl12', '#E39A8E', 0.3, 0.14, 0.26, 0, -0.06, 0.44, a.head); sn.rotation.x = Math.PI / 2;
-    for (const s of [-1, 1]) { const e = part('cone4', b, 0.2, 0.26, 0.08, s * 0.2, 0.3, 0.12, a.head); e.rotation.x = 0.5; e.rotation.z = -s * 0.3; }
-    part('box', '#2A2420', 0.05, 0.05, 0.02, -0.13, 0.08, 0.41, a.head); part('box', '#2A2420', 0.05, 0.05, 0.02, 0.13, 0.08, 0.41, a.head);
+    // 2026-11-08（Daiさん：可愛くではなく、実物の特徴を残して）：頭から前へのびる鼻（先が細い）と、平たい鼻の先（鼻盤）に、たての鼻の穴。鼻の下の口。
+    // 目は小さく、鼻すじの上の高い所に、少し横向きに（上まぶたと、目の上のしわ）。頬とあごのふくらみ。
+    // 耳：ピンクと、ぶちの子は立ち耳で少し前へ。茶の子（デュロックの血。耳が前へ垂れる品種）は、前へ垂れる
+    const tan = color === 'tan', snC = tan ? '#C98A72' : '#E39A8E', lid = { tan: '#946446', spotted: '#C4968A' }[color] || '#C88C80';
+    part('sph', b, 0.62, 0.56, 0.56, 0, 0, 0.1, a.head); // 頭
+    part('sph', b, 0.56, 0.3, 0.42, 0, -0.14, 0.17, a.head); // 頬とあご
+    const nz = part('trunk', b, 0.3, 0.27, 0.26, 0, -0.06, 0.44, a.head); nz.rotation.x = Math.PI / 2; // 鼻
+    const sn = part('cyl12', snC, 0.25, 0.06, 0.2, 0, -0.06, 0.585, a.head); sn.rotation.x = Math.PI / 2; // 鼻の先（鼻盤）
+    for (const s of [-1, 1]) part('sph', '#4A2A28', 0.045, 0.07, 0.02, s * 0.05, -0.06, 0.615, a.head, { noShadow: true }); // 鼻の穴
+    part('box', '#7E5048', 0.17, 0.014, 0.2, 0, -0.165, 0.47, a.head, { noShadow: true }); // 口
+    a.eyes = [];
+    for (const s of [-1, 1]) {
+      const eg = new THREE.Group(); eg.position.set(s * 0.2, 0.09, 0.3); eg.rotation.y = s * 0.85; a.head.add(eg);
+      a.eyes.push(part('box', '#22160F', 0.052, 0.04, 0.016, 0, 0, 0.004, eg, { noShadow: true })); // 小さな目
+      a.eyes.push(part('box', '#FFFDF6', 0.014, 0.012, 0.01, s * -0.01, 0.008, 0.014, eg, { noShadow: true }));
+      part('box', lid, 0.07, 0.014, 0.014, 0, 0.03, 0.006, eg, { noShadow: true }); // 上まぶた
+      part('box', lid, 0.07, 0.01, 0.01, 0, 0.066, 0.0, eg, { noShadow: true }); // 目の上のしわ
+      const e = part('cone4', b, tan ? 0.24 : 0.2, tan ? 0.3 : 0.26, 0.07, s * (tan ? 0.17 : 0.2), tan ? 0.25 : 0.3, tan ? 0.2 : 0.12, a.head);
+      if (tan) { e.rotation.x = 2.0; e.rotation.z = -s * 0.6; } else { e.rotation.x = 0.5; e.rotation.z = -s * 0.3; }
+    }
     part('torus', b, 0.25, 0.25, 0.25, 0, 0.02, -0.04, a.tail);
     if (color === 'spotted') for (const [x, y, z] of [[0.39, 0.1, 0.1], [-0.39, 0, -0.3], [0.3, 0.3, -0.35]]) part('sph', '#4A3A34', 0.08, 0.3, 0.34, x, a.bodyY + y, z, a.rig, { noShadow: true });
     // 泥：泥場のあとに見える。時間がたつと、少しずつ落ちる（actors.js の mudT）
     a.mudParts = [];
     const mudC = '#7A5C42', mudP = (w, h, d, x, y, z, to) => { const q = part('sph', mudC, w, h, d, x, y, z, to, { noShadow: true }); q.visible = false; a.mudParts.push(q); };
     for (const [x, y, z, w, h, d] of [[0.34, -0.2, 0.34, 0.08, 0.16, 0.24], [-0.34, -0.22, -0.34, 0.08, 0.14, 0.26], [0.36, -0.14, -0.1, 0.07, 0.2, 0.2], [-0.37, -0.1, 0.22, 0.07, 0.16, 0.18], [0.22, -0.3, -0.42, 0.14, 0.08, 0.22], [-0.2, -0.3, 0.42, 0.14, 0.08, 0.2], [0.34, 0.02, 0.1, 0.06, 0.1, 0.12], [-0.34, 0.06, -0.14, 0.06, 0.1, 0.14]]) mudP(w, h, d, x, a.bodyY + y, z, a.rig);
-    mudP(0.24, 0.1, 0.12, 0, -0.14, 0.44, a.head); // 鼻のまわり
+    mudP(0.24, 0.1, 0.16, 0, -0.15, 0.5, a.head); // 鼻のまわり
     a.legs.forEach((l) => { const q = part('box', mudC, 0.175, 0.14, 0.175, 0, -0.23, 0, l); q.visible = false; a.mudParts.unshift(q); }); // 足もと（いちばん長く残る）
   } else if (sp === 'donkey') {
     // 2026-11-07（Daiさん：馬・ヤギと同じように）：顔を首から分けて、少し下向きに。白っぽい鼻先と目のまわり（ロバらしい）、
@@ -9702,11 +9740,26 @@ function modelAnimal(sp, color, opt) {
     const root = new THREE.Group(), rig = new THREE.Group(); root.add(rig);
     part('sph', b, 0.46, 0.4, 0.6, 0, 0.24, 0, rig);
     const head = new THREE.Group(); head.position.set(0, 0.42, 0.26); rig.add(head);
+    // 2026-11-08（Daiさん：可愛くではなく、実物の特徴を残して）：目は頭の横に、大きく、少し出っぱって（ウサギは、ほとんど真うしろまで見える）。
+    // 白い子（日本白色種のような、色素のない子）は赤い目。灰色の子（野生のアナウサギと同じ毛色）は濃い茶色の目と、目のまわりの明るい輪、耳のふちの黒。
+    // 鼻先のふくらみ、Y の字の鼻と、上くちびるの割れ目、ひげ。耳は前を向いた、うすく長い形
+    const wh = color !== 'grey', eyeC = wh ? '#B2303C' : '#24180F';
     part('sph', b, 0.32, 0.3, 0.32, 0, 0, 0.04, head);
-    for (const s of [-1, 1]) part('box', b, 0.08, 0.36, 0.14, s * 0.07, 0.3, -0.02, head).rotation.z = s * 0.15;
-    part('box', '#2A2420', 0.04, 0.04, 0.02, -0.08, 0.04, 0.19, head); part('box', '#2A2420', 0.04, 0.04, 0.02, 0.08, 0.04, 0.19, head);
+    part('sph', b, 0.2, 0.15, 0.16, 0, -0.06, 0.15, head); // 鼻先（ひげの付け根）
+    part('box', wh ? '#D8A0A6' : '#8E7A76', 0.04, 0.026, 0.012, 0, -0.004, 0.226, head, { noShadow: true }); // 鼻
+    part('box', '#8A6E6E', 0.006, 0.045, 0.01, 0, -0.035, 0.226, head, { noShadow: true }); // 上くちびるの割れ目
+    a = { root, rig, legs: [], head, tail: new THREE.Group(), legLen: 0.1, kind: 'rabbit', eyes: [] };
+    for (const s of [-1, 1]) {
+      if (!wh) part('sph', '#D9D2C6', 0.02, 0.1, 0.106, s * 0.142, 0.035, 0.06, head, { noShadow: true }); // 目のまわりの明るい輪
+      a.eyes.push(part('sph', eyeC, 0.035, 0.075, 0.08, s * 0.15, 0.035, 0.06, head, { noShadow: true })); // 横を向いた大きな目
+      a.eyes.push(part('sph', '#FFFDF6', 0.01, 0.018, 0.018, s * 0.166, 0.054, 0.082, head, { noShadow: true }));
+      for (const [dy, rz] of [[0, 0.12], [-0.02, -0.08]]) { const w = part('box', wh ? '#E2DED8' : '#3A3430', 0.17, 0.004, 0.004, s * 0.16, -0.05 + dy, 0.18, head, { noShadow: true }); w.rotation.set(0, s * 0.35, -s * rz); } // ひげ
+      const eg = new THREE.Group(); eg.position.set(s * 0.06, 0.1, -0.02); eg.rotation.set(-0.12, 0, -s * 0.14); head.add(eg);
+      part('box', b, 0.095, 0.36, 0.045, 0, 0.18, 0, eg); // 耳
+      part('box', wh ? '#EBB8BC' : '#C9A39E', 0.055, 0.29, 0.01, 0, 0.18, 0.024, eg, { noShadow: true }); // 耳の内側
+      if (!wh) part('box', '#4E4640', 0.097, 0.035, 0.047, 0, 0.345, 0, eg); // 耳のふちの黒
+    }
     part('sph', '#F7F5F2', 0.16, 0.16, 0.16, 0, 0.3, -0.3, rig);
-    a = { root, rig, legs: [], head, tail: new THREE.Group(), legLen: 0.1, kind: 'rabbit' };
   } else if (sp === 'cat') {
     // 猫：細い脚、長いしっぽ（2つに分けて、立てたり、体に巻いたり）、三角の耳。片方の耳の先は、さくら耳
     const c = AC.cat[color] || AC.cat.orange;
@@ -10314,12 +10367,13 @@ function drawPortrait(sp, color, seed, opt) {
     else if (sp === 'chicken' && opt && opt.beak === 'trim') { cyShape(g, rnd, [[hx - 3, hy + 3], [hx + 4, hy + 3], [hx + 2.2, hy + 7.2], [hx - 1.2, hy + 7.2]], '#F2A83A', ink, 2); cyShape(g, rnd, cyBlob(rnd, hx + 1, hy + 14, 3, 4.5, 0.2, 9), '#D8443A', ink, 1.8); } // くちばしの処置を受けた子：先が平ら
     else { cyShape(g, rnd, [[hx - 3, hy + 3], [hx + 4, hy + 3], [hx + 0.5, hy + 10]], '#F2A83A', ink, 2); cyShape(g, rnd, cyBlob(rnd, hx + 1, hy + 14, 3, 4.5, 0.2, 9), '#D8443A', ink, 1.8); }
   } else if (sp === 'rabbit') {
-    const col = (AC.rabbit[color] || AC.rabbit.white), cx = 56, cy = 64;
-    for (const s of [-1, 1]) { const ear = cyBlob(rnd, cx + s * 11, cy - 34, 7, 20, 0.12, 12); cyShape(g, rnd, ear, col, ink); cyFill(g, rnd, cyBlob(rnd, cx + s * 11, cy - 32, 3, 13, 0.1, 10), '#F3B0B8'); }
+    // 2026-11-08（模型にそろえて、実物の特徴を残す）：目は顔の横の方に。白い子は赤い目、灰色の子は濃い茶色の目と明るい輪、耳のふちの黒。頬の赤みはつけない
+    const col = (AC.rabbit[color] || AC.rabbit.white), cx = 56, cy = 64, wh = color !== 'grey';
+    for (const s of [-1, 1]) { const ear = cyBlob(rnd, cx + s * 11, cy - 34, 7, 20, 0.12, 12); cyShape(g, rnd, ear, col, ink); cyFill(g, rnd, cyBlob(rnd, cx + s * 11, cy - 32, 3, 13, 0.1, 10), wh ? '#F3B0B8' : '#D0A8A4'); if (!wh) cyFill(g, rnd, cyBlob(rnd, cx + s * 11, cy - 51, 5, 3, 0.15, 8), '#4E4640'); }
     cyShape(g, rnd, cyBlob(rnd, cx, cy + 26, 22, 14, 0.12, 14), col, ink);
     cyShape(g, rnd, cyBlob(rnd, cx, cy, 24, 21, 0.1, 16), col, ink);
-    eyes(cx, cy - 3, 9, 2.6); cheeks(cx, cy + 6, 14);
-    cyShape(g, rnd, cyBlob(rnd, cx, cy + 5, 3, 2.4, 0.1, 8), '#E87890', ink, 1.6);
+    for (const s of [-1, 1]) { const ex = cx + s * 15, ey = cy - 4; if (!wh) cyDot(g, rnd, ex, ey, 4.6, '#E2DCD0'); cyDot(g, rnd, ex, ey, 3.2, wh ? '#B2303C' : '#24180F'); cyDot(g, rnd, ex + s, ey - 1.2, 0.9, '#FBF7EC'); }
+    cyShape(g, rnd, cyBlob(rnd, cx, cy + 5, 3, 2.4, 0.1, 8), wh ? '#D8A0A6' : '#8E7A76', ink, 1.6);
     cyLine(g, rnd, [[cx, cy + 7], [cx - 3, cy + 11]], ink, 1.6); cyLine(g, rnd, [[cx, cy + 7], [cx + 3, cy + 11]], ink, 1.6);
     for (const s of [-1, 1]) for (const dy of [-2, 3]) cyLine(g, rnd, [[cx + s * 8, cy + 6], [cx + s * 22, cy + 4 + dy]], ink, 1);
   } else if (sp === 'sheep') {
@@ -10340,23 +10394,33 @@ function drawPortrait(sp, color, seed, opt) {
       cyLine(g, rnd, [[cx - 3, cy + 11], [cx, cy + 12.5], [cx + 3, cy + 11]], '#A08474', 1.2);
     }
   } else if (sp === 'pig') {
-    const col = AC.pig[color] || AC.pig.pink, cx = 56, cy = 60;
-    for (const s of [-1, 1]) cyShape(g, rnd, [[cx + s * 10, cy - 20], [cx + s * 26, cy - 30], [cx + s * 24, cy - 12]], C(col, -0.04), ink);
+    // 2026-11-08（模型にそろえて、実物の特徴を残す）：小さな目と上まぶた・目の上のしわ、鼻の先（鼻盤）のたての鼻の穴、鼻の下の口。茶の子は耳が前へ垂れる。頬の赤みはつけない
+    const col = AC.pig[color] || AC.pig.pink, cx = 56, cy = 60, tan = color === 'tan', lid = C(col, -0.22);
+    if (!tan) for (const s of [-1, 1]) cyShape(g, rnd, [[cx + s * 10, cy - 20], [cx + s * 26, cy - 30], [cx + s * 24, cy - 12]], C(col, -0.04), ink);
     cyShape(g, rnd, cyBlob(rnd, cx, cy, 30, 26, 0.08, 18), col, ink);
     if (color === 'spotted') { cyFill(g, rnd, cyBlob(rnd, cx + 14, cy - 10, 8, 6, 0.2, 10), '#5A463E'); cyFill(g, rnd, cyBlob(rnd, cx - 16, cy + 10, 6, 5, 0.2, 10), '#5A463E'); }
-    eyes(cx, cy - 8, 11, 2.6); cheeks(cx, cy + 6, 19);
+    for (const s of [-1, 1]) { const ex = cx + s * 12, ey = cy - 7; cyDot(g, rnd, ex, ey, 1.9, '#22160F'); cyLine(g, rnd, [[ex - 3.5, ey - 2.6], [ex + 3.5, ey - 2.6]], lid, 1.3); cyLine(g, rnd, [[ex - 4, ey - 5.6], [ex, ey - 6.6], [ex + 4, ey - 5.6]], lid, 1); }
+    if (tan) for (const s of [-1, 1]) cyShape(g, rnd, [[cx + s * 7, cy - 24], [cx + s * 27, cy - 20], [cx + s * 19, cy - 10]], C(col, -0.04), ink); // 前へ垂れる耳
     cyShape(g, rnd, cyBlob(rnd, cx, cy + 7, 12, 8, 0.08, 14), C(col, -0.1), ink);
-    cyDot(g, rnd, cx - 4, cy + 7, 2.2, ink); cyDot(g, rnd, cx + 4, cy + 7, 2.2, ink);
-    smile(cx, cy + 19, 5);
+    cyDot(g, rnd, cx - 4, cy + 7, 2, '#4A2A28'); cyDot(g, rnd, cx + 4, cy + 7, 2, '#4A2A28');
+    cyLine(g, rnd, [[cx - 7, cy + 18], [cx, cy + 18.6], [cx + 7, cy + 18]], C(col, -0.35), 1.3);
   } else if (sp === 'cow') {
-    const v = AC.cow[color] || AC.cow.holstein, cx = 56, cy = 58;
-    for (const s of [-1, 1]) { cyShape(g, rnd, cyBlob(rnd, cx + s * 30, cy - 12, 11, 6, 0.15, 10), v.head, ink); cyShape(g, rnd, [[cx + s * 12, cy - 22], [cx + s * 18, cy - 36], [cx + s * 20, cy - 22]], '#EDE3C8', ink, 2); }
+    // 2026-11-08（模型にそろえて、実物の特徴を残す）：角はない（乳牛の多くは子牛のうちに角をとられる）。横に出た耳と黄色い耳標、目は顔の横の方に（上まぶた）、
+    // 幅の広い鼻先と鼻の穴、まっすぐな口の線。ジャージーは黒い鼻と、そのまわりの明るい帯、目のまわりの濃い肌
+    const v = AC.cow[color] || AC.cow.holstein, cx = 56, cy = 58, jer = color === 'jersey';
+    for (const s of [-1, 1]) { cyShape(g, rnd, cyBlob(rnd, cx + s * 31, cy - 13, 11, 5.5, 0.15, 10), color === 'holstein' ? v.patch : v.head, ink); cyShape(g, rnd, cyBlob(rnd, cx + s * 34, cy - 6, 3.4, 4.2, 0.1, 8), '#E8C02A', ink, 1.4); }
     const head = cyBlob(rnd, cx, cy, 25, 27, 0.08, 18); cyShape(g, rnd, head, v.head, ink);
     if (v.patch) { g.save(); cyPath(g, head, true); g.clip(); cyFill(g, rnd, cyBlob(rnd, cx - 12 + rnd() * 8, cy - 14, 11, 9, 0.3, 10), v.patch); if (rnd() < 0.6) cyFill(g, rnd, cyBlob(rnd, cx + 14, cy - 2, 7, 8, 0.3, 10), v.patch); g.restore(); }
-    eyes(cx, cy - 6, 10, 2.8);
-    cyShape(g, rnd, cyBlob(rnd, cx, cy + 16, 20, 12, 0.08, 16), v.muzzle === '#3A3230' ? '#6A5650' : '#F2B8B0', ink);
-    cyDot(g, rnd, cx - 7, cy + 15, 2.3, ink); cyDot(g, rnd, cx + 7, cy + 15, 2.3, ink);
-    smile(cx, cy + 22, 4);
+    for (const s of [-1, 1]) {
+      const ex = cx + s * 15, ey = cy - 7;
+      if (jer) cyFill(g, rnd, cyBlob(rnd, ex, ey, 5.5, 4.5, 0.15, 10), '#3A2C24');
+      cyDot(g, rnd, ex, ey, 2.6, '#24180F'); cyDot(g, rnd, ex + s * 0.8, ey - 0.9, 0.8, '#FBF7EC');
+      cyLine(g, rnd, [[ex - 4, ey - 3], [ex, ey - 4.2], [ex + 4, ey - 3]], ink, 1.4);
+    }
+    if (jer) { cyShape(g, rnd, cyBlob(rnd, cx, cy + 16, 19, 13, 0.08, 16), '#EFE4CC', ink); cyFill(g, rnd, cyBlob(rnd, cx, cy + 15, 13, 8, 0.08, 14), '#2E2826'); }
+    else cyShape(g, rnd, cyBlob(rnd, cx, cy + 16, 20, 12, 0.08, 16), color === 'blackwhite' ? '#A8968E' : '#F2B8B0', ink);
+    cyDot(g, rnd, cx - 7, cy + 14, 2.2, jer ? '#100C0C' : ink); cyDot(g, rnd, cx + 7, cy + 14, 2.2, jer ? '#100C0C' : ink);
+    cyLine(g, rnd, [[cx - 9, cy + (jer ? 25.5 : 23)], [cx + 9, cy + (jer ? 25.5 : 23)]], jer ? '#4A3C34' : ink, 1.5);
   } else if (sp === 'goat') {
     const col = AC.goat[color] || AC.goat.white, cx = 56, cy = 56;
     for (const s of [-1, 1]) { cyLine(g, rnd, [[cx + s * 6, cy - 22], [cx + s * 12, cy - 36], [cx + s * 22, cy - 38]], '#B8A27E', 4); cyShape(g, rnd, cyBlob(rnd, cx + s * 24, cy - 10, 11, 5, 0.15, 10), col, ink); }
@@ -11924,7 +11988,7 @@ function buildMilestone(id, glow) {
   NAV.dirty = true;
 }
 
-/* ---- 行動で増えるもの（看板、里親の名札、ベンチ、巣箱など） ---- */
+/* ---- 行動で増えるもの（看板、ベンチ、巣箱など） ---- */
 function buildExtras() {
   const L = 'extra';
   W.extraCols = []; NAV.dirty = true;
@@ -11951,12 +12015,8 @@ function buildExtras() {
       });
     }
   }
-  // 里親の名札
-  G.animals.filter((a) => a.sponsor).forEach((a, i) => {
-    const z = ZONES[a.zone]; if (!z) return; const sh = z.shelter;
-    const t = new THREE.Group(); part('box', WOOD_D, 0.08, 0.9, 0.08, 0, 0.45, 0, t); const p = textPanel(`${a.name}　里親さんがいます`, 1.1, 0.36, { size: 70 }); p.position.set(0, 0.95, 0.05); t.add(p);
-    place(L, t, clamp(sh[1] + 0.8, z.rect[0] + 0.5, z.rect[1] - 0.5), clamp(sh[3] + 0.6 + i * 0.3, z.rect[2] + 0.5, z.rect[3] - 0.5));
-  });
+  // 里親の名札は、丘には立てない（2026-11-08、Daiさん：同じ区画の名札が重なって目立つので、看板のところだけやめる。里親の制度はそのまま）。
+  // 里親になったことは、動物のカード（「里親になっています」）と、毎月の近況（日記）に残る。どの子に里親がいるかを、丘の上で見分けさせない（寄付の決まり：一頭ずつ順位をつけない・見返りなし）
   // 水飲み場（継続寄付が3か月）
   if (G.flags.waterTrough) { const g = new THREE.Group(); part('box', '#A8B0B0', 2.2, 0.6, 0.8, 0, 0.3, 0, g); const w = new THREE.Mesh(G3.box, NM.water); w.scale.set(2, 0.1, 0.6); w.position.y = 0.56; g.add(w); const zx = G.stage >= 2 ? [-30, 10] : [22, 24]; place(L, g, zx[0], zx[1]); }
   // 大きな小屋（W01）
@@ -18343,7 +18403,7 @@ function sponsorAnimal(a) {
   spend(1, 0); a.sponsor = true; a.sponsorTurn = G.turn;
   buildExtrasOnly();
   const z = ZONES[a.zone] ? ZONES[a.zone].shelter : [0, 0, 0, 0];
-  note('added', `${a.name}の里親になりました。寝床に名札がかかりました。毎月、近況が日記に届きます`, [z[1], z[3], 2]);
+  note('added', `${a.name}の里親になりました。毎月、近況が日記に届きます`, [z[1], z[3], 2]);
   addSupport('donate', 'M', 'self', `${a.name}の里親`);
   GAME.save(); UI.refresh();
 }
