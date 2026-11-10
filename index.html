@@ -220,6 +220,7 @@ body.nagame #rest-ui, body.nagame #beh, body.nagame #zen-exit { display: none !i
 /* 画面の表示の段階 */
 .hud-menu { position: absolute; top: calc(var(--safe-t) + 60px); right: 12px; z-index: 14; width: 218px; padding: 8px; display: flex; flex-direction: column; gap: 2px; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-m); }
 .hud-menu[hidden] { display: none; }
+.hud-menu { max-height: calc(100vh - var(--safe-t) - 68px); max-height: calc(100dvh - var(--safe-t) - 68px); overflow-y: auto; overscroll-behavior: contain; } /* 横のスマホは背が低い：「設定」まで届くように（2026-11-11） */
 .hud-menu .hm-t { font-size: var(--fs-s); color: var(--ink-3); padding: 2px 8px 4px; }
 .hud-menu button { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; text-align: left; border: 0; background: transparent; border-radius: var(--r-l); padding: 8px 10px; color: var(--ink); font: inherit; }
 .hud-menu button span { font-size: var(--fs-ui); font-weight: 700; }
@@ -261,13 +262,13 @@ body.hud-names #beh { display: none !important; }
 body.hud-names #coach { display: none !important; }
 
 /* メニューは、ひとつの帯に */
-.badge { position: absolute; top: 3px; right: 7px; min-width: 18px; height: 18px; border-radius: var(--r-pill); background: var(--coral); color: var(--on-color); font-size: var(--fs-xs); line-height: 18px; padding: 0 5px; box-sizing: border-box; text-align: center; }
+.badge { position: absolute; top: 3px; right: 7px; min-width: 18px; height: 18px; border-radius: var(--r-pill); background: var(--hay); color: var(--sumi); font-size: var(--fs-xs); line-height: 18px; padding: 0 5px; box-sizing: border-box; text-align: center; } /* 2026-11-10：知らせの印は、赤ではなく灯りの色（干し草色）。数も出さない（急がせない） */
 .badge.dot { min-width: 9px; width: 9px; height: 9px; padding: 0; top: 8px; right: 14px; }
 
 /* その場でできること（近くの動物など）は、静かなボタン。1日の終わりは、手が空いた時だけ強く */
-#prompt { position: absolute; left: 50%; bottom: calc(var(--safe-b) + 24px); transform: translateX(-50%); transition: opacity .3s; z-index: 2; }
-body.sheet-open #prompt { opacity: 0; pointer-events: none; }
-body.modal-open #prompt { opacity: 0; pointer-events: none; }
+#prompt, #peek { position: absolute; left: 50%; bottom: calc(var(--safe-b) + 24px); transform: translateX(-50%); transition: opacity .3s; z-index: 2; }
+body.sheet-open #prompt, body.sheet-open #peek { opacity: 0; pointer-events: none; }
+body.modal-open #prompt, body.modal-open #peek { opacity: 0; pointer-events: none; }
 #prompt-btn { white-space: nowrap; padding: 9px 20px; font-size: var(--fs-body); display: inline-flex; align-items: center; gap: 8px; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); box-shadow: var(--shadow); border-radius: var(--r-l); color: var(--pine); font-weight: 500; }
 #prompt-btn:hover { background: var(--card-hi); }
 #prompt-btn kbd { font-family: var(--ui); font-size: var(--fs-xs); background: var(--paper-2); border-radius: var(--r-s); padding: 0 6px; color: var(--ink-2); }
@@ -314,16 +315,16 @@ body.modal-open #zen-btn { opacity: 0; pointer-events: none; }
 #sheet.short { max-height: none; }
 @keyframes sheetIn { from { opacity: .35; transform: translateX(-8px); } }
 .sheet-head { display: flex; align-items: center; gap: 8px; padding: 12px 12px 10px 18px; border-bottom: 2px solid var(--sumi); }
-.sheet-head h2 { margin: 0; font-size: var(--fs-head); flex: 1; text-wrap: balance; }
+.sheet-head h2 { margin: 0; font-size: var(--fs-title); line-height: 1.3; flex: 1; text-wrap: balance; } /* 2026-11-10：題は、いちばん大きく（前は 17。本文 13 との差が小さかった） */
 .sheet-head h2 .crumb { display: inline-block; margin-left: 10px; font-size: var(--fs-note); font-weight: 700; color: var(--ink-2); background: var(--paper-2); border-radius: var(--r-s); padding: 2px 10px; vertical-align: 2px; }
 .icon-btn { border: 0; background: transparent; border-radius: var(--r-l); width: 36px; height: 36px; display: grid; place-items: center; color: var(--ink-2); }
 .icon-btn:hover { background: var(--paper-2); color: var(--ink); }
 .icon-btn.light { color: #fff; }
 .icon-btn.light:hover { background: rgba(255, 255, 255, .15); color: #fff; }
 #sheet-body { overflow-y: auto; flex: 1; overscroll-behavior: contain; padding: 16px 18px 26px; font-size: var(--fs-body); line-height: 1.7; --pt: 16px; --px: 18px; touch-action: pan-x pan-y; }
-.sec { margin-top: 22px; }
+.sec { margin-top: 26px; }
 .sec:first-child { margin-top: 0; }
-.sec h3 { margin: 0 0 9px; font-size: var(--fs-note); letter-spacing: .04em; color: var(--ink-2); font-weight: 700; }
+.sec h3 { margin: 0 0 10px; font-size: var(--fs-head); letter-spacing: .04em; color: var(--ink); font-weight: 700; } /* 2026-11-10：節の見出しは、本文より一段大きく、濃く（前は本文と同じ 13） */
 .sec.tester { padding: 10px 12px; background-color: var(--note); background-image: var(--grain); border: 1.5px dashed var(--line-3); border-radius: var(--r-s); }
 .sec.tester h3 { margin-top: 0; }
 .muted { color: var(--ink-3); font-size: var(--fs-note); line-height: 1.6; }
@@ -331,14 +332,14 @@ body.modal-open #zen-btn { opacity: 0; pointer-events: none; }
 .tabs { display: flex; margin-bottom: 16px; background: transparent; border-radius: 0; padding: 0 2px; gap: 3px; border-bottom: 2px solid var(--sumi); align-items: flex-end; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
 .tabs button { flex: 1 1 auto; padding: 6px 8px; font-size: var(--fs-note); white-space: nowrap; border: 1.5px solid rgba(var(--sumi-rgb), .45); border-bottom: 0; border-radius: var(--r-l) var(--r-l) 0 0; background: var(--paper-2); box-shadow: none; color: var(--ink-2); font-weight: 500; }
 .tabs button.on { background: var(--card); color: var(--ink); border: 2px solid var(--sumi); border-bottom: 0; position: relative; top: 2px; }
-.tabs button .dot { display: inline-block; width: 6px; height: 6px; border-radius: var(--r-round); background: var(--coral); margin-left: 4px; vertical-align: middle; }
+.tabs button .dot { display: inline-block; width: 6px; height: 6px; border-radius: var(--r-round); background: var(--hay); margin-left: 4px; vertical-align: middle; }
 
 .act { box-sizing: border-box; display: flex; align-items: center; width: 100%; text-align: left; padding: 11px 12px; gap: 12px; margin-bottom: 8px; background: var(--card); position: relative; background-color: var(--card); border: 1.5px solid var(--sumi); border-radius: var(--r-l); box-shadow: var(--shadow-s); }
 .act:disabled { opacity: .55; cursor: not-allowed; }
 .act .ic { display: grid; place-items: center; color: var(--on-color); flex: none; position: relative; width: 36px; height: 36px; overflow: hidden; border-radius: var(--r-m); }
 .act .ic svg { position: relative; z-index: 1; width: 19px; height: 19px; color: var(--ink); }
 .act .tx { flex: 1; min-width: 0; }
-.act .tx strong { display: block; font-size: var(--fs-body); line-height: 1.45; }
+.act .tx strong { display: block; font-size: var(--fs-body-l); line-height: 1.45; }
 .act .tx span { font-size: var(--fs-note); line-height: 1.55; color: var(--ink-3); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .act .cost { flex: none; text-align: right; line-height: 1.5; font-size: var(--fs-s); font-weight: 700; color: var(--ink-2); }
 .act .cost em { font-style: normal; display: block; color: var(--ink-3); font-weight: 500; font-size: var(--fs-s); }
@@ -382,7 +383,7 @@ body.modal-open #zen-btn { opacity: 0; pointer-events: none; }
 @keyframes reqIn { from { opacity: 0; transform: translateY(-8px) scale(.98); } }
 @media (prefers-reduced-motion: reduce) { .req-top.new { animation: none; } }
 .req-top .rt-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.req-top .rt-ey { font-size: var(--fs-s); font-weight: 700; color: var(--coral); letter-spacing: .04em; }
+.req-top .rt-ey { font-size: var(--fs-s); font-weight: 700; color: var(--hay-ink); letter-spacing: .04em; }
 .req-top .rt-later { border: 0; background: none; color: var(--ink-3); text-decoration: underline; text-underline-offset: 2px; font-size: var(--fs-s); min-height: 36px; padding: 0 2px 0 10px; }
 .req-top .avs { display: flex; flex: none; }
 .req-top .av { width: 48px; height: 48px; border-radius: var(--r-round); border: 2px solid var(--paper); box-shadow: 0 0 0 1.5px var(--sumi); flex: none; }
@@ -399,7 +400,7 @@ body.modal-open #zen-btn { opacity: 0; pointer-events: none; }
 .req-top.fold .av { width: 34px; height: 34px; }
 .req-top.fold .av + .av { margin-left: -14px; }
 .req-top.fold .rt-tx { flex: 1; display: flex; flex-direction: column; line-height: 1.35; min-width: 0; }
-.req-top.fold .rt-tx b { font-size: var(--fs-s); color: var(--coral); }
+.req-top.fold .rt-tx b { font-size: var(--fs-s); color: var(--hay-ink); }
 .req-top.fold .rt-due { font-size: var(--fs-s); color: var(--ink-3); }
 .req-top.fold .rt-go { color: var(--pine); font-weight: 700; font-size: var(--fs-s); flex: none; }
 .req { border: 1px solid var(--warn-line); background: var(--warn-paper); border-radius: var(--r-l); padding: 12px; margin-bottom: 10px; }
@@ -713,7 +714,7 @@ details.db .muted a { color: var(--lupine); }
   .status { padding: 7px 11px 8px; }
   #rail { top: auto; bottom: calc(var(--safe-b) + 8px); right: 8px; left: 8px; transform: none; flex-direction: row; gap: 0; padding: 4px; }
   #rail button { flex: 1; width: auto; border-radius: var(--r-l); height: 56px; font-size: var(--fs-s); }
-  #prompt { bottom: calc(var(--safe-b) + 128px); }
+  #prompt, #peek { bottom: calc(var(--safe-b) + 128px); }
   #bottom-right { right: 10px; bottom: calc(var(--safe-b) + 78px); }
   #end-day { font-size: var(--fs-body); padding: 9px 16px; }
   #hint { left: 10px; font-size: var(--fs-ui); max-width: 58%; bottom: calc(var(--safe-b) + 196px) !important; }
@@ -1764,7 +1765,7 @@ body.coach-on #hint { opacity: 0 !important; pointer-events: none; } /* はじ�
 /* さわる画面を横に（大きさは問わない）・横で低い画面 */
 @media (orientation: landscape) and (pointer: coarse), (orientation: landscape) and (max-height: 540px) {
   .view-btn { left: auto; right: 64px; top: calc(var(--safe-t) + 12px); bottom: auto; }
-  #prompt { left: auto; right: calc(var(--rail-w) + 30px); bottom: calc(var(--safe-b) + 80px); transform: none; }
+  #prompt, #peek { left: auto; right: calc(var(--rail-w) + 30px); bottom: calc(var(--safe-b) + 80px); transform: none; }
   #hint { left: 12px; top: calc(var(--safe-t) + 160px); bottom: auto !important; max-width: min(300px, 38%); }
 }
 
@@ -1783,7 +1784,7 @@ body.coach-on #hint { opacity: 0 !important; pointer-events: none; } /* はじ�
   /* 右下：今日はここまで。その上に「〜と話す」など */
   #bottom-right { right: calc(var(--rail-w) + 22px); bottom: calc(var(--safe-b) + 10px); }
   #end-day { padding: 8px 16px; }
-  #prompt { right: calc(var(--rail-w) + 22px); bottom: calc(var(--safe-b) + 62px); }
+  #prompt, #peek { right: calc(var(--rail-w) + 22px); bottom: calc(var(--safe-b) + 62px); }
   #prompt-btn { padding: 9px 18px; }
   #hint { top: calc(var(--safe-t) + 140px); font-size: var(--fs-note); }
   #place-bar { top: auto; bottom: calc(var(--safe-b) + 12px); }
@@ -1858,6 +1859,87 @@ body.coach-on #hint { opacity: 0 !important; pointer-events: none; } /* はじ�
 /* 見送り（okuri.js） */
 .okuri-sec { margin: 0 0 12px; }
 .okuri-ph { display: block; max-width: 100%; margin: 0 0 8px; border-radius: var(--r-s, 6px); }
+
+/* ---------- 景色の上の札は、空の明るさに合わせる（2026-11-10 UIの見直し） ----------
+   夜の丘で、札だけが明るく光ると、目が景色ではなく札へ行く。夕方は紙が少し沈み、夜は藍色の紙に生成りの字。
+   パネル（#sheet）とお話の窓（#modal）は、読むための紙なので、変えない。色は、札の中の変数だけを書きかえる */
+body[data-tod="dusk"] #hud, body[data-tod="dusk"] #labels, body[data-tod="dusk"] #beh, body[data-tod="dusk"] #rest-ui, body[data-tod="dusk"] #nagame-ui {
+  --paper: #E0CDAE; --paper-rgb: 224, 205, 174; --paper-2: #D4BF9C; --paper-3: #C4AE8A; --card: #E9D8BC; --card-hi: #EFE0C8; --pine-wash: #CDD2BE;
+  --sumi: #6A5545; --sumi-rgb: 106, 85, 69; --shadow: 2px 3px 0 rgba(var(--shade-rgb), .14); --shadow-s: 1px 2px 0 rgba(var(--shade-rgb), .12); } /* 夕方は、もっと淡く：紙を夕日の色へ寄せ、線と影をうすく（Daiさん、実機で） */
+body[data-tod="night"] #hud, body[data-tod="night"] #labels, body[data-tod="night"] #beh, body[data-tod="night"] #rest-ui, body[data-tod="night"] #nagame-ui {
+  --paper: #2C3040; --paper-rgb: 44, 48, 64; --paper-2: #383D4F; --paper-3: #4C5165; --card: #343949; --card-hi: #3D4356;
+  --ink: #F2EAD9; --ink-2: #D9D0BE; --ink-3: #BDB4A3; --sumi: #151722; --sumi-rgb: 21, 23, 34;
+  --line: rgba(242, 234, 217, .2); --line-2: rgba(242, 234, 217, .32); --line-3: rgba(242, 234, 217, .46);
+  --pine: #A9D4BB; --pine-rgb: 169, 212, 187; --pine-2: #BFE0CB; --pine-d: #151722; --pine-wash: #2F4740;
+  --lupine: #BDB5F0; --hay-ink: #E6C267; --coral: #EE9079; --leaf: #A9CC78; --teal: #86C9C5;
+  --shadow: 2px 3px 0 rgba(0, 0, 0, .38); --shadow-s: 1px 2px 0 rgba(0, 0, 0, .32); }
+
+/* ---------- 2026-11-10 UIの見直し 2・3：Daiさんの実機の感想から ---------- */
+/* 夕方のパネルとお話の窓は、紙を少し落ち着かせる */
+body[data-tod="dusk"] #sheet, body[data-tod="dusk"] #modal {
+  --paper: #EDE2CA; --paper-rgb: 237, 226, 202; --paper-2: #E2D5B8; --paper-3: #D2C3A2; --card: #F5ECD9; --card-hi: #F9F2E3; --note: #F4E9C9; }
+/* 夜のパネルとお話の窓は、札と同じく、暗い紙に生成りの字。紙は、夜空の色（Daiさん：落とすより、ダークモードで） */
+body[data-tod="night"] #sheet, body[data-tod="night"] #modal {
+  --paper: #232B4A; --paper-rgb: 35, 43, 74; --paper-2: #2E375B; --paper-3: #434D75; --card: #2B3457; --card-hi: #353F68; --note: #343C60; --note-line: #7C80B4;
+  --ink: #F2EAD9; --ink-2: #D9D0BE; --ink-3: #BDB4A3; --sumi: #10142A; --sumi-rgb: 16, 20, 42;
+  --line: rgba(242, 234, 217, .2); --line-2: rgba(242, 234, 217, .32); --line-3: rgba(242, 234, 217, .46);
+  --pine: #A9D4BB; --pine-rgb: 169, 212, 187; --pine-2: #BFE0CB; --pine-d: #10142A; --pine-wash: #2A4A4C; --on-color: #141A30;
+  --lupine: #BDB5F0; --hay-ink: #E6C267; --coral: #EE9079; --leaf: #A9CC78; --teal: #86C9C5; --mark: #C9B79E;
+  --ok-wash: #2B4A40; --ok-ink: #B7DDA4; --warn-wash: #4E3340; --warn-paper: #3A2E44; --warn-line: #7C5868; --warn-ink: #F2AC98; --q-wash: #2C4368; --q-ink: #ACCBE8;
+  --shadow: 2px 3px 0 rgba(0, 0, 0, .4); --shadow-s: 1px 2px 0 rgba(0, 0, 0, .34); --wx-line: rgba(242, 234, 217, .13); --wx-dot: rgba(242, 234, 217, .5); --wx-cloud: rgba(196, 206, 236, .2); }
+body[data-tod="night"] #sheet, body[data-tod="night"] #modal-card { color: var(--ink); } /* 字の色は body から受けつぐので、ここで言い直す */
+body[data-tod="night"] #sheet .filters button.on { background: var(--ink); border-color: var(--ink); } /* 濃い色で塗っていた所は、夜は明るい色で */
+body[data-tod="night"] #sheet-body details > summary::after, body[data-tod="night"] #modal-card details > summary::after { background: var(--paper-3); color: var(--ink); }
+body[data-tod="night"] #sheet .kmore-m, body[data-tod="night"] #modal .kmore-m, body[data-tod="night"] details.kmore > .disc-close::before { background: var(--ink-2); }
+body[data-tod="night"] #sheet figure.cover, body[data-tod="night"] #sheet .album figure, body[data-tod="night"] #modal figure { --ink: #33281F; --ink-2: #5A4A3C; --ink-3: #665545; color: #33281F; } /* 写真の白い紙の上は、昼の字 */
+/* パネルの題の所に、天気の手ざわり：雨は細い斜めの線、雪は白い粒、くもりは少し沈んだ紙。晴れは何もなし（帯の絵はやめた） */
+#sheet { --wx-line: rgba(74, 59, 46, .1); --wx-dot: rgba(255, 255, 255, .95); --wx-cloud: rgba(255, 255, 255, .85); }
+body[data-wx="rain"] .sheet-head, body[data-wx="rain"] .sheet-grip { background-image: repeating-linear-gradient(104deg, transparent 0 8px, var(--wx-line) 8px 9px); background-color: rgba(120, 140, 160, .13); }
+body[data-wx="snow"] .sheet-head, body[data-wx="snow"] .sheet-grip { background-image: radial-gradient(circle 1.8px at 6px 30%, var(--wx-dot) 99%, transparent), radial-gradient(circle 1.4px at 17px 72%, var(--wx-dot) 99%, transparent); background-size: 23px 100%; background-color: rgba(150, 175, 200, .2); }
+body[data-wx="cloudy"] .sheet-head, body[data-wx="cloudy"] .sheet-grip { background-color: rgba(112, 128, 144, .24); }
+body[data-wx="cloudy"] .sheet-head { background-image: radial-gradient(ellipse 34% 60% at 26% 34%, var(--wx-cloud), transparent 72%), radial-gradient(ellipse 28% 52% at 50% 70%, var(--wx-cloud), transparent 72%), radial-gradient(ellipse 32% 62% at 82% 36%, var(--wx-cloud), transparent 72%); } /* くもりは、やわらかい雲のかたまり（前は、色を少し沈めただけで、わからなかった） */
+/* つまみ（縦のスマホで、下へ引くと閉じる） */
+.sheet-grip { display: none; }
+/* 札の天気の印 */
+.st-wx { flex: none; align-self: center; width: 15px; height: 15px; margin-right: 5px; color: var(--ink-2); }
+/* 説明をたたむ：はじめは名前だけ。題の横の「説明を見る」で、いつでも出せる */
+.sheet-brief { flex: none; display: inline-flex; align-items: center; gap: 5px; height: 30px; padding: 0 10px 0 11px; border: 1.5px solid rgba(var(--sumi-rgb), .5); border-radius: var(--r-pill); background: transparent; color: var(--ink-2); font-size: var(--fs-s); font-weight: 700; white-space: nowrap; }
+.sheet-brief i { width: 6px; height: 6px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); }
+.sheet-brief[aria-pressed="true"] { background: var(--pine-wash); color: var(--pine); border-color: var(--pine); }
+.sheet-brief[aria-pressed="true"] i { transform: translateY(2px) rotate(-135deg); }
+body[data-tod="night"] .sheet-brief { border-color: var(--line-3); }
+body.brief #sheet-body .act:not(.static) .tx > span:not(.pill):not(.where) { display: none; }
+body.brief #sheet-body .lead-s, body.brief #sheet-body p.muted { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; cursor: pointer; }
+body.brief #sheet-body .lead-s.open, body.brief #sheet-body p.muted.open { display: block; -webkit-line-clamp: unset; }
+/* スマホの縦：パネルは札の下から（札と空が見える）。下に「とじる」 */
+.sheet-foot { display: none; }
+@media (max-width: 720px) and (orientation: portrait) {
+  #sheet:not(.short) { top: calc(var(--safe-t) + 88px); }
+  body.sheet-open #hud-top { opacity: 1; }
+  .sheet-grip { display: block; flex: none; height: 14px; position: relative; }
+  .sheet-grip i { position: absolute; left: 50%; top: 7px; width: 46px; height: 5px; margin-left: -23px; border-radius: 3px; background: var(--line-3); }
+  .sheet-head { padding-top: 4px; }
+  .sheet-foot { display: flex; flex: none; gap: 8px; padding: 8px 12px; border-top: 2px solid var(--sumi); background-color: var(--paper-2); }
+  .sheet-foot button { flex: 1; min-height: 48px; display: flex; align-items: center; justify-content: center; gap: 6px; border: 2px solid var(--sumi); border-radius: var(--r-l); background: var(--card); color: var(--ink); font-size: var(--fs-body-l); font-weight: 700; box-shadow: var(--shadow-s); }
+  .sheet-foot button[hidden] { display: none; }
+  .sheet-foot #sheet-foot-back { flex: 0 0 34%; }
+  .sheet-foot svg { width: 18px; height: 18px; }
+  #sheet.short .sheet-foot, #sheet.short .sheet-grip { display: none; }
+}
+/* 名札：動物をタップすると出る。顔と名前を押すとカード、右は「なでる」（2026-11-11） */
+.peek { display: flex; align-items: stretch; gap: 6px; width: max-content; max-width: calc(100vw - 20px); animation: peekIn .22s ease-out; }
+@keyframes peekIn { from { opacity: 0; } }
+.peek[hidden] { display: none; }
+.peek button { display: flex; align-items: center; background-color: var(--paper); background-image: var(--grain); border: 2px solid var(--sumi); border-radius: var(--r-l); box-shadow: var(--shadow); color: var(--ink); font: inherit; min-height: 54px; }
+.pk-main { gap: 10px; padding: 5px 8px 5px 6px; text-align: left; min-width: 0; }
+.pk-av { flex: none; width: 42px; height: 42px; border-radius: var(--r-m); border: 1.5px solid var(--line-2); }
+.pk-tx { display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
+.pk-tx strong { font-size: var(--fs-head); font-weight: 700; white-space: nowrap; }
+.pk-tx small { font-size: var(--fs-s); color: var(--ink-2); white-space: nowrap; }
+.pk-main svg { flex: none; width: 18px; height: 18px; color: var(--ink-3); }
+.pk-pet { flex: none; flex-direction: column; justify-content: center; gap: 1px; padding: 4px 13px; color: var(--pine) !important; font-size: var(--fs-s) !important; font-weight: 700 !important; }
+.pk-pet svg { width: 20px; height: 20px; }
+.pk-pet:disabled { opacity: .45; }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1893,7 +1975,7 @@ body.coach-on #hint { opacity: 0 !important; pointer-events: none; } /* はじ�
     <symbol id="i-left" viewBox="0 0 24 24"><path d="M14.5 5.5 8 12l6.5 6.5"/></symbol>
     <symbol id="i-right" viewBox="0 0 24 24"><path d="M9.5 5.5 16 12l-6.5 6.5"/></symbol>
     <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.6A7.8 7.8 0 0 1 9.4 4.5a7.8 7.8 0 1 0 10.1 10.1z"/></symbol>
-    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/></symbol><symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18.5h10a4 4 0 0 0 .6-7.96A5.5 5.5 0 0 0 7.1 9.6 4.5 4.5 0 0 0 7 18.5z"/></symbol><symbol id="i-rain" viewBox="0 0 24 24"><path d="M7 15h10a3.6 3.6 0 0 0 .5-7.17A5 5 0 0 0 7.9 6.9 4.1 4.1 0 0 0 7 15zM8.6 18l-.8 2.5M12.4 18l-.8 2.5M16.2 18l-.8 2.5"/></symbol><symbol id="i-snow" viewBox="0 0 24 24"><path d="M7 15h10a3.6 3.6 0 0 0 .5-7.17A5 5 0 0 0 7.9 6.9 4.1 4.1 0 0 0 7 15zM8.2 19h.01M12 20.6h.01M15.8 19h.01"/></symbol>
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5 10 17.5 19 7"/></symbol>
     <symbol id="i-x" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7 7 17"/></symbol>
     <symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3"/><circle cx="16.5" cy="9.5" r="2.4"/><path d="M3.5 19c.5-3.4 2.8-5.2 5.5-5.2s5 1.8 5.5 5.2M14.5 14.4c2.6-.5 5 1 5.6 4.6"/></symbol>
@@ -1925,7 +2007,7 @@ body.coach-on #hint { opacity: 0 !important; pointer-events: none; } /* はじ�
       <div id="status" class="status">
         <button type="button" class="st-head" id="t-when" aria-expanded="false" aria-controls="st-more">
           <strong id="t-stage">段階1　小さな保護の場</strong>
-          <span class="st-when"><span id="t-date"></span><span class="sep" id="t-season"></span><span class="sep" id="t-weather"></span><span class="sep" id="t-tod"></span><span class="st-ev" id="t-event" hidden></span></span>
+          <span class="st-when"><svg class="st-wx" aria-hidden="true"><use id="t-wx" href="#i-sun"/></svg><span id="t-date"></span><span class="sep" id="t-season"></span><span class="sep" id="t-weather"></span><span class="sep" id="t-tod"></span><span class="st-ev" id="t-event" hidden></span></span>
           <span id="t-name" hidden></span>
         </button>
         <div class="st-more" id="st-more">
@@ -1948,19 +2030,18 @@ body.coach-on #hint { opacity: 0 !important; pointer-events: none; } /* はじ�
       <button type="button" role="menuitemradio" data-lvl="calm"><span>少なめ</span><small>状態の札をしまう</small></button>
       <button type="button" role="menuitemradio" data-lvl="names"><span>名前だけ</span><small>動物と人の名前だけ</small></button>
       <button type="button" role="menuitem" data-nagame="1" class="hm-ng"><span>眺める（全画面表示）</span><small>文字をしまって、好きな所から</small></button>
+      <button type="button" role="menuitem" data-set="1" class="hm-ng"><span>設定</span><small>はじめの画面、あなたの見た目、丘の名前など</small></button>
     </div>
 
     <nav id="rail" aria-label="メニュー">
       <button type="button" data-open="actions"><svg><use href="#i-list"/></svg><span>行動</span></button>
-      <button type="button" data-open="animals"><svg><use href="#i-paw"/></svg><span>動物</span><b class="badge" id="b-req" hidden></b></button>
-      <button type="button" data-open="deco"><svg><use href="#i-flower"/></svg><span>飾る</span></button>
-      <button type="button" data-open="diary"><svg><use href="#i-book"/></svg><span>日記</span><b class="badge dot" id="b-diary" hidden></b></button>
-      <button type="button" data-open="obs"><svg><use href="#i-leaf"/></svg><span>観察</span></button>
+      <button type="button" data-open="animals"><svg><use href="#i-paw"/></svg><span>動物</span><b class="badge dot" id="b-req" hidden></b></button>
+      <button type="button" data-open="diary"><svg><use href="#i-book"/></svg><span>ノート</span><b class="badge dot" id="b-diary" hidden></b></button>
       <button type="button" data-open="rest"><svg><use href="#i-tea"/></svg><span>ひと息</span></button>
       <button type="button" data-open="photo"><svg><use href="#i-camera"/></svg><span>写真</span></button>
-      <button type="button" data-open="settings"><svg><use href="#i-gear"/></svg><span>設定</span></button>
     </nav>
 
+    <div id="peek" class="peek" hidden><button type="button" class="pk-main" id="pk-main" aria-label="カードを開く"><span class="pk-av" id="pk-av"></span><span class="pk-tx"><strong id="pk-name"></strong><small id="pk-sub"></small></span><svg aria-hidden="true"><use href="#i-right"/></svg></button><button type="button" class="pk-pet" id="pk-pet"><svg aria-hidden="true"><use href="#i-heart"/></svg><span>なでる</span></button></div>
     <div id="prompt" hidden><button type="button" id="prompt-btn"></button></div>
     <div id="bottom-right">
       <div id="end-tip" class="end-tip" hidden><button type="button" class="et-x" id="end-tip-x" aria-label="閉じる"><svg><use href="#i-close"/></svg></button><b>今日できることは、おしまい</b><span>作業の続きは、明日。また4つに戻ります。</span><small>急がなくて大丈夫。このまま歩いたり、ベンチで眺めたり、楽器を弾いたりしていても。</small></div>
@@ -1976,8 +2057,10 @@ body.coach-on #hint { opacity: 0 !important; pointer-events: none; } /* はじ�
   </div>
 
   <aside id="sheet" hidden aria-label="パネル">
-    <div class="sheet-head"><button type="button" id="sheet-back" class="icon-btn" aria-label="戻る" hidden><svg><use href="#i-left"/></svg></button><h2 id="sheet-title"></h2><button type="button" id="sheet-close" class="icon-btn" aria-label="閉じる"><svg><use href="#i-close"/></svg></button></div>
+    <div class="sheet-grip" aria-hidden="true"><i></i></div>
+    <div class="sheet-head"><button type="button" id="sheet-back" class="icon-btn" aria-label="戻る" hidden><svg><use href="#i-left"/></svg></button><h2 id="sheet-title"></h2><button type="button" id="sheet-brief" class="sheet-brief" aria-pressed="false">説明を見る<i aria-hidden="true"></i></button><button type="button" id="sheet-close" class="icon-btn" aria-label="閉じる"><svg><use href="#i-close"/></svg></button></div>
     <div id="sheet-body"></div>
+    <div class="sheet-foot"><button type="button" id="sheet-foot-back" hidden><svg><use href="#i-left"/></svg>もどる</button><button type="button" id="sheet-foot-close">とじる</button></div>
   </aside>
 
   <div id="modal" hidden><div class="modal-card" id="modal-card" role="dialog" aria-modal="true"></div></div>
@@ -2775,7 +2858,7 @@ const ACTIONS = [
   { id: 'L06', name: '柵の修理・ペンキ塗り', type: 'help', size: 'S', hands: 1, yoyu: 8, stage: 1, choice: 'paint', desc: '傷んだ柵を直して、色を塗ります。選べるのは、動物に安全な塗料だけです。' },
   { id: 'L07', name: '手作りの名前看板を作る', type: 'help', size: 'S', hands: 1, yoyu: 6, stage: 1, choice: 'animal', desc: '誰かの名前を書いた看板を、区画の前に立てます。' },
   { id: 'L08', name: '花壇づくり', type: 'help', size: 'S', hands: 1, yoyu: 6, stage: 1, choice: 'flowers', desc: '動物に安全な草花だけで花壇を作ります。ミツバチや蝶が来るようになります。' },
-  { id: 'L09', name: 'エンリッチメント用具を作る', type: 'help', size: 'S', hands: 1, yoyu: 6, stage: 1, desc: '遊び道具を2つ作ります。「飾る」から、動物の区画に置いてみてください。' },
+  { id: 'L09', name: 'エンリッチメント用具を作る', type: 'help', size: 'S', hands: 1, yoyu: 6, stage: 1, desc: '遊び道具を2つ作ります。「行動」の「飾る」から、動物の区画に置いてみてください。' },
   { id: 'L10', name: '見学者用のベンチを作る', type: 'help', size: 'S', hands: 1, yoyu: 6, stage: 1, desc: '草地を眺められるベンチを作ります。疲れた日に、ここでひと息つけます。' },
   { id: 'L11', name: '巣箱を掛ける', type: 'help', also: 'nature', size: 'S', hands: 1, yoyu: 6, stage: 3, desc: '木に巣箱を掛けます。春には野鳥が住み着いて、雛の声が聞こえるかもしれません。' },
   { id: 'L12', name: '見学ツアーに参加する', type: 'help', size: 'S', hands: 1, yoyu: 0, stage: 2, desc: 'スタッフの話を聞きながら歩きます。まだ知らなかった動物の物語が、ひとつわかります。' },
@@ -3378,7 +3461,7 @@ const QUESTS = []; // 今日のクエストの入れ物（2026-10-23。中身は
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.95', label: 'ベータテスト版', date: '2026年11月',
+  version: '0.9.96', label: 'ベータテスト版', date: '2026年11月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -3386,6 +3469,7 @@ const APP = {
   try: ['毎日少しだけ開いてみる（日付が変わると、今日できることが4つに戻ります。日曜だけでも遊べます）', '「はじめから」で、はじまりの話から始めてみる（見つけた鶏に名前をつけ、庭へ移るまで、会いに行く）', '「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', 'スマホを横にして遊んでみる（左の親指でなぞって歩き、右の親指で見回す）', '週に一度の朝の「今朝のあなたは？」に答えて、休むと、まわりがどう見えてくるかを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（人によって、間があきます。アルバイトさんは週末に。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った日の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'Second Life Sanctuary へ出かけて、ロッティさんと話してみる（門の外のバス停から）', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.96', '2026年11月11日', '画面を見やすくしました。動物をタップすると、その子の小さな名札が出ます。名札を押すとカードが開き、「なでる」でそばへ行きます（近づくたびに出ていた「〜のカードを見る」の札は、なくしました）。夕方と夜は、札もパネルも、空に合わせた落ち着いた色になります。下のメニューは5つになりました（「日記」と「観察」は「ノート」に、「飾る」は「行動」の中に、「設定」は右上のボタンの中に）。パネルの説明は、はじめはたたんであり、題の横の「説明を見る」で出せます。スマホを縦に持った時は、パネルの下の「とじる」を押すか、パネルを下へ引くと閉じます。左上の札は、押すと開き、もう一度押すと閉じます（数字は、言葉にしました）。パネルの題のまわりに、天気の手ざわりが出ます（雨の線、くもりの雲、雪の粒）。'],
     ['0.9.95', '2026年11月9日', 'はじめて会う鶏たちは、まだ少し緊張しています。そばでしゃがんで待つと、気になった子が自分から来て、そっとなでさせてくれます（なでさせてくれるかは、その日の気分でも変わります）。はじめの画面と、はじまりの話を短くしました。日曜の朝の体調は、はじめての日にはたずねず、次の朝からにしました。はじめの案内が終わるまでは、日記やカードに書かずに待ち、終わった時にまとめて書きとめます。その子の好きなことは、好きな物で過ごしているのを見ていた時だけわかります。観察ノートも、立ち止まって、少し長く見ていた時だけ書きこまれます。はじめからいる子たちが来た日を、はるこさんが裏庭で始めた「去年の秋」にそろえました。リンクを送った時の紹介文の「日曜日ごとに」を「毎日」に直しました'],
     ['0.9.94', '2026年11月8日', '牛・豚・ウサギの顔を、本物の特徴に近づけました（頭の横についた牛の目、前へのびた豚の鼻と鼻の穴、頭の横の大きなウサギの目）。どの子もまばたきをして、動物のカードの似顔絵もそろえました。里親になった子の名札を、丘に立てるのをやめました（同じ所に重なって立っていたため）。里親になったことは、動物のカードと、毎月届く近況に残ります。'],
     ['0.9.93', '2026年11月7日', 'ピンチで寄る・離れる時、景色が指の動きにそのままついてくるようになりました（指を広げた分だけ寄り、狭めた分だけ離れます）。近くからピンチで離れる時に、カメラが止まったようになっていたのも直しました'],
@@ -5864,7 +5948,7 @@ QUESTS.push(
       ken: (t) => (t.tk ? '遊び道具を、どこかの区画に置いてみてください。……誰が遊びに来るかは、まあ、お楽しみです' : '置いてある遊び道具、誰か使っていますかね。……まあ、見に行ってみてください'),
       haruko: (t) => (t.tk ? '遊び道具を置いてみて。誰が見つけるかな' : '置いてある遊び道具で、誰か遊んでいるかな。見てきてくれる？'),
     },
-    hint: (t) => (t.tk ? '「飾る」から遊び道具を区画に置いて、遊んでいる子を、そばで見る' : '遊び道具のそばで、遊んでいる子を見る'),
+    hint: (t) => (t.tk ? '「行動」の「飾る」から遊び道具を区画に置いて、遊んでいる子を、そばで見る' : '遊び道具のそばで、遊んでいる子を見る'),
     watch: qwV(qwState(null, ['use'], 12, 2), 'o'),
     pages: {
       o: { title: '遊び道具', hint: '遊び道具で', card: 'enrichLike',
@@ -6031,7 +6115,7 @@ QUESTS.push(
     hint: (t) => `${qName(t.g)}に話しかけて、「話を聞く」`,
     on: { talk: (t, d) => (d.id === t.g ? { v: d.id, x: t.ct } : null) },
     pages: Object.fromEntries(Object.keys(TALKS).map((id) => [id, { title: TALKS[id].title, hint: `${TALKS[id].name}の話`, ic: 'i-people',
-      kid: (r) => `${TALKS[id].name}から、「${r.x || TALKS[id].title}」の話を聞きました。${TALKS[id].sub || ''}${/[。！]$/.test(TALKS[id].sub || '') ? '' : '。'}日記の「人の話」で、読み返せます。` }])) },
+      kid: (r) => `${TALKS[id].name}から、「${r.x || TALKS[id].title}」の話を聞きました。${TALKS[id].sub || ''}${/[。！]$/.test(TALKS[id].sub || '') ? '' : '。'}ノートの「人の話」で、読み返せます。` }])) },
 
   // ----- 見学の人の「あげたい」（その場面がある日だけ） -----
   { id: 'feed', ch: 'people', from: [],
@@ -17657,7 +17741,7 @@ function runAction(id, choice) {
       buildLittleLife();
       break;
     }
-    case 'L09': G.tokens += 2; note('added', '遊び道具を2つ作りました。「飾る」から、動物の区画に置いてみてください'); unlockCard('enrichLike', true); break;
+    case 'L09': G.tokens += 2; note('added', '遊び道具を2つ作りました。「行動」の「飾る」から、動物の区画に置いてみてください'); unlockCard('enrichLike', true); break;
     case 'L10': { const s = freeSlotNearAnimals(); if (s) { G.placed[s.id] = 'bench'; buildPlaced(s.id); note('added', '草地のすみにベンチができました', [s.x, s.z, 2]); } break; }
     case 'L11': G.nestboxes++; buildExtrasOnly(); note('added', G.season === 'spring' ? '巣箱を掛けました。雛の声が聞こえます' : '巣箱を掛けました。春には野鳥が来そうです'); break;
     case 'L12': { const n = G.events.includes('animalday') ? 2 : 1; const got = []; for (let i = 0; i < n; i++) { const c = G.animals.filter((x) => x.known < x.stories.length); if (!c.length) break; const an = pick(c); an.known++; got.push(an); } got.forEach((an) => note('daily', `${an.name}の話をひとつ知りました：「${an.stories[an.known - 1]}」`)); break; }
@@ -18558,7 +18642,7 @@ function lifeOf(a) {
     const reach = roams(a) ? itemsReach({ x: 0, z: 0, a }) : ZONES[a.zone] ? itemsInRect(ZONES[a.zone].rect) : [];
     const have = a.likes.filter((l) => reach.some((x) => x.id === l));
     const nm = (ITEMS[a.likes[0]] || {}).name || '物';
-    out.push(have.length ? { k: 'like', ok: true, t: `好きな${ITEMS[have[0]].name}で過ごせる` } : { k: 'like', ok: false, t: `好きな${nm}が、${place}にあると`, hint: '「飾る」から置けます', g: 'like:' + a.likes[0] + ':' + place, tone: 'better', adv: `{names}は、好きな${nm}が${roams(a) ? '歩ける所' : '庭'}にあると、もっと楽しめそう` });
+    out.push(have.length ? { k: 'like', ok: true, t: `好きな${ITEMS[have[0]].name}で過ごせる` } : { k: 'like', ok: false, t: `好きな${nm}が、${place}にあると`, hint: '「行動」の「飾る」から置けます', g: 'like:' + a.likes[0] + ':' + place, tone: 'better', adv: `{names}は、好きな${nm}が${roams(a) ? '歩ける所' : '庭'}にあると、もっと楽しめそう` });
   } else out.push({ k: 'like', ok: true, t: 'のんびりできる場所がある' });
   // 苦手なもの（ある子だけ）
   if (a.dislikes && a.dislikes.length) {
@@ -19581,6 +19665,23 @@ const UI = {
     });
     $('#sheet-close').addEventListener('click', () => UI.closeSheet());
     $('#sheet-back').addEventListener('click', () => UI.back());
+    // 2026-11-10 UIの見直し 2（Daiさんの実機の感想から）
+    // 下の「とじる」「もどる」：スマホの縦は、右上の × が指から遠いので、親指の届く所にも
+    $('#sheet-foot-close').addEventListener('click', () => UI.closeSheet());
+    $('#pk-main').addEventListener('click', () => UI.peekCard()); $('#pk-pet').addEventListener('click', () => UI.peekPet());
+    $('#sheet-foot-back').addEventListener('click', () => UI.back());
+    // 説明をたたむ：はじめは名前だけ。「説明」を押すと、このあとずっと説明つき（設定に残る）
+    UI.briefSync = () => { const on = !(G && G.settings && G.settings.brief === false); document.body.classList.toggle('brief', on); const b = $('#sheet-brief'); b.setAttribute('aria-pressed', on ? 'false' : 'true'); b.firstChild.textContent = on ? '説明を見る' : '説明をたたむ'; };
+    // 札の天気の印：晴れの昼は太陽、晴れの夜は月、くもり・雨・雪は雲（2026-11-10）
+    UI.wxSync = () => { if (!G) return; const w = G.weather, id = w === 'rain' ? 'i-rain' : w === 'snow' ? 'i-snow' : w === 'cloudy' ? 'i-cloud' : document.body.dataset.tod === 'night' ? 'i-moon' : 'i-sun'; const u = $('#t-wx'); if (u && u.getAttribute('href') !== '#' + id) u.setAttribute('href', '#' + id); };
+    $('#sheet-brief').addEventListener('click', () => { if (!G) return; G.settings.brief = G.settings.brief === false; UI.briefSync(); if (STARTED) GAME.save(); });
+    $('#sheet-body').addEventListener('click', (e) => { if (!document.body.classList.contains('brief') || e.target.closest('a, button')) return; const p = e.target.closest('.lead-s, p.muted'); if (p) p.classList.toggle('open'); }); // たたんだ文は、押すとその文だけ開く
+    // パネルを下へ引くと閉じる（縦のスマホ。いちばん上まで戻してある時か、題の所から）
+    { const sh = $('#sheet'), body = $('#sheet-body'); let y0 = null, x0 = 0, dy = 0, drag = false;
+      sh.addEventListener('touchstart', (e) => { y0 = null; if (e.touches.length !== 1 || !sheetBelow() || sh.classList.contains('short')) return; if (body.contains(e.target) && body.scrollTop > 0) return; if (e.target.closest('input, textarea, select, canvas, .o3-stage')) return; y0 = e.touches[0].clientY; x0 = e.touches[0].clientX; dy = 0; drag = false; }, { passive: true });
+      sh.addEventListener('touchmove', (e) => { if (y0 === null) return; dy = e.touches[0].clientY - y0; const dx = Math.abs(e.touches[0].clientX - x0); if (!drag) { if (dy > 12 && dy > dx * 1.5) drag = true; else if (dy < -8 || dx > 16) { y0 = null; return; } } if (drag) { sh.style.transition = 'none'; sh.style.transform = `translateY(${Math.max(0, dy)}px)`; } }, { passive: true });
+      const end = () => { if (y0 === null) return; const go = drag && dy > 90; y0 = null; drag = false; sh.style.transition = 'transform .2s ease-out'; sh.style.transform = ''; setTimeout(() => { sh.style.transition = ''; }, 220); if (go) UI.closeSheet(); };
+      sh.addEventListener('touchend', end); sh.addEventListener('touchcancel', end); }
     $('#sheet-body').addEventListener('click', (e) => UI.onClick(e));
     // はじめの案内のボタン
     $('#co-skip').addEventListener('click', () => UI.tutEnd(true));
@@ -19611,7 +19712,7 @@ const UI = {
     UI.swipeAway($('#hint'), () => { const h = $('#hint'); clearTimeout(UI._ht); h.style.opacity = 0; h.textContent = ''; });
     UI.swipeAway($('#banner'), () => { clearTimeout(UI._bt); $('#banner').hidden = true; }, 'translate(-50%, -50%)');
     $('#g-toggle').addEventListener('click', () => { G.settings.gauge = !G.settings.gauge; GAME.save(); UI.refresh(); });
-    $('#t-when').addEventListener('click', () => { const st = $('#status'), open = !st.classList.contains('open'); st.classList.toggle('open', open); $('#t-when').setAttribute('aria-expanded', open ? 'true' : 'false'); UI.statusWake(open ? 0 : 6000); });
+    $('#t-when').addEventListener('click', () => UI.statusSet(!$('#status').classList.contains('open'))); // 2026-11-10（Daiさん）：押すと開く、もう一度押すと閉じる。ひとりでに開いたり、時間で閉じたりしない
     // 画面の表示（0.9.37）：すべて・少なめ・名前だけ の3段階と、眺める（全画面表示。nagame.js。前の「景色だけ」も、ここに。2026-11-01）
     $('#zen-btn').addEventListener('click', (e) => { e.stopPropagation(); UI.hudMenu(); });
     // この丘の、これから：カードを左右にスワイプしても、段階を入れ替えられる（0.9.39）
@@ -19621,6 +19722,7 @@ const UI = {
     // カードの＋でひらく所は、ひらいた所を覚えておく（ほかの子のカードでも同じ所をひらく）
     $('#sheet-body').addEventListener('toggle', (e) => { const d = e.target; if (d && d.matches && d.matches('details.ac-fold[data-k]')) { if (d.open) UI.acOpen.add(d.dataset.k); else UI.acOpen.delete(d.dataset.k); } }, true);
     $('#hud-menu').addEventListener('click', (e) => { const b = e.target.closest('[data-lvl]'); if (b) { e.stopPropagation(); UI.setHud(b.dataset.lvl); } });
+    $('#hud-menu').addEventListener('click', (e) => { if (e.target.closest('[data-set]')) { e.stopPropagation(); UI.hudMenu(false); UI.openSheet('settings'); } }); // 設定は、ここから（メニューは5つに。2026-11-11、Daiさん）
     window.addEventListener('pointerdown', (e) => { const m = $('#hud-menu'); if (m && !m.hidden && !e.target.closest('#hud-menu, #zen-btn')) UI.hudMenu(false); }, { capture: true, passive: true });
     $('#zen-exit').addEventListener('click', (e) => { e.stopPropagation(); UI.zen(false); });
     document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && UI.zenOn && UI._zenFs) UI.zen(false); });
@@ -19659,7 +19761,7 @@ const UI = {
     $('#t-season').textContent = SEASON_NAME[G.season] + (G.settings.seasonOverride && G.settings.seasonOverride !== 'auto' ? '（固定）' : '');
     const evs = G.events.map((id) => (EVENTS.find((e) => e.id === id) || {}).name).filter(Boolean);
     $('#t-event').hidden = !evs.length; $('#t-event').textContent = evs.slice(0, 2).join('・');
-    $('#t-weather').textContent = G.weather === 'rain' ? RAIN_LV[rainLv()].name : WEATHER_NAME[G.weather] || '';
+    $('#t-weather').textContent = G.weather === 'rain' ? RAIN_LV[rainLv()].name : WEATHER_NAME[G.weather] || ''; UI.wxSync && UI.wxSync();
     const hk = G.mode === 'hakoniwa';
     $('#t-hands').innerHTML = hk ? '<span class="inf">∞</span>' : Array.from({ length: G.handsMax }, (_, i) => `<i class="${i >= G.hands ? 'used' : ''}"></i>`).join('');
     $('#t-res').querySelectorAll('.lbl')[1].textContent = '心の余裕';
@@ -19674,15 +19776,15 @@ const UI = {
     else if (!G.settings.gauge) { $('#g-title').textContent = 'ゲージはしまってあります'; }
     else {
       $('#g-title').textContent = `次の「${STAGES[G.stage + 1].name}」まで`;
-      $('#g-rest').textContent = `あと ${Math.max(1, Math.ceil(100 - G.gauge))}`;
+      { const r = 100 - G.gauge; $('#g-rest').textContent = r > 75 ? 'まだ、これから' : r > 50 ? '少しずつ' : r > 25 ? '半分をこえました' : r > 8 ? 'もう少し' : 'もうすぐ'; } // 2026-11-11（Daiさん）：数字は出さず、言葉で（前は「あと 77」）
       const n = G.contribs.length, prev = UI._gN === undefined ? n : UI._gN, sig = G.stage + ':' + n;
       if (sig !== UI._gSig) {
         UI._gSig = sig; UI._gN = n;
-        $('#g-fill').innerHTML = G.contribs.map((c, i) => `<span class="${c.src === 'world' ? 'world' : ''}${i >= prev && n > prev ? ' new' : ''}" style="width:${c.pts}%;background:${SUPPORT[c.type].color}" title="${esc(SUPPORT[c.type].name + ' ＋' + c.pts + '：' + c.label)}"></span>`).join('');
+        $('#g-fill').innerHTML = G.contribs.map((c, i) => `<span class="${c.src === 'world' ? 'world' : ''}${i >= prev && n > prev ? ' new' : ''}" style="width:${c.pts}%;background:${SUPPORT[c.type].color}" title="${esc(SUPPORT[c.type].name + '：' + c.label)}"></span>`).join('');
         if (n > prev) { const st = $('#status'); st.classList.remove('bump'); void st.offsetWidth; st.classList.add('bump'); }
       }
       const used = GAUGE_KEYS.filter((k) => G.typeTotals[k] > 0);
-      $('#g-legend').innerHTML = (used.length ? used : GAUGE_KEYS).map((k) => `<span style="color:${SUPPORT[k].color}">${ico(SUPPORT[k].icon)}<b class="u-ink2">${SUPPORT[k].name}${G.typeTotals[k] ? ' ' + G.typeTotals[k] : ''}</b></span>`).join('') + '<span><i class="sw"></i>自分の行動</span><span><i class="sw w"></i>社会の動き</span><button type="button" class="g-vis">この丘の、これから</button>';
+      $('#g-legend').innerHTML = (used.length ? used : GAUGE_KEYS).map((k) => `<span style="color:${SUPPORT[k].color}">${ico(SUPPORT[k].icon)}<b class="u-ink2">${SUPPORT[k].name}</b></span>`).join('') + '<span><i class="sw"></i>自分の行動</span><span><i class="sw w"></i>社会の動き</span><button type="button" class="g-vis">この丘の、これから</button>';
     }
     // 変化があった時だけ、資源と道のりを見せる（しばらくすると、段階と日付だけに戻る）
     const sig = [G.date, G.hands, Math.round(G.yoyu / 5), G.gauge, G.stage, G.events.join()].join('|');
@@ -19696,7 +19798,7 @@ const UI = {
       const ft = G.flags.endTipFirst, on = !!(false && STARTED && !hk && !G.dayOver && G.hands <= 0 && G.flags.endTipX !== G.turn && (ft == null || ft === G.turn || G.flags.endTipAsk === G.turn));
       if (on && ft == null) { G.flags.endTipFirst = G.turn; devSet('endtip', '1'); }
       $('#end-tip').hidden = !on; document.body.classList.toggle('end-tip-on', on); UI.promptAboveTip(); }
-    $('#b-req').hidden = !G.requests.length; $('#b-req').textContent = G.requests.length;
+    $('#b-req').hidden = !G.requests.length; $('#b-req').setAttribute('aria-label', G.requests.length ? '受け入れの相談があります' : ''); // 2026-11-10：数は出さず、小さな点だけ（急がせない）
     $('#b-diary').hidden = !curPage() || curPage().turn <= (G.diarySeen || 0);
     $('#bottom-right').hidden = hk;
     // 日記をつけたあと：日記は自動で開くので、その間はボタンを出さない。日記を閉じて夜の丘を歩いている時だけ「来週の日曜日へ」（0.9.37）
@@ -19718,6 +19820,7 @@ const UI = {
   },
   // 今日できることの説明（状態の札の丸を押した時）
   handsInfo() {
+    { const now = performance.now(); if (now - (UI._hiAt || -1e9) < 8000) return; UI._hiAt = now; } // 何度押しても、知らせは1回（2026-11-10。前は、押した数だけ並んで出た）
     if (G.mode === 'hakoniwa') { UI.toast('箱庭モードでは、いくらでも動けます', 'daily'); return; }
     UI.toast(G.hands > 0 ? `今日できることは、毎日${nTsu(G.handsMax)}。明日また戻ります` : '今日できることは、おしまいです。作業の続きは、明日。丘は、このまま歩けます', 'daily');
   },
@@ -19872,8 +19975,8 @@ const UI = {
     return [
       { k: 'walk', t: '歩いてみましょう', b: touch ? (st ? `${WHERE.stick()}を指でなぞると、その向きへ歩きます。行きたい所をタップしても歩けます。` : '行きたい所をタップすると、そこまで歩きます。') : 'WASD か矢印キーで歩きます。行きたい所をクリックしても歩けます。', btn: touch ? [['操作のヒント', 'help']] : null },
       { k: 'look', t: 'まわりを見回してみましょう', b: touch ? (st ? `${WHERE.look()}を指でなぞると、まわりを見回せます。${WHERE.view()}で、近く・ふつう・遠くも切りかえられます。` : `指でなぞると、まわりを見回せます。${WHERE.view()}で、近く・ふつう・遠くも切りかえられます。`) : 'ドラッグで見回します。ホイールで、寄ったり離れたり。' },
-      { k: 'pet', t: '鶏にふれてみましょう', b: `鶏を${touch ? 'タップ' : 'クリック'}すると、そばへ行きます。はじめて会う子は、まだ緊張しています。しゃがんで待つと、気になった子が自分から来てくれます。` }, // 2026-11-08：自分から来た子は、なでさせてくれる（UI.cameOwn）
-      { k: 'card', t: 'その子のカードを見てみましょう', b: `${WHERE.prompt()}「〜のカードを見る」を押すと、その子の性格や好きなこと、暮らしの様子、しぐさの意味がわかります。`, hl: '#prompt-btn' },
+      { k: 'card', t: 'その子のカードを見てみましょう', b: `鶏を${touch ? 'タップ' : 'クリック'}すると、その子の名札が出ます。名札を押すと、カードが開きます。性格や好きなこと、暮らしの様子、しぐさの意味がわかります。` }, // 2026-11-11：タップで名札、名札からカード
+      { k: 'pet', t: '鶏にふれてみましょう', b: '名札の「なでる」を押すと、そばへ行きます。はじめて会う子は、まだ緊張しています。しゃがんで待つと、気になった子が自分から来てくれます。' }, // 2026-11-08：自分から来た子は、なでさせてくれる（UI.cameOwn）
       /* 0.9.46：はるこさんとの話・行動・この丘のこれからは、案内ではなく、その場面でひとことに */
       { k: 'talk', skip: true, t: 'はるこさんと話してみましょう', b: '緑の名札が、ここで働く人。そばへ行って「はるこさんと話す」を押します。話すのは、今日できることを使いません。', btn: [['そばへ行く', 'goHaruko']] },
       { k: 'act', skip: true, t: '今日できること', b: `${WHERE.rail()}メニューの「行動」から、寄付や手伝いができます。そのたびに、サンクチュアリは少しずつ育ちます。1日にできることは4つ。`, hl: '#rail [data-open="actions"]' },
@@ -19907,7 +20010,7 @@ const UI = {
     document.querySelectorAll('.coach-pulse').forEach((x) => x.classList.remove('coach-pulse'));
     G.flags.tutDone = true; G.flags.tut = null; devSet('tut', 'done');
     G.flags.tutEverDone = true; recFlush(); // 案内のあいだに待っていた記録を、ここで書く（game.js）
-    if (skipped) UI.toast('はじめの案内は、設定の「はじめの案内」から、いつでも見直せます', 'news');
+    if (skipped) UI.toast('はじめの案内は、右上のボタンの「設定」から、いつでも見直せます', 'news');
     UI.toastPlace(); GAME.save();
   },
   coachPlace() {
@@ -20031,12 +20134,9 @@ const UI = {
     if (ok && !T.doneAt) { T.doneAt = performance.now(); $('#coach').classList.add('done'); fleeceDraw($('#coach')); uiSound && uiSound('plus'); }
     if (T.doneAt && performance.now() - T.doneAt > 1100) UI.tutNext();
   },
-  statusWake(ms) {
-    const st = $('#status'); if (!st) return;
-    st.classList.remove('quiet'); clearTimeout(UI._stT);
-    if (st.classList.contains('open') || ms === 0) return;
-    UI._stT = setTimeout(() => { if (!st.classList.contains('open')) st.classList.add('quiet'); }, ms || 9000);
-  },
+  // 状態の札は、閉じている（段階と日付）か、開いている（今日できること・道のり）かの、2つだけ（2026-11-10、Daiさん。前は、変化のたびに9秒ひらき、閉じる時も6秒かけて戻った）
+  statusWake() { const st = $('#status'); if (!st) return; clearTimeout(UI._stT); if (!st.classList.contains('open')) st.classList.add('quiet'); },
+  statusSet(open) { const st = $('#status'); if (!st) return; clearTimeout(UI._stT); st.classList.toggle('open', open); st.classList.toggle('quiet', !open); $('#t-when').setAttribute('aria-expanded', open ? 'true' : 'false'); },
   /* ---------- 全画面で、ボタン、札、名前、知らせを隠す（眺める時。座れない所では、これだけ） ---------- */
   // 画面の表示の段階：all すべて／calm 少なめ（状態の札をしまう）／names 名前だけ（名前の札のほかは出さない）／none 全画面で何も出さない（眺める時。メニューでは「眺める（全画面表示）」にまとめた。2026-11-01）
   hudLevel() { return UI.zenOn ? 'none' : (G && G.settings && G.settings.hud) || 'all'; },
@@ -20108,9 +20208,11 @@ const UI = {
     if (name === 'vision') UI.visSel = G && G.mode === 'hakoniwa' ? 5 : G ? G.stage : 1; // ひらいた時は、いまの段階から
     if (name === 'avatar') UI.avGroup = 'face'; // いつも 1 の「顔」から
     $('#sheet').classList.toggle('short', name === 'avatar');
+    UI.statusSet(false); // パネルを開いたら、札は閉じる（縦のスマホは、パネルの上に札が見える）
+    UI.peekHide();
     $('#sheet').hidden = false; document.body.classList.add('sheet-open'); UI.render(true); UI.toastPlace();
     if (name === 'avatar') { $('#hud').hidden = true; UI.avatarCam(); }
-    document.querySelectorAll('#rail button').forEach((b) => b.classList.toggle('on', b.dataset.open === name));
+    document.querySelectorAll('#rail button').forEach((b) => b.classList.toggle('on', b.dataset.open === name || (name === 'deco' && b.dataset.open === 'actions')));
     if (name === 'diary') { if (curPage()) G.diarySeen = curPage().turn; if (!push) UI.diaryIdx = null; UI.refresh(); }
     if (name === 'money') GAME.unlockCard('money');
   },
@@ -20143,7 +20245,7 @@ const UI = {
     if (on) crumbs.push(on.textContent.trim());
     if (c.name === 'diary' && (UI.tab.diary || 'diary') === 'diary' && UI.diaryFilter && DIARY_CATS[UI.diaryFilter]) crumbs.push(DIARY_CATS[UI.diaryFilter]);
     $('#sheet-title').innerHTML = esc(out.title) + (crumbs.length ? `<small class="crumb">${crumbs.map(esc).join('・')}</small>` : '');
-    $('#sheet-back').hidden = !UI.stack.length;
+    $('#sheet-back').hidden = !UI.stack.length; $('#sheet-foot-back').hidden = !UI.stack.length; UI.briefSync();
     if (fresh || out.keepScroll === false) { body.scrollTop = 0; requestAnimationFrame(() => { body.scrollTop = 0; UI.stickCheck(); }); }
     else body.scrollTop = st;
     UI.stickCheck();
@@ -20178,6 +20280,7 @@ const UI = {
     if (a.startsWith('q-') && UI.questAct && UI.questAct(a, v, id)) return; // 今日のクエストと図鑑（quest.js）
     if (UI.extAct && UI.extAct[a]) { UI.extAct[a](v, id, b); return; } // 新しいファイルのボタン（hajimari.js・taicho.js）
     switch (a) {
+      case 'goto': { const [n, t] = String(v).split(':'); if (t) UI.tab[n] = t; UI.openSheet(n); break; } // 別のパネルの、決まったタブへ（行動 ⇔ 飾る。2026-11-10）
       case 'tab': UI.tab[UI.cur.name] = v; UI.render(true); break;
       case 'run': {
         const act = ACTIONS.find((x) => x.id === id);
@@ -20212,7 +20315,7 @@ const UI = {
       case 'disc-close': UI.discClose(b); break;
       case 'egg-crack': UI.closeModal(); UI.eggCrack(((G.eggs && G.eggs.list) || []).find((x) => String(x.id) === v)); break;
       case 'egg-pic': UI.eggPic(EGG_PICS.find((p) => p.id === v), false); break;
-      case 'ev-off': UI.closeModal(); setEvOff(v, true); { const e = EVENTS.find((x) => x.id === v); UI.toast(`${e ? e.name : '行事'}の飾りを片付けました。「飾る」の画面から、また飾れます`, 'added'); } GAME.save(); if (!$('#sheet').hidden) UI.render(); break;
+      case 'ev-off': UI.closeModal(); setEvOff(v, true); { const e = EVENTS.find((x) => x.id === v); UI.toast(`${e ? e.name : '行事'}の飾りを片付けました。「行動」の「飾る」から、また飾れます`, 'added'); } GAME.save(); if (!$('#sheet').hidden) UI.render(); break;
       case 'ev-on': setEvOff(v, false); { const e = EVENTS.find((x) => x.id === v); UI.toast(`${e ? e.name : '行事'}の飾りを、また飾りました`, 'added'); } GAME.save(); UI.render(); break;
       case 'photo-view': UI.viewPhoto(+id); break;
       case 'photo-save': UI.savePhoto(id === '' ? null : +id); break;
@@ -20374,7 +20477,7 @@ Object.assign(UI, {
     actions() {
       let tab = UI.tab.actions || 'life'; if (!['life', 'build', 'biz', 'people', 'money'].includes(tab)) tab = 'life';
       // タブは4つ。スマホでも字が小さくならないように、アイコンの下に短い名前（ひと息は、下のメニューに独立）
-      let h = `<div class="tabs ico-tabs" role="tablist">${[['life', 'あなた', 'i-hand'], ['build', '設備', 'i-land'], ['biz', '事業者', 'i-building'], ['people', '仲間', 'i-people'], ['money', '収支', 'i-coin']].map(([k, n, ic]) => `<button data-act="tab" data-v="${k}" class="${tab === k ? 'on' : ''}" role="tab" aria-selected="${tab === k}">${ico(ic)}<span>${n}</span>${k === 'build' && GAME.projList().some((x) => x.p.kind === 'repair' && x.st.state !== 'done') ? '<i class="dot"></i>' : ''}</button>`).join('')}</div>`;
+      let h = UI.actTabs(tab); // 2026-11-10：「飾る」も、行動のタブに
       const hk = G.mode === 'hakoniwa';
       // 今日できること：あと◯つ＋4つの丸（使うと色が抜けて減っていく）
       const handsRow = () => {
@@ -20460,7 +20563,7 @@ Object.assign(UI, {
     },
     deco() {
       const tab = UI.tab.deco || 'enrich', hk = G.mode === 'hakoniwa';
-      let h = `<div class="tabs">${[['enrich', 'エンリッチメント'], ['deco', '飾り'], ['blocked', '置かないもの']].map(([k, n]) => `<button data-act="tab" data-v="${k}" class="${tab === k ? 'on' : ''}">${n}</button>`).join('')}</div>`;
+      let h = UI.actTabs('deco') + `<div class="tabs">${[['enrich', 'エンリッチメント'], ['deco', '飾り'], ['blocked', '置かないもの']].map(([k, n]) => `<button data-act="tab" data-v="${k}" class="${tab === k ? 'on' : ''}">${n}</button>`).join('')}</div>`;
       if (tab === 'enrich') {
         // 手元の数は、いちばん上に大きく。0の時は、作り方をすぐ横に
         if (!hk) { const a9 = ACTIONS.find((x) => x.id === 'L09'), av9 = GAME.actionAvailable(a9), none = G.tokens <= 0;
@@ -20490,7 +20593,7 @@ Object.assign(UI, {
         }
       }
       h += `<div class="sec"><button class="btn small" data-act="remove">置いたものを片付ける</button></div>`;
-      return { title: '飾る・置く', html: h };
+      return { title: '行動', html: h };
     },
     // この丘の、これから：段階ごとの地図・広さ・人・迎えられる子・増えるもの。どこまで育てるかは自由（0.9.36）
     // この丘の、これから（0.9.39）：1つの画面で、段階のボタン（とスワイプ）で入れ替える。ゲームの中の数字は出さない。段階ごとのチャレンジと気にかけること
@@ -20641,10 +20744,11 @@ Object.assign(UI, {
       return { title: `${a.name}（${sp.name}）`, html: h };
     },
     diary() {
-      let tab = UI.tab.diary || 'diary'; if (tab === 'iki') tab = UI.tab.diary = 'diary'; // いきものは、観察ノートへ（0.9.62）
-      let h = `<div class="tabs wrap">${[['diary', '日記'], ['album', 'アルバム'], ['talks', '人の話'], ['cards', '知識カード'], ['cow', '牛と酪農']].map(([k, n]) => `<button data-act="tab" data-v="${k}" class="${tab === k ? 'on' : ''}">${n}</button>`).join('')}</div>`;
-      if (tab === 'cow') { h += UI.cowbookHtml(); return { title: 'サンクチュアリ日記', html: h }; }
-      if (tab === 'talks') { h += UI.talksHtml(); return { title: 'サンクチュアリ日記', html: h }; }
+      const tab = UI.tab.diary || 'diary'; // 2026-11-10：日記と観察ノートを、ひとつの「観察ノート」に（メニューは「ノート」。生きもののページは、2つめのタブ）
+      let h = `<div class="tabs wrap">${[['diary', '日記'], ['iki', '生きもの'], ['album', 'アルバム'], ['talks', '人の話'], ['cards', '知識カード']].map(([k, n]) => `<button data-act="tab" data-v="${k}" class="${tab === k || (k === 'cards' && tab === 'cow') ? 'on' : ''}">${n}</button>`).join('')}</div>`; // 牛と酪農は、知識カードのタブの中から（タブが1行に入るように）
+      if (tab === 'iki') { h += UI.obsHtml(); return { title: '観察ノート', html: h }; }
+      if (tab === 'cow') { h += UI.cowbookHtml(); return { title: '観察ノート', html: h }; }
+      if (tab === 'talks') { h += UI.talksHtml(); return { title: '観察ノート', html: h }; }
       if (tab === 'diary') {
         if (UI.diaryIdx === null || UI.diaryIdx >= G.diary.length) UI.diaryIdx = G.diary.length - 1;
         const i = UI.diaryIdx, p = G.diary[i];
@@ -20661,6 +20765,7 @@ Object.assign(UI, {
       } else {
         const ids = Object.keys(CARDS);
         const got = ids.filter((k) => G.cards[k]).length;
+        h += `<button class="act" data-act="tab" data-v="cow"><span class="ic tone-ink3">${ico('i-book')}</span><span class="tx"><strong>牛と酪農のページ</strong></span></button>`;
         h += `<p class="lead-s">集めた知識カード ${got} / ${ids.length}。置けないものを試したり、動物を迎えたり、スタッフと話すと増えます。</p><div class="cards">${ids.map((k) => G.cards[k] ? `<button class="kc" data-act="card" data-id="${k}">${esc(CARDS[k].title)}</button>` : '<div class="kc locked">？</div>').join('')}</div>`;
         { // 日本と世界、くらべてみよう：鶏と豚（0.9.53）
           const c2 = G.cmp2 || {};
@@ -20671,7 +20776,7 @@ Object.assign(UI, {
           if (ep.length || G.eggsReturned) h += `<div class="sec"><h3>卵の絵　${ep.length} / ${EGG_PICS.length}</h3><p class="lead-s">今朝の卵を割って返すと、1日に1枚ずつ。鶏たちの体と暮らしのことです。</p><div class="egg-pics">${EGG_PICS.map((p) => ep.includes(p.id) ? `<button class="ep" data-act="egg-pic" data-v="${p.id}">${UI.eggPicSvg(p.id)}<span>${esc(p.title)}</span></button>` : '<div class="ep locked"><span>？</span></div>').join('')}</div></div>`;
         }
       }
-      return { title: 'サンクチュアリ日記', html: h };
+      return { title: '観察ノート', html: h };
     },
     settings() {
       const hk = G.mode === 'hakoniwa';
@@ -20726,7 +20831,7 @@ Object.assign(UI, {
       }
       h += `</div><div class="sec"><h3>操作</h3>${IS_TOUCH ? `<div class="field"><span class="flabel">移動のしかた</span><div class="seg"><button data-act="ctl-mode" data-v="stick" class="${G.settings.ctl !== 'tap' ? 'on' : ''}">なぞって歩く＋タップ</button><button data-act="ctl-mode" data-v="tap" class="${G.settings.ctl === 'tap' ? 'on' : ''}">タップだけ</button></div></div>
         <div class="switch"><span>歩くと、カメラがゆっくりうしろへまわる</span><input type="checkbox" data-act="toggle-follow" ${G.settings.camFollow === true ? 'checked' : ''}></div>
-        <div class="btn-row"><button class="btn small" data-act="ctl-help">操作のヒントを見る</button><button class="btn small" data-act="tut-start">はじめの案内</button></div>` : ''}<p class="lead-s">${IS_TOUCH ? (G.settings.ctl !== 'tap' ? `${WHERE.stick()}を指でなぞると、その向きへ歩きます（指を置いた所がスティックに）。${WHERE.look()}をなぞると見回します。` : 'ドラッグで見回します。') + `タップした場所へ歩き、動物をタップすると、そばへ行ってなでます。${WHERE.view()}で、近く・ふつう・遠く。ピンチでも寄ったり離れたりできます。動物のカードは、近くで出る「〜のカードを見る」か、${WHERE.rail()}「動物」から開けます。` : 'WASDか矢印キーで歩きます（Shiftで小走り）。クリックした場所へ歩くこともできます。ドラッグで見回し、ホイールで寄ります。動物をクリックすると、そばへ行ってなでます。近くの動物のカードはEで開き、スタッフにはEで話しかけます。Escで閉じます。'}</p>
+        <div class="btn-row"><button class="btn small" data-act="ctl-help">操作のヒントを見る</button><button class="btn small" data-act="tut-start">はじめの案内</button></div>` : ''}<p class="lead-s">${IS_TOUCH ? (G.settings.ctl !== 'tap' ? `${WHERE.stick()}を指でなぞると、その向きへ歩きます（指を置いた所がスティックに）。${WHERE.look()}をなぞると見回します。` : 'ドラッグで見回します。') + `タップした場所へ歩き、動物をタップすると、その子の名札が出ます。名札から、カードを見たり、なでたりできます。${WHERE.view()}で、近く・ふつう・遠く。ピンチでも寄ったり離れたりできます。動物のカードは、近くで出る「〜のカードを見る」か、${WHERE.rail()}「動物」から開けます。` : 'WASDか矢印キーで歩きます（Shiftで小走り）。クリックした場所へ歩くこともできます。ドラッグで見回し、ホイールで寄ります。動物をクリックすると、そばへ行ってなでます。近くの動物のカードはEで開き、スタッフにはEで話しかけます。Escで閉じます。'}</p>
         ${IS_TOUCH ? '' : '<div class="btn-row u-mb8"><button class="btn small" data-act="tut-start">はじめの案内</button></div>'}
         <p class="muted">${STORE.ok ? '進み具合は、claude.aiのあなたのアカウントに保存されます。ほかの端末で開いても続きから遊べます。アルバムの写真は、この端末にだけ残ります。' : '進み具合は、このブラウザに保存されます。「続きをファイルに」で、ファイルにも残せます。'}</p></div>`;
       return { title: '設定', html: h };
@@ -21277,7 +21382,7 @@ Object.assign(UI, {
       if (G.mode === 'normal' && !G.flags.tutDone) { let did = false; did = devGet('tut') === 'done'; if (!did && (first || typeof G.flags.tut === 'number')) { const at = typeof G.flags.tut === 'number' ? G.flags.tut : 0; setTimeout(() => { UI.tutStart(); if (at) { UI.tut.i = at; UI.tutShow(); } }, 500); return; } }
       let seen = !!G.flags.ctlHelp; seen = seen || devGet('ctlhelp') === '1';
       if (IS_TOUCH && !seen) { G.flags.ctlHelp = 1; devSet('ctlhelp', '1'); setTimeout(() => UI.ctlHelp(), 400); return; }
-      if (G.turn <= 2 && G.mode !== 'hakoniwa') UI.hint(IS_TOUCH ? (stickOn() ? (touchWide() ? '左側をなぞって歩く・右側をなぞって見回す・動物をタップでなでる' : '下3分の1をなぞって歩く・それより上をなぞって見回す・動物をタップでなでる') : 'タップで歩く・ドラッグで見回す・動物をタップでなでる') : 'WASDで歩く・ドラッグで見回す・動物をクリックでなでる');
+      if (G.turn <= 2 && G.mode !== 'hakoniwa') UI.hint(IS_TOUCH ? (stickOn() ? (touchWide() ? '左側をなぞって歩く・右側をなぞって見回す・動物をタップで名札' : '下3分の1をなぞって歩く・それより上をなぞって見回す・動物をタップでなでる') : 'タップで歩く・ドラッグで見回す・動物をタップでなでる') : 'WASDで歩く・ドラッグで見回す・動物をクリックでなでる');
     };
   },
   // 続きから開いた時の、おかえりなさい（今日の途中から）
@@ -21304,7 +21409,7 @@ Object.assign(UI, {
     const st = stickOn(), wide = touchWide();
     const phone = wide ? `<svg class="ch-phone wide" viewBox="0 0 210 120" aria-hidden="true"><rect x="4" y="4" width="202" height="112" rx="16" fill="#F4F5EF" stroke="#9AA59C" stroke-width="3"/>${st ? '<line x1="89" y1="10" x2="89" y2="110" stroke="#B9C2B9" stroke-width="2" stroke-dasharray="5 5"/><path d="M126 54 h44 M126 54 l8 -6 M126 54 l8 6 M170 54 l-8 -6 M170 54 l-8 6" stroke="#6E62B0" stroke-width="3" fill="none" stroke-linecap="round"/><text x="148" y="82" font-size="12" text-anchor="middle" fill="#6E62B0" font-weight="700">見回す</text><circle cx="46" cy="58" r="15" fill="none" stroke="#2E5A48" stroke-width="3"/><circle cx="51" cy="53" r="7" fill="#2E5A48"/><text x="46" y="94" font-size="12" text-anchor="middle" fill="#2E5A48" font-weight="700">歩く</text>' : '<path d="M83 56 h44 M83 56 l8 -6 M83 56 l8 6 M127 56 l-8 -6 M127 56 l-8 6" stroke="#6E62B0" stroke-width="3" fill="none" stroke-linecap="round"/><text x="105" y="84" font-size="12" text-anchor="middle" fill="#6E62B0" font-weight="700">見回す</text>'}</svg>` : `<svg class="ch-phone" viewBox="0 0 120 210" aria-hidden="true"><rect x="4" y="4" width="112" height="202" rx="16" fill="#F4F5EF" stroke="#9AA59C" stroke-width="3"/>${st ? '<line x1="10" y1="139" x2="110" y2="139" stroke="#B9C2B9" stroke-width="2" stroke-dasharray="5 5"/><path d="M38 66 h44 M38 66 l8 -6 M38 66 l8 6 M82 66 l-8 -6 M82 66 l-8 6" stroke="#6E62B0" stroke-width="3" fill="none" stroke-linecap="round"/><text x="60" y="94" font-size="12" text-anchor="middle" fill="#6E62B0" font-weight="700">見回す</text><circle cx="60" cy="161" r="15" fill="none" stroke="#2E5A48" stroke-width="3"/><circle cx="65" cy="156" r="7" fill="#2E5A48"/><text x="60" y="196" font-size="12" text-anchor="middle" fill="#2E5A48" font-weight="700">歩く</text>' : '<path d="M38 100 h44 M38 100 l8 -6 M38 100 l8 6 M82 100 l-8 -6 M82 100 l-8 6" stroke="#6E62B0" stroke-width="3" fill="none" stroke-linecap="round"/><text x="60" y="128" font-size="12" text-anchor="middle" fill="#6E62B0" font-weight="700">見回す</text>'}</svg>`;
     const rows = (st ? [[`${WHERE.stick()}を、指でなぞる`, '指を置いた所がスティックに。なぞった向きへ、ゆっくり歩きます'], [`${WHERE.look()}を、指でなぞる`, `まわりを見回します。歩きながら、もう1本の指で見回すこともできます${wide ? '（左の親指で歩いて、右の親指で見回す）' : ''}`]] : [['どこでも、指でなぞる', 'まわりを見回します']])
-      .concat([['タップ', '行きたい所へ歩きます。遠くをタップした時は、小走りで。動物をタップすると、そばへ行ってなでます'], [WHERE.view(), '近く・ふつう・遠く、を切りかえます。2本の指で、寄ったり離れたりも。大きく引くと丘ぜんたいが見え、タップした所へ移れます'], ['歩いていると', 'カメラが、ゆっくり、あなたのうしろへまわります']]);
+      .concat([['タップ', '行きたい所へ歩きます。遠くをタップした時は、小走りで。動物をタップすると、その子の名札が出ます。名札から、カードを見たり、なでたりできます'], [WHERE.view(), '近く・ふつう・遠く、を切りかえます。2本の指で、寄ったり離れたりも。大きく引くと丘ぜんたいが見え、タップした所へ移れます'], ['歩いていると', 'カメラが、ゆっくり、あなたのうしろへまわります']]);
     UI.modal(`<h3 class="ch-t">歩く・見回す</h3><div class="ch-wrap">${phone}<ul class="ch-list">${rows.map(([a, b]) => `<li><b>${a}</b><span>${b}</span></li>`).join('')}</ul></div><p class="muted">急いで歩かなくても大丈夫。眺めているだけでも、楽しめます。設定の「操作」で、いつでも見直せます。</p><div class="btn-row"><button class="btn small primary" data-act="close-modal">わかりました</button></div>`);
   },
 });
@@ -21313,6 +21418,11 @@ UI.extAct = Object.assign(UI.extAct || {}, {
   'req-fold'(v, id) { const r = G.requests.find((x) => x.id === id); if (r) { r.fold = true; GAME.save(); UI.render(); } },
   'req-open'(v, id) { const r = G.requests.find((x) => x.id === id); if (r) { r.fold = false; r.seen = true; GAME.save(); UI.render(); } },
 });
+
+// 行動のタブ（飾るのパネルにも、同じタブを出す。2026-11-10、Daiさん：「飾る」も行動の中へ）
+UI.actTabs = function (tab) {
+  return `<div class="tabs ico-tabs" role="tablist">${[['life', 'あなた', 'i-hand'], ['deco', '飾る', 'i-flower'], ['build', '設備', 'i-land'], ['biz', '事業者', 'i-building'], ['people', '仲間', 'i-people'], ['money', '収支', 'i-coin']].map(([k, n, ic]) => `<button data-act="${k === 'deco' ? 'goto' : tab === 'deco' ? 'goto' : 'tab'}" data-v="${k === 'deco' ? 'deco' : tab === 'deco' ? 'actions:' + k : k}" class="${tab === k ? 'on' : ''}" role="tab" aria-selected="${tab === k}">${ico(ic)}<span>${n}</span>${k === 'build' && GAME.projList().some((x) => x.p.kind === 'repair' && x.st.state !== 'done') ? '<i class="dot"></i>' : ''}</button>`).join('')}</div>`;
+};
 /* =========================================================
    景色の中のやりとり：話す・ふれあう・なでる・飾る・タップ・しぐさ・毎フレームの札（0.9.44 で ui.js から分けた）
    ========================================================= */
@@ -21354,7 +21464,7 @@ Object.assign(UI, {
   // 行事の飾り：何の飾りかと、片付けるボタン（その年は、もう自動では飾らない）
   evItemInfo(e) {
     const ev = EVENTS.find((x) => x.id === e.ev);
-    UI.modal(`<div class="dialog-who"><strong>${esc(e.name)}</strong><span class="pill">行事の飾り</span></div><p class="said">${esc(e.desc || (ev ? ev.desc : ''))}</p><p class="muted">行事の飾りは、その時期になると自動で飾られます。片付けても、「飾る」の画面からまた飾れます。</p><div class="btn-row"><button class="btn small" data-act="ev-off" data-v="${esc(e.ev)}">片付ける</button><button class="btn small primary" data-act="close-modal">このままにする</button></div>`);
+    UI.modal(`<div class="dialog-who"><strong>${esc(e.name)}</strong><span class="pill">行事の飾り</span></div><p class="said">${esc(e.desc || (ev ? ev.desc : ''))}</p><p class="muted">行事の飾りは、その時期になると自動で飾られます。片付けても、「行動」の「飾る」からまた飾れます。</p><div class="btn-row"><button class="btn small" data-act="ev-off" data-v="${esc(e.ev)}">片付ける</button><button class="btn small primary" data-act="close-modal">このままにする</button></div>`);
   },
   // 今朝の卵：割って、鶏たちに返す（0.9.37：無精卵のことを、はじめにはっきり）
   eggInfo(e) {
@@ -21396,7 +21506,7 @@ Object.assign(UI, {
     UI.modal(`<div class="kcard-band">${ico('i-spark')}卵の絵　${n} / ${all}</div>
       <div class="egg-rev${fresh ? '' : ' open now'}">${UI.eggPicSvg(p.id)}${cover}</div>
       <h3>${esc(p.title)}</h3><p>${esc(p.body)}</p>${UI.more(p.more ? `<p>${esc(p.more)}</p>` : '', { src: p.src })}
-      ${fresh ? `<p class="muted">${n < all ? `卵を返すと、また1枚。1日に1枚ずつ、全部で${all}枚あります。` : '卵の絵は、これで全部そろいました。'}日記の「知識カード」で、いつでも見られます。</p>` : ''}
+      ${fresh ? `<p class="muted">${n < all ? `卵を返すと、また1枚。1日に1枚ずつ、全部で${all}枚あります。` : '卵の絵は、これで全部そろいました。'}ノートの「知識カード」で、いつでも見られます。</p>` : ''}
       <div class="btn-row"><button class="btn small primary" data-act="close-modal">とじる</button></div>`);
     if (fresh) { uiSound('card'); const el0 = document.querySelector('#modal-card .egg-rev'); if (el0) { el0.getBoundingClientRect(); el0.querySelectorAll('.er-l, .er-r, .er-bg, .er-crack').forEach((x) => getComputedStyle(x).opacity); } setTimeout(() => { const el = document.querySelector('#modal-card .egg-rev'); if (el) el.classList.add('open'); }, 80); }
   },
@@ -21775,6 +21885,7 @@ Object.assign(UI, {
     const ray = screenRay(cx, cy);
     if (UI.placeItemId || UI.removeMode) { if (UI.markerTap(ray)) return; }
     const hit = pickEntity(ray);
+    if (!(hit && hit.kind === 'animal')) UI.peekHide(); // ほかの所をタップしたら、名札は消える
     const P = ACT.player;
     if (hit && (hit.kind === 'koji' || hit.kind === 'junbi' || hit.kind === 'junbiman' || hit.kind === 'okuristone')) { UI.interact({ ent: hit.ent, kind: hit.kind }); return; } // 看板は、押すと開く
     if (hit && hit.kind === 'animal') { UI.tapAnimal(hit.ent); return; }
@@ -21801,18 +21912,30 @@ Object.assign(UI, {
     const P = ACT.player, a = e.a;
     if (P.petting && P.petting.e === e) return; // なでている最中は、そのまま
     if (typeof michiMeetTap === 'function' && michiMeetTap(a)) return; // あなたが見つけた子に、はじめて会う日（hajimari.js）
-    if (a.quarantine && G.turn < a.quarantine) { UI.toast(`${a.name}は検疫中です。柵の外から、そっと見守ります`, 'health'); return; }
-    if (farView()) UI.farJump(e.x + 3, e.z + 3);
-    UI.petGo(a.id, 'pet');
+    UI.peek(e); // 2026-11-11（Daiさん）：動物をタップすると、その子の小さな名札。名札を押すとカード、「なでる」でそばへ（いきなりカードが開くのは、唐突だった。近づくたびに出る「〜のカードを見る」の札も、出さない）
   },
+  // 名札：タップした子の顔と名前。ほかの所をタップするか、パネルを開くと消える（時間では消えない）
+  peek(e) {
+    const a = e.a, q = !!(a.quarantine && G.turn < a.quarantine);
+    UI.peekId = a.id; UI.peekEnt = e;
+    $('#pk-av').style.cssText = avStyle(a); $('#pk-name').textContent = a.name; $('#pk-sub').textContent = SPECIES[a.sp].name + (q ? '・検疫中' : '');
+    $('#pk-pet').disabled = q; $('#peek').hidden = false; $('#prompt').hidden = true; uiSound && uiSound('click');
+  },
+  peekHide() { if (!UI.peekId) return; UI.peekId = null; UI.peekEnt = null; $('#peek').hidden = true; },
+  peekCard() { const id = UI.peekId; if (id == null) return; UI.peekHide(); UI.openSheet('card', id); },
+  peekPet() { const id = UI.peekId, e = UI.peekEnt; if (id == null) return; UI.peekHide(); if (e && farView()) UI.farJump(e.x + 3, e.z + 3); UI.petGo(id, 'pet'); },
   vo: { x: 0, y: 0 },
   viewOffset(dt) {
     const W = window.innerWidth, H = window.innerHeight; let tx = 0, ty = 0;
     const sh = $('#sheet'), mu = $('#music-ui');
     // パネルが出ている時：縦のスマホ（下から）は上へ、ほかは右へ。右は、パネルとメニューのあいだのまんなかへ（横の画面でメニューが出ている時。2026-10-24）
-    if (!sh.hidden) { const r = sh.getBoundingClientRect(); if (sheetBelow()) ty = Math.max(0, H - r.top) / 2; else { const rl = $('#rail').getBoundingClientRect(), right = rl.width && !$('#hud').hidden && rl.left > r.right ? rl.left : W; tx = -Math.max(0, r.right + right - W) / 2; } }
+    if (!sh.hidden) { const r = sh.getBoundingClientRect(); if (sheetBelow()) ty = r.top < H * 0.3 ? 0 : Math.max(0, H - r.top) / 2; /* 背の高いパネルの時は、ずらさない：パネルの上に、空と札が見える（2026-11-10） */ else { const rl = $('#rail').getBoundingClientRect(), right = rl.width && !$('#hud').hidden && rl.left > r.right ? rl.left : W; tx = -Math.max(0, r.right + right - W) / 2; } }
     else if (!mu.hidden) { const r = mu.querySelector('.music-panel').getBoundingClientRect(); ty = Math.max(0, H - r.top) / 2; }
-    const k = Math.min(1, dt * 7); UI.vo.x += (tx - UI.vo.x) * k; UI.vo.y += (ty - UI.vo.y) * k;
+    // はじめの画面（縦のスマホ）：カードが下の6割を覆うので、丘をカードの上の空いた所のまんなかへ（2026-11-10 UIの見直し。前は、丘がカードの後ろに隠れていた）
+    else if (!STARTED && sheetBelow()) { const c = document.querySelector('.start-card'); if (c) { const r = c.getBoundingClientRect(); ty = Math.min(H * 0.32, Math.max(0, H - r.top) / 2); } }
+    // 縦のスマホで歩いている時：あなたを画面の少し下へ（2026-11-10 UIの見直し。前は、あなたの背中が画面のまんなかにあって、その先の動物や景色が隠れていた。カメラの距離と角度は変えない）
+    else if (STARTED && sheetBelow() && camFree() && !UI.rest && !CAM.photo && !CAM.nagame && !OCHA.on && !SLSV.on) ty = -H * 0.1;
+    const k = CAM.photo ? 1 : Math.min(1, dt * 7); UI.vo.x += (tx - UI.vo.x) * k; UI.vo.y += (ty - UI.vo.y) * k; // 写真の時は、すぐに戻す（向けた所が、まんなかに写るように。2026-11-11）
     if (Math.abs(UI.vo.x) < 0.5 && Math.abs(UI.vo.y) < 0.5) { if (R.camera.view && R.camera.view.enabled) R.camera.clearViewOffset(); }
     else R.camera.setViewOffset(W, H, UI.vo.x, UI.vo.y, W, H);
   },
@@ -22059,6 +22182,8 @@ Object.assign(UI, {
     { const now = performance.now(); if (now - (UI._idleChk || 0) > 500 && !OCHA.on && !SLSV.on) { UI.knowWatch((now - (UI._idleChk || now)) / 1000); UI._idleChk = now; if ($('#toasts').childElementCount && !sheetBelow()) UI.toastPlace(); UI.idleSit(); UI.benchStop(); UI.firstDayTips(); if (typeof michiMeetFrame === 'function') michiMeetFrame(); const vn = CAM.focusView && CAM.focus ? 'もどる' : CAM_VIEWS[camViewIndex()].n, el = $('#view-name'); if (el && el.textContent !== vn) el.textContent = vn; } }
     // 時間帯（朝・昼・夕方・夜）は、変わった時だけ書きかえる
     const tn = todName(SKY.t); if (tn !== UI._tod) { UI._tod = tn; const el = $('#t-tod'); if (el) el.textContent = tn; }
+    // 景色の上の札の色は、空の明るさに合わせる（2026-11-10 UIの見直し）：夜の丘で、札だけが明るく光らないように。部屋の中（ウェルカムセンター）は、いつも昼の紙
+    { const nk = OCHA.on ? 'day' : SKY.night > 0.6 ? 'night' : SKY.night > 0.12 || tn === '夕方' || tn === '夜明け' ? 'dusk' : 'day'; if (nk !== UI._todK) { UI._todK = nk; document.body.dataset.tod = nk; UI.wxSync && UI.wxSync(); } const wk = OCHA.on ? 'in' : G.weather; if (wk !== UI._wxK) { UI._wxK = wk; document.body.dataset.wx = wk; UI.wxSync && UI.wxSync(); } }
     // 写真のピント：タップするまでは、見ている中心（あなたのあたり）に合わせ続ける
     if (DOF.on && DOF.auto) {
       if (CAM.photo && (CAM.lens > 1 || CAM.panY || CAM.panP)) { // 望遠で向けている時は、画面のまんなかに写っている物に（0.25秒ごとに見て、なめらかに）
@@ -22139,7 +22264,7 @@ Object.assign(UI, {
     UI._promptE = n && n.kind === 'animal' ? n.ent : null;
     const pr = E.prompt;
     // 近くの案内のボタンは、動物（カード）、働く人（話す）、卵、野生の生き物だけ。置いた物やベンチは、タップすると開く（0.9.37。画面を静かに）
-    if (n && !UI.placeItemId && !UI.removeMode && !['item', 'evitem', 'bench'].includes(n.kind)) {
+    if (n && !UI.placeItemId && !UI.removeMode && UI.peekId == null && !['item', 'evitem', 'bench', 'animal'].includes(n.kind)) { // 動物は、タップで名札（「〜のカードを見る」の札は出さない。名札が出ている間は、ほかの札も待つ）
       const key = n.kind + (n.ent.a ? n.ent.a.id : n.ent.sid || n.ent.ev || n.ent.name);
       if (key !== UI.lastPrompt) {
         UI.lastPrompt = key;
@@ -22478,6 +22603,7 @@ Object.assign(UI, {
     UI.closeSheet(); UI.endPlace();
     if (!CAM.lock) { camRemember(); CAM.lock = true; }
     CAM.photo = true; CAM.lens = 1; CAM.panY = CAM.panP = 0; CAM.photoDist = CAM.tDist; UI._dofW = 0;
+    UI.vo.x = UI.vo.y = 0; if (R.camera.view && R.camera.view.enabled) R.camera.clearViewOffset(); // 写真の時は、画面をずらさない（縦のスマホで歩く時の、あなたを少し下へ、をすぐに戻す。2026-11-11）
     if (!UI._teleInit) { UI._teleInit = true; $('#tele').addEventListener('input', (e) => lensSet(Math.pow(LENS_MAX, +e.target.value))); }
     $('#hud').hidden = true; $('#photo-ui').hidden = false;
     // 行事のない週は、季節の飾りのフレームに（ボタンはいつでも使える）
@@ -23990,7 +24116,7 @@ Object.assign(UI, {
 });
 
 // 右のメニューの「観察」で開く
-UI.views.obs = function () { return { title: '観察ノート', html: UI.obsHtml() }; };
+UI.views.obs = function () { UI.tab.diary = 'iki'; if (UI.cur) UI.cur.name = 'diary'; return UI.views.diary(); }; // 2026-11-10：観察ノートは、ノートの「生きもの」のタブに
 /* =========================================================
    観察ノートの模型を、ノートの中で大きく見る（2026-10-22、Daiさんの依頼）
    ---------------------------------------------------------
