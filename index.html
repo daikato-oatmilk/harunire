@@ -298,7 +298,8 @@ body.modal-open #prompt, body.modal-open #peek { opacity: 0; pointer-events: non
 @keyframes toastIn { from { opacity: 0; transform: translateY(-6px); } }
 @keyframes toastOut { to { opacity: 0; transform: translateY(-6px); } }
 /* パネルを開いている間は、景色の上の札とボタンを下げる（パネルと競わない） */
-body.sheet-open #zen-btn { opacity: 0; pointer-events: none; }
+body.sheet-open.zen-hit #zen-btn { opacity: 0; pointer-events: none; } /* パネルに重なる時だけ（UI.zenPlace。2026-11-14） */
+body:not(.zen-hit) #sheet-set { display: none; }
 body.modal-open #zen-btn { opacity: 0; pointer-events: none; }
 #place-bar { position: absolute; left: 50%; top: calc(var(--safe-t) + 150px); transform: translateX(-50%); background: var(--ink); color: var(--paper); border-radius: var(--r-l); padding: 6px 6px 6px 18px; display: flex; gap: 12px; align-items: center; box-shadow: var(--shadow); font-weight: 700; max-width: calc(100% - 32px); }
 #place-bar .btn { box-shadow: none; flex: none; white-space: nowrap; }
@@ -449,6 +450,7 @@ body.modal-open #zen-btn { opacity: 0; pointer-events: none; }
 .need-list b { font-size: var(--fs-body-l); }
 .need-list small { grid-column: 1 / -1; color: var(--ink-3); font-size: var(--fs-s); }
 .ledger { width: 100%; border-collapse: collapse; font-size: var(--fs-ui); }
+table { color: inherit; } /* 文書の頭に DOCTYPE がない（quirks）ので、表は字の色を受けつがない。夜に、夜の紙の上で暗い字になっていた（2026-11-14） */
 .ledger td { padding: 6px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
 .ledger td.num { text-align: right; white-space: nowrap; padding-left: 10px; font-weight: 700; }
 .ledger td small { display: block; color: var(--ink-3); font-size: var(--fs-s); }
@@ -615,6 +617,26 @@ details.db .muted a { color: var(--lupine); }
 #string-pad .tn.hit { transform: translateY(-4px); background: linear-gradient(90deg, #E8EDED, #FFFFFF 45%, #D0D6D6); }
 #string-pad * { touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
 #pad-chord { position: absolute; left: 10px; top: 6px; font-size: var(--fs-name); font-weight: 700; color: rgba(255, 246, 220, .85); pointer-events: none; }
+/* s/gakki：ハンドパン・オカリナ・曲にあわせて */
+#inst-seg { max-width: 100%; overflow-x: auto; scrollbar-width: none; touch-action: pan-x; }
+#inst-seg::-webkit-scrollbar { display: none; }
+#pad-mode { position: absolute; right: 6px; top: 5px; z-index: 2; padding: 3px 9px; border-radius: 999px; border: 1.5px solid rgba(255, 246, 220, .75); background: rgba(40, 28, 18, .38); color: #FFF6D8; font-size: var(--fs-xs); font-weight: 700; touch-action: manipulation !important; cursor: pointer; }
+#string-pad.pan { background: radial-gradient(ellipse at 50% 52%, #6A757C, #4A5359 62%, #3B4348); border-color: #2E3438; }
+#string-pad .pf { position: absolute; width: 46px; height: 30px; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(ellipse at 45% 40%, #8A959C, #5C666C 70%); box-shadow: inset 0 1px 2px rgba(255, 255, 255, .25), 0 1px 2px rgba(0, 0, 0, .35); display: flex; align-items: center; justify-content: center; }
+#string-pad .pf.ding { width: 60px; height: 40px; }
+#string-pad .pf em { font-style: normal; font-size: var(--fs-xs); font-weight: 700; color: rgba(255, 246, 220, .85); pointer-events: none; }
+#string-pad .pf.hit { animation: pfHit .4s ease-out; }
+@keyframes pfHit { 0% { transform: translate(-50%, -50%) scale(.9); box-shadow: 0 0 0 7px rgba(255, 236, 190, .45); } 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 0 0 rgba(255, 236, 190, 0); } }
+#string-pad.blow { background: linear-gradient(#C99268, #A9714A); border-color: #7A4E30; }
+#string-pad .ho { position: absolute; top: calc(50% - 21px); width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #3C2618, #5A3A28 70%); box-shadow: inset 0 2px 3px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 236, 210, .35); transition: background .06s; }
+#string-pad .ho em { position: absolute; top: 34px; left: 50%; transform: translateX(-50%); font-style: normal; font-size: var(--fs-xs); font-weight: 700; color: #4A2E1C; white-space: nowrap; }
+#string-pad .ho.hit { background: radial-gradient(circle at 50% 40%, #F3E3C8, #D9BE98 70%); }
+#string-pad .sg { position: absolute; border-radius: 50%; transform: translate(-50%, -50%); background: rgba(255, 246, 220, .5); box-shadow: 0 1px 2px rgba(0, 0, 0, .3); transition: left .24s ease, top .24s ease, opacity .24s ease; pointer-events: none; }
+#string-pad .sg.now { background: #FFF6D8; box-shadow: 0 0 0 4px rgba(232, 194, 90, .6); }
+#string-pad .sg.gone { left: 2% !important; opacity: 0; }
+#note-fly .nf.handpan { color: #E2ECF0; }
+#note-fly .nf.ocarina { color: #FFE6D2; }
+@media (prefers-reduced-motion: reduce) { #string-pad .sg { transition: none; } #string-pad .pf.hit { animation: none; } }
 .music-hint { margin: 0; font-size: var(--fs-s); color: var(--ink-3); text-align: center; font-family: var(--hand); }
 
 .music-acts { display: flex; gap: 8px; }
@@ -650,6 +672,12 @@ details.db .muted a { color: var(--lupine); }
 .swatches { display: flex; gap: 8px; flex-wrap: wrap; }
 .swatches button { width: 34px; height: 34px; border-radius: var(--r-round); border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--line); }
 .swatches button.on { box-shadow: 0 0 0 2px var(--ink); }
+.av-fine { display: flex; align-items: center; gap: 10px; margin-top: 8px; padding: 8px 10px; border-radius: var(--r-l); background: var(--paper-2); }
+.av-fine .av-chip { flex: 0 0 auto; width: 30px; height: 30px; border-radius: var(--r-round); box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px var(--line); }
+.av-fine .av-rs { flex: 1; display: grid; gap: 4px; }
+.av-fine .av-r { display: grid; grid-template-columns: 5.5em 1fr; align-items: center; gap: 6px; font-size: var(--fs-xs); color: var(--ink-3); }
+.av-fine input[type="range"] { width: 100%; }
+.av-more { display: block; margin: 6px auto 12px; }
 .av-tabs { margin: 0 0 10px; }
 .av-tabs button { padding: 6px 16px; font-size: var(--fs-note); }
 .faces { display: flex; gap: 6px; flex-wrap: wrap; }
@@ -1892,6 +1920,16 @@ body[data-tod="night"] #sheet .filters button.on { background: var(--ink); borde
 body[data-tod="night"] #sheet-body details > summary::after, body[data-tod="night"] #modal-card details > summary::after { background: var(--paper-3); color: var(--ink); }
 body[data-tod="night"] #sheet .kmore-m, body[data-tod="night"] #modal .kmore-m, body[data-tod="night"] details.kmore > .disc-close::before { background: var(--ink-2); }
 body[data-tod="night"] #sheet figure.cover, body[data-tod="night"] #sheet .album figure, body[data-tod="night"] #modal figure { --ink: #33281F; --ink-2: #5A4A3C; --ink-3: #665545; color: #33281F; } /* 写真の白い紙の上は、昼の字 */
+/* 夜の読みやすさ（2026-11-14、Daiさん「夜になるとテキストが読みにくい」。tools/tyoru.js で字と紙のコントラストを測って直した）
+   もこもこの小窓と案内（ui.js の fleeceSvg）は、夜は夜の紙に。看板は、夜は暗い木に。手紙の白い紙の上は、昼の字 */
+body[data-tod="night"] { --fleece: #283157; --fleece-line: #CFC6B2; --fleece-ok: #27463D; --fleece-ok-line: #A9CC78; }
+body[data-tod="night"] .koji-board, body[data-tod="night"] .lbl3d.koji-far { background-color: #3C3A4C; border-color: var(--line-3); box-shadow: 0 3px 0 rgba(0, 0, 0, .35); }
+body[data-tod="night"] .lbl3d.koji-far::after { background: #3C3A4C; }
+body[data-tod="night"] .koji-board .kb-sub, body[data-tod="night"] .kb-dl dt, body[data-tod="night"] .kb-rain { color: var(--ink-2); }
+body[data-tod="night"] .koji-say { background: rgba(230, 194, 103, .12); }
+body[data-tod="night"] .koji-letter { --ink: #33281F; --ink-2: #5A4A3C; --ink-3: #665545; color: #33281F; }
+body[data-tod="night"] .news-item { background: var(--card); }
+body[data-tod="night"] .cmp.locked { opacity: .85; }
 /* パネルの題の所に、天気の手ざわり：雨は細い斜めの線、雪は白い粒、くもりは少し沈んだ紙。晴れは何もなし（帯の絵はやめた） */
 #sheet { --wx-line: rgba(74, 59, 46, .1); --wx-dot: rgba(255, 255, 255, .95); --wx-cloud: rgba(255, 255, 255, .85); }
 body[data-wx="rain"] .sheet-head, body[data-wx="rain"] .sheet-grip { background-image: repeating-linear-gradient(104deg, transparent 0 8px, var(--wx-line) 8px 9px); background-color: rgba(120, 140, 160, .13); }
@@ -2058,7 +2096,7 @@ body.brief #sheet-body .lead-s.open, body.brief #sheet-body p.muted.open { displ
 
   <aside id="sheet" hidden aria-label="パネル">
     <div class="sheet-grip" aria-hidden="true"><i></i></div>
-    <div class="sheet-head"><button type="button" id="sheet-back" class="icon-btn" aria-label="戻る" hidden><svg><use href="#i-left"/></svg></button><h2 id="sheet-title"></h2><button type="button" id="sheet-brief" class="sheet-brief" aria-pressed="false">説明を見る<i aria-hidden="true"></i></button><button type="button" id="sheet-close" class="icon-btn" aria-label="閉じる"><svg><use href="#i-close"/></svg></button></div>
+    <div class="sheet-head"><button type="button" id="sheet-back" class="icon-btn" aria-label="戻る" hidden><svg><use href="#i-left"/></svg></button><h2 id="sheet-title"></h2><button type="button" id="sheet-brief" class="sheet-brief" aria-pressed="false">説明を見る<i aria-hidden="true"></i></button><button type="button" id="sheet-set" class="icon-btn" aria-label="設定" title="設定" hidden><svg><use href="#i-gear"/></svg></button><button type="button" id="sheet-close" class="icon-btn" aria-label="閉じる"><svg><use href="#i-close"/></svg></button></div>
     <div id="sheet-body"></div>
     <div class="sheet-foot"><button type="button" id="sheet-foot-back" hidden><svg><use href="#i-left"/></svg>もどる</button><button type="button" id="sheet-foot-close">とじる</button></div>
   </aside>
@@ -2087,11 +2125,11 @@ body.brief #sheet-body .lead-s.open, body.brief #sheet-body p.muted.open { displ
   </div>
 
   <div id="music-ui" hidden>
-    <div class="music-top"><div class="seg" id="inst-seg" role="group" aria-label="楽器"><button type="button" data-i="ukulele">ウクレレ</button><button type="button" data-i="guitar">ギター</button><button type="button" data-i="kalimba">カリンバ</button></div><div class="music-acts"><button type="button" class="rest-btn" id="music-fold" aria-pressed="false">たたむ</button><button type="button" class="rest-btn strong" id="music-close">立ち上がる</button></div></div>
+    <div class="music-top"><div class="seg" id="inst-seg" role="group" aria-label="楽器"><button type="button" data-i="ukulele">ウクレレ</button><button type="button" data-i="guitar">ギター</button><button type="button" data-i="kalimba">カリンバ</button><button type="button" data-i="handpan">ハンドパン</button><button type="button" data-i="ocarina">オカリナ</button></div><div class="music-acts"><button type="button" class="rest-btn" id="music-fold" aria-pressed="false">たたむ</button><button type="button" class="rest-btn strong" id="music-close">立ち上がる</button></div></div>
     <div class="music-panel">
       <div class="music-opts" id="music-opts"></div>
       <div id="chord-grid"></div>
-      <div id="string-pad" aria-label="弦。指でなぞると鳴ります"><span id="pad-chord">C</span></div>
+      <div id="string-pad" aria-label="弦。指でなぞると鳴ります"><span id="pad-chord">C</span><button type="button" id="pad-mode">♪ 曲にあわせて</button></div>
       <p class="music-hint" id="music-hint"></p>
     </div>
     <div id="note-fly" aria-hidden="true"></div>
@@ -2202,9 +2240,9 @@ const SPECIES = {
   donkey: { name: 'ロバ', unit: '頭', stage: 3, min: 2, landHa: 0.4, landLabel: '0.4ha', care: 3, bird: false,
     facility: null, facilityLabel: '屋内4㎡、砂浴び場', note: 'ペアを引き離すと重い病気になりうる', card: 'bonded', speed: 1.3, reach: 2.6 },
   rabbit: { name: 'ウサギ', unit: '羽', stage: 3, min: 2, landHa: 0.0005, landLabel: '屋内中心', care: 1, bird: false,
-    facility: null, facilityLabel: '暑さに強い屋内の部屋', note: '詳細は要調査', card: null, speed: 1.6, reach: 1.6 },
+    facility: null, facilityLabel: '暑さに強い屋内の部屋', note: '', card: null, speed: 1.6, reach: 1.6 },
   horse: { name: '馬', unit: '頭', stage: 4, min: 2, landHa: 0.8, landLabel: '0.8ha', care: 4, bird: false,
-    facility: null, facilityLabel: '厩舎', note: '寿命が長い。詳細は要調査', card: null, speed: 1.5, reach: 3.2 },
+    facility: null, facilityLabel: '厩舎', note: '寿命が長い', card: null, speed: 1.5, reach: 3.2 },
   // 地域猫：受け入れの相談では来ない。前から、ここを居場所にしている子たち（0.9.31）
   cat: { name: '猫', unit: '匹', stage: 1, min: 1, landHa: 0, landLabel: '家のまわり', care: 1, bird: false, community: true,
     facility: null, facilityLabel: '縁側の猫小屋', note: '地域猫。手術ずみのしるしに、耳の先が桜の花びらの形', card: 'communityCat', speed: 1.25, reach: 1.7 },
@@ -2395,7 +2433,7 @@ const EVENTS = [
   { id: 'hanami', name: '花見', from: [3, 24], to: [4, 8], desc: '東京の桜は3月の終わりから。桜は、動物の生活エリアの外にだけ植えます。' },
   { id: 'earthday', name: 'アースデイ', from: [4, 20], to: [4, 22], info: true, desc: '地球のことを考える日。見学の人と、まわりの道のゴミ拾いをします。' },
   { id: 'chickenday', name: '国際ニワトリ尊重の日', from: [5, 2], to: [5, 6], desc: '鶏たちの砂浴び場を新しくして、鶏たちの物語を展示します。' },
-  { id: 'donkeyday', name: '国際ロバの日', from: [5, 8], to: [5, 8], info: true, desc: 'ロバは、慎重で仲間思い。今日は、ブラッシングの時間を少し長めに。' },
+  { id: 'donkeyday', name: '国際ロバの日', from: [5, 8], to: [5, 8], info: true, desc: 'ロバは、はじめての物にゆっくり近づき、仲良しの相手といつも一緒にいます。今日は、ブラッシングの時間を少し長めに。' },
   { id: 'birdweek', name: '愛鳥週間（バードウィーク）', from: [5, 10], to: [5, 16], info: true, desc: '巣立ちの季節。巣箱には近づかず、双眼鏡で見守ります。' },
   { id: 'beeday', name: '世界ミツバチの日', from: [5, 19], to: [5, 20], info: true, desc: '花だんに、ミツバチの好きな花を。農薬を使わない草地が、ハチたちを支えます。' },
   { id: 'biodiversity', name: '国際生物多様性の日', from: [5, 21], to: [5, 22], info: true, desc: 'ここで見られる生き物を、みんなで数える日。名前を知ると、急に友だちになります。' },
@@ -2458,14 +2496,14 @@ const ITEMS = {
   brush:    { name: 'グルーミングブラシ', kind: 'enrich', where: ['animal'], likes: ['cow', 'horse', 'donkey', 'pig', 'goat', 'sheep'], desc: '柱に取りつけたブラシ。体をこすりつけて、気持ちよさそうにします。' },
   climb:    { name: '登り台', kind: 'enrich', where: ['animal'], likes: ['goat'], desc: '高いところから見渡すのが好きなヤギのための台。' },
   puzzle:   { name: 'パズルフィーダー', kind: 'enrich', where: ['animal'], likes: ['chicken', 'turkey', 'pig'], desc: 'つついたり転がしたりすると、おやつが出てきます。' },
-  rope:     { name: '吊るしたロープ', kind: 'enrich', where: ['animal'], likes: ['cow', 'goat', 'horse'], desc: '舌と蹄で周りを探る牛のために、柵にロープを吊るします。', card: 'cowRope' },
+  rope:     { name: '吊るしたロープ', kind: 'enrich', where: ['animal'], likes: ['cow', 'goat', 'horse'], desc: '舌と蹄で周りを探る牛のために、柵にロープを吊るします。飲みこまない長さと太さで。', card: 'cowRope' },
   pool:     { name: '水遊び場', kind: 'enrich', where: ['animal'], likes: ['pig', 'duck'], desc: '夏の暑さをしのぐ、浅い水場。' },
   floatveg: { name: '葉物を浮かべたたらい', kind: 'enrich', where: ['animal'], likes: ['duck'], desc: '葉物を浮かべたたらい。頭までもぐって食べられます。', card: 'duckPeas' },
   dustbath: { name: '砂浴び場', kind: 'enrich', where: ['animal'], likes: ['chicken', 'turkey', 'donkey'], desc: '羽や体を、砂できれいにする場所。' },
   ball:     { name: '転がすボール', kind: 'enrich', where: ['animal'], likes: ['pig', 'goat'], desc: '鼻で押して転がす、大きなボール。' },
-  haynet:   { name: '干し草ネット', kind: 'enrich', where: ['animal'], likes: ['goat', 'sheep', 'cow', 'horse', 'donkey', 'rabbit'], desc: '干し草を、少しずつ引き出して食べられます。' },
+  haynet:   { name: '干し草の棚', kind: 'enrich', where: ['animal'], likes: ['goat', 'sheep', 'cow', 'horse', 'donkey', 'rabbit'], desc: '干し草を、少しずつ引き出して食べられます。すき間は、ヤギの頭や角が入らない細さに（ネットや袋は、ヤギの首にからまるおそれがあるため使いません）。' },
   music:    { name: '自然の音のスピーカー', kind: 'enrich', where: ['animal'], likes: ['cow', 'pig'], desc: '小川や鳥の声を小さく流します。好き嫌いが分かれます。' },
-  perch:    { name: '止まり木', kind: 'enrich', where: ['animal'], likes: ['chicken', 'turkey'], desc: '夕方になると、みんなで並んでとまります。' },
+  perch:    { name: '止まり木', kind: 'enrich', where: ['animal'], likes: ['chicken', 'turkey'], desc: '夕方になると、みんなで並んでとまります。体の大きな七面鳥には、低い段を。' },
   tunnel:   { name: 'くぐれるトンネル', kind: 'enrich', where: ['animal'], likes: ['rabbit'], desc: 'もぐれる場所があると、ウサギは安心します。' },
   // 飾り
   flowerbed: { name: '在来の草花の花壇', kind: 'deco', where: ['view', 'animal'], desc: '種ごとに安全を確かめた地域の草花。ミツバチや蝶が来ます。' },
@@ -2558,8 +2596,8 @@ const BEHAVIORS = []; // 中身は src/content/behaviors/ に、種ごとのフ�
 const EGG_PICS = [
   { id: 'mujousei', title: 'この卵は、無精卵', body: 'ここの鶏たちは、雄鶏と暮らしていません。受精していない卵（無精卵）なので、温めても、ひなにはかえりません。雌鶏は、受精しなくても卵を産みます。お店で売られている卵も、ほとんどが無精卵です。' },
   { id: 'together', title: 'みんなで、つついて', body: '割った卵は、殻ごと鶏小屋の前に。黄身も白身も殻も、鶏たちがつついて食べます。卵を産むのに使った栄養が、また体に戻っていきます。' },
-  { id: 'calcium', title: '殻は、骨から', body: '卵の殻は、カルシウムでできています。毎日のように殻を作るので、鶏は骨のカルシウムまで使ってしまい、骨が弱くなりやすい体です。殻ごと返すのは、その分を少しでも体に戻すため。', more: '卵の殻1つには、カルシウムが約2g。毎日のように殻を作るので、鶏は骨のカルシウムまで使い、骨が弱くなりやすい体です。' },
-  { id: 'yakei', title: 'たくさん産む体', body: '鶏の祖先の鳥は、卵を少しだけ産む鳥でした。今の鶏がたくさん卵を産むのは、人が選んできた結果です。', more: '祖先の野鶏（セキショクヤケイ）が産む卵は、年に20個ほど。採卵のために改良された鶏は、年に250〜300個以上を産みます。たくさん産む体は、生殖の病気になりやすく、その多くは命にかかわります（カード「卵をたくさん産む体と、病気」）。' },
+  { id: 'calcium', title: '殻は、骨から', body: '卵の殻は、カルシウムでできています。毎日のように殻を作るので、鶏は骨のカルシウムまで使ってしまい、骨が弱くなりやすい体です。殻ごと返すのは、その分を少しでも体に戻せると考えてのことです。', more: '卵の殻1つには、カルシウムが約2g。毎日のように殻を作るので、鶏は骨のカルシウムまで使い、骨が弱くなりやすい体です。' },
+  { id: 'yakei', title: 'たくさん産む体', body: '鶏の祖先の鳥は、卵を少しだけ産む鳥でした。今の鶏がたくさん卵を産むのは、人が選んできた結果です。', more: '祖先の野鶏（セキショクヤケイ）が産む卵は、年に10〜15個ほどで、20個をこえることはめったにありません。採卵のために改良された鶏は、年に250〜300個以上を産みます。たくさん産む体は、生殖の病気になりやすく、その多くは命にかかわります（カード「卵をたくさん産む体と、病気」）。' },
   { id: 'molt', title: '羽が生えかわる季節', body: '秋になると、鶏の羽は少しずつ生えかわります（換羽）。その間は、卵を産むのをお休みすることも。新しい羽を作るための、大切な時間です。' },
 ];
 
@@ -2570,7 +2608,7 @@ const STAGE_NOTES = {
   1: { ch: ['朝の鳴き声やにおいで、ご近所と気持ちよく暮らせるように。顔を合わせて話しておく', 'キツネやハクビシンから、夜の小屋と柵で鶏たちを守る', '鶏を診てくれる獣医さんを、近くに見つけておく'],
        care: ['1羽からでも、家畜の飼い方の決まり（飼養衛生管理基準）の対象。毎年2月1日の数を、家畜保健衛生所に知らせる', '迎えきれない時は、断ることも責任ある答え。はるこさんひとりで抱えこまない'] },
   2: { ch: ['牛や豚のような大きな子を診られる獣医さんと、運ぶための車', '新しく来た子は、ほかの子と分けて、30日ほど様子を見る（検疫）', '水をたっぷり。雨のあとにぬかるまない排水（足の病気を防ぐ）'],
-       care: ['豚は、野生のイノシシから豚熱がうつらないよう、柵と入口の消毒で守る', '牛が10頭をこえたら、堆肥置き場はコンクリートの床と屋根に（家畜排せつ物法）', '一生のお世話は、毎月の費用がずっと続くこと。借りた土地の約束も確かめておく'] },
+       care: ['豚は、野生のイノシシから豚熱がうつらないよう、柵と入口の消毒で守る', '牛が10頭以上になったら、堆肥置き場はコンクリートの床と屋根に（家畜排せつ物法）', '一生のお世話は、毎月の費用がずっと続くこと。借りた土地の約束も確かめておく'] },
   3: { ch: ['見学の人と動物、どちらも安心できる道すじ。手洗い場と、食べる場所を動物の場所と分ける', 'ボランティアさんを迎えて、世話のしかたを伝える', '動物病院の小部屋を、毎日の健康チェックに生かす'],
        care: ['子どもには、大人がそばに。小さな子どもや体の弱い人は、動物の菌に気をつけて', '働く人が疲れきらないように、休みと交代を', '見学の日も、動物たちが離れて休める場所を残す', '台風や大雨の時の、避難の計画'] },
   4: { ch: ['森と小川と湿地の手入れ。外から来た植物や、水の量を見守る', '馬がのびのび走れる広さと、蹄の手入れ', '生態の専門家と、生き物の記録をつける'],
@@ -2655,7 +2693,7 @@ const ROSTER = [
   { key: 'mizu', sp: 'duck', name: 'みず', color: 'white', group: 'duck1', minStage: 2, origin: '飼えなくなった家庭から',
     personality: 'にぎやか', likes: ['floatveg', 'pool'], dislikes: [], age: 3, arrived: '2025-06-02', friend: 'nagi',
     health: '元気',
-    stories: ['みずは、公園の池に放されそうになっていたところを保護されました。アヒルは野生では暮らしていけません。',
+    stories: ['みずは、公園の池に放されそうになっていたところを保護されました。アヒルは、うまく飛べず、身を守ることもできないので、野生では暮らしていけません。',
       'たらいに葉物を浮かべると、なぎと並んで、頭まで水にもぐります。',
       '朝いちばんに池へ向かうのは、いつもみずです。'] },
   { key: 'nagi', sp: 'duck', name: 'なぎ', color: 'white', group: 'duck1', minStage: 2, origin: '飼えなくなった家庭から',
@@ -2667,7 +2705,7 @@ const ROSTER = [
   { key: 'kaede', sp: 'turkey', name: 'かえで', color: 'bronze', group: 'turkey1', minStage: 2, origin: '秋の出荷の前に',
     personality: 'おだやか', likes: ['dustbath', 'perch'], dislikes: [], age: 2, arrived: '2025-11-10', friend: 'momiji',
     health: '元気',
-    stories: ['かえでは、秋の出荷の前に保護されました。七面鳥は、人のそばに来て話しかけられるのが好きな鳥です。',
+    stories: ['かえでは、秋の出荷の前に保護されました。かえでは、人のそばに来ます。話しかけると、首をのばして聞いているように見えます。',
       '秋の感謝祭では、かえでともみじが主賓です。かぼちゃとクランベリーの食卓が用意されます。'] },
   { key: 'momiji', sp: 'turkey', name: 'もみじ', color: 'white', group: 'turkey1', minStage: 2, origin: '秋の出荷の前に',
     personality: 'あまえんぼう', likes: ['dustbath'], dislikes: [], age: 2, arrived: '2025-11-10', friend: 'kaede',
@@ -2804,7 +2842,7 @@ const GROUP_INTRO = {
   cow1: '多摩の牧場のご夫婦から相談です。酪農をやめて野菜の畑に切り替えるので、牛のももとはなを受け入れてもらえないか、とのこと。',
   goat1: 'ヤギが増えすぎてしまった家から、二頭の相談が来ました。',
   pig1: '大雨で浸水した養豚場から救助された豚の、行き先を探しています。',
-  duck1: '公園の池に放されそうになったアヒルの相談です。アヒルは野生では暮らしていけません。',
+  duck1: '公園の池に放されそうになったアヒルの相談です。アヒルは、うまく飛べず、野生では暮らしていけません。',
   turkey1: '秋の出荷の前に、七面鳥二羽の行き先を探しています。',
   sheep1: '何年も毛を刈られていなかった羊と、その仲間の相談です。',
   donkey1: '閉じる観光牧場から、仲良しのロバのペアの相談です。二頭は必ず一緒に。',
@@ -2967,6 +3005,7 @@ const SRC = {
   nyuka: ['農水省 畜産・酪農をめぐる情勢（2025年11月）', 'https://www.maff.go.jp/j/council/seisaku/tikusan/attach/pdf/251126-15.pdf'],
   kaizen: ['農水省 酪農経営改善緊急支援事業', 'https://www.maff.go.jp/j/chikusan/gyunyu/rakunou_keieikaizen.html'],
   jacom: ['JAcom（2023年3月3日）', 'https://www.jacom.or.jp/articles/230303-65101'],
+  rspcacalf: ['RSPCA Australia「Why are calves separated from their mother in the dairy industry?」', 'https://kb.rspca.org.au/knowledge-base/why-are-calves-separated-from-their-mother-in-the-dairy-industry/'],
   nl: ['オランダ会計検査院（2025年）', 'https://www.rekenkamer.nl/documenten/2025/05/21/landelijke-beeindigingsregelingen-veehouderij'],
   oat: ['明治 オーツミルク市場（2024年）', 'https://kyodonewsprwire.jp/release/202409186606'],
   tonyu: ['日本豆乳協会（2025年）', 'https://www.tounyu.jp/news_release/1379'],
@@ -2983,19 +3022,19 @@ const SRC = {
 };
 // 日本と世界をくらべるカード
 const COMPARE = {
-  life: { title: '牛の一生', kid: '牛は、本当はとても長く生きる動物です。でも、乳をしぼる牛の多くは、まだ若いうちに牧場を離れます。', jp: ['日本の乳牛は、平均3.21産で農場を離れます（2023年度）', '2016年の牛群検定では、離れる時の年齢は5歳8〜9か月', '離れる理由：死亡30.1%、乳房の病気22.1%、繁殖の問題20.0%、脚とひづめ12.7%（2022年度・北海道）'], world: ['先進国の乳牛が乳を出す期間は2.5〜4年', '米国の乳牛は平均約2.8産で離れる', '牛の自然な寿命は約15〜20年'], here: 'ここでは、20歳近くまで生きる子もいます。年を重ねた子には、厚い寝床と関節のケアを。', src: ['kihon', 'alic16', 'joukyou', 'mdpi'] },
+  life: { title: '牛の一生', kid: '牛は、本当はとても長く生きる動物です。でも、乳をしぼる牛の多くは、まだ若いうちに牧場を離れます。', jp: ['日本の乳牛は、平均3.21産で農場を離れます（2023年度）', '2016年の牛群検定では、離れる時の年齢は5歳8〜9か月', '離れる理由：死亡30.1%、乳房の病気22.1%、繁殖の問題20.0%、脚とひづめ12.7%（2022年度・北海道）'], world: ['先進国の乳牛が乳を出す期間は2.5〜4年', '米国の乳牛は平均約2.8産で離れる', '牛の自然な寿命は約15〜20年'], here: '牛は、20歳近くまで生きることもあります。ここでも、年を重ねた子には、厚い寝床と関節のケアを。', src: ['kihon', 'alic16', 'joukyou', 'mdpi'] },
   tether: { title: 'つなぎ飼い', kid: '牛舎でつながれたまま暮らす牛もいます。外を歩けるようにする国も、増えています。', jp: ['2024年度の国の調査（375戸）：つなぎ飼いのみ33.2%、併用31.9%、放し飼いのみ34.9%', 'つなぎ飼い農場で「つながれずに十分運動できる」に「あてはまる」は26.7%', '国の目標：つなぎ飼いの牛の運動を2030年度に57%へ（現状46.6%）', '2014年の調査では搾乳牛のつなぎ飼いは72.9%（古い調査）'], world: ['オーストリア：年90日以上の運動・放牧が義務。例外は2030年に終わる', 'スウェーデン：新しい牛舎は放し飼い式でなければならない', 'EFSA（欧州食品安全機関）：乳牛を常時つなぎ飼いすべきでない', '米国：飼われている家畜を守る連邦法がない'], here: 'ここの牛は、つながれません。牧草地と小屋を、自分で行き来します。', src: ['aw24', 'awgoal', 'jlta14', 'austria', 'sweden', 'efsa', 'usda'] },
   grazing: { title: '放牧', kid: '草地に出て、草を食べながら過ごす牛は、日本ではまだ少なめです。', jp: ['自分の農場で牛を放牧している酪農家は約14%（2024年度）', '2014年の調査では、放牧の施設がない農場が64.8%'], world: ['スウェーデン：放牧期に1日6時間以上、地域により60〜120日以上の放牧が法律で義務', 'ドイツ：乳牛の放牧率は31%（2020年）'], here: '牛1頭に牧草地25a以上が目安（放牧畜産基準）。ここでは、なるべく広く。', src: ['houboku', 'jlta14', 'sweden', 'qm', 'souchi'] },
-  calf: { title: '子牛と母牛', kid: '子牛は、生まれてすぐに、お母さんの牛と離されることが多いです。母子を一緒に育てる試みをしている国もあります。', jp: ['子牛は生まれると母牛から離され、子牛用の小屋で約1週間、初乳を飲みます', '国の指針は、離した子牛を「しばらく母牛の鳴き声の聞こえないところに」置くよう求めています', '分娩後5日間の乳（初乳）は、工場へ出荷できません'], world: ['EU：生後8週を過ぎた子牛の個別ペンと、子牛のつなぎ飼いを禁止', 'EFSA：母子は生まれてから少なくとも1日は一緒に', 'デンマークなどで、母子を数か月いっしょに育てる試み'], here: '迎えた母子は、離しません。', src: ['jmilk', 'shishin', 'eucalf', 'efsacalf'] },
+  calf: { title: '子牛と母牛', kid: '子牛は、生まれてすぐに、お母さんの牛と離されることが多いです。母子を一緒に育てる試みをしている国もあります。', jp: ['子牛は生まれると母牛から離され、子牛用の小屋で約1週間、初乳を飲みます', '国の指針は、離した子牛を「しばらく母牛の鳴き声の聞こえないところに」置くよう求めています', '分娩後5日間の乳（初乳）は、工場へ出荷できません'], world: ['EU：生後8週を過ぎた子牛の個別ペンと、子牛のつなぎ飼いを禁止', 'EFSA：母子は生まれてから少なくとも1日は一緒に', 'デンマークなどで、母子を数か月いっしょに育てる試み'], here: '迎えた母子は、離しません。', src: ['jmilk', 'shishin', 'eucalf', 'efsacalf', 'rspcacalf'] },
   milkcalf: { title: '牛乳と子牛', kid: '牛が乳を出すのは、子牛を産んだあとです。乳をしぼり続けるために、牛は何度も子を産みます。', jp: ['乳を出すには、子牛を産む必要があります。1回の分娩で300〜330日搾乳し、2〜3か月休んで、1頭で3〜4回くり返します', '乳牛への授精のうち、和牛（黒毛和種）の精液は全国36.3%、都府県50.2%（2024年4〜6月）', '生まれた子の多くは肉用に。肉用牛のうち乳牛との交雑種は54.0万頭（2026年）'], world: ['乳を出すために毎年のように子を産む仕組みは、海外の酪農でも同じです'], here: 'ここに来た牛は、もう子を産まなくていい牛です。', src: ['jmilk', 'wagyu', 'stat26'] },
-  dehorn: { title: '角をとる（除角）', kid: '牛の角は、子牛のうちに取られることが多いです。痛みを和らげる薬を使うように、国はすすめています。', jp: ['除角をしている農場は92.3%（2024年度）', '2014年の調査では、除角に麻酔を使っていた農場は14.0%（古い調査）', '国の指針：生後2か月以内に、獣医師の麻酔・鎮痛剤のもとで行うことを「強く推奨」'], world: ['スイス：麻酔なしの除角は禁止', '英国：麻酔なしの除角は違法（生後1週以内の薬による方法だけ例外）', 'スウェーデン：生後8週未満でも局所麻酔と鎮痛剤が必要', 'WOAH（国際獣疫事務局）：麻酔と鎮痛を強く推奨'], here: 'ここの牛には角があります。けんかにならないよう、広さと逃げ場を用意します。', src: ['aw24', 'jlta14', 'shishin', 'swiss', 'sweden', 'woah'] },
+  dehorn: { title: '角をとる（除角）', kid: '牛の角は、子牛のうちに取られることが多いです。痛みを和らげる薬を使うように、国はすすめています。', jp: ['除角をしている農場は92.3%（2024年度）', '2014年の調査では、除角に麻酔を使っていた農場は14.0%（古い調査）', '国の指針：生後2か月以内に、獣医師の麻酔・鎮痛剤のもとで行うことを「強く推奨」'], world: ['スイス：麻酔なしの除角は禁止', '英国：麻酔なしの除角は違法（生後1週以内の薬による方法だけ例外）', 'スウェーデン：生後8週未満でも局所麻酔と鎮痛剤が必要', 'WOAH（国際獣疫事務局）：麻酔と鎮痛を強く推奨'], here: 'ここの牛たちにも、角はありません。子牛のうちに、とられたからです。角のある子を迎える日が来たら、広さと逃げ場を用意します。', src: ['aw24', 'jlta14', 'shishin', 'swiss', 'sweden', 'woah'] },
   tail: { title: 'しっぽ（断尾）', kid: 'しっぽを切ることは、日本の指針でも「行わない」と決まっています。', jp: ['国の指針は「断尾は行わない」と明記。衛生のためには、尾の毛を刈ります', '「断尾はしていない」農場は85.0%（2024年度）'], world: ['スイス：断尾を禁止', 'WOAH：断尾は推奨しない'], here: 'ここは、日本の指針が世界の基準と並んでいるところです。', src: ['shishin', 'aw24', 'woah'] },
-  law: { title: '法律のちがい', kid: '牛を守る法律やきまりは、国によってちがいます。', jp: ['牛は動物愛護管理法の「愛護動物」。みだりに殺したり傷つけたりすると、5年以下の拘禁刑または500万円以下の罰金', '飼い方の国の指針（2023年）は局長通知で、守るよう求める「推奨」の形'], world: ['EU：子牛の飼い方などを、法的な拘束力のある指令で定めています', '米国：連邦の動物福祉法は食用の家畜を対象外にしています'], here: '法律と指針のすき間を、ひとりひとりの選択がうめています。', src: ['aigo', 'shishin', 'eucalf', 'usda', 'wap'] },
+  law: { title: '法律のちがい', kid: '牛を守る法律やきまりは、国によってちがいます。', jp: ['牛は動物愛護管理法の「愛護動物」。みだりに殺したり傷つけたりすると、5年以下の拘禁刑または500万円以下の罰金', '飼い方の国の指針（2023年）は局長通知で、守るよう求める「推奨」の形'], world: ['EU：子牛の飼い方などを、法的な拘束力のある指令で定めています', '米国：連邦の動物福祉法は食用の家畜を対象外にしています'], here: '指針は「すすめる」形です。どうするかは、牧場ごとにちがいます。', src: ['aigo', 'shishin', 'eucalf', 'usda', 'wap'] },
   biosecurity: { title: '衛生と防疫', kid: '動物の病気を広げないために、入口の消毒や、専用の服と靴の決まりがあります。', jp: ['家畜伝染病予防法の「飼養衛生管理基準」で、家畜の持ち主に義務', '衛生管理区域を決め、入口で手と車を消毒、専用の服と靴', '立ち入った人の記録を1年保存。毎日健康を見て、異常は家畜保健衛生所へすぐ通報', '海外から1週間以内の人は、区域に入れない。ペットは持ち込まない', '2010年の宮崎の口蹄疫では、約29万頭が殺処分されました'], world: ['EUの動物衛生法（2021年から）：予防を重視し、事業者の責任、バイオセキュリティ、獣医師の定期訪問を求めます'], here: '見学の方には、入口で靴の消毒をお願いしています。', src: ['kijun', 'fmd', 'euahl'] },
   antibiotics: { title: '抗生物質', kid: '病気を治す薬（抗生物質）は、病気の時だけ使います。', jp: ['2018〜19年に、抗菌性飼料添加物5成分の指定を取り消し', '農水省：国内では、成長を早める目的の抗菌性飼料添加物は流通していない（2025年）'], world: ['EU：2006年に、成長を早める目的での飼料への使用を全面禁止', '2026年9月からは、EUに入る畜産物にも同じ条件'], here: '病気の時だけ、獣医さんと相談して使います。', src: ['amr', 'eu2006'] },
   body: { title: '改良されてきた体', kid: 'たくさん乳を出すように変えられてきた牛の体は、足や乳房を痛めやすくなっています。', jp: ['農場を離れる理由のうち、脚とひづめは12.7%（2022年度・北海道）', 'ひづめの手入れ（削蹄）は、少なくとも年2回', '牛の両耳には、10桁の個体識別番号の耳標をつけることが法律で決まっています'], world: ['EFSA（2009年）：乳量を増やす長年の改良は、足の不調（跛行）や乳房炎の多さと関係している', 'EFSA（2023年）：足の不調は、乳牛の福祉の大きな問題のひとつ'], here: 'ここでは、蹄の手入れを年2回以上。足をかばう子には、柔らかい寝床と、短い道を。', src: ['joukyou', 'kassai', 'efsa09', 'efsa', 'trace'] },
   market: { title: '酪農家のいま', kid: '牛を飼う家族の牧場は、えさ代が上がって、とても苦しい時をむかえています。', jp: ['酪農家は10,800戸（2026年）。約20年で6割減り、1戸119頭に大きくなりました', '配合飼料は2021年度の73,172円/tから、2026年7月に93,925円/tへ', '2023年3月の調査で84.7%が赤字。2024年11月の調査では47.9%が離農を考えている', '飼料の自給率は26%（2024年度）'], world: ['1戸の平均頭数：ドイツ74頭、スイス29頭'], here: '森田さんのような家族の牧場が、いちばん苦しい時です。', src: ['stat26', 'feed', 'chuo23', 'chuo24', 'jikyu', 'qm'] },
-  cullpay: { title: '牛を減らすための支払い', kid: '牛乳があまった時、牛を減らすためのお金が出たことがあります。', jp: ['2023年3〜9月、乳の少ない牛を減らすと1頭15万円（積立と合わせ20万円）。第2次は1頭5万円', '目的は、生乳の余りを減らすこと。報道では削減の目標は計4万頭、食肉処理場への出荷が条件', '2021年末には、生乳約5,000tが捨てられる恐れがありました'], world: ['オランダ：窒素を減らすため、畜産農場の自主廃業を国が買い取る制度（計約29億ユーロ）'], here: '減らされる牛の一部でも、サンクチュアリに来られたら。', src: ['kaizen', 'jacom', 'nl'] },
+  cullpay: { title: '牛を減らすための支払い', kid: '牛乳があまった時、牛を減らすためのお金が出たことがあります。', jp: ['2023年3〜9月、乳の少ない牛を減らすと1頭15万円。10月からは1頭5万円（報道）', '目的は、生乳の余りを減らすこと。報道では削減の目標は計4万頭、食肉処理場への出荷が条件', '2021年末には、生乳約5,000tが捨てられる恐れがありました'], world: ['オランダ：窒素を減らすため、畜産農場の自主廃業を国が買い取る制度（計約29億ユーロ）'], here: 'ここに来た牛たちは、乳をしぼらずに暮らしています。', src: ['jacom', 'kaizen', 'nl'] },
   transition: { title: '転換の道', kid: '牛を減らして、オーツ麦や豆など、ほかの道を選ぶ農家もいます。どの道も時間とお金がかかり、うまくいかないこともあります。', jp: ['国内のオーツミルク市場は、2020年度から2023年度で約9倍（もとは小さな市場）', '植物のミルクでいちばん多い豆乳類でも、生産は約44.5万kl（2025年）で、牛乳向けの生乳（約384万t、2025年度）の1割ほど。オーツミルクの量や金額は、公表された数字が見つかりませんでした', '豆乳類の生産は2025年に過去最高（約44.5万kl）', '牛乳向けの生乳は、2016年度の約405万tから2025年度は384万tへ'], world: ['デンマーク：植物性食品の基金に9年で6.75億クローネ（2021年）', '英国：元酪農家のジェイ・ワイルドさんは2017年にオーツミルクの生産へ', '米国：植物性ミルクは牛乳カテゴリーの13%（2025年）'], here: '森田さんの畑にも、オーツ麦の芽が出ました。', src: ['oat', 'tonyu', 'nyuka', 'dk', 'wilde', 'gfi'] },
 };
 // 町の酪農家・森田さんとの対話（13回。0.9.20 から）。答えが合っても違っても、話は進む
@@ -3003,15 +3042,15 @@ const MORITA = [
   { say: ['町はずれで牛を飼っている森田です。40頭、父の代からね', '牛って、本当は何年くらい生きると思う？'], q: '牛の自然な寿命は、だいたい何年？', a: ['約5年', '約15〜20年', '約40年'], ok: 1, ex: '牛は、本当はとても長く生きる動物なんだ。', exMore: '約15〜20年。でも日本の乳牛は、平均3.21産、5〜6歳ごろに農場を離れます。', card: 'life' },
   { say: ['うちの牛は、ずっと牛舎でつながれてる', '外に出してやりたいけど、場所も人手もなくてね'], q: '国の調査（2024年度）で、つなぎ飼いの農場のうち「つながれずに十分運動できる」に「あてはまる」と答えたのは？', a: ['約3割', '約6割', '約9割'], ok: 0, ex: 'つながれたままで、十分に運動できない牛が多いんだ。', exMore: '26.7%。オーストリアは年90日以上の運動・放牧を義務にし、例外も2030年に終わります。', card: 'tether' },
   { say: ['スウェーデンでは、放牧しないと法律違反なんだって', '娘が調べてきてね'], q: '自分の農場で牛を放牧している日本の酪農家は、およそどのくらい？', a: ['約14%', '約45%', '約80%'], ok: 0, ex: '草地に出している牧場は、まだ少ないんだ。外国には、放牧を決まりにしている国もある。', exMore: '約14%（2024年度）。スウェーデンでは放牧期に1日6時間以上、地域により60〜120日以上の放牧が義務です。', card: 'grazing' },
-  { say: ['子牛が生まれると、すぐに母牛から離すんだ'], sayMore: ['母牛は何日も鳴いてるよ。慣れたつもりだけど'], q: '国の指針は、母牛から離した子牛をどこに置くよう求めている？', a: ['母牛のすぐ隣', '母牛の鳴き声の聞こえないところ', '母牛と同じ部屋'], ok: 1, ex: '離した子牛は、母牛から離れた所に置くように、と書かれているんだ。', exMore: '「しばらく母牛の鳴き声の聞こえないところに」。EFSAは、母子は生まれてから少なくとも1日は一緒にと勧めています。', card: 'calf' },
+  { say: ['子牛が生まれると、すぐに母牛から離すんだ'], sayMore: ['離した日は、よく鳴く母牛もいるよ。慣れたつもりだけど'], q: '国の指針は、母牛から離した子牛をどこに置くよう求めている？', a: ['母牛のすぐ隣', '母牛の鳴き声の聞こえないところ', '母牛と同じ部屋'], ok: 1, ex: '離した子牛は、母牛から離れた所に置くように、と書かれているんだ。', exMore: '「しばらく母牛の鳴き声の聞こえないところに」。EFSAは、母子は生まれてから少なくとも1日は一緒にと勧めています。長く一緒にいた親子ほど、離した時に強く反応することもわかっています。だから早く離すという考えと、一緒に育てる試みの、両方があります。', card: 'calf', school: { q: '牛の飼い方について、国は「指針」を出している？', a: ['出していない', '出している'], ok: 1, ex: '2023年に出しているんだ。子牛を、どこに置くかまで書いてある。' } },
   { say: ['乳を出すには、毎年のように子どもを産んでもらわないといけない', '生まれる子の多くは、和牛との子なんだ'], q: '都府県の乳牛への授精のうち、和牛（黒毛和種）の精液の割合は？（2024年4〜6月）', a: ['約1割', '約3割', '約5割'], ok: 2, ex: '和牛との子が、たくさん生まれているんだ。', exMore: '50.2%（全国では36.3%）。生まれた子の多くは肉用になります。', card: 'milkcalf' },
-  { say: ['角は、子牛のうちに落としてしまうんだ'], sayMore: ['焼いて落とすんだ。麻酔は……正直、使ってこなかった'], q: '2014年の調査で、除角の時に麻酔を使っていた農場は？', a: ['14%', '54%', '86%'], ok: 0, ex: '痛みを和らげる薬を使わない牧場が、多かったんだ。今は、国も薬を使うようにすすめている。', exMore: '14.0%（2014年の古い調査）。スイスでは麻酔なしの除角は禁止、英国でも違法です（英国は生後1週以内の薬による方法だけ例外）。', card: 'dehorn' },
+  { say: ['角は、子牛のうちに落としてしまうんだ'], sayMore: ['焼いて落とすんだ。麻酔は……正直、使ってこなかった'], q: '2014年の調査で、除角の時に麻酔を使っていた農場は？', a: ['14%', '54%', '86%'], ok: 0, ex: '痛みを和らげる薬を使わない牧場が、多かったんだ。今は、国も薬を使うようにすすめている。', exMore: '14.0%（2014年の古い調査）。スイスでは麻酔なしの除角は禁止、英国でも違法です（英国は生後1週以内の薬による方法だけ例外）。', card: 'dehorn', school: { q: '角をとる時、国は今、何を使うようにすすめている？', a: ['痛みをやわらげる薬', 'とくに、何も'], ok: 0, ex: '痛みをやわらげる薬を使うように、すすめているんだ。' } },
   { say: ['しっぽを切る農家も、昔はあった', 'でもそこは、国もはっきり言ってるんだ'], q: '日本の国の指針は、牛のしっぽを切る「断尾」について何と言っている？', a: ['衛生のために勧める', '行わない', '決まりはない'], ok: 1, ex: '「断尾は行わない」と、はっきり書いてあるんだ。', exMore: '「断尾は行わない」と明記しています。ここは日本の指針が、世界の基準と並んでいるところ。', card: 'tail', card2: 'law' },
   { say: ['口蹄疫の年は、本当にこわかった', '見学の人が増えたら、入口の消毒は欠かせないよ'], q: '飼養衛生管理基準では、海外から入国・帰国して何日以内の人を、牛のいる区域に入れてはいけない？', a: ['1日', '1週間', '1か月'], ok: 1, ex: '海外から来たばかりの人は、しばらく牛のいる所には入れないんだ。', exMore: '1週間。2010年の宮崎の口蹄疫では、約29万頭が殺処分されました。', card: 'biosecurity' },
   { say: ['抗生物質は、病気の時だけ使う', 'EUは、ずっと前から厳しいんだよ'], q: 'EUが、抗生物質を「成長を早める目的」で飼料に使うことを全面禁止したのは？', a: ['1986年', '2006年', '2026年'], ok: 1, ex: 'EUは、早くからきまりを作ったんだ。日本でも今は使われていないと、国は説明している。', exMore: '2006年。日本は2018〜19年に5成分の指定を取り消し、今は成長促進目的のものは流通していないと国は説明しています。', card: 'antibiotics' },
   { say: ['うちの牛も、生まれたらすぐ両耳に黄色い耳標をつける。名前より先に、番号が決まるんだ', '足をかばって歩く子も多くてね。乳をたくさん出すように、何代もかけて変えられてきた体だから'], q: 'EFSA（欧州食品安全機関）が、乳量を増やす品種改良と関係が強いと指摘した乳牛の不調は？', a: ['足の不調（跛行）や乳房炎', '目が見えにくくなること', '毛が抜けやすくなること'], ok: 0, ex: '足の不調や、乳房の病気だよ。', exMore: '足の不調（跛行）や乳房炎です（2009年の評価）。2023年の評価でも、足の不調は乳牛の福祉の大きな問題のひとつとされています。', card: 'body' },
   { say: ['餌代が上がって、毎月赤字だった', '仲間も、ひとり、またひとりとやめていく'], q: '2023年3月の調査で、赤字だった酪農家の割合は？', a: ['約2割', '約5割', '約8割'], ok: 2, ex: 'ほとんどの牧場が、赤字だったんだ。', exMore: '84.7%。配合飼料は2021年度の約7.3万円/tから、2026年7月には約9.4万円/tに。', card: 'market' },
-  { say: ['国から、牛を減らせばお金が出ると聞いた', '減らす牛のこと、ここで相談させてもらえないかな'], sayMore: ['年をとった子から、減らすことになる……'], q: '2023年（3〜9月）、国は乳の少ない牛を減らした酪農家に、1頭あたりいくら払った？', a: ['1万5千円', '15万円', '150万円'], ok: 1, ex: '牛乳があまらないように、牛を減らすためのお金だったんだ。', exMore: '15万円（積立と合わせ20万円）。生乳の余りを減らすためで、食肉処理場への出荷が条件でした。', card: 'cullpay', request: true },
+  { say: ['国から、牛を減らせばお金が出ると聞いた', '減らす牛のこと、ここで相談させてもらえないかな'], sayMore: ['年をとった子から、減らすことになる……'], q: '2023年（3〜9月）、国は乳の少ない牛を減らした酪農家に、1頭あたりいくら払った？', a: ['1万5千円', '15万円', '150万円'], ok: 1, ex: '牛乳があまらないように、牛を減らすためのお金だったんだ。', exMore: '15万円（2023年3〜9月。10月からは5万円）。生乳の余りを減らすためで、食肉処理場への出荷が条件でした（JAcom の報道）。', card: 'cullpay', request: true },
   { say: ['仲間にも、いろんな道があったよ。畑に変えた人、牛を育てたまま頭数を減らした人。何年もかけて変えようとして、お金が続かずにやめた人もいる', '娘と何度も話して、うちは、牛を少しずつ減らして、オーツ麦を育ててみることにした。うまくいくかは、わからない。でも、自分たちで決めた道だから'], q: '国内のオーツミルク市場は、2020年度から2023年度で約何倍になった？', a: ['約2倍', '約9倍', '約30倍'], ok: 1, ex: '伸びてはいるけれど、もとはとても小さな市場なんだ。転換の道は、まだ始まったばかり。', exMore: '約9倍（明治の発表。インテージの植物性ミルクの金額のデータ、2020→2023年度）。ただ、もとがとても小さな市場です。植物のミルクでいちばん多い豆乳類でも、生産は約44.5万kl（2025年）で、牛乳向けの生乳（約384万t、2025年度）の1割ほど。オーツミルクの量や金額は、公表された数字が見つかりませんでした。英国では、元酪農家がオーツミルクの生産に転換した例もあります。', card: 'transition', end: true },
 ];
 // 数字で見る酪農
@@ -3461,7 +3500,7 @@ const QUESTS = []; // 今日のクエストの入れ物（2026-10-23。中身は
 /* 版の数字と、更新の記録（0.9.58 から data.js から分けた）。
    同時に動くセッションがあっても、ここを書きかえるのは「取りまとめ」のセッションだけ（docs/recipes/parallel.md） */
 const APP = {
-  version: '0.9.96', label: 'ベータテスト版', date: '2026年11月',
+  version: '0.9.97', label: 'ベータテスト版', date: '2026年11月',
   // ご意見の送り先（claude.ai の外で遊ぶ時も出るように、ゲームの中に持つ）
   // ご意見の送り先（0.9.26 から、メールではなく Google フォーム）
   contact: { form: 'https://docs.google.com/forms/d/e/1FAIpQLSdgJqfHECsHmITqt_SmSiokd6mo9tORm7hHo5p-myaBgJmTpQ/viewform', formName: 'はるにれの丘 ご意見・感想フォーム', dm: 'SNSでつながっている方は、DMでのご意見や感想も歓迎です' },
@@ -3469,6 +3508,7 @@ const APP = {
   try: ['毎日少しだけ開いてみる（日付が変わると、今日できることが4つに戻ります。日曜だけでも遊べます）', '「はじめから」で、はじまりの話から始めてみる（見つけた鶏に名前をつけ、庭へ移るまで、会いに行く）', '「はじめから」で、「若葉の牧場」まで育ててみる', '受け入れの相談で、動物を迎えてみる（受け入れの準備も）', '「行動」の「酪農家の森田さんと話す」で、牛と酪農の手帳を集める', '「運営のお金」で、収入・見通し・整備を見てみる', '下のメニューの「ひと息」から、ベンチ・楽器・夜空のドローンショー', '写真を撮って、アルバムを見る', 'スマホを横にして遊んでみる（左の親指でなぞって歩き、右の親指で見回す）', '週に一度の朝の「今朝のあなたは？」に答えて、休むと、まわりがどう見えてくるかを見る', '「箱庭モード」で、いちばん育った姿を歩く', 'はじめから育てている途中で箱庭モードへ行き、はじめの画面から、育てていた続きに戻ってみる', '右上の四角いボタンで、景色だけを全画面で見る', 'しばらく歩いて、天気や夕暮れが移ろうのを見る', '季節の小さな出来事を探す（春のツバメの巣、秋の赤とんぼ、冬の朝の霜柱など）', '働く人たちに話しかけて、続きのある話を聞く（人によって、間があきます。アルバイトさんは週末に。日記の「人の話」で読み直せます）', '動物のそばでしばらく眺めて、しぐさと気持ちを見つける（動物のカードの「見つけたしぐさ」に、喜怒哀楽ごとに残ります）', '「動物」の画面の「この丘の、これから」で、先の景色の目安を見る', '好きな物を置いたり、季節の備えをしたりして、「動物たちの暮らし」がどう変わるかを見る', '縁側の猫小屋のあたりで、地域猫たちと過ごす（ゆっくりまばたきを返してくれるかも）', 'ちくわとがんもの庭で、横を向いてしゃがみ、じっと待ってみる', '写真を撮った日の日記で、表紙の写真を選び直す', '動物をタップしてなでる。カードからは「ブラッシング」も。性格によって反応が変わります', 'Second Life Sanctuary へ出かけて、ロッティさんと話してみる（門の外のバス停から）', 'スマホで、画面の下のほうをなぞって歩く。左下の「視点」で近く・ふつう・遠く', '今日できることを使いきっても、急がずに、しばらく眺めたり、楽器を弾いたりしてみる', '働く人たちに何度か話しかけて、話し方や話題の違いを見る', '写真を大きく見て「保存する」', '柵の中で、しばらく何もしないで待ってみる', '仲間から離れて、ひとりで過ごしている動物を見つけて、そっと見守る', '昼のあいだ、牛やヤギが敷地のどこまで歩いていくか、しばらく眺める', '「箱庭モード」で、アヒルのなぎと牛のつきが一緒に歩いているところを探す', '夏の晴れた日に、池に入って涼んでいる子を探す', '池のそばのテーブルやベンチに座って、しばらく眺める', '池のふちのカエルに、そっと近づいてみる', '晴れた夜に、空を見上げて星を探す', '「設定」の「続きをファイルに」で続きを保存し、ほかの端末やブラウザで読み込んでみる', '朝、鶏小屋の前の卵を探して、割って鶏たちに返す', '牛のそばで、耳の黄色い耳標を探す（カードには耳の番号）'],
   known: ['古いスマホでは動きが重いことがあります。設定の「かるい表示」を試してください', '音は、画面に一度ふれてから鳴ります。iPhoneは消音モードだと鳴りません', 'アルバムの写真は、その端末にだけ残ります', 'お金や工事の金額は、ゲームのための目安です', '季節・行事・育った姿を変えるボタンは、テスト用です'],
   log: [
+    ['0.9.97', '2026年11月14日', '楽器にハンドパンとオカリナが加わりました。「♪ 曲にあわせて」を選ぶと、どこを押しても曲の次の音が鳴ります（赤とんぼ、メリーさんのひつじなど5曲。押す間と強さは、あなたしだい）。ウクレレとギターの音程のずれを直し、どの楽器も本物の仕組みに近い響きに。あなたの見た目は、設定の「あなた」から「もっと細かく選ぶ」で、体つき・背の高さ・ひげ・服の形・くつ・手もと・アクセサリー・色を細かく選べます（今の見た目は、そのままです）。年を重ねた子とのお別れは、朝のひと言から始まり、聞くかどうかを選べます。学校モードでは、お別れはお休みに（先生が設定で出せます）。カードやいきものの事実と言い方を、たくさん直しました。まわりの森が、東京の雑木林らしいクヌギの森になり、入口の大きな木に「ハルニレ　この丘の名前の木」の札が立ちました。夜は、お話や案内、パネルの字が読みやすくなり、パネルを開いたままでも設定へ行けます'],
     ['0.9.96', '2026年11月11日', '画面を見やすくしました。動物をタップすると、その子の小さな名札が出ます。名札を押すとカードが開き、「なでる」でそばへ行きます（近づくたびに出ていた「〜のカードを見る」の札は、なくしました）。夕方と夜は、札もパネルも、空に合わせた落ち着いた色になります。下のメニューは5つになりました（「日記」と「観察」は「ノート」に、「飾る」は「行動」の中に、「設定」は右上のボタンの中に）。パネルの説明は、はじめはたたんであり、題の横の「説明を見る」で出せます。スマホを縦に持った時は、パネルの下の「とじる」を押すか、パネルを下へ引くと閉じます。左上の札は、押すと開き、もう一度押すと閉じます（数字は、言葉にしました）。パネルの題のまわりに、天気の手ざわりが出ます（雨の線、くもりの雲、雪の粒）。'],
     ['0.9.95', '2026年11月9日', 'はじめて会う鶏たちは、まだ少し緊張しています。そばでしゃがんで待つと、気になった子が自分から来て、そっとなでさせてくれます（なでさせてくれるかは、その日の気分でも変わります）。はじめの画面と、はじまりの話を短くしました。日曜の朝の体調は、はじめての日にはたずねず、次の朝からにしました。はじめの案内が終わるまでは、日記やカードに書かずに待ち、終わった時にまとめて書きとめます。その子の好きなことは、好きな物で過ごしているのを見ていた時だけわかります。観察ノートも、立ち止まって、少し長く見ていた時だけ書きこまれます。はじめからいる子たちが来た日を、はるこさんが裏庭で始めた「去年の秋」にそろえました。リンクを送った時の紹介文の「日曜日ごとに」を「毎日」に直しました'],
     ['0.9.94', '2026年11月8日', '牛・豚・ウサギの顔を、本物の特徴に近づけました（頭の横についた牛の目、前へのびた豚の鼻と鼻の穴、頭の横の大きなウサギの目）。どの子もまばたきをして、動物のカードの似顔絵もそろえました。里親になった子の名札を、丘に立てるのをやめました（同じ所に重なって立っていたため）。里親になったことは、動物のカードと、毎月届く近況に残ります。'],
@@ -3701,7 +3741,7 @@ BEHAVIORS.push(
     more: '豚は、鼻で掘ったり、転がったりしながら、泥の中で過ごします' },
   { key: 'pigBelly', hard: 'trust', sp: 'pig', st: ['pet'], cond: ['love'], prio: 8, name: 'おなかを見せる', feel: 'anshin',
     line: 'ごろんと横になって、おなかを見せています',
-    more: 'おなかを見せるのは、安心しきっているしるし' },
+    more: 'おなかを見せるのは、安心している時に、よく見られます' },
   { key: 'pigPlay', hard: 'lively', sp: 'pig', st: ['play'], prio: 6, name: 'はしゃぐ', feel: 'ureshi',
     line: '首をふりながら、はねるように走っています',
     more: '豚は、うれしい時に、首をふったり、くるっと回ったりします' },
@@ -3787,7 +3827,7 @@ BEHAVIORS.push(
     more: '落ち着いている時に、よく見られるしぐさです' },
   { key: 'turkLook', sp: 'turkey', st: ['look'], still: true, prio: 3, name: 'じっと見る', feel: 'kyomi',
     line: '首をのばして、気になる方を見ています',
-    more: '七面鳥は、人の顔を覚えて、知っている人には近づいてくることもあります' },
+    more: 'サンクチュアリでは、七面鳥が、知っている人に近づいてくると話す人がいます' },
   { key: 'turkDust', sp: 'turkey', st: ['dust', 'use'], item: null, cond: ['dustOrBath'], prio: 4, name: '砂浴び', feel: 'kimochi',
     line: '体を横にして、羽に砂をかけています',
     more: '砂浴びで、羽の汚れやダニを落とします' },
@@ -3801,7 +3841,7 @@ BEHAVIORS.push(
   // ----- ウサギ -----
   { key: 'rabBinky', hard: 'lively', sp: 'rabbit', st: ['play'], prio: 6, name: 'ビンキー', feel: 'ureshi',
     line: 'ぴょんと跳ねて、空中で体をひねりました',
-    more: 'うれしくて、たまらない時のしぐさ。「ビンキー」と呼ばれています' },
+    more: '元気で、落ち着いている時に見られます。うれしいのだろうと考えられています。「ビンキー」と呼ばれています' },
   { key: 'rabFlop', sp: 'rabbit', st: ['sleep'], prio: 6, name: 'ごろん', feel: 'anshin',
     line: '横にぱたんと倒れて、眠っています',
     more: 'ウサギが横になって眠るのは、とても安心している時です' },
@@ -3914,9 +3954,9 @@ Object.assign(CARDS, {
     src: [['The Open Sanctuary Project：羊に有毒なもの', OS + 'things-that-are-toxic-to-sheep/']] },
   yew: { title: 'イチイは飾れない', body: 'イチイは、赤い実がクリスマスらしい木ですが、牛や馬、ヤギには毒になります。かわりに、布のリボンで飾ります。', more: '赤い実と緑の葉でクリスマスらしい見た目だが、牛や馬、ヤギなどにも強い毒性がある。代わりに赤い布のリボンや、動物の届かない高さの手作りオーナメントで飾る。',
     src: [['Cornwall Manor', 'https://cornwallmanor.org/blog/twelve-christmas-holiday-plants-poisonous-safe/']] },
-  mistletoe: { title: 'ヤドリギは飾れない', body: 'ヤドリギの実は、牛や羊には毒になります。本物ではなく、布や紙の飾りにします。', more: '銀色の実に毒性が強く、牛や羊などでも中毒の例がある。本物でなく布や紙で作った飾りにする。',
+  mistletoe: { title: 'ヤドリギは飾れない', body: 'ヤドリギは、牛が食べると、具合が悪くなることがあります。本物ではなく、布や紙の飾りにします。', more: 'オレゴン州立大学の資料には、ヤドリギを食べた牛が死んだ例と、妊娠した牛が流産した例が書かれている。本物でなく、布や紙で作った飾りにする。',
     src: [['Oregon State University Extension', 'https://extension.oregonstate.edu/ask-extension/featured/mistletoe-toxic-livestock']] },
-  holly: { title: 'ヒイラギは入口だけに', body: 'ヒイラギの実は動物には毒になり、とがった葉で口や目をけがすることもあります。入口だけに飾ります。', more: '西洋ヒイラギの実には毒性があり、鋭い葉は口や目を傷つけることがある。観覧エリアの入口だけに飾る。',
+  holly: { title: 'ヒイラギは入口だけに', body: 'クリスマスに飾るヒイラギ（セイヨウヒイラギ）の実は、動物には毒になり、とがった葉で口や目をけがすることもあります。入口だけに飾ります。', more: 'セイヨウヒイラギ（クリスマスホーリー。モチノキのなかま）の実には毒性があり、鋭い葉は口や目を傷つけることがある。日本のヒイラギ（モクセイのなかま）とは別の木。観覧エリアの入口だけに飾る。',
     src: [['Michigan Large Animal', 'https://michiganlargeanimal.wordpress.com/2021/12/10/deck-the-stalls-with-boughs-of-holly-holiday-safety-tips-for-decorating-your-barns-and-stalls-2/']] },
   azalea: { title: 'ツツジ・サツキは植えない', body: 'ツツジやサツキは、ヤギには毒になる花です。花壇には、動物に安全な草花を選びます。', more: 'ヤギに有毒とされる植物の代表例。花壇には、種ごとに安全を確かめた地域の草花を選ぶ。',
     src: [['eXtension：ヤギに有毒な植物', 'https://goats.extension.org/which-plants-are-poisonous-to-goats/']] },
@@ -3934,10 +3974,10 @@ Object.assign(CARDS, {
     src: [['Yahoo News：Pigpen Abbotsford', 'https://ca.news.yahoo.com/patch-pigpen-abbotsford-farm-turns-130050262.html'], ['FOX Weather', 'https://www.foxweather.com/lifestyle/how-your-leftover-pumpkins-can-help-farm-animals']] },
   grain: { title: '穀物のあげすぎに注意', body: 'オーツのしぼりかすのような穀物のごはんも、あげすぎると牛やヤギの体に悪いことがあります。量は獣医さんと相談して、少しずつ。', more: 'オーツの搾りかすのような穀物由来の飼料も、あげすぎると反芻動物には危険。小麦や大麦に加えオーツも、穀物の過剰摂取の原因になり得る。量は獣医と相談して少しずつ。',
     src: [['The Open Sanctuary Project：ヤギに有毒なもの', OS + 'things-that-are-toxic-to-goats/']] },
-  birdMammal: { title: '鳥と哺乳類は別の場所で', body: '鳥の病気がほかの動物にうつらないように、鳥と、牛や豚たちは、別々の場所で暮らします。この丘では、東が鳥、西が牛や豚たちの場所です。', more: '鳥インフルエンザの対策として、鳥と哺乳類は別々の場所で暮らすことが強く勧められている。この敷地では、東側が鳥、西側が哺乳類の区画。',
-    src: [['The Open Sanctuary Project', OS + 'how-goats-get-along-with-other-species/']] },
-  sheepGoat: { title: '羊とヤギは同じとは限らない', body: '羊とヤギは、似ているようで、一緒に暮らせるとは限りません。別々に暮らせる場所を用意しておきます。', more: '羊とヤギは一緒に住めるとは限らない。別々に暮らせる場所を用意しておく。',
-    src: [['The Open Sanctuary Project', OS + 'how-sheep-get-along-with-other-species/']] },
+  birdMammal: { title: '鳥と哺乳類は別の場所で', body: '鳥の病気がほかの動物にうつらないように、鳥と、牛や豚たちは、別々の小屋と庭で暮らします。この丘では、東が鳥、西が牛や豚たちの場所です。それぞれの庭に水おけがあり、池のまわりは、みんなが行き来できます。池には野鳥も来るので、みなみ先生が、ふだんより気をつけて見ています。', more: '鳥インフルエンザの対策として、鳥と哺乳類は別々の場所で暮らすことが強く勧められている。海外のサンクチュアリの手引きには、住人を池などの自然の水場に入れない、という対策もある。この敷地では、小屋と庭は東側が鳥、西側が哺乳類で、それぞれの庭に水場を置いている。そのうえで、池のまわりは、行き来できるままにしている。外で暮らす以上、野鳥が水場に来ることは、完全には防げない。そのぶん、見回りと体の様子の確かめを、ふだんより多くしている。家畜の病気の決まり（家畜伝染病予防法）は「畜産の振興」を目的にした法律で、家畜を食べ物として安全に届けるための仕組みでもある。サンクチュアリは、その決まりを守ったうえで、動物たちにとって何がよいかを、全体から考えて決めている。',
+    src: [['The Open Sanctuary Project', OS + 'how-goats-get-along-with-other-species/'], ['The Open Sanctuary Project「HPAI Biosecurity Plan and Checklist」', OS + 'hpai-biosecurity-plan-and-checklist/'], ['家畜伝染病予防法（第1条）', 'https://laws.e-gov.go.jp/law/326AC0000000166']] },
+  sheepGoat: { title: '羊とヤギは同じとは限らない', body: '羊とヤギは、似ているようで、一緒に暮らせるとは限りません。ここでは柵の扉を開けていますが、だれとだれが一緒にいるかを、毎日見ています。一緒にしたいけれど、分けることもあります。', more: '羊とヤギは一緒に住めるとは限らない。ヤギ用のミネラルに入っている銅は、羊には毒になることがある。体の大きな動物がヤギにけがをさせることや、馬やロバ用の干し草の棚にヤギが頭をはさむこともある。サンクチュアリの手引きは、ほかの種と安全に暮らせると決めつけず、一頭ずつ見きわめるよう勧めている。この丘では扉を開けたまま、ミネラルと干し草の置き場所を種ごとに分け、合わない子は分ける。',
+    src: [['The Open Sanctuary Project', OS + 'how-sheep-get-along-with-other-species/'], ['The Open Sanctuary Project', OS + 'how-goats-get-along-with-other-species/']] },
   bonded: { title: 'ロバの仲良しのペア', body: 'ロバの仲良しのペアは、離ればなれになると、とてもつらい思いをします。迎える時も、いつも一緒に。', more: 'ロバの仲良しのペアは、離されると病気になるほどの強いストレスを受けることがある。受け入れも引き継ぎも、必ず一緒に。屋内は1頭あたり約3.7㎡以上。',
     src: [['ロバの絆', OS + 'fun-facts-about-donkeys/'], ['ロバの住まい', OS + 'building-a-good-home-for-donkeys/']] },
   duckWater: { title: 'アヒルには頭まで沈められる水場を', body: 'アヒルは、目や鼻を洗うために、頭まで水にもぐれる水場が必要です。', more: 'アヒルは目や鼻を洗うために、頭を水に沈める必要がある。小屋は1羽あたり約0.6㎡以上。',
@@ -3948,7 +3988,7 @@ Object.assign(CARDS, {
     src: [['牛の住まい', OS + 'building-a-good-home-for-cows/']] },
   communityCat: { title: '地域猫と、さくら耳', body: '地域猫は、決まった飼い主はいないけれど、地域の人たちが見守っている猫です。耳の先が少し切ってあるのは、子猫が生まれないように手術をしたしるし。その形から「さくら耳」と呼ばれます。', more: '地域猫は、決まった飼い主はいないけれど、地域の人たちが見守って暮らしている猫。これ以上増えないように不妊・去勢の手術をして、元の場所に戻す（TNR）。手術をしたしるしに耳の先を少し切ってあり、その形から「さくら耳」と呼ばれる。ごはんは決まった時間と場所で。食べ残しやトイレの片付けまでが、見守る人たちの約束。外で暮らす猫は、小鳥やトカゲなど小さな野生の生き物を狩ることもあるので、ここでは夜は猫小屋で休めるようにしている。',
     src: [['港区：まちの猫問題（地域猫活動）', 'https://www.city.minato.tokyo.jp/kankyo-machi/kankyo/kogai/cat/']] },
-  rescuedPair: { title: '保護犬と、保護猫', body: '飼い主が世話をしきれないほどの数の動物を飼い、動物の体や暮らし、飼い主の暮らし、まわりの環境が悪くなってしまうことを「多頭飼育問題」という。環境省は、動物のことだけでなく、飼い主の暮らしを支える福祉の人たちと一緒に取り組むためのガイドラインを作っている（2021年）。保護された犬や猫は、保護団体や自治体を通して、新しい家族のもとへ（譲渡）。こわい思いをしてきた子は、新しい暮らしに慣れるまで時間がかかる。無理をせず、ゆっくり見守る。',
+  rescuedPair: { title: '保護犬と、保護猫', body: '飼い主が世話をしきれないほど、たくさんの犬や猫がいる家があります。数が多すぎて、ごはんもお世話も、足りなくなってしまうのです。そこから保護された犬や猫は、新しい家族のもとへ向かいます。こわい思いをしてきた子は、新しい暮らしに慣れるまで、時間がかかります。無理をせず、ゆっくり見守ります。', more: '飼い主が世話をしきれないほどの数の動物を飼い、動物の体や暮らし、飼い主の暮らし、まわりの環境が悪くなってしまうことを「多頭飼育問題」という。環境省は、動物のことだけでなく、飼い主の暮らしを支える福祉の人たちと一緒に取り組むためのガイドラインを作っている（2021年）。保護された犬や猫は、保護団体や自治体を通して、新しい家族のもとへ（譲渡）。',
     src: [['環境省：人、動物、地域に向き合う多頭飼育対策ガイドライン', 'https://www.env.go.jp/press/110485.html'], ['環境省：譲渡でつなごう！', 'https://www.env.go.jp/nature/dobutsu/aigo/2_data/pamph/h2809a/pdf/full.pdf']] },
   shyDog: { title: 'こわがりな犬との距離', body: 'こわい時、犬はその場で体を固くして、動かなくなることがあります。近づく時は、犬のほうから来るのを待ちます。体を横に向けて、顔をじっと見つめず、上から手をのばしません。', more: 'こわい時、犬は逃げずに、その場で体を固くして動かなくなることがある。しっぽを下げる、口のまわりをなめる、そろそろと歩くのも、不安のサイン。近づく時は、こちらから寄っていかずに、犬のほうから来るのを待つ。体を横に向けて、顔をじっと見つめず、上から手をのばさない。安全なら、横を向いてしゃがんでもよい。',
     src: [['How to interact with a Fearful Dog（オハイオ州立大学 獣医療センター）', 'https://vmc.vet.osu.edu/sites/default/files/documents/fearful%20dog.pdf'], ['Your Dog’s Fear（カリフォルニア大学デービス校 獣医学部）', 'https://www.vetmed.ucdavis.edu/sites/g/files/dgvnsk491/files/inline-files/Your_Dogs_Fear.pdf']] },
@@ -3992,18 +4032,18 @@ Object.assign(CARDS, {
   money: { title: '続いていく支えが、毎日を支える', body: '動物の世話には、毎月お金がかかります。だから、毎月の小さな支えが、毎日の暮らしを支えています。', more: '動物の世話も、スタッフのお給料も、毎月かかり続ける。だからサンクチュアリの暮らしは、一度きりの大きな寄付より、毎月の小さな継続寄付や里親、企業の協賛に支えられている。新しい子を迎える時は、その子の一生分の毎月の費用も一緒に考える。', src: [] },
   team: { title: '人を増やすということ', body: 'ボランティアさんは、気持ちで来てくれる大切な仲間。毎日の世話を続けるには、決まった時間にいてくれる人も必要です。動物を迎えるのは、人が足りてから。', more: 'ボランティアさんは、気持ちで来てくれる大切な仲間。でも、毎日の餌やりや体調の確認を続けるには、決まった時間にいてくれる人が要る。アルバイトさんや職員さんのお給料は、毎月の寄付や町の事業者との連携など、続いていく支えでまかなう。動物を迎えるのは、人が足りてから。', src: [] },
   // 0.9.20「矛盾を受け入れる」：法律、野生の生き物との境、人が選んできた体
-  eggsBack: { title: '卵は、鶏たちに返す', body: '雌鶏は、ひなにならない卵も産みます。ここでは卵を売らず、割って鶏たちに食べてもらいます。卵を産むのに使った栄養を、体に戻すためです。', more: '雌鶏は、受精しなくても卵を産む。日本で売られている卵のほとんどは無精卵で、採卵の農場で育つのは雌鶏だけ。だから、ここに来た鶏の卵がひなになることは、まずない。卵は売らず、使わない。見学の人やボランティアさんがその場で割って、鶏たちに食べてもらう。卵を産むのに使った栄養を、体に戻すため。採卵用の品種の雄のひよこは、卵を産まず、肉もとれにくいため、多くの国で、ふ化してすぐに処分されてきた。ドイツは2022年から、これを禁止した（2021年の報道）。たくさん卵を産む体は、生殖の病気になりやすく、その多くは命にかかわる。海外のサンクチュアリでは、獣医さんと相談して、卵を休ませる薬を使うこともある（カード「卵をたくさん産む体と、病気」）。',
-    src: [['時事通信「ドイツ、雄ひよこの大量殺処分禁止へ 世界初」（2021年1月22日）', 'https://sp.m.jiji.com/english/show/9896'], ['農林水産省 aff 2024年4月号「新鮮なたまごを届けてくれるニワトリ」', 'https://www.maff.go.jp/j/pr/aff/2404/spe1_03.html'], ['The Open Sanctuary Project：卵を産むことへの向き合い方', OS + 'what-to-do-about-egg-laying/']] },
-  layerBody: { title: 'たくさん卵を産むように変えられた体', body: '鶏の祖先は、卵を少しだけ産む鳥でした。たくさん卵を産むように変えられた今の鶏の体には、大きな負担がかかっています。', more: '祖先の野鶏（セキショクヤケイ）が産む卵は、年に20個ほど。採卵用に改良された鶏は、年に250〜300個以上を産む。そのぶん体の負担は大きく、卵の通り道の病気になりやすい。ここでは卵を返し、体の様子を毎日見る。',
-    src: [['The Open Sanctuary Project：卵を産むことへの向き合い方', OS + 'what-to-do-about-egg-laying/']] },
+  eggsBack: { title: '卵は、鶏たちに返す', body: '雌鶏は、ひなにならない卵も産みます。ここでは卵を売りません。割って、鶏たちが食べます。', more: '雌鶏は、受精しなくても卵を産む。日本で売られている卵のほとんどは無精卵で、採卵の農場で育つのは雌鶏だけ。だから、ここに来た鶏の卵がひなになることは、まずない。卵は売らず、使わない。見学の人やボランティアさんがその場で割って、鶏たちに食べてもらう。卵を産むのに使った栄養を体に戻せると考えて、そうしているサンクチュアリがある。長く続けてよいかは、まだわかっていないので、その子ごとに考える。体の大きな品種の鶏や、薬を使っている鶏の卵は与えない（The Open Sanctuary Project）。採卵用の品種の雄のひよこは、卵を産まず、肉もとれにくいため、多くの国で、ふ化してすぐに処分されてきた。ドイツは2022年から、これを禁止した（2021年の報道）。たくさん卵を産む体は、生殖の病気になりやすく、その多くは命にかかわる。海外のサンクチュアリでは、獣医さんと相談して、卵を休ませる薬を使うこともある（カード「卵をたくさん産む体と、病気」）。',
+    src: [['The Open Sanctuary Project：卵を産むことへの向き合い方', OS + 'what-to-do-about-egg-laying/'], ['時事通信「ドイツ、雄ひよこの大量殺処分禁止へ 世界初」（2021年1月22日）', 'https://sp.m.jiji.com/english/show/9896'], ['農林水産省 aff 2024年4月号「新鮮なたまごを届けてくれるニワトリ」', 'https://www.maff.go.jp/j/pr/aff/2404/spe1_03.html'], ['The Open Sanctuary Project：卵を産むことへの向き合い方', OS + 'what-to-do-about-egg-laying/']] },
+  layerBody: { title: 'たくさん卵を産むように変えられた体', body: '鶏の祖先は、卵を少しだけ産む鳥でした。たくさん卵を産むように変えられた今の鶏の体には、大きな負担がかかっています。', more: '祖先の野鶏（セキショクヤケイ）が産む卵は、年に10〜15個ほどで、20個をこえることはめったにない。採卵用に改良された鶏は、年に250〜300個以上を産む。そのぶん体の負担は大きく、卵の通り道の病気になりやすい。ここでは卵を返し、体の様子を毎日見る。',
+    src: [['The Open Sanctuary Project：卵を産むことへの向き合い方', OS + 'what-to-do-about-egg-laying/'], ['Farm Sanctuary（野鶏の卵の数）', 'https://www.farmsanctuary.org/news-stories/happy-national-animal-rights-day/']] },
   pigDiet: { title: '豚のごはんは、量をはかって', body: '早く大きく育つように変えられた豚は、太りやすい体です。体を守るために、ごはんは量をはかって決めます。', more: '大きく、早く育つように改良された豚は、体重が増えやすい。体重が増えすぎると関節に負担がかかり、足をかばったり、立ち上がりにくくなったりする。ごはんは量をはかって決め、おやつは少しだけ。あげられない日があるのも、その子の体を守るため。',
     src: [['The Open Sanctuary Project：豚の毎日のごはん', OS + 'daily-diet-treats-and-supplements-for-pigs/'], ['テキサスA&M大学 獣医学部（2021年）', 'https://vetmed.tamu.edu/news/pet-talk/avoiding-pig-obesity']] },
   cowLegs: { title: '乳牛の足', body: 'たくさん乳を出すように変えられてきた牛は、足を痛めやすい体です。ここでは蹄の手入れをして、やわらかい寝床を用意します。', more: '乳をたくさん出すように改良を重ねてきたことは、足の不調（跛行）や乳房炎の多さと関係があるとされる（2009年の評価）。2023年の評価でも、足の不調は乳牛の福祉の大きな問題のひとつ。ここでは、蹄の手入れを少なくとも年2回。足をかばう子には、柔らかい寝床と短い道を。',
     src: [['EFSA 乳牛の福祉（2009年）', 'https://www.efsa.europa.eu/en/news/efsa-advises-welfare-dairy-cows'], ['EFSA 乳牛の福祉（2023年）', 'https://www.efsa.europa.eu/en/plain-language-summary/welfare-dairy-cows'], ['日本装削蹄協会', 'http://farriers.or.jp/qa/']] },
   earTag: { title: '名前と、耳の番号', body: '牛の耳には、生まれた時から番号の札がついています。ここでは名前で呼びますが、耳には番号があります。', more: '牛の管理者は、牛の両耳に、10桁の個体識別番号の耳標をつけることが法律で決まっている（牛トレーサビリティ法）。ここでは名前で呼ぶけれど、耳には番号がある。このゲームの番号は、本物と重ならないように頭に「S-」をつけた、ここだけの番号。',
     src: [['農林水産省 牛・牛肉のトレーサビリティ', 'https://www.maff.go.jp/j/syouan/tikusui/trace/index.html'], ['牛トレーサビリティ法（第9条）', 'https://hourei.net/law/415AC0000000072'], ['農林水産省 九州農政局 牛トレーサビリティ', 'https://www.maff.go.jp/kyusyu/syohianzen/nouchiku/ushitore.html']] },
-  annualReport: { title: '年に一度の報告', body: '牛や豚、鶏を飼う人は、たとえ1頭でも、毎年、国に数を知らせることになっています。守るための場所も、その決まりの中にあります。', more: '牛や豚、鶏などを飼う人は、学校や公園、ペット、庭先で飼う場合も含めて、1頭・1羽から、毎年2月1日時点の飼っている数などを報告し、飼養衛生管理基準を守ることになっている（家畜伝染病予防法）。保護の場も、その決まりの中にある。',
-    src: [['鳥取県 家畜の飼養衛生管理基準', 'https://www.pref.tottori.lg.jp/314797.htm'], ['群馬県 家畜の定期報告', 'https://www.pref.gunma.jp/06/f2910033.html']] },
+  annualReport: { title: '年に一度の報告', body: '牛や豚、鶏を飼う人は、たとえ1頭でも、毎年、都道府県に数を知らせることになっています。守るための場所も、その決まりの中にあります。', more: '牛や豚、鶏などを飼う人は、学校や公園、ペット、庭先で飼う場合も含めて、1頭・1羽から、毎年2月1日時点の飼っている数などを都道府県（家畜保健衛生所）に報告し、飼養衛生管理基準を守ることになっている（家畜伝染病予防法）。2025年9月には、生産物を出荷しない飼い主のための基準（非商用家畜の基準）が、新しく作られた。保護の場も、その決まりの中にある。',
+    src: [['鳥取県 家畜の飼養衛生管理基準', 'https://www.pref.tottori.lg.jp/314797.htm'], ['群馬県 家畜の定期報告', 'https://www.pref.gunma.jp/06/f2910033.html'], ['農林水産省 飼養衛生管理基準について（2026年1月更新）', 'https://www.maff.go.jp/j/syouan/douei/katiku_yobo/k_shiyou/index.html']] },
   csfVaccine: { title: '豚にもワクチン', body: '豚熱という病気を防ぐため、ペットの豚にもワクチンが必要な地域があります。', more: '豚熱（CSF）のワクチン接種推奨地域では、ペットとして飼われている豚も接種が必要。豚も、毎年の報告の対象になる。',
     src: [['宮城県 ペットとしてブタを飼われている方', 'https://www.pref.miyagi.jp/soshiki/boueki/minipig.html']] },
   wildlife: { title: '野生の生き物は、捕まえずに入れない', body: 'キツネやタヌキ、カラスも、この土地に暮らす生き物です。捕まえたり、傷つけたりはしません。だから鶏たちは、柵と、夜の小屋で守ります。', more: '野生の鳥や獣を捕まえたり、傷つけたりすることは、法律で原則として禁じられている（鳥獣保護管理法）。キツネやタヌキ、カラスも、この土地に暮らす生き物。だから鶏たちは、柵と、夜の小屋で守る。同じ柵の中では暮らせないことも、ここでは受け入れる。',
@@ -4028,7 +4068,7 @@ Object.assign(CARDS, {
 Object.assign(CARDS, {
   okuri: { title: '見送るということ',
     body: 'ここで暮らす子にも、いつかお別れの日が来ます。痛いところを減らして、その子のペースで、最後まで一緒にいます。亡くなったあとは、丘のはずれの石で、その子のことを思い出します。',
-    more: '牛や豚、鶏、七面鳥の多くは、長く生きることより、早く育つことや、たくさんの乳や卵を出すことを目的に、品種改良されてきました。そのため、年を重ねる前から、病気や体の不調が出やすい子がたくさんいます。痛みをやわらげられず、暮らしの質が保てなくなった時、サンクチュアリでは、獣医さんと、その子をよく知る人たちで話し合い、安楽死を選びます。これは、めずらしいことではありません。アメリカの Farm Sanctuary の職員は「サンクチュアリは、人がしてきたことのために、多くの子が亡くなる場所でもある」と話しています。年齢そのものを理由にはせず、食べる、息をする、眠る、排せつするといった毎日のことができているかを見て、ひとりで背負わず、何人かで決めます。このゲームの本文では「眠るように」と書いていますが、実際には、そうした決断を重ねています。年の取り方と病気の起こりやすさは、種ごとのゲームのための目安です。',
+    more: '牛や豚、鶏、七面鳥の多くは、長く生きることより、早く育つことや、たくさんの乳や卵を出すことを目的に、品種改良されてきました。そのため、年を重ねる前から、病気や体の不調が出やすい子がたくさんいます。痛みをやわらげられず、暮らしの質が保てなくなった時、サンクチュアリでは、獣医さんと、その子をよく知る人たちで話し合い、安楽死を選びます。これは、めずらしいことではありません。アメリカの Farm Sanctuary の職員は「サンクチュアリは、人がしてきたことのために、多くの子が亡くなる場所でもある」と話しています。年齢そのものを理由にはせず、食べる、息をする、眠る、排せつするといった毎日のことができているかを見て、ひとりで背負わず、何人かで決めます。このゲームの本文では「亡くなりました」とだけ書いていますが、実際には、そうした決断を重ねています。年の取り方と病気の起こりやすさは、種ごとのゲームのための目安です。',
     src: [['Lady Freethinker「Sanctuary stories」', 'https://ladyfreethinker.org/sanctuary-stories-survivors-of-animal-farming-enter-lives-of-love-but-also-pain/'], ['The Open Sanctuary Project「Crafting A Compassionate Euthanasia Policy」', 'https://opensanctuary.org/crafting-a-compassionate-euthanasia-policy-for-your-animal-sanctuary/'], ['The Open Sanctuary Project「Saying Goodbye With Respect And Safety」', 'https://opensanctuary.org/saying-goodbye-with-respect-and-safety/']] },
   quietPlace: { title: '見られない場所も、大事です',
     body: '動物たちにも、人の目から離れて、静かにしていたい時があります。見学の人でにぎやかな日も、区画の奥の茂みのかげや小屋の中へ、自分で行けるようにしています。見学の人は、見学路の外へは出ません。',
@@ -4044,7 +4084,7 @@ Object.assign(CARDS, {
     src: [['福岡県「採卵鶏農場におけるワクモ対策の取り組み」', 'https://www.pref.fukuoka.lg.jp/uploaded/attachment/229437.pdf'], ['京都府農林水産技術センター「ワクモの集合性を利用した捕捉器の開発」', 'https://www.naro.go.jp/org/warc/research_results/r1/pdf/10_chikusan/26_1001_19.pdf']] },
   rabbitStasis: { title: 'ウサギが食べない時',
     body: 'ウサギのおなかは、いつも少しずつ食べることで動いています。だから、食べないのは、とても危ないサインです。朝ごはんを食べず、ふんも出ていない時は、急いで動物病院へ。',
-    more: 'アメリカのハウスラビット・ソサエティは、ウサギが12時間食べず、ふんも出ない時は、急いで獣医さんに診てもらうよう呼びかけています。おなかの動きが止まる「うっ滞」は、ストレスや痛み、ほかの病気がきっかけになることもあり、早く気づくことが大切です。干し草をいつでも食べられるようにしておくことが、日ごろの備えになります。',
+    more: 'アメリカのハウスラビット・ソサエティは、ウサギが12時間食べず、ふんも出ない時は、急いで獣医さんに診てもらうよう呼びかけています。おなかの動きが止まる「うっ滞」は、おなかのガスや歯の病気、腸のつまりなどがきっかけになることもあり、早く気づくことが大切です。干し草をいつでも食べられるようにしておくことが、日ごろの備えになります。',
     src: [['House Rabbit Society「When Your Rabbit Stops Eating」（2026年6月）', 'https://houserabbit.org/updates/2026-june-when-your-rabbit-stops-eating']] },
   sheepShear: { title: '羊の毛刈り',
     body: '多くの羊は、毛が自然には抜けかわりません。暑くなる前に毛を刈って、体を守ります。刈るのは、慣れた毛刈りの人です。',
@@ -4088,7 +4128,7 @@ IKIMONO.push(
     facts: ['全長14.5cm。日本中の、人の暮らす町や集落にいて、一年中見られる鳥（留鳥）です', '短くて太いくちばしで、草の種子を食べます'], src: [IKI_SUN(1459, 'スズメ')] },
   { id: 'shijukara', name: 'シジュウカラ', kind: 'bird', hint: '一年中の朝から夕方・家のまわり',
     facts: ['全長14.5cm、体重は14gくらい。一年中見られる鳥（留鳥）で、林にも住宅地にもいます', '木の穴に巣をつくります。人が作った狭い穴（巣箱）にも、よく巣をつくります', '「ツツピン ツツピン」と鳴きます。白いほっぺたに、黒いネクタイのような模様があります'], src: [IKI_SUN(1430, 'シジュウカラ')] },
-  { id: 'sekirei', name: 'ハクセキレイ', kind: 'bird', hint: '春〜秋の朝から夕方・地面を歩いている',
+  { id: 'sekirei', name: 'ハクセキレイ', kind: 'bird', hint: '一年中・朝から夕方・地面を歩いている',
     facts: ['全長21cm。水辺の虫や小さな虫をとって食べます。飛んでいるトンボを、空中でとらえることもあります', '「チチン チチン」と鳴きながら、波を打つように飛びます'], src: [IKI_SUN(4610, 'ハクセキレイ')] },
   { id: 'tsubame', name: 'ツバメ', kind: 'bird', hint: '春〜夏の朝から夕方・家の軒下のまわり',
     facts: ['全長17cm。春に渡ってきて、夏を過ごす鳥（夏鳥）です', '家の軒下に巣をつくり、飛んでいる虫を空中でとらえて食べます'], src: [IKI_SUN(1470, 'ツバメ')] },
@@ -4147,8 +4187,8 @@ IKIMONO.push(
    丘に出す・写真で見つける仕組みは src/ikimono.js（ikiBuild・ikiInView）。特性は正式な資料から、出典つきで */
 IKIMONO.push(
   { id: 'kitsune', name: 'キツネ', kind: 'beast', hint: '夕方から明け方・柵の外の森のはし／雪の朝', // 0.9.60：舞台を東京の郊外に（キタキツネから。同じアカギツネのなかま）
-    facts: ['東京では、多摩の丘や山で暮らしています。北多摩では、絶滅のおそれが高いとされています', '冬眠をせず、一年を通して動いています。冬のいちばん寒いころに相手を見つけ、春ごろに子どもが生まれます', '大きくなると、体の長さは1mほど。耳と足の先が黒いのが目印です', 'おもにネズミなどの小さな生き物や、ノウサギを食べます', 'えさをあげると、人の近くに出てくるようになり、困りごとにつながります。少し離れて見守ります'],
-    src: [['東京都レッドリスト（本土部）2020　哺乳類', 'https://www.kankyo.metro.tokyo.lg.jp/documents/d/kankyo/red_data_book-redlist2020-files-08_honyurui_rl2020_2'], ['いいね！Hokudai（北海道大学 CoSTEP）　都市ギツネについてのイベント', 'https://costep.open-ed.hokudai.ac.jp/like_hokudai/article/28566'], ['観光庁 多言語解説文データベース（大雪山）', 'https://www.mlit.go.jp/tagengo-db/common/001555004.pdf']] },
+    facts: ['東京では、多摩の丘や山で暮らしています。北多摩では、絶滅のおそれが高いとされています', '冬眠をせず、一年を通して動いています。冬のいちばん寒いころに相手を見つけ、春ごろに子どもが生まれます', '毛は赤みのある黄色っぽい茶色で、胸やおなかは白っぽい色です。北海道のキタキツネとちがい、足の先は黒くありません', 'ネズミなどのけものや、鳥、トカゲ、虫から、木の実や穀物まで、暮らす場所や季節に合わせて、いろいろ食べます', 'えさをあげると、人の近くに出てくるようになり、困りごとにつながります。少し離れて見守ります'],
+    src: [['東京都レッドリスト（本土部）2020　哺乳類', 'https://www.kankyo.metro.tokyo.lg.jp/documents/d/kankyo/red_data_book-redlist2020-files-08_honyurui_rl2020_2'], ['いいね！Hokudai（北海道大学 CoSTEP）　都市ギツネについてのイベント', 'https://costep.open-ed.hokudai.ac.jp/like_hokudai/article/28566'], ['東山動植物園（名古屋市）「ホンドギツネが逃げ出しました」（2025年4月1日）', 'https://www.city.nagoya.jp/ryokuseidoboku/cmsfiles/contents/0000185/185354/250401.pdf']] },
   { id: 'tanuki', name: 'タヌキ', kind: 'beast', hint: '夜・丘の奥の森', // 0.9.60：エゾタヌキから（2026-10-22：本州のタヌキの資料に）
     facts: ['平地から里山や低い山の森や草地で暮らし、町の中にもいます', '昼は岩穴や木のうろなどで休み、夜になると動きはじめます', 'ミミズやカエル、ヘビ、虫、木の実など、いろいろなものを食べます', '決まった場所にふんをする「ため糞」の習性があります'],
     src: [['環境省　エコジン　生きものクイズ（タヌキ）', 'https://www.env.go.jp/guide/info/ecojin/quiz/20210519.html']] },
@@ -5267,13 +5307,13 @@ O3.models.kitsune = function () {
     paintBody: (p, t, a) => (Math.cos(a) < -0.55 && p.z > 0.6 ? white : Math.cos(a) > 0.65 ? dark : orange),
     paintHead: (p, t, a) => (Math.cos(a) < -0.3 || (t < 0.35 && Math.cos(a) < 0) ? white : t > 0.7 && Math.cos(a) > 0.4 ? dark : orange),
     legs: [[[0.5, 4.4, 1.5, 0.32], [0.48, 2.6, 1.6, 0.2], [0.45, 1.0, 1.55, 0.15], [0.45, 0.22, 1.75, 0.14]], [[0.55, 4.4, -2.0, 0.45], [0.58, 3.0, -1.8, 0.3], [0.52, 1.6, -2.6, 0.18], [0.48, 0.22, -2.3, 0.14]]],
-    paintLeg: (p) => (p.y < 2.5 ? black : orange),
+    paintLeg: (p) => (p.y < 2.5 ? dark : orange), // ホンドギツネは、足の先が黒くない（東山動植物園の解説。レビュー4）
     tail: [[0, 4.55, -2.75, 0.3], [0, 4.1, -3.5, 0.6], [0, 3.2, -4.15, 0.8], [0, 2.2, -4.45, 0.8], [0, 1.4, -4.45, 0.6], [0, 0.95, -4.3, 0.25]],
     paintTail: (p, t, a) => (t > 0.8 ? white : Math.cos(a) > 0.4 ? dark : orange),
     ear: [[0.33, 6.85, 2.45, 0.3, 0.12], [0.42, 7.3, 2.38, 0.2, 0.08], [0.52, 7.78, 2.3, 0.02, 0.02]],
     paintEar: (p, t, a) => (Math.cos(a) > 0.2 && t < 0.85 ? '#F2E2CC' : '#2A2220'),
   });
-  for (const s of [-1, 1]) for (const z of [1.85, -2.15]) g.add(o3ball(black, 0.2, s * 0.46, 0.12, z, 1, 0.55, 1.4, 8)); // 足先
+  for (const s of [-1, 1]) for (const z of [1.85, -2.15]) g.add(o3ball(dark, 0.2, s * 0.46, 0.12, z, 1, 0.55, 1.4, 8)); // 足先
   o3eye(g, 0.36, 6.62, 3.02, 0.09, { iris: '#D8A030', pz: 0.35 });
   g.add(o3ball('#1E1A18', 0.12, 0, 6.18, 4.1, 1.1, 0.9, 1, 8)); // 鼻
   P.add(o3ground(6.0, ['#A3B886', '#AFC092', '#97AD7A', '#B9C69C'], { h: 0.4, side: '#8A7458' }));
@@ -5592,7 +5632,7 @@ QUESTS.push(
     watch: qwV(qwState(['cat'], ['blink'], 9, 0.4), 'o'),
     pages: {
       o: { title: 'ゆっくりまばたき', hint: '猫たちのそばで', card: 'slowBlink',
-        kid: (r) => `${r.n}が、こちらを見て、ゆっくりまばたきをしました。猫どうしの「こわくないよ」のあいさつです。` },
+        kid: (r) => `${r.n}が、こちらを見て、ゆっくりまばたきをしました。「こわくないよ」の合図と言われています。` },
     } },
   { id: 'pair', ch: 'animals', from: ['satomi'],
     need: () => {
@@ -5682,7 +5722,7 @@ const Q_COW_JOY = {
   brush: { w: qwUse(['cow'], ['brush'], 12, 2), can: () => qHasItem('brush'), ask: 'ブラシで体をかく牛を見つける', how: 'グルーミングブラシのそばで、体を押しつけている牛をさがす', beh: 'cowBrush', card: 'enrichLike', title: 'ブラシの時間', hint: 'ブラシのそばで',
     kid: (r) => `${r.n}は、ブラシに体を押しつけて、気持ちよさそうにかいていました。少し場所を変えて、また、ごしごし。` },
   play: { st: ['play'], s: 0.4, late: true, ask: '跳ねる牛を見つける', how: '涼しい朝や、広い所に出た時の牛たちを見ている。めったに見られません', r: 20, beh: 'cowPlay', title: '大きな体で、ぴょん', hint: '牛たちが、はしゃいでいる時に',
-    kid: (r) => `${r.n}が、大きな体で、ぴょんと跳ねて走っていきました。うれしい時は、大人の牛も跳ねます。` },
+    kid: (r) => `${r.n}が、大きな体で、ぴょんと跳ねて走っていきました。広い所に出た時、大人の牛も跳ねることがあります。うれしいのかもしれません。` },
   rub: { st: ['rub'], s: 1, r: 16, late: true, ask: '柵で体をかく牛を見つける', how: '牛たちの柵のそばで、体をこすりつけている子をさがす', title: '柵で、ごしごし', hint: '柵のそばの牛',
     kid: (r) => `${r.n}は、柵に体をこすりつけて、かゆい所をかいていました。届かない所を、かく工夫です。` },
 };
@@ -5696,7 +5736,7 @@ const Q_PIG_JOY = {
 };
 const Q_PIG_NEAR = {
   belly: { can: () => qSp('pig').some((a) => a.trust >= 6), ask: 'おなかを見せてくれる豚に会う', how: '仲良くなった豚をタップして「なでる」。おなかを見せるかどうかは、その子が決める', beh: 'pigBelly', title: 'おなかを見せる', hint: 'よく知っている豚と',
-    kid: (r) => `${r.n}は、ごろんと横になって、おなかを見せてくれました。安心しきっている時のしぐさです。` },
+    kid: (r) => `${r.n}は、ごろんと横になって、おなかを見せてくれました。安心している時に、よく見られるしぐさです。` },
   nose: { st: ['nose'], s: 1, r: 16, late: true, ask: '鼻を寄せる豚たちを見つける', how: '豚たちの庭で、仲間と鼻を寄せている子をさがす', beh: 'nose', title: '鼻であいさつ', hint: '豚たちの庭で',
     kid: (r) => `${r.n}は、仲間と鼻を寄せて、においであいさつをしていました。` },
   rest: { st: ['rest'], ask: '休んでいる豚を、そっと見る', how: '豚たちの庭で、足を折りたたんで休んでいる子を見つけて、少し離れて見る', r: 14, title: 'ひと休み', hint: '休んでいる豚のそばで',
@@ -5887,7 +5927,7 @@ QUESTS.push(
     on: { egg: () => ({ v: 'o', a: qPick(qSp('chicken')) || undefined }) },
     pages: {
       o: { title: '卵は、鶏たちに返す', hint: '朝の鶏小屋で', card: 'eggsBack',
-        kid: (r) => `割った卵を、${r.n ? r.n + 'たち' : '鶏たち'}が、くちばしでつついて食べました。卵を産むのに使った栄養が、また体にもどります。` },
+        kid: (r) => `割った卵を、${r.n ? r.n + 'たち' : '鶏たち'}が、くちばしでつついて食べました。殻まで、きれいになくなりました。` },
     } },
 
   // ----- 季節の世話に、手を貸す（世話の出来事がある日だけ。care.js） -----
@@ -6363,7 +6403,8 @@ const CHAT = {
       ['s2+', '頭数を増やすより、今いる子が穏やかに暮らせることを大事にしたいの'],
       ['s2+', '人が増えて、にぎやかになったわね。でも、朝の静かな時間は、今も好き'],
       ['s2+', '柵の扉は、夜も開けたままなの。夜に歩きたい子もいるから。鶏やウサギの庭だけは、キツネが来るから、夕方に閉めるのよ'],
-      ['s2+ sp:cow sp:duck', '池はね、アヒルだけのものにしないことにしたの。暑い日は、牛も足をつけに来るのよ'],
+      ['s2+ sp:goat sp:sheep', '扉は開けたままだけど、だれとだれが一緒にいるかは、毎日見てるの。ヤギのミネラルは、羊には毒になることがあるから、置き場所も分けてるのよ'],
+      ['s2+ sp:cow sp:duck', '池はね、みんなが行き来できるままにしてるの。野鳥も来るから、そのぶん、みなみ先生と見回りをふやしてる。どこまで守って、どこから自由にするか、いつも話し合ってるのよ'],
       ['s2+ sp:duck', '池のそばのテーブルで、お茶を飲むのが好きなの。アヒルが泳いでくるのを、ぼんやり眺めながらね'],
       ['ms:parking', '車で来る方は、家の東どなりの駐車場にね。柵の外に作ったの。電車やバスで来てくれる方も多いけど'],
       ['s2+ sp:cow', '{cow}がね、ときどき家の前まで来て、窓をのぞくのよ。何か用？って聞いちゃう'],
@@ -6473,6 +6514,7 @@ const CHAT = {
     lines: [
       ['intro', ['はじめまして。獣医のみなみです。月に何度か、みんなの健康を見に来ています', '>よろしくお願いします', 'こちらこそ。気になることがあったら、小さなことでも教えてくださいね']],
       ['', '新しく来た子は、まず検疫小屋で様子を見ます。ほかの子に病気をうつさないためです'],
+      ['winter sp:duck', '冬は、渡り鳥が池に来る季節です。鳥たちの様子を見る回数を、ふだんより多くしています'],
       ['', 'オーツの搾りかすも、あげすぎると反芻動物には危ないんです。量は少しずつ、一緒に決めましょう'],
       ['', '健康診断で一番大事なのは、実は、ふだんの様子を知っている人の話なんです'],
       ['', 'おやつは、ほんの少しで十分なんです。ひと口で、喜びはちゃんと伝わりますから'],
@@ -6488,7 +6530,7 @@ const CHAT = {
       ['sp:cow', '牛のひづめは、年に少なくとも2回は削ります。歩き方が変わったら、すぐに呼んでくださいね'],
       ['sp:horse', '馬のひづめは、6〜8週間ごとに手入れします。人の爪と同じで、伸び続けるので'],
       ['sp:rabbit', 'うさぎは、具合が悪くても静かなんです。食べる量とふんの数が、いちばんの手がかりです'],
-      ['sp:pig', '豚は、注射の日のことを、よく覚えているんです。……今日は、何もしない日ですよ、って言ってます'],
+      ['sp:pig', '豚は、注射の日のことを、覚えているように見えるんです。……今日は、何もしない日ですよ、って言ってます'],
       ['sp:chicken', '鶏の足の裏は、ときどき見せてもらいます。ここが傷つくと、歩くのがつらくなるので'],
       ['sp:duck', 'アヒルは水に頭まで入れて、目と鼻を洗うんです。だから、深さのある水場が大事'],
       ['sp:sheep', '羊は、顔を覚えるのが得意なんです。私の顔も、たぶん「注射の人」として覚えられています'],
@@ -8852,28 +8894,8 @@ function uiSound(kind) {
   }
 }
 
-/* ---------- 楽器：弦をはじく音（カープラス・ストロング法） ---------- */
-function stringBuffer(midi, instId) {
-  const key = instId + midi;
-  if (AU.bufs.has(key)) return AU.bufs.get(key);
-  const I = INSTRUMENTS[instId], c = AU.ctx, sr = c.sampleRate;
-  const f = 440 * Math.pow(2, (midi - 69) / 12);
-  const p = Math.max(2, Math.round(sr / f - 0.5)), N = Math.floor(sr * I.dur);
-  const buf = c.createBuffer(1, N, sr), out = buf.getChannelData(0), ring = new Float32Array(p);
-  let prev = 0, mean = 0;
-  for (let i = 0; i < p; i++) { const x = Math.random() * 2 - 1; prev = I.bright * x + (1 - I.bright) * prev; ring[i] = prev; mean += prev; }
-  mean /= p; for (let i = 0; i < p; i++) ring[i] -= mean;
-  let idx = 0, peak = 0;
-  for (let i = 0; i < N; i++) {
-    const nx = idx + 1 === p ? 0 : idx + 1, v = ring[idx];
-    out[i] = v; ring[idx] = I.damp * 0.5 * (v + ring[nx]); idx = nx;
-    const a = Math.abs(v); if (a > peak) peak = a;
-  }
-  const fade = Math.floor(sr * 0.25), norm = peak > 0 ? 0.8 / peak : 1;
-  for (let i = 0; i < N; i++) { out[i] *= norm; if (i > N - fade) out[i] *= (N - i) / fade; }
-  AU.bufs.set(key, buf);
-  return buf;
-}
+/* ---------- 楽器：弦をはじく音（s/gakki：拡張カープラス・ストロング法。gakki.js の gkStringBuf） ---------- */
+function stringBuffer(midi, instId) { return gkStringBuf(AU.ctx, instId, midi); }
 // 楽器の音（0.9.39）：やわらかな響き（短い残響）、指が弦にふれる音、強さで明るさが変わる、胴の響きを2つ
 function makeIR(c, sec) {
   const n = Math.floor(c.sampleRate * sec), b = c.createBuffer(2, n, c.sampleRate), a = c.sampleRate * 0.012;
@@ -8892,7 +8914,7 @@ function pluck(instId, string, midi, when, vel) {
   vel = vel || 0.5;
   const c = AU.ctx, old = AU.strings[string], bus = musicBus(), gtr = instId === 'guitar';
   if (old) { try { old.g.gain.setTargetAtTime(0, when, 0.015); old.s.stop(when + 0.1); } catch (e) { /* なし */ } }
-  const s = c.createBufferSource(); s.buffer = stringBuffer(midi, instId); s.detune.value = (Math.random() - 0.5) * 6;
+  const s = c.createBufferSource(); s.buffer = stringBuffer(midi, instId); s.detune.value = (Math.random() - 0.5) * 2.4; // 調弦のゆらぎは ±1.2 セントほど
   const lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = (gtr ? 4200 : 3600) * (0.55 + vel * 0.9);
   const b1 = c.createBiquadFilter(); b1.type = 'peaking'; b1.frequency.value = gtr ? 110 : 320; b1.gain.value = gtr ? 4 : 3; b1.Q.value = 1.1;
   const b2 = c.createBiquadFilter(); b2.type = 'peaking'; b2.frequency.value = gtr ? 230 : 880; b2.gain.value = gtr ? 3 : 2; b2.Q.value = 1.4;
@@ -8915,15 +8937,298 @@ function strum(instId, frets, up, when, velMul) {
 }
 // いちばん低い音だけ（ワルツの「ボン」）
 function pluckOne(instId, frets, i, vel) { const n = chordNotes(instId, frets)[i]; if (n === null || !audioReady()) return; pluck(instId, i, n, AU.ctx.currentTime + 0.005, vel || 0.55); }
-// カリンバ（0.9.39）：やわらかな金属の舌の音。基音と、すぐ消える高い倍音と、小さな「コッ」
-function tine(midi, when, vel) {
+// カリンバ（s/gakki）：基音と、約6倍の倍音と、となりの舌の響き（gakki.js の gkTine）
+function tine(midi, when, vel, neighbors) {
   if (!audioReady()) return;
-  const c = AU.ctx, t = when || c.currentTime + 0.005, v = vel || 0.6, f = 440 * Math.pow(2, (midi - 69) / 12), out = musicBus();
-  const voice = (fr, peak, dec) => { const o = c.createOscillator(), g = c.createGain(); o.type = 'sine'; o.frequency.value = fr; g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + 0.004); g.gain.exponentialRampToValueAtTime(0.0001, t + dec); o.connect(g); g.connect(out); o.start(t); o.stop(t + dec + 0.05); };
-  voice(f, 0.3 * v, 2.6); voice(f * 2.01, 0.05 * v, 0.7); voice(f * 5.4, 0.08 * v, 0.16);
-  noiseHit({ t, dur: 0.012, peak: 0.02 * v, filter: ['highpass', 2600, 0.7], dest: out });
+  gkTine(AU.ctx, musicBus(), midi, when || AU.ctx.currentTime + 0.005, vel || 0.6, neighbors || []);
 }
 
+/* =========================================================
+   楽器の音（s/gakki）
+   ・音は、楽器の仕組みを写した計算で作る（録音は使わない）。すべて手元で計算するので、通信はいらない
+   ・測る道具：node tools/tgakki.js（音程のずれ・倍音の比・減衰を、下の文献の値とくらべる。今の音と前の音を並べて出す）
+   出典
+   - 弦（ウクレレ・ギター）：Jaffe & Smith (1983) の拡張カープラス・ストロング法。
+     音程を合わせる全域通過フィルタ、はじく位置のくし形フィルタ、減衰の長さの調整
+     https://ccrma.stanford.edu/~jos/pasp06/Extended_Karplus_Strong_Algorithm.html
+     はじく位置の節にあたる倍音は鳴らない（KTH、Jansson「The function, tone, and tonal quality of the guitar」）
+     https://www.speech.kth.se/music/acviguit4/part6.pdf
+     弦の2つの向きのゆれは、減衰の速さがちがう（Paté ほか「Predicting the decay time of solid body electric guitar tones」）
+   - カリンバ：強い基音と、基音の約 5.9〜6.8 倍の倍音がひとつ。倍音は早く消え、ほぼ純音が残る（Chapman, ASA 2008）
+     https://acoustics.org/pressroom/httpdocs/155th/chapman.htm
+     となりの舌も小さく鳴る（Wikipedia「Mbira」）
+   - ハンドパン：ひとつの音の場に、基音・オクターブ・オクターブ上の5度（1:2:3）。3つとも強く鳴る（Morrison & Rossing, Physics Today 2009）
+     https://physicstoday.aip.org/quick-study/the-extraordinary-sound-of-the-hang
+     調律のずれは ±2 セントまで（sound-sculpture「Handpan tuning」）。音階は D Kurd（D3 | A3 B♭3 C4 D4 E4 F4 G4 A4）
+   - オカリナ：体がヘルムホルツ共鳴器なので、倍音のほとんどない音。鳴りはじめは広い帯域の息の音（チフ）から（Wikipedia「Vessel flute」）
+     https://en.wikipedia.org/wiki/Vessel_flute
+     音の高さは息の強さで少し変わる。アルトC管の音域は A4〜F6
+   ========================================================= */
+const GK = { bufs: new Map(), ring: {} };
+function gkHz(m) { return 440 * Math.pow(2, (m - 69) / 12); }
+// 決まった種から作る乱数（同じ音は、いつも同じ響き）
+function gkRand(seed) { let s = (seed >>> 0) || 1; return () => { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; return s / 4294967296; }; }
+function gkHash(n) { const r = gkRand(n * 2654435761 + 12345); r(); return r(); }
+
+/* ---------- 新しい楽器（INSTRUMENTS は data.js。ここで足す） ---------- */
+// kind：strings（弦）/ tine（カリンバ）/ pan（ハンドパン）/ blow（オカリナ）
+if (typeof INSTRUMENTS !== 'undefined') {
+  Object.assign(INSTRUMENTS.ukulele, { kind: 'strings', beta: 1 / 3, hiR: 3.2, soft: 0.38, t60: 2.2, t60k: 0.6, maxDur: 2.6, pol2: [1.6, 2.2, 0.28], lvl: 1.65 });
+  Object.assign(INSTRUMENTS.guitar, { kind: 'strings', beta: 0.2, hiR: 3, soft: 0.6, t60: 4.2, t60k: 0.6, maxDur: 4.2, pol2: [1.2, 1.9, 0.25], lvl: 1.6 });
+  Object.assign(INSTRUMENTS.kalimba, { kind: 'tine', lvl: 0.82 });
+  Object.assign(INSTRUMENTS, {
+    // ハンドパン：まん中の低い音（ディン）と、まわりの8つ。D Kurd（いちばんよく使われる音階）
+    handpan: { name: 'ハンドパン', kind: 'pan', notes: [50, 57, 58, 60, 62, 64, 65, 67, 69], names: ['レ', 'ラ', 'シ♭', 'ド', 'レ', 'ミ', 'ファ', 'ソ', 'ラ'], open: [], chords: [], lvl: 0.68 },
+    // オカリナ（アルトC管）：穴をふさいで、息を吹く。やさしい五音（ラ・ド・レ・ミ・ソ）だけを並べる
+    ocarina: { name: 'オカリナ', kind: 'blow', notes: [69, 72, 74, 76, 79, 81, 84, 86, 88], names: ['ラ', 'ド', 'レ', 'ミ', 'ソ', 'ラ', 'ド', 'レ', 'ミ'], open: [], chords: [], lo: 69, hi: 89, lvl: 0.25 },
+  });
+}
+function gkKind(id) { const I = INSTRUMENTS[id]; return (I && I.kind) || (I && I.tine ? 'tine' : 'strings'); }
+
+/* ---------- 弦：拡張カープラス・ストロング法 ---------- */
+// 1本の弦の音を、前もって計算して入れ物に。はじく位置・やわらかさ・減衰は楽器ごと（INSTRUMENTS の beta・soft・t60）
+// ループの中の減衰フィルタ（1次の低域通過 H = g(1+a)/(1+a z^-1)）。a は「6倍音が基音の 1/R の長さで消える」ように選ぶ
+function gkLoopMag(a, w) { return (1 + a) / Math.sqrt(1 + 2 * a * Math.cos(w) + a * a); }
+function gkLoopA(w0, f, T, R) {
+  const want = Math.pow(10, -3 * (R - 1) / (f * T)); // |H(6w0)| / |H(w0)|
+  if (gkLoopMag(0, 6 * w0) / gkLoopMag(0, w0) <= want) return 0;
+  let lo = -0.999, hi = 0;
+  for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (gkLoopMag(m, 6 * w0) / gkLoopMag(m, w0) > want) hi = m; else lo = m; }
+  return (lo + hi) / 2;
+}
+function gkStringLayer(sr, I, f, T, seed, len, out, amp) {
+  const P = sr / f, w0 = 2 * Math.PI * f / sr;
+  const a = gkLoopA(w0, f, T, I.hiR || 3);
+  const g = Math.min(0.999995, Math.pow(10, -3 / (f * T)) / gkLoopMag(a, w0)); // 基音が T 秒で -60dB になるように
+  const pd = -Math.atan2(a * Math.sin(w0), 1 + a * Math.cos(w0)) / w0; // 減衰フィルタの遅れ（基音の所で）
+  const d = P - pd, N = Math.max(2, Math.floor(d - 0.1)), eta = d - N, C = (1 - eta) / (1 + eta); // 全域通過の遅れ eta を足して、ちょうど P
+  const M = Math.max(1, Math.round(I.beta * P)), rnd = gkRand(seed);
+  const ex = new Float32Array(N + M + 1);
+  let lp = 0, mean = 0;
+  for (let i = 0; i < N; i++) { lp += I.soft * ((rnd() * 2 - 1) - lp); ex[i] = lp; mean += lp; }
+  mean /= N; for (let i = 0; i < N; i++) ex[i] -= mean;
+  for (let i = ex.length - 1; i >= M; i--) ex[i] -= ex[i - M]; // はじく位置：その位置が節になる倍音は鳴らない
+  const dl = new Float32Array(N), b0 = g * (1 + a);
+  let w = 0, lpy = 0, apX = 0, apY = 0;
+  for (let n = 0; n < len; n++) {
+    const y0 = dl[w], lpv = b0 * y0 - a * lpy; lpy = lpv;
+    const ap = C * lpv + apX - C * apY; apX = lpv; apY = ap;
+    const v = (n < ex.length ? ex[n] : 0) + ap;
+    dl[w] = v; w = w + 1 === N ? 0 : w + 1;
+    out[n] += v * amp;
+  }
+}
+function gkStringBuf(ctx, instId, midi) {
+  const sr = ctx.sampleRate, key = instId + ':' + midi + ':' + sr;
+  if (GK.bufs.has(key)) return GK.bufs.get(key);
+  const I = INSTRUMENTS[instId], f = gkHz(midi);
+  const T = I.t60 * Math.pow(f / 220, -I.t60k);
+  const len = Math.floor(sr * Math.min(I.maxDur, T * 0.9 + 0.2));
+  const buf = ctx.createBuffer(1, len, sr), out = buf.getChannelData(0);
+  gkStringLayer(sr, I, f, T, midi * 7919 + instId.length * 131, len, out, 1);
+  // もうひとつの向きのゆれ：少し高く、ゆっくり消える（はじめはすっと、あとに長く残る響き）
+  const p2 = I.pol2 || [1.2, 1.8, 0.25];
+  gkStringLayer(sr, I, f * Math.pow(2, p2[0] / 1200), T * p2[1], midi * 104729 + 77, len, out, p2[2]);
+  let peak = 0; for (let i = 0; i < len; i++) { const a = Math.abs(out[i]); if (a > peak) peak = a; }
+  const fade = Math.floor(sr * 0.25), norm = peak > 0 ? 0.8 * (I.lvl || 1) / peak : 1;
+  for (let i = 0; i < len; i++) { out[i] *= norm; if (i > len - fade) out[i] *= (len - i) / fade; }
+  GK.bufs.set(key, buf);
+  return buf;
+}
+
+/* ---------- 打つ音・はじく金属の音：減衰する正弦波を重ねる（モード合成） ---------- */
+function gkMode(ctx, out, f, amp, t60, t, att) {
+  if (f > ctx.sampleRate * 0.45 || amp <= 0) return null;
+  const o = ctx.createOscillator(), g = ctx.createGain();
+  o.type = 'sine'; o.frequency.value = f;
+  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(amp, t + (att || 0.002));
+  g.gain.setTargetAtTime(0, t + (att || 0.002), t60 / 6.908); // 時定数 = T60 ÷ ln(1000)
+  o.connect(g); g.connect(out); o.start(t); o.stop(t + (att || 0.002) + t60 * 1.15);
+  o.onended = () => { try { g.disconnect(); } catch (e) { /* なし */ } };
+  return { o, g };
+}
+function gkNoise(ctx) {
+  if (GK.noise && GK.noise.sampleRate === ctx.sampleRate) return GK.noise;
+  const n = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate), d = n.getChannelData(0), r = gkRand(99);
+  for (let i = 0; i < d.length; i++) d[i] = r() * 2 - 1;
+  GK.noise = n; return n;
+}
+function gkBurst(ctx, out, t, dur, peak, type, fq, q) {
+  const s = ctx.createBufferSource(), fl = ctx.createBiquadFilter(), g = ctx.createGain();
+  s.buffer = gkNoise(ctx); fl.type = type; fl.frequency.value = fq; fl.Q.value = q || 0.7;
+  g.gain.setValueAtTime(peak, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  s.connect(fl); fl.connect(g); g.connect(out); s.start(t, Math.random() * 0.5); s.stop(t + dur + 0.02);
+  s.onended = () => { try { g.disconnect(); } catch (e) { /* なし */ } };
+}
+// カリンバ：基音（長く）＋ 約6倍の倍音（すぐ消える）＋ はじめだけの2倍音 ＋ 指の「コッ」＋ となりの舌の小さな響き
+function gkTine(ctx, out, midi, t, vel, neighbors) {
+  const f = gkHz(midi), v = vel || 0.6, lv = INSTRUMENTS.kalimba.lvl || 1;
+  const r1 = 5.9 + 0.9 * gkHash(midi); // 舌ごとに少しちがう（5.9〜6.8 倍）
+  const T0 = 3.4 * Math.pow(f / 262, -0.5);
+  gkMode(ctx, out, f, 0.34 * v * lv, T0, t, 0.002);
+  gkMode(ctx, out, f * r1, 0.12 * v * lv * (0.6 + v * 0.6), 0.32, t, 0.001);
+  gkMode(ctx, out, f * 2, 0.045 * v * lv, 0.12, t, 0.001);
+  gkBurst(ctx, out, t, 0.014, 0.025 * v * lv, 'highpass', 2600, 0.7);
+  (neighbors || []).forEach((m) => gkMode(ctx, out, gkHz(m), 0.012 * v * lv, 1.6 * Math.pow(gkHz(m) / 262, -0.5), t + 0.01, 0.03));
+}
+// ハンドパン：音の場ごとに、基音・オクターブ・その上の5度（1:2:3）。それぞれ、ごく近い2つのゆれが重なって、ゆっくりうねる
+function gkPan(ctx, out, midi, t, vel, siblings) {
+  const f = gkHz(midi), v = vel || 0.6, lv = INSTRUMENTS.handpan.lvl || 1, k = Math.pow(f / 220, -0.4);
+  const P = [[1, 0.3, 5.2], [2, 0.15, 3.2], [3, 0.075, 2.0]];
+  for (const [r, a, T] of P) {
+    for (const dc of [-0.7, 0.7]) gkMode(ctx, out, f * r * Math.pow(2, dc / 1200), a * 0.5 * v * lv * (r > 1 ? 0.7 + v * 0.6 : 1), T * k, t, 0.004);
+  }
+  gkBurst(ctx, out, t, 0.035, 0.05 * v * lv, 'lowpass', 320, 0.8); // 手のひらで打つ「トン」
+  (siblings || []).forEach((m) => gkMode(ctx, out, gkHz(m), 0.01 * v * lv, 2.4, t + 0.02, 0.05)); // 同じ音名の場が、かすかに共鳴
+}
+// オカリナ：押している間だけ鳴る。始めは息の音、音の高さは少し低い所から上がる。長く吹くと息が続かなくなる
+function gkOcaWave(ctx) {
+  if (GK.ocaW && GK.ocaW.ctx === ctx) return GK.ocaW.w;
+  const real = new Float32Array([0, 0, 0, 0, 0]), imag = new Float32Array([0, 1, 0.035, 0.018, 0.006]);
+  const w = ctx.createPeriodicWave(real, imag); GK.ocaW = { ctx, w }; return w;
+}
+function gkOcaStart(ctx, out, midi, t, vel) {
+  const f = gkHz(midi), v = vel || 0.6, lv = INSTRUMENTS.ocarina.lvl || 1, amp = 0.28 * (0.75 + v * 0.4) * lv;
+  const o = ctx.createOscillator(), g = ctx.createGain(), lfo = ctx.createOscillator(), lg = ctx.createGain();
+  o.setPeriodicWave(gkOcaWave(ctx)); o.frequency.value = f;
+  o.detune.setValueAtTime(-20, t); o.detune.setTargetAtTime(0, t + 0.01, 0.03); // 息が入りきるまで、少し低い
+  lfo.frequency.value = 4.8; lg.gain.setValueAtTime(0, t); lg.gain.setValueAtTime(0, t + 0.45); lg.gain.linearRampToValueAtTime(5, t + 0.9); // 長く吹くと、やさしいゆれ
+  lfo.connect(lg); lg.connect(o.detune);
+  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(amp, t + 0.035);
+  o.connect(g); g.connect(out); o.start(t); lfo.start(t);
+  // 息の音：はじめに広い帯域のチフ、そのあと音のまわりに小さな息
+  gkBurst(ctx, out, t, 0.045, 0.16 * lv * (0.6 + v * 0.6), 'bandpass', 2600, 0.5);
+  const bs = ctx.createBufferSource(), bf = ctx.createBiquadFilter(), bg = ctx.createGain();
+  bs.buffer = gkNoise(ctx); bs.loop = true; bf.type = 'bandpass'; bf.frequency.value = f; bf.Q.value = 6;
+  bg.gain.setValueAtTime(0, t); bg.gain.linearRampToValueAtTime(0.05 * amp, t + 0.03);
+  bs.connect(bf); bf.connect(bg); bg.connect(out); bs.start(t, Math.random() * 0.5);
+  const h = { o, g, lfo, bs, bg, amp, done: false };
+  h.stop = (t2) => {
+    if (h.done) return; h.done = true;
+    const e = Math.max(t2, t + 0.04);
+    for (const gg of [g, bg]) { gg.gain.cancelScheduledValues(e); gg.gain.setValueAtTime(gg === g ? amp : 0.05 * amp, e); gg.gain.setTargetAtTime(0, e, 0.025); }
+    for (const s of [o, lfo, bs]) { try { s.stop(e + 0.25); } catch (er) { /* なし */ } }
+    o.onended = () => { try { g.disconnect(); bg.disconnect(); lg.disconnect(); } catch (er) { /* なし */ } };
+  };
+  h.auto = t + 5.5; // 息は、5秒ほどで続かなくなる
+  return h;
+}
+
+/* ---------- 曲にあわせて（押すたびに、次の音） ----------
+   押す時と強さは、弾く人が決める。音の高さは曲が決める（押すだけで、曲になる）。
+   旋律は、作られてから長い年月がたった古い曲だけ（歌詞は使わない）。n：[MIDI, 長さ（8分音符いくつ）, コード（小節の頭などに）]
+   - 赤とんぼ：山田耕筰（1927）。楽譜は Wikibooks「中学校音楽/赤とんぼ」（ヘ長調・4分の3拍子）https://ja.wikibooks.org/wiki/中学校音楽/赤とんぼ
+   - メリーさんのひつじ（アメリカの古い歌）・きらきら星（フランスの古い歌）・かえるのうた（ドイツの古い歌）・ちょうちょう（ドイツの古い歌）：よく知られた旋律のまま */
+const SONGS = [
+  { id: 'mary', name: 'メリーさんのひつじ', n: [[64, 2, 'C'], [62, 2], [60, 2], [62, 2], [64, 2, 'C'], [64, 2], [64, 4], [62, 2, 'G'], [62, 2], [62, 4], [64, 2, 'C'], [67, 2], [67, 4],
+    [64, 2, 'C'], [62, 2], [60, 2], [62, 2], [64, 2, 'C'], [64, 2], [64, 2], [64, 2], [62, 2, 'G'], [62, 2], [64, 2], [62, 2], [60, 8, 'C']] },
+  { id: 'akatonbo', name: '赤とんぼ', n: [[60, 1, 'F'], [65, 1], [65, 3], [67, 1], [69, 1, 'F'], [72, 1], [77, 1], [74, 1], [72, 2], [74, 1, 'Dm'], [65, 1], [65, 2], [67, 2], [69, 6, 'F'],
+    [69, 1, 'Dm'], [74, 1], [72, 3], [74, 1], [77, 1, 'F'], [74, 1], [72, 1], [74, 1], [72, 1], [69, 1], [72, 1, 'F'], [69, 1], [65, 1], [69, 1], [67, 1, 'C'], [65, 1, 'F'], [65, 6, 'F']] },
+  { id: 'kirakira', name: 'きらきら星', n: [[60, 2, 'C'], [60, 2], [67, 2], [67, 2], [69, 2, 'F'], [69, 2], [67, 4, 'C'], [65, 2, 'F'], [65, 2], [64, 2, 'C'], [64, 2], [62, 2, 'G'], [62, 2], [60, 4, 'C'],
+    [67, 2, 'C'], [67, 2], [65, 2, 'F'], [65, 2], [64, 2, 'C'], [64, 2], [62, 4, 'G'], [67, 2, 'C'], [67, 2], [65, 2, 'F'], [65, 2], [64, 2, 'C'], [64, 2], [62, 4, 'G'],
+    [60, 2, 'C'], [60, 2], [67, 2], [67, 2], [69, 2, 'F'], [69, 2], [67, 4, 'C'], [65, 2, 'F'], [65, 2], [64, 2, 'C'], [64, 2], [62, 2, 'G'], [62, 2], [60, 4, 'C']] },
+  { id: 'kaeru', name: 'かえるのうた', n: [[60, 2, 'C'], [62, 2], [64, 2], [65, 2], [64, 2], [62, 2], [60, 4], [64, 2, 'C'], [65, 2], [67, 2], [69, 2], [67, 2], [65, 2], [64, 4],
+    [60, 4, 'C'], [60, 4], [60, 4], [60, 4], [60, 1, 'C'], [60, 1], [62, 1], [62, 1], [64, 1], [64, 1], [65, 1, 'F'], [65, 1], [64, 2, 'G'], [62, 2], [60, 4, 'C']] },
+  { id: 'chocho', name: 'ちょうちょう', n: [[67, 2, 'C'], [64, 2], [64, 4], [65, 2, 'G'], [62, 2], [62, 4], [60, 2, 'C'], [62, 2], [64, 2], [65, 2], [67, 2, 'C'], [67, 2], [67, 4],
+    [67, 2, 'C'], [64, 2], [64, 2], [64, 2], [65, 2, 'G'], [62, 2], [62, 2], [62, 2], [60, 2, 'C'], [64, 2], [67, 2], [67, 2], [64, 2, 'C'], [64, 2], [64, 4],
+    [62, 2, 'G'], [62, 2], [62, 2], [62, 2], [62, 2], [64, 2], [65, 4], [64, 2, 'C'], [64, 2], [64, 2], [64, 2], [64, 2], [65, 2], [67, 4],
+    [67, 2, 'C'], [64, 2], [64, 4], [65, 2, 'G'], [62, 2], [62, 4], [60, 2, 'C'], [64, 2], [67, 2], [67, 2], [60, 8, 'C']] },
+];
+// 楽器ごとの、曲をのせる高さ（オクターブだけ動かす。調は変えない）
+function gkSongShift(instId, song) {
+  const I = INSTRUMENTS[instId], lo = Math.min(...song.n.map((x) => x[0])), hi = Math.max(...song.n.map((x) => x[0]));
+  if (gkKind(instId) === 'blow') { let s = 0; while (lo + s < I.lo) s += 12; while (hi + s > I.hi && s > 0) s -= 12; return s; }
+  if (instId === 'ukulele') return lo < 60 ? 12 : 0;
+  return 0;
+}
+// 弦で旋律を弾く時：いちばん押さえやすい弦（フレットが小さい弦。同じなら高い弦）
+function gkStringFor(instId, m) {
+  const I = INSTRUMENTS[instId]; let b = -1, bf = 99;
+  I.open.forEach((o, i) => { const f = m - o; if (f >= 0 && f <= 15 && (f < bf || (f === bf && o > I.open[b]))) { b = i; bf = f; } });
+  return b;
+}
+// 季節と時間で、はじめに出す曲（秋や夕方は赤とんぼ、夜はきらきら星）
+function gkSongDefault() {
+  const md = typeof calMD === 'function' ? calMD() : [5, 1], tv = typeof dayTime === 'function' ? dayTime() : 0.5;
+  if (tv < 0.22 || tv >= 0.8) return 'kirakira';
+  if ((md[0] >= 9 && md[0] <= 11) || (tv >= 0.7 && tv < 0.8)) return 'akatonbo';
+  return 'mary';
+}
+
+/* ---------- ゲームの中で鳴らす（audio.js の AU と musicBus を使う） ---------- */
+function gkNeighbors(instId, k) { const I = INSTRUMENTS[instId], o = UI && UI._tineOrder; if (!o) return []; const i = o.indexOf(k), out = []; for (const j of [i - 1, i + 1]) if (o[j] != null) out.push(I.notes[o[j]]); return out; }
+function panHit(midi, vel) {
+  if (!audioReady()) return;
+  const I = INSTRUMENTS.handpan, pc = ((midi % 12) + 12) % 12, sib = I.notes.filter((m) => m !== midi && ((m % 12) + 12) % 12 === pc);
+  gkPan(AU.ctx, musicBus(), midi, AU.ctx.currentTime + 0.005, vel || 0.6, sib);
+}
+function ocaOn(midi, vel) {
+  if (!audioReady()) return null;
+  ocaOff();
+  GK.oca = gkOcaStart(AU.ctx, musicBus(), midi, AU.ctx.currentTime + 0.005, vel || 0.6);
+  GK.oca.midi = midi;
+  return GK.oca;
+}
+// 指をすべらせて別の穴へ：息は止めずに、音の高さだけ変える（スラー）
+function ocaSlur(midi) {
+  const h = GK.oca; if (!h || h.done || !AU.ctx) return ocaOn(midi);
+  const t = AU.ctx.currentTime; h.o.frequency.setTargetAtTime(gkHz(midi), t, 0.012); h.midi = midi; h.auto = t + 5.5;
+  return h;
+}
+function ocaOff() { const h = GK.oca; if (h && AU.ctx) h.stop(AU.ctx.currentTime); GK.oca = null; }
+function ocaTick() { const h = GK.oca; if (h && AU.ctx && AU.ctx.currentTime > h.auto) { ocaOff(); return true; } return false; }
+
+/* ---------- 楽器の模型と、弾く手（切り絵の細かさにそろえる。手は箱のまま） ---------- */
+function gkModel(id) {
+  const g = new THREE.Group();
+  if (id === 'handpan') { // 直径およそ52cm、高さ24cm（Wikipedia「Hang」）。2枚の鉄の殻と、まん中の低い音と、まわりの8つの音の場
+    part('sph', '#4E565C', 0.52, 0.12, 0.52, 0, 0.03, 0, g);
+    part('sph', '#454C52', 0.52, 0.1, 0.52, 0, -0.03, 0, g);
+    part('sph', '#646E74', 0.12, 0.05, 0.12, 0, 0.085, 0, g, { noShadow: true });
+    for (let k = 0; k < 8; k++) { const a = k / 8 * Math.PI * 2 + 0.3, r = 0.17; const f = part('sph', '#5C666C', 0.085, 0.03, 0.06, Math.cos(a) * r, 0.07, Math.sin(a) * r, g, { noShadow: true }); f.rotation.y = -a; }
+    return g;
+  }
+  if (id === 'ocarina') { // アルトC管：手のひらに包める、焼いた土の色
+    part('sph', '#C68A5C', 0.17, 0.09, 0.1, 0, 0, 0, g);
+    part('box', '#B87A4E', 0.06, 0.035, 0.05, 0.09, 0.012, 0, g, { noShadow: true });
+    for (const [x, z] of [[-0.04, 0.03], [-0.005, 0.035], [0.03, 0.03], [-0.03, -0.03]]) part('cyl12', '#5A3A28', 0.012, 0.004, 0.012, x, 0.045, z, g, { noShadow: true });
+    return g;
+  }
+  return null;
+}
+// 楽器ごとの持ち方：体のどこに付けるか（rig の上で。hold は弦とカリンバ用）
+function gkMount(p, id, obj) {
+  const k = gkKind(id);
+  if (k === 'pan') { obj.position.set(0, 0.9, 0.36); p.m.rig.add(obj); return true; } // 膝の上に
+  if (k === 'blow') { obj.position.set(0, 1.6, 0.27); obj.rotation.set(0.15, Math.PI / 2, 0); p.m.rig.add(obj); return true; } // 口もとに
+  if (k === 'tine') { obj.position.set(0, 1.02, 0.36); obj.rotation.set(-1.05, 0, 0); p.m.rig.add(obj); return true; } // 胸の前で、舌を上に向けて
+  return false;
+}
+// 弾く手：ハンドパンは左右の手で交互に、オカリナは両手で包んで口もとへ、カリンバは両手の親指で
+function gkArms(p, m) {
+  const k = gkKind(p.playing), s = p.strumT > 0 ? Math.sin(p.strumT / 0.25 * Math.PI) : 0, side = p.hitSide || 0;
+  // arms[0] は体の左（-x）、arms[1] は右（+x）。z の回転は、0 は外へ・1 は内へが正負逆になる
+  if (k === 'pan') {
+    m.arms[0].rotation.set(-0.72 - (side === 0 ? s * 0.32 : 0), 0, 0.4);
+    m.arms[1].rotation.set(-0.72 - (side === 1 ? s * 0.32 : 0), 0, -0.4);
+    if (m.head) m.head.rotation.x = 0.28;
+    return true;
+  }
+  if (k === 'blow') {
+    const br = Math.sin((p.breathT || 0) * 2.2) * 0.02;
+    m.arms[0].rotation.set(-1.95 + br, 0, 0.62);
+    m.arms[1].rotation.set(-1.95 + br, 0, -0.62);
+    if (m.head) m.head.rotation.x = -0.05 + (p.strumT > 0 ? 0.03 : 0);
+    return true;
+  }
+  if (k === 'tine') {
+    m.arms[0].rotation.set(-0.85 - (side === 0 ? s * 0.12 : 0), 0, 0.5);
+    m.arms[1].rotation.set(-0.85 - (side === 1 ? s * 0.12 : 0), 0, -0.5);
+    if (m.head) m.head.rotation.x = 0.22;
+    return true;
+  }
+  return false;
+}
 /* =========================================================
    模型：建物、飾り、人、動物（ローポリの箱庭模型）
    ========================================================= */
@@ -9262,6 +9567,7 @@ function modelTrainCar(front, clip) {
 
 /* ---------- 楽器（その場で弾く） ---------- */
 function modelInstrument(id) {
+  const gm = gkModel(id); if (gm) return gm; // ハンドパン・オカリナ（gakki.js）
   if (id === 'kalimba') { // カリンバ（0.9.39）：手のひらにのる木の箱と、金属の舌
     const g = new THREE.Group();
     part('box', '#B07A44', 0.32, 0.22, 0.07, 0, 0, 0, g);
@@ -9293,7 +9599,12 @@ function modelItem(id) {
     case 'floatveg': part('cyl12', '#9AA4A8', 1.6, 0.5, 1.6, 0, 0.25, 0, g); { const w = new THREE.Mesh(G3.cyl12, NM.water); w.scale.set(1.45, 0.1, 1.45); w.position.y = 0.46; g.add(w); } for (let i = 0; i < 7; i++) part('box', '#7BB14A', 0.18, 0.04, 0.12, Math.cos(i) * 0.45, 0.53, Math.sin(i * 1.7) * 0.45, g); break;
     case 'dustbath': for (const [x, z, r] of [[0, 0.9, 0], [0, -0.9, 0], [0.9, 0, 1], [-0.9, 0, 1]]) { const p = part('box', WOOD, 1.9, 0.25, 0.14, x, 0.12, z, g); if (r) p.rotation.y = Math.PI / 2; } part('box', '#D9C690', 1.7, 0.1, 1.7, 0, 0.06, 0, g); break;
     case 'ball': part('sph', '#2F8A87', 0.9, 0.9, 0.9, 0, 0.45, 0, g); part('sph', '#F4F5EF', 0.92, 0.2, 0.92, 0, 0.45, 0, g); break;
-    case 'haynet': part('box', WOOD_D, 0.2, 2, 0.2, 0, 1, 0, g); part('ico', '#C9B06A', 0.9, 1, 0.9, 0, 1.2, 0.45, g); part('ico', '#B99A50', 0.94, 0.6, 0.94, 0, 1, 0.45, g); break;
+    case 'haynet': // 干し草の棚：すき間に頭が入らない細い格子（ヤギと羊にも。ネットはヤギの首にからまるおそれ。レビュー4）
+      for (const x of [-0.6, 0.6]) part('box', WOOD_D, 0.14, 1.7, 0.14, x, 0.85, 0.3, g);
+      part('box', WOOD_D, 1.34, 0.32, 0.6, 0, 0.42, 0.3, g); part('box', WOOD_D, 1.34, 0.1, 0.12, 0, 1.62, 0.55, g);
+      part('ico', '#C9B06A', 1.0, 0.75, 0.5, 0, 1.05, 0.3, g); part('ico', '#B99A50', 1.04, 0.45, 0.54, 0, 0.75, 0.3, g);
+      for (let i = 0; i < 8; i++) part('box', WOOD_D, 0.04, 0.95, 0.04, -0.49 + i * 0.14, 1.12, 0.57, g);
+      break;
     case 'music': part('box', WOOD_D, 0.14, 1.1, 0.14, 0, 0.55, 0, g); part('box', '#4E5A58', 0.5, 0.5, 0.35, 0, 1.3, 0, g); part('cyl', '#2E3634', 0.3, 0.05, 0.3, 0, 1.3, 0.18, g).rotation.x = Math.PI / 2; break;
     case 'perch': for (const x of [-1, 1]) { const a = part('box', WOOD_D, 0.12, 1.3, 0.12, x, 0.6, 0, g); } for (const y of [0.5, 0.9, 1.25]) part('cyl6', WOOD_L, 0.1, 2.1, 0.1, 0, y, 0, g).rotation.z = Math.PI / 2; break;
     case 'tunnel': { const t = part('cyl12', '#B08D63', 0.8, 1.6, 0.8, 0, 0.4, 0, g); t.rotation.x = Math.PI / 2; part('cyl12', '#3A2E24', 0.6, 1.62, 0.6, 0, 0.4, 0, g).rotation.x = Math.PI / 2; } break;
@@ -9448,26 +9759,40 @@ function modelTable(len) {
 /* ---------- 人（見た目を選べる） ---------- */
 function modelPerson(c) {
   // 色や形の部品は avatar.js の一覧（データベースで増やせる）から
+  // s/avatar：体つき（幅・奥行き）と背の高さ、上の服の形、くつ、手もと、アクセサリー。どれも、ない時（NPC やこれまでの保存）は、これまでと同じ形
   const ctx = avCtx(c), skin = ctx.skin;
   const root = new THREE.Group(), rig = new THREE.Group(); root.add(rig);
   const legs = [], knees = [], arms = [], out = {};
+  const bd = c.body ? avOpt('body', c.body) : null, W = (bd && bd.w) || 1, D = (bd && bd.d) || 1;
+  const ht = c.height ? avOpt('height', c.height) : null, H = (ht && ht.h) || 1;
+  const tops = c.topStyle ? avOpt('topStyle', c.topStyle) : null, shoe = c.shoes ? avOpt('shoes', c.shoes) : null, hand = c.hands && c.hands !== 'none' ? avOpt('hands', c.hands) : null;
   const style = avPick('style', c.style || 'pants'), legCol = style && style.legs === 'skin' ? skin : ctx.bottom, kneeCol = style && (style.legs === 'skin' || style.legs === 'short') ? skin : ctx.bottom;
+  ctx.shin = kneeCol;
+  // 体と服は、この入れ物ごと横と奥行きだけ変える（顔・髪・帽子・めがねは rig にそのまま）
+  const cloth = new THREE.Group(); cloth.scale.set(W, 1, D); rig.add(cloth);
+  const lw = 1 + (W - 1) * 0.8, ld = 1 + (D - 1) * 0.8;
   for (const s of [-1, 1]) {
-    const p = new THREE.Group(); p.position.set(s * 0.14, 0.8, 0); rig.add(p);
-    part('box', legCol, 0.19, 0.32, 0.21, 0, -0.16, 0, p);
+    const p = new THREE.Group(); p.position.set(s * 0.14 * W, 0.8, 0); rig.add(p);
+    part('box', legCol, 0.19 * lw, 0.32, 0.21 * ld, 0, -0.16, 0, p);
     const k = new THREE.Group(); k.position.set(0, -0.3, 0); p.add(k);
-    part('box', kneeCol, 0.185, 0.33, 0.2, 0, -0.16, 0, k);
-    part('box', c.boots || '#F0EEE8', 0.22, 0.2, 0.32, 0, -0.38, 0.04, k);
+    part('box', kneeCol, 0.185 * lw, 0.33, 0.2 * ld, 0, -0.16, 0, k);
+    if (shoe && Array.isArray(shoe.parts) && shoe.parts.length) avParts(shoe.parts, k, ctx);
+    else part('box', c.boots || '#F0EEE8', 0.22, 0.2, 0.32, 0, -0.38, 0.04, k);
     legs.push(p); knees.push(k);
   }
-  if (style) avParts(style.parts, rig, ctx, out);
-  part('box', ctx.top, 0.54, 0.64, 0.32, 0, 1.12, 0, rig);
-  if (c.apron) part('box', c.apron, 0.46, 0.5, 0.04, 0, 1.02, 0.17, rig);
-  if (c.outer && c.outer !== 'none') { const ou = avOpt('outer', c.outer); if (ou) avParts(ou.parts, rig, ctx, out); }
+  if (style) avParts(style.parts, cloth, ctx, out);
+  part('box', ctx.top, 0.54, 0.64, 0.32, 0, 1.12, 0, cloth);
+  if (tops) avParts(tops.parts, cloth, ctx, out);
+  if (c.apron) part('box', c.apron, 0.46, 0.5, 0.04, 0, 1.02, 0.17, cloth);
+  const ou = c.outer && c.outer !== 'none' ? avOpt('outer', c.outer) : null;
+  if (ou) avParts(ou.parts, cloth, ctx, out);
+  const aw = 0.15 * (1 + (W - 1) * 0.6), ad = 0.17 * (1 + (D - 1) * 0.6);
   for (const s of [-1, 1]) {
-    const p = new THREE.Group(); p.position.set(s * 0.34, 1.4, 0); rig.add(p);
-    part('box', ctx.top, 0.15, 0.5, 0.17, 0, -0.25, 0, p);
-    part('box', skin, 0.13, 0.13, 0.14, 0, -0.55, 0, p);
+    const p = new THREE.Group(); p.position.set(s * 0.34 * W, 1.4, 0); rig.add(p);
+    if (tops && tops.sleeve === 'short') { part('box', ctx.top, aw, 0.22, ad, 0, -0.11, 0, p); part('box', skin, aw * 0.88, 0.3, ad * 0.88, 0, -0.37, 0, p); }
+    else part('box', ctx.top, aw, 0.5, ad, 0, -0.25, 0, p);
+    part('box', hand && isHex(hand.glove) ? hand.glove : skin, 0.13, 0.13, 0.14, 0, -0.55, 0, p);
+    for (const o of [tops, ou, hand]) if (o && Array.isArray(o.armParts) && (!o.armSide || o.armSide === s)) avParts(o.armParts, p, ctx);
     arms.push(p);
   }
   part('box', skin, 0.14, 0.1, 0.14, 0, 1.48, 0, rig);
@@ -9475,12 +9800,14 @@ function modelPerson(c) {
   head.add(faceMesh(c, ctx)); // 目・まゆ・ほっぺ・口は、顔に描いた絵
   const hatId = c.hatType || (c.hat ? 'straw' : 'none'), hat = hatId === 'none' ? null : avPick('hat', hatId);
   const hair = avPick('hair', c.hairStyle || 'short');
-  if (hair) avParts(hat && hat.parts && hat.parts.length && !hat.keepHair && Array.isArray(hair.hatParts) ? hair.hatParts : hair.parts, rig, ctx, out);
+  if (hair && !(hat && hat.hideHair)) avParts(hat && hat.parts && hat.parts.length && !hat.keepHair && Array.isArray(hair.hatParts) ? hair.hatParts : hair.parts, rig, ctx, out);
   if (hat) avParts(hat.parts, rig, ctx, out);
-  if (c.scarf) part('box', c.scarf, 0.5, 0.12, 0.34, 0, 1.47, 0, rig);
+  if (c.scarf) part('box', c.scarf, 0.5, 0.12, 0.34, 0, 1.47, 0, cloth);
   if (c.glasses && c.glasses !== 'none') { const gl = avOpt('glasses', c.glasses); if (gl) avParts(gl.parts, rig, ctx, out); }
-  if (c.bag && c.bag !== 'none') { const bg = avOpt('bag', c.bag); if (bg) avParts(bg.parts, rig, ctx, out); }
+  if (c.bag && c.bag !== 'none') { const bg = avOpt('bag', c.bag); if (bg) avParts(bg.parts, cloth, ctx, out); }
+  if (c.acc && c.acc !== 'none') { const ac = avOpt('acc', c.acc); if (ac) avParts(ac.parts, ac.head ? rig : cloth, ctx, out); }
   const hold = new THREE.Group(); hold.position.set(-0.05, 1.02, 0.26); hold.rotation.set(0.1, 0, 0.42); rig.add(hold);
+  if (H !== 1) root.scale.setScalar(H); // 背の高さ：全体を少しだけ（ベンチに座る時の高さは poseSit で合わせる）
   return { root, rig, legs, knees, arms, head, hold, skirt: out.skirt || null, kind: 'person', legLen: 0.8 };
 }
 function avatarColors(av) {
@@ -9488,6 +9815,7 @@ function avatarColors(av) {
   return {
     skin: avColorOf('skin', a.skin), hairStyle: a.hair, hairColor: avColorOf('hairColor', a.hairColor), top: avColorOf('top', a.top), bottom: avColorOf('bottom', a.bottom),
     style: a.style, outer: a.outer, hatType: a.hat, glasses: a.glasses, bag: a.bag, eyes: a.eyes, brows: a.brows, cheek: a.cheek, mouth: a.mouth, boots: avColorOf('boots', a.boots),
+    beard: a.beard, mark: a.mark, body: a.body, height: a.height, topStyle: a.topStyle, shoes: a.shoes, acc: a.acc, hands: a.hands,
   };
 }
 /* ---------- 動物 ---------- */
@@ -9960,7 +10288,7 @@ function modelWild(kind) {
     return { root, rig, legs, head, tail, legLen: 0.3, kind: 'bird' };
   }
   if (kind === 'fox') {
-    const a = quadBase({ L: 0.8, W: 0.3, H: 0.32, legH: 0.34, legW: 0.08, body: '#C9772E', leg: '#3A2A20', neckUp: 0.3 });
+    const a = quadBase({ L: 0.8, W: 0.3, H: 0.32, legH: 0.34, legW: 0.08, body: '#C9772E', leg: '#A85E28', neckUp: 0.3 });
     part('box', '#C9772E', 0.3, 0.26, 0.3, 0, 0.1, 0.12, a.head); part('cone4', '#C9772E', 0.14, 0.26, 0.2, 0, 0.06, 0.34, a.head).rotation.x = Math.PI / 2;
     for (const s of [-1, 1]) part('cone4', '#C9772E', 0.1, 0.18, 0.08, s * 0.09, 0.3, 0.08, a.head);
     const t = part('cone', '#C9772E', 0.2, 0.7, 0.2, 0, -0.1, -0.3, a.tail); t.rotation.x = -1.9; part('sph', '#F4F0E8', 0.14, 0.14, 0.14, 0, -0.2, -0.62, a.tail);
@@ -10001,31 +10329,44 @@ function modelWild(kind) {
        z 大きさ [横, 高さ, 奥行き]（m）　p 位置 [x, y, z]（足もとが0、顔の向きが +z）
        r 回転 [x, y, z]（ラジアン）　m true で左右に1つずつ　ns true で影を落とさない
      hatParts （髪型だけ）帽子をかぶった時に、parts の代わりに使う
+     hideHair （帽子だけ）true で髪を隠す（頭に巻く布）　keepHair true で髪をそのまま
+     armParts 腕に付ける部品（肩が 0、手首が -0.47。上の服の形・重ねて着るもの・手もと）　armSide -1 左だけ / 1 右だけ
+     sleeve （上の服の形だけ）'short' で半そで　glove （手もとだけ）手の色 #rrggbb　head （アクセサリーだけ）true で頭に付ける
+     w d h （体つき・背だけ）幅・奥行き・高さの倍率（ふつうは 1）。顔と髪の大きさは変わらない
      legs （下の服だけ）'skin' にすると脚が肌の色になる（スカート）
      draw （顔の種類）顔に描く絵。目と目のまん中が (0, 0)、1 = 1cm、下が +y
        t 形：circle（x, y, r） / ellipse（x, y, rx, ry, rot） / soft（ぼかした丸 x, y, r） / path（d に SVG のパス）
        c 塗りの色　sc 線の色　w 線の太さ　a 不透明度（0〜1）　m true で左右に1つずつ
    ========================================================= */
+// more：「もっと細かく選ぶ」を開いた時だけ出る（s/avatar。はじめに選ぶ時の画面は、これまでどおり）
 const AV_CATS = [
   { key: 'skin', label: '肌の色', kind: 'color', group: 'face' },
   { key: 'eyes', label: '目', kind: 'face', group: 'face' },
   { key: 'brows', label: 'まゆ', kind: 'face', group: 'face' },
   { key: 'cheek', label: 'ほっぺ', kind: 'face', group: 'face' },
   { key: 'mouth', label: '口', kind: 'face', group: 'face' },
+  { key: 'beard', label: 'ひげ', kind: 'face', group: 'face', more: true },
+  { key: 'mark', label: 'ほくろ・しわ', kind: 'face', group: 'face', more: true },
   { key: 'hair', label: '髪型', kind: 'parts', group: 'hair' },
   { key: 'hairColor', label: '髪の色', kind: 'color', group: 'hair' },
+  { key: 'body', label: '体つき', kind: 'shape', group: 'clothes', more: true },
+  { key: 'height', label: '背の高さ', kind: 'shape', group: 'clothes', more: true },
   { key: 'top', label: '上の服', kind: 'color', group: 'clothes' },
+  { key: 'topStyle', label: '上の服の形', kind: 'parts', group: 'clothes', more: true },
   { key: 'style', label: '下の服', kind: 'parts', group: 'clothes' },
   { key: 'bottom', label: '下の服の色', kind: 'color', group: 'clothes' },
   { key: 'outer', label: '重ねて着るもの', kind: 'parts', group: 'clothes' },
-  { key: 'boots', label: '長ぐつ', kind: 'color', group: 'clothes' },
+  { key: 'shoes', label: 'くつ', kind: 'parts', group: 'clothes', more: true },
+  { key: 'boots', label: 'くつの色', kind: 'color', group: 'clothes' },
   { key: 'hat', label: '帽子', kind: 'parts', group: 'items' },
   { key: 'glasses', label: 'めがね', kind: 'parts', group: 'items' },
   { key: 'bag', label: 'かばん', kind: 'parts', group: 'items' },
+  { key: 'acc', label: 'アクセサリー', kind: 'parts', group: 'items', more: true },
+  { key: 'hands', label: '手もと', kind: 'parts', group: 'items', more: true },
 ];
-const AV_GROUPS = [['face', '顔'], ['hair', '髪'], ['clothes', '服'], ['items', '小物']];
+const AV_GROUPS = [['face', '顔'], ['hair', '髪'], ['clothes', '体と服'], ['items', '小物']];
 const AV_CAT = {}; AV_CATS.forEach((c) => { AV_CAT[c.key] = c; });
-const AVATAR_DEFAULT = { skin: '#E3B792', eyes: 'dot', brows: 'none', cheek: 'pink', mouth: 'smile', hair: 'short', hairColor: '#2A2320', top: '#9CB6C8', bottom: '#4B6F8F', style: 'pants', outer: 'none', boots: '#F0EEE8', hat: 'none', glasses: 'none', bag: 'tote' };
+const AVATAR_DEFAULT = { skin: '#E3B792', eyes: 'dot', brows: 'none', cheek: 'pink', mouth: 'smile', hair: 'short', hairColor: '#2A2320', top: '#9CB6C8', bottom: '#4B6F8F', style: 'pants', outer: 'none', boots: '#F0EEE8', hat: 'none', glasses: 'none', bag: 'tote' , beard: 'none', mark: 'none', body: 'mid', height: 'mid', topStyle: 'long', shoes: 'boots', acc: 'none', hands: 'none' };
 
 const HAIR_SHORT = { s: 'sph', c: 'hair', z: [0.47, 0.33, 0.46], p: [0, 1.84, -0.04] };
 const HAIR_WIDE = { s: 'sph', c: 'hair', z: [0.5, 0.33, 0.49], p: [0, 1.84, -0.04] };
@@ -10137,6 +10478,63 @@ const AV_BUILTIN = [
     { s: 'box', c: '#B07A48', z: [0.16, 0.14, 0.05], p: [0.17, 0.93, 0.19] }, { s: 'box', c: '#8A5A34', z: [0.16, 0.05, 0.055], p: [0.17, 0.985, 0.192], ns: true },
     { s: 'stick', c: '#8A5A34', from: [0.2, 0.99, 0.19], to: [-0.2, 1.44, 0.172], w: 0.025, ns: true }, { s: 'stick', c: '#8A5A34', from: [-0.2, 1.44, 0.0], to: [0.24, 1.0, -0.17], w: 0.025, ns: true }] },
   { cat: 'bag', id: 'none', label: 'なし', parts: [] },
+
+  /* ---------- s/avatar で足した部品（形は、ほかの人や動物と同じ細かさ：球・箱・円柱を数個、顔は平らな紙の形） ---------- */
+  // 髪型
+  { cat: 'hair', id: 'wave', label: 'ウェーブ', parts: [HAIR_WIDE, { s: 'sph', c: 'hair', z: [0.52, 0.26, 0.32], p: [0, 1.62, -0.1] }, { s: 'sph', c: 'hair', z: [0.5, 0.24, 0.24], p: [0, 1.44, -0.15] }, { s: 'sph', c: 'hair', z: [0.16, 0.3, 0.16], p: [0.21, 1.58, -0.02], m: true }, { s: 'sph', c: 'hair', z: [0.15, 0.22, 0.14], p: [0.22, 1.4, -0.05], m: true }] },
+  { cat: 'hair', id: 'twoblock', label: '刈り上げ', parts: [{ s: 'sph', c: 'hairDark', z: [0.455, 0.24, 0.45], p: [0, 1.8, -0.03] }, { s: 'sph', c: 'hair', z: [0.47, 0.25, 0.47], p: [0, 1.9, -0.02] }, { s: 'box', c: 'hair', z: [0.3, 0.08, 0.12], p: [0.04, 1.94, 0.16], r: [0.3, 0, -0.1] }] },
+  { cat: 'hair', id: 'side', label: '横わけ', parts: [HAIR_SHORT, { s: 'box', c: 'hair', z: [0.32, 0.1, 0.12], p: [-0.07, 1.9, 0.16], r: [0.2, 0, 0.25] }, { s: 'sph', c: 'hair', z: [0.14, 0.2, 0.14], p: [0.2, 1.76, 0.02] }] },
+  { cat: 'hair', id: 'locs', label: 'ドレッド', parts: [HAIR_SHORT, { s: 'cyl', c: 'hair', z: [0.06, 0.42, 0.06], p: [0.2, 1.58, -0.08], m: true }, { s: 'cyl', c: 'hair', z: [0.06, 0.44, 0.06], p: [0.12, 1.55, -0.19], m: true }, { s: 'cyl', c: 'hair', z: [0.06, 0.46, 0.06], p: [0, 1.54, -0.24] }, { s: 'cyl', c: 'hair', z: [0.055, 0.3, 0.055], p: [0.22, 1.64, 0.05], m: true }] },
+  { cat: 'hair', id: 'halfup', label: 'ハーフアップ', parts: [HAIR_WIDE, { s: 'box', c: 'hair', z: [0.5, 0.46, 0.28], p: [0, 1.55, -0.1] }, { s: 'sph', c: 'hair', z: [0.14, 0.13, 0.13], p: [0, 1.88, -0.27] }], hatParts: [HAIR_WIDE, { s: 'box', c: 'hair', z: [0.5, 0.46, 0.28], p: [0, 1.55, -0.1] }] },
+  // 髪の色
+  { cat: 'hairColor', id: '#77736C', label: 'アッシュ' }, { cat: 'hairColor', id: '#B5823F', label: 'はちみつ' }, { cat: 'hairColor', id: '#C9AE90', label: 'ミルクティー' }, { cat: 'hairColor', id: '#8E8A84', label: '白髪まじり' },
+  // 上の服・下の服・くつの色
+  { cat: 'top', id: '#EFE3C2', label: 'クリーム' }, { cat: 'top', id: '#A8CBB6', label: 'ミント' }, { cat: 'top', id: '#7E3A3E', label: 'えんじ' }, { cat: 'top', id: '#D8C3A0', label: 'ベージュ' },
+  { cat: 'bottom', id: '#E6DCC4', label: 'クリーム' }, { cat: 'bottom', id: '#8A8460', label: 'カーキ' },
+  { cat: 'boots', id: '#CDBB98', label: 'ベージュ' }, { cat: 'boots', id: '#D79AA4', label: 'ピンク' },
+  // ひげ（髪の色で、平らな紙の形）
+  { cat: 'beard', id: 'none', label: 'なし', draw: [] },
+  { cat: 'beard', id: 'mus', label: '口ひげ', draw: [{ t: 'path', d: 'M-4.4 6.9 Q-2.2 5.0 0 6.4 Q2.2 5.0 4.4 6.9 Q2.2 7.7 0 7.0 Q-2.2 7.7 -4.4 6.9 Z', c: 'hair' }] },
+  { cat: 'beard', id: 'chin', label: 'あごひげ', draw: [{ t: 'path', d: 'M-4.6 11.2 Q0 18.2 4.6 11.2 Q2.6 12.6 0 12.7 Q-2.6 12.6 -4.6 11.2 Z', c: 'hair' }] },
+  { cat: 'beard', id: 'full', label: 'まわりのひげ', draw: [{ t: 'path', d: 'M-11.5 3.4 Q-11.6 15.8 0 18.4 Q11.6 15.8 11.5 3.4 Q9.6 9.4 5.2 10.8 Q0 12.6 -5.2 10.8 Q-9.6 9.4 -11.5 3.4 Z', c: 'hair' }, { t: 'path', d: 'M-4.6 7.0 Q-2.2 5.1 0 6.5 Q2.2 5.1 4.6 7.0 Q2.2 7.8 0 7.1 Q-2.2 7.8 -4.6 7.0 Z', c: 'hair' }] },
+  { cat: 'beard', id: 'stub', label: 'ぶしょうひげ', draw: [{ t: 'soft', x: 0, y: 13.4, r: 6.2, c: 'hair', a: 0.3 }, { t: 'soft', x: 7.4, y: 10.2, r: 4.6, c: 'hair', a: 0.22, m: true }, { t: 'soft', x: 0, y: 6.6, r: 3.2, c: 'hair', a: 0.25 }] },
+  // ほくろ・しわ
+  { cat: 'mark', id: 'none', label: 'なし', draw: [] },
+  { cat: 'mark', id: 'mole1', label: '口もとのほくろ', draw: [{ t: 'circle', x: 3.9, y: 10.4, r: 0.48, c: '#4A3328' }] },
+  { cat: 'mark', id: 'mole2', label: '目の下のほくろ', draw: [{ t: 'circle', x: 9.6, y: 3.3, r: 0.45, c: '#4A3328' }] },
+  { cat: 'mark', id: 'crow', label: '目じりのしわ', draw: [{ t: 'path', d: 'M11.6 -0.7 L13.5 -1.5 M11.8 0.7 L13.7 1.1', sc: 'skinDark', w: 0.5, a: 0.75, m: true }] },
+  { cat: 'mark', id: 'smile', label: '笑いじわ', draw: [{ t: 'path', d: 'M4.7 5.6 Q5.8 7.9 4.5 9.9', sc: 'skinDark', w: 0.55, a: 0.75, m: true }] },
+  { cat: 'mark', id: 'plaster', label: 'ばんそうこう', draw: [{ t: 'path', d: 'M8.4 5.6 L13.0 4.2 L13.6 6.0 L9.0 7.4 Z', c: '#E9CDA4' }, { t: 'path', d: 'M10.2 5.1 L11.2 4.8 L11.7 6.5 L10.7 6.8 Z', c: '#D9B88C' }] },
+  // 体つき・背の高さ（顔と髪の大きさは、そのまま）
+  { cat: 'body', id: 'slim', label: 'ほっそり', w: 0.9, d: 0.92 }, { cat: 'body', id: 'mid', label: 'ふつう', w: 1, d: 1 }, { cat: 'body', id: 'broad', label: 'がっしり', w: 1.1, d: 1.04 }, { cat: 'body', id: 'round', label: 'ふっくら', w: 1.12, d: 1.16 },
+  { cat: 'height', id: 'short', label: '小さめ', h: 0.95 }, { cat: 'height', id: 'mid', label: 'ふつう', h: 1 }, { cat: 'height', id: 'tall', label: '高め', h: 1.05 },
+  // 上の服の形（長そでは、これまでの形）
+  { cat: 'topStyle', id: 'long', label: '長そで', parts: [] },
+  { cat: 'topStyle', id: 'short', label: '半そで', sleeve: 'short', parts: [] },
+  { cat: 'topStyle', id: 'turtle', label: 'タートルネック', parts: [{ s: 'cyl', c: 'top', z: [0.2, 0.12, 0.2], p: [0, 1.48, 0] }] },
+  { cat: 'topStyle', id: 'collar', label: 'えりつきシャツ', parts: [{ s: 'box', c: 'white', z: [0.14, 0.03, 0.1], p: [0.07, 1.43, 0.14], r: [0.5, 0, -0.45], m: true, ns: true }, { s: 'box', c: 'topDark', z: [0.02, 0.5, 0.01], p: [0, 1.15, 0.162], ns: true }] },
+  { cat: 'topStyle', id: 'sweater', label: 'セーター', parts: [{ s: 'box', c: 'topDark', z: [0.555, 0.07, 0.33], p: [0, 0.83, 0] }, { s: 'cyl', c: 'topDark', z: [0.2, 0.06, 0.2], p: [0, 1.46, 0] }], armParts: [{ s: 'box', c: 'topDark', z: [0.16, 0.06, 0.18], p: [0, -0.47, 0] }] },
+  { cat: 'topStyle', id: 'stripe', label: 'ボーダー', parts: [{ s: 'box', c: 'topDark', z: [0.545, 0.05, 0.325], p: [0, 0.98, 0], ns: true }, { s: 'box', c: 'topDark', z: [0.545, 0.05, 0.325], p: [0, 1.12, 0], ns: true }, { s: 'box', c: 'topDark', z: [0.545, 0.05, 0.325], p: [0, 1.26, 0], ns: true }], armParts: [{ s: 'box', c: 'topDark', z: [0.155, 0.05, 0.175], p: [0, -0.16, 0], ns: true }, { s: 'box', c: 'topDark', z: [0.155, 0.05, 0.175], p: [0, -0.32, 0], ns: true }] },
+  // くつ（長ぐつは、これまでの形。短いくつは、すねの下を下の服の色で）
+  { cat: 'shoes', id: 'boots', label: '長ぐつ', parts: [] },
+  { cat: 'shoes', id: 'sneaker', label: 'スニーカー', parts: [{ s: 'box', c: 'shin', z: [0.18, 0.09, 0.19], p: [0, -0.35, 0] }, { s: 'box', c: 'boots', z: [0.22, 0.11, 0.32], p: [0, -0.42, 0.04] }, { s: 'box', c: 'white', z: [0.225, 0.035, 0.33], p: [0, -0.47, 0.04] }] },
+  { cat: 'shoes', id: 'work', label: '作業ぐつ', parts: [{ s: 'box', c: 'shin', z: [0.18, 0.07, 0.19], p: [0, -0.34, 0] }, { s: 'box', c: 'boots', z: [0.23, 0.15, 0.33], p: [0, -0.405, 0.04] }, { s: 'box', c: 'bootsDark', z: [0.235, 0.04, 0.34], p: [0, -0.47, 0.04] }] },
+  // 重ねて着るもの（足した分）
+  { cat: 'outer', id: 'cardigan', label: 'カーディガン', parts: [{ s: 'box', c: '#BFAE94', z: [0.56, 0.62, 0.335], p: [0, 1.12, -0.004] }, { s: 'box', c: 'top', z: [0.12, 0.6, 0.01], p: [0, 1.12, 0.169] }], armParts: [{ s: 'box', c: '#BFAE94', z: [0.16, 0.5, 0.18], p: [0, -0.25, 0] }] },
+  { cat: 'outer', id: 'jacket', label: 'ジャケット', parts: [{ s: 'box', c: '#6E6458', z: [0.57, 0.74, 0.345], p: [0, 1.08, 0] }, { s: 'box', c: '#5C534A', z: [0.02, 0.72, 0.01], p: [0, 1.08, 0.174], ns: true }], armParts: [{ s: 'box', c: '#6E6458', z: [0.165, 0.5, 0.185], p: [0, -0.25, 0] }] },
+  // 帽子（足した分）
+  { cat: 'hat', id: 'sunhat', label: '日よけ帽', parts: [{ s: 'cyl', c: '#D8C9A8', z: [0.6, 0.05, 0.6], p: [0, 1.88, 0.04] }, { s: 'cyl', c: '#D8C9A8', z: [0.46, 0.22, 0.46], p: [0, 1.99, 0] }, { s: 'box', c: '#CDBE9C', z: [0.46, 0.22, 0.03], p: [0, 1.75, -0.24] }] },
+  { cat: 'hat', id: 'wrap', label: 'ヘッドスカーフ', hideHair: true, parts: [{ s: 'sph', c: '#5E7F7A', z: [0.5, 0.5, 0.46], p: [0, 1.8, -0.07] }, { s: 'box', c: '#557370', z: [0.42, 0.18, 0.36], p: [0, 1.5, -0.03] }] },
+  // アクセサリー
+  { cat: 'acc', id: 'none', label: 'なし', parts: [] },
+  { cat: 'acc', id: 'towel', label: '首にタオル', parts: [{ s: 'box', c: '#F4F1EA', z: [0.5, 0.08, 0.36], p: [0, 1.46, 0] }, { s: 'box', c: '#F4F1EA', z: [0.1, 0.26, 0.03], p: [0.11, 1.3, 0.172], m: true }] },
+  { cat: 'acc', id: 'hearing', label: '補聴器', head: true, parts: [{ s: 'box', c: '#CFC6BA', z: [0.03, 0.07, 0.045], p: [0.222, 1.74, -0.04], m: true, ns: true }] },
+  { cat: 'acc', id: 'earring', label: 'イヤリング', head: true, parts: [{ s: 'sph', c: '#E2B93B', z: [0.045, 0.045, 0.045], p: [0.216, 1.63, 0.0], m: true, ns: true }] },
+  // 手もと
+  { cat: 'hands', id: 'none', label: 'なし', parts: [] },
+  { cat: 'hands', id: 'gunte', label: '軍手', glove: '#ECE6D6', parts: [] },
+  { cat: 'hands', id: 'rubber', label: 'ゴム手ぶくろ', glove: '#5E86B8', parts: [], armParts: [{ s: 'box', c: '#5E86B8', z: [0.155, 0.12, 0.175], p: [0, -0.44, 0] }] },
+  { cat: 'hands', id: 'watch', label: 'うで時計', parts: [], armSide: -1, armParts: [{ s: 'box', c: '#3A3530', z: [0.155, 0.035, 0.175], p: [0, -0.45, 0], ns: true }, { s: 'box', c: '#E8E4DA', z: [0.012, 0.04, 0.06], p: [-0.08, -0.45, 0], ns: true }] },
 ];
 
 /* ---------- 部品の一覧（はじめからの部品 ＋ データベース） ---------- */
@@ -10165,6 +10563,7 @@ function avRandom() {
     const L = avList(c.key); if (!L.length) continue;
     const none = L.find((x) => x.id === 'none');
     if (none && ['hat', 'glasses', 'outer', 'brows'].includes(c.key) && Math.random() < 0.55) { o[c.key] = 'none'; continue; }
+    if (none && ['beard', 'mark', 'acc', 'hands'].includes(c.key) && Math.random() < 0.75) { o[c.key] = 'none'; continue; }
     o[c.key] = pick(L).id;
   }
   return o;
@@ -10182,7 +10581,8 @@ function avCtx(c) {
   const dk = (h, k) => '#' + new THREE.Color(h).multiplyScalar(k).getHexString();
   const light = new THREE.Color(top).getHSL({}).l > 0.6;
   return {
-    skin, hair, hairDark: dk(hair, 0.72), top, topDark: dk(top, 0.8), bottom, bottomDark: dk(bottom, 0.82),
+    skin, skinDark: dk(skin, 0.74), hair, hairDark: dk(hair, 0.72), top, topDark: dk(top, 0.8), bottom, bottomDark: dk(bottom, 0.82),
+    boots: hx(c.boots, '#F0EEE8'), bootsDark: dk(hx(c.boots, '#F0EEE8'), 0.72), shin: hx(c.shin, bottom),
     hatStraw: isHex(c.hat) ? c.hat : '#D9B96A',
     bagMain: light ? '#4E6478' : '#EDE4CF', bagStrap: light ? '#3A4A58' : '#C9B994', bagPrint: light ? '#E8D9A8' : '#6E8A5A',
     ink: '#2E2A26', white: '#FFFFFF',
@@ -10254,7 +10654,7 @@ function avDraw(g, list, ctx) {
     }
   }
 }
-const FACE_PARTS = ['cheek', 'brows', 'eyes', 'mouth'];
+const FACE_PARTS = ['cheek', 'mark', 'brows', 'eyes', 'beard', 'mouth'];
 function faceSel(c) { const s = {}; for (const k of FACE_PARTS) s[k] = avPick(k, c[k]); return s; }
 function faceTexture(c, ctx) {
   const sel = faceSel(c), key = FACE_PARTS.map((k) => sel[k] ? sel[k].id : '-').join('|') + '|' + ctx.hair + '|' + ctx.skin;
@@ -10350,13 +10750,62 @@ function avValidate(o) {
   if (cat.kind === 'color' && !isHex(o.color) && !isHex(o.id)) return '色の種類では color に #rrggbb を書いてください';
   if (cat.kind === 'parts' && o.parts !== undefined && !Array.isArray(o.parts)) return 'parts は [ … ] の並びにしてください';
   if (cat.kind === 'face' && o.draw !== undefined && !Array.isArray(o.draw)) return 'draw は [ … ] の並びにしてください';
+  if (cat.kind === 'shape' && ['w', 'd', 'h'].some((k) => o[k] !== undefined && !(typeof o[k] === 'number' && o[k] >= 0.85 && o[k] <= 1.2))) return 'w・d・h は 0.85〜1.2 の数にしてください';
+  if (o.armParts !== undefined && !Array.isArray(o.armParts)) return 'armParts は [ … ] の並びにしてください';
   if (JSON.stringify(o).length > 60000) return '大きすぎます（60KBまで）';
   return null;
 }
 function avCleanForSave(o) {
-  const out = {}; for (const k of ['cat', 'id', 'label', 'order', 'enabled', 'color', 'parts', 'hatParts', 'legs', 'draw', 'note']) if (o[k] !== undefined) out[k] = o[k];
+  const out = {}; for (const k of ['cat', 'id', 'label', 'order', 'enabled', 'color', 'parts', 'hatParts', 'legs', 'draw', 'note', 'armParts', 'armSide', 'sleeve', 'glove', 'hideHair', 'keepHair', 'head', 'w', 'd', 'h']) if (o[k] !== undefined) out[k] = o[k];
   out.updatedAt = Date.now();
   return out;
+}
+
+/* ---------- 色を細かく（s/avatar）：好きな色を、紙の色の範囲で ----------
+   色み・明るさ・あざやかさの3本。あざやかさの上限は明るさで変わり、いちばん鮮やかでも、はじめからある色（からし）くらいまで。
+   肌は、はじめからある7つの肌の色をなめらかにつないだ1本の線の上で選ぶ */
+function avHex(r, g, b) { return '#' + [r, g, b].map((v) => Math.round(clamp(v, 0, 1) * 255).toString(16).padStart(2, '0')).join('').toUpperCase(); }
+function avHsl(h, s, l) { const k = (n) => (n + h / 30) % 12, a = s * Math.min(l, 1 - l), f = (n) => l - a * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1)); return avHex(f(0), f(8), f(4)); }
+function avToHsl(hex) {
+  const r = parseInt(hex.slice(1, 3), 16) / 255, g = parseInt(hex.slice(3, 5), 16) / 255, b = parseInt(hex.slice(5, 7), 16) / 255;
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, d = mx - mn;
+  if (!d) return [0, 0, l];
+  const s = d / (1 - Math.abs(2 * l - 1)); let h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; h *= 60; if (h < 0) h += 360;
+  return [h, s, l];
+}
+const AV_FINE = { lmin: 0.18, lmax: 0.9 };
+function avSatMax(l) { return 0.55 - Math.abs(l - 0.55) * 0.6; }
+function avPaper(h, v, k) { const l = AV_FINE.lmin + (AV_FINE.lmax - AV_FINE.lmin) * clamp(v, 0, 1); return avHsl(((h % 360) + 360) % 360, avSatMax(l) * clamp(k, 0, 1), l); }
+function avSkinLine(v) {
+  const L = AV_BUILTIN.filter((o) => o.cat === 'skin').map((o) => o.id), x = clamp(v, 0, 1) * (L.length - 1), i = Math.min(L.length - 2, Math.floor(x)), t = x - i;
+  const a = L[i], b = L[i + 1], c = (hx, j) => parseInt(hx.slice(1 + j * 2, 3 + j * 2), 16) / 255;
+  return avHex(c(a, 0) + (c(b, 0) - c(a, 0)) * t, c(a, 1) + (c(b, 1) - c(a, 1)) * t, c(a, 2) + (c(b, 2) - c(a, 2)) * t);
+}
+// 今の色から、つまみの位置を
+function avFinePos(cat, hex) {
+  if (!isHex(hex)) hex = avColorOf(cat, hex);
+  if (cat === 'skin') { let bv = 0, bd = 9; for (let v = 0; v <= 1.0001; v += 0.01) { const c = avSkinLine(v), d = [0, 1, 2].reduce((s2, j) => s2 + Math.abs(parseInt(c.slice(1 + j * 2, 3 + j * 2), 16) - parseInt(hex.slice(1 + j * 2, 3 + j * 2), 16)), 0); if (d < bd) { bd = d; bv = v; } } return { v: bv }; }
+  const [h, s2, l] = avToHsl(hex);
+  return { h: Math.round(h), v: clamp((l - AV_FINE.lmin) / (AV_FINE.lmax - AV_FINE.lmin), 0, 1), k: clamp(s2 / Math.max(0.01, avSatMax(clamp(l, AV_FINE.lmin, AV_FINE.lmax))), 0, 1) };
+}
+function avFineHtml(cat, cur) {
+  const p = avFinePos(cat, cur), col = isHex(cur) ? cur : avColorOf(cat, cur);
+  const r = (n, t, mn, mx, val, st) => `<label class="av-r"><span>${t}</span><input type="range" data-avc="${cat}" data-n="${n}" min="${mn}" max="${mx}" step="${st}" value="${val}" aria-label="${t}"></label>`;
+  let h = `<div class="av-fine" data-k="${cat}"><i class="av-chip" style="background:${col}"></i><div class="av-rs">`;
+  if (cat === 'skin') h += r('v', '明るい ↔ 濃い', 0, 1, p.v.toFixed(2), 0.01);
+  else h += r('h', '色み', 0, 359, p.h, 1) + r('v', '明るさ', 0, 1, p.v.toFixed(2), 0.01) + r('k', 'あざやかさ', 0, 1, p.k.toFixed(2), 0.01);
+  return h + '</div></div>';
+}
+// つまみを動かした時：その場で姿に。保存は少し待ってから
+function avFineInput(t) {
+  const box = t.closest('.av-fine'); if (!box || !G) return;
+  const cat = box.dataset.k, val = (n) => { const e = box.querySelector(`input[data-n="${n}"]`); return e ? +e.value : 0; };
+  const hex = cat === 'skin' ? avSkinLine(val('v')) : avPaper(val('h'), val('v'), val('k'));
+  G.avatar = Object.assign({}, AVATAR_DEFAULT, G.avatar, { [cat]: hex });
+  const chip = box.querySelector('.av-chip'); if (chip) chip.style.background = hex;
+  const sw = box.previousElementSibling; if (sw && sw.classList.contains('swatches')) sw.querySelectorAll('button').forEach((b) => b.classList.remove('on'));
+  if (!AV.fineRaf) AV.fineRaf = requestAnimationFrame(() => { AV.fineRaf = 0; rebuildPlayer(G.avatar); });
+  GAME.saveSoon();
 }
 avRebuild();
 
@@ -11840,6 +12289,12 @@ function reservedAt(x, z, pad) {
   return false;
 }
 // 木を立ててよい所：freeSpot と、予約のない所
+// クヌギを植えてよい所か（2026-11-14）：ドングリと若葉のタンニンは、たくさん食べると牛・羊・馬などの体に悪い（Merck Veterinary Manual「Quercus Poisoning」）。
+// 放牧地と庭の中、そのすぐそば（枝の下にドングリが落ちる幅）には植えない。鳥の庭と、ちくわとがんもの庭は別
+function oakOk(x, z) {
+  for (const k in ZONES) { const zn = ZONES[k]; if (zn.bird || zn.pet) continue; const r = zn.rect, x0 = k === 'cow' ? -56 : r[0]; if (x > x0 - 5 && x < r[1] + 5 && z > r[2] - 5 && z < r[3] + 5) return false; }
+  return true;
+}
 function treeSpot(x, z, pad) { return freeSpot(x, z, pad) && !reservedAt(x, z, pad); }
 // 決めた場所の木（木陰の木など）は、ふさがっていたら、少しずらす
 function treeNear(x, z, pad) {
@@ -11917,10 +12372,11 @@ function buildTrees() {
   quietBushes(f);
   if (okuriYardOn()) f.add('sakura', 35.4, 11.4, 0.7, true); // 丘のはずれの墓地の木（okuri-yard.js）
   f.add('elm', 11, 42.5, 1.15, true); // はるにれ（名前の由来の木。まわりに建物を建てない：tools/layout.js）
+  { const s = signBoard('ハルニレ\nこの丘の名前の木', 2.0, { h: 0.74, postH: 0.55, size: 50, back: true }); place('extra', s, 12.7, 44.5, 0); W.circles.push([s.position.x, s.position.z, 0.22]); } // 名前の木が、それとわかるように（2026-11-14、Daiさん）
   // 竹林と、住宅地の庭木
   for (let i = 0; i < 16; i++) { const x = -53.5 + hash2(i, 5) * 5, z = -54 + hash2(i, 6) * 7; f.add('bamboo', x, z, 0.8 + hash2(i, 7) * 0.4); }
   for (const z of [40, 31, 22, 13, -2]) f.add(z % 2 ? 'maple' : 'young', 54.8, z, 0.7);
-  // 周りの白樺とエゾマツ
+  // 周りの森：東京の郊外の雑木林（クヌギと、スギやヒノキ）。白樺は、植えたものが少しだけ混じる（2026-11-14、Daiさん。前は白樺とエゾマツ）
   for (let i = 0; i < 60; i++) {
     const a = hash2(i, 11), b = hash2(i, 29);
     let x = -55 + a * 110, z = -55 + b * 110;
@@ -11930,7 +12386,7 @@ function buildTrees() {
     if (x > 48 && z > -12) continue; // 住宅地
     if (z > 48) continue;
     if (!treeSpot(x, z, 2)) continue;
-    f.add(i % 3 ? 'birch' : 'conifer', x, z, 0.8 + hash2(i, 3) * 0.5);
+    f.add(i % 3 === 0 ? 'conifer' : i % 6 === 1 || !oakOk(x, z) ? 'birch' : 'kunugi', x, z, 0.8 + hash2(i, 3) * 0.5);
   }
   // 使っていない土地の雑木（段階1〜3）
   for (let i = 0; i < 70; i++) {
@@ -11956,18 +12412,18 @@ function buildTrees() {
       if (Math.hypot(x - 31, z + 41.5) < 7.5) continue;
       if (!treeSpot(x, z, 1)) continue;
       const k = i % 5;
-      f.add(k < 2 ? 'conifer' : k < 4 ? 'birch' : 'maple', x, z, 0.75 + hash2(i, 7) * 0.5);
+      f.add(k < 2 ? 'conifer' : k < 4 ? (oakOk(x, z) ? 'kunugi' : 'birch') : 'maple', x, z, 0.75 + hash2(i, 7) * 0.5);
     }
     for (let i = 0; i < 26; i++) { const a = i / 26 * 6.28; f.add('reed', 31 + Math.cos(a) * (4 + hash2(i, 2) * 2.5), -41.5 + Math.sin(a) * (3 + hash2(i, 3) * 2), 1); }
   }
-  if (hasMilestone('bird_hide')) for (let i = 0; i < 30; i++) { const x = 20 + hash2(i, 71) * 26, z = -54 + hash2(i, 73) * 6; if (treeSpot(x, z, 1)) f.add(i % 2 ? 'conifer' : 'birch', x, z, 0.9); }
+  if (hasMilestone('bird_hide')) for (let i = 0; i < 30; i++) { const x = 20 + hash2(i, 71) * 26, z = -54 + hash2(i, 73) * 6; if (treeSpot(x, z, 1)) f.add(i % 2 ? 'conifer' : oakOk(x, z) ? 'kunugi' : 'birch', x, z, 0.9); }
   // 段階5：外周も敷地に
   if (s >= 5) {
     for (let i = 0; i < 90; i++) {
       const x = -55 + hash2(i, 81) * 110, z = -55 + hash2(i, 83) * 104;
       if (Math.abs(x) < 49 && Math.abs(z) < 49) continue;
       if (!treeSpot(x, z, 2)) continue;
-      f.add(i % 3 === 0 ? 'conifer' : i % 3 === 1 ? 'birch' : 'elm', x, z, 0.8 + hash2(i, 9) * 0.4);
+      f.add(i % 3 === 0 ? 'conifer' : i % 3 === 1 ? (oakOk(x, z) ? 'kunugi' : 'birch') : 'elm', x, z, 0.8 + hash2(i, 9) * 0.4);
     }
   }
   // W04：境界に木が育つ／B04：社員が植えた木
@@ -12782,7 +13238,7 @@ function updateLittleLife(dt, t) {
 /* =========================================================
    今朝の卵（0.9.20）
    日本の採卵の鶏は、雄のいない鶏舎で暮らすので、卵はほぼすべて無精卵。雄がいなくても、鶏は卵を産む
-   ここでは、その場で見学の人やボランティアさん（あなた）が割って、鶏たちに返す。産むのに使った栄養を体に戻すため
+   ここでは、その場で見学の人やボランティアさん（あなた）が割って、鶏たちに返す。栄養を体に戻せると考えて（長く続けてよいかは、まだわかっていない。レビュー4）
    ========================================================= */
 const EGG = { g: null, items: [] };
 function eggHens() { return (G ? G.animals : []).filter((a) => a.sp === 'chicken' && /採卵/.test(a.origin || '') && !(a.quarantine && G.turn < a.quarantine)); }
@@ -14282,9 +14738,9 @@ function rebuildPlayer(av) {
 }
 function setPlaying(id) {
   const p = ACT.player;
-  if (p.inst) { p.m.hold.remove(p.inst); p.inst = null; }
+  if (p.inst) { if (p.inst.parent) p.inst.parent.remove(p.inst); p.inst = null; }
   p.playing = id; p.target = null; p.pending = null;
-  if (id) { p.inst = modelInstrument(id); p.m.hold.add(p.inst); }
+  if (id) { p.inst = modelInstrument(id); if (!gkMount(p, id, p.inst)) p.m.hold.add(p.inst); } // 持つ所は楽器ごと（gakki.js）
 }
 function strumAnim() { if (ACT.player) ACT.player.strumT = 0.25; }
 // 朝は門を入ったところから、丘のほう（北）を向いて
@@ -14634,8 +15090,10 @@ function poseSit(p, dt) {
     p.strumT = Math.max(0, p.strumT - dt); p.breathT = (p.breathT || 0) + dt;
     animPerson(m, 0, 0, dt);
     m.rig.position.y = Math.sin(p.breathT * 1.1) * 0.006; m.rig.rotation.z = Math.sin(p.breathT * 1.7) * 0.025;
-    m.arms[1].rotation.set(-1.15, 0, 0.55);
-    m.arms[0].rotation.set(-0.75 - Math.sin(p.strumT * 25) * 0.35 * (p.strumT > 0 ? 1 : 0), 0, -0.35);
+    if (!gkArms(p, m)) { // 楽器ごとの手（gakki.js）。弦は、これまでどおり
+      m.arms[1].rotation.set(-1.15, 0, 0.55);
+      m.arms[0].rotation.set(-0.75 - Math.sin(p.strumT * 25) * 0.35 * (p.strumT > 0 ? 1 : 0), 0, -0.35);
+    }
     m.root.position.set(p.x, walkH(p.x, p.z), p.z); m.root.rotation.y = p.heading;
     return;
   }
@@ -14648,15 +15106,17 @@ function poseSit(p, dt) {
     (m.knees || []).forEach((k) => { k.rotation.set(1.4, 0, 0); });
     if (m.skirt) skirtPose(m, 1.05, 0.42, 1.9, 0.76, 0.17); // 座る時は、腿の上に広がる
   } else poseAgura(m, 1, p, 0); // 草の上では、お尻を下ろして、あぐらで（0.9.53）
+  if (m.head) m.head.rotation.x = 0;
   if (p.playing) {
-    m.arms[1].rotation.set(-1.15, 0, 0.55);
-    m.arms[0].rotation.set(-0.75 - Math.sin(p.strumT * 25) * 0.35 * (p.strumT > 0 ? 1 : 0), 0, -0.35);
+    if (!gkArms(p, m)) {
+      m.arms[1].rotation.set(-1.15, 0, 0.55);
+      m.arms[0].rotation.set(-0.75 - Math.sin(p.strumT * 25) * 0.35 * (p.strumT > 0 ? 1 : 0), 0, -0.35);
+    }
   } else if (bench) {
     m.arms[0].rotation.set(-0.55, 0, 0.12); m.arms[1].rotation.set(-0.55, 0, -0.12);
   }
-  if (m.head) m.head.rotation.x = 0;
   const y = p.seatY !== undefined ? p.seatY : walkH(p.x, p.z);
-  m.root.position.set(p.x, y, p.z); m.root.rotation.y = p.heading;
+  m.root.position.set(p.x, y - (bench ? (m.root.scale.y - 1) * 0.67 : 0), p.z); m.root.rotation.y = p.heading; // 背の高さを変えた時も、お尻は座面に（s/avatar）
 }
 /* あぐら（0.9.53）：ギターや休む時は、お尻を地面に下ろして、脚を組む。なでる・ブラッシングは、ひざをついたまま。
    k は 0〜1（立った姿から移る）。seat は座布団などの厚み。腿を前へ倒して外へ開き、すねを内へ折って、足は横に寝かせる */
@@ -15007,6 +15467,8 @@ function roamPick(e, R, away) {
   }
   return roamClamp(e.x, e.z, g);
 }
+// ドローンショーの夜に、そばへ来る子（なついている子だけ。レビュー4）
+function skyNear(a) { const need = PERSONALITY[a.personality] !== undefined ? PERSONALITY[a.personality] : 2; return (a.trust || 0) >= need; }
 function inPond(x, z, m) { return WS.pond && pondSD(x, z) < -(m == null ? 0.2 : m); }
 // 水遊びが好きな子（豚や牛に多いけれど、その子らしさで、ヤギや羊にもいる）
 const WATER_SP = { pig: 0.55, cow: 0.42, horse: 0.35, sheep: 0.1, goat: 0.08, donkey: 0.06 };
@@ -15310,8 +15772,8 @@ function animalThink(e) {
     if (inRect(e.x, e.z, s0)) { e.state = 'sleep'; e.target = null; e.timer = rand(14, 32); return; }
     e.target = randIn(s0, 0.3); e.state = 'toRest'; e.timer = rand(8, 14); return;
   }
-  // 夜空のドローンショー：近くの子は、あなたの前の柵のそばへ。みんなで空を見上げる
-  if (UI.rest && UI.rest.mode === 'sky' && !quar) {
+  // 夜空のドローンショー：動物たちは、ふだんどおり。なついている子だけが、あなたのそばに来て休む（光のショーを見に集まる根拠はないため。2026-11-11 レビュー4）
+  if (UI.rest && UI.rest.mode === 'sky' && !quar && skyNear(a)) {
     if (!e.skyArrived && Math.hypot(P.x - e.x, P.z - e.z) < 32) {
       const ang = rand(-1.1, 1.1), rr = rand(2.2, 5.5);
       e.target = [clamp(P.x + Math.sin(ang) * rr, r[0] + 0.6, r[1] - 0.6), clamp(P.z - Math.cos(ang) * rr, r[2] + 0.6, r[3] - 0.6)];
@@ -15450,7 +15912,8 @@ function animalThink(e) {
       e.target = pondRand(0.9 + big, 2.0 + big); e.state = 'toWade'; e.timer = rand(12, 20); return;
     }
   }
-  if (!quar && T.sun && WS.weather === 'sunny' && SKY.night < 0.3 && roll < 0.2) { e.state = 'bask'; e.target = null; e.timer = rand(10, 20); return; }
+  // 夏の牛と豚は、日なたでじっとしない（暑さに弱い。レビュー4）
+  if (!quar && T.sun && WS.weather === 'sunny' && SKY.night < 0.3 && roll < 0.2 && !(G.season === 'summer' && (sp === 'cow' || sp === 'pig'))) { e.state = 'bask'; e.target = null; e.timer = rand(10, 20); return; }
   // しゃがんで待っていると、小さな子は寄ってきやすい（人見知りの子も、少しだけ。0.9.45）
   const low = P.crouch && CROUCH_SP.has(sp) && dP < 9;
   const near0 = pers === 'あまえんぼう' || a.mine ? 16 : 12, appChance = 0.4 + T.cur * 0.3 + (pers === 'あまえんぼう' ? 0.25 : 0) + (low ? 0.25 : 0) + (day1 && a.key !== 'azuki' ? 0.35 : 0) + (a.mine ? 0.3 : 0); // a.mine：あなたが見つけた子は、寄ってきやすい（hajimari.js）
@@ -15834,7 +16297,7 @@ function animAnimal(e, moving, swim, dt, time) {
   let headT = 0, yawT = 0;
   if (st === 'graze' || st === 'eat' || st === 'grazeStep' || st === 'shoe' || st === 'mudPlay' || (st === 'wade' && Math.sin(time * 0.7 + e.phase) > 0.4)) headT = m.kind === 'bird' ? (Math.sin(time * 9 + e.phase) > 0.3 ? 0.9 : 0.1) : 0.85;
   if (st === 'sleep') headT = 0.35;
-  if (st === 'sky' && still) headT = -0.42; // 空を見上げる
+  /* ドローンショーの夜も、動物は空を見上げない（レビュー4） */
   if (st === 'look' && still) { headT = -0.2; yawT = e.lookYaw !== undefined ? e.lookYaw : Math.sin(time * 0.8 + e.phase) * 0.75; }
   if (st === 'preen' && still) { headT = 0.5; yawT = side * (m.kind === 'bird' ? 2.1 : 1.5) * (0.88 + 0.12 * Math.sin(time * 7 + e.phase)); }
   if (st === 'nose' && still) headT = 0.15 + Math.sin(time * 1.3 + e.phase) * 0.08;
@@ -18899,7 +19362,7 @@ function crackEgg(eg) {
   buildEggs();
   const hens = eggHens(), names = hens.slice(0, 3).map((a) => a.name);
   if (!G.flags['eggNote' + G.turn]) { G.flags['eggNote' + G.turn] = true; note('daily', `今朝の卵を割って、${names.join('、')}${hens.length > 3 ? 'たち' : ''}に返しました`, null, { quiet: true }); }
-  if (!pic) UI.toast('卵を割って、鶏たちに返しました。卵を産むのに使った栄養を、体に戻すためです', 'daily');
+  if (!pic) UI.toast('卵を割って、鶏たちに返しました。みんなで、つついて食べています', 'daily');
   setTimeout(() => { if (STARTED) ambCue({ k: 'peck' }); }, 1500);
   // 近くの鶏が、気づいて寄ってくる
   for (const e of ACT.animals) if (e.a.sp === 'chicken' && Math.hypot(e.x - eg.x, e.z - eg.z) < 14 && !ALONE.has(e.state)) e.timer = Math.min(e.timer, rand(0.2, 1.5));
@@ -19624,7 +20087,7 @@ function chatHtml(lines) {
 // もこもこのふち（2026-11-01、Daiさん：四角い箱ではなく、オーガニックで優しい、動物を連想するような形に）
 // 羊の毛のようなふちを、その大きさに合わせて1枚の SVG で描く（つなぎ目が出ないように）。紙のざらつきも中に。
 // el の大きさが変わるたびに描き直す（ResizeObserver）。色は el の data-fl（'ok' なら若葉の色）
-function fleeceSvg(w, h, ok) {
+function fleeceSvg(w, h, ok, col) {
   const m = 6, R = 16, bump = 17, bh = 4.2, x0 = m, y0 = m, x1 = w - m, y1 = h - m;
   // 角の丸い四角のまわりを、同じ間隔で歩く
   const seg = [[x0 + R, y0, x1 - R, y0], [x1, y0 + R, x1, y1 - R], [x1 - R, y1, x0 + R, y1], [x0, y1 - R, x0, y0 + R]];
@@ -19635,16 +20098,17 @@ function fleeceSvg(w, h, ok) {
   const n = Math.max(8, Math.round(L / bump)), st = L / n, f = (v) => v.toFixed(1);
   let p0 = at(0), d = `M${f(p0[0])} ${f(p0[1])}`;
   for (let i = 0; i < n; i++) { const a = at(i * st), mid = at(i * st + st / 2), b = at((i + 1) * st), j = 1 + 0.18 * Math.sin(i * 2.3); d += `Q${f(mid[0] + mid[2] * bh * 2 * j)} ${f(mid[1] + mid[3] * bh * 2 * j)} ${f(b[0])} ${f(b[1])}`; void a; }
-  const fill = ok ? '#EEF3E2' : '#F6EFDF', line = ok ? '#6E9A3A' : '#4A3B2E';
+  const fill = col ? col[0] : ok ? '#EEF3E2' : '#F6EFDF', line = col ? col[1] : ok ? '#6E9A3A' : '#4A3B2E'; // 色は CSS の --fleece（夜は夜の紙。2026-11-14）
   const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}' viewBox='0 0 ${w} ${h}'><defs><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .36 0 0 0 0 .29 0 0 0 0 .2 0 0 0 .07 0'/></filter><clipPath id='c'><path d='${d}Z'/></clipPath></defs><path d='${d}Z' fill='${fill}'/><rect width='${w}' height='${h}' filter='url(%23n)' clip-path='url(%23c)'/><path d='${d}Z' fill='none' stroke='${line}' stroke-width='2' stroke-linejoin='round'/></svg>`;
   return `url("data:image/svg+xml,${svg.replace(/#/g, '%23').replace(/</g, '%3C').replace(/>/g, '%3E').replace(/"/g, "'")}")`;
 }
 const FLEECE = { ro: null, seen: new WeakMap() };
 function fleeceDraw(el) {
   if (!el || !el.classList.contains('fl')) return;
-  const w = Math.round(el.offsetWidth), h = Math.round(el.offsetHeight), ok = el.classList.contains('done') ? 1 : 0, key = `${w}x${h}:${ok}`;
+  const w = Math.round(el.offsetWidth), h = Math.round(el.offsetHeight), ok = el.classList.contains('done') ? 1 : 0, cs = getComputedStyle(el), v = (k, d) => cs.getPropertyValue(k).trim() || d;
+  const col = ok ? [v('--fleece-ok', '#EEF3E2'), v('--fleece-ok-line', '#6E9A3A')] : [v('--fleece', '#F6EFDF'), v('--fleece-line', '#4A3B2E')], key = `${w}x${h}:${ok}:${col}`;
   if (!w || !h || FLEECE.seen.get(el) === key) return; FLEECE.seen.set(el, key);
-  el.style.backgroundImage = fleeceSvg(w, h, ok);
+  el.style.backgroundImage = fleeceSvg(w, h, ok, col);
 }
 function fleeceOn(el, on) {
   if (!el) return;
@@ -19670,6 +20134,8 @@ const UI = {
     $('#sheet-foot-close').addEventListener('click', () => UI.closeSheet());
     $('#pk-main').addEventListener('click', () => UI.peekCard()); $('#pk-pet').addEventListener('click', () => UI.peekPet());
     $('#sheet-foot-back').addEventListener('click', () => UI.back());
+    $('#sheet-set').addEventListener('click', () => UI.openSheet('settings', null, true)); // 右上の表示のメニューがパネルに隠れる画面だけに出る（UI.zenPlace）
+    window.addEventListener('resize', () => UI.zenPlace());
     // 説明をたたむ：はじめは名前だけ。「説明」を押すと、このあとずっと説明つき（設定に残る）
     UI.briefSync = () => { const on = !(G && G.settings && G.settings.brief === false); document.body.classList.toggle('brief', on); const b = $('#sheet-brief'); b.setAttribute('aria-pressed', on ? 'false' : 'true'); b.firstChild.textContent = on ? '説明を見る' : '説明をたたむ'; };
     // 札の天気の印：晴れの昼は太陽、晴れの夜は月、くもり・雨・雪は雲（2026-11-10）
@@ -19722,7 +20188,7 @@ const UI = {
     // カードの＋でひらく所は、ひらいた所を覚えておく（ほかの子のカードでも同じ所をひらく）
     $('#sheet-body').addEventListener('toggle', (e) => { const d = e.target; if (d && d.matches && d.matches('details.ac-fold[data-k]')) { if (d.open) UI.acOpen.add(d.dataset.k); else UI.acOpen.delete(d.dataset.k); } }, true);
     $('#hud-menu').addEventListener('click', (e) => { const b = e.target.closest('[data-lvl]'); if (b) { e.stopPropagation(); UI.setHud(b.dataset.lvl); } });
-    $('#hud-menu').addEventListener('click', (e) => { if (e.target.closest('[data-set]')) { e.stopPropagation(); UI.hudMenu(false); UI.openSheet('settings'); } }); // 設定は、ここから（メニューは5つに。2026-11-11、Daiさん）
+    $('#hud-menu').addEventListener('click', (e) => { if (e.target.closest('[data-set]')) { e.stopPropagation(); UI.hudMenu(false); UI.openSheet('settings', null, !$('#sheet').hidden); } }); // パネルを開いている時は、もどるで前のパネルへ（2026-11-14） // 設定は、ここから（メニューは5つに。2026-11-11、Daiさん）
     window.addEventListener('pointerdown', (e) => { const m = $('#hud-menu'); if (m && !m.hidden && !e.target.closest('#hud-menu, #zen-btn')) UI.hudMenu(false); }, { capture: true, passive: true });
     $('#zen-exit').addEventListener('click', (e) => { e.stopPropagation(); UI.zen(false); });
     document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && UI.zenOn && UI._zenFs) UI.zen(false); });
@@ -20142,6 +20608,12 @@ const UI = {
   hudLevel() { return UI.zenOn ? 'none' : (G && G.settings && G.settings.hud) || 'all'; },
   hudQuiet() { const l = UI.hudLevel(); return l === 'none' || l === 'names'; },
   applyHud() { const l = (G && G.settings && G.settings.hud) || 'all'; document.body.classList.toggle('hud-calm', l === 'calm'); document.body.classList.toggle('hud-names', l === 'names'); },
+  // 右上の「画面の表示」（設定もここ）が、パネルに重なる時だけしまう。しまう時は、パネルの題に設定の歯車を出す（2026-11-14、Daiさん：メニューを開いていると、設定へ一度で行けない）
+  zenPlace() {
+    const z = $('#zen-btn'), s = $('#sheet'); if (!z || !s) return; let hit = false;
+    if (!s.hidden) { const a = z.getBoundingClientRect(), b = s.getBoundingClientRect(); hit = a.width > 0 && a.right > b.left && a.left < b.right && a.bottom > b.top && a.top < b.bottom; }
+    document.body.classList.toggle('zen-hit', hit);
+  },
   hudMenu(on) {
     const m = $('#hud-menu'); if (!m) return;
     if (on === undefined) on = m.hidden;
@@ -20210,7 +20682,7 @@ const UI = {
     $('#sheet').classList.toggle('short', name === 'avatar');
     UI.statusSet(false); // パネルを開いたら、札は閉じる（縦のスマホは、パネルの上に札が見える）
     UI.peekHide();
-    $('#sheet').hidden = false; document.body.classList.add('sheet-open'); UI.render(true); UI.toastPlace();
+    $('#sheet').hidden = false; document.body.classList.add('sheet-open'); UI.render(true); UI.toastPlace(); UI.zenPlace();
     if (name === 'avatar') { $('#hud').hidden = true; UI.avatarCam(); }
     document.querySelectorAll('#rail button').forEach((b) => b.classList.toggle('on', b.dataset.open === name || (name === 'deco' && b.dataset.open === 'actions')));
     if (name === 'diary') { if (curPage()) G.diarySeen = curPage().turn; if (!push) UI.diaryIdx = null; UI.refresh(); }
@@ -20245,7 +20717,7 @@ const UI = {
     if (on) crumbs.push(on.textContent.trim());
     if (c.name === 'diary' && (UI.tab.diary || 'diary') === 'diary' && UI.diaryFilter && DIARY_CATS[UI.diaryFilter]) crumbs.push(DIARY_CATS[UI.diaryFilter]);
     $('#sheet-title').innerHTML = esc(out.title) + (crumbs.length ? `<small class="crumb">${crumbs.map(esc).join('・')}</small>` : '');
-    $('#sheet-back').hidden = !UI.stack.length; $('#sheet-foot-back').hidden = !UI.stack.length; UI.briefSync();
+    $('#sheet-back').hidden = !UI.stack.length; $('#sheet-foot-back').hidden = !UI.stack.length; $('#sheet-set').hidden = c.name === 'settings'; UI.briefSync();
     if (fresh || out.keepScroll === false) { body.scrollTop = 0; requestAnimationFrame(() => { body.scrollTop = 0; UI.stickCheck(); }); }
     else body.scrollTop = st;
     UI.stickCheck();
@@ -20265,6 +20737,7 @@ const UI = {
   onInput(e) {
     const t = e.target;
     if (t.id === 'adm-json' && UI.adm) { UI.adm.edit = t.value; return; }
+    if (t.dataset && t.dataset.avc) { avFineInput(t); return; } // 見た目の色を細かく（avatar.js）
     if (t.id === 'vol') { const v = +t.value; G.settings.vol = v; setVolume(v); GAME.saveSoon(); uiSound('click'); return; }
     if (t.id === 'tod') {
       const v = +t.value;
@@ -20355,6 +20828,7 @@ const UI = {
       case 'toggle-beh': G.settings.beh = G.settings.beh === false; if (G.settings.beh === false) UI.behHide(true); GAME.save(); break;
       case 'toggle-autosit': G.settings.autoSit = G.settings.autoSit === false; GAME.save(); UI.render(); break;
       case 'toggle-okuri': G.settings.okuri = G.settings.okuri === false; if (G.settings.okuri === false) G.okuri = null; GAME.save(); buildWorld(); syncAnimals(); UI.render(); break;
+      case 'toggle-okuri-school': devSet('schoolOkuri', okuriSchoolOk() ? '0' : '1'); if (!okuriOn()) G.okuri = null; GAME.save(); UI.render(); break;
       case 'season': GAME.setOverrides(v, G.settings.eventOverride); UI.render(); break;
       case 'event': GAME.setOverrides(G.settings.seasonOverride, v); UI.render(); break;
       case 'weather': GAME.setWeather(v); UI.render(); break;
@@ -20795,7 +21269,7 @@ Object.assign(UI, {
         <div class="field u-mt10"><label for="vol">音の大きさ</label><input id="vol" type="range" min="0.1" max="1" step="0.05" value="${G.settings.vol}"><span class="muted">動物の声や虫の音は、アクセント程度の小さな音です。このゲームに音楽（BGM）はありません。ほかのアプリで好きな音楽を聴きながらでも、風や鳥などの自然の音は、そのまま重なって鳴ります。iPhoneは消音モードだと鳴りません</span></div>
         <div class="switch"><span>成長ゲージを表示する</span><input type="checkbox" data-act="toggle-gauge" ${G.settings.gauge ? 'checked' : ''} ${hk ? 'disabled' : ''}></div>
         <div class="switch"><span>しばらく操作しないと、その場に座る</span><input type="checkbox" data-act="toggle-autosit" ${G.settings.autoSit !== false ? 'checked' : ''}></div>
-        ${G.mode === 'normal' ? `<div class="switch"><span>年を重ねた子とのお別れの話<small>切ると、新しく始まりません。始まっていた子は、ゆっくり暮らし続けます</small></span><input type="checkbox" data-act="toggle-okuri" ${G.settings.okuri !== false ? 'checked' : ''}></div>` : ''}
+        ${G.mode === 'normal' && schoolOn() ? `<div class="switch"><span>学校モードでの、お別れの話<small>学校モードでは、お休みにしています。先生が選べば、出すこともできます（この端末だけ）</small></span><input type="checkbox" data-act="toggle-okuri-school" ${okuriSchoolOk() ? 'checked' : ''}></div>` : ''}${G.mode === 'normal' ? `<div class="switch"><span>年を重ねた子とのお別れの話<small>切ると、新しく始まりません。始まっていた子は、ゆっくり暮らし続けます</small></span><input type="checkbox" data-act="toggle-okuri" ${G.settings.okuri !== false ? 'checked' : ''}></div>` : ''}
         <div class="field u-mt10"><span class="flabel">字の大きさ</span><div class="seg">${[['m', 'ふつう'], ['l', '大きめ']].map(([k, t]) => `<button data-act="text-size" data-v="${k}" class="${(G.settings.textSize || 'm') === k ? 'on' : ''}">${t}</button>`).join('')}</div><span class="muted u-block u-mt4">「大きめ」は、画面の字をすべて少し大きくします</span></div>
         <div class="field u-mt10"><span class="flabel">画面の表示</span><div class="seg">${[['all', 'すべて'], ['calm', '少なめ'], ['names', '名前だけ']].map(([k, t]) => `<button data-act="hud-lvl" data-v="${k}" class="${(G.settings.hud || 'all') === k ? 'on' : ''}">${t}</button>`).join('')}</div><span class="muted u-block u-mt4">「少なめ」は状態の札をしまいます。「名前だけ」は、動物と人の名前の札のほかは出しません。右上の重なった紙のボタンからも選べます（「景色だけ」と、座って好きな所から眺める「眺める」も）。</span></div>
         <div class="field u-mt10"><span class="flabel">名前の札</span><div class="seg">${[['near', 'すぐそばの子だけ'], ['all', 'まわりの子も'], ['off', '出さない']].map(([k, t]) => `<button data-act="labels-mode" data-v="${k}" class="${(G.settings.labels || 'near') === k ? 'on' : ''}">${t}</button>`).join('')}</div><span class="muted u-block u-mt4">「すぐそばの子だけ」は、景色が見やすいように、近くの数匹だけ。なでている子と、近くの案内の子の札は、いつも出ます。</span></div>
@@ -20840,17 +21314,20 @@ Object.assign(UI, {
       // 顔 → 髪 → 服 → 小物 の4つを、順に決めていく。上の番号でどこへでも行ける
       const av = Object.assign({}, AVATAR_DEFAULT, G.avatar), grp = UI.avGroup || 'face', first = !!(arg && arg.then);
       const gi = Math.max(0, AV_GROUPS.findIndex(([k]) => k === grp)), last = AV_GROUPS.length - 1;
-      const cats = (k) => AV_CATS.filter((c) => c.group === k && avList(c.key).length);
+      const more = !first && !!UI.avMore; // もっと細かく選ぶ（s/avatar）：体つき・ひげ・服の形・くつ・手もと、色の細かい調整。はじめに選ぶ時は出さない
+      const cats = (k) => AV_CATS.filter((c) => c.group === k && avList(c.key).length && (!c.more || more));
       let h = `<ol class="av-steps">${AV_GROUPS.map(([k, n], i) => `<li class="${i === gi ? 'on' : i < gi ? 'done' : ''}"><button data-act="av-group" data-v="${k}" aria-current="${i === gi ? 'step' : 'false'}"><b>${i < gi ? ico('i-check') : i + 1}</b><span>${n}</span></button></li>`).join('')}</ol>`;
       h += `<div class="av-head"><span class="av-n">${gi + 1} / ${AV_GROUPS.length}</span><h3>${AV_GROUPS[gi][1]}をえらぶ</h3><small>${cats(grp).map((c) => esc(c.label)).join('・')}</small></div>`;
       for (const cat of cats(grp)) {
         const opts = avList(cat.key);
         h += `<div class="field av-field"><span class="flabel">${esc(cat.label)}</span>`;
-        if (cat.kind === 'color') h += `<div class="swatches">${opts.map((o) => `<button data-act="av" data-k="${cat.key}" data-v="${esc(o.id)}" class="${av[cat.key] === o.id ? 'on' : ''}" style="background:${isHex(o.color) ? o.color : isHex(o.id) ? o.id : '#888'}" aria-label="${esc(o.label)}" title="${esc(o.label)}"></button>`).join('')}</div>`;
+        if (cat.kind === 'color' && more) h += `<div class="swatches">${opts.map((o) => `<button data-act="av" data-k="${cat.key}" data-v="${esc(o.id)}" class="${av[cat.key] === o.id ? 'on' : ''}" style="background:${isHex(o.color) ? o.color : isHex(o.id) ? o.id : '#888'}" aria-label="${esc(o.label)}" title="${esc(o.label)}"></button>`).join('')}</div>${avFineHtml(cat.key, av[cat.key])}`;
+        else if (cat.kind === 'color') h += `<div class="swatches">${opts.map((o) => `<button data-act="av" data-k="${cat.key}" data-v="${esc(o.id)}" class="${av[cat.key] === o.id ? 'on' : ''}" style="background:${isHex(o.color) ? o.color : isHex(o.id) ? o.id : '#888'}" aria-label="${esc(o.label)}" title="${esc(o.label)}"></button>`).join('')}</div>`;
         else if (cat.kind === 'face') h += `<div class="faces">${opts.map((o) => `<button data-act="av" data-k="${cat.key}" data-v="${esc(o.id)}" class="${av[cat.key] === o.id ? 'on' : ''}"><img src="${faceIcon(av, cat.key, o.id)}" alt=""><span>${esc(o.label)}</span></button>`).join('')}</div>`;
         else h += `<div class="seg">${opts.map((o) => `<button data-act="av" data-k="${cat.key}" data-v="${esc(o.id)}" class="${av[cat.key] === o.id ? 'on' : ''}">${esc(o.label)}</button>`).join('')}</div>`;
         h += '</div>';
       }
+      if (!first) h += `<button class="btn small ghost av-more" data-act="av-more" aria-pressed="${more ? 'true' : 'false'}">${more ? 'ふつうの選び方に戻す' : 'もっと細かく選ぶ'}</button>`;
       if (first && gi === 0) h += '<p class="muted">あなたは東京で働く会社員。平日は都心に通い、行き帰りや休みの日に、ここを訪ねます。見た目は、あとから設定で変えられます。</p>';
       const prev = gi > 0 ? AV_GROUPS[gi - 1] : null, next = gi < last ? AV_GROUPS[gi + 1] : null;
       h += `<div class="sticky-foot av-foot">${prev ? `<button class="btn av-prev" data-act="av-group" data-v="${prev[0]}">${ico('i-left')}${prev[1]}</button>` : ''}`;
@@ -21148,7 +21625,7 @@ Object.assign(UI, {
   // 森田さんの話。idx を渡すと、その話を読み直す（箱庭モードは全部、ふつうは聞いたことのある話）
   moritaTalk(res, idx) {
     const replay = res ? !!res.replay : idx !== undefined && idx !== null;
-    const m = GAME.moritaState(), q = res ? { i: res.i, review: res.review } : replay ? { i: idx, review: true } : GAME.moritaQuestion(), c = MORITA[q.i];
+    const m = GAME.moritaState(), q = res ? { i: res.i, review: res.review } : replay ? { i: idx, review: true } : GAME.moritaQuestion(), c0 = MORITA[q.i], c = schoolOn() && c0.school ? Object.assign({}, c0, c0.school) : c0; // 学校モードでは、重いカードにつながる設問を、やさしい設問に（レビュー4）
     let h = `<div class="dialog-who"><span class="av bust">${npcBust(MORITA_LOOK)}</span><div><strong>酪農家の森田さん</strong><br><span class="muted">${replay || !q.review ? `お話 ${q.i + 1} / ${MORITA.length}` : 'おさらい'}</span></div></div>`;
     if (!res && (!q.review || replay)) h += `<p class="said">${c.say.map((x) => `「${esc(x)}」`).join('<br>')}</p>${UI.more(c.sayMore ? `<p class="said">${c.sayMore.map((x) => `「${esc(x)}」`).join('<br>')}</p>` : '', { heavy: kmoreHeavy(c.card, c.card2) })}`;
     h += `<div class="quiz"><p class="q">${esc(c.q)}</p><div class="opts">${c.a.map((x, i) => `<button class="opt ${res ? (i === c.ok ? 'right' : i === res.pick ? 'wrong' : '') : ''}" ${res ? 'disabled' : `data-act="morita-ans" data-v="${i}"${replay ? ` data-id="${q.i}"` : ''}`}>${esc(x)}</button>`).join('')}</div>`;
@@ -21423,6 +21900,10 @@ UI.extAct = Object.assign(UI.extAct || {}, {
 UI.actTabs = function (tab) {
   return `<div class="tabs ico-tabs" role="tablist">${[['life', 'あなた', 'i-hand'], ['deco', '飾る', 'i-flower'], ['build', '設備', 'i-land'], ['biz', '事業者', 'i-building'], ['people', '仲間', 'i-people'], ['money', '収支', 'i-coin']].map(([k, n, ic]) => `<button data-act="${k === 'deco' ? 'goto' : tab === 'deco' ? 'goto' : 'tab'}" data-v="${k === 'deco' ? 'deco' : tab === 'deco' ? 'actions:' + k : k}" class="${tab === k ? 'on' : ''}" role="tab" aria-selected="${tab === k}">${ico(ic)}<span>${n}</span>${k === 'build' && GAME.projList().some((x) => x.p.kind === 'repair' && x.st.state !== 'done') ? '<i class="dot"></i>' : ''}</button>`).join('')}</div>`;
 };
+// 見た目：もっと細かく選ぶ（s/avatar）
+UI.extAct = Object.assign(UI.extAct || {}, {
+  'av-more'() { UI.avMore = !UI.avMore; uiSound('click'); UI.render(); },
+});
 /* =========================================================
    景色の中のやりとり：話す・ふれあう・なでる・飾る・タップ・しぐさ・毎フレームの札（0.9.44 で ui.js から分けた）
    ========================================================= */
@@ -21473,7 +21954,7 @@ Object.assign(UI, {
     const left = EGG_PICS.length - (G.eggPics || []).length, picToday = left > 0 && G.flags.eggPicDay !== G.turn;
     UI.modal(`<div class="dialog-who"><strong>今朝の卵</strong><span class="pill">鶏小屋の前</span></div>
       <div class="egg-box"><b>この卵は、無精卵です</b><span>${esc(nm)}の誰かが産みました。ここの鶏たちは雄鶏と暮らしていないので、受精していません。温めても、ひなにはかえりません。</span></div>
-      <p class="said">卵を産むたびに、鶏は体のたんぱく質やカルシウムをたくさん使います。殻ごと割って返すと、鶏たちが食べて、その栄養を体に戻せます。</p>
+      <p class="said">卵を産むたびに、鶏は体のたんぱく質やカルシウムをたくさん使います。殻ごと割って返すと、鶏たちが食べます。その栄養を体に戻せると考えて、そうしているサンクチュアリがあります。長く続けてよいかは、まだわかっていません。</p>
       ${picToday ? '<p class="muted">割ると、鶏たちの体と暮らしの絵が1枚あらわれます（1日に1枚）。</p>' : ''}
       <div class="btn-row"><button class="btn small primary" data-act="egg-crack" data-v="${eg.id}">割って、鶏たちに返す</button><button class="btn small" data-act="close-modal">そのままにする</button></div>`);
   },
@@ -22183,7 +22664,7 @@ Object.assign(UI, {
     // 時間帯（朝・昼・夕方・夜）は、変わった時だけ書きかえる
     const tn = todName(SKY.t); if (tn !== UI._tod) { UI._tod = tn; const el = $('#t-tod'); if (el) el.textContent = tn; }
     // 景色の上の札の色は、空の明るさに合わせる（2026-11-10 UIの見直し）：夜の丘で、札だけが明るく光らないように。部屋の中（ウェルカムセンター）は、いつも昼の紙
-    { const nk = OCHA.on ? 'day' : SKY.night > 0.6 ? 'night' : SKY.night > 0.12 || tn === '夕方' || tn === '夜明け' ? 'dusk' : 'day'; if (nk !== UI._todK) { UI._todK = nk; document.body.dataset.tod = nk; UI.wxSync && UI.wxSync(); } const wk = OCHA.on ? 'in' : G.weather; if (wk !== UI._wxK) { UI._wxK = wk; document.body.dataset.wx = wk; UI.wxSync && UI.wxSync(); } }
+    { const nk = OCHA.on ? 'day' : SKY.night > 0.6 ? 'night' : SKY.night > 0.12 || tn === '夕方' || tn === '夜明け' ? 'dusk' : 'day'; if (nk !== UI._todK) { UI._todK = nk; document.body.dataset.tod = nk; UI.wxSync && UI.wxSync(); document.querySelectorAll('.fl').forEach(fleeceDraw); } const wk = OCHA.on ? 'in' : G.weather; if (wk !== UI._wxK) { UI._wxK = wk; document.body.dataset.wx = wk; UI.wxSync && UI.wxSync(); } }
     // 写真のピント：タップするまでは、見ている中心（あなたのあたり）に合わせ続ける
     if (DOF.on && DOF.auto) {
       if (CAM.photo && (CAM.lens > 1 || CAM.panY || CAM.panP)) { // 望遠で向けている時は、画面のまんなかに写っている物に（0.25秒ごとに見て、なめらかに）
@@ -26896,7 +27377,9 @@ const OKURI = { visits: 7, gap: 90, minDays: 180, oldAt: 0.65, next: null, say: 
 // 種ごとの目安 [ふつうの寿命（年）, 若いうちの1年の体調のくずしやすさ]。ゲームのための目安。
 // 卵や肉のために品種改良された子は、若いうちからくずしやすい（鶏、七面鳥）。牛はホルスタインの雌の20代まで（Open Sanctuary）
 const OKURI_LIFE = { chicken: [5, 0.1], turkey: [6, 0.1], duck: [9, 0.04], rabbit: [8, 0.04], pig: [11, 0.04], goat: [13, 0.02], sheep: [12, 0.02], cow: [20, 0.02], donkey: [28, 0.01], horse: [26, 0.01], cat: [13, 0.02], dog: [13, 0.02] };
-function okuriOn() { return !!G && G.mode === 'normal' && G.settings.okuri !== false; }
+// 学校モードでは、お別れはお休み。先生が設定で選べば出せる（この端末だけ。2026-11-11、Daiさん。レビュー4）
+function okuriSchoolOk() { return typeof devGet === 'function' && devGet('schoolOkuri') === '1'; }
+function okuriOn() { return !!G && G.mode === 'normal' && G.settings.okuri !== false && (typeof schoolOn !== 'function' || !schoolOn() || okuriSchoolOk()); }
 function okuriExempt(a) { return petOf(a) || a.key === 'michi' || !!a.mine; }
 // 今の年齢（来た時の年齢＋来てからの現実の日数）
 function animalAge(a) { const base = a.age != null ? a.age : 1; if (!a.arrived || !G || okuriExempt(a)) return base; return base + Math.max(0, calDiff(a.arrived, G.date)) / 365; }
@@ -26933,6 +27416,7 @@ function okuriBegin(a, kind) {
 function okuriDay() {
   if (G.mode !== 'normal') return;
   OKURI.next = null;
+  if (G.okuriWait && okuriOn()) OKURI.next = Object.assign({ kind: 'end', again: true }, G.okuriWait); // 「今は聞かない」を選んだ次の朝
   if (DAY.newMonth) okuriElderCheck();
   (G.memorial || []).forEach((m) => { if (m.arrived && m.arrived.slice(5) === G.date.slice(5) && m.arrived !== G.date) G.overnight.push({ cat: 'friends', text: `今日は、${m.name}が丘に来た日です` }); });
   const A = G.okuriAfter;
@@ -26979,7 +27463,7 @@ function okuriEpitaph(a) { return OKURI_EPI_KEY[a.key] || OKURI_EPI[a.personalit
 // 体のこと（詳しく）。出典のある種だけ
 const OKURI_BODY = {
   chicken: { t: '卵をたくさん産むように品種改良された鶏は、生殖器の病気がとても多く、生殖器のがんは2歳ごろから出やすいとされています。治らない病気もあります。', src: ['osHens'] },
-  turkey: { t: '体を大きくするように品種改良された七面鳥は、体が大きくなりすぎて、心臓や足の病気が出やすく、若いうちから関節を痛めやすいとされています。', src: ['osTurkey', 'fsTurkey'] },
+  turkey: { t: '体を大きくするように品種改良された七面鳥は、体が大きくなりすぎて、足の病気が出やすく、若いうちから関節を痛めやすいとされています。', src: ['osTurkey', 'fsTurkey'] },
   cow: { t: '牛は年を重ねると、関節の痛みや、歯が抜けて食べにくくなることが増えます。ホルスタインの雌は20代まで生きることも多く、雄は体が大きいぶん、10代の後半までのことが多いとされています。', src: ['osCow'] },
   pig: { t: '体を大きくするように品種改良された豚は、体の重さで関節や足を痛めやすい子がいます。アメリカのサンクチュアリでは、3歳で亡くなった豚の例も紹介されています。', src: ['lftStories'] },
 };
@@ -27004,8 +27488,14 @@ function okuriBeforeMorning(next) {
     UI.modal(`${who}${chatHtml([`${N.a.name}の様子が、この何日かで、ずいぶんよくなりました。ごはんも、よく食べています。`, 'みなみ先生も、おどろいていました。また、いつもの場所で過ごせそうです。'])}<div class="btn-row"><button class="btn small primary" data-act="okuri" data-v="done">よかった</button></div>`);
     return;
   }
-  OKURI.m = N.m; OKURI.f = N.f; OKURI.w = N.w;
-  UI.modal(`${who}${chatHtml([`今朝、${N.m.name}が、眠るように息を引き取りました。みなみ先生${N.w ? `と、${N.w}` : ''}がそばにいました。${N.f ? `${N.f}も、そばにいました。` : ''}`, '痛そうな様子は、ありませんでした。'])}<div class="btn-row"><button class="btn small primary" data-act="okuri" data-v="go">そばへ行く</button><button class="btn small" data-act="okuri" data-v="done">今は、もう少しあとで</button></div>`);
+  OKURI.m = N.m; OKURI.f = N.f; OKURI.w = N.w; OKURI.who = who; OKURI.again = !!N.again;
+  // 朝いちばんは、一言だけ。聞くかどうかは、遊ぶ人が選ぶ（2026-11-11、Daiさん。レビュー4）
+  UI.modal(`${who}${chatHtml([N.again ? `${N.m.name}のこと、まだ、お話しできていませんでした。` : `おはようございます。今朝は、${N.m.name}のことで、みなみ先生とわたしから、お話があります。`, '今、聞きますか？'])}<div class="btn-row"><button class="btn small primary" data-act="okuri" data-v="hear">聞く</button><button class="btn small" data-act="okuri" data-v="later">今は聞かない</button></div>`);
+}
+// 「聞く」を選んだ時。本文は「亡くなりました」（2026-11-11、Daiさん。レビュー4。眠るように、とは言いかえない）
+function okuriHear() {
+  const m = OKURI.m; if (!m) return; G.okuriWait = null; GAME.save();
+  UI.modal(`${OKURI.who || ''}${chatHtml([`${OKURI.again ? 'この前の朝' : '今朝'}、${m.name}が亡くなりました。みなみ先生${OKURI.w ? `と、${OKURI.w}` : ''}がそばにいました。${OKURI.f ? `${OKURI.f}も、そばにいました。` : ''}`, '痛みをやわらげる薬を使っていました。'])}<div class="btn-row"><button class="btn small primary" data-act="okuri" data-v="go">そばへ行く</button><button class="btn small" data-act="okuri" data-v="done">今は、もう少しあとで</button></div>`);
 }
 // 朝の知らせのあと：ゆっくりの時期のはじめに
 function okuriAfterStartDay() {
@@ -27084,6 +27574,8 @@ function okuriSide(v, id) {
 }
 UI.extAct = Object.assign(UI.extAct || {}, {
   okuri(v, id) {
+    if (v === 'hear') { okuriHear(); return; }
+    if (v === 'later') { G.okuriWait = { m: OKURI.m, f: OKURI.f, w: OKURI.w }; GAME.save(); UI.closeModal(); const f = OKURI.after; OKURI.after = null; if (f) f(); return; }
     if (v === 'done') { UI.closeModal(); const f = OKURI.after; OKURI.after = null; if (f) f(); return; }
     if (v === 'go') { UI.closeModal(); OKURI.kami = 0; UI.openSheet('okurikami'); return; }
     if (v === 'knext') { OKURI.kami++; UI.render(true); return; }
@@ -27098,7 +27590,7 @@ UI.extAct = Object.assign(UI.extAct || {}, {
 });
 // 仲良しだった子の様子と、働く人の言葉（actors.js、ui.js）
 function okuriAfterIs(a) { return !!(G.okuriAfter && G.okuriAfter.friendId === a.id); }
-function okuriChatter() { const A = G.okuriAfter; if (!A || G.turn >= A.until || Math.random() > 0.2) return null; return pick([`${A.name}がいた場所、まだ、つい見てしまいますね`, `${A.name}の話になると、みんな、笑ってしまうんです`, `今朝も、${A.name}の分まで寝床を用意しそうになりました`]); }
+function okuriChatter() { const A = G.okuriAfter; if (!A || G.okuriWait || G.turn >= A.until || Math.random() > 0.2) return null; return pick([`${A.name}がいた場所、まだ、つい見てしまいますね`, `${A.name}の話になると、みんな、笑ってしまうんです`, `今朝も、${A.name}の分まで寝床を用意しそうになりました`]); }
 /* =========================================================
    丘のはずれの墓地（2026-11-04、Daiさん：Ben & Jerry's の Flavor Graveyard のように、悲しくないけれど思い出す場所）
    ---------------------------------------------------------
@@ -28672,64 +29164,108 @@ function emakiWatch() {
 /* ---------- 楽器 ---------- */
 Object.assign(UI, {
   // 楽器（0.9.39）：ウクレレ・ギター・カリンバ。よく合うコードの流れ。弾くと音符がふわりと（伴奏のリズムは 0.9.42 で外した）
-  inst: 'ukulele', chord: 0, chordsUsed: [], prog: 'none', progI: 0,
+  // s/gakki：ハンドパンとオカリナを足した。「曲にあわせて」は、押すたびに曲の次の音（押す間と強さは、弾く人が決める。音の高さは曲が決める）
+  inst: 'ukulele', chord: 0, chordsUsed: [], prog: 'none', progI: 0, song: null, songI: 0, lastSong: null,
   initMusic() {
     $('#music-close').addEventListener('click', () => UI.closeMusic());
     for (const sel of ['.music-top', '#music-opts']) $(sel).addEventListener('pointerdown', () => { if ($('#music-ui').classList.contains('extra')) UI.musicExtra(true); });
     $('#rest-ui').addEventListener('pointerdown', (e) => { if (e.target.closest('.rest-top, .rest-bottom') && $('#rest-ui').classList.contains('extra')) UI.musicExtra(true); });
     $('#music-fold').addEventListener('click', () => { const pn = $('#music-ui .music-panel'), f = !pn.classList.contains('folded'); pn.classList.toggle('folded', f); $('#music-fold').setAttribute('aria-pressed', f ? 'true' : 'false'); $('#music-fold').textContent = f ? 'ひらく' : 'たたむ'; });
-    $('#inst-seg').querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { UI.inst = b.dataset.i; UI.chord = 0; UI.progI = 0; setPlaying(UI.inst); UI.renderMusic(); }));
-    $('#music-opts').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; if (b.dataset.pg) { UI.prog = b.dataset.pg; UI.progI = 0; UI.renderMusic(); } });
+    $('#inst-seg').querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { UI.inst = b.dataset.i; UI.chord = 0; UI.progI = 0; ocaOff(); setPlaying(UI.inst); UI.musicSeat(); UI.renderMusic(); }));
+    $('#music-opts').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; if (b.dataset.pg) { UI.prog = b.dataset.pg; UI.progI = 0; UI.renderMusic(); } if (b.dataset.sg) UI.songPick(b.dataset.sg); if (b.dataset.pm) UI.songMode(b.dataset.pm === 'song'); });
     $('#chord-grid').addEventListener('pointerdown', (e) => { const b = e.target.closest('button'); if (!b) return; e.preventDefault(); UI.pickChord(+b.dataset.c); });
+    $('#pad-mode').addEventListener('pointerdown', (e) => e.stopPropagation());
+    $('#pad-mode').addEventListener('click', (e) => { e.stopPropagation(); UI.songMode(!UI.song); });
     const pad = $('#string-pad');
-    let last = null, moved = 0, down = null, lastT = 0;
-    const tine = () => !!INSTRUMENTS[UI.inst].tine;
-    const count = () => tine() ? INSTRUMENTS[UI.inst].notes.length : INSTRUMENTS[UI.inst].open.length;
-    // 弦は上下に、カリンバの舌は左右に並ぶ
-    const pos = (e) => (tine() ? e.clientX : e.clientY);
-    const idxAt = (p0) => { const r = pad.getBoundingClientRect(), n = count(), a = tine() ? r.left : r.top, L = tine() ? r.width : r.height; return clamp(Math.floor((p0 - a) / L * n), 0, n - 1); };
-    const crossed = (p0, p1) => { const r = pad.getBoundingClientRect(), n = count(), a = tine() ? r.left : r.top, L = tine() ? r.width : r.height, out = []; for (let i = 0; i < n; i++) { const lp = a + (i + 0.5) / n * L; if ((p0 < lp && p1 >= lp) || (p0 > lp && p1 <= lp)) out.push(i); } if (p1 < p0) out.reverse(); return out; };
-    pad.addEventListener('pointerdown', (e) => { e.preventDefault(); pad.setPointerCapture && pad.setPointerCapture(e.pointerId); last = pos(e); down = last; moved = 0; lastT = performance.now(); audioInit(); });
+    let last = null, moved = 0, down = null, lastT = 0, pid = null;
+    const K = () => gkKind(UI.inst), I = () => INSTRUMENTS[UI.inst];
+    const count = () => (K() === 'strings' ? I().open.length : I().notes.length);
+    // 弦は上下に、カリンバの舌とオカリナの穴は左右に並ぶ
+    const across = () => K() !== 'strings';
+    const pos = (e) => (across() ? e.clientX : e.clientY);
+    const idxAt = (p0) => { const r = pad.getBoundingClientRect(), n = count(), a = across() ? r.left : r.top, L = across() ? r.width : r.height; return clamp(Math.floor((p0 - a) / L * n), 0, n - 1); };
+    const crossed = (p0, p1) => { const r = pad.getBoundingClientRect(), n = count(), a = across() ? r.left : r.top, L = across() ? r.width : r.height, out = []; for (let i = 0; i < n; i++) { const lp = a + (i + 0.5) / n * L; if ((p0 < lp && p1 >= lp) || (p0 > lp && p1 <= lp)) out.push(i); } if (p1 < p0) out.reverse(); return out; };
+    const panAt = (e) => { const el = document.elementFromPoint(e.clientX, e.clientY), f = el && el.closest && el.closest('.pf'); return f ? +f.dataset.k : -1; };
+    const blowEnd = () => { ocaOff(); UI.blowShow(-1); pid = null; };
+    pad.addEventListener('pointerdown', (e) => {
+      e.preventDefault(); audioInit();
+      if (UI.song) { pid = e.pointerId; UI.songNext(0.62); return; } // 曲にあわせて：どこを押しても、次の音
+      if (K() === 'pan') { const k = panAt(e); if (k >= 0) UI.playString(k, 0.62); return; } // 打つ楽器は、ふれたらすぐ。いくつの指でも
+      pad.setPointerCapture && pad.setPointerCapture(e.pointerId);
+      last = pos(e); down = last; moved = 0; lastT = performance.now();
+      if (K() === 'blow') { pid = e.pointerId; UI.blowAt(idxAt(last)); }
+    });
     pad.addEventListener('pointermove', (e) => {
-      if (last === null) return; const p1 = pos(e), now = performance.now(), sp = Math.abs(p1 - last) / Math.max(8, now - lastT); // なぞる速さで、音の強さ
+      if (last === null || UI.song) return;
+      if (K() === 'blow') { if (e.pointerId === pid) UI.blowAt(idxAt(pos(e))); return; } // 指をすべらせると、息を止めずに次の穴へ
+      const p1 = pos(e), now = performance.now(), sp = Math.abs(p1 - last) / Math.max(8, now - lastT); // なぞる速さで、音の強さ
       const hits = crossed(last, p1); moved += Math.abs(p1 - last); last = p1; lastT = now;
       hits.forEach((i) => UI.playString(i, clamp(0.35 + sp * 0.35, 0.35, 0.85)));
     });
-    const up = () => { if (last !== null && moved < 6) UI.playString(idxAt(down), 0.6); last = null; };
-    pad.addEventListener('pointerup', up); pad.addEventListener('pointercancel', () => { last = null; });
+    const up = (e) => {
+      if (K() === 'blow') { if (!UI.song || e.pointerId === pid) blowEnd(); last = null; return; }
+      if (UI.song || K() === 'pan') { last = null; return; }
+      if (last !== null && moved < 6) UI.playString(idxAt(down), 0.6); last = null;
+    };
+    pad.addEventListener('pointerup', up); pad.addEventListener('pointercancel', () => { if (K() === 'blow') blowEnd(); last = null; });
     window.addEventListener('keydown', (e) => {
-      if ($('#music-ui').hidden) return;
-      if (/^Digit[1-9]$/.test(e.code)) { const k = +e.code.slice(5) - 1; if (tine()) UI.playString(k, 0.6); else UI.pickChord(k); e.preventDefault(); }
-      if (e.code === 'Space' && !tine()) { UI.strumNow(false); e.preventDefault(); }
-      if (e.code === 'KeyB' && !tine()) UI.strumNow(true);
+      if ($('#music-ui').hidden || e.repeat) return;
+      if (UI.song && (e.code === 'Space' || /^Digit[0-9]$/.test(e.code) || /^Key[A-Z]$/.test(e.code))) { UI.songNext(0.6); e.preventDefault(); return; }
+      if (/^Digit[1-9]$/.test(e.code)) { const k = +e.code.slice(5) - 1; if (K() === 'strings') UI.pickChord(k); else if (K() === 'blow') UI.blowAt(k); else UI.playString(k, 0.6); e.preventDefault(); }
+      if (e.code === 'Space' && K() === 'strings') { UI.strumNow(false); e.preventDefault(); }
+      if (e.code === 'KeyB' && K() === 'strings') UI.strumNow(true);
     });
+    window.addEventListener('keyup', (e) => { if (!$('#music-ui').hidden && K() === 'blow' && (e.code === 'Space' || /^Digit[0-9]$/.test(e.code) || /^Key[A-Z]$/.test(e.code))) blowEnd(); });
   },
   openMusic() { audioInit(); UI.startRest('music'); },
-  closeMusic() { UI.endRest(); },
+  closeMusic() { ocaOff(); UI.endRest(); },
+  // ハンドパンは立っては弾けないので、ベンチがない時は草の上に座る。ほかの楽器に替えたら、また立つ
+  musicSeat() {
+    const P = ACT.player, R0 = UI.rest; if (!P || !R0 || R0.mode !== 'music' || !R0.spot || R0.spot.kind !== 'stand') return;
+    P.sitting = gkKind(UI.inst) === 'pan' ? 'ground' : 'stand';
+  },
   renderMusic() {
-    const I = INSTRUMENTS[UI.inst], tn = !!I.tine;
+    const I = INSTRUMENTS[UI.inst], K = gkKind(UI.inst), sg = SONGS.find((x) => x.id === UI.song) || null;
     $('#inst-seg').querySelectorAll('button').forEach((b) => b.classList.toggle('on', b.dataset.i === UI.inst));
-    $('#music-ui').classList.toggle('tine', tn);
-    const P = PROGRESSIONS.find((x) => x.id === UI.prog) || PROGRESSIONS[0], want = P.chords.length ? P.chords[UI.progI % P.chords.length] : null;
+    $('#music-ui').classList.toggle('tine', K !== 'strings' || !!sg);
+    const P = PROGRESSIONS.find((x) => x.id === UI.prog) || PROGRESSIONS[0], want = !sg && P.chords.length ? P.chords[UI.progI % P.chords.length] : null;
     // リズムは、いったん外した（0.9.42、Daiさん：ボタンが多すぎて、弾いている自分が見えにくい）
-    $('#music-opts').innerHTML = tn ? '' : `<div class="mo-row"><span>流れ</span><div class="seg small">${PROGRESSIONS.map((p) => `<button type="button" data-pg="${p.id}" class="${UI.prog === p.id ? 'on' : ''}">${p.name}</button>`).join('')}</div></div>`;
-    $('#chord-grid').innerHTML = tn ? '' : I.chords.map(([n], i) => `<button type="button" data-c="${i}" class="${i === UI.chord ? 'on' : ''}${want && n === want ? ' next' : ''}">${IS_TOUCH ? '' : `<small>${i + 1}</small>`}${n}</button>`).join('');
-    const pad = $('#string-pad'), n = tn ? I.notes.length : I.open.length;
-    pad.querySelectorAll('.str, .tn').forEach((x) => x.remove());
-    pad.classList.toggle('tines', tn);
-    if (tn) {
+    let o = `<div class="mo-row"><span>弾き方</span><div class="seg small">${[['free', '自由に'], ['song', '曲にあわせて']].map(([k, t]) => `<button type="button" data-pm="${k}" class="${(k === 'song') === !!sg ? 'on' : ''}">${t}</button>`).join('')}</div></div>`;
+    if (sg) o += `<div class="mo-row"><span>曲</span><div class="seg small">${SONGS.map((s) => `<button type="button" data-sg="${s.id}" class="${s.id === sg.id ? 'on' : ''}">${s.name}</button>`).join('')}</div></div>`;
+    else if (K === 'strings') o += `<div class="mo-row"><span>流れ</span><div class="seg small">${PROGRESSIONS.map((p) => `<button type="button" data-pg="${p.id}" class="${UI.prog === p.id ? 'on' : ''}">${p.name}</button>`).join('')}</div></div>`;
+    $('#music-opts').innerHTML = o;
+    $('#chord-grid').innerHTML = K === 'strings' && !sg ? I.chords.map(([n], i) => `<button type="button" data-c="${i}" class="${i === UI.chord ? 'on' : ''}${want && n === want ? ' next' : ''}">${IS_TOUCH ? '' : `<small>${i + 1}</small>`}${n}</button>`).join('') : '';
+    const pad = $('#string-pad');
+    pad.querySelectorAll('.str, .tn, .pf, .ho' + (sg ? '' : ', .sg')).forEach((x) => x.remove());
+    pad.className = sg ? 'song ' + K : K === 'tine' ? 'tines' : K;
+    $('#pad-mode').textContent = sg ? '自由に弾く' : '♪ 曲にあわせて';
+    if (sg) { pad.querySelectorAll('.sg').forEach((x) => x.remove()); UI.songDraw(); }
+    else if (K === 'tine') {
       // カリンバの並び：まん中がいちばん低く、左右へ交互に高くなる
-      const order = []; for (let i = 0; i < n; i++) order[i] = null;
+      const n = I.notes.length, order = []; for (let i = 0; i < n; i++) order[i] = null;
       const mid = Math.floor(n / 2); I.notes.forEach((_, k) => { const off = Math.ceil(k / 2) * (k % 2 ? 1 : -1); order[clamp(mid + off, 0, n - 1)] = k; });
       UI._tineOrder = order;
       for (let i = 0; i < n; i++) { const k = order[i], d = document.createElement('i'); d.className = 'tn'; d.style.left = `calc(${((i + 0.5) / n) * 100}% - 9px)`; d.style.height = (92 - k * 6) + '%'; d.innerHTML = `<em>${I.names[k]}</em>`; pad.appendChild(d); }
       $('#pad-chord').textContent = '';
+    } else if (K === 'pan') {
+      // ハンドパン：まん中がディン（いちばん低い音）。まわりは、下から左右交互に高くなる（本物の並びと同じ考え方）
+      const A = [null, 105, 65, 152, 28, 208, 332, 246, 294];
+      I.notes.forEach((m, k) => { const d = document.createElement('i'), a = (A[k] || 0) * Math.PI / 180; d.className = 'pf' + (k ? '' : ' ding'); d.dataset.k = k; d.style.left = (k ? 50 + Math.cos(a) * 37 : 50) + '%'; d.style.top = (k ? 56 + Math.sin(a) * 30 : 56) + '%'; d.innerHTML = `<em>${I.names[k]}</em>`; pad.appendChild(d); });
+      $('#pad-chord').textContent = '';
+    } else if (K === 'blow') {
+      // オカリナ：低い音から高い音へ、左から右に穴が並ぶ
+      const n = I.notes.length;
+      I.notes.forEach((m, k) => { const d = document.createElement('i'); d.className = 'ho'; d.style.left = `calc(${((k + 0.5) / n) * 100}% - 15px)`; d.innerHTML = `<em>${I.names[k]}</em>`; pad.appendChild(d); });
+      $('#pad-chord').textContent = '';
     } else {
-      const frets = I.chords[UI.chord][1];
+      const frets = I.chords[UI.chord][1], n = I.open.length;
       for (let i = 0; i < n; i++) { const d = document.createElement('i'); d.className = 'str' + (frets[i] < 0 ? ' mute' : ''); d.style.top = `calc(${((i + 0.5) / n) * 100}% - 1px)`; d.style.height = (UI.inst === 'guitar' ? 3.2 - i * 0.35 : 2.4) + 'px'; pad.appendChild(d); }
       $('#pad-chord').textContent = I.chords[UI.chord][0];
     }
-    UI.musicHint(tn ? (IS_TOUCH ? '舌をタップすると、ポロン。左右になぞると、つながって鳴ります。どこを弾いても、ぶつからない音です' : '舌をクリック、またはドラッグ。数字キー1〜9でも鳴ります')
+    UI.musicHint(sg ? (IS_TOUCH ? `どこを押しても、「${sg.name}」の次の音が鳴ります。押す間と強さは、あなたしだい${K === 'blow' ? '。押している間だけ、息が入ります' : ''}` : `どのキーでも、「${sg.name}」の次の音が鳴ります${K === 'blow' ? '。押している間だけ、息が入ります' : ''}`)
+      : K === 'tine' ? (IS_TOUCH ? '舌をタップすると、ポロン。左右になぞると、つながって鳴ります。どこを弾いても、ぶつからない音です' : '舌をクリック、またはドラッグ。数字キー1〜9でも鳴ります')
+      : K === 'pan' ? 'まるい音の場を、指先でトンと。何本の指で打っても大丈夫です。まん中が、いちばん低い音です'
+      : K === 'blow' ? (IS_TOUCH ? '穴を押している間、息が入って鳴ります。指をすべらせると、息を止めずに音が変わります' : '穴を押している間、鳴ります。数字キー1〜9でも（はなすと止まります）')
       : want ? `光るコードを、順に押してみてください（${P.chords.join(' → ')}）`
       : IS_TOUCH ? 'コードを押すとジャラン。弦の上を上下になぞると、その順に。速くなぞると、強く鳴ります' : 'コードは数字キー1〜8、スペースで下へ、Bで上へ。弦の上をドラッグしても鳴ります');
   },
@@ -28758,13 +29294,65 @@ Object.assign(UI, {
     }, delay);
     UI.noteChord(c[0]);
   },
+  // 弾いた手：左右の手を交互に（ハンドパン・カリンバ）
+  hitAnim(side) { if (ACT.player) ACT.player.hitSide = side; strumAnim(); UI.noteFly(); },
   playString(i, vel) {
-    const I = INSTRUMENTS[UI.inst];
-    if (I.tine) { const k = (UI._tineOrder || [])[i]; if (k == null) return; audioInit(); tine(I.notes[k], 0, vel || 0.6); strumAnim(); UI.noteFly(); const t = $('#string-pad').querySelectorAll('.tn')[i]; if (t) { t.classList.add('hit'); setTimeout(() => t.classList.remove('hit'), 160); } UI.noteChord(I.names[k]); return; }
+    const I = INSTRUMENTS[UI.inst], K = gkKind(UI.inst);
+    if (K === 'tine') { const k = (UI._tineOrder || [])[i]; if (k == null) return; audioInit(); tine(I.notes[k], 0, vel || 0.6, gkNeighbors(UI.inst, k)); UI.hitAnim(i < I.notes.length / 2 ? 0 : 1); const t = $('#string-pad').querySelectorAll('.tn')[i]; if (t) { t.classList.add('hit'); setTimeout(() => t.classList.remove('hit'), 160); } UI.noteChord(I.names[k]); return; }
+    if (K === 'pan') { const m = I.notes[i]; if (m == null) return; audioInit(); panHit(m, vel || 0.6); UI.hitAnim((UI._side = 1 - (UI._side || 0))); const f = $('#string-pad').querySelector(`.pf[data-k="${i}"]`); if (f) { f.classList.remove('hit'); void f.offsetWidth; f.classList.add('hit'); } UI.noteChord(I.names[i]); return; }
+    if (K === 'blow') { UI.blowAt(i); return; }
     const c = I.chords[UI.chord];
     pluckOne(UI.inst, c[1], i, vel); strumAnim(); UI.noteFly();
     const s = $('#string-pad').querySelectorAll('.str')[i]; if (s) { s.classList.add('hit'); setTimeout(() => s.classList.remove('hit'), 120); }
     UI.noteChord(c[0]);
+  },
+  // オカリナ：押した穴の音へ。もう鳴っていれば、息を止めずに音だけ変える
+  blowAt(k) {
+    const I = INSTRUMENTS[UI.inst], m = I.notes[k]; if (m == null) return;
+    if (GK.oca && !GK.oca.done) { if (GK.oca.midi === m) return; ocaSlur(m); } else { audioInit(); ocaOn(m, 0.6); }
+    UI.blowShow(k); UI.hitAnim(0); UI.noteChord(I.names[k]);
+  },
+  blowShow(k) { $('#string-pad').querySelectorAll('.ho').forEach((h, i) => h.classList.toggle('hit', i === k)); },
+  // 曲にあわせて
+  songMode(on) {
+    ocaOff();
+    UI.song = on ? (UI.lastSong || gkSongDefault()) : null; UI.songI = 0;
+    UI.renderMusic(); if (on) UI.musicExtra(true, 6000);
+  },
+  songPick(id) { if (!SONGS.find((s) => s.id === id)) return; ocaOff(); UI.song = UI.lastSong = id; UI.songI = 0; UI.renderMusic(); },
+  songNext(vel) {
+    const S = SONGS.find((x) => x.id === UI.song); if (!S) return;
+    if (UI.songI >= S.n.length) UI.songI = 0;
+    const [m0, , ch] = S.n[UI.songI], m = m0 + gkSongShift(UI.inst, S), K = gkKind(UI.inst), I = INSTRUMENTS[UI.inst];
+    const v = clamp(vel + (Math.random() - 0.5) * 0.08, 0.3, 0.9);
+    audioInit();
+    if (K === 'strings') {
+      // 小節の頭は、やさしくコードを鳴らしてから、旋律をいちばん押さえやすい弦で
+      if (ch) { const ci = I.chords.findIndex(([n]) => n === ch); if (ci >= 0) { UI.chord = ci; if (audioReady()) strum(UI.inst, I.chords[ci][1], false, AU.ctx.currentTime + 0.005, 0.45); } }
+      const si = gkStringFor(UI.inst, m); if (si >= 0 && audioReady()) pluck(UI.inst, si, m, AU.ctx.currentTime + (ch ? 0.035 : 0.005), Math.min(0.95, v * 1.2));
+    } else if (K === 'tine') tine(m, 0, v);
+    else if (K === 'pan') panHit(m, v);
+    else ocaOn(m, v);
+    UI.hitAnim(UI.songI % 2); UI.noteChord(S.name);
+    UI.songI++;
+    if (UI.songI >= S.n.length) { UI.songI = 0; UI.restCaption(`「${S.name}」を、最後まで弾きました。押すと、また、はじめから`); }
+    UI.songDraw();
+  },
+  // これから弾く音を、紙の丸で（高い音ほど上、長い音ほど大きく）。押すと左へ流れる
+  songDraw() {
+    const pad = $('#string-pad'), S = SONGS.find((x) => x.id === UI.song); if (!S) return;
+    const lo = Math.min(...S.n.map((x) => x[0])), hi = Math.max(...S.n.map((x) => x[0])), N = 8, keep = new Set();
+    for (let j = 0; j < N; j++) {
+      const i = UI.songI + j; if (i >= S.n.length) break;
+      let d = pad.querySelector(`.sg[data-i="${i}"]`);
+      if (!d) { d = document.createElement('i'); d.className = 'sg'; d.dataset.i = i; d.style.left = (12 + N * 10.5) + '%'; pad.appendChild(d); void d.offsetWidth; }
+      const [m, len] = S.n[i];
+      d.style.left = (12 + j * 10.5) + '%'; d.style.top = (30 + (1 - (m - lo) / Math.max(1, hi - lo)) * 50) + '%';
+      d.style.width = d.style.height = (14 + Math.min(8, len) * 2.5) + 'px'; d.classList.toggle('now', j === 0);
+      keep.add(d.dataset.i);
+    }
+    pad.querySelectorAll('.sg').forEach((d) => { if (!keep.has(d.dataset.i) && !d.classList.contains('gone')) { d.classList.add('gone'); setTimeout(() => d.remove(), 260); } });
+    $('#pad-chord').textContent = S.name;
   },
   // 弾くと、頭の上に音符がふわり（少しずつ）
   noteFly() {
@@ -28891,7 +29479,7 @@ Object.assign(UI, {
       const P = ACT.player;
       P.target = null; P.pending = null; P.moving = false;
       P.x = spot.x; P.z = spot.z; P.heading = spot.heading; P.seatY = spot.y; P.sitting = spot.kind; P.seatDY = (spot.bench && spot.bench.seatDY) || 0;
-      if (mode === 'music') { setPlaying(UI.inst); UI.chordsUsed = []; }
+      if (mode === 'music') { setPlaying(UI.inst); UI.chordsUsed = []; UI.musicSeat(); }
       ACT.animals.forEach((e) => { e.restNear = false; e.musicNear = false; e.musicAway = false; e.skyArrived = false; e.timer = Math.min(e.timer, rand(0.4, 2.5)); });
       if (mode === 'sky') UI.skyBegin(opt && opt.show);
       $('#hud').hidden = true; $('#rest-ui').hidden = false; $('#rest-ui').classList.toggle('music', mode === 'music'); $('#rest-nagame').hidden = mode === 'sky';
@@ -28920,7 +29508,7 @@ Object.assign(UI, {
       if (P.sitting === 'bench') { const f = [Math.sin(P.heading), Math.cos(P.heading)]; const rc = resolveCollision(P.x + f[0] * 1.2, P.z + f[1] * 1.2, 0.5); P.x = rc[0]; P.z = rc[1]; P.benchLeft = R0.spot && R0.spot.bench ? R0.spot.bench.sid : null; }
       P.stillT = 0;
       P.sitting = null; P.seatY = undefined; P.seatDY = 0;
-      if (R0.mode === 'music') { setPlaying(null); $('#music-ui').hidden = true; }
+      if (R0.mode === 'music') { ocaOff(); setPlaying(null); $('#music-ui').hidden = true; }
       if (R0.mode === 'sky') UI.skyEnd(R0);
       ACT.animals.forEach((e) => { e.restNear = false; e.musicNear = false; e.musicAway = false; e.timer = Math.min(e.timer, rand(0.5, 2)); });
       $('#rest-ui').hidden = true; $('#rest-ui').classList.remove('music'); $('#rest-cap').classList.remove('on'); $('#rest-breath-ring').hidden = true;
@@ -28939,7 +29527,7 @@ Object.assign(UI, {
     UI.nagameClear();
     const P = ACT.player, R0 = UI.rest; UI.rest = null; UI.blockMove = false;
     if (R0 && R0.mode === 'sky') UI.skyEnd(R0);
-    P.sitting = null; P.seatY = undefined; P.seatDY = 0; setPlaying(null);
+    ocaOff(); P.sitting = null; P.seatY = undefined; P.seatDY = 0; setPlaying(null);
     $('#music-ui').hidden = true; $('#rest-ui').hidden = true; $('#rest-breath-ring').hidden = true; UI.veil(false);
     camRestore(); CAM.fovHold = false;
   },
@@ -28963,6 +29551,7 @@ Object.assign(UI, {
     }
     // 楽器のパネルの上に、言葉を出す
     const bottom = $('#rest-bottom');
+    if (R0.mode === 'music' && ocaTick()) UI.blowShow(-1); // オカリナ：息は5秒ほどで続かなくなる
     if (R0.mode === 'music') { const pn = $('#music-ui .music-panel'); if (pn) bottom.style.bottom = (window.innerHeight - pn.getBoundingClientRect().top + 12) + 'px'; }
     else bottom.style.bottom = '';
     // 呼吸のガイド：4秒吸って、6秒吐く
@@ -29126,6 +29715,8 @@ Object.assign(UI, {
     if (mode === 'here') return 'ひと休みしたくなって、その場に腰を下ろしました。動物たちが、少しずつ近づいてきます';
     if (mode === 'animals') return '草の上に座りました。動物たちが、少しずつ近づいてきます';
     const P = ACT.player;
+    if (UI.inst === 'handpan') return `${P && P.sitting === 'bench' ? 'ベンチに腰かけて' : '草の上に座って'}、ハンドパンを膝にのせました。指先でトンと打つと、まるい音が広がります`;
+    if (UI.inst === 'ocarina') return 'オカリナを両手で包んで、口もとへ。押している間だけ、やわらかな音が鳴ります';
     if (UI.inst === 'kalimba') return P && P.sitting === 'bench' ? 'ベンチに腰かけて、カリンバを両手で包みました。どこを弾いても、やさしい音です' : 'カリンバを両手で包みました。どこを弾いても、やさしい音です';
     if (P && P.sitting === 'bench') return `ベンチに腰かけて、${INSTRUMENTS[UI.inst].name}を膝にのせました。好きなコードを、好きなだけ`;
     return `${INSTRUMENTS[UI.inst].name}を構えました。好きなコードを、好きなだけ`;
